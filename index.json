@@ -1,0 +1,18 @@
+{
+    "directActions": [
+        {
+            "fileUrl": "www.xxx.xxx",
+            "title": "Title",
+            "description": "Description",
+            "tag": "Life"
+        },
+        {
+            "fileUrl": "www.xxx.xxx",
+            "title": "Title",
+            "description": "Description",
+            "tag": "System",
+            "icon": "forbid-2-fill"
+        }
+    ],
+    "rules": []
+}
