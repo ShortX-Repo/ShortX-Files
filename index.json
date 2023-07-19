@@ -1,33 +1,18 @@
 {
-    "directActions": [
-        {
-            "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A80.2_%E6%94%B9%E8%BF%9B_.txt",
-            "title": "简易密码生成器0.2(改进)",
-            "description": "一个简易字符串生成方法 需要改进的地方还有很多",
-            "author": "鸿鹄"
-        },
-        {
-            "fileUrl": "www.xxx.xxx",
-            "title": "Title",
-            "description": "Description",
-            "author": "ShortX",
-            "tag": "System",
-            "icon": "forbid-2-fill",
-            "iconColor": "#ff4081"
-        }
-    ],
-    "rules": [
-        {
-            "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-%E8%87%AA%E5%8A%A8%E6%97%8B%E8%BD%AC.txt",
-            "title": "自动旋转",
-            "description": "指定应用获得音频焦点自动开启屏幕旋转",
-            "author": "Hidarihitomi"
-        },
-        {
-            "fileUrl": "",
-            "title": "Bad rule",
-            "description": "Test bad rule item",
-            "author": "ShortX"
-        }
-    ]
+  "directActions": [
+    {
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-简易密码生成器0.2_改进_.txt",
+      "title": "简易密码生成器0.2(改进)",
+      "description": "一个简易字符串生成方法 需要改进的地方还有很多",
+      "author": "Github"
+    }
+  ],
+  "rules": [
+    {
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-自动旋转.txt",
+      "title": "自动旋转",
+      "description": "指定应用获得音频焦点自动开启屏幕旋转",
+      "author": "Github"
+    }
+  ]
 }
