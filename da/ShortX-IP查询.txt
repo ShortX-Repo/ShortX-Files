@@ -1,0 +1,22 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://ip.useragentinfo.com/json",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["province", "city", "ip", "isp"]
+    },
+    "id": "A-c2c850a9-b21f-4d0a-aa5e-81c2ea0fb584"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "归属地：{httpRequestRet1}{httpRequestRet2}{httpRequestRet4}\nIP：{httpRequestRet3}",
+    "id": "A-75af7063-82b4-4828-a9d5-4b7eb9e8d2b9"
+  }],
+  "id": "DA9122b14f-a902-48f5-8dcb-f2b98881519d",
+  "lastUpdateTime": "1689414154622",
+  "createTime": "1688871810016",
+  "title": "IP查询",
+  "description": "查询归属地并用弹幕通知"
+}
+###------###
+{"type":"da"}
