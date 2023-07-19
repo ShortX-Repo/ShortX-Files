@@ -65,6 +65,7 @@ object Gen {
 
             }.onFailure {
                 it.printStackTrace()
+                throw IllegalStateException(it)
             }
         }
     }
