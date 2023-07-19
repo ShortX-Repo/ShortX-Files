@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AudioFocusGain",
+    "pkgSets": ["Video"],
+    "id": "F-d6dc5c88-3d43-4993-ae2e-24e71860cb05"
+  }, {
+    "@type": "type.googleapis.com/AudioFocusLost",
+    "pkgSets": ["Video"],
+    "id": "F-50656064-e1e0-4de4-aa7e-4ce04196d373"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppHasAudioFocus",
+      "pkgSets": ["Video"],
+      "op": "ANY",
+      "id": "C-4d6b647d-ba64-43d7-ae4c-d880c3ff67d6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system accelerometer_rotation 1",
+      "id": "A-786e25e9-4f54-45f4-b961-5027fbace083"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system accelerometer_rotation 0",
+      "id": "A-bed856b5-37f7-482b-942b-37b49fb1a27f"
+    }],
+    "id": "A-58a89af1-c38a-436a-837f-74f4278790bd"
+  }],
+  "id": "rule-80b31faa-77d2-4d40-b6f8-a1e40fe6193a",
+  "lastUpdateTime": "1689652572555",
+  "createTime": "1687235628878",
+  "title": "自动旋转",
+  "description": "指定应用获得音频焦点自动开启屏幕旋转",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}
