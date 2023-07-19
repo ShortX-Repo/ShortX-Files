@@ -5,13 +5,43 @@
       "title": "简易密码生成器0.2(改进)",
       "description": "一个简易字符串生成方法 需要改进的地方还有很多",
       "author": "Github"
+    },
+    {
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-IP查询.txt",
+      "title": "IP查询",
+      "description": "查询归属地并用弹幕通知",
+      "author": "Github"
     }
   ],
   "rules": [
     {
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-有道云签到.txt",
+      "title": "有道云签到",
+      "description": "",
+      "author": "Github"
+    },
+    {
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-出站关闭NFC.txt",
+      "title": "出站关闭NFC",
+      "description": "",
+      "author": "Github"
+    },
+    {
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-appshare签到.txt",
+      "title": "appshare签到",
+      "description": "",
+      "author": "Github"
+    },
+    {
       "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-自动旋转.txt",
       "title": "自动旋转",
       "description": "指定应用获得音频焦点自动开启屏幕旋转",
+      "author": "Github"
+    },
+    {
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-自动爱你_微信版_.txt",
+      "title": "自动爱你(微信版)",
+      "description": "",
       "author": "Github"
     }
   ]
