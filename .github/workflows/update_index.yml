@@ -33,5 +33,22 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
-        arguments: run --args='../../'
+        arguments: run --args='../../ ../../'
         build-root-directory: tools/AutoGen
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v5
+      with:
+        commit-message: Update index
+        committer: GitHub <noreply@github.com>
+        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        signoff: false
+        delete-branch: true
+        title: '[Index] Update index'
+        body: |
+            Update index
+            - Updated with *today's* date
+        assignees: shortx-repo
+        reviewers: shortx-repo
+        milestone: 1
+        draft: false
