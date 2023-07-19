@@ -7,7 +7,6 @@ import tornaco.apps.shortx.core.rule.parseShareContentRule
 import tornaco.apps.shortx.core.rule.repo.Index
 import tornaco.apps.shortx.core.rule.repo.Item
 import java.io.File
-import java.util.*
 
 const val baseUrl = "https://raw.githubusercontent.com/ShortX-Repo/Files/main"
 const val daDir = "da"
@@ -18,10 +17,10 @@ object Gen {
         .disableHtmlEscaping()
         .setPrettyPrinting().create()
 
-    fun run(dir: String) {
+    fun run(inputDir: String, outputDir: String) {
         runBlocking {
             runCatching {
-                val allDAFiles = File(File(dir), daDir).walkTopDown().filter { it.isFile }
+                val allDAFiles = File(File(inputDir), daDir).walkTopDown().filter { it.isFile }
                 Logger.debug(allDAFiles)
 
                 val das = allDAFiles.toList().map {
@@ -38,7 +37,7 @@ object Gen {
                 }
                 Logger.info("Direct action count: ${das.size}")
 
-                val allRuleFiles = File(File(dir), ruleDir).walkTopDown().filter { it.isFile }
+                val allRuleFiles = File(File(inputDir), ruleDir).walkTopDown().filter { it.isFile }
                 Logger.debug(allDAFiles)
                 val rules = allRuleFiles.toList().map {
                     val fileContent = it.readText()
@@ -58,7 +57,7 @@ object Gen {
                 val index = Index(directActions = das, rules = rules)
                 val indexJson = gson.toJson(index)
                 Logger.info(indexJson)
-                File(File("out"), "index.json")
+                File(File(outputDir), "index.json")
                     .apply {
                         parentFile.mkdirs()
                     }
