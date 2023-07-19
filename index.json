@@ -4,14 +4,19 @@
             "fileUrl": "www.xxx.xxx",
             "title": "Title",
             "description": "Description",
-            "tag": "Life"
+            "author": "ShortX",
+            "tag": "Life",
+            "icon": "forbid-2-fill",
+            "iconColor": "#ff4081"
         },
         {
             "fileUrl": "www.xxx.xxx",
             "title": "Title",
             "description": "Description",
+            "author": "ShortX",
             "tag": "System",
-            "icon": "forbid-2-fill"
+            "icon": "forbid-2-fill",
+            "iconColor": "#ff4081"
         }
     ],
     "rules": []
