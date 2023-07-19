@@ -1,0 +1,180 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 13,
+      "minutes": 14
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "id": "F-a39f1f79-3dd5-4324-9dd6-1c3c80224d70"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-b16856e0-9e8a-42c9-8933-c7523d11e788"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "lock",
+      "payload": {
+        "value": "true"
+      },
+      "id": "C-a5810881-e215-4c8b-85a4-09831840c6e8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/InjectKeyCode",
+      "keyCode": 26,
+      "id": "A-808e27f7-8d96-4220-a679-5e5f716174c2"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "500",
+      "id": "A-812b3495-dc28-455d-9ee8-2e54db293286"
+    }, {
+      "@type": "type.googleapis.com/InputSwipe",
+      "startX": 500,
+      "startY": 2000,
+      "endX": 500,
+      "endY": 1000,
+      "swipeTime": "200",
+      "id": "A-0685d81c-9257-4113-8644-5f7c3a43dcf3"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "400",
+      "id": "A-220c9119-cb20-444a-8c78-5e1439f13ee6"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "input text globalVarOf$锁屏密码",
+      "id": "A-4466d8db-c681-4ee8-92d3-308a6caeca93"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "200",
+      "id": "A-0fafb914-a256-4f22-8b17-dda1df9a6a5a"
+    }, {
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.tencent.mm",
+        "className": "com.tencent.mm.ui.chatting.ChattingUI",
+        "extras": [{
+          "key": "Chat_Mode",
+          "value": "1",
+          "type": "String"
+        }, {
+          "key": "Chat_User",
+          "value": "globalVarOf$对象wxid",
+          "type": "String"
+        }]
+      },
+      "id": "A-91df0610-33ed-477a-a18e-b1e45531c8b6"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "1000",
+      "id": "A-920c1514-5182-40a2-b19f-869cb5c8c99b"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 500,
+      "y": 2230,
+      "id": "A-43e7a6c6-b5e7-446c-9e72-fce4f7cae37e"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "200",
+      "id": "A-5c119e75-0f04-4f13-8bd4-cc5b5365c932"
+    }, {
+      "@type": "type.googleapis.com/InputText",
+      "text": "1314\n爱你么么哒",
+      "id": "A-52f456a5-c54d-439e-8918-1d451fde1252"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "200",
+      "id": "A-aa44db0c-f3e0-446f-80b9-827cb4af4390"
+    }, {
+      "@type": "type.googleapis.com/FindAndClickViewByText",
+      "text": "发送",
+      "id": "A-5a167317-325a-4521-9917-d3030a30560d"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "200",
+      "id": "A-43104d45-428f-490b-8e64-8cbea9c12f92"
+    }, {
+      "@type": "type.googleapis.com/SleepScreen",
+      "id": "A-73c33f12-ddb3-47e9-814f-e8a0bf364ae0"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.tencent.mm",
+        "className": "com.tencent.mm.ui.chatting.ChattingUI",
+        "extras": [{
+          "key": "Chat_Mode",
+          "value": "1",
+          "type": "String"
+        }, {
+          "key": "Chat_User",
+          "value": "globalVarOf$对象wxid",
+          "type": "String"
+        }]
+      },
+      "id": "A-0727711a-9e27-492d-86ce-bfdf8a13b2ff"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "1000",
+      "id": "A-b4da6eaf-125f-467c-b897-f00f269f6428"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 500,
+      "y": 2230,
+      "id": "A-e338840f-ab53-429e-9ac9-7175d2d6be66"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "200",
+      "id": "A-7dc647f0-3cb1-4309-97a9-bb06c38dc73d"
+    }, {
+      "@type": "type.googleapis.com/InputText",
+      "text": "1314\n爱你么么哒",
+      "id": "A-e244c889-f408-4240-a81f-c363582a6e48"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "time": "200",
+      "id": "A-6eb264f4-ce0a-4899-9b67-9bfce039b8a4"
+    }, {
+      "@type": "type.googleapis.com/FindAndClickViewByText",
+      "text": "发送",
+      "id": "A-6a118ba8-22ba-4937-be34-5f7c92634eda"
+    }],
+    "id": "A-074eabaa-279e-48b1-8b59-1ea30be1e722"
+  }],
+  "id": "rule-ecb3726f-17e2-479e-b0a7-405eb3a5a064",
+  "lastUpdateTime": "1689772085052",
+  "createTime": "1689771843946",
+  "title": "自动爱你(微信版)",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "对象wxid",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-72d53890-1e6e-43d1-811e-92d83ab32b34"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "锁屏密码",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-28d23d33-097d-4ab3-9da1-d900930dd496"
+    }]
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}
