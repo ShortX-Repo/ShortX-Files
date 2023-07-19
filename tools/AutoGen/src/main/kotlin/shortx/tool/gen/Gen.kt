@@ -9,28 +9,28 @@ import tornaco.apps.shortx.core.rule.repo.Item
 import java.io.File
 import java.util.*
 
+const val baseUrl = "https://raw.githubusercontent.com/ShortX-Repo/Files/main"
+const val daDir = "da"
+const val ruleDir = "rule"
 
 object Gen {
     private val gson = GsonBuilder()
         .disableHtmlEscaping()
         .setPrettyPrinting().create()
 
-    fun run(authToken: String) {
+    fun run(dir: String) {
         runBlocking {
             runCatching {
-                val service = ApiService.Factory.create(authToken)
-                val allDAFiles = service.getDAFiles()
+                val allDAFiles = File(File(dir), daDir).walkTopDown().filter { it.isFile }
                 Logger.debug(allDAFiles)
 
-                val das = allDAFiles.map {
-                    val fileContent = service.getDAFileContent(it.name)
-                    val decodedWithMime = Base64.getMimeDecoder().decode(fileContent.content)
-                    val decodedContent = String(decodedWithMime)
-                    val directAction = requireNotNull(parseShareContentDA(decodedContent)) {
-                        "Unable to parse Direct action: $decodedContent"
+                val das = allDAFiles.toList().map {
+                    val fileContent = it.readText()
+                    val directAction = requireNotNull(parseShareContentDA(fileContent)) {
+                        "Unable to parse Direct action: $fileContent"
                     }
                     Item(
-                        fileUrl = it.downloadUrl,
+                        fileUrl = "${baseUrl}/$daDir/${it.name}",
                         title = directAction.title,
                         description = directAction.description,
                         author = "Github",
@@ -38,17 +38,15 @@ object Gen {
                 }
                 Logger.info("Direct action count: ${das.size}")
 
-                val allRuleFiles = service.getRuleFiles()
+                val allRuleFiles = File(File(dir), ruleDir).walkTopDown().filter { it.isFile }
                 Logger.debug(allDAFiles)
-                val rules = allRuleFiles.map {
-                    val fileContent = service.getRuleFileContent(it.name)
-                    val decodedWithMime = Base64.getMimeDecoder().decode(fileContent.content)
-                    val decodedContent = String(decodedWithMime)
-                    val rule = requireNotNull(parseShareContentRule(decodedContent)) {
-                        "Unable to parse Rule: $decodedContent"
+                val rules = allRuleFiles.toList().map {
+                    val fileContent = it.readText()
+                    val rule = requireNotNull(parseShareContentRule(fileContent)) {
+                        "Unable to parse Rule: $fileContent"
                     }
                     Item(
-                        fileUrl = it.downloadUrl,
+                        fileUrl = "${baseUrl}/$ruleDir/${it.name}",
                         title = rule.title,
                         description = rule.description,
                         author = "Github",
@@ -60,7 +58,7 @@ object Gen {
                 val index = Index(directActions = das, rules = rules)
                 val indexJson = gson.toJson(index)
                 Logger.info(indexJson)
-                File(File("out"),"index.json")
+                File(File("out"), "index.json")
                     .apply {
                         parentFile.mkdirs()
                     }

@@ -1,3 +1,3 @@
 ## Generate index
 
-`gradle run --args='GITHUB_TOKEN debug'`
+`gradle run --args='ROOT_DIR'`
