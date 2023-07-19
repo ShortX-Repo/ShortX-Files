@@ -1,13 +1,10 @@
 {
     "directActions": [
         {
-            "fileUrl": "www.xxx.xxx",
-            "title": "Title",
-            "description": "Description",
-            "author": "ShortX",
-            "tag": "Life",
-            "icon": "forbid-2-fill",
-            "iconColor": "#ff4081"
+            "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-%E7%AE%80%E6%98%93%E5%AF%86%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A80.2_%E6%94%B9%E8%BF%9B_.txt",
+            "title": "简易密码生成器0.2(改进)",
+            "description": "一个简易字符串生成方法 需要改进的地方还有很多",
+            "author": "鸿鹄"
         },
         {
             "fileUrl": "www.xxx.xxx",
