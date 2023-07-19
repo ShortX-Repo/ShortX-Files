@@ -51,5 +51,4 @@ jobs:
             - Updated with *today's* date
         assignees: shortx-repo
         reviewers: shortx-repo
-        milestone: 1
         draft: false
