@@ -50,6 +50,6 @@ jobs:
         body: |
             Update index
             - Updated with *today's* date
-        assignees: shortx-repo
-        reviewers: shortx-repo
+        assignees: tornaco
+        reviewers: tornaco
         draft: false
