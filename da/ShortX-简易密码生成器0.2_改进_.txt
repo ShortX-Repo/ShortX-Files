@@ -1,0 +1,127 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo globalVarOf$pwOut",
+    "id": "A-468cea95-e0a3-4cfb-beed-73cc4f0bfec9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{shellOut} \u003d\u003d \"globalVarOf\"",
+      "id": "C-368c8708-8fe9-4ee1-8cdb-8cc6a3e564b9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "pwOut",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-3e5fea65-d965-4dc3-a1ad-d1ddc871c6a4"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "lgh",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-01ed9025-7b9d-4556-bac1-254d6cbe38d2"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "lgh",
+      "valueAsString": "10",
+      "id": "A-ea57be3e-726c-4688-80d2-0cfa976cccf6"
+    }],
+    "id": "A-f445c0a3-e1a5-4612-96ec-ab52fb55541b"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "# 生成随机字符串函数\ngenerate_random_string() {\n  # 设置生成字符串的长度\n  length\u003d$1\n\n  # 生成随机字符串\n  characters\u003d\"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@.\"\n  random_string\u003d$(cat /dev/urandom | LC_ALL\u003dC tr -dc \"$characters\" | head -c $length)\n\n  echo $random_string\n}\n\n# 调用生成随机字符串函数并指定长度为10\n\nresult\u003d$(generate_random_string globalVarOf$lgh)\n\necho \"$result\"\n",
+        "id": "A-54bfbfa8-ef79-4f59-bcd6-e38cb786cf9b"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "pwOut",
+        "valueAsString": "{shellOut}",
+        "id": "A-e56c88d6-9e44-4f95-b3b8-36a40a61613e"
+      }, {
+        "@type": "type.googleapis.com/InputText",
+        "text": "globalVarOf$pwOut",
+        "id": "A-8aae0d1d-4b92-4490-9c9c-65e6292cc9ef"
+      }],
+      "icon": "pantone-line",
+      "label": "密码生成"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/InputText",
+        "text": "globalVarOf$pwOut",
+        "id": "A-b7d28aad-dec2-4d8b-80a7-c709ee6ba3d6"
+      }],
+      "icon": "mark-pen-line",
+      "label": "粘贴"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "10位",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "lgh",
+          "valueAsString": "10",
+          "id": "A-55f6323d-9252-41ec-8794-ab09dd0857e2"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "位数：globalVarOf$lgh",
+          "id": "A-b3c233e9-ecd7-40b7-b6f0-bba6516c98f2"
+        }],
+        "negative": "8位",
+        "onNegative": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "lgh",
+          "valueAsString": "8",
+          "id": "A-9d0f88a9-08af-4803-8ebb-a4db800039d3"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "位数：globalVarOf$lgh",
+          "id": "A-75812f57-6904-4ebd-bfce-f2f062479505"
+        }],
+        "neutral": "16位",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "lgh",
+          "valueAsString": "16",
+          "id": "A-ac814178-5900-4c92-9b6a-9ad26eb40e12"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "位数：globalVarOf$lgh",
+          "id": "A-d969259a-eac2-4561-b9d4-c1cae0401f19"
+        }],
+        "title": "设置",
+        "message": "当前密码位数：globalVarOf$lgh",
+        "cancelable": true,
+        "id": "A-e1f343d6-cd90-4bc9-8e9f-d0743e0bb402"
+      }],
+      "icon": "edit-box-fill",
+      "label": "设置"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["密码生成器"],
+        "id": "A-b7156079-5709-4858-8f76-12530ab00141"
+      }],
+      "icon": "scissors-2-fill",
+      "label": "关闭"
+    }],
+    "tag": "密码生成器",
+    "id": "A-5c7cd5bc-491c-4b10-8d74-287c079c16c0"
+  }],
+  "id": "DA85a8f0c9-4eb9-47cb-b070-61f830ca967c",
+  "lastUpdateTime": "1689729628120",
+  "createTime": "1689728731402",
+  "title": "简易密码生成器0.2(改进)",
+  "description": "一个简易字符串生成方法 需要改进的地方还有很多"
+}
+###------###
+{"type":"da"}
