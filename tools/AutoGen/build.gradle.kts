@@ -29,7 +29,7 @@ dependencies {
     implementation(protoBufUtil)
     implementation(protoBuf)
 
-    implementation(files("libs/shortx-core.jar"))
+    implementation(files("libs/core.jar"))
 
     testImplementation(kotlin("test"))
 }
