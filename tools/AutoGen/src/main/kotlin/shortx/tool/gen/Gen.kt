@@ -32,7 +32,13 @@ object Gen {
                         fileUrl = "${baseUrl}/$daDir/${it.name}",
                         title = directAction.title,
                         description = directAction.description,
-                        author = "Github",
+                        author = directAction.author.name,
+                        id = directAction.id,
+                        versionCode = directAction.versionCode,
+                        updateTimeMillis = directAction.lastUpdateTime,
+                        tags = emptyList(),
+                        icon = null,
+                        iconColor = null
                     )
                 }
                 Logger.info("Direct action count: ${das.size}")
@@ -48,13 +54,19 @@ object Gen {
                         fileUrl = "${baseUrl}/$ruleDir/${it.name}",
                         title = rule.title,
                         description = rule.description,
-                        author = "Github",
+                        author = rule.author.name,
+                        id = rule.id,
+                        versionCode = rule.versionCode,
+                        updateTimeMillis = rule.lastUpdateTime,
+                        tags = emptyList(),
+                        icon = null,
+                        iconColor = null
                     )
                 }
                 Logger.info("Rule count: ${rules.size}")
 
                 // Write index
-                val index = Index(directActions = das, rules = rules)
+                val index = Index(directActions = das, rules = rules, updateTimeMillis = System.currentTimeMillis())
                 val indexJson = gson.toJson(index)
                 Logger.info(indexJson)
                 File(File(outputDir), "index.json")
