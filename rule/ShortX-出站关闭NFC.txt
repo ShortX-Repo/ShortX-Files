@@ -21,6 +21,9 @@
   "lastUpdateTime": "1689007971283",
   "createTime": "1687318444561",
   "title": "出站关闭NFC",
+  "author": {
+    "name": "NinjiomPMBot"
+  },
   "isEnabled": true,
   "hook": {
   }

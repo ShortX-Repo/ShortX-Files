@@ -16,7 +16,10 @@
   "lastUpdateTime": "1689414154622",
   "createTime": "1688871810016",
   "title": "IP查询",
-  "description": "查询归属地并用弹幕通知"
+  "description": "查询归属地并用弹幕通知",
+  "author": {
+    "name": "Genicur"
+  }
 }
 ###------###
 {"type":"da"}

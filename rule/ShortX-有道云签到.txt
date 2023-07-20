@@ -50,6 +50,9 @@
   "lastUpdateTime": "1689671870458",
   "createTime": "1689671544712",
   "title": "有道云签到",
+  "author": {
+    "name": "tiyu"
+  },
   "isEnabled": true,
   "hook": {
   },

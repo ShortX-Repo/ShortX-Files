@@ -152,6 +152,9 @@
   "lastUpdateTime": "1689772085052",
   "createTime": "1689771843946",
   "title": "自动爱你(微信版)",
+  "author": {
+    "name": "Jk L"
+  },
   "hook": {
     "actionsOnEnabled": [{
       "@type": "type.googleapis.com/CreateGlobalVar",

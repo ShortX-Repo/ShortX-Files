@@ -33,6 +33,9 @@
   "createTime": "1687235628878",
   "title": "自动旋转",
   "description": "指定应用获得音频焦点自动开启屏幕旋转",
+  "author": {
+    "name": "Hidarihitomi"
+  },
   "isEnabled": true,
   "hook": {
   },
