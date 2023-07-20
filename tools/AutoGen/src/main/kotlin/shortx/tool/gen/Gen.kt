@@ -66,7 +66,7 @@ object Gen {
                 Logger.info("Rule count: ${rules.size}")
 
                 // Write index
-                val index = Index(directActions = das, rules = rules, updateTimeMillis = System.currentTimeMillis())
+                val index = Index(directActions = das, rules = rules, updateTimeMillis = 0)
                 val indexJson = gson.toJson(index)
                 Logger.info(indexJson)
                 File(File(outputDir), "index.json")
