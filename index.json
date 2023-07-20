@@ -6,8 +6,8 @@
       "title": "简易密码生成器0.2(改进)",
       "description": "一个简易字符串生成方法 需要改进的地方还有很多",
       "versionCode": 0,
-      "updateTimeMillis": 1689842033289,
-      "author": "",
+      "updateTimeMillis": 1689858401713,
+      "author": "鸿鹄",
       "tags": []
     },
     {
@@ -16,8 +16,8 @@
       "title": "IP查询",
       "description": "查询归属地并用弹幕通知",
       "versionCode": 0,
-      "updateTimeMillis": 1689842033291,
-      "author": "",
+      "updateTimeMillis": 1689858401715,
+      "author": "Genicur",
       "tags": []
     }
   ],
@@ -29,7 +29,7 @@
       "description": "",
       "versionCode": 0,
       "updateTimeMillis": 1689671870458,
-      "author": "",
+      "author": "tiyu",
       "tags": []
     },
     {
@@ -39,17 +39,7 @@
       "description": "",
       "versionCode": 0,
       "updateTimeMillis": 1689007971283,
-      "author": "",
-      "tags": []
-    },
-    {
-      "id": "rule-68bec6ef-e3ff-4963-88d5-58e6a072c0aa",
-      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-appshare签到.txt",
-      "title": "appshare签到",
-      "description": "",
-      "versionCode": 0,
-      "updateTimeMillis": 1689348417151,
-      "author": "",
+      "author": "NinjiomPMBot",
       "tags": []
     },
     {
@@ -59,7 +49,7 @@
       "description": "指定应用获得音频焦点自动开启屏幕旋转",
       "versionCode": 0,
       "updateTimeMillis": 1689652572555,
-      "author": "",
+      "author": "Hidarihitomi",
       "tags": []
     },
     {
@@ -69,9 +59,9 @@
       "description": "",
       "versionCode": 0,
       "updateTimeMillis": 1689772085052,
-      "author": "",
+      "author": "Jk L",
       "tags": []
     }
   ],
-  "updateTimeMillis": 1689842033318
+  "updateTimeMillis": 0
 }
