@@ -6,7 +6,7 @@
       "title": "简易密码生成器0.2(改进)",
       "description": "一个简易字符串生成方法 需要改进的地方还有很多",
       "versionCode": 0,
-      "updateTimeMillis": 1689842033289,
+      "updateTimeMillis": 1689843866289,
       "author": "",
       "tags": []
     },
@@ -16,7 +16,7 @@
       "title": "IP查询",
       "description": "查询归属地并用弹幕通知",
       "versionCode": 0,
-      "updateTimeMillis": 1689842033291,
+      "updateTimeMillis": 1689843866292,
       "author": "",
       "tags": []
     }
@@ -73,5 +73,5 @@
       "tags": []
     }
   ],
-  "updateTimeMillis": 1689842033318
+  "updateTimeMillis": 1689843866328
 }
