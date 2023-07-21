@@ -1,14 +1,17 @@
 # ShortX Repo
-这是ShortX发现页面的在线指令数据仓库。
+
+这是ShortX发现页面的在线指令数据仓库，指令更新时，通过Github Action自动创建PR更新Index文件。
 
 
 ## 如何贡献
+
 1. 通过ShortX app分享功能，保存为文件
 2. 按需修改文件中版本号`versionCode`字段
 3. 检查文件中`id`字段是否和上个版本一致（此步骤仅在更新指令时需要）
-4. 往主分支提交PR
+4. 将指令文件放到指定目录下，注意，不需要手动修改index文件
+5. 往主分支提交PR
 
-> PR合并之后，索引文件会通过Github action自动更新，因此可能需要一段时间才能在App上看到最新数据。
+> PR合并之后，Index文件会通过Github action自动更新，因此可能需要一段时间才能在App上看到最新数据。
 
 ## 文件目录
 
@@ -26,7 +29,9 @@
 
 
 ## 版本控制
+
 `versionCode`属性表示版本号，`id`用于不用的指令；以一条一键指令为例，
+
 ```json
 {
   "actions": [],
@@ -47,10 +52,22 @@
 
 
 ## 指令要求
+
 1. 禁止涉及用户数据安全隐私
 2. 禁止动态加载可执行逻辑
 
-
 ## 指令建议
+
 1. 标题和描述都写清楚
 2. 给一些动作添加备注
+
+
+## Fork github 仓库
+
+如果你想直接Fork本仓库使用，需要简单配置一下Github Action需要的`token`，否则无法自动创建Index更新的PR。步骤如下：
+
+1. 前往Github设置，**Developer Settings**，**Personal access tokens**，点击**Tokens(Classic)**，点击**Generate new token**，token权限要选中 repo 和 workflow ，生成一个token，复制到剪贴板。
+2. 进入自己Fork的仓库，点击**Settings**，最下方有**Secrets and Variales**，选择其中的**Actions**，创建一个Secret，名字为PAT，值为刚才复制的token。
+3. 完成
+
+这样操作的目的是给Github Action权限，可以自动生成commits和PR。
