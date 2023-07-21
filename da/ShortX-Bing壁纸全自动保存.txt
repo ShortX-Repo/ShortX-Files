@@ -1,0 +1,86 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://www.bing.com/HPImageArchive.aspx?format\u003djs\u0026idx\u003d0\u0026n\u003d1\u0026mkt\u003dzh-CN",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["images[0].urlbase", "images[0].copyrightlink", "images[0].title", "images[0].enddate", "images[0].copyright"]
+    },
+    "requestBody": {},
+    "id": "A-cc54a656-0375-4749-a0bf-36c526c45d67"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotEmpty",
+      "varName": "bing_wallpaper_dir",
+      "payload": {
+      },
+      "id": "C-709e90f7-9b75-4313-bca1-a8232d73a592"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "好",
+      "onPositive": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "bing_wallpaper_dir",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "id": "A-a7be4cf2-835e-4e34-a2b7-0651834959a8"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "bing_wallpaper_dir",
+        "valueAsString": "/sdcard/Pictures/BingWallpapers",
+        "id": "A-c99318b7-758b-4097-8faf-a2e7df0c6840"
+      }],
+      "title": "初始化",
+      "message": "首次使用需要创建全局变量bing_wallpaper_dir存放下载路径，默认为/sdcard/Pictures/BingWallpapers。你可以修改该全局变量以修改下载路径。",
+      "cancelable": true,
+      "id": "A-ddc37a19-2ead-49d8-81fc-baa204ae92c2"
+    }],
+    "id": "A-c7283980-60a3-4787-b201-404dc660863c"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "[ -d globalVarOf$bing_wallpaper_dir ] || mkdir -p globalVarOf$bing_wallpaper_dir",
+    "id": "A-c40f2ec4-63a5-4c7f-9096-b13084a71179"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "\"https://www.bing.com\"+{httpRequestRet1}+\"_1920x1080.jpg\"",
+    "id": "A-60ae50db-4fbc-4174-9b2d-7080ec4ccd42"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [ ! -f \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 横屏.jpg\" ]; then\n    curl -o \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 横屏.jpg\" {mvelRet}\nfi\nam broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 横屏.jpg\"",
+    "id": "A-cb49ba5e-d3ea-44a6-b03d-07585c6e065a"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "\"https://www.bing.com\"+{httpRequestRet1}+\"_1080x1920.jpg\"",
+    "id": "A-150e7265-49bb-4fba-9c87-17d95ce16e8f"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [ ! -f \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 竖屏.jpg\" ]; then\n    curl -o \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 竖屏.jpg\" {mvelRet}\nfi\nam broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 竖屏.jpg\"",
+    "id": "A-2dcf207f-9f80-4ada-badc-963932f4aad5"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1689907384956",
+    "title": "提示",
+    "message": "今日壁纸已下载",
+    "smallIcon": "paint-brush-fill",
+    "vibrate": true,
+    "sound": true,
+    "id": "A-07d700e0-bf89-46c2-9ca4-2d0e8f342942"
+  }],
+  "id": "DAfc48c802-8738-4858-b6d2-70ba70f2f2a0",
+  "lastUpdateTime": "1689907469283",
+  "createTime": "1689595856939",
+  "versionCode": 2,
+  "author": {
+    "name": "淫乱"
+  },
+  "title": "Bing壁纸全自动保存",
+  "description": "获取bing每日壁纸到本地（中国大陆），全自动版本"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,55 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "paint-brush-line",
+    "id": "A-0ade5c41-5be8-4cdf-9090-c926f48ee919"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://cn.bing.com/HPImageArchive.aspx?format\u003djs\u0026idx\u003d0\u0026n\u003d1\u0026mkt\u003dzh-CN",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["images[0].url", "images[0].urlbase", "images[0].copyrightlink", "images[0].title", "images[0].copyright"]
+    },
+    "requestBody": {},
+    "id": "A-daf5993e-e589-423a-be7b-20f92211c8e9"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "横屏",
+    "onPositive": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "\"https://www.bing.com\"+{httpRequestRet2}+\"_1920x1080.jpg\"",
+      "id": "A-f3b8b0bd-ee12-408a-9aa8-6d8eb1d3ee1e"
+    }],
+    "negative": "介绍",
+    "onNegative": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "{httpRequestRet3}",
+      "id": "A-29d62bc1-e1ea-4b8f-a1fb-9ed069addbd8"
+    }],
+    "neutral": "竖屏",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "\"https://www.bing.com\"+{httpRequestRet2}+\"_1080x1920.jpg\"",
+      "id": "A-9c112554-6f97-459e-9473-efa53c4c4986"
+    }],
+    "title": "尺寸",
+    "message": "壁纸名称为：{httpRequestRet4}\n{httpRequestRet5}\n请选择您需要的尺寸，返回即可取消选择。",
+    "cancelable": true,
+    "id": "A-30f856a4-9860-4ce7-ad15-01605c6799dd"
+  }, {
+    "@type": "type.googleapis.com/StartActivityUrlSchema",
+    "urlSchema": "{mvelRet}",
+    "id": "A-322af8b2-fb35-4e5d-8b05-9cd2b635f930"
+  }],
+  "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
+  "lastUpdateTime": "1689910644956",
+  "createTime": "1689042421627",
+  "versionCode": 2,
+  "author": {
+    "name": "淫乱"
+  },
+  "title": "Bing壁纸查看（中国大陆）",
+  "description": "手动获取bing每日壁纸，并在浏览器内查看（不下载）"
+}
+###------###
+{"type":"da"}

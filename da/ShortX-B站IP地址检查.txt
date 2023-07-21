@@ -1,0 +1,27 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.bilibili.com/x/web-interface/zone",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data.addr", "data.containsKey(\u0027province\u0027) ? data.province : \"\"", "data.containsKey(\u0027city\u0027) ? data.city : \"\"", "data.isp", "data.country"]
+    },
+    "requestBody": {},
+    "id": "A-c18d1a9e-d42e-47be-8622-4e00f0005842"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "归属地：{httpRequestRet5} {httpRequestRet2} {httpRequestRet3} {httpRequestRet4}\nIP：{httpRequestRet1}",
+    "id": "A-a65fb483-7b5b-4db1-9879-ae186dd86156"
+  }],
+  "id": "DA6d0ad33b-c15f-4b4d-915f-a457e9b35408",
+  "lastUpdateTime": "1689900326826",
+  "createTime": "1689428109161",
+  "title": "B站IP地址检查",
+  "description": "看看b站认为你在哪",
+  "versionCode": 1,
+  "author": {
+    "name": "淫乱"
+  }
+}
+###------###
+{"type":"da"}
