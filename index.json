@@ -23,6 +23,16 @@
   ],
   "rules": [
     {
+      "id": "rule-9e40dd65-a271-4fb8-8153-ab4bbebbb893",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-验证码提取.txt",
+      "title": "验证码提取",
+      "description": "提取短信中的验证码，自动填入输入框",
+      "versionCode": 0,
+      "updateTimeMillis": 1689907916958,
+      "author": "ShortX",
+      "tags": []
+    },
+    {
       "id": "rule-9b4ce64a-559e-4fd7-8c5c-f61ca7a92266",
       "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-有道云签到.txt",
       "title": "有道云签到",
