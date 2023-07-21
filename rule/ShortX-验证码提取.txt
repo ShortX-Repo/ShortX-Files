@@ -1,0 +1,76 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.android.mms"
+      }]
+    },
+    "id": "F-07560837-f02a-43f9-a5d7-01d35642622e"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d {contentText};\nString[] keyword \u003d {\"验证码\", \"校验码\", \"检验码\", \"确认码\", \"激活码\", \"动态码\", \"安全码\", \"验证代码\", \"校验代码\", \"检验代码\", \"激活代码\", \"确认代码\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \"动态口令\", \"驗證碼\", \"校驗碼\", \"檢驗碼\", \"確認碼\", \"激活碼\", \"動態碼\", \"驗證代碼\", \"校驗代碼\", \"檢驗代碼\", \"確認代碼\", \"激活代碼\", \"動態代碼\", \"登入碼\", \"認證碼\", \"識別碼\", \"Code\", \"code\", \"CODE\"};\n\nboolean containsMatch \u003d false;\n\nforeach (String keywordList : keyword) {\n    if (!containsMatch) {\n        Pattern pattern \u003d Pattern.compile(\".*\" + keywordList + \".*\");\n        Matcher matcher \u003d pattern.matcher(msgText);\n\n        if (matcher.find()) {\n            containsMatch \u003d true;\n        }\n    }\n}\n\nreturn containsMatch;",
+    "id": "C-a03da186-96eb-4499-95a0-4035f863dc36"
+  }, {
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgSets": ["SMS code blacklist"],
+    "op": "ANY",
+    "isInvert": true,
+    "id": "C-742a8356-67f9-42e1-976d-4b07929b32e3"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d {contentText}; \n\nPattern pattern \u003d Pattern.compile(\"\\\\d{4,10}\");\nMatcher matcher \u003d pattern.matcher(msgText);\nif (matcher.find()) {\n    String pinCode \u003d matcher.group();\n    return pinCode;\n} else {\n    return false;\n}",
+    "note": "正则匹配4-10位数字的验证码",
+    "id": "A-26cac957-37b5-4da7-9405-392a281ce604"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{mvelRet} \u003d\u003d false;",
+      "id": "C-850c39c4-a84d-4b0d-bdcf-37ccc52e1c50"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "提取验证码失败",
+      "id": "A-2de14ea0-8308-4f3e-a6d4-0d843e607f6e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "验证码为：{mvelRet}",
+      "id": "A-e09c860a-e447-4168-ac98-f8f4e147db9f"
+    }, {
+      "@type": "type.googleapis.com/InputText",
+      "text": "{mvelRet}",
+      "id": "A-1a6eb8e8-414d-454a-abea-1928f32fc3f1"
+    }],
+    "note": "输入mvel中匹配到的验证码",
+    "id": "A-b7ca2263-ca9c-4443-9cd8-6fd4c22bd23e"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "time": "5000",
+    "id": "A-1b44141c-910e-4e82-8071-82fb4483b618"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotificationForPackage",
+    "appPkg": [{
+      "pkgName": "com.android.mms"
+    }],
+    "id": "A-03286691-9485-430c-a94b-4757d4f7379a"
+  }],
+  "id": "rule-9e40dd65-a271-4fb8-8153-ab4bbebbb893",
+  "lastUpdateTime": "1689907916958",
+  "createTime": "1689214148528",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "验证码提取",
+  "description": "提取短信中的验证码，自动填入输入框",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}
