@@ -8,7 +8,7 @@
     "repeat": {
       "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
     },
-    "id": "F-a39f1f79-3dd5-4324-9dd6-1c3c80224d70"
+    "id": "F-fa2582d2-4126-4bc6-aea8-ceecf163e495"
   }],
   "conditions": [{
     "@type": "type.googleapis.com/True",
@@ -17,13 +17,9 @@
   "actions": [{
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
-      "@type": "type.googleapis.com/EvaluateGlobalVar",
-      "op": "EqualTo",
-      "varName": "lock",
-      "payload": {
-        "value": "true"
-      },
-      "id": "C-a5810881-e215-4c8b-85a4-09831840c6e8"
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "isInvert": true,
+      "id": "C-236177bd-9fc4-465b-821a-822785f989ba"
     }],
     "IfActions": [{
       "@type": "type.googleapis.com/InjectKeyCode",
@@ -149,12 +145,12 @@
     "id": "A-074eabaa-279e-48b1-8b59-1ea30be1e722"
   }],
   "id": "rule-ecb3726f-17e2-479e-b0a7-405eb3a5a064",
-  "lastUpdateTime": "1689772085052",
+  "lastUpdateTime": "1689904256881",
   "createTime": "1689771843946",
-  "title": "自动爱你(微信版)",
   "author": {
-    "name": "Jk L"
+    "name": "JK L"
   },
+  "title": "自动爱你(微信版)",
   "hook": {
     "actionsOnEnabled": [{
       "@type": "type.googleapis.com/CreateGlobalVar",
