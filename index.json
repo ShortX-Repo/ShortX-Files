@@ -2,7 +2,7 @@
   "directActions": [
     {
       "id": "DA9002f6e2-8407-4802-b46e-5e215ec31434",
-      "fileUrl": "ShortX-Bing壁纸下载_中国_.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-Bing壁纸下载_中国_.txt",
       "title": "Bing壁纸下载（中国）",
       "description": "（单次下载用这个）获取bing每日壁纸到本地（中国大陆）",
       "versionCode": 3,
@@ -12,7 +12,7 @@
     },
     {
       "id": "DA85a8f0c9-4eb9-47cb-b070-61f830ca967c",
-      "fileUrl": "ShortX-简易密码生成器0.2_改进_.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-简易密码生成器0.2_改进_.txt",
       "title": "简易密码生成器0.2(改进)",
       "description": "一个简易字符串生成方法 需要改进的地方还有很多",
       "versionCode": 0,
@@ -22,7 +22,7 @@
     },
     {
       "id": "DA9122b14f-a902-48f5-8dcb-f2b98881519d",
-      "fileUrl": "ShortX-IP查询.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-IP查询.txt",
       "title": "IP查询",
       "description": "查询归属地并用弹幕通知",
       "versionCode": 0,
@@ -32,7 +32,7 @@
     },
     {
       "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
-      "fileUrl": "ShortX-Bing壁纸查看_中国大陆_.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-Bing壁纸查看_中国大陆_.txt",
       "title": "Bing壁纸查看（中国大陆）",
       "description": "手动获取bing每日壁纸，并在浏览器内查看（不下载）",
       "versionCode": 2,
@@ -42,7 +42,7 @@
     },
     {
       "id": "DAfc48c802-8738-4858-b6d2-70ba70f2f2a0",
-      "fileUrl": "ShortX-Bing壁纸全自动保存.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-Bing壁纸全自动保存.txt",
       "title": "Bing壁纸全自动保存",
       "description": "获取bing每日壁纸到本地（中国大陆），全自动版本",
       "versionCode": 2,
@@ -52,7 +52,7 @@
     },
     {
       "id": "DA6d0ad33b-c15f-4b4d-915f-a457e9b35408",
-      "fileUrl": "ShortX-B站IP地址检查.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-B站IP地址检查.txt",
       "title": "B站IP地址检查",
       "description": "看看b站认为你在哪",
       "versionCode": 1,
@@ -64,7 +64,7 @@
   "rules": [
     {
       "id": "rule-9e40dd65-a271-4fb8-8153-ab4bbebbb893",
-      "fileUrl": "ShortX-验证码提取.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-验证码提取.txt",
       "title": "验证码提取",
       "description": "提取短信中的验证码，自动填入输入框",
       "versionCode": 0,
@@ -74,7 +74,7 @@
     },
     {
       "id": "rule-9b4ce64a-559e-4fd7-8c5c-f61ca7a92266",
-      "fileUrl": "ShortX-有道云签到.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-有道云签到.txt",
       "title": "有道云签到",
       "description": "",
       "versionCode": 0,
@@ -84,7 +84,7 @@
     },
     {
       "id": "rule-171fa653-24a4-4b52-8614-448a1bea21f9",
-      "fileUrl": "ShortX-出站关闭NFC.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-出站关闭NFC.txt",
       "title": "出站关闭NFC",
       "description": "",
       "versionCode": 0,
@@ -94,7 +94,7 @@
     },
     {
       "id": "rule-80b31faa-77d2-4d40-b6f8-a1e40fe6193a",
-      "fileUrl": "ShortX-自动旋转.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-自动旋转.txt",
       "title": "自动旋转",
       "description": "指定应用获得音频焦点自动开启屏幕旋转",
       "versionCode": 0,
@@ -104,7 +104,7 @@
     },
     {
       "id": "rule-ecb3726f-17e2-479e-b0a7-405eb3a5a064",
-      "fileUrl": "ShortX-自动爱你_微信版_.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-自动爱你_微信版_.txt",
       "title": "自动爱你(微信版)",
       "description": "",
       "versionCode": 0,
