@@ -1,0 +1,41 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+      "hour": 7,
+      "minutes": 30
+    },
+    "end": {
+      "hour": 22,
+      "minutes": 30
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "1080000"
+    },
+    "id": "F-2edbb7b3-52a9-4ffa-9e08-ee5f343c231e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "string\u003d$(content query --uri content://com.miui.providers.steps/item --projection _id --sort \"_id DESC\")\narray\u003d($(echo $string | tr \u0027Row: _end_time, _begin_time\u003d\u0027 \u0027 \u0027)) \nid\u003d${array[1]}\n# 随机步数区间\nmin\u003d555\nmax\u003d888\ncurrent_time\u003d$(date +%s)\n# 单次增加步数耗时随机时间区间\nt1\u003d5\nt2\u003d15\nrandom_minute\u003d$(((RANDOM %($t2-$t1))+$t1))\nbegin\u003d$current_time$(($RANDOM%900+100))\nend\u003d$((current_time + $random_minute*60))$(($RANDOM%900+100))\nsteps\u003d$(((RANDOM %($max-$min))+$min))\ncontent insert --uri content://com.miui.providers.steps/item --bind _begin_time:s:$begin --bind _id:i:$((id+1)) --bind _end_time:s:$end --bind _mode:i:2 --bind _steps:i:$steps",
+    "id": "A-f36e6808-445a-4978-937d-a2b31cde4028"
+  }],
+  "id": "rule-7930d5a5-8980-4a42-bd9b-3a741ef30e55",
+  "lastUpdateTime": "1689926670688",
+  "createTime": "1688392529994",
+  "author": {
+    "name": "Hidarihitomi"
+  },
+  "title": "MIUI自动步数",
+  "description": "指定时间段内增加随机步数",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}
