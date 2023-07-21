@@ -93,6 +93,16 @@
       "tags": []
     },
     {
+      "id": "rule-7930d5a5-8980-4a42-bd9b-3a741ef30e55",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-MIUI自动步数.txt",
+      "title": "MIUI自动步数",
+      "description": "指定时间段内增加随机步数",
+      "versionCode": 0,
+      "updateTimeMillis": 1689926670688,
+      "author": "Hidarihitomi",
+      "tags": []
+    },
+    {
       "id": "rule-80b31faa-77d2-4d40-b6f8-a1e40fe6193a",
       "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/rule/ShortX-自动旋转.txt",
       "title": "自动旋转",
