@@ -1,0 +1,50 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopLeft",
+    "gesture": "SwipeFromLeft",
+    "id": "F-10318276-ad4b-405f-9c03-11cf96142cab"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-26e82123-3601-48e6-bc0e-6cd5d7045836"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.tencent.mm/com.tencent.mm.plugin.scanner.ui.BaseScanUI",
+        "id": "A-fb9f790b-3896-42a9-8567-8e0f41d21ffb"
+      }],
+      "icon": "drop-line",
+      "label": "微信"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["QRScan"],
+        "id": "A-8c595fd8-a6fd-4dc4-b32d-38558736f4fe"
+      }],
+      "icon": "blur-off-line",
+      "label": "关闭"
+    }],
+    "tag": "QRScan",
+    "orientation": "Land",
+    "id": "A-9340288c-19d9-47ed-a264-08b16f2c3c73"
+  }],
+  "id": "rule-caa58390-bcf7-4116-9ef5-348b1acb5d32",
+  "lastUpdateTime": "1689916054908",
+  "createTime": "1689766810945",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "快捷扫码",
+  "description": "右划左上角启用扫码菜单",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}
