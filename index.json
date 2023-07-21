@@ -32,7 +32,7 @@
     },
     {
       "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
-      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-Bing每日壁纸.txt",
+      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Files/main/da/ShortX-Bing每日壁纸.txt",
       "title": "Bing每日壁纸（中国）",
       "description": "手动获取bing每日壁纸（中国大陆）",
       "versionCode": 1,
@@ -42,7 +42,7 @@
     },
     {
       "id": "DAfc48c802-8738-4858-b6d2-70ba70f2f2a0",
-      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-Bing壁纸全自动保存.txt",
+      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Files/main/da/ShortX-Bing壁纸全自动保存.txt",
       "title": "Bing壁纸全自动保存",
       "description": "获取bing每日壁纸到本地（中国大陆），全自动版本，可用于自动指令调用",
       "versionCode": 1,
@@ -52,7 +52,7 @@
     },
     {
       "id": "DA6d0ad33b-c15f-4b4d-915f-a457e9b35408",
-      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-B站IP地址检查.txt",
+      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Files/main/da/ShortX-B站IP地址检查.txt",
       "title": "B站IP地址检查",
       "description": "看看b站认为你在哪",
       "versionCode": 1,
