@@ -1,11 +1,16 @@
 {
   "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "brush-2-fill",
+    "id": "A-fa58456a-c9b3-4feb-98e6-f4299a9bc7c6"
+  }, {
     "@type": "type.googleapis.com/HttpRequest",
     "url": "https://www.bing.com/HPImageArchive.aspx?format\u003djs\u0026idx\u003d0\u0026n\u003d1\u0026mkt\u003dzh-CN",
     "adapter": {
       "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
-      "expressions": ["images[0].url", "images[0].urlbase", "images[0].copyrightlink", "images[0].title", "images[0].enddate", "images[0].copyright"]
+      "expressions": ["images[0].urlbase", "images[0].copyrightlink", "images[0].title", "images[0].enddate", "images[0].copyright"]
     },
+    "requestBody": {},
     "id": "A-97e50f4e-349a-443e-864d-9510a8d5ef28"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
@@ -50,11 +55,11 @@
     "positive": "横屏",
     "onPositive": [{
       "@type": "type.googleapis.com/ExecuteMVEL",
-      "expression": "\"https://www.bing.com\"+{httpRequestRet2}+\"_1920x1080.jpg\"",
+      "expression": "\"https://www.bing.com\"+{httpRequestRet1}+\"_1920x1080.jpg\"",
       "id": "A-f3b8b0bd-ee12-408a-9aa8-6d8eb1d3ee1e"
     }, {
       "@type": "type.googleapis.com/ShellCommand",
-      "command": "if [ ! -f \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet5} - {httpRequestRet4} - 横屏.jpg\" ]; then\n    curl -o \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet5} - {httpRequestRet4} - 横屏.jpg\" {mvelRet}\nfi\nam broadcast -a android.intent.action.MEDIA_MOUNTED -d globalVarOf$bing_wallpaper_dir",
+      "command": "if [ ! -f \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 横屏.jpg\" ]; then\n    curl -o \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 横屏.jpg\" {mvelRet}\nfi\nam broadcast -a android.intent.action.MEDIA_MOUNTED -d globalVarOf$bing_wallpaper_dir",
       "id": "A-f46cd354-3eaa-427d-be9e-6f47b5a04fa7"
     }, {
       "@type": "type.googleapis.com/ShowToast",
@@ -64,7 +69,7 @@
     "negative": "介绍",
     "onNegative": [{
       "@type": "type.googleapis.com/StartActivityUrlSchema",
-      "urlSchema": "{httpRequestRet3}",
+      "urlSchema": "{httpRequestRet2}",
       "id": "A-cb9cf698-0a4d-497f-9218-5386cd0faf25"
     }, {
       "@type": "type.googleapis.com/ShowToast",
@@ -74,11 +79,11 @@
     "neutral": "竖屏",
     "onNeutral": [{
       "@type": "type.googleapis.com/ExecuteMVEL",
-      "expression": "\"https://www.bing.com\"+{httpRequestRet2}+\"_1080x1920.jpg\"",
+      "expression": "\"https://www.bing.com\"+{httpRequestRet1}+\"_1080x1920.jpg\"",
       "id": "A-9c112554-6f97-459e-9473-efa53c4c4986"
     }, {
       "@type": "type.googleapis.com/ShellCommand",
-      "command": "if [ ! -f \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet5} - {httpRequestRet4} - 竖屏.jpg\" ]; then\n    curl -o \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet5} - {httpRequestRet4} - 竖屏.jpg\" {mvelRet}\nfi\nam broadcast -a android.intent.action.MEDIA_MOUNTED -d globalVarOf$bing_wallpaper_dir",
+      "command": "if [ ! -f \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 竖屏.jpg\" ]; then\n    curl -o \"globalVarOf$bing_wallpaper_dir/bing壁纸{httpRequestRet4} - {httpRequestRet3} - 竖屏.jpg\" {mvelRet}\nfi\nam broadcast -a android.intent.action.MEDIA_MOUNTED -d globalVarOf$bing_wallpaper_dir",
       "id": "A-2bf0361d-d659-4f02-844a-3954ce41a542"
     }, {
       "@type": "type.googleapis.com/ShowToast",
@@ -86,19 +91,19 @@
       "id": "A-09bba361-4f91-4151-87af-13c7371e4928"
     }],
     "title": "尺寸",
-    "message": "壁纸名称为：{httpRequestRet4}\n{httpRequestRet6}\n请选择您需要的尺寸，返回即可取消选择。",
+    "message": "壁纸名称为：{httpRequestRet3}\n{httpRequestRet5}\n请选择您需要的尺寸，返回即可取消选择。",
     "cancelable": true,
     "id": "A-398a61fb-0cfb-4086-9c3e-238bb5db7648"
   }],
   "id": "DA9002f6e2-8407-4802-b46e-5e215ec31434",
-  "lastUpdateTime": "1689700538846",
+  "lastUpdateTime": "1689910693151",
   "createTime": "1689427162402",
-  "versionCode": 2,
+  "versionCode": 3,
   "author": {
     "name": "淫乱"
   },
   "title": "Bing壁纸下载（中国）",
-  "description": "获取bing每日壁纸到本地（中国大陆）"
+  "description": "（单次下载用这个）获取bing每日壁纸到本地（中国大陆）"
 }
 ###------###
 {"type":"da"}
