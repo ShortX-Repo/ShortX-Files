@@ -1,6 +1,16 @@
 {
   "directActions": [
     {
+      "id": "DA9002f6e2-8407-4802-b46e-5e215ec31434",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-Bing壁纸下载_中国_.txt",
+      "title": "Bing壁纸下载（中国）",
+      "description": "获取bing每日壁纸到本地（中国大陆）",
+      "versionCode": 2,
+      "updateTimeMillis": 1689700538846,
+      "author": "淫乱",
+      "tags": []
+    },
+    {
       "id": "DA85a8f0c9-4eb9-47cb-b070-61f830ca967c",
       "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-简易密码生成器0.2_改进_.txt",
       "title": "简易密码生成器0.2(改进)",
@@ -21,32 +31,32 @@
       "tags": []
     },
     {
-      "id": "DA9002f6e2-8407-4802-b46e-5e215ec31434",
-      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Rules_for_ShortX/main/da/ShortX-Bing壁纸下载_中国_.txt",
-      "title": "Bing壁纸下载（中国）",
-      "description": "获取bing每日壁纸到本地（中国大陆）",
-      "versionCode": 2,
-      "updateTimeMillis": 1689902164000,
+      "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-Bing每日壁纸.txt",
+      "title": "Bing每日壁纸（中国）",
+      "description": "手动获取bing每日壁纸（中国大陆）",
+      "versionCode": 1,
+      "updateTimeMillis": 1689433993065,
       "author": "淫乱",
       "tags": []
     },
     {
-      "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
-      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Rules_for_ShortX/main/da/ShortX-Bing每日壁纸.txt",
-      "title": "Bing每日壁纸（中国）",
-      "description": "手动获取bing每日壁纸（中国大陆）"
-      "versionCode": 2,
-      "updateTimeMillis": 1689902164000,
+      "id": "DAfc48c802-8738-4858-b6d2-70ba70f2f2a0",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-Bing壁纸全自动保存.txt",
+      "title": "Bing壁纸全自动保存",
+      "description": "获取bing每日壁纸到本地（中国大陆），全自动版本，可用于自动指令调用",
+      "versionCode": 1,
+      "updateTimeMillis": 1689907469283,
       "author": "淫乱",
       "tags": []
     },
     {
       "id": "DA6d0ad33b-c15f-4b4d-915f-a457e9b35408",
-      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Rules_for_ShortX/main/da/ShortX-B站IP地址检查.txt",
+      "fileUrl": "https://raw.githubusercontent.com/ShortX-Repo/Files/main/da/ShortX-B站IP地址检查.txt",
       "title": "B站IP地址检查",
       "description": "看看b站认为你在哪",
       "versionCode": 1,
-      "updateTimeMillis": 1689902164000,
+      "updateTimeMillis": 1689900326826,
       "author": "淫乱",
       "tags": []
     }
