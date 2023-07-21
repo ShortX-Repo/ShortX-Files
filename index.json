@@ -22,13 +22,33 @@
     }
     {
       "id": "DA9002f6e2-8407-4802-b46e-5e215ec31434",
-      "fileUrl": 
+      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Rules_for_ShortX/main/da/ShortX-Bing壁纸下载_中国_.txt",
       "title": "Bing壁纸下载（中国）",
       "description": "获取bing每日壁纸到本地（中国大陆）",
       "versionCode": 2,
-      "updateTimeMillis": 
+      "updateTimeMillis": 1689902164,
       "author": "淫乱",
-      "tags": []
+      "tags": ["bing","bing壁纸","壁纸","微软"]
+    }
+    {
+      "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
+      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Rules_for_ShortX/main/da/ShortX-Bing每日壁纸.txt",
+      "title": "Bing每日壁纸（中国）",
+      "description": "手动获取bing每日壁纸（中国大陆）"
+      "versionCode": 2,
+      "updateTimeMillis": 1689902164,
+      "author": "淫乱",
+      "tags": ["bing","bing壁纸","壁纸","微软"]
+    }
+    {
+      "id": "DA6d0ad33b-c15f-4b4d-915f-a457e9b35408",
+      "fileUrl": "https://raw.githubusercontent.com/pjj12138-2/Rules_for_ShortX/main/da/ShortX-B站IP地址检查.txt",
+      "title": "B站IP地址检查",
+      "description": "看看b站认为你在哪",
+      "versionCode": 1,
+      "updateTimeMillis": 1689902164,
+      "author": "淫乱",
+      "tags": ["B站","IP","IP查询"]
     }
   ],
   "rules": [
