@@ -8,7 +8,6 @@ import tornaco.apps.shortx.core.rule.repo.Index
 import tornaco.apps.shortx.core.rule.repo.Item
 import java.io.File
 
-const val baseUrl = "https://raw.githubusercontent.com/ShortX-Repo/Files/main"
 const val daDir = "da"
 const val ruleDir = "rule"
 
@@ -29,7 +28,7 @@ object Gen {
                         "Unable to parse Direct action: $fileContent"
                     }
                     Item(
-                        fileUrl = "${baseUrl}/$daDir/${it.name}",
+                        fileUrl = it.name,
                         title = directAction.title,
                         description = directAction.description,
                         author = directAction.author.name,
@@ -51,7 +50,7 @@ object Gen {
                         "Unable to parse Rule: $fileContent"
                     }
                     Item(
-                        fileUrl = "${baseUrl}/$ruleDir/${it.name}",
+                        fileUrl = it.name,
                         title = rule.title,
                         description = rule.description,
                         author = rule.author.name,
