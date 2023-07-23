@@ -83,6 +83,16 @@
       "tags": []
     },
     {
+      "id": "rule-8f1a5a71-6a0a-4371-8259-22fe2da7b369",
+      "fileUrl": "ShortX-恋爱辅助.txt",
+      "title": "恋爱辅助",
+      "description": "智能推荐回复",
+      "versionCode": 1,
+      "updateTimeMillis": 1690084307834,
+      "author": "JK L",
+      "tags": []
+    },
+    {
       "id": "rule-171fa653-24a4-4b52-8614-448a1bea21f9",
       "fileUrl": "ShortX-出站关闭NFC.txt",
       "title": "出站关闭NFC",
