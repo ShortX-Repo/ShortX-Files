@@ -9,6 +9,16 @@
       }]
     },
     "id": "F-89c7bc12-271e-46ca-a58a-eee2272bcd3a"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }, {
+        "pkgName": "com.tencent.mobileqq"
+      }]
+    },
+    "id": "F-8a00b10c-d2f7-4118-9d1c-9afe9f44f703"
   }],
   "conditions": [{
     "@type": "type.googleapis.com/EvaluateGlobalVar",
@@ -17,15 +27,15 @@
     "payload": {
       "value": "{title}"
     },
-    "id": "C-abdfec4f-1bf7-43ab-98a6-eb91092563ef"
+    "id": "C-ebbbe662-8a59-424e-b4a6-699c47dd192d"
   }],
   "actions": [{
-    "@type": "type.googleapis.com/NoAction",
-    "icon": "openai-fill",
-    "id": "A-38333bfe-e1d6-416c-bc52-6fc81e764712"
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "String url\u003d\u0027http://api.qingyunke.com/api.php?key\u003dfree\u0026appid\u003d0\u0026msg\u003d\u0027+{contentText}",
+    "id": "A-a87b023e-e02d-4094-855c-aff5da531e48"
   }, {
     "@type": "type.googleapis.com/HttpRequest",
-    "url": "http://api.qingyunke.com/api.php?key\u003dfree\u0026appid\u003d0\u0026msg\u003d{contentText}",
+    "url": "{mvelRet}",
     "adapter": {
       "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
       "expressions": ["content"]
@@ -37,47 +47,49 @@
     "requestBody": {},
     "id": "A-61fa4dd9-233c-4bf6-bf50-dc7db567bfc4"
   }, {
-    "@type": "type.googleapis.com/ShowOverlayButton",
-    "buttonSettings": [{
-      "actions": [{
-        "@type": "type.googleapis.com/WriteClipboard",
-        "text": "{httpRequestRet1}",
-        "id": "A-04214c1e-b925-4058-b3eb-d110db613e56"
-      }, {
-        "@type": "type.googleapis.com/HideOverlayButton",
-        "id": "A-73fb5fb9-1224-406b-908b-844d70c025bb"
-      }],
-      "icon": "Settings",
-      "label": "推荐回复：{httpRequestRet1}"
-    }],
-    "tag": "back",
-    "id": "A-9aa4ec76-476f-4bfb-a56b-9606e042fac8"
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1690091774026",
+    "title": "智能推荐",
+    "message": "{httpRequestRet1}",
+    "isImportant": true,
+    "smallIcon": "openai-fill",
+    "id": "A-b129eb18-9ebd-4113-b010-6e6b94a5fa9d"
   }, {
-    "@type": "type.googleapis.com/Delay",
-    "time": "2000",
-    "id": "A-91d88338-da7d-44d1-be14-bd2461ae5384"
-  }, {
-    "@type": "type.googleapis.com/HideOverlayButton",
-    "id": "A-71ecb57e-7e63-46e8-bb94-2ebf001519fc"
+    "@type": "type.googleapis.com/WriteClipboard",
+    "text": "{httpRequestRet1}",
+    "id": "A-5131592d-6b02-4013-9fb3-4d5720f93dfb"
   }],
   "id": "rule-8f1a5a71-6a0a-4371-8259-22fe2da7b369",
-  "lastUpdateTime": "1690084307834",
+  "lastUpdateTime": "1690092385318",
   "createTime": "1690083674108",
   "author": {
     "name": "JK L"
   },
   "title": "恋爱辅助",
   "description": "智能推荐回复",
+  "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
-      "@type": "type.googleapis.com/CreateGlobalVar",
-      "globalVar": {
-        "name": "对象",
-        "type": {
-          "@type": "type.googleapis.com/StringVar"
-        }
-      },
-      "id": "A-d47a3c73-a834-44df-8b58-1b3f59b788ca"
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "对象",
+        "payload": {
+        },
+        "id": "C-e2c4f5d2-094b-4538-8689-f83c9060c23b"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "对象",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "id": "A-1dd9cdb9-7879-4610-b8c6-a3107d4d7378"
+      }],
+      "id": "A-9c149bd8-e2f7-416a-a23c-146380805828"
     }]
   },
   "quit": {
