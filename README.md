@@ -2,6 +2,8 @@
 
 这是ShortX发现页面的在线指令数据仓库，指令更新时，通过Github Action自动创建PR更新Index文件。
 
+[![Update index](https://github.com/ShortX-Repo/ShortX-Files/actions/workflows/update_index.yml/badge.svg)](https://github.com/ShortX-Repo/ShortX-Files/actions/workflows/update_index.yml)
+
 
 ## 如何贡献
 
