@@ -6,6 +6,13 @@
     "id": "F-ad025fec-5448-4cac-9e1b-d2d9345d6612"
   }],
   "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "100",
+    "id": "A-a0ae30d2-a590-490a-9280-4166e84d95af"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "id": "A-4927b578-83fe-4f54-8a65-829f80bb1455"
+  }, {
     "@type": "type.googleapis.com/ShowOverlayButton",
     "buttonSettings": [{
       "actions": [{
@@ -64,18 +71,19 @@
     "id": "A-79ea4344-1a1c-46d8-8fe0-59748ba850f8"
   }],
   "id": "lingshang-powerpanel",
-  "lastUpdateTime": "1690830898236",
+  "lastUpdateTime": "1690889706328",
   "createTime": "1690829978331",
   "author": {
     "name": "泠裳"
   },
   "title": "电源面板",
   "description": "长按电源键提供更多选项",
+  "isEnabled": true,
   "hook": {
   },
   "quit": {
   },
-  "versionCode": "1"
+  "versionCode": "2"
 }
 ###------###
 {"type":"rule"}
