@@ -1,0 +1,81 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 26,
+    "gesture": "KeyLongPress",
+    "id": "F-ad025fec-5448-4cac-9e1b-d2d9345d6612"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "reboot -p",
+        "id": "A-7c23fd38-87dd-4fdc-b058-35c757e54e6d"
+      }],
+      "icon": "shut-down-line",
+      "label": "关机"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "reboot",
+        "id": "A-485fd38d-13a4-4f13-a15e-0794cff0678a"
+      }],
+      "icon": "restart-line",
+      "label": "重启"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "reboot recovery",
+        "id": "A-6a507c5e-32b4-4528-a39f-b263422a34b4"
+      }],
+      "icon": "device-recover-fill",
+      "label": "重启到恢复模式"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "reboot fastboot",
+        "id": "A-148fba5c-7622-41dd-b9a5-f9421d309807"
+      }],
+      "icon": "code-box-fill",
+      "label": "重启到引导模式"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am force-stop com.android.systemui",
+        "id": "A-b2f25ba5-80be-4d44-88b3-f13fb9e6a727"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["电源面板"],
+        "id": "A-1ed5503a-0934-449e-be08-b8a2473008ae"
+      }],
+      "icon": "smartphone-fill",
+      "label": "重启系统界面"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["电源面板"],
+        "id": "A-d64161bd-0e76-4c76-94fb-b25859fba248"
+      }],
+      "icon": "logout-box-r-fill",
+      "label": "退出"
+    }],
+    "tag": "电源面板",
+    "id": "A-79ea4344-1a1c-46d8-8fe0-59748ba850f8"
+  }],
+  "id": "lingshang-powerpanel",
+  "lastUpdateTime": "1690830898236",
+  "createTime": "1690829978331",
+  "author": {
+    "name": "泠裳"
+  },
+  "title": "电源面板",
+  "description": "长按电源键提供更多选项",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
