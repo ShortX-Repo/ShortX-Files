@@ -123,6 +123,16 @@
       "tags": []
     },
     {
+      "id": "lingshang-powerpanel",
+      "fileUrl": "ShortX-电源面板.txt",
+      "title": "电源面板",
+      "description": "长按电源键提供更多选项",
+      "versionCode": 1,
+      "updateTimeMillis": 1690830898236,
+      "author": "泠裳",
+      "tags": []
+    },
+    {
       "id": "rule-ecb3726f-17e2-479e-b0a7-405eb3a5a064",
       "fileUrl": "ShortX-自动爱你_微信版_.txt",
       "title": "自动爱你(微信版)",
