@@ -7,7 +7,7 @@
   }],
   "actions": [{
     "@type": "type.googleapis.com/Delay",
-    "timeString": "100",
+    "timeString": "300",
     "id": "A-a0ae30d2-a590-490a-9280-4166e84d95af"
   }, {
     "@type": "type.googleapis.com/InputTap",
@@ -71,7 +71,7 @@
     "id": "A-79ea4344-1a1c-46d8-8fe0-59748ba850f8"
   }],
   "id": "lingshang-powerpanel",
-  "lastUpdateTime": "1690889706328",
+  "lastUpdateTime": "1690892079553",
   "createTime": "1690829978331",
   "author": {
     "name": "泠裳"
@@ -83,7 +83,7 @@
   },
   "quit": {
   },
-  "versionCode": "2"
+  "versionCode": "1"
 }
 ###------###
 {"type":"rule"}
