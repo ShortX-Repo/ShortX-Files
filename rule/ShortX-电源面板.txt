@@ -83,7 +83,7 @@
   },
   "quit": {
   },
-  "versionCode": "2"
+  "versionCode": "3"
 }
 ###------###
 {"type":"rule"}
