@@ -23,7 +23,7 @@
     "name": "ShortX"
   },
   "title": "获取已保存wifi密码 - 去重",
-  "description": "基于mvel",
+  "description": "基于mvel实现",
   "versionCode": "1"
 }
 ###------###
