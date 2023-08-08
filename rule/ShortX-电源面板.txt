@@ -37,24 +37,31 @@
         "id": "A-6a507c5e-32b4-4528-a39f-b263422a34b4"
       }],
       "icon": "device-recover-fill",
-      "label": "重启到恢复模式"
+      "label": "恢复模式"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "reboot bootloader",
+        "id": "A-148fba5c-7622-41dd-b9a5-f9421d309807"
+      }],
+      "icon": "code-box-fill",
+      "label": "引导模式"
     }, {
       "actions": [{
         "@type": "type.googleapis.com/ShellCommand",
         "command": "reboot fastboot",
-        "id": "A-148fba5c-7622-41dd-b9a5-f9421d309807"
+        "id": "A-4b0fa823-8cc1-4b5e-b08b-6d1f20710eef"
       }],
-      "icon": "code-box-fill",
-      "label": "重启到引导模式"
+      "icon": "terminal-box-fill",
+      "label": "fastbootd"
     }, {
       "actions": [{
-        "@type": "type.googleapis.com/ShellCommand",
-        "command": "am force-stop com.android.systemui",
-        "id": "A-b2f25ba5-80be-4d44-88b3-f13fb9e6a727"
-      }, {
         "@type": "type.googleapis.com/HideOverlayButton",
-        "overlayTags": ["电源面板"],
-        "id": "A-1ed5503a-0934-449e-be08-b8a2473008ae"
+        "id": "A-6e49bd00-66bb-45eb-bcd2-b7f2c61e3065"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "killall -9 com.android.systemui",
+        "id": "A-3d14d1b7-3b1b-4381-928e-a44e0c990fc3"
       }],
       "icon": "smartphone-fill",
       "label": "重启系统界面"
@@ -62,7 +69,7 @@
       "actions": [{
         "@type": "type.googleapis.com/HideOverlayButton",
         "overlayTags": ["电源面板"],
-        "id": "A-d64161bd-0e76-4c76-94fb-b25859fba248"
+        "id": "A-2374529d-be90-4407-81b8-d947ba7a62b6"
       }],
       "icon": "logout-box-r-fill",
       "label": "退出"
@@ -71,7 +78,7 @@
     "id": "A-79ea4344-1a1c-46d8-8fe0-59748ba850f8"
   }],
   "id": "lingshang-powerpanel",
-  "lastUpdateTime": "1690892079553",
+  "lastUpdateTime": "1690901484549",
   "createTime": "1690829978331",
   "author": {
     "name": "泠裳"
@@ -83,7 +90,7 @@
   },
   "quit": {
   },
-  "versionCode": "2"
+  "versionCode": "3"
 }
 ###------###
 {"type":"rule"}
