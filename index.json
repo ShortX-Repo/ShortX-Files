@@ -151,6 +151,16 @@
       "updateTimeMillis": 1690092385318,
       "author": "JK L",
       "tags": []
+    },
+    {
+      "id": "rule-d3f32eb0-71ae-4c9a-a143-83757e516545",
+      "fileUrl": "ShortX-微信支付自动输密码.txt",
+      "title": "微信支付自动输密码",
+      "description": "",
+      "versionCode": 1,
+      "updateTimeMillis": 1691669858914,
+      "author": "JK L",
+      "tags": []
     }
   ],
   "updateTimeMillis": 0
