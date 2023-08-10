@@ -156,9 +156,9 @@
       "id": "rule-d3f32eb0-71ae-4c9a-a143-83757e516545",
       "fileUrl": "ShortX-微信支付自动输密码.txt",
       "title": "微信支付自动输密码",
-      "description": "",
+      "description": "为root了用不了指纹支付且不装指纹模块的用户提供输密码服务",
       "versionCode": 1,
-      "updateTimeMillis": 1691669858914,
+      "updateTimeMillis": 1691683913052,
       "author": "JK L",
       "tags": []
     }
