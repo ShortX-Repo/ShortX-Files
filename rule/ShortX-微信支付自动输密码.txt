@@ -43,12 +43,13 @@
     "id": "A-433a7b21-a546-4e49-910a-dc0be0446a48"
   }],
   "id": "rule-d3f32eb0-71ae-4c9a-a143-83757e516545",
-  "lastUpdateTime": "1691669858914",
+  "lastUpdateTime": "1691683913052",
   "createTime": "1691669241412",
   "author": {
     "name": "JK L"
   },
   "title": "微信支付自动输密码",
+  "description": "为root了用不了指纹支付且不装指纹模块的用户提供输密码服务",
   "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
