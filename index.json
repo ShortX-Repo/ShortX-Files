@@ -87,8 +87,8 @@
       "fileUrl": "ShortX-电量-温度-功率记录.txt",
       "title": "电量-温度-功率记录",
       "description": "记录电量，温度和功率\n触发器默认电量变化，可修改\n(拉到下面查看留言",
-      "versionCode": 4,
-      "updateTimeMillis": 1696489560172,
+      "versionCode": 6,
+      "updateTimeMillis": 1696494909582,
       "author": "lanyi233",
       "tags": []
     },
