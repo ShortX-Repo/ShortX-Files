@@ -33,6 +33,33 @@
     "note": "🔋将电池电量写入变量",
     "id": "A-2210b494-1964-4778-94a1-5d8950feda32"
   }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "id": "C-0e977945-0799-4259-8d35-49234d7c40d2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "dc_Screen",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "id": "A-2802100e-6ca5-45e1-95bf-72f52db6d67f"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "dc_Screen",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "id": "A-638782b8-622d-46c9-9342-1ad5cf87857b"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-2709208c-20f9-4f4b-8ed5-f5b2c107feba"
+  }, {
     "@type": "type.googleapis.com/ShellCommand",
     "command": "dc_C\u003d$(cat /sys/devices/virtual/thermal/thermal_zone0/temp)\nout\u003d$(echo \"scale\u003d1; ${dc_C}/1000\" | bc)\necho $out",
     "singleShot": true,
@@ -65,26 +92,6 @@
     },
     "note": "🌡️写入温度",
     "id": "A-19c78df1-d84f-4333-98b4-f7cc752be2d5"
-  }, {
-    "@type": "type.googleapis.com/ShellCommand",
-    "command": "brightness\u003d$(settings get system screen_brightness)\n\nif [ \"$brightness\" -eq 0 ]; then\n  echo \"false\"\nelse\n  echo \"true\"\nfi\n",
-    "singleShot": true,
-    "customContextDataKey": {
-      "keys": [{
-        "first": "shellOut",
-        "second": "dc_Screen"
-      }]
-    },
-    "note": "☀️判定是否亮屏\n （是：true 否：false）",
-    "id": "A-8219efdf-14b8-4963-a9e0-9ca3c797b2c4"
-  }, {
-    "@type": "type.googleapis.com/WriteGlobalVar",
-    "varName": "dc_Screen",
-    "valueAsString": "{dc_Screen}",
-    "customContextDataKey": {
-    },
-    "note": "☀️写入亮屏状态",
-    "id": "A-ffb0414e-2dd8-4e19-b373-22624e8702f1"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
@@ -127,7 +134,7 @@
       "id": "A-88d6c9ca-9555-416a-b139-97067c37fbaa"
     }, {
       "@type": "type.googleapis.com/ShellCommand",
-      "command": "#📝日志文件路径\nlog\u003d\"/storage/emulated/0/Android/电池电量.log\"\n\n#亮屏判断\nSereen_true\u003d\"☀️亮屏\" #亮屏时字符\nSeereen_false\u003d\"🌑息屏\" #息屏时字符\n\nfunction sereen() {\ndc_Screen\u003d\"globalVarOf$dc_Screen\"\nif [[ \"$dc_Screen\" \u003d \"true\" ]];then\n  dc_Sereen\u003d\"${Sereen_true}\"\nelse\n  dc_Sereen\u003d\"${Sereen_false}\"\nfi\n}\nsereen\n\n#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n##时间戳计算\nold_timer\u003d\"globalVarOf$dc_Timer\"\ntimer\u003d\"{dc_Timer}\"\nusage_time\u003d$(echo \"${timer}-${old_timer}\" | bc)\n\n#写入全局变量到shell变量\n#🛠️面向编辑者的提醒\n#⚠️dc_C和dc_P为String变量类型，在shell内为方便制作所以前缀为int，并非真正是Int类型\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\nint_P\u003d\"globalVarOf$dc_P\"\n\n#写入日志\necho -e \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][${usage_time}s][${dc_Sereen}][充电 ↗]电量:${int_Dc} 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}",
+      "command": "#📝日志文件路径\nlog\u003d\"/storage/emulated/0/Android/电池电量.log\"\n\n#亮屏判断\nSereen_true\u003d\"☀️亮屏\" #亮屏时字符\nSereen_false\u003d\"🌑息屏\" #息屏时字符\n\nfunction sereen() {\ndc_Screen\u003d\"globalVarOf$dc_Screen\"\nif [[ \"$dc_Screen\" \u003d \"true\" ]];then\n  dc_Sereen\u003d\"${Sereen_true}\"\nelse\n  dc_Sereen\u003d\"${Sereen_false}\"\nfi\n}\nsereen\n\n#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n##时间戳计算\nold_timer\u003d\"globalVarOf$dc_Timer\"\ntimer\u003d\"{dc_Timer}\"\nusage_time\u003d$(echo \"${timer}-${old_timer}\" | bc)\ntimestamp\u003d\"${usage_time}\"\nminutes\u003d$((timestamp / 60))\nseconds\u003d$((timestamp % 60))\nformatted_time\u003d$(printf \"%02d:%02d\" $minutes $seconds)\n\n#写入全局变量到shell变量\n#🛠️面向编辑者的提醒\n#⚠️dc_C和dc_P为String变量类型，在shell内为方便制作所以前缀为int，并非真正是Int类型\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\nint_P\u003d\"globalVarOf$dc_P\"\n\n#写入日志\necho -e \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][${formatted_time}][${dc_Sereen}][充电 ↗]电量:${int_Dc} 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}",
       "singleShot": true,
       "customContextDataKey": {
       },
@@ -167,7 +174,7 @@
       "id": "A-c0aa2d24-932c-4024-9f12-4c3922a98270"
     }, {
       "@type": "type.googleapis.com/ShellCommand",
-      "command": "#📝日志文件路径\nlog\u003d\"/storage/emulated/0/Android/电池电量.log\"\n\n#亮屏判断\nSereen_true\u003d\"☀️亮屏\" #亮屏时字符\nSeereen_false\u003d\"🌑息屏\" #息屏时字符\n\nfunction sereen() {\ndc_Screen\u003d\"globalVarOf$dc_Screen\"\nif [[ \"$dc_Screen\" \u003d \"true\" ]];then\n  dc_Sereen\u003d\"${Sereen_true}\"\nelse\n  dc_Sereen\u003d\"${Sereen_false}\"\nfi\n}\nsereen\n\n#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n##时间戳计算\nold_timer\u003d\"globalVarOf$dc_Timer\"\ntimer\u003d\"{dc_Timer}\"\nusage_time\u003d$(echo \"${timer}-${old_timer}\" | bc)\n\n#写入全局变量到shell变量\n#🛠️面向编辑者的提醒\n#⚠️dc_C和dc_P为String变量类型，在shell内为方便制作所以前缀为int，并非真正是Int类型\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\nint_P\u003d\"globalVarOf$dc_P\"\n\n#写入日志\necho -e \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][${usage_time}s][${dc_Sereen}][放电 ↘]电量:${int_Dc} 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}",
+      "command": "#📝日志文件路径\nlog\u003d\"/storage/emulated/0/Android/电池电量.log\"\n\n#亮屏判断\nSereen_true\u003d\"☀️亮屏\" #亮屏时字符\nSereen_false\u003d\"🌑息屏\" #息屏时字符\n\nfunction sereen() {\ndc_Screen\u003d\"globalVarOf$dc_Screen\"\nif [[ \"$dc_Screen\" \u003d \"true\" ]];then\n  dc_Sereen\u003d\"${Sereen_true}\"\nelse\n  dc_Sereen\u003d\"${Sereen_false}\"\nfi\n}\nsereen\n\n#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n##时间戳计算\nold_timer\u003d\"globalVarOf$dc_Timer\"\ntimer\u003d\"{dc_Timer}\"\nusage_time\u003d$(echo \"${timer}-${old_timer}\" | bc)\ntimestamp\u003d\"${usage_time}\"\nminutes\u003d$((timestamp / 60))\nseconds\u003d$((timestamp % 60))\nformatted_time\u003d$(printf \"%02d:%02d\" $minutes $seconds)\n\n#写入全局变量到shell变量\n#🛠️面向编辑者的提醒\n#⚠️dc_C和dc_P为String变量类型，在shell内为方便制作所以前缀为int，并非真正是Int类型\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\nint_P\u003d\"globalVarOf$dc_P\"\n\n#写入日志\necho -e \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][${formatted_time}][${dc_Sereen}][放电 ↘]电量:${int_Dc} 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}",
       "singleShot": true,
       "customContextDataKey": {
       },
@@ -200,7 +207,7 @@
     "id": "A-6872bc35-0362-467b-85b9-fb017b6019be"
   }],
   "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
-  "lastUpdateTime": "1696489560172",
+  "lastUpdateTime": "1696494909582",
   "createTime": "1694911923777",
   "author": {
     "name": "lanyi233"
@@ -299,7 +306,7 @@
   },
   "quit": {
   },
-  "versionCode": "4",
+  "versionCode": "6",
   "ruleSetId": "RS-51b8f4dc-0eae-43e9-a7c8-9c42da0c4377"
 }
 ###------###
