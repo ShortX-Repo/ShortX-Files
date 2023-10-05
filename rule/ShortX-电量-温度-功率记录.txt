@@ -1,0 +1,208 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-af99816f-10ce-42e1-8bac-fbedf59ce256"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "sticky-note-line",
+    "customContextDataKey": {
+    },
+    "note": "📝备注：\n✏️日志文件默认于 /sdcard/Android/电池电量.log ，可前往shell内修改\n\n🔝⚠此脚本置顶提示的敏感行为提醒是shell读取温度，电量等的cat命令导致的，并没有其他敏感动作",
+    "id": "A-410ce4d0-0616-45f1-8e2b-93b66da5572c"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dc_Dl\u003d$(cat /sys/class/power_supply/battery/capacity)\nout\u003d$(echo \"scale\u003d1; ${dc_Dl}\" | bc)\necho $out",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "dc_Dl"
+      }]
+    },
+    "note": "获取电池电量",
+    "id": "A-313734c3-d22f-4bbd-a50b-dd3f24397b0b"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "dc_Dl",
+    "valueAsString": "{dc_Dl}",
+    "customContextDataKey": {
+    },
+    "note": "将电池电量写入变量",
+    "id": "A-2210b494-1964-4778-94a1-5d8950feda32"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dc_C\u003d$(cat /sys/devices/virtual/thermal/thermal_zone0/temp)\nout\u003d$(echo \"scale\u003d1; ${dc_C}/1000\" | bc)\necho $out",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "dc_C"
+      }]
+    },
+    "isDisabled": true,
+    "note": "获取温度（仅在 一加 测试成功\n//部分系统温度文件不一，请自行测试\n//此值默认*10000",
+    "id": "A-90683cb1-c6e7-4ad6-a4fa-1f04d7ab9816"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dc_C\u003d$(cat /sys/class/power_supply/battery/temp)\nout\u003d$(echo \"scale\u003d1; ${dc_C}/10\" | bc)\necho $out",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "dc_C"
+      }]
+    },
+    "note": "获取温度（通用\n//部分系统温度文件不一，请自行测试\n//此值默认*100",
+    "id": "A-bbb13107-5569-4f29-b189-9c28bee503fa"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "dc_C",
+    "valueAsString": "{dc_C}",
+    "customContextDataKey": {
+    },
+    "note": "写入温度",
+    "id": "A-19c78df1-d84f-4333-98b4-f7cc752be2d5"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-a59d0c31-6403-45a7-aa9f-c19f5c8afb9a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#充电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\na\u003d-1\ndc_x\u003d$(echo \"scale\u003d2; ${a}*${dc_I}*${dc_U}/1000000000000\" | bc )\ndc_P\u003d$dc_x\necho $dc_P",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "dc_P"
+        }]
+      },
+      "note": "充电状态\n - 写入功率变量",
+      "id": "A-f119068e-e07f-4a36-ada8-f3d7e16b079c"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "dc_P",
+      "valueAsString": "{dc_P}",
+      "customContextDataKey": {
+      },
+      "id": "A-13e9cfc3-b65e-489f-b2ad-1d1e050f719a"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#📝日志文件路径\nlog\u003d\"/storage/emulated/0/Android/电池电量.log\"\n\n#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n\n#写入全局变量到shell变量\n#🛠️面向编辑者的提醒\n#⚠️dc_C和dc_P为String变量类型，在shell内为方便制作所以前缀为int，并非真正是Int类型\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\nint_P\u003d\"globalVarOf$dc_P\"\n\n#写入日志\necho -e \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][充电 ↗]电量:${int_Dc} 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}\n\n#删除shell变量\nunset time_Y time_m time_d time_time",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "写入日志",
+      "id": "A-923eb015-b5f0-47d6-8e6f-6e0bc7f39f84"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#放电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\ndc_x\u003d$(echo \"scale\u003d2; ${dc_I}*${dc_U}/1000000000000\" | bc )\ndc_P\u003d$dc_x\necho $dc_P",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "dc_P"
+        }]
+      },
+      "note": "放电状态\n - 写入功率变量",
+      "id": "A-e80a9561-e621-4956-998e-5b67a0cd5293"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "dc_P",
+      "valueAsString": "{dc_P}",
+      "customContextDataKey": {
+      },
+      "id": "A-cd35b7d5-2c6e-4857-b7cc-db13fc96b442"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#📝日志文件路径\nlog\u003d\"/storage/emulated/0/Android/电池电量.log\"\n\n#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n\n#写入全局变量到shell变量\n#🛠️面向编辑者的提醒\n#⚠️dc_C和dc_P为String变量类型，在shell内为方便制作所以前缀为int，并非真正是Int类型\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\nint_P\u003d\"globalVarOf$dc_P\"\n\n#写入日志\necho \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][放电 ↘]电量:${int_Dc} 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}\n\n#删除shell变量\nunset time_Y time_m time_d time_time",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "写入日志",
+      "id": "A-f983b479-c528-47a8-b6df-69eb9b38414d"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "*写入功率变量\n*写入log\n - 放电\n - 充电",
+    "id": "A-3ad0416c-872c-490f-ad05-57339e050a1c"
+  }],
+  "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
+  "lastUpdateTime": "1696476479021",
+  "createTime": "1694911923777",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "电量-温度-功率记录",
+  "description": "记录电量，温度和功率\n触发器默认电量变化，可修改",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "dc_Dl",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-a37b7146-1f40-4bdb-9a1b-8248f0c9699e"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "dc_C",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-184cba88-9519-4c41-9515-869abe174e13"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "dc_P",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-820d2ad4-a560-4c56-889f-b5e5ef73eb41"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_Dl",
+      "customContextDataKey": {
+      },
+      "id": "A-950105bb-b708-4f02-9977-73678a90e52f"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_C",
+      "customContextDataKey": {
+      },
+      "id": "A-b491e0b0-2f06-4b2b-a68e-354c7d8a5dda"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_P",
+      "customContextDataKey": {
+      },
+      "id": "A-e21545e3-c7d4-41ed-a064-65441f8aa8a2"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "3.1",
+  "ruleSetId": "RS-51b8f4dc-0eae-43e9-a7c8-9c42da0c4377"
+}
+###------###
+{"type":"rule"}
