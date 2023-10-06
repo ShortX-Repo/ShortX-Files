@@ -1,0 +1,55 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppProcessStarted",
+    "processName": [{
+      "processName": ".*"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-924ac39c-4c70-4278-b1fa-08e1196aad90"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgListByPkg",
+    "pkgAndUsers": [{
+      "first": "{pkgName}",
+      "second": "0"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-ce3e2ee6-5797-4adb-9987-bbad15d5f8f9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{pkgName} 启动了",
+    "customContextDataKey": {
+    },
+    "note": "调试用，快速获知启动信息\n点击左侧图标可禁用",
+    "id": "A-99656c79-362f-4e2c-bb94-4219b42be777"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 特别鸣谢：日期部分代码由lanyi233提供\n\n# 日期时间部分\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n\n# 包名\u0026log路径部分\napp\u003d\"{pkgName}\"\nlog\u003d\"/sdcard/Android/□□, 启动! .log\"\n\n\n# 输出log部分\n echo -e \"[${time_Y}年${time_m}月${time_d}日${time_time}] ${app} 启动了\"\u003e\u003e $log\n\nunset time_Y time_m time_ d time_time",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-5e1fb336-8570-41c5-8eeb-ae1a018f8018"
+  }],
+  "id": "rule-f2630c57-3935-4e6a-843c-0217296d24e2",
+  "lastUpdateTime": "1696520363112",
+  "createTime": "1696070951340",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "[调试]应用启动通知",
+  "description": "当应用后台启动时发送一条通知",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-99afceed-e1e8-4633-8337-d33ad43ccf87"
+}
+###------###
+{"type":"rule"}
