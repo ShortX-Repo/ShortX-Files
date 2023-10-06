@@ -113,6 +113,16 @@
       "tags": []
     },
     {
+      "id": "rule-53c01d0f-c4d6-4ac8-8fc0-35518ba2cf64",
+      "fileUrl": "ShortX-_调试_应用趋势通知.txt",
+      "title": "[调试]应用趋势通知",
+      "description": "当应用趋势时发送一条通知",
+      "versionCode": 1,
+      "updateTimeMillis": 1696520371118,
+      "author": "ShortX",
+      "tags": []
+    },
+    {
       "id": "lingshang-powerpanel",
       "fileUrl": "ShortX-电源面板.txt",
       "title": "电源面板",
@@ -179,6 +189,16 @@
       "description": "提取短信中的验证码，自动填入输入框",
       "versionCode": 0,
       "updateTimeMillis": 1689907916958,
+      "author": "ShortX",
+      "tags": []
+    },
+    {
+      "id": "rule-f2630c57-3935-4e6a-843c-0217296d24e2",
+      "fileUrl": "ShortX-_调试_应用启动通知.txt",
+      "title": "[调试]应用启动通知",
+      "description": "当应用后台启动时发送一条通知",
+      "versionCode": 1,
+      "updateTimeMillis": 1696520363112,
       "author": "ShortX",
       "tags": []
     }
