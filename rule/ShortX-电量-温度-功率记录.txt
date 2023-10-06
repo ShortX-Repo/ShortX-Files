@@ -207,7 +207,7 @@
     "id": "A-6872bc35-0362-467b-85b9-fb017b6019be"
   }],
   "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
-  "lastUpdateTime": "1696580310559",
+  "lastUpdateTime": "1696580805435",
   "createTime": "1694911923777",
   "author": {
     "name": "lanyi233"
@@ -313,6 +313,7 @@
       }],
       "customContextDataKey": {
       },
+      "isDisabled": true,
       "note": "⚠️有些人对占用变量过敏，可开启",
       "id": "A-1216f8ca-1e4d-478b-b8c3-662290076e24"
     }],
