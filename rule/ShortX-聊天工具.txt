@@ -277,23 +277,15 @@
     "customContextDataKey": {
     },
     "id": "A-449eb361-c7a1-405c-885c-d2df17843286"
-  }, {
-    "@type": "type.googleapis.com/NoAction",
-    "icon": "microsoft-fill",
-    "customContextDataKey": {
-    },
-    "note": "创意来自作者\"JK L\"的恋爱辅助",
-    "id": "A-d3879986-8741-4549-a734-335e16d25cd4"
   }],
   "id": "rule-8fba3995-e662-4f5b-86a3-ac31f60e4ab6",
-  "lastUpdateTime": "1696606703777",
+  "lastUpdateTime": "1696671000566",
   "createTime": "1696605857143",
   "author": {
     "name": "Sydney2580"
   },
   "title": "聊天工具",
   "description": "使用前确保已设置Usernames全局变量\n如果指令不生效，请尝试开关指令，根据指引添加用户组",
-  "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
       "@type": "type.googleapis.com/IfThenElse",
@@ -314,7 +306,7 @@
           "@type": "type.googleapis.com/ShowAlertDialog",
           "positive": "明白",
           "title": "您未创建用户组变量",
-          "message": "将无法推荐所有微信与QQ通知\n如想全部开启 请删除所有条件",
+          "message": "将无法推荐所有微信与QQ通知",
           "cancelable": true,
           "customContextDataKey": {
           },
@@ -473,6 +465,13 @@
       "note": "点击拒绝创建用户组后，可以自行在全局变量创建Usernames变量，类型为stringlist",
       "id": "A-9c149bd8-e2f7-416a-a23c-146380805828"
     }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "messages",
+      "customContextDataKey": {
+      },
+      "id": "A-81295547-48e6-47b3-a992-452ba77587af"
+    }],
     "actionsOnDeleted": [{
       "@type": "type.googleapis.com/IfThenElse",
       "If": [{
@@ -534,7 +533,7 @@
   "quit": {
   },
   "asyncMode": "AsyncMode_Sync",
-  "versionCode": "1.0.0"
+  "versionCode": "1"
 }
 ###------###
 {"type":"rule"}
