@@ -10,7 +10,7 @@
     "icon": "sticky-note-line",
     "customContextDataKey": {
     },
-    "note": "📝备注：\n✏️日志文件默认于 /sdcard/Android/电池电量.log ，可前往shell内修改\n\n🔝⚠此脚本置顶提示的敏感行为提醒是shell读取温度，电量等的cat命令导致的，并没有其他敏感动作\n\n📖更新内容：息屏/量屏状态，状态变化用的时间\n\n🌈感谢“沐 雪sonw”提供的功率显示代码",
+    "note": "📝备注：\n✏️日志文件默认于 /sdcard/Android/电池电量.log ，可前往shell内修改\n\n🔝⚠此脚本置顶提示的敏感行为提醒是shell读取温度，电量等的cat命令导致的，并没有其他敏感动作\n\n📖更新内容：息屏/量屏状态，状态变化用的时间\n\n📃有些人对占用变量过敏，可拉至下面“被禁用时”开启动作\n❌删除指令时会自动删除使用的变量\n\n🌈感谢“沐 雪sonw”提供的功率显示代码",
     "id": "A-410ce4d0-0616-45f1-8e2b-93b66da5572c"
   }, {
     "@type": "type.googleapis.com/ShellCommand",
@@ -207,7 +207,7 @@
     "id": "A-6872bc35-0362-467b-85b9-fb017b6019be"
   }],
   "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
-  "lastUpdateTime": "1696494909582",
+  "lastUpdateTime": "1696580805435",
   "createTime": "1694911923777",
   "author": {
     "name": "lanyi233"
@@ -271,6 +271,51 @@
       "customContextDataKey": {
       },
       "id": "A-d50d2e0e-fd5f-4656-aa72-2775943ce0f1"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-bd6eca4e-4824-4040-a3e4-9c5548e3641c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "dc_Dl",
+        "customContextDataKey": {
+        },
+        "id": "A-950105bb-b708-4f02-9977-73678a90e52f"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "dc_C",
+        "customContextDataKey": {
+        },
+        "id": "A-b491e0b0-2f06-4b2b-a68e-354c7d8a5dda"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "dc_P",
+        "customContextDataKey": {
+        },
+        "id": "A-e21545e3-c7d4-41ed-a064-65441f8aa8a2"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "dc_Timer",
+        "customContextDataKey": {
+        },
+        "id": "A-dec7ccb4-d760-4d52-8381-a8c109538d56"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "dc_Screen",
+        "customContextDataKey": {
+        },
+        "id": "A-0d03eb57-4c40-4ce3-8f0b-d4d9faf610cf"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "⚠️有些人对占用变量过敏，可开启",
+      "id": "A-1216f8ca-1e4d-478b-b8c3-662290076e24"
     }],
     "actionsOnDeleted": [{
       "@type": "type.googleapis.com/DeleteGlobalVar",
