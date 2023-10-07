@@ -201,6 +201,16 @@
       "updateTimeMillis": 1696529790179,
       "author": "Rarlya",
       "tags": []
+    },
+    {
+      "id": "rule-8fba3995-e662-4f5b-86a3-ac31f60e4ab6",
+      "fileUrl": "ShortX-聊天工具.txt",
+      "title": "聊天工具",
+      "description": "使用前确保已设置Usernames全局变量\n如果指令不生效，请尝试开关指令，根据指引添加用户组",
+      "versionCode": 1,
+      "updateTimeMillis": 1696671000566,
+      "author": "Sydney2580",
+      "tags": []
     }
   ],
   "updateTimeMillis": 0
