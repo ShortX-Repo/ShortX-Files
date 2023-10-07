@@ -1,0 +1,539 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "apps": [{
+        "pkgName": "com.tencent.mobileqq"
+      }, {
+        "pkgName": "com.tencent.mm"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-7fde5fe0-c441-4601-bcf4-ac2723ce86ac"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.tencent.mobileqq"
+      }, {
+        "pkgName": "com.tencent.mm"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b2d74796-f909-45fa-82de-8d2a79361f93"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "Usernames",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-c80eb2ec-2b96-490a-b3be-973d3c25b71c"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "否",
+      "onPositive": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "明白",
+        "title": "您未创建用户组变量",
+        "message": "请自行设置，否则无法使用",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-c34c574d-fd97-44eb-88d4-8ca173ded630"
+      }],
+      "negative": "是",
+      "onNegative": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "Usernames",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-44bf0ece-9397-457a-a8a3-7afa89d3375c"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已成功创建用户组\"Usernames\"",
+        "customContextDataKey": {
+        },
+        "id": "A-f0d16c26-2a0d-45ce-94a3-ce507641afb7"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "negative": "增加",
+        "onNegative": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "用户昵称 (一次最多1个)",
+          "cancelable": true,
+          "textFields": [{
+            "placeholder": "Username"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-2287fd17-6c41-44b8-9f88-d5e070487c31"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Usernames",
+          "valueAsString": "{textFieldInput1}",
+          "op": "WriteGlobalVarOp_AppendToLast",
+          "customContextDataKey": {
+          },
+          "id": "A-7641c77a-9a33-4564-9df2-64ff4180c39f"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "成功！",
+          "customContextDataKey": {
+          },
+          "id": "A-888af50e-fd61-4bc4-b78d-d4a1fb3312f9"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "DetermineUserClick",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-8363b394-b880-4aa3-a9b1-b05fde12cc3c"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "DetermineUserClick",
+          "valueAsString": "0",
+          "customContextDataKey": {
+          },
+          "id": "A-a9b78e82-a286-46b7-a938-f140773b77ad"
+        }, {
+          "@type": "type.googleapis.com/WhileLoop",
+          "conditions": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "DetermineUserClick",
+            "payload": {
+              "value": "1"
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-f39f6759-d183-4d14-bce4-a7edc86cf866"
+          }],
+          "actions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "是",
+            "onPositive": [{
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "用户昵称 (一次最多一个)",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "Usernames"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-672a9d4f-c6a4-487f-8af5-fa43aa1983ef"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "Usernames",
+              "valueAsString": "{textFieldInput1}",
+              "op": "WriteGlobalVarOp_AppendToLast",
+              "customContextDataKey": {
+              },
+              "id": "A-1747cef8-0f94-4b57-93e9-0de9a35b827d"
+            }, {
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "成功！",
+              "customContextDataKey": {
+              },
+              "id": "A-5c204c9d-9ee9-46c5-a236-135d2841a813"
+            }],
+            "negative": "否",
+            "onNegative": [{
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "DetermineUserClick",
+              "valueAsString": "1",
+              "customContextDataKey": {
+              },
+              "id": "A-67f6a54a-8c99-4a08-8d99-134131e1326f"
+            }],
+            "title": "继续增加？",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-190a0027-2070-4b33-97f1-5535a2e21ad5"
+          }],
+          "delay": 200,
+          "repeatTimes": 5,
+          "customContextDataKey": {
+          },
+          "id": "A-da7487c3-080f-4dee-aa24-212e76a07842"
+        }],
+        "neutral": "不增加",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "请自行增加用户组昵称",
+          "customContextDataKey": {
+          },
+          "id": "A-e3e438e7-7587-455d-ae8a-0ef30d95e5de"
+        }],
+        "title": "增加昵称",
+        "message": "要增加需要收到推荐回复的用户昵称吗",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-10ba8028-c0de-4648-8c79-eb79cfe6c0f6"
+      }],
+      "title": "检测到未创建用户组",
+      "message": "是否创建？",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-e820323d-679e-49d5-a643-41c9776f9002"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "检测工具，如确保用户组已设置，可禁用",
+    "id": "A-69b76977-2548-4a25-a7a9-3fd4b49e0fcc"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "boolean found \u003d false;\nfor (String item : globalVarOf$Usernames) {\n    if (title.contains(item)) {\n        found \u003d true;\n    }\n}\nfound\n",
+      "customContextDataKey": {
+      },
+      "id": "C-0e1140e3-db4d-4e7a-bc45-e1ba527074a6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api.ownthink.com/bot?appid\u003dxiaosi\u0026userid\u003duser\u0026spoken\u003d{contentText}",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["data.info.text"]
+      },
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "id": "A-74ff4d61-97f9-4f16-b880-72d952d36f5d"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "messages",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0c57542c-43e0-422f-a087-f48bf34fd5c5"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "messages",
+      "valueAsString": "{httpRequestRet1}",
+      "customContextDataKey": {
+      },
+      "id": "A-213be512-2396-4bb5-a82f-a5eb4a4d838b"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "SmartChatTool",
+      "title": "来自{title}的信息",
+      "message": "智能回复:\"{httpRequestRet1}\"\n点击按钮以复制至剪切板",
+      "isImportant": true,
+      "largeIcon": "twitch-fill",
+      "smallIcon": "twitch-fill",
+      "button": [{
+        "id": "Button-26487983-6eeb-444e-9129-38c62fd334cf",
+        "action": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "globalVarOf$messages",
+          "customContextDataKey": {
+          },
+          "id": "A-14352998-6d97-4f6e-862f-7368573276eb"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "复制完成",
+          "customContextDataKey": {
+          },
+          "id": "A-87c14cd7-7837-4628-ab9c-ce6c5c2def57"
+        }],
+        "label": "复制"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-83ca217d-9cb4-4629-b7a7-2b6647d1d8c9"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "点击通知复制按钮以复制智能消息",
+      "customContextDataKey": {
+      },
+      "id": "A-1f20c986-2e06-41dc-a742-8f34d2763c43"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-449eb361-c7a1-405c-885c-d2df17843286"
+  }],
+  "id": "rule-8fba3995-e662-4f5b-86a3-ac31f60e4ab6",
+  "lastUpdateTime": "1696671000566",
+  "createTime": "1696605857143",
+  "author": {
+    "name": "Sydney2580"
+  },
+  "title": "聊天工具",
+  "description": "使用前确保已设置Usernames全局变量\n如果指令不生效，请尝试开关指令，根据指引添加用户组",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "Usernames",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e2c4f5d2-094b-4538-8689-f83c9060c23b"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "否",
+        "onPositive": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "明白",
+          "title": "您未创建用户组变量",
+          "message": "将无法推荐所有微信与QQ通知",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-c34c574d-fd97-44eb-88d4-8ca173ded630"
+        }],
+        "negative": "是",
+        "onNegative": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "Usernames",
+            "type": {
+              "@type": "type.googleapis.com/StringListVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-44bf0ece-9397-457a-a8a3-7afa89d3375c"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "已成功创建用户组\"Usernames\"",
+          "customContextDataKey": {
+          },
+          "id": "A-f0d16c26-2a0d-45ce-94a3-ce507641afb7"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "negative": "增加",
+          "onNegative": [{
+            "@type": "type.googleapis.com/ShowTextFieldDialog",
+            "title": "用户昵称 (一次最多1个)",
+            "cancelable": true,
+            "textFields": [{
+              "placeholder": "Username"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-2287fd17-6c41-44b8-9f88-d5e070487c31"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "Usernames",
+            "valueAsString": "{textFieldInput1}",
+            "op": "WriteGlobalVarOp_AppendToLast",
+            "customContextDataKey": {
+            },
+            "id": "A-7641c77a-9a33-4564-9df2-64ff4180c39f"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "成功！",
+            "customContextDataKey": {
+            },
+            "id": "A-888af50e-fd61-4bc4-b78d-d4a1fb3312f9"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "DetermineUserClick",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-8363b394-b880-4aa3-a9b1-b05fde12cc3c"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "DetermineUserClick",
+            "valueAsString": "0",
+            "customContextDataKey": {
+            },
+            "id": "A-a9b78e82-a286-46b7-a938-f140773b77ad"
+          }, {
+            "@type": "type.googleapis.com/WhileLoop",
+            "conditions": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "DetermineUserClick",
+              "payload": {
+                "value": "1"
+              },
+              "customContextDataKey": {
+              },
+              "isInvert": true,
+              "id": "C-f39f6759-d183-4d14-bce4-a7edc86cf866"
+            }],
+            "actions": [{
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "是",
+              "onPositive": [{
+                "@type": "type.googleapis.com/ShowTextFieldDialog",
+                "title": "用户昵称 (一次最多一个)",
+                "cancelable": true,
+                "textFields": [{
+                  "placeholder": "Usernames"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-672a9d4f-c6a4-487f-8af5-fa43aa1983ef"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "Usernames",
+                "valueAsString": "{textFieldInput1}",
+                "op": "WriteGlobalVarOp_AppendToLast",
+                "customContextDataKey": {
+                },
+                "id": "A-1747cef8-0f94-4b57-93e9-0de9a35b827d"
+              }, {
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "成功！",
+                "customContextDataKey": {
+                },
+                "id": "A-5c204c9d-9ee9-46c5-a236-135d2841a813"
+              }],
+              "negative": "否",
+              "onNegative": [{
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "DetermineUserClick",
+                "valueAsString": "1",
+                "customContextDataKey": {
+                },
+                "id": "A-67f6a54a-8c99-4a08-8d99-134131e1326f"
+              }],
+              "title": "继续增加？",
+              "cancelable": true,
+              "customContextDataKey": {
+              },
+              "id": "A-190a0027-2070-4b33-97f1-5535a2e21ad5"
+            }],
+            "delay": 200,
+            "repeatTimes": 5,
+            "customContextDataKey": {
+            },
+            "id": "A-da7487c3-080f-4dee-aa24-212e76a07842"
+          }],
+          "neutral": "不增加",
+          "onNeutral": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "请自行增加用户组昵称",
+            "customContextDataKey": {
+            },
+            "id": "A-e3e438e7-7587-455d-ae8a-0ef30d95e5de"
+          }],
+          "title": "增加昵称",
+          "message": "要增加需要收到推荐回复的用户昵称吗",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-10ba8028-c0de-4648-8c79-eb79cfe6c0f6"
+        }],
+        "title": "检测到未创建用户组",
+        "message": "是否创建？",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-e820323d-679e-49d5-a643-41c9776f9002"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "点击拒绝创建用户组后，可以自行在全局变量创建Usernames变量，类型为stringlist",
+      "id": "A-9c149bd8-e2f7-416a-a23c-146380805828"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "messages",
+      "customContextDataKey": {
+      },
+      "id": "A-81295547-48e6-47b3-a992-452ba77587af"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "messages",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-045bb440-9a25-4ae6-a252-71070e0f0341"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "messages",
+        "customContextDataKey": {
+        },
+        "id": "A-e3934607-e9f7-46ff-8fa7-d087140c1a5c"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已自动删除messages",
+        "customContextDataKey": {
+        },
+        "id": "A-aa9937a6-ad33-4c51-a862-aaed601f0000"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d82ca858-9c7b-4701-958d-4330397b7136"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "Usernames",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-6c5d493c-4212-4da8-9194-39777c2a1bc9"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "Usernames",
+        "customContextDataKey": {
+        },
+        "id": "A-5d31dfaa-928b-4524-b615-92d0a9c76ecb"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已删除用户组Usernames",
+        "customContextDataKey": {
+        },
+        "id": "A-600d125a-45b2-4e79-a108-5c41e56c3573"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a13b0457-249a-457e-8f02-fc2885e54e50"
+    }]
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
