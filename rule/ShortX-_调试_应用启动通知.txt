@@ -39,7 +39,7 @@
   "lastUpdateTime": "1696702827428",
   "createTime": "1696070951340",
   "author": {
-    "name": "ShortX"
+    "name": "Rarlya"
   },
   "title": "[调试]应用启动通知 1.3",
   "description": "当应用进程后台启动时发送一条通知",
