@@ -115,10 +115,10 @@
     {
       "id": "rule-53c01d0f-c4d6-4ac8-8fc0-35518ba2cf64",
       "fileUrl": "ShortX-_调试_应用趋势通知.txt",
-      "title": "[调试]应用趋势通知 1.3",
+      "title": "[调试]应用趋势通知 1.4",
       "description": "当应用停止运行时发送一条通知",
-      "versionCode": 3,
-      "updateTimeMillis": 1696702819516,
+      "versionCode": 4,
+      "updateTimeMillis": 1696750516241,
       "author": "Rarlya",
       "tags": []
     },
