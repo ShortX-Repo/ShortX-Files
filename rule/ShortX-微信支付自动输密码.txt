@@ -1,13 +1,16 @@
 {
   "facts": [{
-    "@type": "type.googleapis.com/ActivityStarted",
-    "components": [{
-      "pkg": {
-        "pkgName": "com.tencent.mm"
-      },
-      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    "@type": "type.googleapis.com/HasFoundNodeOnScreen",
+    "packageName": "com.tencent.mm",
+    "componentName": "com.tencent.mm/com.tencent.mm.framework.app.UIPageFragmentActivity",
+    "matchers": [{
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "tenpay_keyboard_0"
     }],
-    "id": "F-004d7946-348c-4ce7-b005-efe1e86d4fe2"
+    "detectTimeout": "5000",
+    "customContextDataKey": {
+    },
+    "id": "F-40cec53f-a422-4798-bb80-15136c160eec"
   }],
   "conditions": [{
     "@type": "type.googleapis.com/EvaluateGlobalVar",
@@ -15,19 +18,26 @@
     "varName": "支付密码",
     "payload": {
     },
+    "customContextDataKey": {
+    },
     "id": "C-53dbb4dc-c00b-463d-868d-f4fbffddd828"
   }],
   "actions": [{
-    "@type": "type.googleapis.com/Delay",
-    "timeString": "1000",
-    "id": "A-2997ff04-0c92-43fb-a644-a3d41ffa8afb"
-  }, {
     "@type": "type.googleapis.com/ShowAlertDialog",
     "positive": "确认",
     "onPositive": [{
-      "@type": "type.googleapis.com/InputText",
-      "text": "globalVarOf$支付密码",
-      "id": "A-b4d7b964-aa6e-4e2a-980a-86587aa5f231"
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "input text globalVarOf$支付密码",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut"
+        }, {
+          "first": "shellErr"
+        }, {
+          "first": "shellCode"
+        }]
+      },
+      "id": "A-eddd0e22-49e4-4ad9-a2b1-8edb8ca4d6e8"
     }],
     "negative": "取消支付",
     "onNegative": [{
@@ -35,22 +45,25 @@
       "processes": [{
         "processName": "com.tencent.mm/.framework.app.UIPageFragmentActivity"
       }],
+      "customContextDataKey": {
+      },
       "id": "A-3521e068-e1ac-45d1-878f-a6d3d627edcc"
     }],
     "title": "支付确认",
     "message": "是否确认支付",
     "cancelable": true,
+    "customContextDataKey": {
+    },
     "id": "A-433a7b21-a546-4e49-910a-dc0be0446a48"
   }],
   "id": "rule-d3f32eb0-71ae-4c9a-a143-83757e516545",
-  "lastUpdateTime": "1691683913052",
+  "lastUpdateTime": "1694623367218",
   "createTime": "1691669241412",
   "author": {
     "name": "JK L"
   },
   "title": "微信支付自动输密码",
   "description": "为root了用不了指纹支付且不装指纹模块的用户提供输密码服务",
-  "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
       "@type": "type.googleapis.com/IfThenElse",
@@ -59,6 +72,8 @@
         "op": "IsNotExists",
         "varName": "支付密码",
         "payload": {
+        },
+        "customContextDataKey": {
         },
         "id": "C-be1b99c4-0b22-4619-854a-4a3a0f63e0f0"
       }],
@@ -71,6 +86,8 @@
           },
           "isSecret": true
         },
+        "customContextDataKey": {
+        },
         "id": "A-9688e286-a684-4cd1-9427-eff0a2fc1c05"
       }, {
         "@type": "type.googleapis.com/ShowTextFieldDialog",
@@ -79,18 +96,26 @@
         "textFields": [{
           "placeholder": "输入支付密码"
         }],
+        "customContextDataKey": {
+        },
         "id": "A-4cfb391e-4c51-4d19-9c18-dcd74b42cb8c"
       }, {
         "@type": "type.googleapis.com/WriteGlobalVar",
         "varName": "支付密码",
         "valueAsString": "{textFieldInput1}",
+        "customContextDataKey": {
+        },
         "id": "A-5d724340-e196-47c4-b821-7b42b55bdfd1"
       }],
+      "customContextDataKey": {
+      },
       "id": "A-97c28265-0f93-4235-9df3-b01ca5c192be"
     }],
     "actionsOnDeleted": [{
       "@type": "type.googleapis.com/DeleteGlobalVar",
       "varName": "支付密码",
+      "customContextDataKey": {
+      },
       "id": "A-cccedb1c-ea93-43ec-8ec9-3d885fe6de4d"
     }]
   },
@@ -98,7 +123,8 @@
   },
   "asyncMode": "AsyncMode_Sync",
   "versionCode": "1",
-  "conflictPolicy": "ConflictStrategy_SkipNew"
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-d1d0b3f2-33fd-4ea2-83ac-03c08be859a0"
 }
 ###------###
 {"type":"rule"}
