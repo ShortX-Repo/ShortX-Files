@@ -10,246 +10,366 @@
     "icon": "sticky-note-line",
     "customContextDataKey": {
     },
-    "note": "📝备注：\n✏️日志文件默认于 /sdcard/Android/电池电量.log ，可前往shell内修改\n\n🔝⚠此脚本置顶提示的敏感行为提醒是shell读取温度，电量等的cat命令导致的，并没有其他敏感动作\n\n📖更新内容：息屏/量屏状态，状态变化用的时间\n\n📃有些人对占用变量过敏，可拉至下面“被禁用时”开启动作\n❌删除指令时会自动删除使用的变量\n\n🌈感谢“沐 雪sonw”提供的功率显示代码",
+    "note": "📝备注：\n✏️日志文件默认于 /sdcard/Android/电池电量.log ，可前往“🛠️面向使用者的修改”以修改\n\n🔝⚠此脚本置顶提示的敏感行为提醒是shell读取温度，电量等的cat命令导致的，并没有其他敏感动作\n\n📖更新内容：面向用户的字符自定义（感谢@luye2580）\n\n📃有些人对占用变量过敏，所以将除了时间戳之外的变量 ❌“全 部 删 除”❌\n\n🌈感谢“沐 雪sonw”提供的功率显示代码",
     "id": "A-410ce4d0-0616-45f1-8e2b-93b66da5572c"
   }, {
-    "@type": "type.googleapis.com/ShellCommand",
-    "command": "dc_Dl\u003d$(cat /sys/class/power_supply/battery/capacity)\nout\u003d$(echo \"scale\u003d1; ${dc_Dl}\" | bc)\necho $out",
-    "singleShot": true,
-    "customContextDataKey": {
-      "keys": [{
-        "first": "shellOut",
-        "second": "dc_Dl"
-      }]
-    },
-    "note": "🔋获取电池电量",
-    "id": "A-313734c3-d22f-4bbd-a50b-dd3f24397b0b"
-  }, {
-    "@type": "type.googleapis.com/WriteGlobalVar",
-    "varName": "dc_Dl",
-    "valueAsString": "{dc_Dl}",
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "file-warning-fill",
     "customContextDataKey": {
     },
-    "note": "🔋将电池电量写入变量",
-    "id": "A-2210b494-1964-4778-94a1-5d8950feda32"
+    "note": "⚠️请---注---意\n - 请手动创建日志目录的文件夹📁，否则无法正常写入日志\n - 日志目录文件夹在“🛠️面向使用者的修改”内",
+    "id": "A-93732982-fd38-4a0a-9d3b-b7e6fd730b7e"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
-      "@type": "type.googleapis.com/ScreenIsOn",
+      "@type": "type.googleapis.com/True",
       "customContextDataKey": {
       },
-      "id": "C-0e977945-0799-4259-8d35-49234d7c40d2"
+      "id": "C-82b0773a-153f-44a2-aea8-3252634b68b1"
     }],
     "IfActions": [{
-      "@type": "type.googleapis.com/WriteGlobalVar",
-      "varName": "dc_Screen",
-      "valueAsString": "true",
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "dc_Dl\u003d$(cat /sys/class/power_supply/battery/capacity)\nout\u003d$(echo \"scale\u003d1; ${dc_Dl}\" | bc)\necho $out",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "dc_Dl"
+        }]
+      },
+      "note": "🔋获取电池电量",
+      "id": "A-313734c3-d22f-4bbd-a50b-dd3f24397b0b"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-f20971fd-fb36-4c72-82f0-066f2b17b2b4"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dc_C\u003d$(cat /sys/devices/virtual/thermal/thermal_zone0/temp)\nout\u003d$(echo \"scale\u003d1; ${dc_C}/1000\" | bc)\necho $out",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "dc_C"
+          }]
+        },
+        "isDisabled": true,
+        "note": "🌡️获取温度（仅在 一加 测试成功\n//部分系统温度文件不一，请自行测试\n//此值默认*10000",
+        "id": "A-90683cb1-c6e7-4ad6-a4fa-1f04d7ab9816"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dc_C\u003d$(cat /sys/class/power_supply/battery/temp)\nout\u003d$(echo \"scale\u003d1; ${dc_C}/10\" | bc)\necho $out",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "dc_C"
+          }]
+        },
+        "note": "🌡️获取温度（通用\n//部分系统温度文件不一，请自行测试\n//此值默认*100",
+        "id": "A-bbb13107-5569-4f29-b189-9c28bee503fa"
+      }],
       "customContextDataKey": {
       },
-      "id": "A-2802100e-6ca5-45e1-95bf-72f52db6d67f"
-    }],
-    "ElseActions": [{
-      "@type": "type.googleapis.com/WriteGlobalVar",
-      "varName": "dc_Screen",
-      "valueAsString": "false",
+      "note": "🌡️获取温度",
+      "id": "A-36b98df9-aa85-4a99-8ba3-8c6bb2ac4775"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ChargeState",
+        "requireIsCharge": true,
+        "customContextDataKey": {
+        },
+        "id": "C-183e9fdc-a7d6-4b61-96de-8988abaedf60"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#充电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\na\u003d-1\ndc_x\u003d$(echo \"scale\u003d2; ${a}*${dc_I}*${dc_U}/1000000000000\" | bc )\ndc_P\u003d$dc_x\necho $dc_P",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "dc_P"
+          }]
+        },
+        "note": "充电状态\n - 功率变量",
+        "id": "A-f119068e-e07f-4a36-ada8-f3d7e16b079c"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#放电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\ndc_x\u003d$(echo \"scale\u003d2; ${dc_I}*${dc_U}/1000000000000\" | bc )\ndc_P\u003d$dc_x\necho $dc_P",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "dc_P"
+          }]
+        },
+        "note": "放电状态\n - 功率变量",
+        "id": "A-e80a9561-e621-4956-998e-5b67a0cd5293"
+      }],
       "customContextDataKey": {
       },
-      "id": "A-638782b8-622d-46c9-9342-1ad5cf87857b"
+      "note": "🔋充电功率",
+      "id": "A-141f762d-6f40-4b77-a1e2-76408236fa5f"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-0d012920-32dd-43a5-8de9-90793844e3e5"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "time_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\necho \"${time_Y}年${time_m}月${time_d}日 ${time_time}\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "Time"
+          }]
+        },
+        "note": "⏱️现在时间",
+        "id": "A-06869092-9c12-448e-9acc-815e435fd1bf"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "timer\u003d$(date +%s)\necho $timer\nunset timer",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "dc_Timer"
+          }]
+        },
+        "note": "⏱️获取时间戳",
+        "id": "A-7dd2ebb9-0688-4dcb-bb97-1738c3f7c5fd"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "##时间戳计算\nold_timer\u003d\"globalVarOf$dc_Timer\"\ntimer\u003d\"{dc_Timer}\"\nusage_time\u003d$(echo \"${timer}-${old_timer}\" | bc)\ntimestamp\u003d\"${usage_time}\"\nminutes\u003d$((timestamp / 60))\nseconds\u003d$((timestamp % 60))\nformatted_time\u003d$(printf \"%02d:%02d\" $minutes $seconds)\necho \"$formatted_time\"\n#echo \"∆Bug∆\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "Timestamp"
+          }]
+        },
+        "note": "⏱️时间戳计算",
+        "id": "A-172055f5-fc18-4f5f-a7d7-9a7fd2a41f35"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "dc_Timer",
+        "valueAsString": "{dc_Timer}",
+        "customContextDataKey": {
+        },
+        "note": "⏱️写入时间戳变量",
+        "id": "A-6872bc35-0362-467b-85b9-fb017b6019be"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "⏱️时间戳计算 与 写入全局变量",
+      "id": "A-133be5c1-9d1f-486d-9765-dc1cac45b748"
     }],
     "customContextDataKey": {
     },
-    "id": "A-2709208c-20f9-4f4b-8ed5-f5b2c107feba"
+    "note": "🗃️调用的变量",
+    "id": "A-0160f7be-89d8-40cc-a50e-426f295254d6"
   }, {
-    "@type": "type.googleapis.com/ShellCommand",
-    "command": "dc_C\u003d$(cat /sys/devices/virtual/thermal/thermal_zone0/temp)\nout\u003d$(echo \"scale\u003d1; ${dc_C}/1000\" | bc)\necho $out",
-    "singleShot": true,
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-936bba58-c47e-4f55-8fc9-0673056b5c46"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-695d9d8c-0410-4852-8a1d-52ace3693be3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"/storage/emulated/0/Android/log/电池日志\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "log_dir"
+          }]
+        },
+        "note": "📃存储的路径",
+        "id": "A-a8b65779-0997-4db9-a763-535934b2ebd2"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"电池日志.log\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "log_name"
+          }]
+        },
+        "note": "📝写入文件的文件名称",
+        "id": "A-d710c151-2538-4045-9968-ab3f12cc0821"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "old-log_dir"
+          }]
+        },
+        "note": "📆📃历史日志路径（基于存储的路径）\n - 先咕咕咕，后面再弄",
+        "id": "A-4f714b9b-8a90-4339-9aad-9713c423244e"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{Time}-历史日志.log\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "old-log_dir"
+          }]
+        },
+        "note": "📆📝历史日志名称",
+        "id": "A-b0c8bb20-1668-4850-b2ee-2280a997a3dd"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "📃文件路径与名称",
+      "id": "A-8e5c019f-77c3-4e4f-ae5a-e66c0d25b851"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "id": "C-0e977945-0799-4259-8d35-49234d7c40d2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"☀️亮屏\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "Screen"
+          }]
+        },
+        "id": "A-991c1796-fdaa-4f1a-b3c1-e2562a710312"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"🌑息屏\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "Screen"
+          }]
+        },
+        "id": "A-ff6a9005-2ecd-4958-afe8-770eb5f3981f"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "☀️亮屏判定写入的字符\n - 亮屏\n - 息屏",
+      "id": "A-1126e438-c9cc-418c-857b-b75358b89d8b"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ChargeState",
+        "requireIsCharge": true,
+        "customContextDataKey": {
+        },
+        "id": "C-81ce1150-81f7-4f26-970f-7179a6357a1a"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"充电 ↗\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "dc_Mode"
+          }]
+        },
+        "id": "A-039880a9-6750-4229-840b-b8f1a9a7f318"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"放电 ↘\"",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "dc_Mode"
+          }]
+        },
+        "id": "A-8b3ffeea-c1bc-41af-b4a0-37cd4ed30ec2"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "🔋电池状态\n - 充电\n - 放电",
+      "id": "A-add9fd1b-0ec9-41b7-89fe-121824aae8cf"
+    }],
     "customContextDataKey": {
-      "keys": [{
-        "first": "shellOut",
-        "second": "dc_C"
-      }]
+    },
+    "note": "    ╓┈┈┈┈┈┈┈┈┈┈╖\n   ║                           ║\n  ║ 🛠️面向使用者的修改 ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
+    "id": "A-9fce4b87-f55f-4500-899a-1869190071cd"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-b9eb27f1-4465-4455-9255-2b52b7554130"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#📝日志文件路径\nlog\u003d\"{log_dir}/{log_name}\"\n\n#写入日志\nout\u003d\"[{Time}][{Timestamp}][{Screen}][{dc_Mode}]电量:{dc_Dl} 温度:{dc_C}°C 功率:{dc_P}W\"\necho -e \"${out}\" \u003e\u003e $log\necho $out",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "dc_Outlog"
+        }]
+      },
+      "note": "📝*写入log",
+      "id": "A-bc2664d3-7552-4867-bd16-a47e9b6b9a91"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "📝写入日志\n - （别问为啥要套一层if，我也不知道）",
+    "id": "A-6dadd6ed-6ec2-4304-a561-ebb8fb210d8b"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "🔋dc_log:📝write\n\"{dc_Outlog}\" \u003e\u003e \"{log_dir}/{log_name}\"",
+    "customContextDataKey": {
     },
     "isDisabled": true,
-    "note": "🌡️获取温度（仅在 一加 测试成功\n//部分系统温度文件不一，请自行测试\n//此值默认*10000",
-    "id": "A-90683cb1-c6e7-4ad6-a4fa-1f04d7ab9816"
-  }, {
-    "@type": "type.googleapis.com/ShellCommand",
-    "command": "dc_C\u003d$(cat /sys/class/power_supply/battery/temp)\nout\u003d$(echo \"scale\u003d1; ${dc_C}/10\" | bc)\necho $out",
-    "singleShot": true,
-    "customContextDataKey": {
-      "keys": [{
-        "first": "shellOut",
-        "second": "dc_C"
-      }]
-    },
-    "note": "🌡️获取温度（通用\n//部分系统温度文件不一，请自行测试\n//此值默认*100",
-    "id": "A-bbb13107-5569-4f29-b189-9c28bee503fa"
-  }, {
-    "@type": "type.googleapis.com/WriteGlobalVar",
-    "varName": "dc_C",
-    "valueAsString": "{dc_C}",
-    "customContextDataKey": {
-    },
-    "note": "🌡️写入温度",
-    "id": "A-19c78df1-d84f-4333-98b4-f7cc752be2d5"
-  }, {
-    "@type": "type.googleapis.com/IfThenElse",
-    "If": [{
-      "@type": "type.googleapis.com/ChargeState",
-      "requireIsCharge": true,
-      "customContextDataKey": {
-      },
-      "id": "C-a59d0c31-6403-45a7-aa9f-c19f5c8afb9a"
-    }],
-    "IfActions": [{
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "#充电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\na\u003d-1\ndc_x\u003d$(echo \"scale\u003d2; ${a}*${dc_I}*${dc_U}/1000000000000\" | bc )\ndc_P\u003d$dc_x\necho $dc_P",
-      "singleShot": true,
-      "customContextDataKey": {
-        "keys": [{
-          "first": "shellOut",
-          "second": "dc_P"
-        }]
-      },
-      "note": "充电状态\n - 写入功率变量",
-      "id": "A-f119068e-e07f-4a36-ada8-f3d7e16b079c"
-    }, {
-      "@type": "type.googleapis.com/WriteGlobalVar",
-      "varName": "dc_P",
-      "valueAsString": "{dc_P}",
-      "customContextDataKey": {
-      },
-      "id": "A-13e9cfc3-b65e-489f-b2ad-1d1e050f719a"
-    }, {
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "timer\u003d$(date +%s)\necho $timer\nunset timer",
-      "singleShot": true,
-      "customContextDataKey": {
-        "keys": [{
-          "first": "shellOut",
-          "second": "dc_Timer"
-        }]
-      },
-      "note": "⏱️获取时间戳",
-      "id": "A-88d6c9ca-9555-416a-b139-97067c37fbaa"
-    }, {
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "#📝日志文件路径\nlog\u003d\"/storage/emulated/0/Android/电池电量.log\"\n\n#亮屏判断\nSereen_true\u003d\"☀️亮屏\" #亮屏时字符\nSereen_false\u003d\"🌑息屏\" #息屏时字符\n\nfunction sereen() {\ndc_Screen\u003d\"globalVarOf$dc_Screen\"\nif [[ \"$dc_Screen\" \u003d \"true\" ]];then\n  dc_Sereen\u003d\"${Sereen_true}\"\nelse\n  dc_Sereen\u003d\"${Sereen_false}\"\nfi\n}\nsereen\n\n#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n##时间戳计算\nold_timer\u003d\"globalVarOf$dc_Timer\"\ntimer\u003d\"{dc_Timer}\"\nusage_time\u003d$(echo \"${timer}-${old_timer}\" | bc)\ntimestamp\u003d\"${usage_time}\"\nminutes\u003d$((timestamp / 60))\nseconds\u003d$((timestamp % 60))\nformatted_time\u003d$(printf \"%02d:%02d\" $minutes $seconds)\n\n#写入全局变量到shell变量\n#🛠️面向编辑者的提醒\n#⚠️dc_C和dc_P为String变量类型，在shell内为方便制作所以前缀为int，并非真正是Int类型\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\nint_P\u003d\"globalVarOf$dc_P\"\n\n#写入日志\necho -e \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][${formatted_time}][${dc_Sereen}][充电 ↗]电量:${int_Dc} 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}",
-      "singleShot": true,
-      "customContextDataKey": {
-      },
-      "note": "写入日志",
-      "id": "A-923eb015-b5f0-47d6-8e6f-6e0bc7f39f84"
-    }],
-    "ElseActions": [{
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "#放电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\ndc_x\u003d$(echo \"scale\u003d2; ${dc_I}*${dc_U}/1000000000000\" | bc )\ndc_P\u003d$dc_x\necho $dc_P",
-      "singleShot": true,
-      "customContextDataKey": {
-        "keys": [{
-          "first": "shellOut",
-          "second": "dc_P"
-        }]
-      },
-      "note": "放电状态\n - 写入功率变量",
-      "id": "A-e80a9561-e621-4956-998e-5b67a0cd5293"
-    }, {
-      "@type": "type.googleapis.com/WriteGlobalVar",
-      "varName": "dc_P",
-      "valueAsString": "{dc_P}",
-      "customContextDataKey": {
-      },
-      "id": "A-cd35b7d5-2c6e-4857-b7cc-db13fc96b442"
-    }, {
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "timer\u003d$(date +%s)\necho $timer\nunset timer",
-      "singleShot": true,
-      "customContextDataKey": {
-        "keys": [{
-          "first": "shellOut",
-          "second": "dc_Timer"
-        }]
-      },
-      "note": "⏱️获取时间戳",
-      "id": "A-c0aa2d24-932c-4024-9f12-4c3922a98270"
-    }, {
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "#📝日志文件路径\nlog\u003d\"/storage/emulated/0/Android/电池电量.log\"\n\n#亮屏判断\nSereen_true\u003d\"☀️亮屏\" #亮屏时字符\nSereen_false\u003d\"🌑息屏\" #息屏时字符\n\nfunction sereen() {\ndc_Screen\u003d\"globalVarOf$dc_Screen\"\nif [[ \"$dc_Screen\" \u003d \"true\" ]];then\n  dc_Sereen\u003d\"${Sereen_true}\"\nelse\n  dc_Sereen\u003d\"${Sereen_false}\"\nfi\n}\nsereen\n\n#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n##时间戳计算\nold_timer\u003d\"globalVarOf$dc_Timer\"\ntimer\u003d\"{dc_Timer}\"\nusage_time\u003d$(echo \"${timer}-${old_timer}\" | bc)\ntimestamp\u003d\"${usage_time}\"\nminutes\u003d$((timestamp / 60))\nseconds\u003d$((timestamp % 60))\nformatted_time\u003d$(printf \"%02d:%02d\" $minutes $seconds)\n\n#写入全局变量到shell变量\n#🛠️面向编辑者的提醒\n#⚠️dc_C和dc_P为String变量类型，在shell内为方便制作所以前缀为int，并非真正是Int类型\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\nint_P\u003d\"globalVarOf$dc_P\"\n\n#写入日志\necho -e \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][${formatted_time}][${dc_Sereen}][放电 ↘]电量:${int_Dc} 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}",
-      "singleShot": true,
-      "customContextDataKey": {
-      },
-      "note": "写入日志",
-      "id": "A-f983b479-c528-47a8-b6df-69eb9b38414d"
-    }],
-    "customContextDataKey": {
-    },
-    "note": "*写入功率变量\n*写入log\n - 放电\n - 充电",
-    "id": "A-3ad0416c-872c-490f-ad05-57339e050a1c"
-  }, {
-    "@type": "type.googleapis.com/ShellCommand",
-    "command": "timer\u003d$(date +%s)\necho $timer\nunset timer",
-    "singleShot": true,
-    "customContextDataKey": {
-      "keys": [{
-        "first": "shellOut",
-        "second": "dc_Timer"
-      }]
-    },
-    "note": "⏱️获取时间戳",
-    "id": "A-7dd2ebb9-0688-4dcb-bb97-1738c3f7c5fd"
-  }, {
-    "@type": "type.googleapis.com/WriteGlobalVar",
-    "varName": "dc_Timer",
-    "valueAsString": "{dc_Timer}",
-    "customContextDataKey": {
-    },
-    "note": "⏱️写入时间戳变量",
-    "id": "A-6872bc35-0362-467b-85b9-fb017b6019be"
+    "note": "🪲debug",
+    "id": "A-8f371373-2e12-4dfe-b6cd-a65a892ebb4c"
   }],
   "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
-  "lastUpdateTime": "1696580805435",
+  "lastUpdateTime": "1697221441061",
   "createTime": "1694911923777",
   "author": {
     "name": "lanyi233"
   },
   "title": "电量-温度-功率记录",
-  "description": "记录电量，温度和功率\n触发器默认电量变化，可修改\n(拉到下面查看留言",
+  "description": "记录电量，温度和功率至日志文件\n - (⚠️请 务 必⚠️ 拉到下面查看留言📝）",
   "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
-      "@type": "type.googleapis.com/CreateGlobalVar",
-      "globalVar": {
-        "name": "dc_Dl",
-        "type": {
-          "@type": "type.googleapis.com/Int64Var"
-        }
-      },
-      "customContextDataKey": {
-      },
-      "id": "A-a37b7146-1f40-4bdb-9a1b-8248f0c9699e"
-    }, {
-      "@type": "type.googleapis.com/CreateGlobalVar",
-      "globalVar": {
-        "name": "dc_C",
-        "type": {
-          "@type": "type.googleapis.com/StringVar"
-        }
-      },
-      "customContextDataKey": {
-      },
-      "id": "A-184cba88-9519-4c41-9515-869abe174e13"
-    }, {
-      "@type": "type.googleapis.com/CreateGlobalVar",
-      "globalVar": {
-        "name": "dc_P",
-        "type": {
-          "@type": "type.googleapis.com/StringVar"
-        }
-      },
-      "customContextDataKey": {
-      },
-      "id": "A-820d2ad4-a560-4c56-889f-b5e5ef73eb41"
-    }, {
       "@type": "type.googleapis.com/CreateGlobalVar",
       "globalVar": {
         "name": "dc_Timer",
@@ -261,61 +381,50 @@
       },
       "id": "A-8c075d97-20f6-49f2-b02e-c72c1fe5a0c6"
     }, {
-      "@type": "type.googleapis.com/CreateGlobalVar",
-      "globalVar": {
-        "name": "dc_Screen",
-        "type": {
-          "@type": "type.googleapis.com/BoolVar"
-        }
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "timer\u003d$(date +%s)\necho $timer\nunset timer",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "dc_Timer"
+        }]
       },
+      "note": "⏱️获取时间戳",
+      "id": "A-526acbca-56d5-46df-a6c8-91023576ce11"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "dc_Timer",
+      "valueAsString": "{dc_Timer}",
       "customContextDataKey": {
       },
-      "id": "A-d50d2e0e-fd5f-4656-aa72-2775943ce0f1"
+      "note": "⏱️写入时间戳变量",
+      "id": "A-7332a2e1-5eb9-4c9a-9340-b214cd6648a7"
     }],
     "actionsOnDisabled": [{
-      "@type": "type.googleapis.com/IfThenElse",
-      "If": [{
-        "@type": "type.googleapis.com/True",
-        "customContextDataKey": {
-        },
-        "id": "C-bd6eca4e-4824-4040-a3e4-9c5548e3641c"
-      }],
-      "IfActions": [{
-        "@type": "type.googleapis.com/DeleteGlobalVar",
-        "varName": "dc_Dl",
-        "customContextDataKey": {
-        },
-        "id": "A-950105bb-b708-4f02-9977-73678a90e52f"
-      }, {
-        "@type": "type.googleapis.com/DeleteGlobalVar",
-        "varName": "dc_C",
-        "customContextDataKey": {
-        },
-        "id": "A-b491e0b0-2f06-4b2b-a68e-354c7d8a5dda"
-      }, {
-        "@type": "type.googleapis.com/DeleteGlobalVar",
-        "varName": "dc_P",
-        "customContextDataKey": {
-        },
-        "id": "A-e21545e3-c7d4-41ed-a064-65441f8aa8a2"
-      }, {
-        "@type": "type.googleapis.com/DeleteGlobalVar",
-        "varName": "dc_Timer",
-        "customContextDataKey": {
-        },
-        "id": "A-dec7ccb4-d760-4d52-8381-a8c109538d56"
-      }, {
-        "@type": "type.googleapis.com/DeleteGlobalVar",
-        "varName": "dc_Screen",
-        "customContextDataKey": {
-        },
-        "id": "A-0d03eb57-4c40-4ce3-8f0b-d4d9faf610cf"
-      }],
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_Dl",
       "customContextDataKey": {
       },
-      "isDisabled": true,
-      "note": "⚠️有些人对占用变量过敏，可开启",
-      "id": "A-1216f8ca-1e4d-478b-b8c3-662290076e24"
+      "id": "A-950105bb-b708-4f02-9977-73678a90e52f"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_C",
+      "customContextDataKey": {
+      },
+      "id": "A-b491e0b0-2f06-4b2b-a68e-354c7d8a5dda"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_P",
+      "customContextDataKey": {
+      },
+      "id": "A-e21545e3-c7d4-41ed-a064-65441f8aa8a2"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_Screen",
+      "customContextDataKey": {
+      },
+      "id": "A-0d03eb57-4c40-4ce3-8f0b-d4d9faf610cf"
     }],
     "actionsOnDeleted": [{
       "@type": "type.googleapis.com/DeleteGlobalVar",
@@ -351,8 +460,7 @@
   },
   "quit": {
   },
-  "versionCode": "6",
-  "ruleSetId": "RS-51b8f4dc-0eae-43e9-a7c8-9c42da0c4377"
-}
+  "versionCode": "7",
+  "ruleSetId": "RS-51b8f4dc-0eae-43e9-a7c8-9c42da0c4377"}
 ###------###
 {"type":"rule"}
