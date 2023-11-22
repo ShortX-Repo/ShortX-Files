@@ -1,0 +1,61 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemSettingsChanged",
+    "urlAndExpectedValueRegex": {
+      "first": "content://settings/secure/enabled_accessibility_services",
+      "second": "[a-zA-Z0-9.:/]+"
+    },
+    "id": "F-aa3a73b4-ff6b-48d8-a8df-a4cfec88d63a"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "\nString str \u003d {settingsValue};\nint gs \u003d str.length() - str.replace(\":\", \"\").length();\nboolean T \u003d gs \u003c 2; //填写开启无障碍服务的个数(最少2个)减1",
+    "id": "C-29aa3f7b-35df-430d-ac84-86021745bd41"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "id": "A-6487bb13-9900-4a6e-877c-e0d472ef62ca"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put secure enabled_accessibility_services globalVarOf$无障碍服务",
+    "id": "A-184f1416-e129-4e57-aa06-6c6cd439e919"
+  }],
+  "id": "rule-355b2683-5f7f-4a0d-ae0d-bd07fab373ab",
+  "lastUpdateTime": "1691632915337",
+  "createTime": "1691623636877",
+  "author": {
+    "name": "鸿鹄"
+  },
+  "title": "自动开启无障碍",
+  "description": "检测到无障碍服务被关闭时，自动开启无障碍服务；使用时只需要在系统设置开启你的无障碍，再打开本指令开关即可",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings get secure enabled_accessibility_services",
+      "note": "获取开启的无障碍服务",
+      "id": "A-9a850140-e0ac-4da8-b6f4-d06e9a63c834"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "无障碍服务",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-ae526450-c1e4-4781-9fb0-cc7d0235fbfe"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "无障碍服务",
+      "valueAsString": "{shellOut}",
+      "id": "A-e16aea42-5b84-404f-8d0c-20df5ff2c568"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}
