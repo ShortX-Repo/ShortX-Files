@@ -30,7 +30,7 @@
     }],
     "customContextDataKey": {
     },
-    "note": "［格外组件］🕒时间",
+    "note": "［格外组件］🕒时间(📤高优先级)",
     "id": "A-ef184b86-e2f2-42bc-925f-5eea4d951ecd"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
@@ -76,47 +76,14 @@
     }, {
       "@type": "type.googleapis.com/CreateLocalVar",
       "localVar": {
-        "name": "Ipv4",
+        "name": "TgBotApi",
         "type": {
           "@type": "type.googleapis.com/StringVar"
         }
       },
       "customContextDataKey": {
       },
-      "id": "A-32d21408-e910-41d6-97a9-aaa33fbd15dc"
-    }, {
-      "@type": "type.googleapis.com/CreateLocalVar",
-      "localVar": {
-        "name": "Ipv6",
-        "type": {
-          "@type": "type.googleapis.com/StringVar"
-        }
-      },
-      "customContextDataKey": {
-      },
-      "id": "A-932c1e1e-009c-4e4d-b0ea-8366b24b1478"
-    }, {
-      "@type": "type.googleapis.com/CreateLocalVar",
-      "localVar": {
-        "name": "IpTest",
-        "type": {
-          "@type": "type.googleapis.com/StringVar"
-        }
-      },
-      "customContextDataKey": {
-      },
-      "id": "A-cea8d0b8-146f-46fd-a97c-5e3f3a52538d"
-    }, {
-      "@type": "type.googleapis.com/CreateLocalVar",
-      "localVar": {
-        "name": "IpGeo",
-        "type": {
-          "@type": "type.googleapis.com/StringVar"
-        }
-      },
-      "customContextDataKey": {
-      },
-      "id": "A-dd06bbcc-56fc-40dc-ad33-8b7f7ce42e6e"
+      "id": "A-2c4baab6-1ca1-4c41-a4dc-f315169a3da1"
     }],
     "customContextDataKey": {
     },
@@ -142,12 +109,20 @@
       "varName": "Chatid",
       "customContextDataKey": {
       },
-      "note": "发送到的用户ID/群组ID\n - 请先进行一次Start才能使用\n - 不知道您的用户ID？请\n  \u003e 前往 @MissRose_bot 发送 “/info” 命令查看",
+      "note": "发送到的用户ID\n - 请先进行一次Start才能使用\n - 不知道您的用户ID？请\n  \u003e 前往 @MissRose_bot 发送 “/info” 命令查看",
       "id": "A-fd7acee0-c704-47a7-82f0-15a92911d1ae"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "TgBotApi",
+      "valueAsString": "api.telegram.org",
+      "customContextDataKey": {
+      },
+      "note": "与TG服务器沟通的网址\n如有需要可修改\n（不需要添加http头）",
+      "id": "A-1ae5bf22-a9e1-4397-aa82-415a4c7679ab"
     }],
     "customContextDataKey": {
     },
-    "note": "📝配置",
+    "note": "    ╓┈┈┈┈┈┈┈┈┈┈╖\n   ║                           ║\n  ║ 🛠️面向使用者的修改 ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
     "id": "A-6570ead4-2707-427f-9b72-5b5f354890e0"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
@@ -158,92 +133,286 @@
       "id": "C-b1a796fc-340a-4b77-96ef-c1a12d3e6021"
     }],
     "IfActions": [{
-      "@type": "type.googleapis.com/HttpRequest",
-      "url": "https://4.ipw.cn",
-      "adapter": {
-        "@type": "type.googleapis.com/HttpRequestRawAdapter"
-      },
-      "requestBody": {},
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-fd656b21-4968-405d-8d47-a5a2734d1012"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "Ipv4CN",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-32d21408-e910-41d6-97a9-aaa33fbd15dc"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "Ipv6CN",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-932c1e1e-009c-4e4d-b0ea-8366b24b1478"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "IpTestCN",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-cea8d0b8-146f-46fd-a97c-5e3f3a52538d"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "IpGeoCN",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-dd06bbcc-56fc-40dc-ad33-8b7f7ce42e6e"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "IpGeoliteCN",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b5996241-aabd-446f-8e1f-1ae1c7babf30"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "IpFr",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-795f6ab3-2975-4767-afc7-b2cf2c9faffc"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "IpGeoFr",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-4a46a9ce-833b-4273-9cd5-5a9c714998fe"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "IpGeoliteFr",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-48f41b93-c8e5-48bb-9e04-a0b8fffbd86a"
+      }],
       "customContextDataKey": {
       },
-      "id": "A-2310a087-e0b0-4fe3-9882-d90d8aa6c32f"
+      "note": "⚙️变量初始化",
+      "id": "A-4b05c614-a4be-4b6a-a609-02bc4698c6d4"
     }, {
-      "@type": "type.googleapis.com/WriteLocalVar",
-      "varName": "Ipv4",
-      "valueAsString": "{httpRequestRet}",
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-3796a39d-f551-402a-9557-248dfa2f8218"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://4.ipw.cn",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-2310a087-e0b0-4fe3-9882-d90d8aa6c32f"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "Ipv4CN",
+        "valueAsString": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-22164f56-27f5-4a53-bfba-cf87f5b784b6"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://6.ipw.cn",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-42dd3986-617a-4652-a0fc-ad105bc60298"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "Ipv6CN",
+        "valueAsString": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-e0c53308-b831-4e0a-8a21-df05f40f34e2"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://test.ipw.cn",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-231873e5-2d8e-498e-b9b0-4e3b02e69140"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "IpTestCN",
+        "valueAsString": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-f4d4dab1-912a-41fd-bcb4-058c57c2dac0"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "http://ip-api.com/json/localVarOf$IpTest?lang\u003dzh-CN",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["country"]
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-b0383671-cb44-4829-8755-e72ac2701164"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "IpGeoCN",
+        "valueAsString": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-46bdee7a-3651-4268-8a8c-5d93c2d7ee46"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://ipinfo.io/localVarOf$IpTestCN",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["city", "country"]
+        },
+        "headers": [{
+          "key": "Accept",
+          "value": "application/json"
+        }],
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-5680309a-cc12-4121-97ca-65e38b891582"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "IpGeoCN",
+        "valueAsString": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-56ff7c0d-16ad-45af-9d23-caf141b3265f"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "IpGeoliteCN",
+        "valueAsString": "{httpRequestRet2}",
+        "customContextDataKey": {
+        },
+        "id": "A-a6d478bb-49b9-4df0-99cf-4e76d76ea754"
+      }],
       "customContextDataKey": {
       },
-      "id": "A-22164f56-27f5-4a53-bfba-cf87f5b784b6"
+      "note": "🛳️国内",
+      "id": "A-b0aaaffb-c1a2-4b74-87b2-fb8ec0278ce5"
     }, {
-      "@type": "type.googleapis.com/HttpRequest",
-      "url": "https://6.ipw.cn",
-      "adapter": {
-        "@type": "type.googleapis.com/HttpRequestRawAdapter"
-      },
-      "requestBody": {},
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-22872a0a-3431-43cf-a422-685d5e989289"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://ipinfo.io",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["ip", "city", "country"]
+        },
+        "headers": [{
+          "key": "Accept",
+          "value": "application/json"
+        }],
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-5680309a-cc12-4121-97ca-65e38b891582"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "IpFr",
+        "valueAsString": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-2985a6d0-d727-4c95-b197-7daeae0da73a"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "IpGeoFr",
+        "valueAsString": "{httpRequestRet2}",
+        "customContextDataKey": {
+        },
+        "id": "A-56ff7c0d-16ad-45af-9d23-caf141b3265f"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "IpGeoliteFr",
+        "valueAsString": "{httpRequestRet3}",
+        "customContextDataKey": {
+        },
+        "id": "A-a6d478bb-49b9-4df0-99cf-4e76d76ea754"
+      }],
       "customContextDataKey": {
       },
-      "isDisabled": true,
-      "id": "A-42dd3986-617a-4652-a0fc-ad105bc60298"
-    }, {
-      "@type": "type.googleapis.com/WriteLocalVar",
-      "varName": "Ipv6",
-      "valueAsString": "{httpRequestRet}",
-      "customContextDataKey": {
-      },
-      "isDisabled": true,
-      "id": "A-e0c53308-b831-4e0a-8a21-df05f40f34e2"
-    }, {
-      "@type": "type.googleapis.com/HttpRequest",
-      "url": "https://test.ipw.cn",
-      "adapter": {
-        "@type": "type.googleapis.com/HttpRequestRawAdapter"
-      },
-      "requestBody": {},
-      "customContextDataKey": {
-      },
-      "id": "A-231873e5-2d8e-498e-b9b0-4e3b02e69140"
-    }, {
-      "@type": "type.googleapis.com/WriteLocalVar",
-      "varName": "IpTest",
-      "valueAsString": "{httpRequestRet}",
-      "customContextDataKey": {
-      },
-      "id": "A-f4d4dab1-912a-41fd-bcb4-058c57c2dac0"
-    }, {
-      "@type": "type.googleapis.com/HttpRequest",
-      "url": "http://ip-api.com/json/localVarOf$IpTest?lang\u003dzh-CN",
-      "adapter": {
-        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
-        "expressions": ["country"]
-      },
-      "requestBody": {},
-      "customContextDataKey": {
-      },
-      "id": "A-b0383671-cb44-4829-8755-e72ac2701164"
-    }, {
-      "@type": "type.googleapis.com/WriteLocalVar",
-      "varName": "IpGeo",
-      "valueAsString": "{httpRequestRet1}",
-      "customContextDataKey": {
-      },
-      "id": "A-46bdee7a-3651-4268-8a8c-5d93c2d7ee46"
+      "note": "🛫国外",
+      "id": "A-f592c9a5-3922-43ce-a837-0ac5a0afc21f"
     }],
     "customContextDataKey": {
     },
-    "note": "［格外组件］🌍IP\n - 默认禁用IPv6检测(影响速度)，可手动开启",
+    "note": "［格外组件］🌍IP(⏳耗时长)\n - 默认禁用IPv6检测(影响速度)，可手动开启",
     "id": "A-700a2bb4-7e3b-4318-9c13-db13227eaef3"
   }, {
     "@type": "type.googleapis.com/WriteLocalVar",
     "varName": "Text",
-    "valueAsString": "APP: {pkgName}({userId})\n - Title: ［{title}］\n - Text: 「{contentText}」\n\nMsgTag: {notificationTag}\n------\n主机IP：\n - Ipv4: localVarOf$Ipv4\n - Ipv6: localVarOf$Ipv6\n - 主IP: localVarOf$IpTest\n - 地理位置: localVarOf$IpGeo\n------\nTime: {Timer}\n#通知转发",
+    "valueAsString": "［\u003d\u003d\u003d通知转发\u003d\u003d\u003d］\nAPP: {pkgName}({userId})\n - Title: ［{title}］\n - Text: 「{contentText}」\n\nMsgTag: {notificationTag}\n------\n主机IP()：\n［国内］\n - Ipv4: localVarOf$Ipv4CN\n - Ipv6: localVarOf$Ipv6CN\n - 主IP: localVarOf$IpTestCN\n - 地理位置: localVarOf$IpGeoliteCN(localVarOf$IpGeoCN)\n［国外］\n - Ip: localVarOf$IpFr\n - 地理位置: localVarOf$IpGeoliteFr(localVarOf$IpGeoFr)\n------\nTime: {Timer}",
     "customContextDataKey": {
     },
     "note": "📤发送出去的样式",
     "id": "A-0389d6e7-95bf-4817-b391-c8c8bd7bdd73"
   }, {
     "@type": "type.googleapis.com/HttpRequest",
-    "url": "https://api.telegram.org/botlocalVarOf$Token/sendMessage",
+    "url": "https://localVarOf$TgBotApi/botlocalVarOf$Token/sendMessage",
     "adapter": {
       "@type": "type.googleapis.com/HttpRequestRawAdapter"
     },
@@ -257,7 +426,7 @@
     "id": "A-0bfc7eaf-78c2-425d-80f8-245a511d7995"
   }],
   "id": "rule-65ea881b-0f42-4349-a813-cf00c170db25",
-  "lastUpdateTime": "1700966301100",
+  "lastUpdateTime": "1700973566247",
   "createTime": "1700931565509",
   "author": {
     "name": "lanyi233"
@@ -269,7 +438,7 @@
   },
   "quit": {
   },
-  "versionCode": "2",
+  "versionCode": "4",
   "ruleSetId": "RS-20525b07-7d1d-4efe-b0f5-1d262f64f8d4"
 }
 ###------###
