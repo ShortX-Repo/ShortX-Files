@@ -394,7 +394,7 @@
     "IfActions": [{
       "@type": "type.googleapis.com/WriteLocalVar",
       "varName": "Token",
-      "valueAsString": "6734159541:AAG1M8bf34p1q0RQAJSJ3hNRNVx_5RgPwvo",
+      "valueAsString": "",
       "customContextDataKey": {
       },
       "note": "Telegram Bot的Token\n\n - 如果您不知道此值，请\n   \u003e 前往 @BotFather 创建/管理Bot\n\n - Token样式：［1145141919:令牌］",
@@ -402,10 +402,10 @@
     }, {
       "@type": "type.googleapis.com/WriteLocalVar",
       "varName": "Chatid",
-      "valueAsString": "6246391810",
+      "valueAsString": "",
       "customContextDataKey": {
       },
-      "note": "发送到的用户ID\n - 请先进行一次Start才能使用\n - 不知道您的用户ID？请\n  \u003e 前往 @MissRose_bot 发送 “/info” 命令查看",
+      "note": "发送到的用户ID|群组ID|频道ID(需要在前面加-100)\n - 请先进行一次Start才能使用\n - 不知道您的用户ID？请\n  \u003e 前往 @MissRose_bot 发送 “/info” 命令查看",
       "id": "A-fd7acee0-c704-47a7-82f0-15a92911d1ae"
     }, {
       "@type": "type.googleapis.com/WriteLocalVar",
