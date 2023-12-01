@@ -18,7 +18,7 @@
     }],
     "IfActions": [{
       "@type": "type.googleapis.com/ShellCommand",
-      "command": "echo \"$(date +%Y-%m-%d-%H:%M:%S)\"",
+      "command": "weekdays\u003d(\"天\" \"一\" \"二\" \"三\" \"四\" \"五\" \"六\")\ndayOfWeek\u003d$(date +%w)\necho \"$(date +%Y-%m-%d-%H:%M:%S) 星期${weekdays[$dayOfWeek]}\"\n",
       "singleShot": true,
       "customContextDataKey": {
         "keys": [{
@@ -32,6 +32,31 @@
     },
     "note": "［格外组件］🕒时间(📤高优先级)",
     "id": "A-ef184b86-e2f2-42bc-925f-5eea4d951ecd"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-cda37e61-d2e1-4fd9-83e0-38f6549f7557"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "pm list packages -f | grep mark.via",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "AppName"
+        }]
+      },
+      "id": "A-6517ad72-6dd4-4b87-a003-e3193c1471f9"
+    }],
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "［格外组件］［没做完（］📱包名查询应用名",
+    "id": "A-f49ef84e-3f3f-4182-ab1f-28cf2aeaf17e"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
@@ -84,46 +109,22 @@
       "customContextDataKey": {
       },
       "id": "A-2c4baab6-1ca1-4c41-a4dc-f315169a3da1"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "Back_ok",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0a959f45-7c3a-439a-bdfc-40a0c947ebbb"
     }],
     "customContextDataKey": {
     },
     "note": "⚙️初始化",
     "id": "A-afdcf4bb-7bbe-4f4a-9df5-986a9c07e8a6"
-  }, {
-    "@type": "type.googleapis.com/IfThenElse",
-    "If": [{
-      "@type": "type.googleapis.com/True",
-      "customContextDataKey": {
-      },
-      "id": "C-90df3d3a-6e16-4003-bd49-fc78a0ee39c2"
-    }],
-    "IfActions": [{
-      "@type": "type.googleapis.com/WriteLocalVar",
-      "varName": "Token",
-      "customContextDataKey": {
-      },
-      "note": "Telegram Bot的Token\n\n - 如果您不知道此值，请\n   \u003e 前往 @BotFather 创建/管理Bot\n\n - Token样式：［1145141919:令牌］",
-      "id": "A-f486b2bf-f420-44b9-bead-b8b96a37f02f"
-    }, {
-      "@type": "type.googleapis.com/WriteLocalVar",
-      "varName": "Chatid",
-      "customContextDataKey": {
-      },
-      "note": "发送到的用户ID\n - 请先进行一次Start才能使用\n - 不知道您的用户ID？请\n  \u003e 前往 @MissRose_bot 发送 “/info” 命令查看",
-      "id": "A-fd7acee0-c704-47a7-82f0-15a92911d1ae"
-    }, {
-      "@type": "type.googleapis.com/WriteLocalVar",
-      "varName": "TgBotApi",
-      "valueAsString": "api.telegram.org",
-      "customContextDataKey": {
-      },
-      "note": "与TG服务器沟通的网址\n如有需要可修改\n（不需要添加http头）",
-      "id": "A-1ae5bf22-a9e1-4397-aa82-415a4c7679ab"
-    }],
-    "customContextDataKey": {
-    },
-    "note": "    ╓┈┈┈┈┈┈┈┈┈┈╖\n   ║                           ║\n  ║ 🛠️面向使用者的修改 ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
-    "id": "A-6570ead4-2707-427f-9b72-5b5f354890e0"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
@@ -143,7 +144,7 @@
       "IfActions": [{
         "@type": "type.googleapis.com/CreateLocalVar",
         "localVar": {
-          "name": "Ipv4CN",
+          "name": "Ip_CN_Ipv4",
           "type": {
             "@type": "type.googleapis.com/StringVar"
           }
@@ -154,7 +155,7 @@
       }, {
         "@type": "type.googleapis.com/CreateLocalVar",
         "localVar": {
-          "name": "Ipv6CN",
+          "name": "Ip_CN_Ipv6",
           "type": {
             "@type": "type.googleapis.com/StringVar"
           }
@@ -165,7 +166,7 @@
       }, {
         "@type": "type.googleapis.com/CreateLocalVar",
         "localVar": {
-          "name": "IpTestCN",
+          "name": "Ip_CN_Test",
           "type": {
             "@type": "type.googleapis.com/StringVar"
           }
@@ -176,7 +177,7 @@
       }, {
         "@type": "type.googleapis.com/CreateLocalVar",
         "localVar": {
-          "name": "IpGeoCN",
+          "name": "Ip_CN_city",
           "type": {
             "@type": "type.googleapis.com/StringVar"
           }
@@ -187,7 +188,7 @@
       }, {
         "@type": "type.googleapis.com/CreateLocalVar",
         "localVar": {
-          "name": "IpGeoliteCN",
+          "name": "Ip_CN_country",
           "type": {
             "@type": "type.googleapis.com/StringVar"
           }
@@ -198,7 +199,7 @@
       }, {
         "@type": "type.googleapis.com/CreateLocalVar",
         "localVar": {
-          "name": "IpFr",
+          "name": "Ip_GJ",
           "type": {
             "@type": "type.googleapis.com/StringVar"
           }
@@ -209,7 +210,7 @@
       }, {
         "@type": "type.googleapis.com/CreateLocalVar",
         "localVar": {
-          "name": "IpGeoFr",
+          "name": "Ip_GJ_city",
           "type": {
             "@type": "type.googleapis.com/StringVar"
           }
@@ -220,7 +221,7 @@
       }, {
         "@type": "type.googleapis.com/CreateLocalVar",
         "localVar": {
-          "name": "IpGeoliteFr",
+          "name": "Ip_GJ_country",
           "type": {
             "@type": "type.googleapis.com/StringVar"
           }
@@ -253,7 +254,7 @@
         "id": "A-2310a087-e0b0-4fe3-9882-d90d8aa6c32f"
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "Ipv4CN",
+        "varName": "Ip_CN_Ipv4",
         "valueAsString": "{httpRequestRet}",
         "customContextDataKey": {
         },
@@ -271,7 +272,7 @@
         "id": "A-42dd3986-617a-4652-a0fc-ad105bc60298"
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "Ipv6CN",
+        "varName": "Ip_CN_Ipv6",
         "valueAsString": "{httpRequestRet}",
         "customContextDataKey": {
         },
@@ -289,34 +290,14 @@
         "id": "A-231873e5-2d8e-498e-b9b0-4e3b02e69140"
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "IpTestCN",
+        "varName": "Ip_CN_Test",
         "valueAsString": "{httpRequestRet}",
         "customContextDataKey": {
         },
         "id": "A-f4d4dab1-912a-41fd-bcb4-058c57c2dac0"
       }, {
         "@type": "type.googleapis.com/HttpRequest",
-        "url": "http://ip-api.com/json/localVarOf$IpTest?lang\u003dzh-CN",
-        "adapter": {
-          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
-          "expressions": ["country"]
-        },
-        "requestBody": {},
-        "customContextDataKey": {
-        },
-        "isDisabled": true,
-        "id": "A-b0383671-cb44-4829-8755-e72ac2701164"
-      }, {
-        "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "IpGeoCN",
-        "valueAsString": "{httpRequestRet1}",
-        "customContextDataKey": {
-        },
-        "isDisabled": true,
-        "id": "A-46bdee7a-3651-4268-8a8c-5d93c2d7ee46"
-      }, {
-        "@type": "type.googleapis.com/HttpRequest",
-        "url": "https://ipinfo.io/localVarOf$IpTestCN",
+        "url": "https://ipinfo.io/localVarOf$Ip_CN_Test",
         "adapter": {
           "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
           "expressions": ["city", "country"]
@@ -331,14 +312,14 @@
         "id": "A-5680309a-cc12-4121-97ca-65e38b891582"
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "IpGeoCN",
+        "varName": "Ip_CN_city",
         "valueAsString": "{httpRequestRet1}",
         "customContextDataKey": {
         },
         "id": "A-56ff7c0d-16ad-45af-9d23-caf141b3265f"
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "IpGeoliteCN",
+        "varName": "Ip_CN_country",
         "valueAsString": "{httpRequestRet2}",
         "customContextDataKey": {
         },
@@ -373,21 +354,21 @@
         "id": "A-5680309a-cc12-4121-97ca-65e38b891582"
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "IpFr",
+        "varName": "Ip_GJ",
         "valueAsString": "{httpRequestRet1}",
         "customContextDataKey": {
         },
         "id": "A-2985a6d0-d727-4c95-b197-7daeae0da73a"
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "IpGeoFr",
+        "varName": "Ip_GJ_city",
         "valueAsString": "{httpRequestRet2}",
         "customContextDataKey": {
         },
         "id": "A-56ff7c0d-16ad-45af-9d23-caf141b3265f"
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "IpGeoliteFr",
+        "varName": "Ip_GJ_country",
         "valueAsString": "{httpRequestRet3}",
         "customContextDataKey": {
         },
@@ -403,30 +384,122 @@
     "note": "［格外组件］🌍IP(⏳耗时长)\n - 默认禁用IPv6检测(影响速度)，可手动开启",
     "id": "A-700a2bb4-7e3b-4318-9c13-db13227eaef3"
   }, {
-    "@type": "type.googleapis.com/WriteLocalVar",
-    "varName": "Text",
-    "valueAsString": "［\u003d\u003d\u003d通知转发\u003d\u003d\u003d］\nAPP: {pkgName}({userId})\n - Title: ［{title}］\n - Text: 「{contentText}」\n\nMsgTag: {notificationTag}\n------\n主机IP()：\n［国内］\n - Ipv4: localVarOf$Ipv4CN\n - Ipv6: localVarOf$Ipv6CN\n - 主IP: localVarOf$IpTestCN\n - 地理位置: localVarOf$IpGeoliteCN(localVarOf$IpGeoCN)\n［国外］\n - Ip: localVarOf$IpFr\n - 地理位置: localVarOf$IpGeoliteFr(localVarOf$IpGeoFr)\n------\nTime: {Timer}",
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-90df3d3a-6e16-4003-bd49-fc78a0ee39c2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "Token",
+      "valueAsString": "",
+      "customContextDataKey": {
+      },
+      "note": "Telegram Bot的Token\n\n - 如果您不知道此值，请\n   \u003e 前往 @BotFather 创建/管理Bot\n\n - Token样式：［1145141919:令牌］",
+      "id": "A-f486b2bf-f420-44b9-bead-b8b96a37f02f"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "Chatid",
+      "valueAsString": "",
+      "customContextDataKey": {
+      },
+      "note": "发送到的用户ID|群组ID|频道ID(需要在前面加-100)\n - 请先进行一次Start才能使用\n - 不知道您的用户ID？请\n  \u003e 前往 @MissRose_bot 发送 “/info” 命令查看",
+      "id": "A-fd7acee0-c704-47a7-82f0-15a92911d1ae"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "Text",
+      "valueAsString": "［\u003d\u003d\u003d通知转发\u003d\u003d\u003d］\nAPP: {pkgName}({userId})\n - Title: ［{title}］\n - Text: 「{contentText}」\n\nMsgTag: {notificationTag}\n------\n主机IP：\n［国内］\n - Ipv4: localVarOf$Ip_CN_Ipv4\n - Ipv6: localVarOf$Ip_CN_Ipv6\n - 主IP: localVarOf$Ip_CN_Test\n - 地理位置: localVarOf$Ip_CN_country(localVarOf$Ip_CN_city)\n［国外］\n - Ip: localVarOf$Ip_GJ\n - 地理位置: localVarOf$Ip_GJ_country(localVarOf$Ip_GJ_city)\n------\nTime: {Timer}",
+      "customContextDataKey": {
+      },
+      "note": "📤发送出去的样式",
+      "id": "A-12522464-e0e6-4389-9703-af86e9d1eb90"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "TgBotApi",
+      "valueAsString": "api.telegram.org",
+      "customContextDataKey": {
+      },
+      "note": "与TG服务器沟通的网址\n如有需要可修改\n（不需要添加http头）",
+      "id": "A-1ae5bf22-a9e1-4397-aa82-415a4c7679ab"
+    }],
     "customContextDataKey": {
     },
-    "note": "📤发送出去的样式",
-    "id": "A-0389d6e7-95bf-4817-b391-c8c8bd7bdd73"
+    "note": "    ╓┈┈┈┈┈┈┈┈┈┈╖\n   ║                           ║\n  ║ 🛠️面向使用者的修改 ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
+    "id": "A-6570ead4-2707-427f-9b72-5b5f354890e0"
   }, {
-    "@type": "type.googleapis.com/HttpRequest",
-    "url": "https://localVarOf$TgBotApi/botlocalVarOf$Token/sendMessage",
-    "adapter": {
-      "@type": "type.googleapis.com/HttpRequestRawAdapter"
-    },
-    "method": "POST",
-    "requestBody": {
-      "@type": "type.googleapis.com/HttpRequestBodyJson",
-      "json": "{\"chat_id\":\"localVarOf$Chatid\",\n\"parse_mode\":\"MarkDown\",\n\"text\":\"localVarOf$Text\"\n}"
-    },
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-df68186d-cab1-47a2-9c9c-7ffef39b055a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://localVarOf$TgBotApi/botlocalVarOf$Token/sendMessage",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["ok"]
+      },
+      "method": "POST",
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\n \"chat_id\":\"localVarOf$Chatid\",\n \"text\":\"localVarOf$Text\"\n}"
+      },
+      "customContextDataKey": {
+      },
+      "note": "🌐发送数据",
+      "id": "A-0bfc7eaf-78c2-425d-80f8-245a511d7995"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "Back_ok",
+      "valueAsString": "{httpRequestRet1}",
+      "customContextDataKey": {
+      },
+      "id": "A-830f936c-fda7-4250-9918-fea6cb255a43"
+    }, {
+      "@type": "type.googleapis.com/WhileLoop",
+      "conditions": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "localVarOf$Back_ok\u003d\u003d \"true\"",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-7e9a322a-c653-422b-8077-b352b82e724a"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://localVarOf$TgBotApi/botlocalVarOf$Token/sendMessage",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["ok"]
+        },
+        "method": "POST",
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyJson",
+          "json": "{\n \"chat_id\":\"localVarOf$Chatid\",\n \"text\":\"localVarOf$Text\"\n}"
+        },
+        "customContextDataKey": {
+        },
+        "note": "🌐发送数据",
+        "id": "A-0bfc7eaf-78c2-425d-80f8-245a511d7995"
+      }],
+      "delay": 1500,
+      "repeatTimes": 5,
+      "customContextDataKey": {
+      },
+      "note": "发送失败时尝试重发",
+      "id": "A-4ea41531-231d-4bc1-b5c7-00ef682bcfee"
+    }],
     "customContextDataKey": {
     },
-    "id": "A-0bfc7eaf-78c2-425d-80f8-245a511d7995"
+    "note": "🌐发送数据",
+    "id": "A-9be48cee-8460-45a2-af97-31e1b43d9ac8"
   }],
   "id": "rule-65ea881b-0f42-4349-a813-cf00c170db25",
-  "lastUpdateTime": "1700973566247",
+  "lastUpdateTime": "1701421818435",
   "createTime": "1700931565509",
   "author": {
     "name": "lanyi233"
@@ -438,7 +511,7 @@
   },
   "quit": {
   },
-  "versionCode": "4",
+  "versionCode": "5",
   "ruleSetId": "RS-20525b07-7d1d-4efe-b0f5-1d262f64f8d4"
 }
 ###------###
