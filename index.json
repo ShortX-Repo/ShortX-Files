@@ -197,8 +197,8 @@
       "fileUrl": "ShortX-消息转发至TGBot.txt",
       "title": "消息转发至TGBot",
       "description": "将指定应用的通知消息转发至TGBot",
-      "versionCode": 4,
-      "updateTimeMillis": 1700973566247,
+      "versionCode": 5,
+      "updateTimeMillis": 1701421818435,
       "author": "lanyi233",
       "tags": []
     },
