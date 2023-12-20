@@ -93,6 +93,16 @@
       "tags": []
     },
     {
+      "id": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
+      "fileUrl": "ShortX-应用进程优化_v1.3.txt",
+      "title": "应用进程优化 v1.3",
+      "description": "优化各毒瘤软件的占用",
+      "versionCode": 2,
+      "updateTimeMillis": 1703049449434,
+      "author": "cong",
+      "tags": []
+    },
+    {
       "id": "rule-7930d5a5-8980-4a42-bd9b-3a741ef30e55",
       "fileUrl": "ShortX-MIUI自动步数.txt",
       "title": "MIUI自动步数",
@@ -200,16 +210,6 @@
       "versionCode": 6,
       "updateTimeMillis": 1696850479780,
       "author": "Rarlya",
-      "tags": []
-    },
-    {
-      "id": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
-      "fileUrl": "ShortX-应用进程优化_v1.2.txt",
-      "title": "应用进程优化 v1.2",
-      "description": "优化各毒瘤软件的占用",
-      "versionCode": 1,
-      "updateTimeMillis": 1702970043242,
-      "author": "ShortX",
       "tags": []
     },
     {
