@@ -937,13 +937,14 @@
     "id": "A-ba763c64-2bef-4bde-b98b-5887d7602c62"
   }],
   "id": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
-  "lastUpdateTime": "1702970043242",
+  "lastUpdateTime": "1703049449434",
   "createTime": "1700905444278",
   "author": {
-    "name": "ShortX"
+    "name": "cong"
   },
-  "title": "应用进程优化 v1.2",
+  "title": "应用进程优化 v1.3",
   "description": "优化各毒瘤软件的占用",
+  "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
       "@type": "type.googleapis.com/ShellCommand",
@@ -975,13 +976,6 @@
         },
         "id": "A-584cf326-faf0-4f6e-acf5-6c1f8f8196d2"
       }, {
-        "@type": "type.googleapis.com/WriteGlobalVar",
-        "varName": "应用服务",
-        "valueAsString": "#网易云\n\"com.netease.cloudmusic/com.netease.cloudmusic.module.mp.dispatch.MpService1\"\n#支付宝\n\"com.autonavi.minimap/com.alipay.android.phone.inside.InteractionService\"\n\"com.eg.android.AlipayGphone/com.alipay.pushsdk.push.NotificationService\"\n\"com.eg.android.AlipayGphone/com.alipay.dexaop.power.RuntimePowerService\"\n\"com.eg.android.AlipayGphone/com.alipay.mobile.healthcommon.stepcounter.APExtStepService\"\n#高德地图\n\"com.autonavi.minimap/com.amap.bundle.webview.uc.SandboxedPrivilegedProcessService0\"\n\"com.autonavi.minimap/com.autonavi.minimap.TaobaoIntentService\"\n\"com.autonavi.minimap/com.amap.api.service.AMapService\"\n\"com.autonavi.minimap/com.autonavi.minimap.controller.PushAidlService\"\n\"com.autonavi.minimap/com.amap.bundle.network.channel.AmapAccsService\"\n\"com.autonavi.minimap/com.taobao.accs.data.MsgDistributeService\"\n#拼多多\n\"com.xunmeng.pinduoduo/com.xunmeng.pinduoduo.almighty.ipc.ipcinvoker.service.SupportProcessIPCService\"\n\"com.xunmeng.pinduoduo/org.chromium.content.app.PrivilegedProcessService0\"\n\"com.xunmeng.pinduoduo/com.xunmeng.basiccomponent.titan.service.ServiceNative\"\n\"com.xunmeng.pinduoduo/com.xunmeng.pinduoduo.almighty.ipc.ipcinvoker.service.TitanProcessIPCService\"\n#微信输入法\n\"com.tencent.wetype/.plugin.hld.model.WxImeInterService\"\n#淘宝\n\"com.taobao.taobao/mtopsdk.xstate.XStateService\"\n\"com.taobao.taobao/com.taobao.orange.service.OrangeApiService\"\n\"com.taobao.taobao/anetwork.channel.aidl.NetworkService\"\n\"com.taobao.taobao/com.alibaba.analytics.AnalyticsService\"\n\"com.taobao.taobao/com.taobao.activelocation.service.aidl.TBLocationServiceImpl\"\n\"com.taobao.taobao/com.taobao.android.tschedule.TScheduleStatusService\"\n\"com.taobao.taobao/com.taobao.accs.data.MsgDistributeService\"\n\"com.taobao.taobao/com.taobao.accs.AccsMainService\"\n\"com.taobao.taobao/com.taobao.accs.ChannelService\"\n#闲鱼\n#\"com.taobao.idlefish/org.chromium.content.app.SandboxedProcessService0:0\"\n\"com.taobao.idlefish/com.taobao.orange.service.OrangeApiService\"\n\"com.taobao.idlefish/com.taobao.fleamarket.message.service.AccsTlogService\"\n\"com.taobao.idlefish/com.taobao.accs.data.MsgDistributeService\"\n\"com.taobao.idlefish/anetwork.channel.aidl.NetworkService\"\n\"com.taobao.idlefish/mtopsdk.xstate.XStateService\"\n#京东\n\"com.jingdong.app.mall/com.jingdong.jdpush_new.JDSPushService\"\n\"com.jingdong.app.mall/com.jingdong.manto.message.MantoAcrossProcessMain\"\n#菜鸟\n\"com.cainiao.wireless/android.taobao.windvane.extra.jsbridge.WVACCSService\"\n\"com.cainiao.wireless/com.alibaba.analytics.AnalyticsService\"\n\"com.cainiao.wireless/com.alipay.android.phone.inside.InteractionService\"\n\"com.cainiao.wireless/com.cainiao.wireless.dorado.module.channel.accs.DoradoAccsService\"\n\"com.cainiao.wireless/com.cainiao.wireless.dorado.module.channel.accs.DoradoAccsService\"\n\"com.cainiao.wireless/com.qq.e.comm.DownloadService\"\n\"com.cainiao.wireless/com.taobao.orange.service.OrangeApiService\"\n\"com.cainiao.wireless/com.cainiao.wireless.TaobaoIntentService\"\n#微信\n\"com.tencent.mm/com.tencent.mm.plugin.fcm.WCFirebaseMessagingService\"\n\"com.tencent.mm/com.tencent.matrix.lifecycle.supervisor.SupervisorService\"\n#QQ\n\"com.tencent.mobileqq/com.tencent.mobileqq.winkpublish.service.WinkPublishService\"\n#酷安\n\"com.coolapk.market/com.qq.e.comm.DownloadService\"\n#哔哩哔哩\n\"tv.danmaku.bili/com.bilibili.biligame.track.service.TrackService\"\n\"tv.danmaku.bili/androidx.room.MultiInstanceInvalidationService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesRemoteService\"\n\"tv.danmaku.bili/com.bilibili.adcommon.apkdownload.ADDownloadService\"\n\"tv.danmaku.bili/com.bilibili.lib.neuron.internal.NeuronRemoteService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesRemoteService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesLocalService\"\n\"tv.danmaku.bili/com.bilibili.lib.neuron.internal.NeuronLocalService\"\n#游戏下载服务哔哩哔哩\n\"tv.danmaku.bili/com.bilibili.game.service.DownloadService\"\n\"tv.danmaku.bili/com.bilibili.game.service.filedownload.FileDownloadServiceV2\"\n#抖音\n\"com.ss.android.ugc.aweme/com.ss.android.message.NotifyService\"\n\"com.ss.android.ugc.aweme/com.ss.android.message.log.LogService\"\n\"com.ss.android.ugc.aweme/com.umeng.message.UmengIntentService\"\n\"com.ss.android.ugc.aweme/com.taobao.accs.ChannelService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.wschannel.server.WsChannelService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.wschannel.client.WsClientService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.process.service.CrossProcessServiceForMain\"\n\"com.ss.android.ugc.aweme/com.ss.android.newmedia.redbadge.RedBadgePushProcessService\"",
-        "customContextDataKey": {
-        },
-        "id": "A-a61b2ee7-73e6-4903-b4af-283d31a27182"
-      }, {
         "@type": "type.googleapis.com/CreateGlobalVar",
         "globalVar": {
           "name": "应用服务",
@@ -993,6 +987,19 @@
         "customContextDataKey": {
         },
         "id": "A-9d69f77a-1278-4bdf-a08c-77ca1d309c15"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "应用服务",
+        "valueAsString": "#网易云\n\"com.netease.cloudmusic/com.netease.cloudmusic.module.mp.dispatch.MpService1\"\n#支付宝\n\"com.autonavi.minimap/com.alipay.android.phone.inside.InteractionService\"\n\"com.eg.android.AlipayGphone/com.alipay.pushsdk.push.NotificationService\"\n\"com.eg.android.AlipayGphone/com.alipay.dexaop.power.RuntimePowerService\"\n\"com.eg.android.AlipayGphone/com.alipay.mobile.healthcommon.stepcounter.APExtStepService\"\n#高德地图\n\"com.autonavi.minimap/com.amap.bundle.webview.uc.SandboxedPrivilegedProcessService0\"\n\"com.autonavi.minimap/com.autonavi.minimap.TaobaoIntentService\"\n\"com.autonavi.minimap/com.amap.api.service.AMapService\"\n\"com.autonavi.minimap/com.autonavi.minimap.controller.PushAidlService\"\n\"com.autonavi.minimap/com.amap.bundle.network.channel.AmapAccsService\"\n\"com.autonavi.minimap/com.taobao.accs.data.MsgDistributeService\"\n#拼多多\n\"com.xunmeng.pinduoduo/com.xunmeng.pinduoduo.almighty.ipc.ipcinvoker.service.SupportProcessIPCService\"\n\"com.xunmeng.pinduoduo/org.chromium.content.app.PrivilegedProcessService0\"\n\"com.xunmeng.pinduoduo/com.xunmeng.basiccomponent.titan.service.ServiceNative\"\n\"com.xunmeng.pinduoduo/com.xunmeng.pinduoduo.almighty.ipc.ipcinvoker.service.TitanProcessIPCService\"\n#微信输入法\n\"com.tencent.wetype/.plugin.hld.model.WxImeInterService\"\n#淘宝\n\"com.taobao.taobao/mtopsdk.xstate.XStateService\"\n\"com.taobao.taobao/com.taobao.orange.service.OrangeApiService\"\n\"com.taobao.taobao/anetwork.channel.aidl.NetworkService\"\n\"com.taobao.taobao/com.alibaba.analytics.AnalyticsService\"\n\"com.taobao.taobao/com.taobao.activelocation.service.aidl.TBLocationServiceImpl\"\n\"com.taobao.taobao/com.taobao.android.tschedule.TScheduleStatusService\"\n\"com.taobao.taobao/com.taobao.accs.data.MsgDistributeService\"\n\"com.taobao.taobao/com.taobao.accs.AccsMainService\"\n\"com.taobao.taobao/com.taobao.accs.ChannelService\"\n#闲鱼\n#\"com.taobao.idlefish/org.chromium.content.app.SandboxedProcessService0:0\"\n\"com.taobao.idlefish/com.taobao.orange.service.OrangeApiService\"\n\"com.taobao.idlefish/com.taobao.fleamarket.message.service.AccsTlogService\"\n\"com.taobao.idlefish/com.taobao.accs.data.MsgDistributeService\"\n\"com.taobao.idlefish/anetwork.channel.aidl.NetworkService\"\n\"com.taobao.idlefish/mtopsdk.xstate.XStateService\"\n#京东\n\"com.jingdong.app.mall/com.jingdong.jdpush_new.JDSPushService\"\n\"com.jingdong.app.mall/com.jingdong.manto.message.MantoAcrossProcessMain\"\n#菜鸟\n\"com.cainiao.wireless/android.taobao.windvane.extra.jsbridge.WVACCSService\"\n\"com.cainiao.wireless/com.alibaba.analytics.AnalyticsService\"\n\"com.cainiao.wireless/com.alipay.android.phone.inside.InteractionService\"\n\"com.cainiao.wireless/com.cainiao.wireless.dorado.module.channel.accs.DoradoAccsService\"\n\"com.cainiao.wireless/com.cainiao.wireless.dorado.module.channel.accs.DoradoAccsService\"\n\"com.cainiao.wireless/com.qq.e.comm.DownloadService\"\n\"com.cainiao.wireless/com.taobao.orange.service.OrangeApiService\"\n\"com.cainiao.wireless/com.cainiao.wireless.TaobaoIntentService\"\n#微信\n\"com.tencent.mm/com.tencent.mm.plugin.fcm.WCFirebaseMessagingService\"\n\"com.tencent.mm/com.tencent.matrix.lifecycle.supervisor.SupervisorService\"\n#QQ\n\"com.tencent.mobileqq/com.tencent.mobileqq.winkpublish.service.WinkPublishService\"\n#酷安\n\"com.coolapk.market/com.qq.e.comm.DownloadService\"\n#哔哩哔哩\n\"tv.danmaku.bili/com.bilibili.biligame.track.service.TrackService\"\n\"tv.danmaku.bili/androidx.room.MultiInstanceInvalidationService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesRemoteService\"\n\"tv.danmaku.bili/com.bilibili.adcommon.apkdownload.ADDownloadService\"\n\"tv.danmaku.bili/com.bilibili.lib.neuron.internal.NeuronRemoteService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesRemoteService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesLocalService\"\n\"tv.danmaku.bili/com.bilibili.lib.neuron.internal.NeuronLocalService\"\n#游戏下载服务哔哩哔哩\n\"tv.danmaku.bili/com.bilibili.game.service.DownloadService\"\n\"tv.danmaku.bili/com.bilibili.game.service.filedownload.FileDownloadServiceV2\"\n#抖音\n\"com.ss.android.ugc.aweme/com.ss.android.message.NotifyService\"\n\"com.ss.android.ugc.aweme/com.ss.android.message.log.LogService\"\n\"com.ss.android.ugc.aweme/com.umeng.message.UmengIntentService\"\n\"com.ss.android.ugc.aweme/com.taobao.accs.ChannelService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.wschannel.server.WsChannelService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.wschannel.client.WsClientService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.process.service.CrossProcessServiceForMain\"\n\"com.ss.android.ugc.aweme/com.ss.android.newmedia.redbadge.RedBadgePushProcessService\"\n#美团\n\"com.sankuai.meituan/com.meituan.android.common.statistics.ipc.LeaderService\"\n\"com.sankuai.meituan/com.meituan.android.mgc.service.MGCService\"\n#饿了么\n\"me.ele/com.taobao.accs.data.MsgDistributeService\"\n\"me.ele/anetwork.channel.aidl.NetworkService\"\n\"me.ele/com.alipay.android.phone.inside.InteractionService\"\n\"me.ele/mtopsdk.xstate.XStateService\"\n\"me.ele/com.taobao.orange.service.OrangeApiService\"\n\"me.ele/me.ele.base.agoo.CallbackService\"\n\"me.ele/com.alibaba.analytics.AnalyticsService\"\n\"me.ele/me.ele.TaobaoIntentService\"\n\"me.ele/com.taobao.uc.service.GpuProcessService0\"",
+        "customContextDataKey": {
+        },
+        "id": "A-a61b2ee7-73e6-4903-b4af-283d31a27182"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dservice\u003d(\nglobalVarOf$应用服务\n)\n\nfor i in \"${dservice[@]}\"\ndo\n  dser\u003d\"$(echo \"${i}\" | sed \u0027/^#/d\u0027)\"\n  echo \"Disabling service: ${i}\"\n  pm disable \"${dser}\" \u003e/dev/null\ndone\n",
+        "customContextDataKey": {
+        },
+        "id": "A-7a354566-10df-47fd-9696-4556cd7e18fc"
       }],
       "neutral": "取消",
       "onNeutral": [{
@@ -1016,7 +1023,7 @@
     }],
     "actionsOnDeleted": [{
       "@type": "type.googleapis.com/ShellCommand",
-      "command": "dservice\u003d(\nglobalVarOf$应用服务\n)\n\nfor i in \"${dservice[@]}\"\ndo\n  dser\u003d\"$(echo \"${i}\" | sed \u0027/^#/d\u0027)\"\n  echo \"Disabling service: ${i}\"\n  pm enable \"${dser}\" \u003e/dev/null\ndone\n",
+      "command": "dservice\u003d(\nglobalVarOf$应用服务\n)\n\nfor i in \"${dservice[@]}\"\ndo\n  dser\u003d\"$(echo \"${i}\" | sed \u0027/^#/d\u0027)\"\n  echo \"Enabling service: ${i}\"\n  pm enable \"${dser}\" \u003e/dev/null\ndone\n",
       "customContextDataKey": {
       },
       "id": "A-2d4dacbf-7b0f-44c9-b5b9-0ff763172a11"
@@ -1036,7 +1043,7 @@
   },
   "quit": {
   },
-  "versionCode": "1",
+  "versionCode": "2",
   "conflictPolicy": "ConflictStrategy_ReplaceOld"
 }
 ###------###
