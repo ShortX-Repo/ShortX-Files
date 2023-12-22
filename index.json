@@ -154,11 +154,11 @@
     },
     {
       "id": "rule-65ea881b-0f42-4349-a813-cf00c170db25",
-      "fileUrl": "ShortX-消息转发至TGBot.txt",
-      "title": "消息转发至TGBot",
-      "description": "将指定应用的通知消息转发至TGBot",
-      "versionCode": 5,
-      "updateTimeMillis": 1701421818435,
+      "fileUrl": "ShortX-应用行为、通知转发至TGBot.txt",
+      "title": "应用行为、通知转发至TGBot",
+      "description": "将指定应用的状态、通知消息转发至TGBot",
+      "versionCode": 6,
+      "updateTimeMillis": 1703261414524,
       "author": "lanyi233",
       "tags": []
     },
