@@ -1,0 +1,1050 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.ss.android.ugc.aweme"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-9ea7c11b-d90d-4a85-b36a-cd1ef0455364"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.tencent.mobileqq"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-aae6a8a9-6eca-4644-a964-6b8ca7bf6b51"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.coolapk.market"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-13fe00d7-4d4b-4c61-90f7-e3bbadb29561"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "tv.danmaku.bili"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-ce972b1a-bf09-4569-97c0-7a435090820d"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-aca74499-d9a6-4ee1-a3fe-35ce7116cc96"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.tencent.wetype"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-eb605a5e-3ee4-4cca-8fdb-dd0f9c5ab2d9"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.eg.android.AlipayGphone"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-a4c72504-9a2d-4a8f-84fc-b21dc867a1ee"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.taobao.taobao"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-e41f7736-8b32-43b8-8f11-488023ce98f5"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.netease.cloudmusic"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-2bd64a95-32c4-494b-a5bd-441881defb8d"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.autonavi.minimap"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-5aeac229-0fc2-4b24-8797-1127f81ca401"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.xunmeng.pinduoduo"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-56bc141a-7e62-4076-b919-e0d7e0f2d38b"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.taobao.idlefish"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-b960cd72-e8a8-40e3-b233-d352c0d190cc"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.jingdong.app.mall"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-04112345-53ca-43d2-bf83-e639cfe04f6e"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.android.vending"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-be6746ba-e749-4fe5-a314-613a5bd0ad13"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.tencent.mobileqq"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.tencent.mobileqq"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-34138e81-9e5e-4a04-9d53-c4a8de626af1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-49ff9064-c9b9-46cd-8498-2dbab8a08102"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.tencent.mobileqq:tool"
+      }, {
+        "processName": "com.tencent.mobileqq:peak"
+      }, {
+        "processName": "com.tencent.mobileqq:qzone"
+      }, {
+        "processName": "com.tencent.mobileqq:mini"
+      }, {
+        "processName": "com.tencent.mobileqq:privileged_process0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b909e97d-b583-4283-8d89-379d52f7d694"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.tencent.mobileqq"
+        },
+        "className": "com.tencent.mobileqq.music.QQPlayerService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5d7f7ae9-7fd3-46a7-9386-b752beec700a"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ",
+    "id": "A-58fce384-a464-4cbc-b08a-1594eb18d468"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.ss.android.ugc.aweme"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.ss.android.ugc.aweme"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-34138e81-9e5e-4a04-9d53-c4a8de626af1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/SetAppInactive",
+      "appPkg": [{
+        "pkgName": "com.ss.android.ugc.aweme"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-db563db0-979a-469b-b7a7-ed1d22101236"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.ss.android.ugc.aweme:push"
+      }, {
+        "processName": "com.ss.android.ugc.aweme:sandboxed_process1"
+      }, {
+        "processName": "com.ss.android.ugc.aweme:pushservice"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "抖音",
+    "id": "A-4de9471e-57b8-42a6-a340-7d7e7360163f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.coolapk.market"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.coolapk.market"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-34138e81-9e5e-4a04-9d53-c4a8de626af1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.coolapk.market:xg_vip_service"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "酷安",
+    "id": "A-fa8976ae-026f-46e8-8288-f65e416a5a09"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "tv.danmaku.bili"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "tv.danmaku.bili"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-34138e81-9e5e-4a04-9d53-c4a8de626af1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "tv.danmaku.bili:web"
+      }, {
+        "processName": "tv.danmaku.bili:download"
+      }, {
+        "processName": "tv.danmaku.bili:pushservice"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "billbill",
+    "id": "A-d673a9d5-50fe-4e71-89d2-6f26344cd0d8"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-34138e81-9e5e-4a04-9d53-c4a8de626af1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.tencent.mm:tools"
+      }, {
+        "processName": "com.tencent.mm:toolsmp"
+      }, {
+        "processName": "com.tencent.mm:appbrand0"
+      }, {
+        "processName": "com.tencent.mm:appbrand1"
+      }, {
+        "processName": "com.tencent.mm:appbrand2"
+      }, {
+        "processName": "com.tencent.mm:support"
+      }, {
+        "processName": "com.tencent.mm:xweb_privileged_process_0"
+      }, {
+        "processName": "com.tencent.mm:xweb_sandboxed_process_0:com.tencent.xweb.pinus.sdk.process.SandboxedProcessService0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "className": "com.tencent.mm.remoteservice.RemoteService"
+      }, {
+        "pkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "className": "com.tencent.mm.plugin.webview.stub.WebViewStubService"
+      }, {
+        "pkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "className": "com.tencent.mm.plugin.fcm.WCFirebaseMessagingService"
+      }, {
+        "pkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "className": "com.tencent.matrix.lifecycle.supervisor.SupervisorService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-1851cb7b-5129-47c0-9f90-db59f1d35ff6"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-3cfa185a-d2f5-4243-8740-b2f49b088eb7"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "微信",
+    "id": "A-741ab750-c1a6-4852-8393-89a349fc1782"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.eg.android.AlipayGphone"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.eg.android.AlipayGphone"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-34138e81-9e5e-4a04-9d53-c4a8de626af1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.eg.android.AlipayGphone:tools"
+      }, {
+        "processName": "com.eg.android.AlipayGphone:push"
+      }, {
+        "processName": "com.eg.android.AlipayGphone:lite1"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.eg.android.AlipayGphone"
+        },
+        "className": "com.alipay.mobile.healthcommon.stepcounter.APExtStepService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a2e1faca-81db-4594-b37f-36b29cee8856"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "支付宝",
+    "id": "A-26070d8c-2b42-4279-b24e-b72d860ceb79"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.tencent.wetype"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.tencent.wetype"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-34138e81-9e5e-4a04-9d53-c4a8de626af1"
+    }, {
+      "@type": "type.googleapis.com/ServiceIsRunning",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.tencent.wetype"
+        },
+        "className": "com.tencent.wetype.plugin.hld.WxHldService"
+      }, {
+        "pkg": {
+          "pkgName": "com.tencent.wetype"
+        },
+        "className": "com.tencent.wetype.ipcinvoker.service.MainProcessIPCService"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-4b8cec6b-003b-4d3d-8650-8b93fc0ac420"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.tencent.wetype"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.tencent.wetype"
+        },
+        "className": "com.tencent.wetype.plugin.hld.WxHldService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-21a41709-e843-43e3-b8fd-1a551d96cc0a"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "微信输入法",
+    "id": "A-337c5a64-14f0-4033-ac6b-ef34fa3f3f9c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.taobao.taobao"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.taobao.taobao"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e88c9659-8712-4538-a7b4-ae71169898fc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.taobao.taobao:channel"
+      }, {
+        "processName": "com.taobao.taobao:gpu_process"
+      }, {
+        "processName": "com.taobao.taobao:sandboxed_privilege_process0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.taobao.taobao"
+        },
+        "className": "anetwork.channel.aidl.NetworkService"
+      }, {
+        "pkg": {
+          "pkgName": "com.taobao.taobao"
+        },
+        "className": "mtopsdk.xstate.XStateService"
+      }, {
+        "pkg": {
+          "pkgName": "com.taobao.taobao"
+        },
+        "className": "com.taobao.orange.service.OrangeApiService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-00d1c4ea-a5f5-456d-bf60-671830b07700"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "淘宝",
+    "id": "A-4481b980-0625-42fd-b9ed-32c1428d05ba"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.netease.cloudmusic"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.netease.cloudmusic"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e88c9659-8712-4538-a7b4-ae71169898fc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0"
+      }, {
+        "processName": "com.netease.cloudmusic:patch"
+      }, {
+        "processName": "com.netease.cloudmusic:pushservice"
+      }, {
+        "processName": "com.netease.cloudmusic:browser"
+      }, {
+        "processName": "com.netease.cloudmusic:videoplay"
+      }, {
+        "processName": "com.netease.cloudmusic:viewer"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.netease.cloudmusic"
+        },
+        "className": "com.netease.cloudmusic.module.mp.dispatch.MpService1"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-c7e6e34c-3283-41b9-ae32-002c6a6b65c3"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "网易云",
+    "id": "A-9b8f58f6-532a-4bd3-b260-d22d3615a537"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.autonavi.minimap"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.autonavi.minimap"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e88c9659-8712-4538-a7b4-ae71169898fc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.autonavi.minimap:widgetProvider"
+      }, {
+        "processName": "com.autonavi.minimap:sandboxed_privilege_process0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.autonavi.minimap"
+        },
+        "className": "com.alipay.android.phone.inside.InteractionService"
+      }, {
+        "pkg": {
+          "pkgName": "com.autonavi.minimap"
+        },
+        "className": "com.autonavi.minimap.controller.PushAidlService"
+      }, {
+        "pkg": {
+          "pkgName": "com.autonavi.minimap"
+        },
+        "className": "com.amap.api.service.AMapService"
+      }, {
+        "pkg": {
+          "pkgName": "com.autonavi.minimap"
+        },
+        "className": "com.autonavi.minimap.TaobaoIntentService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-08d3d40f-7e64-430e-815b-570f165b39b4"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "高德地图",
+    "id": "A-d31e0956-a85d-444f-97a4-aab3daa5f4ee"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.xunmeng.pinduoduo"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.xunmeng.pinduoduo"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e88c9659-8712-4538-a7b4-ae71169898fc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.xunmeng.pinduoduo:lifecycle"
+      }, {
+        "processName": "com.xunmeng.pinduoduo:support"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.xunmeng.pinduoduo"
+        },
+        "className": "com.xunmeng.pinduoduo.almighty.ipc.ipcinvoker.service.TitanProcessIPCService"
+      }, {
+        "pkg": {
+          "pkgName": "com.xunmeng.pinduoduo"
+        },
+        "className": "com.xunmeng.basiccomponent.titan.service.ServiceNative"
+      }, {
+        "pkg": {
+          "pkgName": "com.xunmeng.pinduoduo"
+        },
+        "className": "com.xunmeng.pinduoduo.almighty.ipc.ipcinvoker.service.SupportProcessIPCService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-08d3d40f-7e64-430e-815b-570f165b39b4"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "拼多多",
+    "id": "A-00f370be-3df7-4f79-a07e-2bd34ddb66f3"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.taobao.idlefish"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.taobao.idlefish"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e88c9659-8712-4538-a7b4-ae71169898fc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.taobao.idlefish:wml1"
+      }, {
+        "processName": "com.taobao.idlefish:channel"
+      }, {
+        "processName": "com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a03e7eff-86aa-47ef-939e-d455413ff6a8"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "闲鱼",
+    "id": "A-8244b786-c66a-4e5e-a6b8-d80ea2a1c693"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.jingdong.app.mall"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.jingdong.app.mall"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e88c9659-8712-4538-a7b4-ae71169898fc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.jingdong.app.mall:jdpush"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-058aaa82-e0ca-42ba-9e24-3f45f15fbbb2"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.jingdong.app.mall"
+        },
+        "className": "com.jingdong.jdpush_new.JDSPushService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-62e66d9d-0380-4494-81be-aa8327f958cf"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "京东",
+    "id": "A-cf77ae81-c47e-4310-a3d0-c07034537831"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.android.vending"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-e5410ada-9bc9-4389-bc73-873e12be62f5"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.google.android.gms"
+      }, {
+        "pkgName": "com.google.android.gsf"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e88c9659-8712-4538-a7b4-ae71169898fc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0bea58e6-aba0-4ed0-b90d-b538d22cd4b4"
+    }, {
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.jingdong.app.mall:jdpush"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-058aaa82-e0ca-42ba-9e24-3f45f15fbbb2"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.jingdong.app.mall"
+        },
+        "className": "com.jingdong.jdpush_new.JDSPushService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-62e66d9d-0380-4494-81be-aa8327f958cf"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "Google",
+    "id": "A-ba763c64-2bef-4bde-b98b-5887d7602c62"
+  }],
+  "id": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
+  "lastUpdateTime": "1703049449434",
+  "createTime": "1700905444278",
+  "author": {
+    "name": "cong"
+  },
+  "title": "应用进程优化 v1.3",
+  "description": "优化各毒瘤软件的占用",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "hitokoto\u003d\"$(curl --max-time 1 -s \"https://v1.hitokoto.cn/?encode\u003dtext\u0026max_length\u003d17\")\"\nif [ -n \"${hitokoto}\" ]; then\n  echo -e \"今日一言：\\n\"\u0027\"\u0027${hitokoto}\u0027\"\u0027\"\"\nelse\n  echo \"应用进程优化\"\nfi\n",
+      "customContextDataKey": {
+      },
+      "id": "A-6d695d83-87f2-4edc-a5ea-f3b466dbe89f"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "不禁用服务",
+      "onPositive": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-5621c607-4ee1-40a1-8f11-c932242fd739"
+      }],
+      "negative": "禁用服务",
+      "onNegative": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已禁用服务",
+        "customContextDataKey": {
+        },
+        "id": "A-7316d2a0-cf94-4574-8c87-8f0fe10e04e9"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dservice\u003d(\nglobalVarOf$应用服务\n)\n\nfor i in \"${dservice[@]}\"\ndo\n  dser\u003d\"$(echo \"${i}\" | sed \u0027/^#/d\u0027)\"\n  echo \"Disabling service: ${i}\"\n  pm disable \"${dser}\" \u003e/dev/null\ndone\n",
+        "customContextDataKey": {
+        },
+        "id": "A-584cf326-faf0-4f6e-acf5-6c1f8f8196d2"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "应用服务",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "by 应用进程优化"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-9d69f77a-1278-4bdf-a08c-77ca1d309c15"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "应用服务",
+        "valueAsString": "#网易云\n\"com.netease.cloudmusic/com.netease.cloudmusic.module.mp.dispatch.MpService1\"\n#支付宝\n\"com.autonavi.minimap/com.alipay.android.phone.inside.InteractionService\"\n\"com.eg.android.AlipayGphone/com.alipay.pushsdk.push.NotificationService\"\n\"com.eg.android.AlipayGphone/com.alipay.dexaop.power.RuntimePowerService\"\n\"com.eg.android.AlipayGphone/com.alipay.mobile.healthcommon.stepcounter.APExtStepService\"\n#高德地图\n\"com.autonavi.minimap/com.amap.bundle.webview.uc.SandboxedPrivilegedProcessService0\"\n\"com.autonavi.minimap/com.autonavi.minimap.TaobaoIntentService\"\n\"com.autonavi.minimap/com.amap.api.service.AMapService\"\n\"com.autonavi.minimap/com.autonavi.minimap.controller.PushAidlService\"\n\"com.autonavi.minimap/com.amap.bundle.network.channel.AmapAccsService\"\n\"com.autonavi.minimap/com.taobao.accs.data.MsgDistributeService\"\n#拼多多\n\"com.xunmeng.pinduoduo/com.xunmeng.pinduoduo.almighty.ipc.ipcinvoker.service.SupportProcessIPCService\"\n\"com.xunmeng.pinduoduo/org.chromium.content.app.PrivilegedProcessService0\"\n\"com.xunmeng.pinduoduo/com.xunmeng.basiccomponent.titan.service.ServiceNative\"\n\"com.xunmeng.pinduoduo/com.xunmeng.pinduoduo.almighty.ipc.ipcinvoker.service.TitanProcessIPCService\"\n#微信输入法\n\"com.tencent.wetype/.plugin.hld.model.WxImeInterService\"\n#淘宝\n\"com.taobao.taobao/mtopsdk.xstate.XStateService\"\n\"com.taobao.taobao/com.taobao.orange.service.OrangeApiService\"\n\"com.taobao.taobao/anetwork.channel.aidl.NetworkService\"\n\"com.taobao.taobao/com.alibaba.analytics.AnalyticsService\"\n\"com.taobao.taobao/com.taobao.activelocation.service.aidl.TBLocationServiceImpl\"\n\"com.taobao.taobao/com.taobao.android.tschedule.TScheduleStatusService\"\n\"com.taobao.taobao/com.taobao.accs.data.MsgDistributeService\"\n\"com.taobao.taobao/com.taobao.accs.AccsMainService\"\n\"com.taobao.taobao/com.taobao.accs.ChannelService\"\n#闲鱼\n#\"com.taobao.idlefish/org.chromium.content.app.SandboxedProcessService0:0\"\n\"com.taobao.idlefish/com.taobao.orange.service.OrangeApiService\"\n\"com.taobao.idlefish/com.taobao.fleamarket.message.service.AccsTlogService\"\n\"com.taobao.idlefish/com.taobao.accs.data.MsgDistributeService\"\n\"com.taobao.idlefish/anetwork.channel.aidl.NetworkService\"\n\"com.taobao.idlefish/mtopsdk.xstate.XStateService\"\n#京东\n\"com.jingdong.app.mall/com.jingdong.jdpush_new.JDSPushService\"\n\"com.jingdong.app.mall/com.jingdong.manto.message.MantoAcrossProcessMain\"\n#菜鸟\n\"com.cainiao.wireless/android.taobao.windvane.extra.jsbridge.WVACCSService\"\n\"com.cainiao.wireless/com.alibaba.analytics.AnalyticsService\"\n\"com.cainiao.wireless/com.alipay.android.phone.inside.InteractionService\"\n\"com.cainiao.wireless/com.cainiao.wireless.dorado.module.channel.accs.DoradoAccsService\"\n\"com.cainiao.wireless/com.cainiao.wireless.dorado.module.channel.accs.DoradoAccsService\"\n\"com.cainiao.wireless/com.qq.e.comm.DownloadService\"\n\"com.cainiao.wireless/com.taobao.orange.service.OrangeApiService\"\n\"com.cainiao.wireless/com.cainiao.wireless.TaobaoIntentService\"\n#微信\n\"com.tencent.mm/com.tencent.mm.plugin.fcm.WCFirebaseMessagingService\"\n\"com.tencent.mm/com.tencent.matrix.lifecycle.supervisor.SupervisorService\"\n#QQ\n\"com.tencent.mobileqq/com.tencent.mobileqq.winkpublish.service.WinkPublishService\"\n#酷安\n\"com.coolapk.market/com.qq.e.comm.DownloadService\"\n#哔哩哔哩\n\"tv.danmaku.bili/com.bilibili.biligame.track.service.TrackService\"\n\"tv.danmaku.bili/androidx.room.MultiInstanceInvalidationService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesRemoteService\"\n\"tv.danmaku.bili/com.bilibili.adcommon.apkdownload.ADDownloadService\"\n\"tv.danmaku.bili/com.bilibili.lib.neuron.internal.NeuronRemoteService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesRemoteService\"\n\"tv.danmaku.bili/com.bilibili.lib.infoeyes.InfoEyesLocalService\"\n\"tv.danmaku.bili/com.bilibili.lib.neuron.internal.NeuronLocalService\"\n#游戏下载服务哔哩哔哩\n\"tv.danmaku.bili/com.bilibili.game.service.DownloadService\"\n\"tv.danmaku.bili/com.bilibili.game.service.filedownload.FileDownloadServiceV2\"\n#抖音\n\"com.ss.android.ugc.aweme/com.ss.android.message.NotifyService\"\n\"com.ss.android.ugc.aweme/com.ss.android.message.log.LogService\"\n\"com.ss.android.ugc.aweme/com.umeng.message.UmengIntentService\"\n\"com.ss.android.ugc.aweme/com.taobao.accs.ChannelService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.wschannel.server.WsChannelService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.wschannel.client.WsClientService\"\n\"com.ss.android.ugc.aweme/com.bytedance.common.process.service.CrossProcessServiceForMain\"\n\"com.ss.android.ugc.aweme/com.ss.android.newmedia.redbadge.RedBadgePushProcessService\"\n#美团\n\"com.sankuai.meituan/com.meituan.android.common.statistics.ipc.LeaderService\"\n\"com.sankuai.meituan/com.meituan.android.mgc.service.MGCService\"\n#饿了么\n\"me.ele/com.taobao.accs.data.MsgDistributeService\"\n\"me.ele/anetwork.channel.aidl.NetworkService\"\n\"me.ele/com.alipay.android.phone.inside.InteractionService\"\n\"me.ele/mtopsdk.xstate.XStateService\"\n\"me.ele/com.taobao.orange.service.OrangeApiService\"\n\"me.ele/me.ele.base.agoo.CallbackService\"\n\"me.ele/com.alibaba.analytics.AnalyticsService\"\n\"me.ele/me.ele.TaobaoIntentService\"\n\"me.ele/com.taobao.uc.service.GpuProcessService0\"",
+        "customContextDataKey": {
+        },
+        "id": "A-a61b2ee7-73e6-4903-b4af-283d31a27182"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dservice\u003d(\nglobalVarOf$应用服务\n)\n\nfor i in \"${dservice[@]}\"\ndo\n  dser\u003d\"$(echo \"${i}\" | sed \u0027/^#/d\u0027)\"\n  echo \"Disabling service: ${i}\"\n  pm disable \"${dser}\" \u003e/dev/null\ndone\n",
+        "customContextDataKey": {
+        },
+        "id": "A-7a354566-10df-47fd-9696-4556cd7e18fc"
+      }],
+      "neutral": "取消",
+      "onNeutral": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
+        "customContextDataKey": {
+        },
+        "id": "A-a47799fc-b245-4184-81e1-94df7ec8d34b"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-67d6c5a0-af91-474d-8145-8aa9c795a468"
+      }],
+      "title": "{shellOut}",
+      "message": "- PM 禁用服务 + 结束进程\n！注意事项\n- 首次禁用服务会导致禁用的应用停止运行(已禁用完成的不会)\n- 应用服务可能会导致应用出现异常\n- 删除指令后恢复禁用\n！部分软件杀死服务和进程后会重新拉起所以禁用服务效果更好",
+      "customContextDataKey": {
+      },
+      "id": "A-6533f7c7-ec45-43bd-846c-b869615b22a9"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "dservice\u003d(\nglobalVarOf$应用服务\n)\n\nfor i in \"${dservice[@]}\"\ndo\n  dser\u003d\"$(echo \"${i}\" | sed \u0027/^#/d\u0027)\"\n  echo \"Enabling service: ${i}\"\n  pm enable \"${dser}\" \u003e/dev/null\ndone\n",
+      "customContextDataKey": {
+      },
+      "id": "A-2d4dacbf-7b0f-44c9-b5b9-0ff763172a11"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "应用服务",
+      "customContextDataKey": {
+      },
+      "id": "A-e0c38113-9637-4a5d-ab06-97e183f60e16"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已恢复服务",
+      "customContextDataKey": {
+      },
+      "id": "A-d2d50bb2-6854-45b9-9bd7-7284d963ffc0"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "2",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}
