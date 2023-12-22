@@ -1,0 +1,768 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "pkgSets": ["消息转发"]
+    },
+    "tag": "消息转发",
+    "customContextDataKey": {
+    },
+    "id": "F-83aec591-c06f-4027-ba8a-ae5ce46fc216"
+  }, {
+    "@type": "type.googleapis.com/AppAdded",
+    "tag": "应用安装",
+    "customContextDataKey": {
+    },
+    "id": "F-18ea8170-1a57-445d-ae15-f8537b97381d"
+  }, {
+    "@type": "type.googleapis.com/AppRemoved",
+    "pkgSets": ["All"],
+    "tag": "应用卸载",
+    "customContextDataKey": {
+    },
+    "id": "F-32c777e1-3a7e-43eb-8b08-90d43922abb1"
+  }, {
+    "@type": "type.googleapis.com/AppUpdated",
+    "pkgSets": ["All"],
+    "tag": "应用更新",
+    "customContextDataKey": {
+    },
+    "id": "F-1706a692-1e29-44c4-bda5-eb04c1a7a94d"
+  }, {
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "tag": "手机开机",
+    "customContextDataKey": {
+    },
+    "id": "F-f52ccf65-1afb-4654-a1dc-7129123ae23d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-9b9be8a5-0fd0-487f-9467-62151ac0d6a5"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-6c9ea457-b661-4faf-9e5a-9529ec75b047"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "weekdays\u003d(\"天\" \"一\" \"二\" \"三\" \"四\" \"五\" \"六\")\ndayOfWeek\u003d$(date +%w)\necho \"$(date +%Y-%m-%d-%H:%M:%S) 星期${weekdays[$dayOfWeek]}\"\n",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "Timer"
+          }]
+        },
+        "id": "A-c77cd7d7-670d-47d0-8289-e183254de0df"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "［格外组件］🕒时间(📤高优先级)",
+      "id": "A-f4ef3f0a-3633-4cc3-a06a-b122dbe19085"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "Chatid",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-fd526e82-e26a-4be4-bc22-769478099daf"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "Token",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-f6bbd6f6-f234-4572-8ecd-ee63e7956670"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "Text",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ad1e7994-6ceb-4e81-ae4f-e4b9c90faff2"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "TgBotApi",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-2c4baab6-1ca1-4c41-a4dc-f315169a3da1"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "⚙️初始化",
+    "id": "A-12b110d5-2e2e-4bc7-9577-8d719c52d1b1"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-9308596c-e744-4193-876b-8a80f78b9012"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "消息转发",
+        "customContextDataKey": {
+        },
+        "id": "C-94d7a779-207a-4bb9-a03f-52e514b62c37"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "focus-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-1f7544cd-9e8c-4cfc-b9e6-a07d5859e810"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-b1a796fc-340a-4b77-96ef-c1a12d3e6021"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-fd656b21-4968-405d-8d47-a5a2734d1012"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "Ip_CN_Ipv4",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-32d21408-e910-41d6-97a9-aaa33fbd15dc"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "Ip_CN_Ipv6",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-932c1e1e-009c-4e4d-b0ea-8366b24b1478"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "Ip_CN_Test",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-cea8d0b8-146f-46fd-a97c-5e3f3a52538d"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "Ip_CN_city",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-dd06bbcc-56fc-40dc-ad33-8b7f7ce42e6e"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "Ip_CN_country",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-b5996241-aabd-446f-8e1f-1ae1c7babf30"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "Ip_GJ",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-795f6ab3-2975-4767-afc7-b2cf2c9faffc"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "Ip_GJ_city",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-4a46a9ce-833b-4273-9cd5-5a9c714998fe"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "Ip_GJ_country",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-48f41b93-c8e5-48bb-9e04-a0b8fffbd86a"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "⚙️变量初始化",
+          "id": "A-4b05c614-a4be-4b6a-a609-02bc4698c6d4"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-3796a39d-f551-402a-9557-248dfa2f8218"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://api.bilibili.com/x/web-interface/zone",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+              "expressions": ["data.addr", "data.containsKey(\u0027province\u0027) ? data.province : \"\"", "data.containsKey(\u0027city\u0027) ? data.city : \"\"", "data.isp", "data.country"]
+            },
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-24b2d833-e272-4837-a894-2c04dd7fd699"
+          }, {
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://4.ipw.cn",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestRawAdapter"
+            },
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "id": "A-2310a087-e0b0-4fe3-9882-d90d8aa6c32f"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "Ip_CN_Ipv4",
+            "valueAsString": "{httpRequestRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-22164f56-27f5-4a53-bfba-cf87f5b784b6"
+          }, {
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://6.ipw.cn",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestRawAdapter"
+            },
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-42dd3986-617a-4652-a0fc-ad105bc60298"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "Ip_CN_Ipv6",
+            "valueAsString": "{httpRequestRet}",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-e0c53308-b831-4e0a-8a21-df05f40f34e2"
+          }, {
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://test.ipw.cn",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestRawAdapter"
+            },
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "id": "A-231873e5-2d8e-498e-b9b0-4e3b02e69140"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "Ip_CN_Test",
+            "valueAsString": "{httpRequestRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-f4d4dab1-912a-41fd-bcb4-058c57c2dac0"
+          }, {
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://ipinfo.io/localVarOf$Ip_CN_Test",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+              "expressions": ["city", "country"]
+            },
+            "headers": [{
+              "key": "Accept",
+              "value": "application/json"
+            }],
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "id": "A-5680309a-cc12-4121-97ca-65e38b891582"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "Ip_CN_city",
+            "valueAsString": "{httpRequestRet1}",
+            "customContextDataKey": {
+            },
+            "id": "A-56ff7c0d-16ad-45af-9d23-caf141b3265f"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "Ip_CN_country",
+            "valueAsString": "{httpRequestRet2}",
+            "customContextDataKey": {
+            },
+            "id": "A-a6d478bb-49b9-4df0-99cf-4e76d76ea754"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "🛳️国内",
+          "id": "A-b0aaaffb-c1a2-4b74-87b2-fb8ec0278ce5"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-22872a0a-3431-43cf-a422-685d5e989289"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://ipinfo.io",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+              "expressions": ["ip", "city", "country"]
+            },
+            "headers": [{
+              "key": "Accept",
+              "value": "application/json"
+            }],
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "id": "A-5680309a-cc12-4121-97ca-65e38b891582"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "Ip_GJ",
+            "valueAsString": "{httpRequestRet1}",
+            "customContextDataKey": {
+            },
+            "id": "A-2985a6d0-d727-4c95-b197-7daeae0da73a"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "Ip_GJ_city",
+            "valueAsString": "{httpRequestRet2}",
+            "customContextDataKey": {
+            },
+            "id": "A-56ff7c0d-16ad-45af-9d23-caf141b3265f"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "Ip_GJ_country",
+            "valueAsString": "{httpRequestRet3}",
+            "customContextDataKey": {
+            },
+            "id": "A-a6d478bb-49b9-4df0-99cf-4e76d76ea754"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "🛫国外",
+          "id": "A-f592c9a5-3922-43ce-a837-0ac5a0afc21f"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "［格外组件］🌍IP(⏳耗时长)\n - 默认禁用IPv6检测(影响速度)，可手动开启",
+        "id": "A-700a2bb4-7e3b-4318-9c13-db13227eaef3"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-f71ca829-d115-4585-8bb4-a26e9938542f"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "//感谢 cong 提供的mvel\nimport android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n//app 包名\nString packageName \u003d {pkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "appName"
+            }]
+          },
+          "id": "A-c628dcfa-782d-4e0e-9665-ca5fff8bcc2e"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "📱包名转应用名\n感谢 cong 提供的mvel",
+        "id": "A-f9541b22-d070-4e8b-b413-891ef59b1325"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-90df3d3a-6e16-4003-bd49-fc78a0ee39c2"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "Text",
+          "valueAsString": "［\u003d\u003d\u003d通知转发\u003d\u003d\u003d］\nAPP: {appName} (`{pkgName}`)({userId})\n```Title\n{title}```\n```Text\n{contentText}```\n\nMsgTag: `{notificationTag}`\n------\nTime: {Timer}",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "📤发送出去的样式",
+          "id": "A-12522464-e0e6-4389-9703-af86e9d1eb90"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "Text",
+          "valueAsString": "［\u003d\u003d\u003d通知转发\u003d\u003d\u003d］\nAPP: {appName} (`{pkgName}`)({userId})\n```Title\n{title}```\n```Text\n{contentText}```\nMsgTag: `{notificationTag}`\n------\n```主机IP\n［国内］\n - Ipv4: localVarOf$Ip_CN_Ipv4\n - Ipv6: localVarOf$Ip_CN_Ipv6\n - 主IP: localVarOf$Ip_CN_Test\n - 地理位置: localVarOf$Ip_CN_country(localVarOf$Ip_CN_city)\n［国外］\n - Ip: localVarOf$Ip_GJ\n - 地理位置: localVarOf$Ip_GJ_country(localVarOf$Ip_GJ_city)```\n------\nTime: {Timer}",
+          "customContextDataKey": {
+          },
+          "note": "📤发送出去的样式",
+          "id": "A-acb46c44-468b-4e1e-b92b-ed41da05de6b"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "     ╓┈┈┈┈┈┈┈┈┈┈╖\n    ║                           ║\n   ║ 🛠️面向使用者的修改 ║\n  ║（消息转发的文本）   ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
+        "id": "A-4bd9d082-4566-408e-ad51-d668660783a0"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "💬消息转发",
+      "id": "A-8406dd56-8f20-4abf-a2b9-8521810765b2"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "应用安装",
+        "customContextDataKey": {
+        },
+        "id": "C-3e245cf6-2058-46b3-a051-5c914748f928"
+      }, {
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "应用卸载",
+        "customContextDataKey": {
+        },
+        "id": "C-595aca9b-9841-4187-8340-53c0844fc0af"
+      }, {
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "应用更新",
+        "customContextDataKey": {
+        },
+        "id": "C-917fab1b-32bb-4e95-978e-f3796a76668d"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-90df3d3a-6e16-4003-bd49-fc78a0ee39c2"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-3f8640d6-b815-43e5-9e49-fa37045cab25"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/RequireFactTag",
+              "tag": "应用安装",
+              "customContextDataKey": {
+              },
+              "id": "C-b2c90583-f3d4-4492-b20a-08503902c5aa"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"应用安装\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "TextTitle"
+                }]
+              },
+              "id": "A-bc19caf6-1091-4524-99dc-fd6cd2513eae"
+            }],
+            "customContextDataKey": {
+            },
+            "note": "应用安装",
+            "id": "A-5a81a50e-c970-43e4-9f95-8c21c41281f8"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/RequireFactTag",
+              "tag": "应用卸载",
+              "customContextDataKey": {
+              },
+              "id": "C-b2c90583-f3d4-4492-b20a-08503902c5aa"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"应用卸载\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "TextTitle"
+                }]
+              },
+              "id": "A-bc19caf6-1091-4524-99dc-fd6cd2513eae"
+            }],
+            "customContextDataKey": {
+            },
+            "note": "应用卸载",
+            "id": "A-874676f4-257f-4f58-bab0-64b2b4f0861f"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/RequireFactTag",
+              "tag": "应用更新",
+              "customContextDataKey": {
+              },
+              "id": "C-b2c90583-f3d4-4492-b20a-08503902c5aa"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"应用更新\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "TextTitle"
+                }]
+              },
+              "id": "A-bc19caf6-1091-4524-99dc-fd6cd2513eae"
+            }],
+            "customContextDataKey": {
+            },
+            "note": "应用更新",
+            "id": "A-f0ec2ced-a4dd-46cf-a38d-442efe919c0f"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "标题文字",
+          "id": "A-5a81a50e-c970-43e4-9f95-8c21c41281f8"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "Text",
+          "valueAsString": "［\u003d\u003d\u003d{TextTitle}\u003d\u003d\u003d］\nApp：{label} ({pkgName})({userId})\n------\nTime: {Timer}",
+          "customContextDataKey": {
+          },
+          "note": "📤发送出去的样式",
+          "id": "A-12522464-e0e6-4389-9703-af86e9d1eb90"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "     ╓┈┈┈┈┈┈┈┈┈┈╖\n    ║                           ║\n   ║ 🛠️面向使用者的修改 ║\n  ║（发送时的文本）     ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
+        "id": "A-79c9c503-5136-4fc6-b244-b9a134e1bb77"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "📲应用变化",
+      "id": "A-60db0490-9f0d-44c5-9975-65c744b935cb"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "手机开机",
+        "customContextDataKey": {
+        },
+        "id": "C-7826873c-9e47-458a-bc63-b79227eda963"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-90df3d3a-6e16-4003-bd49-fc78a0ee39c2"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "Text",
+          "valueAsString": "［\u003d\u003d\u003d手机启动\u003d\u003d\u003d］\n------\nTime: {Timer}",
+          "customContextDataKey": {
+          },
+          "note": "📤发送出去的样式",
+          "id": "A-12522464-e0e6-4389-9703-af86e9d1eb90"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "     ╓┈┈┈┈┈┈┈┈┈┈╖\n    ║                           ║\n   ║ 🛠️面向使用者的修改 ║\n  ║（手机开机的文本）   ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
+        "id": "A-4bd9d082-4566-408e-ad51-d668660783a0"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "📱手机开机",
+      "id": "A-9a24ecf4-1e72-45af-91c2-e80eee8a3f21"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "↗️触发动作",
+    "id": "A-b82a9ee0-3a44-49d4-90f1-a517137fef08"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-6b952cf0-2113-48af-8fdb-b694413996c1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-90df3d3a-6e16-4003-bd49-fc78a0ee39c2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "Token",
+        "valueAsString": "6734159541:AAGBrnVY6aEhupmIXMnGTpLeTrOqiMeIlW0",
+        "customContextDataKey": {
+        },
+        "note": "Telegram Bot的Token\n\n - 如果您不知道此值，请\n   \u003e 前往 @BotFather 创建/管理Bot\n\n - Token样式：［1145141919:令牌］",
+        "id": "A-f486b2bf-f420-44b9-bead-b8b96a37f02f"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "Chatid",
+        "valueAsString": "-1001993480546",
+        "customContextDataKey": {
+        },
+        "note": "发送到的用户ID\n - 请先进行一次Start才能使用\n - 不知道您的用户ID？请\n  \u003e 前往 @MissRose_bot 发送 “/info” 命令查看",
+        "id": "A-fd7acee0-c704-47a7-82f0-15a92911d1ae"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-ad388ae4-4e20-4d81-b415-e95c8a78a562"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "telegram-line",
+          "customContextDataKey": {
+          },
+          "note": "需要哪个API就启用哪个（点击左边图标切换）\n如果启动多个则使用最后一个API",
+          "id": "A-6959d014-dda0-4039-9ec7-14717c232fcb"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "TgBotApi",
+          "valueAsString": "api.telegram.org",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "Telegram官方API\n - 需要挂代理",
+          "id": "A-1ae5bf22-a9e1-4397-aa82-415a4c7679ab"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "TgBotApi",
+          "valueAsString": "tg.git.llc",
+          "customContextDataKey": {
+          },
+          "note": "第三方API\n - 公益接口\n - 可不用挂代理",
+          "id": "A-4d87aef9-2a05-4e0a-8a6b-12911ccbd94c"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "与TG服务器沟通的域名\n如有需要可修改（已有内置，可添加）\n（不需要添加http头）",
+        "id": "A-b0ee64bd-3550-4363-b183-600dc8d67b83"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "     ╓┈┈┈┈┈┈┈┈┈┈╖\n    ║                           ║\n   ║ 🛠️面向使用者的修改 ║\n  ║（TG Bot配置）        ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
+      "id": "A-541a9e07-207c-479a-886b-1e896655c84c"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "     ╓┈┈┈┈┈┈┈┈┈┈╖\n    ║                           ║\n   ║ 🛠️面向使用者的修改 ║\n  ║（📝API配置）         ║\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
+    "id": "A-68d4f41f-ea50-4d5a-9b03-b95b96498de1"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-df68186d-cab1-47a2-9c9c-7ffef39b055a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://localVarOf$TgBotApi/botlocalVarOf$Token/sendMessage",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter"
+      },
+      "method": "POST",
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\n \"chat_id\":\"localVarOf$Chatid\",\n \"parse_mode\":\"MarkDown\",\n \"text\":\"localVarOf$Text\"\n}"
+      },
+      "customContextDataKey": {
+      },
+      "note": "🌐发送数据",
+      "id": "A-0bfc7eaf-78c2-425d-80f8-245a511d7995"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "🌐发送数据",
+    "id": "A-7d0cbe74-faa8-446b-8eec-b0fb9c802fca"
+  }],
+  "id": "rule-65ea881b-0f42-4349-a813-cf00c170db25",
+  "lastUpdateTime": "1703261414524",
+  "createTime": "1700931565509",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "应用行为、通知转发至TGBot",
+  "description": "将指定应用的状态、通知消息转发至TGBot",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "6",
+  "ruleSetId": "RS-20525b07-7d1d-4efe-b0f5-1d262f64f8d4"
+}
+###------###
+{"type":"rule"}
