@@ -1120,7 +1120,7 @@
     "id": "A-7d0cbe74-faa8-446b-8eec-b0fb9c802fca"
   }],
   "id": "rule-65ea881b-0f42-4349-a813-cf00c170db25",
-  "lastUpdateTime": "1703937402223",
+  "lastUpdateTime": "1703940527283",
   "createTime": "1700931565509",
   "author": {
     "name": "lanyi233"
@@ -1193,7 +1193,7 @@
           "url": "{httpRequestRet5}",
           "adapter": {
             "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
-            "expressions": ["update", "url.telegram", "url.github", "update_notice"]
+            "expressions": ["update", "url.telegram", "url.github", "update_notice.title", "update_notice.Text"]
           },
           "requestBody": {},
           "customContextDataKey": {
@@ -1246,8 +1246,8 @@
             },
             "id": "A-9d75115c-5c92-4bb0-bee4-e1be5c14df8b"
           }],
-          "title": "近期更新",
-          "message": "{httpRequestRet4}",
+          "title": "{httpRequestRet4}",
+          "message": "{httpRequestRet5}",
           "cancelable": true,
           "customContextDataKey": {
           },
