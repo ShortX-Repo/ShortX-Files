@@ -1,0 +1,124 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "tileNumber": 1,
+    "customContextDataKey": {
+    },
+    "note": "谷歌基础服务\n导入后请手动执行两次完成准备动作\nBy酷安墨上千里",
+    "id": "F-ad8177e3-8b92-412c-984c-eed39f489a52"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "GoogleGlobal",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d3a239d7-d65f-48ca-ba46-1bd618023be1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "GoogleGlobal",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "判断谷歌基础服务开关"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-beef9072-e98c-4356-a68f-4a3979eba924"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已新建全局变量，只显示一次",
+      "customContextDataKey": {
+      },
+      "id": "A-a30fe4c4-b550-42ef-841e-8bc135d04117"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "NotSet",
+        "varName": "GoogleGlobal",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-138ad0ab-89f7-4bf6-84fe-9d3a360c6e86"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "gms\u003d(\n\"com.google.android.gms\"\n\"com.google.android.gsf\"\n\"com.android.vending\"\n\"com.google.android.syncadapters.contacts\"\n\"com.google.android.backuptransport\"\n\"com.google.android.onetimeinitializer\"\n\"com.google.android.partnersetup\"\n\"com.google.android.configupdater\"\n\"com.google.android.ext.shared\"\n\"com.google.android.printservice.recommendation\")\nfor i in ${!gms[@]} ;do\npm disable ${gms[i]} \u0026\u003e/dev/null\ndone\necho \"disable\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "ShellFirst"
+          }]
+        },
+        "note": "关闭谷歌基础服务并写入全局变量",
+        "id": "A-95a4bd0b-1adf-426e-93de-f55aefaa7572"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "GoogleGlobal",
+        "valueAsString": "{ShellFirst}",
+        "customContextDataKey": {
+        },
+        "id": "A-a03d62e6-ac35-4dd3-96fe-0dfa408e9a17"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "首次写入全局变量，只显示一次\n现在可以正常使用了",
+        "customContextDataKey": {
+        },
+        "id": "A-a8b992d8-11a8-491a-adf9-3a86a6315ee9"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "\nint_C\u003d\"globalVarOf$GoogleGlobal\"\n\ngms\u003d(\n\"com.google.android.gms\"\n\"com.google.android.gsf\"\n\"com.android.vending\"\n\"com.google.android.syncadapters.contacts\"\n\"com.google.android.backuptransport\"\n\"com.google.android.onetimeinitializer\"\n\"com.google.android.partnersetup\"\n\"com.google.android.configupdater\"\n\"com.google.android.ext.shared\"\n\"com.google.android.printservice.recommendation\"\n)\n\nif [[ \"${int_C}\" \u003d\u003d \"disable\" ]]; then\n    for i in \"${!gms[@]}\"; do\n        pm enable \"${gms[i]}\" \u0026\u003e/dev/null\n    done\n    echo \"enable\"\nelif [[ \"${int_C}\" \u003d\u003d \"enable\" ]]; then\n    for i in \"${!gms[@]}\"; do\n        pm disable \"${gms[i]}\" \u0026\u003e/dev/null\n    done\n    echo \"disable\"\nelse\n    echo \"请提供正确的参数：\u0027enable\u0027 或 \u0027disable\u0027\"\nfi\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-5cc47893-ce50-4a3c-ba7e-d2b6e5ac3305"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "GoogleGlobal",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-b8c7babc-2b26-40da-a0e0-f3cf38bec7a8"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "GMS：{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-4a92f22e-cad6-4c9a-8fde-7dfd3c8c29e8"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d1eebc82-3971-493c-b9c9-0f67be841f27"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-38f1a509-4918-469b-8d1e-eb0c71b380cb"
+  }],
+  "id": "rule-378e112b-6d99-4ea4-9ab1-8861663d3f51",
+  "lastUpdateTime": "1703988766737",
+  "createTime": "1701837016655",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "谷歌服务基础",
+  "description": "使用前请确认打开Shell命令引擎开关",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-7f777647-4031-4cec-924c-cbbaf92309aa"
+}
+###------###
+{"type":"rule"}
