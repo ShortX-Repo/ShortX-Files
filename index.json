@@ -213,6 +213,16 @@
       "tags": []
     },
     {
+      "id": "rule-378e112b-6d99-4ea4-9ab1-8861663d3f51",
+      "fileUrl": "ShortX-谷歌服务基础.txt",
+      "title": "谷歌服务基础",
+      "description": "使用前请确认打开Shell命令引擎开关",
+      "versionCode": 1,
+      "updateTimeMillis": 1703988766737,
+      "author": "ShortX",
+      "tags": []
+    },
+    {
       "id": "lingshang-powerpanel",
       "fileUrl": "ShortX-电源面板.txt",
       "title": "电源面板",
