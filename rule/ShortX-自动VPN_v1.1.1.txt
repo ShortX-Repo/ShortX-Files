@@ -92,7 +92,7 @@
     "name": "源梦"
   },
   "title": "自动VPN_v1.1.1",
-  "description": "自动关闭和开启vpn@源梦\n使用前请自行建立应用集 名字为vpn应用\n适用于clashmeta最新版(自行前往官网下载使用)",
+  "description": "自动关闭和开启vpn@源梦\n使用前请自行建立应用集 名字为vpn应用\n适用于clashmeta最新版(自行前往官网下载使用) ",
   "isEnabled": true,
   "hook": {
   },
