@@ -93,6 +93,16 @@
       "tags": []
     },
     {
+      "id": "rule-467d80ee-2eda-4bbd-9aa1-fdd9ea56f975",
+      "fileUrl": "ShortX-获取视图id_v1.0.0.txt",
+      "title": "获取视图id_v1.0.0",
+      "description": "获取视图id\n单击显示 点击元素复制\n长按退出",
+      "versionCode": 0,
+      "updateTimeMillis": 1708495564605,
+      "author": "源梦",
+      "tags": []
+    },
+    {
       "id": "rule-d3f32eb0-71ae-4c9a-a143-83757e516545",
       "fileUrl": "ShortX-微信支付自动输密码.txt",
       "title": "微信支付自动输密码",
@@ -140,6 +150,16 @@
       "versionCode": 1,
       "updateTimeMillis": 1703988766737,
       "author": "ShortX",
+      "tags": []
+    },
+    {
+      "id": "rule-7cc122a1-abe0-4b6f-bf3d-b74edb62c247",
+      "fileUrl": "ShortX-手势录制_v1.0.0.txt",
+      "title": "手势录制_v1.0.0",
+      "description": "长按退出手势录制\n单击悬浮窗开始录制\n音量+结束录制",
+      "versionCode": 1,
+      "updateTimeMillis": 1708495200370,
+      "author": "源梦",
       "tags": []
     },
     {
