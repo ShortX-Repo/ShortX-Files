@@ -191,12 +191,12 @@
     "id": "A-7d60cfef-3956-4678-9358-6e2a179683fc"
   }],
   "id": "rule-f68bd20d-7899-4464-b389-92dd2f9effd1",
-  "lastUpdateTime": "1709705700542",
+  "lastUpdateTime": "1709707289655",
   "createTime": "1701936851567",
   "author": {
     "name": "源梦"
   },
-  "title": "任务管理_v1.2.1",
+  "title": "任务管理_v1.2.2",
   "description": "移除任务自动停止应用✅\n应用停止自动移除任务✅\n后台延迟杀✅\n熄屏延迟杀✅",
   "isEnabled": true,
   "hook": {
@@ -208,6 +208,12 @@
       "customContextDataKey": {
       },
       "id": "F-95e7d1d7-c09d-44fc-b405-dfe350d77204"
+    }, {
+      "@type": "type.googleapis.com/TaskRemoved",
+      "pkgSets": ["熄屏杀", "延迟杀"],
+      "customContextDataKey": {
+      },
+      "id": "F-860085c9-1a33-4276-a88d-98326b31418c"
     }],
     "isEnabled": true,
     "actions": [{
