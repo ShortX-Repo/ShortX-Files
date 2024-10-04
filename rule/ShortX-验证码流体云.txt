@@ -5,14 +5,14 @@
     },
     "customContextDataKey": {
     },
-    "id": "F-07560837-f02a-43f9-a5d7-01d35642622e"
+    "id": "F-8a26e28c-96bf-4bc6-bded-e81c7daa5e4b"
   }],
   "conditions": [{
     "@type": "type.googleapis.com/MatchMVEL",
     "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d {contentText};\nString[] keyword \u003d {\"验证码\", \"校验码\", \"检验码\", \"确认码\", \"激活码\", \"动态码\", \"安全码\", \"验证代码\", \"校验代码\", \"检验代码\", \"激活代码\", \"确认代码\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \"动态口令\", \"驗證碼\", \"校驗碼\", \"檢驗碼\", \"確認碼\", \"激活碼\", \"動態碼\", \"驗證代碼\", \"校驗代碼\", \"檢驗代碼\", \"確認代碼\", \"激活代碼\", \"動態代碼\", \"登入碼\", \"認證碼\", \"識別碼\", \"Code\", \"code\", \"CODE\"};\n\nboolean containsMatch \u003d false;\n\nforeach (String keywordList : keyword) {\n    if (!containsMatch) {\n        Pattern pattern \u003d Pattern.compile(\".*\" + keywordList + \".*\");\n        Matcher matcher \u003d pattern.matcher(msgText);\n\n        if (matcher.find()) {\n            containsMatch \u003d true;\n        }\n    }\n}\n\nreturn containsMatch;",
     "customContextDataKey": {
     },
-    "id": "C-a03da186-96eb-4499-95a0-4035f863dc36"
+    "id": "C-ebec854c-5fe7-4bd4-ba12-03869e0e8649"
   }, {
     "@type": "type.googleapis.com/CurrentPkgList",
     "pkgSets": ["SMS code blacklist"],
@@ -20,7 +20,7 @@
     "customContextDataKey": {
     },
     "isInvert": true,
-    "id": "C-742a8356-67f9-42e1-976d-4b07929b32e3"
+    "id": "C-12621775-f6fd-4fe7-affc-5facb4357406"
   }],
   "actions": [{
     "@type": "type.googleapis.com/ExecuteMVEL",
@@ -28,7 +28,7 @@
     "customContextDataKey": {
     },
     "note": "匹配4-10位数字的验证码",
-    "id": "A-26cac957-37b5-4da7-9405-392a281ce604"
+    "id": "A-d05cf66f-7733-43c6-ba91-449264ffe2a1"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
@@ -96,13 +96,13 @@
     "customContextDataKey": {
     },
     "note": "输入mvel中匹配到的验证码",
-    "id": "A-b7ca2263-ca9c-4443-9cd8-6fd4c22bd23e"
+    "id": "A-ed359606-8d3d-4d2c-b18c-5a64f25a5142"
   }],
-  "id": "SHARE-rule-0b74f081-7fe5-4ca4-8d59-aba7d7c4c586",
-  "lastUpdateTime": "1727852776589",
+  "id": "SHARE-rule-0d675f9c-30ce-4a7a-b936-4b7849c75dcb",
+  "lastUpdateTime": "1728013528969",
   "createTime": "1689214148528",
   "author": {
-    "name": "ShortX"
+    "name": "nyehueh"
   },
   "title": "验证码流体云",
   "description": "流体云样式显示提取的验证码，点击键入",
