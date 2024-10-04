@@ -1,0 +1,132 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["杀进程"],
+    "customContextDataKey": {
+    },
+    "id": "F-92d8d488-3ea5-4201-a5bc-d7e9d9752dc0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "进程白名单",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-bd978644-e212-4209-bf47-81d36079ad6f"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "进程白名单",
+    "valueAsString": "globalVarOf$进程白名单",
+    "customContextDataKey": {
+    },
+    "id": "A-d4bfe91a-b55c-41e6-aea7-317186d9f816"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "Contains",
+      "varName": "进程白名单",
+      "payload": {
+        "value": "{pkgName}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-ed7e6709-e47e-4615-920c-b7fc795659e6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo globalVarOf$进程白名单| awk -F \u0027, \u0027 \u0027{for(i\u003d1;i\u003c\u003dNF;i++) if($i ~ /^{pkgName}/) print $i}\u0027",
+      "customContextDataKey": {
+      },
+      "id": "A-b8cc2f0b-2ad7-4814-9c48-18196788ae88"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "var\u003d$\"{shellOut}\"\noutput\u003d$(echo \"$var\" | awk -F: \u0027{print $2}\u0027 | paste -sd,)\noutput\u003d$(echo \"$var\" | sed \u0027s/^[^:]*://\u0027 | paste -sd,)\necho \"$output\"",
+      "customContextDataKey": {
+      },
+      "id": "A-fd46328c-5dfd-46e8-8d45-3cfd173916ac"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "var\u003d\"{shellOut}\"\nnew_var\u003d\",$var\"\necho \"$new_var\"",
+      "customContextDataKey": {
+      },
+      "id": "A-bff61c38-b959-4390-97eb-d09376992090"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "your_variable\u003d\"{shellOut}\"\nnew_variable\u003d$(echo \"$your_variable\" | sed \u0027s/,/|grep -v :/g\u0027)\necho \"$new_variable\"",
+      "customContextDataKey": {
+      },
+      "id": "A-d26c3a85-a2f7-47ba-98c1-a5aa84974415"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "ps -ef|grep {pkgName}:{shellOut}|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+      "customContextDataKey": {
+      },
+      "id": "A-b74daa2b-5c0f-4191-8d9a-4aaeae16fc5f"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "ps -ef|grep {pkgName}:|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+      "customContextDataKey": {
+      },
+      "id": "A-b74daa2b-5c0f-4191-8d9a-4aaeae16fc5f"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7f06703b-981d-4fb7-b72a-5b14b57f373e"
+  }],
+  "id": "SHARE-rule-400c1287-d200-4043-93c3-1d3ff5720b60",
+  "lastUpdateTime": "1727863811361",
+  "createTime": "1709920302483",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "后台管家",
+  "description": "应用回到后台杀死除了白名单内的所有子进程",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "杀进程",
+      "customContextDataKey": {
+      },
+      "id": "A-7d522fe5-f0b4-4bb4-976b-8c9407ce8f7e"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "进程白名单",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c1ec5a6c-d310-482a-bb11-c2c639f465d1"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "进程白名单",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-fdfb7f55-4641-4c85-8d0d-ce63d4220289"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f7497150-85b5-40f8-86fb-d0f1ee19b069"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
+}
+###------###
+{"type":"rule"}

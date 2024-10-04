@@ -1,0 +1,117 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-07560837-f02a-43f9-a5d7-01d35642622e"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d {contentText};\nString[] keyword \u003d {\"验证码\", \"校验码\", \"检验码\", \"确认码\", \"激活码\", \"动态码\", \"安全码\", \"验证代码\", \"校验代码\", \"检验代码\", \"激活代码\", \"确认代码\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \"动态口令\", \"驗證碼\", \"校驗碼\", \"檢驗碼\", \"確認碼\", \"激活碼\", \"動態碼\", \"驗證代碼\", \"校驗代碼\", \"檢驗代碼\", \"確認代碼\", \"激活代碼\", \"動態代碼\", \"登入碼\", \"認證碼\", \"識別碼\", \"Code\", \"code\", \"CODE\"};\n\nboolean containsMatch \u003d false;\n\nforeach (String keywordList : keyword) {\n    if (!containsMatch) {\n        Pattern pattern \u003d Pattern.compile(\".*\" + keywordList + \".*\");\n        Matcher matcher \u003d pattern.matcher(msgText);\n\n        if (matcher.find()) {\n            containsMatch \u003d true;\n        }\n    }\n}\n\nreturn containsMatch;",
+    "customContextDataKey": {
+    },
+    "id": "C-a03da186-96eb-4499-95a0-4035f863dc36"
+  }, {
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgSets": ["SMS code blacklist"],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-742a8356-67f9-42e1-976d-4b07929b32e3"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d {contentText};\n\n// 关键词数组\nkeywords \u003d [\"验证码\", \"校验码\", \"检验码\", \"确认码\", \"激活码\", \"动态码\", \"安全码\", \"验证代码\", \"校验代码\", \"检验代码\", \"激活代码\", \"确认代码\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \"动态口令\", \"驗證碼\", \"校驗碼\", \"檢驗碼\", \"確認碼\", \"激活碼\", \"動態碼\", \"驗證代碼\", \"校驗代碼\", \"檢驗代碼\", \"確認代碼\", \"激活代碼\", \"動態代碼\", \"登入碼\", \"認證碼\", \"識別碼\", \"Code\", \"code\", \"CODE\"];\n\n// 正则表达式匹配4到10位的数字序列\nPattern pattern \u003d Pattern.compile(\"\\\\d{4,10}\");\nMatcher matcher \u003d pattern.matcher(msgText);\n\n// 用于存储最近的PIN码值\nclosestPinCode \u003d null;\nclosestDistance \u003d Integer.MAX_VALUE;\n\n// 遍历所有关键词\nfor (keyword : keywords) {\n    keywordPosition \u003d msgText.indexOf(keyword);\n    if (keywordPosition !\u003d -1) {\n\n        // 遍历所有匹配的PIN码\n        while (matcher.find()) {\n            pinCodePosition \u003d matcher.start();\n\n            // 计算PIN码与关键词之间的距离\n            distance \u003d Math.abs(pinCodePosition - keywordPosition);\n\n            // 如果这个PIN码比当前存储的更接近，更新最近的PIN码\n            if (distance \u003c closestDistance) {\n                closestDistance \u003d distance;\n                closestPinCode \u003d matcher.group();\n            }\n        }\n\n        // 重置matcher以便下一次循环使用\n        matcher.reset();\n    }\n}\n\n// 返回最近的PIN码值，如果未找到则返回false\nreturn closestPinCode !\u003d null ? closestPinCode : false;",
+    "customContextDataKey": {
+    },
+    "note": "匹配4-10位数字的验证码",
+    "id": "A-26cac957-37b5-4da7-9405-392a281ce604"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{mvelRet} \u003d\u003d false;",
+      "customContextDataKey": {
+      },
+      "id": "C-850c39c4-a84d-4b0d-bdcf-37ccc52e1c50"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "提取验证码失败",
+      "customContextDataKey": {
+      },
+      "id": "A-2de14ea0-8308-4f3e-a6d4-0d843e607f6e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "验证码",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-77431946-34ec-47de-8bcc-0d518111f872"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "验证码",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-2dfb7515-66a7-4de6-aaae-0e5c374a34f9"
+    }, {
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": "📄localVarOf$验证码",
+      "clickAction": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/bash\n\n# 输入文本\ntext\u003d\"localVarOf$验证码\"\n\n# 使用fold命令将每个字符拆分到一行，并使用while循环逐行处理\necho \"$text\" | awk \u0027{for(i\u003d1;i\u003c\u003dlength;i++) print substr($0,i,1)}\u0027 | while IFS\u003d read -r char; do\n    input text \"$char\"\ndone\n",
+        "customContextDataKey": {
+        },
+        "id": "A-ac87643a-4ff5-48f2-97c8-514135e6832d"
+      }, {
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-d8adb4df-2219-4c03-ac9e-02505308f452"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-29db015e-2977-4b9a-a51a-782f5f1295e1"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-b24b0882-1e2c-43d9-a0c3-b04b4675ac9f"
+    }, {
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-b104dfa9-8bc0-4922-a8b6-31b8bb76bfa1"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "输入mvel中匹配到的验证码",
+    "id": "A-b7ca2263-ca9c-4443-9cd8-6fd4c22bd23e"
+  }],
+  "id": "SHARE-rule-0b74f081-7fe5-4ca4-8d59-aba7d7c4c586",
+  "lastUpdateTime": "1727852776589",
+  "createTime": "1689214148528",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "验证码流体云",
+  "description": "流体云样式显示提取的验证码，点击键入",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
+}
+###------###
+{"type":"rule"}
