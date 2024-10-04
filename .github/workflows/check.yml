@@ -26,5 +26,5 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
-        arguments: run --args='../../'
+        arguments: run -PGPR_USER=${{ secrets.GPR_USER }} -PGPR_API_KEY=${{ secrets.GPR_API_KEY }} --args='../../'
         build-root-directory: tools/AutoGen
