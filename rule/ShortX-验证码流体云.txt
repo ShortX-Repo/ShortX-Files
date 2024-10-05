@@ -75,7 +75,8 @@
       "id": "A-2dfb7515-66a7-4de6-aaae-0e5c374a34f9"
     }, {
       "@type": "type.googleapis.com/ShowStatusBarChip",
-      "text": "📄localVarOf$验证码",
+      "text": "localVarOf$验证码",
+      "icon": "wechat-2-fill",
       "clickAction": [{
         "@type": "type.googleapis.com/ShellCommand",
         "command": "#!/bin/bash\n\n# 输入文本\ntext\u003d\"localVarOf$验证码\"\n\n# 使用fold命令将每个字符拆分到一行，并使用while循环逐行处理\necho \"$text\" | awk \u0027{for(i\u003d1;i\u003c\u003dlength;i++) print substr($0,i,1)}\u0027 | while IFS\u003d read -r char; do\n    input text \"$char\"\ndone\n",
@@ -164,6 +165,7 @@
   },
   "quit": {
   },
+   "versionCode": "2",
   "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
 }
 ###------###
