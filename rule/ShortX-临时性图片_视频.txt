@@ -282,7 +282,7 @@
     "id": "A-88242e84-3053-48d9-8a29-748e4fd06fe9"
   }],
   "id": "SHARE-rule-f535a3dd-edb0-474b-b2dd-86c68dafb9a9",
-  "lastUpdateTime": "1728132787262",
+  "lastUpdateTime": "1727853727608",
   "createTime": "1711070705891",
   "author": {
     "name": "nyehueh"
@@ -442,7 +442,7 @@
   "quit": {
   },
   "asyncMode": "AsyncMode_Sync_InRule",
-  "versionCode": "2",
+  "versionCode": "3",
   "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
 }
 ###------###
