@@ -107,7 +107,8 @@
     }],
     "ElseActions": [{
       "@type": "type.googleapis.com/ShowStatusBarChip",
-      "text": "🔗已复制链接",
+      "text": "已复制链接",
+      "icon": "link-m",
       "clickAction": [{
         "@type": "type.googleapis.com/CreateGlobalVar",
         "globalVar": {
@@ -1676,8 +1677,8 @@
     },
     "id": "A-2ba8e0d4-5210-42fa-882f-aa20feb2fa28"
   }],
-  "id": "SHARE-rule-b23ff3f3-724d-4f50-8fd6-d865453d66b4",
-  "lastUpdateTime": "1728056936682",
+  "id": "SHARE-rule-4660212d-eb5f-48fe-9e08-811522c54b1d",
+  "lastUpdateTime": "1728093415708",
   "createTime": "1723386652518",
   "author": {
     "name": "nyehueh"

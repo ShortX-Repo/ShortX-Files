@@ -247,7 +247,8 @@
       "id": "A-496657cb-280f-456f-9bb9-302909f25bb0"
     }, {
       "@type": "type.googleapis.com/ShowStatusBarChip",
-      "text": "🖼️点击保留",
+      "text": "点击保留",
+      "icon": "image-line",
       "clickAction": [{
         "@type": "type.googleapis.com/WriteGlobalVar",
         "varName": "路径",
@@ -280,11 +281,11 @@
     },
     "id": "A-88242e84-3053-48d9-8a29-748e4fd06fe9"
   }],
-  "id": "SHARE-rule-f535a3dd-edb0-474b-b2dd-86c68dafb9a9",
-  "lastUpdateTime": "1727853727608",
+  "id": "SHARE-rule-9affb912-11f6-4110-adac-3d91a4423f3e",
+  "lastUpdateTime": "1728093591236",
   "createTime": "1711070705891",
   "author": {
-    "name": "ShortX"
+    "name": "nyehueh"
   },
   "title": "临时性图片/视频",
   "description": "自动清理临时性图片/视频",
