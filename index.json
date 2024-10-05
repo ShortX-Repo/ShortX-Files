@@ -197,9 +197,9 @@
       "fileUrl": "ShortX-临时性图片_视频.txt",
       "title": "临时性图片/视频",
       "description": "自动清理临时性图片/视频",
-      "versionCode": 2,
+      "versionCode": 3,
       "updateTimeMillis": 1727853727608,
-      "author": "ShortX",
+      "author": "nyehueh",
       "tags": []
     },
     {
@@ -279,7 +279,7 @@
       "description": "应用回到后台杀死除了白名单内的所有子进程",
       "versionCode": 1,
       "updateTimeMillis": 1727863811361,
-      "author": "ShortX",
+      "author": "nyehueh",
       "tags": []
     },
     {
