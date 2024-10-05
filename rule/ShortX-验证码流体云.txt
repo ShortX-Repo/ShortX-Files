@@ -165,6 +165,7 @@
   },
   "quit": {
   },
+   "versionCode": "2",
   "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
 }
 ###------###
