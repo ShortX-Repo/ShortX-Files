@@ -103,13 +103,13 @@
       "tags": []
     },
     {
-      "id": "SHARE-rule-b6dbb7ec-8b64-4be9-8e3e-030825ab2758",
+      "id": "SHARE-rule-b23ff3f3-724d-4f50-8fd6-d865453d66b4",
       "fileUrl": "ShortX-链接流体云_python_.txt",
       "title": "链接流体云（python）",
       "description": "显示链接流体云快速打开",
       "versionCode": 1,
-      "updateTimeMillis": 1727972517927,
-      "author": "ShortX",
+      "updateTimeMillis": 1728056936682,
+      "author": "nyehueh",
       "tags": []
     },
     {
@@ -303,12 +303,12 @@
       "tags": []
     },
     {
-      "id": "SHARE-rule-0d675f9c-30ce-4a7a-b936-4b7849c75dcb",
+      "id": "SHARE-rule-9b3fc9f2-47fd-4efe-b19b-0ab45671147b",
       "fileUrl": "ShortX-验证码流体云.txt",
       "title": "验证码流体云",
       "description": "流体云样式显示提取的验证码，点击键入",
       "versionCode": 0,
-      "updateTimeMillis": 1728013528969,
+      "updateTimeMillis": 1728057740235,
       "author": "nyehueh",
       "tags": []
     },
