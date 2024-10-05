@@ -1678,7 +1678,7 @@
     "id": "A-2ba8e0d4-5210-42fa-882f-aa20feb2fa28"
   }],
   "id": "SHARE-rule-b23ff3f3-724d-4f50-8fd6-d865453d66b4",
-  "lastUpdateTime": "1728093415708",
+  "lastUpdateTime": "1728056936682",
   "createTime": "1723386652518",
   "author": {
     "name": "nyehueh"
