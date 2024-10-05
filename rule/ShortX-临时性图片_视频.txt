@@ -285,7 +285,7 @@
   "lastUpdateTime": "1727853727608",
   "createTime": "1711070705891",
   "author": {
-    "name": "nyehueh"
+    "name": "ShortX"
   },
   "title": "临时性图片/视频",
   "description": "自动清理临时性图片/视频",
