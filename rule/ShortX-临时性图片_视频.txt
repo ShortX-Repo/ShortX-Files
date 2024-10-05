@@ -285,7 +285,7 @@
   "lastUpdateTime": "1727853727608",
   "createTime": "1711070705891",
   "author": {
-    "name": "ShortX"
+    "name": "nyehueh"
   },
   "title": "临时性图片/视频",
   "description": "自动清理临时性图片/视频",
@@ -430,46 +430,19 @@
       "customContextDataKey": {
       },
       "id": "A-f99840e6-4e11-4b38-b217-e81bffb16fd1"
-    }, {
-      "@type": "type.googleapis.com/IfThenElse",
-      "If": [{
-        "@type": "type.googleapis.com/EvaluateGlobalVar",
-        "op": "IsNotExists",
-        "varName": "长截图？",
-        "payload": {
-        },
-        "customContextDataKey": {
-        },
-        "id": "C-2817cd6f-d3f9-469c-9a61-7b582a66dffb"
-      }],
-      "IfActions": [{
-        "@type": "type.googleapis.com/CreateGlobalVar",
-        "globalVar": {
-          "name": "长截图？",
-          "type": {
-            "@type": "type.googleapis.com/BoolVar"
-          }
-        },
-        "customContextDataKey": {
-        },
-        "id": "A-0e98bd92-d7e6-43da-a9c2-f305f87763d0"
-      }, {
-        "@type": "type.googleapis.com/WriteGlobalVar",
-        "varName": "长截图？",
-        "valueAsString": "false",
-        "customContextDataKey": {
-        },
-        "id": "A-2906270d-4626-4e7e-ae8f-bb4584d5bb90"
-      }],
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "路径",
       "customContextDataKey": {
       },
-      "id": "A-f581b3f4-0fb8-42fc-8ed9-4424b2b5dd8c"
+      "id": "A-ee252eb2-21e8-42d2-9379-4754b3c28d7f"
     }]
   },
   "quit": {
   },
   "asyncMode": "AsyncMode_Sync_InRule",
-  "versionCode": "2",
+  "versionCode": "3",
   "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
 }
 ###------###
