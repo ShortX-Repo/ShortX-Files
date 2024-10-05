@@ -593,7 +593,7 @@
           "id": "A-e564c187-7610-4c1a-9f56-bb72e3b3443f"
         }, {
           "@type": "type.googleapis.com/BreakActionExecute",
-          "scope": "BreakActionExecuteScope_Root",
+          "scope": "BreakActionExecuteScope_Parent",
           "customContextDataKey": {
           },
           "id": "A-72db4186-53c1-4b88-86e4-d172ecb32357"
@@ -1490,7 +1490,7 @@
           "id": "A-390889a8-0c88-428d-b5e4-d15152de5cfd"
         }, {
           "@type": "type.googleapis.com/BreakActionExecute",
-          "scope": "BreakActionExecuteScope_Root",
+          "scope": "BreakActionExecuteScope_Parent",
           "customContextDataKey": {
           },
           "id": "A-fdaa22c0-2055-43f3-8be8-0431d860ec55"
@@ -1676,11 +1676,11 @@
     },
     "id": "A-2ba8e0d4-5210-42fa-882f-aa20feb2fa28"
   }],
-  "id": "SHARE-rule-b6dbb7ec-8b64-4be9-8e3e-030825ab2758",
-  "lastUpdateTime": "1727972517927",
+  "id": "SHARE-rule-b23ff3f3-724d-4f50-8fd6-d865453d66b4",
+  "lastUpdateTime": "1728056936682",
   "createTime": "1723386652518",
   "author": {
-    "name": "ShortX"
+    "name": "nyehueh"
   },
   "title": "链接流体云（python）",
   "description": "显示链接流体云快速打开",
