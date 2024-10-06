@@ -24,7 +24,7 @@
   }],
   "actions": [{
     "@type": "type.googleapis.com/ExecuteMVEL",
-    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d {contentText};\n\n// 关键词数组\nkeywords \u003d [\"验证码\", \"校验码\", \"检验码\", \"确认码\", \"激活码\", \"动态码\", \"安全码\", \"验证代码\", \"校验代码\", \"检验代码\", \"激活代码\", \"确认代码\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \"动态口令\", \"驗證碼\", \"校驗碼\", \"檢驗碼\", \"確認碼\", \"激活碼\", \"動態碼\", \"驗證代碼\", \"校驗代碼\", \"檢驗代碼\", \"確認代碼\", \"激活代碼\", \"動態代碼\", \"登入碼\", \"認證碼\", \"識別碼\", \"Code\", \"code\", \"CODE\"];\n\n// 正则表达式匹配6到10位的数字和字母混合序列\nPattern pattern \u003d Pattern.compile(\"[a-zA-Z]*[0-9][a-zA-Z0-9]{3,7}\");\nMatcher matcher \u003d pattern.matcher(msgText);\n\n// 用于存储最近的PIN码值\nclosestPinCode \u003d null;\nclosestDistance \u003d Integer.MAX_VALUE;\n\n// 遍历所有关键词\nfor (keyword : keywords) {\n    keywordPosition \u003d msgText.indexOf(keyword);\n    if (keywordPosition !\u003d -1) {\n\n        // 遍历所有匹配的PIN码\n        while (matcher.find()) {\n            pinCodePosition \u003d matcher.start();\n\n            // 计算PIN码与关键词之间的距离\n            distance \u003d Math.abs(pinCodePosition - keywordPosition);\n\n            // 如果这个PIN码比当前存储的更接近，更新最近的PIN码\n            if (distance \u003c closestDistance) {\n                closestDistance \u003d distance;\n                closestPinCode \u003d matcher.group();\n            }\n        }\n\n        // 重置matcher以便下一次循环使用\n        matcher.reset();\n    }\n}\n\n// 返回最近的PIN码值，如果未找到则返回false\nreturn closestPinCode !\u003d null ? closestPinCode : false;",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d {contentText};\n\n// 关键词数组\nkeywords \u003d [\"验证码\", \"校验码\", \"检验码\", \"确认码\", \"激活码\", \"动态码\", \"安全码\", \"验证代码\", \"校验代码\", \"检验代码\", \"激活代码\", \"确认代码\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \"动态口令\", \"驗證碼\", \"校驗碼\", \"檢驗碼\", \"確認碼\", \"激活碼\", \"動態碼\", \"驗證代碼\", \"校驗代碼\", \"檢驗代碼\", \"確認代碼\", \"激活代碼\", \"動態代碼\", \"登入碼\", \"認證碼\", \"識別碼\", \"Code\", \"code\", \"CODE\"];\n\n// 正则表达式匹配6到10位的数字和字母混合序列\nPattern pattern \u003d Pattern.compile(\"((?\u003d.*[a-zA-Z])(?\u003d.{0,7}\\\\d)[a-zA-Z0-9]{4,8})|(\\\\d{4,8})\");\nMatcher matcher \u003d pattern.matcher(msgText);\n\n// 用于存储最近的PIN码值\nclosestPinCode \u003d null;\nclosestDistance \u003d Integer.MAX_VALUE;\n\n// 遍历所有关键词\nfor (keyword : keywords) {\n    keywordPosition \u003d msgText.indexOf(keyword);\n    if (keywordPosition !\u003d -1) {\n\n        // 遍历所有匹配的PIN码\n        while (matcher.find()) {\n            pinCodePosition \u003d matcher.start();\n\n            // 计算PIN码与关键词之间的距离\n            distance \u003d Math.abs(pinCodePosition - keywordPosition);\n\n            // 如果这个PIN码比当前存储的更接近，更新最近的PIN码\n            if (distance \u003c closestDistance) {\n                closestDistance \u003d distance;\n                closestPinCode \u003d matcher.group();\n            }\n        }\n\n        // 重置matcher以便下一次循环使用\n        matcher.reset();\n    }\n}\n\n// 返回最近的PIN码值，如果未找到则返回false\nreturn closestPinCode !\u003d null ? closestPinCode : false;",
     "customContextDataKey": {
     },
     "note": "匹配4-8位数字字母混合的验证码",
@@ -152,11 +152,11 @@
     "note": "输入mvel中匹配到的验证码",
     "id": "A-ed359606-8d3d-4d2c-b18c-5a64f25a5142"
   }],
-  "id": "SHARE-rule-9b3fc9f2-47fd-4efe-b19b-0ab45671147b",
-  "lastUpdateTime": "1728207346281",
+  "id": "SHARE-rule-6c06d487-e9b3-4ba2-894e-8aa6e5e0ed1c",
+  "lastUpdateTime": "1728218592964",
   "createTime": "1689214148528",
   "author": {
-    "name": "nyehueh"
+    "name": "ShortX"
   },
   "title": "验证码流体云",
   "description": "流体云样式显示提取的验证码，点击键入",
