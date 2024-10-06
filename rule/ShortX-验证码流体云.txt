@@ -152,7 +152,7 @@
     "note": "输入mvel中匹配到的验证码",
     "id": "A-ed359606-8d3d-4d2c-b18c-5a64f25a5142"
   }],
-  "id": "SHARE-rule-a676b28f-f18f-4550-bccb-ac1296a378bd",
+  "id": "SHARE-rule-9b3fc9f2-47fd-4efe-b19b-0ab45671147b",
   "lastUpdateTime": "1728177327650",
   "createTime": "1689214148528",
   "author": {
@@ -165,6 +165,7 @@
   },
   "quit": {
   },
+  "versionCode": "3",  
   "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
 }
 ###------###
