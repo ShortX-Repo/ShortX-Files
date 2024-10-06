@@ -152,11 +152,11 @@
     "note": "输入mvel中匹配到的验证码",
     "id": "A-ed359606-8d3d-4d2c-b18c-5a64f25a5142"
   }],
-  "id": "SHARE-rule-6c06d487-e9b3-4ba2-894e-8aa6e5e0ed1c",
+  "id": "SHARE-rule-9b3fc9f2-47fd-4efe-b19b-0ab45671147b",
   "lastUpdateTime": "1728218592964",
   "createTime": "1689214148528",
   "author": {
-    "name": "ShortX"
+    "name": "nyehueh"
   },
   "title": "验证码流体云",
   "description": "流体云样式显示提取的验证码，点击键入",
