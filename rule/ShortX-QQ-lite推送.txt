@@ -1,0 +1,154 @@
+{
+  "id": "RS-9e5ef33c-481c-4efa-a785-7371eac883d0",
+  "title": "QQ-lite推送",
+  "ruleList": {
+    "rules": [{
+      "facts": [{
+        "@type": "type.googleapis.com/NotificationPosted",
+        "record": {
+          "apps": [{
+            "pkgName": "com.tencent.qqlite"
+          }]
+        },
+        "customContextDataKey": {
+        },
+        "id": "F-ee740991-2339-4cba-89ae-836400949094"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/AppIsNotRunning",
+          "pkgs": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-10bc967a-bc50-4a5e-957c-357da434c383"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/StartAppProcess",
+          "appPkg": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-b086fbab-6b78-43b7-84ed-a6c490c9408a"
+        }, {
+          "@type": "type.googleapis.com/StartService",
+          "intent": {
+            "action": "android.intent.action.VIEW",
+            "pkgName": "com.tencent.mobileqq",
+            "className": "com.tencent.mobileqq.msf.service.MsfService"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-9c913d5a-7de1-414b-896c-8f18650de141"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5bc8917d-df56-4866-baec-4ddbd6b7d768"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotificationForPackage",
+        "appPkg": [{
+          "pkgName": "com.tencent.qqlite"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-7a5e03a5-f938-4d19-9138-72c744be0472"
+      }],
+      "id": "rule-216ae3b1-545f-47ae-9d5b-bc97812d084d",
+      "lastUpdateTime": "1700022810633",
+      "createTime": "1699496242993",
+      "author": {
+        "name": "entr0pia"
+      },
+      "title": "QQ-lite通知唤醒",
+      "isEnabled": true,
+      "hook": {
+      },
+      "quit": {
+      },
+      "asyncMode": "AsyncMode_Sync",
+      "versionCode": "1",
+      "conflictPolicy": "ConflictStrategy_SkipNew",
+      "ruleSetId": "RS-9e5ef33c-481c-4efa-a785-7371eac883d0"
+    }, {
+      "facts": [{
+        "@type": "type.googleapis.com/PkgStopRunning",
+        "apps": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "F-e3baf14b-ad68-4624-96c5-6913941e8c7a"
+      }, {
+        "@type": "type.googleapis.com/PkgStopRunning",
+        "apps": [{
+          "pkgName": "com.tencent.qqlite"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "F-963c31d5-6627-42b6-992d-320f6a94199e"
+      }, {
+        "@type": "type.googleapis.com/SystemReady",
+        "customContextDataKey": {
+        },
+        "id": "F-4fd2d146-dd67-474d-b732-777c5db9a272"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "499",
+        "customContextDataKey": {
+        },
+        "id": "A-0fc5e0cf-11de-4b7f-a33a-ba5101d8d0e7"
+      }, {
+        "@type": "type.googleapis.com/StartAppProcess",
+        "appPkg": [{
+          "pkgName": "com.tencent.qqlite"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-bf19aca7-af7c-4e5e-8ee8-2fbd6c15d197"
+      }, {
+        "@type": "type.googleapis.com/StartService",
+        "intent": {
+          "action": "android.intent.action.VIEW",
+          "pkgName": "com.tencent.qqlite",
+          "className": "com.tencent.mobileqq.app.CoreService"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-50fa7449-05dc-44bb-b987-aa609408e1c1"
+      }, {
+        "@type": "type.googleapis.com/StartService",
+        "intent": {
+          "action": "android.intent.action.VIEW",
+          "pkgName": "com.tencent.qqlite",
+          "className": "com.tencent.mobileqq.msf.service.MsfService"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-51c37fc8-432c-4d4b-b7c3-6cbb222c116d"
+      }],
+      "id": "rule-88a58bda-920c-445c-9bc7-b6d7d41a47f2",
+      "lastUpdateTime": "1700023063836",
+      "createTime": "1699495902158",
+      "author": {
+        "name": "entr0pia"
+      },
+      "title": "QQ-lite保活",
+      "isEnabled": true,
+      "hook": {
+      },
+      "quit": {
+      },
+      "asyncMode": "AsyncMode_Sync",
+      "versionCode": "1",
+      "conflictPolicy": "ConflictStrategy_SkipNew",
+      "ruleSetId": "RS-9e5ef33c-481c-4efa-a785-7371eac883d0"
+    }]
+  }
+}
+###------###
+{"type":"ruleSet"}
