@@ -5,7 +5,7 @@
     "customContextDataKey": {
     },
     "note": "设置指令图标",
-    "id": "A-b93940f3-5789-4222-9487-a531b42d12d5"
+    "id": "A-828968a0-1c7c-41d7-b2bb-19b3b209e020"
   }, {
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
@@ -23,7 +23,7 @@
       "globalVar": {
         "name": "stepss",
         "type": {
-          "@type": "type.googleapis.com/Int64Var"
+          "@type": "type.googleapis.com/StringVar"
         },
         "note": "步数"
       },
@@ -33,13 +33,13 @@
     }],
     "customContextDataKey": {
     },
-    "id": "A-d9a5d865-53a7-481c-b2ad-ac55424c0b2b"
+    "id": "A-9357721e-8476-4ee5-ba7d-f221069083dd"
   }, {
     "@type": "type.googleapis.com/ShellCommand",
     "command": "# 修改自小尘\n\nfunction show_steps(){\ntoday\u003d\"$(date -d \"$(date +%Y-%m-%d)\" +%s)000\"\nlocal number\u003d0\nlocal count\u003d\"$(content query --uri content://com.miui.providers.steps/item --projection _steps --where \"_end_time\u003e\"$today\"\" 2\u003e/dev/null | cut -d\u0027\u003d\u0027 -f2 )\"\ntest \"$(echo \"$count\" | sed \u0027/^#/d;/^[[:space:]]*$/d\u0027 | grep -w \u0027^[[:digit:]]*$\u0027)\" \u003d \"\" \u0026\u0026 count\u003d\"0\"\nfor i in $count\ndo\n\t((number+\u003di))\ndone\necho \"$number\"\n}\n\nshow_steps\u003d$(show_steps)\n\necho $show_steps",
     "customContextDataKey": {
     },
-    "id": "A-2e172750-0207-4549-b97e-f13a4309857b"
+    "id": "A-97581c83-153f-4c27-b5f4-17d2873579d6"
   }, {
     "@type": "type.googleapis.com/ShowMenuDialog",
     "items": [{
@@ -86,21 +86,8 @@
             },
             "id": "A-1766a32b-b951-464d-a4ef-7a98b951df69"
           }]
-        }, {
-          "title": "取消",
-          "clickActions": [{
-            "@type": "type.googleapis.com/CreateGlobalVar",
-            "globalVar": {
-              "name": "abbbbbbbbbb",
-              "type": {
-                "@type": "type.googleapis.com/StringVar"
-              }
-            },
-            "customContextDataKey": {
-            },
-            "id": "A-9ed7ef08-6568-4df0-bc93-a7a0fbac34c8"
-          }]
         }],
+        "cancelable": true,
         "customContextDataKey": {
         },
         "id": "A-b457fd70-1efb-4c15-90dd-0247d027aa4f"
@@ -130,81 +117,121 @@
         },
         "id": "A-1766a32b-b951-464d-a4ef-7a98b951df69"
       }]
-    }, {
-      "title": "取消",
-      "clickActions": [{
-        "@type": "type.googleapis.com/CreateGlobalVar",
-        "globalVar": {
-          "name": "abbbbbbbbbb",
-          "type": {
-            "@type": "type.googleapis.com/StringVar"
-          }
-        },
-        "customContextDataKey": {
-        },
-        "id": "A-21dfd004-9ed3-4982-b9d1-62be01c034e8"
-      }]
     }],
     "title": "今日步数：{shellOut}",
+    "cancelable": true,
     "customContextDataKey": {
     },
-    "id": "A-e452fab9-9046-4a83-b381-e8150a5d7f19"
+    "id": "A-09f01599-a22c-49cd-bfbf-29649ba85761"
   }, {
-    "@type": "type.googleapis.com/Delay",
-    "timeString": "10",
-    "customContextDataKey": {
-    },
-    "id": "A-251ba9d6-51d4-49e3-a3a8-66419704bb14"
-  }, {
-    "@type": "type.googleapis.com/ShellCommand",
-    "command": "# 修改自ShortX官方仓库中的MIUI自动步数\n\nstring\u003d$(content query --uri content://com.miui.providers.steps/item --projection _id --sort \"_id DESC\")\narray\u003d($(echo $string | tr \u0027Row: _end_time, _begin_time\u003d\u0027 \u0027 \u0027)) \nid\u003d${array[1]}\ncurrent_time\u003d$(date +%s)\ntail\u003d999\nbegin\u003d$current_time$tail\nend\u003d`expr $begin + 1000`\nsteps\u003d\"globalVarOf$stepss\"\ncontent insert --uri content://com.miui.providers.steps/item --bind _begin_time:s:$begin --bind _id:i:$((id+1)) --bind _end_time:s:$end --bind _mode:i:2 --bind _steps:i:$steps",
-    "customContextDataKey": {
-    },
-    "id": "A-1b8a15b8-ff03-45ce-98a9-5207d17c2b09"
-  }, {
-    "@type": "type.googleapis.com/DeleteGlobalVar",
-    "varName": "stepss",
-    "customContextDataKey": {
-    },
-    "id": "A-daedcb8d-14a7-469d-b6ad-5a2690b0187a"
-  }, {
-    "@type": "type.googleapis.com/ShowToast",
-    "message": "步数修改完毕(\u003d^▽^\u003d)",
-    "customContextDataKey": {
-    },
-    "id": "A-50463815-62e1-484d-8e32-fc7a06556b04"
-  }],
-  "id": "SHARED-DA-39c10e54-a82c-4da0-bc20-5baa00d24f37",
-  "lastUpdateTime": "1729157871346",
-  "createTime": "1729134459685",
-  "author": {
-    "name": "零点"
-  },
-  "title": "小米步数管理2.1",
-  "description": "🏃🏃🏃🏃🏃\n已实现：加减步数、指定步数",
-  "versionCode": "1",
-  "quit": {
-    "facts": [{
-      "@type": "type.googleapis.com/GlobalVarChanged",
-      "gvId": "abbbbbbbbbb",
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotEmpty",
+      "varName": "stepss",
+      "payload": {
+      },
       "customContextDataKey": {
       },
-      "id": "F-493edcdd-51a0-470e-b44b-c7bb32e637f6"
+      "id": "C-f6b15d11-a030-4a68-a654-54c23ae15873"
     }],
-    "isEnabled": true,
-    "actions": [{
-      "@type": "type.googleapis.com/DeleteGlobalVar",
-      "varName": "abbbbbbbbbb",
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已取消+_+",
       "customContextDataKey": {
       },
-      "id": "A-6ccb6a47-d482-43b1-be79-281b977014af"
+      "id": "A-72bad02a-848e-47e2-992f-60e796bf61c7"
     }, {
       "@type": "type.googleapis.com/DeleteGlobalVar",
       "varName": "stepss",
       "customContextDataKey": {
       },
-      "id": "A-9148253d-4ee5-4a5b-971e-8ed3ed6af406"
-    }]
+      "id": "A-113c622f-9a33-4762-967f-8f4ed3b8a64d"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-5b84c8e1-aa65-40f6-87d5-4131838c6120"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a9e21825-2985-4f6c-a734-7b650fd79b75"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "Contains",
+      "varName": "stepss",
+      "payload": {
+        "value": "textFieldInput1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-6caeb0ae-2221-4f05-9f2a-cc4f52c75c8d"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "Contains",
+      "varName": "stepss",
+      "payload": {
+        "value": "argument"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-1c1e569b-5e0c-4422-abbb-feb24c9081fe"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已取消+_+",
+      "customContextDataKey": {
+      },
+      "id": "A-72bad02a-848e-47e2-992f-60e796bf61c7"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "stepss",
+      "customContextDataKey": {
+      },
+      "id": "A-113c622f-9a33-4762-967f-8f4ed3b8a64d"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-f6214bd1-0c46-4667-9159-0d3b331d20f3"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a63e3dda-fb3a-4310-9e8b-54807a07cfdd"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 修改自ShortX官方仓库中的MIUI自动步数\n\nstring\u003d$(content query --uri content://com.miui.providers.steps/item --projection _id --sort \"_id DESC\")\narray\u003d($(echo $string | tr \u0027Row: _end_time, _begin_time\u003d\u0027 \u0027 \u0027)) \nid\u003d${array[1]}\ncurrent_time\u003d$(date +%s)\ntail\u003d999\nbegin\u003d$current_time$tail\nend\u003d`expr $begin + 1000`\nsteps\u003d\"globalVarOf$stepss\"\ncontent insert --uri content://com.miui.providers.steps/item --bind _begin_time:s:$begin --bind _id:i:$((id+1)) --bind _end_time:s:$end --bind _mode:i:2 --bind _steps:i:$steps",
+    "customContextDataKey": {
+    },
+    "id": "A-81d364b9-114c-49d2-91a4-bf1f71171bdc"
+  }, {
+    "@type": "type.googleapis.com/DeleteGlobalVar",
+    "varName": "stepss",
+    "customContextDataKey": {
+    },
+    "id": "A-c032e9ea-ebc2-4714-9058-981e12502dc8"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "步数修改完毕(\u003d^▽^\u003d)",
+    "customContextDataKey": {
+    },
+    "id": "A-2bf804af-daea-45de-8cb5-08f258ad26a4"
+  }],
+  "id": "SHARED-DA-39c10e54-a82c-4da0-bc20-5baa00d24f37",
+  "lastUpdateTime": "1729452177527",
+  "createTime": "1729134459685",
+  "author": {
+    "name": "零点ww"
+  },
+  "title": "小米步数管理3",
+  "description": "🏃🏃🏃🏃🏃\n小米增减步数、指定步数",
+  "versionCode": "3",
+  "quit": {
   }
 }
 ###------###
