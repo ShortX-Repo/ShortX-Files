@@ -1,0 +1,245 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "run-fill",
+    "customContextDataKey": {
+    },
+    "note": "设置指令图标",
+    "id": "A-5556855a-e1a3-4d32-a47a-dadf441e073f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "stepss",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-988548b7-af44-4c12-bf25-edd121b0a846"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "stepss",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        },
+        "note": "步数"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1fa520de-a67a-4cb1-9518-c8a62f814b18"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0f041f9a-ea79-48ef-8174-fb8cefa2b318"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 修改自小尘\n\nfunction show_steps(){\ntoday\u003d\"$(date -d \"$(date +%Y-%m-%d)\" +%s)000\"\nlocal number\u003d0\nlocal count\u003d\"$(content query --uri content://com.miui.providers.steps/item --projection _steps --where \"_end_time\u003e\"$today\"\" 2\u003e/dev/null | cut -d\u0027\u003d\u0027 -f2 )\"\ntest \"$(echo \"$count\" | sed \u0027/^#/d;/^[[:space:]]*$/d\u0027 | grep -w \u0027^[[:digit:]]*$\u0027)\" \u003d \"\" \u0026\u0026 count\u003d\"0\"\nfor i in $count\ndo\n\t((number+\u003di))\ndone\necho \"$number\"\n}\n\nshow_steps\u003d$(show_steps)\n\necho $show_steps",
+    "customContextDataKey": {
+    },
+    "id": "A-1d9a7065-a5f1-46b6-b197-d200fd9f5862"
+  }, {
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "修改步数",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "增加步数",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShowTextFieldDialog",
+            "title": "增加步数",
+            "cancelable": true,
+            "textFields": [{
+            }],
+            "customContextDataKey": {
+            },
+            "actionOnError": "Break",
+            "id": "A-ce9c36d8-f52d-4f32-82fb-1828c449158c"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "stepss",
+            "valueAsString": "{textFieldInput1}",
+            "customContextDataKey": {
+            },
+            "id": "A-1766a32b-b951-464d-a4ef-7a98b951df69"
+          }]
+        }, {
+          "title": "减少步数",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShowTextFieldDialog",
+            "title": "减少步数",
+            "cancelable": true,
+            "textFields": [{
+            }],
+            "customContextDataKey": {
+            },
+            "actionOnError": "Break",
+            "id": "A-ce9c36d8-f52d-4f32-82fb-1828c449158c"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "stepss",
+            "valueAsString": "-{textFieldInput1}",
+            "customContextDataKey": {
+            },
+            "id": "A-1766a32b-b951-464d-a4ef-7a98b951df69"
+          }]
+        }],
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-b457fd70-1efb-4c15-90dd-0247d027aa4f"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsEmpty",
+          "varName": "stepss",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-6caeb0ae-2221-4f05-9f2a-cc4f52c75c8d"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "abbbbbbbbbb",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-21dfd004-9ed3-4982-b9d1-62be01c034e8"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5aa20da4-767f-4166-9848-971fce85e4a2"
+      }]
+    }, {
+      "title": "指定步数",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "输入要指定的步数",
+        "cancelable": true,
+        "textFields": [{
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-41a4f31f-c886-4308-a7ff-bae028d5eed8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "goal\u003d{textFieldInput1}\nstepss\u003d`expr $goal - $show_steps`\n\necho $stepss",
+        "customContextDataKey": {
+        },
+        "id": "A-b1b79040-afcf-4fc1-8632-4b9367c8fe2c"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "stepss",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-1766a32b-b951-464d-a4ef-7a98b951df69"
+      }]
+    }],
+    "title": "今日步数：{shellOut}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-19a418d8-0fe1-498f-8dda-918c171db186"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotEmpty",
+      "varName": "stepss",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-6caeb0ae-2221-4f05-9f2a-cc4f52c75c8d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "abbbbbbbbbb",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-21dfd004-9ed3-4982-b9d1-62be01c034e8"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c5c9b351-f452-4b68-b957-661ac393dc2d"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "100",
+    "customContextDataKey": {
+    },
+    "id": "A-961db496-69d0-4ff9-a4d1-bd839bbf298a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 修改自ShortX官方仓库中的MIUI自动步数\n\nstring\u003d$(content query --uri content://com.miui.providers.steps/item --projection _id --sort \"_id DESC\")\narray\u003d($(echo $string | tr \u0027Row: _end_time, _begin_time\u003d\u0027 \u0027 \u0027)) \nid\u003d${array[1]}\ncurrent_time\u003d$(date +%s)\ntail\u003d999\nbegin\u003d$current_time$tail\nend\u003d`expr $begin + 1000`\nsteps\u003d\"globalVarOf$stepss\"\ncontent insert --uri content://com.miui.providers.steps/item --bind _begin_time:s:$begin --bind _id:i:$((id+1)) --bind _end_time:s:$end --bind _mode:i:2 --bind _steps:i:$steps",
+    "customContextDataKey": {
+    },
+    "id": "A-cdd13972-154f-49ad-b110-cab26d4ac00a"
+  }, {
+    "@type": "type.googleapis.com/DeleteGlobalVar",
+    "varName": "stepss",
+    "customContextDataKey": {
+    },
+    "id": "A-f792878c-1031-4acf-9087-39f55aa3635c"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "步数修改完毕(\u003d^▽^\u003d)",
+    "customContextDataKey": {
+    },
+    "id": "A-ca674909-dbc4-4a6b-a7ed-6090de510d12"
+  }],
+  "id": "SHARED-DA-39c10e54-a82c-4da0-bc20-5baa00d24f37",
+  "lastUpdateTime": "1729401089348",
+  "createTime": "1729134459685",
+  "author": {
+    "name": "零点ww"
+  },
+  "title": "小米步数管理2.2",
+  "description": "🏃🏃🏃🏃🏃",
+  "versionCode": "2",
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/GlobalVarChanged",
+      "gvId": "abbbbbbbbbb",
+      "customContextDataKey": {
+      },
+      "id": "F-493edcdd-51a0-470e-b44b-c7bb32e637f6"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "abbbbbbbbbb",
+      "customContextDataKey": {
+      },
+      "id": "A-6ccb6a47-d482-43b1-be79-281b977014af"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "stepss",
+      "customContextDataKey": {
+      },
+      "id": "A-9148253d-4ee5-4a5b-971e-8ed3ed6af406"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已取消+_+",
+      "customContextDataKey": {
+      },
+      "id": "A-7b36fce1-6c77-4582-9c44-a6a9b7f5a8df"
+    }]
+  }
+}
+###------###
+{"type":"da"}
