@@ -41,6 +41,16 @@
       "tags": []
     },
     {
+      "id": "SHARED-DA-39c10e54-a82c-4da0-bc20-5baa00d24f37",
+      "fileUrl": "ShortX-小米步数管理3.txt",
+      "title": "小米步数管理3",
+      "description": "🏃🏃🏃🏃🏃\n小米增减步数、指定步数",
+      "versionCode": 3,
+      "updateTimeMillis": 1729452177527,
+      "author": "零点ww",
+      "tags": []
+    },
+    {
       "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
       "fileUrl": "ShortX-Bing壁纸查看_中国大陆_.txt",
       "title": "Bing壁纸查看（中国大陆）",
@@ -58,16 +68,6 @@
       "versionCode": 0,
       "updateTimeMillis": 1689414154622,
       "author": "Genicur",
-      "tags": []
-    },
-    {
-      "id": "SHARED-DA-39c10e54-a82c-4da0-bc20-5baa00d24f37",
-      "fileUrl": "ShortX-小米步数管理2.1.txt",
-      "title": "小米步数管理2.1",
-      "description": "🏃🏃🏃🏃🏃\n已实现：加减步数、指定步数",
-      "versionCode": 1,
-      "updateTimeMillis": 1729157871346,
-      "author": "零点",
       "tags": []
     },
     {
