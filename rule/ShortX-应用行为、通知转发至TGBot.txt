@@ -246,7 +246,6 @@
       "IfActions": [{
         "@type": "type.googleapis.com/WriteLocalVar",
         "varName": "Token",
-        "valueAsString": "",
         "customContextDataKey": {
         },
         "note": "Telegram Bot的Token\n\n - 如果您不知道此值，请\n   \u003e 前往 @BotFather 创建/管理Bot\n\n - Token样式：［1145141919:令牌］",
@@ -254,7 +253,6 @@
       }, {
         "@type": "type.googleapis.com/WriteLocalVar",
         "varName": "Chatid",
-        "valueAsString": "",
         "customContextDataKey": {
         },
         "note": "发送到的用户ID\n - 请先进行一次Start才能使用\n - 不知道您的用户ID？请\n  \u003e 前往 @MissRose_bot 发送 “/info” 命令查看",
@@ -934,16 +932,9 @@
           "customContextDataKey": {
           },
           "id": "C-54e76b13-66c3-4a26-b2f4-a68aebbbc5c2"
-        }, {
-          "@type": "type.googleapis.com/VPNIsConnected",
-          "customContextDataKey": {
-          },
-          "id": "C-0dda8c9c-3644-489f-9f34-54c8c59a841a"
         }],
-        "conditionOp": "MVEL",
-        "condOpPayload": {
-          "expression": "c1 || c2 || c3 \u0026\u0026 (c1 || c2)"
-        },
+        "conditionOp": "ANY",
+        "timeoutStr": "0",
         "customContextDataKey": {
         },
         "id": "A-6fd480e7-c10f-437d-b26e-ab6986df804a"
@@ -1119,165 +1110,20 @@
     "note": "🌐发送数据",
     "id": "A-7d0cbe74-faa8-446b-8eec-b0fb9c802fca"
   }],
-  "id": "rule-65ea881b-0f42-4349-a813-cf00c170db25",
-  "lastUpdateTime": "1703940527283",
+  "id": "SHARE-rule-13a232e9-a651-4133-8f13-ecaae9870e55",
+  "lastUpdateTime": "1731137818043",
   "createTime": "1700931565509",
   "author": {
-    "name": "lanyi233"
+    "name": "ShortX"
   },
   "title": "应用行为、通知转发至TGBot",
-  "description": "将指定应用的状态、通知消息转发至TGBot",
+  "description": "将指定应用的状态、通知消息转发至TGBot\n[需修改配置以设置转发的应用消息和Token/ChatID]",
   "isEnabled": true,
   "hook": {
-    "actionsOnEnabled": [{
-      "@type": "type.googleapis.com/IfThenElse",
-      "If": [{
-        "@type": "type.googleapis.com/True",
-        "customContextDataKey": {
-        },
-        "id": "C-978bc049-aa20-4a05-8bae-0b1541f9d252"
-      }],
-      "IfActions": [{
-        "@type": "type.googleapis.com/ShowToast",
-        "message": "正在拉取数据…",
-        "customContextDataKey": {
-        },
-        "id": "A-dc4644c2-24c0-40d5-8c84-602019e04ca7"
-      }, {
-        "@type": "type.googleapis.com/HttpRequest",
-        "url": "https://lanyi233.github.io/lanyi233/shortx/notice/公告.json",
-        "adapter": {
-          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
-          "expressions": ["notice.title", "notice.Text", "board.1.Text", "board.1.Key", "board.2.Text", "board.2.Key", "board.3.Text", "board.3.Key"]
-        },
-        "requestBody": {},
-        "customContextDataKey": {
-        },
-        "actionOnError": "Break",
-        "id": "A-9744d8cf-98d0-4f9a-9803-6d49b860d3eb"
-      }, {
-        "@type": "type.googleapis.com/ShowAlertDialog",
-        "positive": "{httpRequestRet3}",
-        "negative": "{httpRequestRet5}",
-        "neutral": "{httpRequestRet7}",
-        "onNeutral": [{
-          "@type": "type.googleapis.com/NoAction",
-          "icon": "focus-fill",
-          "customContextDataKey": {
-          },
-          "id": "A-5646b3af-c583-459b-ab64-62239122e71d"
-        }],
-        "title": "{httpRequestRet1}",
-        "message": "{httpRequestRet2}",
-        "cancelable": true,
-        "customContextDataKey": {
-        },
-        "id": "A-778ddb9a-0473-4948-b492-c7b24ab53a4a"
-      }, {
-        "@type": "type.googleapis.com/HttpRequest",
-        "url": "https://lanyi233.github.io/lanyi233/shortx/notice/TGBot/公告.json",
-        "adapter": {
-          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
-          "expressions": ["new_version", "notice.title", "notice.Text", "board.1.Text", "board.1.Key", "board.2.Text", "board.2.Key", "board.3.Text", "board.3.Key"]
-        },
-        "requestBody": {},
-        "customContextDataKey": {
-        },
-        "actionOnError": "Break",
-        "id": "A-4536b2fb-6a3c-4912-bef5-94b179c63220"
-      }, {
-        "@type": "type.googleapis.com/ShowAlertDialog",
-        "positive": "{httpRequestRet4}",
-        "onPositive": [{
-          "@type": "type.googleapis.com/HttpRequest",
-          "url": "{httpRequestRet5}",
-          "adapter": {
-            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
-            "expressions": ["update", "url.telegram", "url.github", "update_notice.title", "update_notice.Text"]
-          },
-          "requestBody": {},
-          "customContextDataKey": {
-          },
-          "actionOnError": "Break",
-          "id": "A-3699c0b0-6bc2-4014-8a00-913121f28e8c"
-        }, {
-          "@type": "type.googleapis.com/ShowAlertDialog",
-          "positive": "前往tg下载",
-          "onPositive": [{
-            "@type": "type.googleapis.com/StartActivityIntent",
-            "intent": {
-              "action": "android.intent.action.VIEW",
-              "data": "{httpRequestRet2}"
-            },
-            "customContextDataKey": {
-            },
-            "id": "A-48ecb2bf-4dca-4af1-b8d7-618ddbae8821"
-          }],
-          "negative": "前往GitHub下载",
-          "onNegative": [{
-            "@type": "type.googleapis.com/HttpRequest",
-            "url": "{httpRequestRet3}",
-            "adapter": {
-              "@type": "type.googleapis.com/HttpRequestRawAdapter"
-            },
-            "requestBody": {},
-            "customContextDataKey": {
-            },
-            "actionOnError": "Break",
-            "id": "A-8050b300-fa5a-4d70-9ce7-1a981e932f14"
-          }, {
-            "@type": "type.googleapis.com/WriteClipboard",
-            "text": "{httpRequestRet}",
-            "customContextDataKey": {
-            },
-            "id": "A-38076643-f546-4c6f-8c2e-fb1ce701ff2f"
-          }, {
-            "@type": "type.googleapis.com/ShowToast",
-            "message": "已复制入剪切板，请手动导入",
-            "customContextDataKey": {
-            },
-            "id": "A-0edcabc0-030f-4236-8b56-40ff9aa46e4c"
-          }],
-          "neutral": "关闭",
-          "onNeutral": [{
-            "@type": "type.googleapis.com/NoAction",
-            "icon": "focus-fill",
-            "customContextDataKey": {
-            },
-            "id": "A-9d75115c-5c92-4bb0-bee4-e1be5c14df8b"
-          }],
-          "title": "{httpRequestRet4}",
-          "message": "{httpRequestRet5}",
-          "cancelable": true,
-          "customContextDataKey": {
-          },
-          "id": "A-eb98938e-2a33-4c51-b04a-e83fab341038"
-        }],
-        "negative": "{httpRequestRet6}",
-        "neutral": "{httpRequestRet8}",
-        "onNeutral": [{
-          "@type": "type.googleapis.com/NoAction",
-          "icon": "focus-fill",
-          "customContextDataKey": {
-          },
-          "id": "A-5646b3af-c583-459b-ab64-62239122e71d"
-        }],
-        "title": "{httpRequestRet2}",
-        "message": "{httpRequestRet3}",
-        "cancelable": true,
-        "customContextDataKey": {
-        },
-        "id": "A-760b85d7-e00f-4c80-a666-a386c65f1fec"
-      }],
-      "customContextDataKey": {
-      },
-      "note": "📃拉取公告（无动态代码与动作）",
-      "id": "A-5a96d2d4-33fa-4cac-912d-33260fd7a880"
-    }]
   },
   "quit": {
   },
-  "versionCode": "7",
+  "versionCode": "8",
   "ruleSetId": "RS-20525b07-7d1d-4efe-b0f5-1d262f64f8d4"
 }
 ###------###
