@@ -1114,7 +1114,7 @@
   "lastUpdateTime": "1731137818043",
   "createTime": "1700931565509",
   "author": {
-    "name": "ShortX"
+    "name": "lanyi233"
   },
   "title": "应用行为、通知转发至TGBot",
   "description": "将指定应用的状态、通知消息转发至TGBot\n[需修改配置以设置转发的应用消息和Token/ChatID]",
