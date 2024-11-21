@@ -1,6 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.io.FileInputStream
-import java.util.*
 
 plugins {
     kotlin("jvm") version "1.8.21"
@@ -10,23 +8,8 @@ plugins {
 group = "shortx"
 version = "1.0-SNAPSHOT"
 
-val githubProperties = Properties()
-val githubPropFile = File(rootProject.projectDir, "github.properties")
-println("githubPropFile: $githubPropFile")
-if (githubPropFile.exists()) {
-    githubProperties.load(FileInputStream(githubPropFile))
-}
-
 repositories {
     mavenCentral()
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/ShortX-Repo/ShortX-Core")
-        credentials {
-            username = (githubProperties["gpr.usr"] ?: System.getenv("GPR_USER")).toString()
-            password = (githubProperties["gpr.key"] ?: System.getenv("GPR_API_KEY")).toString()
-        }
-    }
 }
 
 dependencies {
@@ -46,7 +29,7 @@ dependencies {
     implementation(protoBufUtil)
     implementation(protoBuf)
 
-    implementation("shortx:core:1.1.2-SNAPSHOT")
+    implementation(files("libs/core.jar"))
 
     testImplementation(kotlin("test"))
 }
@@ -61,10 +44,4 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("shortx.tool.gen.MainKt")
-}
-
-subprojects {
-    configurations.all {
-        resolutionStrategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)
-    }
 }
