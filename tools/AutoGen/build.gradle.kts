@@ -23,7 +23,7 @@ repositories {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/ShortX-Repo/ShortX-Core")
         credentials {
-            username = (githubProperties["gpr.usr"] ?: project.findProperty("GPR_USER")).toString().apply { println("GPR_USER: $this") }
+            username = (githubProperties["gpr.usr"] ?: project.findProperty("GPR_USER")).toString()
             password = (githubProperties["gpr.key"] ?: project.findProperty("GPR_API_KEY")).toString()
         }
     }
