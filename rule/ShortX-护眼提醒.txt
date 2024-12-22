@@ -1,0 +1,163 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresent",
+    "customContextDataKey": {
+    },
+    "id": "F-8d051c45-91e8-43ed-b0d8-afd3b9b4ac19"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-fb8cc4ee-e291-47d0-adb1-20d5c7e0fcc2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "护眼提醒服务运行中",
+    "customContextDataKey": {
+    },
+    "id": "A-2cefbdb0-9ec7-4b48-b92c-2a40f6abefe5"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "isIgnored",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-128caec8-22fb-4fed-815d-a180b9cae4d6"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "isIgnored",
+    "valueAsString": "false",
+    "customContextDataKey": {
+    },
+    "id": "A-df78bbd2-308f-4d8d-bb0e-92c9a5a02523"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "isFirstLoop",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-68f7c595-0a2c-4052-a2ee-7ba52023a70f"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "isFirstLoop",
+    "valueAsString": "true",
+    "customContextDataKey": {
+    },
+    "id": "A-1b97665c-bc07-4056-9690-e4e7d192964b"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "id": "C-cdee82b3-7878-4ff9-b080-b0b28ebdb4ef"
+    }, {
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "isIgnored",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4e5d2587-f7df-4817-97ac-9e137e73be72"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "isFirstLoop",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ad1846ae-915f-4fac-8c42-5a3b8dc922af"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "isFirstLoop",
+        "valueAsString": "false",
+        "customContextDataKey": {
+        },
+        "id": "A-28bfc061-907f-4574-8fae-c1de43475986"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "我知道了",
+        "negative": "下次息屏之前不再提醒",
+        "onNegative": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "isIgnored",
+          "valueAsString": "1",
+          "customContextDataKey": {
+          },
+          "id": "A-c2dcf303-3225-4839-867d-30cb8bbc8ea0"
+        }],
+        "title": "注意休息",
+        "message": "您的双眼已持续观察屏幕超过 20 分钟，建议遵循 20×20×20 法则，暂时离开手机，向 20 英尺（约 6 米）之外的距离眺望 20 秒。若您并不希望立刻休息，也可以点击下方按钮以关闭本次提醒。",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-eb13c2de-7319-4413-a39c-21df0616a2cd"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-de28aba2-859a-4c28-9baa-6e3950c91c71"
+    }],
+    "delay": 1220000,
+    "customContextDataKey": {
+    },
+    "id": "A-006d47a2-b5a5-4273-bc79-e5fdac640c73"
+  }],
+  "id": "SHARE-rule-32009a51-d329-444c-912d-ea670cd28550",
+  "lastUpdateTime": "1734623017132",
+  "createTime": "1734497190503",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "护眼提醒",
+  "description": "用眼时间过长时，定时提醒休息，支持暂停提醒。原理遵循 20×20×20 规则。",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "下次解锁屏幕后，护眼提醒服务将被启用",
+      "customContextDataKey": {
+      },
+      "id": "A-055fea78-77e6-4f6b-a565-e1392866fd63"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "护眼提醒服务已被禁用",
+      "customContextDataKey": {
+      },
+      "id": "A-4a25218a-da44-405e-95da-bd5e6d0adc7a"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOff",
+      "customContextDataKey": {
+      },
+      "id": "F-713b0ed7-cb0b-4f01-a6f7-164281674f71"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}
