@@ -1,12 +1,7 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.8.21"
+    kotlin("jvm") version "2.1.20-Beta1"
     application
 }
-
-group = "shortx"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -34,12 +29,19 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-tasks.test {
-    useJUnitPlatform()
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+    // Or shorter:
+   // jvmToolchain(21)
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 application {
