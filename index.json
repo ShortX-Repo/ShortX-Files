@@ -1,13 +1,23 @@
 {
   "directActions": [
     {
-      "id": "DAfc48c802-8738-4858-b6d2-70ba70f2f2a0",
-      "fileUrl": "ShortX-Bing壁纸全自动保存.txt",
-      "title": "Bing壁纸全自动保存",
-      "description": "获取bing每日壁纸到本地（中国大陆），全自动版本",
-      "versionCode": 2,
-      "updateTimeMillis": 1689907469283,
-      "author": "淫乱",
+      "id": "DA85a8f0c9-4eb9-47cb-b070-61f830ca967c",
+      "fileUrl": "ShortX-简易密码生成器0.2_改进_.txt",
+      "title": "简易密码生成器0.2(改进)",
+      "description": "一个简易字符串生成方法 需要改进的地方还有很多",
+      "versionCode": 0,
+      "updateTimeMillis": 1689729628120,
+      "author": "鸿鹄",
+      "tags": []
+    },
+    {
+      "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
+      "fileUrl": "ShortX-获取已保存wifi密码.txt",
+      "title": "获取已保存wifi密码 - 去重",
+      "description": "基于mvel实现",
+      "versionCode": 1,
+      "updateTimeMillis": 1691452793746,
+      "author": "ShortX",
       "tags": []
     },
     {
@@ -21,13 +31,13 @@
       "tags": []
     },
     {
-      "id": "DA85a8f0c9-4eb9-47cb-b070-61f830ca967c",
-      "fileUrl": "ShortX-简易密码生成器0.2_改进_.txt",
-      "title": "简易密码生成器0.2(改进)",
-      "description": "一个简易字符串生成方法 需要改进的地方还有很多",
-      "versionCode": 0,
-      "updateTimeMillis": 1689729628120,
-      "author": "鸿鹄",
+      "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
+      "fileUrl": "ShortX-Bing壁纸查看_中国大陆_.txt",
+      "title": "Bing壁纸查看（中国大陆）",
+      "description": "手动获取bing每日壁纸，并在浏览器内查看（不下载）",
+      "versionCode": 2,
+      "updateTimeMillis": 1689910644956,
+      "author": "淫乱",
       "tags": []
     },
     {
@@ -41,22 +51,12 @@
       "tags": []
     },
     {
-      "id": "SHARED-DA-39c10e54-a82c-4da0-bc20-5baa00d24f37",
-      "fileUrl": "ShortX-小米步数管理3.txt",
-      "title": "小米步数管理3",
-      "description": "🏃🏃🏃🏃🏃\n小米增减步数、指定步数",
-      "versionCode": 3,
-      "updateTimeMillis": 1729452177527,
-      "author": "零点ww",
-      "tags": []
-    },
-    {
-      "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
-      "fileUrl": "ShortX-Bing壁纸查看_中国大陆_.txt",
-      "title": "Bing壁纸查看（中国大陆）",
-      "description": "手动获取bing每日壁纸，并在浏览器内查看（不下载）",
+      "id": "DAfc48c802-8738-4858-b6d2-70ba70f2f2a0",
+      "fileUrl": "ShortX-Bing壁纸全自动保存.txt",
+      "title": "Bing壁纸全自动保存",
+      "description": "获取bing每日壁纸到本地（中国大陆），全自动版本",
       "versionCode": 2,
-      "updateTimeMillis": 1689910644956,
+      "updateTimeMillis": 1689907469283,
       "author": "淫乱",
       "tags": []
     },
@@ -71,13 +71,13 @@
       "tags": []
     },
     {
-      "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
-      "fileUrl": "ShortX-获取已保存wifi密码.txt",
-      "title": "获取已保存wifi密码 - 去重",
-      "description": "基于mvel实现",
-      "versionCode": 1,
-      "updateTimeMillis": 1691452793746,
-      "author": "ShortX",
+      "id": "SHARED-DA-39c10e54-a82c-4da0-bc20-5baa00d24f37",
+      "fileUrl": "ShortX-小米步数管理3.txt",
+      "title": "小米步数管理3",
+      "description": "🏃🏃🏃🏃🏃\n小米增减步数、指定步数",
+      "versionCode": 3,
+      "updateTimeMillis": 1729452177527,
+      "author": "零点ww",
       "tags": []
     }
   ],
@@ -93,123 +93,13 @@
       "tags": []
     },
     {
-      "id": "rule-378e112b-6d99-4ea4-9ab1-8861663d3f51",
-      "fileUrl": "ShortX-谷歌服务基础.txt",
-      "title": "谷歌服务基础",
-      "description": "使用前请确认打开Shell命令引擎开关",
-      "versionCode": 1,
-      "updateTimeMillis": 1703988766737,
-      "author": "ShortX",
-      "tags": []
-    },
-    {
-      "id": "rule-467d80ee-2eda-4bbd-9aa1-fdd9ea56f975",
-      "fileUrl": "ShortX-获取视图id_v1.0.0.txt",
-      "title": "获取视图id_v1.0.0",
-      "description": "获取视图id\n单击显示 点击元素复制\n长按退出",
-      "versionCode": 0,
-      "updateTimeMillis": 1708495564605,
-      "author": "源梦",
-      "tags": []
-    },
-    {
-      "id": "rule-8fba3995-e662-4f5b-86a3-ac31f60e4ab6",
-      "fileUrl": "ShortX-聊天工具.txt",
-      "title": "聊天工具",
-      "description": "使用前确保已设置Usernames全局变量\n如果指令不生效，请尝试开关指令，根据指引添加用户组",
-      "versionCode": 1,
-      "updateTimeMillis": 1696671000566,
-      "author": "Sydney2580",
-      "tags": []
-    },
-    {
-      "id": "rule-355b2683-5f7f-4a0d-ae0d-bd07fab373ab",
-      "fileUrl": "ShortX-自动开启无障碍",
-      "title": "自动开启无障碍",
-      "description": "检测到无障碍服务被关闭时，自动开启无障碍服务；使用时只需要在系统设置开启你的无障碍，再打开本指令开关即可",
-      "versionCode": 1,
-      "updateTimeMillis": 1691632915337,
-      "author": "鸿鹄",
-      "tags": []
-    },
-    {
-      "id": "rule-d3f32eb0-71ae-4c9a-a143-83757e516545",
-      "fileUrl": "ShortX-微信支付自动输密码.txt",
-      "title": "微信支付自动输密码",
-      "description": "为root了用不了指纹支付且不装指纹模块的用户提供输密码服务",
-      "versionCode": 1,
-      "updateTimeMillis": 1694623367218,
-      "author": "JK L",
-      "tags": []
-    },
-    {
-      "id": "lingshang-powerpanel",
-      "fileUrl": "ShortX-电源面板.txt",
-      "title": "电源面板",
-      "description": "长按电源键提供更多选项",
-      "versionCode": 3,
-      "updateTimeMillis": 1690901484549,
-      "author": "泠裳",
-      "tags": []
-    },
-    {
-      "id": "rule-7cc122a1-abe0-4b6f-bf3d-b74edb62c247",
-      "fileUrl": "ShortX-手势录制_v1.0.0.txt",
-      "title": "手势录制_v1.0.0",
-      "description": "长按退出手势录制\n单击悬浮窗开始录制\n音量+结束录制",
-      "versionCode": 1,
-      "updateTimeMillis": 1708495200370,
-      "author": "源梦",
-      "tags": []
-    },
-    {
-      "id": "rule-9e40dd65-a271-4fb8-8153-ab4bbebbb893",
-      "fileUrl": "ShortX-验证码提取.txt",
-      "title": "验证码提取",
-      "description": "提取短信中的验证码，自动填入输入框",
-      "versionCode": 0,
-      "updateTimeMillis": 1689907916958,
-      "author": "ShortX",
-      "tags": []
-    },
-    {
-      "id": "SHARE-rule-f535a3dd-edb0-474b-b2dd-86c68dafb9a9",
-      "fileUrl": "ShortX-临时性图片_视频.txt",
-      "title": "临时性图片/视频",
-      "description": "自动清理临时性图片/视频",
-      "versionCode": 3,
-      "updateTimeMillis": 1727853727608,
-      "author": "nyehueh",
-      "tags": []
-    },
-    {
-      "id": "rule-7930d5a5-8980-4a42-bd9b-3a741ef30e55",
-      "fileUrl": "ShortX-MIUI自动步数.txt",
-      "title": "MIUI自动步数",
-      "description": "指定时间段内增加随机步数",
-      "versionCode": 0,
-      "updateTimeMillis": 1689926670688,
-      "author": "Hidarihitomi",
-      "tags": []
-    },
-    {
-      "id": "rule-80b31faa-77d2-4d40-b6f8-a1e40fe6193a",
-      "fileUrl": "ShortX-自动旋转.txt",
-      "title": "自动旋转",
-      "description": "指定应用获得音频焦点自动开启屏幕旋转",
-      "versionCode": 0,
-      "updateTimeMillis": 1689652572555,
-      "author": "Hidarihitomi",
-      "tags": []
-    },
-    {
-      "id": "rule-6e0cad9a-a822-4eee-a6d0-5db5cb5c7130",
-      "fileUrl": "ShortX-自动VPN_v1.1.1.txt",
-      "title": "自动VPN_v1.1.1",
-      "description": "自动关闭和开启vpn@源梦\n使用前请自行建立应用集 名字为vpn应用\n适用于clashmeta最新版(自行前往官网下载使用) ",
-      "versionCode": 1,
-      "updateTimeMillis": 1708491806518,
-      "author": "源梦",
+      "id": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
+      "fileUrl": "ShortX-应用进程优化_v1.3.txt",
+      "title": "应用进程优化 v1.3",
+      "description": "优化各毒瘤软件的占用",
+      "versionCode": 2,
+      "updateTimeMillis": 1703049449434,
+      "author": "cong",
       "tags": []
     },
     {
@@ -223,73 +113,23 @@
       "tags": []
     },
     {
-      "id": "SHARE-rule-b23ff3f3-724d-4f50-8fd6-d865453d66b4",
-      "fileUrl": "ShortX-链接流体云_python_.txt",
-      "title": "链接流体云（python）",
-      "description": "显示链接流体云快速打开",
-      "versionCode": 2,
-      "updateTimeMillis": 1728056936682,
-      "author": "nyehueh",
-      "tags": []
-    },
-    {
-      "id": "rule-44ce2d5a-e67c-475d-af60-95a51d4dc308",
-      "fileUrl": "ShortX-剪切板助手v1.0.7.txt",
-      "title": "剪切板助手v1.0.7",
-      "description": "蓝奏云链接下载✅\n全自动英译汉✅\n淘宝自动跳转✅\n闲鱼自动跳转✅",
+      "id": "rule-8f1a5a71-6a0a-4371-8259-22fe2da7b369",
+      "fileUrl": "ShortX-恋爱辅助.txt",
+      "title": "恋爱辅助",
+      "description": "智能推荐回复",
       "versionCode": 1,
-      "updateTimeMillis": 1710161021456,
-      "author": "源梦",
-      "tags": []
-    },
-    {
-      "id": "rule-9b4ce64a-559e-4fd7-8c5c-f61ca7a92266",
-      "fileUrl": "ShortX-有道云签到.txt",
-      "title": "有道云签到",
-      "description": "",
-      "versionCode": 0,
-      "updateTimeMillis": 1689671870458,
-      "author": "tiyu",
-      "tags": []
-    },
-    {
-      "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
-      "fileUrl": "ShortX-电量-温度-功率记录.txt",
-      "title": "电量-温度-功率记录",
-      "description": "记录电量，温度和功率至日志文件\n - (⚠️请 务 必⚠️ 拉到下面查看留言📝）",
-      "versionCode": 7,
-      "updateTimeMillis": 1697221441061,
-      "author": "lanyi233",
-      "tags": []
-    },
-    {
-      "id": "rule-65ea881b-0f42-4349-a813-cf00c170db25",
-      "fileUrl": "ShortX-应用行为、通知转发至TGBot.txt",
-      "title": "应用行为、通知转发至TGBot",
-      "description": "将指定应用的状态、通知消息转发至TGBot",
-      "versionCode": 7,
-      "updateTimeMillis": 1703940527283,
-      "author": "lanyi233",
-      "tags": []
-    },
-    {
-      "id": "rule-ecb3726f-17e2-479e-b0a7-405eb3a5a064",
-      "fileUrl": "ShortX-自动爱你_微信版_.txt",
-      "title": "自动爱你(微信版)",
-      "description": "",
-      "versionCode": 0,
-      "updateTimeMillis": 1689904256881,
+      "updateTimeMillis": 1690092385318,
       "author": "JK L",
       "tags": []
     },
     {
-      "id": "rule-53c01d0f-c4d6-4ac8-8fc0-35518ba2cf64",
-      "fileUrl": "ShortX-_调试_应用趋势通知.txt",
-      "title": "[调试]应用趋势通知 1.6",
-      "description": "当应用停止运行时发送一条通知",
-      "versionCode": 6,
-      "updateTimeMillis": 1696850479780,
-      "author": "Rarlya",
+      "id": "rule-7cc122a1-abe0-4b6f-bf3d-b74edb62c247",
+      "fileUrl": "ShortX-手势录制_v1.0.0.txt",
+      "title": "手势录制_v1.0.0",
+      "description": "长按退出手势录制\n单击悬浮窗开始录制\n音量+结束录制",
+      "versionCode": 1,
+      "updateTimeMillis": 1708495200370,
+      "author": "源梦",
       "tags": []
     },
     {
@@ -303,23 +143,103 @@
       "tags": []
     },
     {
-      "id": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
-      "fileUrl": "ShortX-应用进程优化_v1.3.txt",
-      "title": "应用进程优化 v1.3",
-      "description": "优化各毒瘤软件的占用",
-      "versionCode": 2,
-      "updateTimeMillis": 1703049449434,
-      "author": "cong",
+      "id": "rule-44ce2d5a-e67c-475d-af60-95a51d4dc308",
+      "fileUrl": "ShortX-剪切板助手v1.0.7.txt",
+      "title": "剪切板助手v1.0.7",
+      "description": "蓝奏云链接下载✅\n全自动英译汉✅\n淘宝自动跳转✅\n闲鱼自动跳转✅",
+      "versionCode": 1,
+      "updateTimeMillis": 1710161021456,
+      "author": "源梦",
       "tags": []
     },
     {
-      "id": "rule-f2630c57-3935-4e6a-843c-0217296d24e2",
-      "fileUrl": "ShortX-_调试_应用启动通知.txt",
-      "title": "[调试]应用启动通知 1.3",
-      "description": "当应用进程后台启动时发送一条通知",
-      "versionCode": 3,
-      "updateTimeMillis": 1696702827428,
+      "id": "rule-7930d5a5-8980-4a42-bd9b-3a741ef30e55",
+      "fileUrl": "ShortX-MIUI自动步数.txt",
+      "title": "MIUI自动步数",
+      "description": "指定时间段内增加随机步数",
+      "versionCode": 0,
+      "updateTimeMillis": 1689926670688,
+      "author": "Hidarihitomi",
+      "tags": []
+    },
+    {
+      "id": "rule-53c01d0f-c4d6-4ac8-8fc0-35518ba2cf64",
+      "fileUrl": "ShortX-_调试_应用趋势通知.txt",
+      "title": "[调试]应用趋势通知 1.6",
+      "description": "当应用停止运行时发送一条通知",
+      "versionCode": 6,
+      "updateTimeMillis": 1696850479780,
       "author": "Rarlya",
+      "tags": []
+    },
+    {
+      "id": "rule-8fba3995-e662-4f5b-86a3-ac31f60e4ab6",
+      "fileUrl": "ShortX-聊天工具.txt",
+      "title": "聊天工具",
+      "description": "使用前确保已设置Usernames全局变量\n如果指令不生效，请尝试开关指令，根据指引添加用户组",
+      "versionCode": 1,
+      "updateTimeMillis": 1696671000566,
+      "author": "Sydney2580",
+      "tags": []
+    },
+    {
+      "id": "SHARE-rule-13a232e9-a651-4133-8f13-ecaae9870e55",
+      "fileUrl": "ShortX-应用行为、通知转发至TGBot.txt",
+      "title": "应用行为、通知转发至TGBot",
+      "description": "将指定应用的状态、通知消息转发至TGBot\n[需修改配置以设置转发的应用消息和Token/ChatID]",
+      "versionCode": 8,
+      "updateTimeMillis": 1731137818043,
+      "author": "lanyi233",
+      "tags": []
+    },
+    {
+      "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
+      "fileUrl": "ShortX-电量-温度-功率记录.txt",
+      "title": "电量-温度-功率记录",
+      "description": "记录电量，温度和功率至日志文件\n - (⚠️请 务 必⚠️ 拉到下面查看留言📝）",
+      "versionCode": 7,
+      "updateTimeMillis": 1697221441061,
+      "author": "lanyi233",
+      "tags": []
+    },
+    {
+      "id": "rule-6e0cad9a-a822-4eee-a6d0-5db5cb5c7130",
+      "fileUrl": "ShortX-自动VPN_v1.1.1.txt",
+      "title": "自动VPN_v1.1.1",
+      "description": "自动关闭和开启vpn@源梦\n使用前请自行建立应用集 名字为vpn应用\n适用于clashmeta最新版(自行前往官网下载使用) ",
+      "versionCode": 1,
+      "updateTimeMillis": 1708491806518,
+      "author": "源梦",
+      "tags": []
+    },
+    {
+      "id": "rule-378e112b-6d99-4ea4-9ab1-8861663d3f51",
+      "fileUrl": "ShortX-谷歌服务基础.txt",
+      "title": "谷歌服务基础",
+      "description": "使用前请确认打开Shell命令引擎开关",
+      "versionCode": 1,
+      "updateTimeMillis": 1703988766737,
+      "author": "ShortX",
+      "tags": []
+    },
+    {
+      "id": "rule-355b2683-5f7f-4a0d-ae0d-bd07fab373ab",
+      "fileUrl": "ShortX-自动开启无障碍",
+      "title": "自动开启无障碍",
+      "description": "检测到无障碍服务被关闭时，自动开启无障碍服务；使用时只需要在系统设置开启你的无障碍，再打开本指令开关即可",
+      "versionCode": 1,
+      "updateTimeMillis": 1691632915337,
+      "author": "鸿鹄",
+      "tags": []
+    },
+    {
+      "id": "SHARE-rule-f535a3dd-edb0-474b-b2dd-86c68dafb9a9",
+      "fileUrl": "ShortX-临时性图片_视频.txt",
+      "title": "临时性图片/视频",
+      "description": "自动清理临时性图片/视频",
+      "versionCode": 3,
+      "updateTimeMillis": 1727853727608,
+      "author": "nyehueh",
       "tags": []
     },
     {
@@ -333,13 +253,63 @@
       "tags": []
     },
     {
-      "id": "rule-8f1a5a71-6a0a-4371-8259-22fe2da7b369",
-      "fileUrl": "ShortX-恋爱辅助.txt",
-      "title": "恋爱辅助",
-      "description": "智能推荐回复",
+      "id": "rule-d3f32eb0-71ae-4c9a-a143-83757e516545",
+      "fileUrl": "ShortX-微信支付自动输密码.txt",
+      "title": "微信支付自动输密码",
+      "description": "为root了用不了指纹支付且不装指纹模块的用户提供输密码服务",
       "versionCode": 1,
-      "updateTimeMillis": 1690092385318,
+      "updateTimeMillis": 1694623367218,
       "author": "JK L",
+      "tags": []
+    },
+    {
+      "id": "SHARE-rule-32009a51-d329-444c-912d-ea670cd28550",
+      "fileUrl": "ShortX-护眼提醒.txt",
+      "title": "护眼提醒",
+      "description": "用眼时间过长时，定时提醒休息，支持暂停提醒。原理遵循 20×20×20 规则。",
+      "versionCode": 1,
+      "updateTimeMillis": 1734623017132,
+      "author": "ShortX",
+      "tags": []
+    },
+    {
+      "id": "rule-80b31faa-77d2-4d40-b6f8-a1e40fe6193a",
+      "fileUrl": "ShortX-自动旋转.txt",
+      "title": "自动旋转",
+      "description": "指定应用获得音频焦点自动开启屏幕旋转",
+      "versionCode": 0,
+      "updateTimeMillis": 1689652572555,
+      "author": "Hidarihitomi",
+      "tags": []
+    },
+    {
+      "id": "rule-9e40dd65-a271-4fb8-8153-ab4bbebbb893",
+      "fileUrl": "ShortX-验证码提取.txt",
+      "title": "验证码提取",
+      "description": "提取短信中的验证码，自动填入输入框",
+      "versionCode": 0,
+      "updateTimeMillis": 1689907916958,
+      "author": "ShortX",
+      "tags": []
+    },
+    {
+      "id": "rule-9b4ce64a-559e-4fd7-8c5c-f61ca7a92266",
+      "fileUrl": "ShortX-有道云签到.txt",
+      "title": "有道云签到",
+      "description": "",
+      "versionCode": 0,
+      "updateTimeMillis": 1689671870458,
+      "author": "tiyu",
+      "tags": []
+    },
+    {
+      "id": "SHARE-rule-b23ff3f3-724d-4f50-8fd6-d865453d66b4",
+      "fileUrl": "ShortX-链接流体云_python_.txt",
+      "title": "链接流体云（python）",
+      "description": "显示链接流体云快速打开",
+      "versionCode": 2,
+      "updateTimeMillis": 1728056936682,
+      "author": "nyehueh",
       "tags": []
     },
     {
@@ -350,6 +320,46 @@
       "versionCode": 0,
       "updateTimeMillis": 1689007971283,
       "author": "NinjiomPMBot",
+      "tags": []
+    },
+    {
+      "id": "rule-f2630c57-3935-4e6a-843c-0217296d24e2",
+      "fileUrl": "ShortX-_调试_应用启动通知.txt",
+      "title": "[调试]应用启动通知 1.3",
+      "description": "当应用进程后台启动时发送一条通知",
+      "versionCode": 3,
+      "updateTimeMillis": 1696702827428,
+      "author": "Rarlya",
+      "tags": []
+    },
+    {
+      "id": "lingshang-powerpanel",
+      "fileUrl": "ShortX-电源面板.txt",
+      "title": "电源面板",
+      "description": "长按电源键提供更多选项",
+      "versionCode": 3,
+      "updateTimeMillis": 1690901484549,
+      "author": "泠裳",
+      "tags": []
+    },
+    {
+      "id": "rule-467d80ee-2eda-4bbd-9aa1-fdd9ea56f975",
+      "fileUrl": "ShortX-获取视图id_v1.0.0.txt",
+      "title": "获取视图id_v1.0.0",
+      "description": "获取视图id\n单击显示 点击元素复制\n长按退出",
+      "versionCode": 0,
+      "updateTimeMillis": 1708495564605,
+      "author": "源梦",
+      "tags": []
+    },
+    {
+      "id": "rule-ecb3726f-17e2-479e-b0a7-405eb3a5a064",
+      "fileUrl": "ShortX-自动爱你_微信版_.txt",
+      "title": "自动爱你(微信版)",
+      "description": "",
+      "versionCode": 0,
+      "updateTimeMillis": 1689904256881,
+      "author": "JK L",
       "tags": []
     }
   ],
