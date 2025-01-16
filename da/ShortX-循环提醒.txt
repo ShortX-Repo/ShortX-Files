@@ -1,0 +1,225 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsExists",
+      "varName": "循环提醒",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-07b0ecd7-597c-472d-8ea0-e01568a18b65"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "循环提醒",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d4f397dc-7789-4aad-b051-7b5caf5c95c9"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "循环提醒",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-07b0ecd7-597c-472d-8ea0-e01568a18b65"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1729336421932",
+        "title": "循环提醒",
+        "message": "已新建全局变量“循环提醒”",
+        "isImportant": true,
+        "smallIcon": "check-one",
+        "customContextDataKey": {
+        },
+        "id": "A-331e6a81-48d3-4cbb-afd0-59237e7c2c74"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1729937421932",
+        "title": "失败",
+        "message": "无法新建全局变量“循环提醒”",
+        "isImportant": true,
+        "smallIcon": "close-one",
+        "customContextDataKey": {
+        },
+        "id": "A-331e6a81-48d3-4cbb-afd0-59237e7c2c74"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2e2f31af-1d43-48a2-86c8-713b691fa940"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4702bcbf-8860-4241-9f47-26c2b7c3c912"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "循环提醒",
+    "valueAsString": "0",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-c1a9723d-a397-407b-b126-d400a614ddc3"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "循环提醒",
+      "payload": {
+        "value": "0"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4eac9719-580a-4501-bc65-334f87343a37"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "循环提醒",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-dd95efd0-1cef-46cf-960d-fbfb95a8e403"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "循环提醒",
+      "valueAsString": "0",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-73a0b2fc-90ea-455b-a45b-087918ecb245"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "设定循环时间",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "\n60000\u003d1分钟\n7200000\u003d2小时",
+        "value": "1200000\u003d20分钟"
+      }],
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-94407037-884a-47d4-920d-e5222a72b38d"
+    }, {
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": "{textFieldInput1}",
+      "icon": "remix://blaze-line",
+      "longClickAction": [{
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-07cc4ca4-a6ec-45e9-8e12-63e74c75cb79"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b5d525a5-83b4-4f1d-9d8b-19f6b7b50acb"
+    }, {
+      "@type": "type.googleapis.com/WhileLoop",
+      "conditions": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "循环提醒",
+        "payload": {
+          "value": "0"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-f97333a5-eba1-455b-8696-20cd976f4d3a"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-0d08900b-c333-4ccf-b772-5e2058563275"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "negative": "结束",
+        "onNegative": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "循环提醒",
+          "valueAsString": "2",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-ccfb512e-0136-4d48-8473-57c9ad372bd1"
+        }],
+        "neutral": "更改",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "循环提醒",
+          "valueAsString": "1",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-ccfb512e-0136-4d48-8473-57c9ad372bd1"
+        }],
+        "title": "循环提醒",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-8dca3992-3487-432d-8859-8d8685a3498b"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-42ef02bf-9c58-462b-972c-1b1480aaf7a7"
+    }],
+    "condOp": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "A-8b8593cd-8836-49fe-b42f-398eaf4ba17d"
+  }],
+  "id": "SHARED-DA-91dc7e69-4645-41ca-bc20-7bd7572cc6bf",
+  "lastUpdateTime": "1737021478856",
+  "createTime": "1736940805733",
+  "author": {
+    "name": "ritajiuzu@outlook.com"
+  },
+  "title": "循环提醒",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AnyFact"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "循环提醒",
+      "payload": {
+        "value": "2"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-705dc996-8bd9-4590-9e61-b4ce92393b98"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-d036de5a-cd3b-41e3-9a01-a4313a03e485"
+    }]
+  }
+}
+###------###
+{"type":"da"}
