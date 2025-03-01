@@ -1,0 +1,1151 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "title": "您的外卖订单正在进行中",
+      "contentText": "您可前往订单详情页查看具体进展",
+      "apps": [{
+        "pkgName": "com.sankuai.meituan"
+      }]
+    },
+    "tag": "美团",
+    "customContextDataKey": {
+    },
+    "id": "F-3ba201aa-29cc-4b85-9db4-22e67e6f09ee"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "您的外卖订单正在进行中",
+      "contentText": "您可前往订单详情页查看具体进展",
+      "apps": [{
+        "pkgName": "com.sankuai.meituan"
+      }]
+    },
+    "tag": "美团",
+    "customContextDataKey": {
+    },
+    "id": "F-9655625d-50a8-413f-8ff3-8fc4cfa35260"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "预计\\d+分钟|预计.*?送达",
+      "apps": [{
+        "pkgName": "com.eg.android.AlipayGphone"
+      }, {
+        "pkgName": "me.ele"
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn",
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "tag": "饿了么",
+    "customContextDataKey": {
+    },
+    "id": "F-6eb566e5-b457-41fe-856c-abe4e13abc6a"
+  }, {
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "title": "预计\\d+分钟|预计.*?送达",
+      "apps": [{
+        "pkgName": "com.eg.android.AlipayGphone"
+      }, {
+        "pkgName": "me.ele"
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "tag": "饿了么",
+    "customContextDataKey": {
+    },
+    "id": "F-6c869230-23ae-400e-b035-cf2b2e1d4c02"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "美团",
+        "customContextDataKey": {
+        },
+        "id": "C-dc7d8ceb-7878-4c7c-aa0a-fc91cff8f296"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "pkgName",
+          "payload": {
+            "value": "com.sankuai.meituan.takeoutnew"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-d6d5cfc0-20e2-4623-bce2-b01d5bc468f6"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "dumpsys notification --noredact | awk \u0027/pkg\u003dcom.sankuai.meituan.takeoutnew/,/miui.focus.param/ {if ($0 ~ /miui.focus.param/) print $0}\u0027",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-fc1219f7-4159-41ba-aed4-a9e614f63646"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "dumpsys notification --noredact | awk \u0027/pkg\u003dcom.sankuai.meituan/,/miui.focus.param/ {if ($0 ~ /miui.focus.param/) print $0}\u0027",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-fc1219f7-4159-41ba-aed4-a9e614f63646"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-a5afdb4e-87f3-4f35-a8b2-89947f0a89da"
+      }, {
+        "@type": "type.googleapis.com/MatchRegex",
+        "string": "{shellOut}",
+        "regex": "(?\u003c\u003d\"title\":\")(.*?)(?\u003d\")",
+        "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+        "customContextDataKey": {
+        },
+        "id": "A-e6e2c0b6-9374-45c6-846c-607a84eff4bd"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{matchResult}",
+        "regex": " |预计",
+        "customContextDataKey": {
+        },
+        "id": "A-54d39b4c-6325-4b3e-8d96-68e6a79bf7a3"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "replaceResult",
+            "payload": {
+              "value": "已放入"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-c69bad35-c42d-49be-9287-cea1a21bd888"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/MatchRegex",
+            "string": "{shellOut}",
+            "regex": "(?\u003c\u003d\"desc1\":\")(.*?)(?\u003d\")",
+            "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+            "customContextDataKey": {
+            },
+            "id": "A-a9855644-8deb-4d87-b000-1f1032758776"
+          }, {
+            "@type": "type.googleapis.com/MatchRegex",
+            "string": "{matchResult}",
+            "regex": "^[^ ]+",
+            "customContextDataKey": {
+            },
+            "id": "A-e8196264-0876-4281-829a-7285741f6258"
+          }, {
+            "@type": "type.googleapis.com/ShowStatusBarChip",
+            "text": "待取 {matchResult}",
+            "icon": "app://com.sankuai.meituan",
+            "clickAction": [{
+              "@type": "type.googleapis.com/ClickNotification",
+              "notification": {
+                "title": "您的外卖订单正在进行中",
+                "contentText": "您可前往订单详情页查看具体进展"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+            }],
+            "longClickAction": [{
+              "@type": "type.googleapis.com/HideStatusBarClip",
+              "customContextDataKey": {
+              },
+              "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-19f40b78-e789-4348-ae69-a76e91403be6"
+          }],
+          "description": "外卖柜",
+          "id": "Case-4e0acc94-e330-4cef-ab25-4a14b19c9406",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "replaceResult",
+            "payload": {
+              "value": "已送达"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-f999574e-9add-415d-9fee-5498825f74c3"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-cacc48a1-e647-4114-9127-db9190e38b02"
+          }, {
+            "@type": "type.googleapis.com/DeleteGlobalVar",
+            "varName": "ltyon",
+            "customContextDataKey": {
+            },
+            "id": "A-f7744c81-d1f5-4b5f-baa2-72cc300589f5"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import android.app.StatusBarManager;\nimport android.content.Context;\n\n// 获取状态栏管理器\nStatusBarManager statusBarManager \u003d (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);\n\n// 恢复所有图标\nstatusBarManager.disable(0); // 0表示不禁用任何功能",
+            "customContextDataKey": {
+            },
+            "id": "A-aab43e36-c763-42ee-b3c6-5939ab3c273a"
+          }],
+          "description": "送达",
+          "id": "Case-3bb18f49-99b8-4604-9066-7aa5c0a36de3",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "DoesNotContain",
+            "varName": "replaceResult",
+            "payload": {
+              "value": ":"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-4aecd961-d6f4-48d8-9ac2-827c10938b02"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateGlobalVar",
+              "op": "IsNotExists",
+              "varName": "ltyon",
+              "payload": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-e611d56f-318e-4f9b-849a-abb6e5bc49f2"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/CreateGlobalVar",
+              "globalVar": {
+                "name": "ltyon",
+                "type": {
+                  "@type": "type.googleapis.com/StringVar"
+                }
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-6dd0d8c1-e69b-4181-9f1b-6e21c945504f"
+            }, {
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "import android.app.StatusBarManager;\nimport android.content.Context;\n\n// 获取状态栏管理器\nStatusBarManager statusBarManager \u003d (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);\n\n// 尝试隐藏通知和系统信息以及时钟\nstatusBarManager.disable(StatusBarManager.DISABLE_NOTIFICATION_ICONS);",
+              "customContextDataKey": {
+              },
+              "id": "A-34d418ef-e3e2-42b4-8520-8d943d036329"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-8c13ef91-bb41-421f-b2f6-d8045a5bfacf"
+          }, {
+            "@type": "type.googleapis.com/MatchRegex",
+            "string": "{replaceResult}",
+            "regex": "\\d+",
+            "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "matchResult",
+                "second": "min"
+              }]
+            },
+            "id": "A-7a91f696-86e8-4fc1-aa77-5e4eeca69a81"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "isMatch",
+              "payload": {
+                "value": "true"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-263cdea5-a765-4748-8a33-785c5247bc03"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowStatusBarChip",
+              "text": "送货中 {min}分钟",
+              "icon": "app://com.sankuai.meituan",
+              "clickAction": [{
+                "@type": "type.googleapis.com/ClickNotification",
+                "notification": {
+                  "title": "您的外卖订单正在进行中",
+                  "contentText": "您可前往订单详情页查看具体进展"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+              }],
+              "longClickAction": [{
+                "@type": "type.googleapis.com/HideStatusBarClip",
+                "customContextDataKey": {
+                },
+                "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowStatusBarChip",
+              "text": "{matchResult}",
+              "icon": "app://com.sankuai.meituan",
+              "clickAction": [{
+                "@type": "type.googleapis.com/ClickNotification",
+                "notification": {
+                  "title": "您的外卖订单正在进行中",
+                  "contentText": "您可前往订单详情页查看具体进展"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+              }],
+              "longClickAction": [{
+                "@type": "type.googleapis.com/HideStatusBarClip",
+                "customContextDataKey": {
+                },
+                "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-c2568eee-e3db-4adb-8766-b383ebdcaf18"
+          }],
+          "description": "普通",
+          "id": "Case-37114caa-ae42-4a53-98e8-fdc9bb5d153e",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "replaceResult",
+            "payload": {
+              "value": ":"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-b0e792b2-2099-46d2-8849-b2ffe49d616b"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateGlobalVar",
+              "op": "IsNotExists",
+              "varName": "ltyon",
+              "payload": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-e611d56f-318e-4f9b-849a-abb6e5bc49f2"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/CreateGlobalVar",
+              "globalVar": {
+                "name": "ltyon",
+                "type": {
+                  "@type": "type.googleapis.com/StringVar"
+                }
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-6dd0d8c1-e69b-4181-9f1b-6e21c945504f"
+            }, {
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "import android.app.StatusBarManager;\nimport android.content.Context;\n\n// 获取状态栏管理器\nStatusBarManager statusBarManager \u003d (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);\n\n// 尝试隐藏通知和系统信息以及时钟\nstatusBarManager.disable(StatusBarManager.DISABLE_NOTIFICATION_ICONS);",
+              "customContextDataKey": {
+              },
+              "id": "A-34d418ef-e3e2-42b4-8520-8d943d036329"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f00858e2-28f6-452a-9f82-3683d7b892fa"
+          }, {
+            "@type": "type.googleapis.com/MatchRegex",
+            "string": "{replaceResult}",
+            "regex": "\\d{1,2}:\\d{2}",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "matchResult",
+                "second": "time"
+              }]
+            },
+            "id": "A-5edc306c-f56a-4a00-810e-ea9ac18b2835"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "Contains",
+              "varName": "time",
+              "payload": {
+                "value": ","
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-c6db3a7a-c938-4e02-b4a0-d2a635b136b3"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/MatchRegex",
+              "string": "{time}",
+              "regex": "^[^,]+",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "matchResult",
+                  "second": "time"
+                }]
+              },
+              "id": "A-8ceff9ae-65a8-460b-984d-8e0795c746d4"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-54467f02-ee21-4f26-8d07-2516a317f257"
+          }, {
+            "@type": "type.googleapis.com/MatchRegex",
+            "string": "{shellOut}",
+            "regex": "(?\u003c\u003d\"desc1\":\")(.*?)(?\u003d\")",
+            "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+            "customContextDataKey": {
+            },
+            "id": "A-7d2faff9-73a2-427c-9443-291eb7a4759b"
+          }, {
+            "@type": "type.googleapis.com/SwitchCase",
+            "case": [{
+              "case": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "Contains",
+                "varName": "matchResult",
+                "payload": {
+                  "value": "骑手已到店"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-989b8fdc-7621-4afa-be1f-5666e994eb19"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "已到店 {time}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "已到店",
+              "id": "Case-0cd78705-f5dd-4149-b212-131e92fc02fb",
+              "isBreak": true
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "Contains",
+                "varName": "matchResult",
+                "payload": {
+                  "value": "商家正在备餐"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-0139147a-f874-4ef5-9256-5242c4db85aa"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "备餐中 {time}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "备餐中",
+              "id": "Case-b87ec8ae-670c-428d-b193-54988df0abdb",
+              "isBreak": true
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "Contains",
+                "varName": "matchResult",
+                "payload": {
+                  "value": "正在召唤骑手"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-c2d544a6-547d-4de0-964d-19377f16d434"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "召唤中 {time}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "召唤中",
+              "id": "Case-2f4ede06-24a8-4ae4-bbc0-0e12e5eac198",
+              "isBreak": true
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "Contains",
+                "varName": "matchResult",
+                "payload": {
+                  "value": "骑手正赶往商家"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-a9aa974a-7622-45ff-9528-e96289248db8"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "取货中 {time}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "取货中",
+              "id": "Case-b3c81d14-a855-44d0-ae9f-8dc4a61b02b5",
+              "isBreak": true
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "Contains",
+                "varName": "matchResult",
+                "payload": {
+                  "value": "商家已出餐"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-fa40c4bb-624a-4531-b96c-8beb8509b1a6"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "待取货 {time}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "待取货",
+              "id": "Case-9b275b7b-667c-4f6d-bf75-30e701394c84",
+              "isBreak": true
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "Contains",
+                "varName": "matchResult",
+                "payload": {
+                  "value": "骑手正在送货"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-0f96315b-c792-4059-9d8d-33cc62de6846"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "送货中 {time}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "送货中",
+              "id": "Case-5650be37-4cc6-41d3-a637-79c8229bd0c4",
+              "isBreak": true
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "Contains",
+                "varName": "matchResult",
+                "payload": {
+                  "value": "商家已接单"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-0213fdd9-d5c5-4892-8460-810280f42468"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "已接单 {time}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "已接单",
+              "id": "Case-03143ecb-60c4-4294-80a2-55790e421a71",
+              "isBreak": true
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "Contains",
+                "varName": "matchResult",
+                "payload": {
+                  "value": "等待商家接单"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-f6cb7c8d-797d-406b-913a-a5f1d8e20a0e"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "待接单 {time}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "待接单",
+              "id": "Case-6be8745d-6b1d-4447-a645-330293f07e6b",
+              "isBreak": true
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/True",
+                "customContextDataKey": {
+                },
+                "id": "C-f119c075-be45-4f58-9495-91de0eb3b216"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "{matchResult}",
+                "icon": "app://com.sankuai.meituan",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/ClickNotification",
+                  "notification": {
+                    "title": "您的外卖订单正在进行中",
+                    "contentText": "您可前往订单详情页查看具体进展"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+                }],
+                "longClickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7d8be8d9-71cc-4af2-8180-cdea6fc8ed03"
+              }],
+              "description": "其他",
+              "id": "Case-87dbeed9-6cc1-4bbb-9d69-ee563cda396f",
+              "isBreak": true
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f2fedb48-3991-4036-99d2-1e0ed4af048f"
+          }],
+          "description": "时间",
+          "id": "Case-8c1bc2bb-b6a5-4208-9a98-e3d54e574f3b",
+          "isBreak": true
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-17179c6d-e3ef-41e2-aaa6-8536770c5f8d"
+      }],
+      "description": "美团",
+      "id": "Case-21848e98-e326-4ce4-b8c0-1cf600365f9f",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "饿了么",
+        "customContextDataKey": {
+        },
+        "id": "C-5f3ce256-397e-4e87-ad8c-e3f8bba67f81"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "ltyon",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-49d4bf9f-3d4d-47b8-b219-e3c5cf898a67"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "ltyon",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-14fa6579-211d-4024-a8a5-49fd04eda9b3"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import android.app.StatusBarManager;\nimport android.content.Context;\n\n// 获取状态栏管理器\nStatusBarManager statusBarManager \u003d (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);\n\n// 尝试隐藏通知和系统信息以及时钟\nstatusBarManager.disable(StatusBarManager.DISABLE_NOTIFICATION_ICONS);",
+          "customContextDataKey": {
+          },
+          "id": "A-574d73d5-6c61-43ff-9624-cac7a712b45e"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-d3a3157b-4ded-4b74-8a53-ac1d69226718"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "pkgName",
+          "payload": {
+            "value": "com.eg.android.AlipayGphone"
+          },
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-d6d5cfc0-20e2-4623-bce2-b01d5bc468f6"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "dumpsys notification --noredact | awk \u0027/pkg\u003dme.ele/,/miui.focus.param/ {if ($0 ~ /miui.focus.param/) print $0}\u0027",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-aae212ec-c2f5-4bd2-a109-cc017d4e915c"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "dumpsys notification --noredact | awk \u0027/pkg\u003dcom.eg.android.AlipayGphone/,/miui.focus.param/ {if ($0 ~ /miui.focus.param/) print $0}\u0027",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-fc1219f7-4159-41ba-aed4-a9e614f63646"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-c0d5dd8f-c899-4ad0-8cbb-0315fa06ea40"
+      }, {
+        "@type": "type.googleapis.com/MatchRegex",
+        "string": "{shellOut}",
+        "regex": "(?\u003c\u003d\"desc2\":\")(.*?)(?\u003d\")",
+        "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+        "customContextDataKey": {
+        },
+        "id": "A-3397db55-3977-437c-b93d-f48fad72d499"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "matchResult",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-d36e1870-608a-46fa-8feb-0e2a27e3edd7"
+        }, {
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{matchResult} \u003d\u003d null || {matchResult}.length() \u003d\u003d 0",
+          "customContextDataKey": {
+          },
+          "id": "C-b687dbdc-4982-4946-ab21-2a3a677a9335"
+        }],
+        "IfCondOp": "ANY",
+        "IfActions": [{
+          "@type": "type.googleapis.com/MatchRegex",
+          "string": "{shellOut}",
+          "regex": "(?\u003c\u003d\"desc1\":\")(.*?)(?\u003d\")",
+          "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+          "customContextDataKey": {
+          },
+          "id": "A-3397db55-3977-437c-b93d-f48fad72d499"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-bf685440-ce56-49f5-81d9-cff12b26644b"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{matchResult}",
+        "regex": "预计|距你|距商家|：",
+        "customContextDataKey": {
+        },
+        "id": "A-0ccbc168-3383-421a-b6a9-b3f57d2f3825"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{replaceResult}",
+        "regex": "到店|到达",
+        "replacement": "到商家",
+        "customContextDataKey": {
+        },
+        "id": "A-7f4e8cbe-bd2b-4a0c-8fdb-12a5c0b9ac1d"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{replaceResult}",
+        "regex": "，",
+        "replacement": ",",
+        "customContextDataKey": {
+        },
+        "id": "A-31679972-3d0b-4e62-8131-f07e752b080c"
+      }, {
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "{replaceResult}",
+        "icon": "app://me.ele",
+        "clickAction": [{
+          "@type": "type.googleapis.com/ClickNotification",
+          "notification": {
+            "title": "预计\\d+分钟|预计.*?送达"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-1b240b92-8ce0-4638-b299-53bf17e0888a"
+        }],
+        "longClickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-c82aa3d8-c3a8-4db5-99ea-9cdfb88943dd"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-d4e45021-e96e-4f67-bc7c-07f619aede90"
+      }],
+      "description": "饿了么",
+      "id": "Case-794063c9-3759-4382-80d6-fce86df7ef35",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a69e80a6-974a-458b-afd5-0f766cf828ab"
+  }],
+  "id": "SHARE-rule-5ce1e7f8-0006-477d-9208-218bfdb4e6eb",
+  "lastUpdateTime": "1735580909749",
+  "createTime": "1730260054534",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "外卖焦点通知流体云",
+  "description": "显示外卖进度流体云",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "同意并继续",
+      "onPositive": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "test",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "echo true",
+            "customContextDataKey": {
+            },
+            "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "test",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
+          }],
+          "description": "2",
+          "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "300",
+            "customContextDataKey": {
+            },
+            "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "test",
+              "payload": {
+                "value": "true"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "shell正常",
+              "customContextDataKey": {
+              },
+              "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "确定",
+              "onPositive": [{
+                "@type": "type.googleapis.com/SetRuleEnabled",
+                "ruleId": "rule-98f8b5fd-8577-4be9-b809-f4b1b84ed7fa",
+                "customContextDataKey": {
+                },
+                "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+              }, {
+                "@type": "type.googleapis.com/BreakActionExecute",
+                "scope": "BreakActionExecuteScope_Root",
+                "customContextDataKey": {
+                },
+                "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+              }],
+              "title": "shell运行异常",
+              "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+              "cancelable": true,
+              "style": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+          }],
+          "description": "1",
+          "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
+      }],
+      "title": "用户协议",
+      "message": "！！！本指令为Xiaomi HyperOS专用！！！\n！！！本指令为Xiaomi HyperOS专用！！！\n！！！本指令为Xiaomi HyperOS专用！！！\n1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.请确认系统官方焦点通知可以正常显示\n3.请确认shortx状态栏chilp动作可以正常使用",
+      "cancelable": true,
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-56c14bda-039c-4f72-98ba-d50d4c36a4fa"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/NotificationRemoved",
+      "record": {
+        "title": "您的外卖订单正在进行中",
+        "contentText": "您可前往订单详情页查看具体进展"
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-0b4aca8f-fd77-4ad1-8714-226dd9d079a0"
+    }, {
+      "@type": "type.googleapis.com/NotificationUpdated",
+      "new": {
+        "title": "订单已送达",
+        "apps": [{
+          "pkgName": "com.eg.android.AlipayGphone"
+        }]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-8ec09973-5151-4604-a4b8-1239d1ca1928"
+    }, {
+      "@type": "type.googleapis.com/NotificationPosted",
+      "record": {
+        "title": "订单已送达",
+        "apps": [{
+          "pkgName": "com.eg.android.AlipayGphone"
+        }]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-f6e59d66-1423-4016-9297-369b64916b85"
+    }, {
+      "@type": "type.googleapis.com/NotificationRemoved",
+      "record": {
+        "title": "预计\\d+分钟|预计.*?送达",
+        "apps": [{
+          "pkgName": "com.eg.android.AlipayGphone"
+        }],
+        "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-acc30483-a9a0-4d97-ab24-a50e4177a63f"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-93874352-37e8-4f7a-808e-3293484c6bd8"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "ltyon",
+      "customContextDataKey": {
+      },
+      "id": "A-311f2657-73e5-40e8-9a6d-baf52d291fb7"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.app.StatusBarManager;\nimport android.content.Context;\n\n// 获取状态栏管理器\nStatusBarManager statusBarManager \u003d (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);\n\n// 恢复所有图标\nstatusBarManager.disable(0); // 0表示不禁用任何功能",
+      "customContextDataKey": {
+      },
+      "id": "A-dd21fcc0-2255-4c05-b35d-01ee521bdc5e"
+    }]
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}
