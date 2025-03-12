@@ -303,6 +303,17 @@
       "tags": []
     },
     {
+
+      "id": "SHARE-rule-452c40f0-f64b-4c5a-b219-3009d7a11160",
+      "fileUrl": "ShortX-清理外部存储空媒体文件夹.txt",
+      "title": "清理外部存储空媒体文件夹",
+      "description": "通过LogCat检测挂载 清理外部Android空媒体文件夹 ( 总大小 < 1MB )",
+      "versionCode": 2,
+      "updateTimeMillis": 1741738254923,
+      "author": "lanyi233",
+      "tags": []
+    },
+    {
       "id": "rule-7cc122a1-abe0-4b6f-bf3d-b74edb62c247",
       "fileUrl": "ShortX-手势录制_v1.0.0.txt",
       "title": "手势录制_v1.0.0",
