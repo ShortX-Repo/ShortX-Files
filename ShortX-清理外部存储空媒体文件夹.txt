@@ -1,0 +1,79 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Logcat",
+    "regex": "Bind mounting",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-bb055a18-bd35-4aa9-ad6d-4380df1a60ce"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "CleanDirList",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-191c9001-d2d7-419b-96c3-5cda259dc8af"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "CleanDirList",
+    "valueAsString": "\"Alarms\"\n\"Audiobooks\"\n\"Documents\"\n\"Movies\"\n\"Music\"\n\"Notifications\"\n\"Podcasts\"\n\"Ringtones\"\n\"Android\"\n\"DCIM\"\n\"Download\"\n\"Music\"\n\"Pictures\"\n\"Recordings\"\n\"kugou\"\n\"kugoumusic\"\n\"Huawei\"",
+    "customContextDataKey": {
+    },
+    "note": "清理列表",
+    "id": "A-0876361d-7401-466b-8315-101eaa51720e"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3000",
+    "customContextDataKey": {
+    },
+    "note": "等待Android生成完成媒体文件夹",
+    "id": "A-229c54db-99a9-4aab-ad96-da4452e904e5"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#*/\u003d\u003d\u003d[读取清理列表]\u003d\u003d\u003d# /*\nfolders\u003d(localVarOf$CleanDirList)\n#*/\u003d\u003d\u003d[运行清理逻辑]\u003d\u003d\u003d# /*\nD\u003d0 K\u003d0 E\u003d0\nfor mount_point in /storage/*; do\n    case \"$mount_point\" in\n        \"/storage/emulated\"|\"/storage/persist\"|\"/storage/self\")\n            continue\n            ;;\n    esac\n\n    if [[ -d \"$mount_point\" ]]; then\n        echo -e \"[+] $mount_point\"\n        for folder in \"${folders[@]}\"; do\n            dir_path\u003d\"${mount_point}/${folder}\"\n            \n            if [[ -d \"$dir_path\" \u0026\u0026 ! -L \"$dir_path\" ]]; then\n                size_kb\u003d$(du -s \"$dir_path\" 2\u003e/dev/null | cut -f1)\n                \n                if [[ -n \"$size_kb\" ]]; then\n                    if (( size_kb \u003c 1024 )); then\n                        rm -rf \"$dir_path\"\n                        D\u003d$(($D+1))\n                    else\n                        K\u003d$(($K+1))\n                    fi\n                else\n                    E\u003d$(($E+1))\n                fi\n            fi\n        done\n    fi\ndone\n\necho -e \"[删除]$D [跳过]$K [异常]$E\"\n# */\n\n\n\n#\u003d\u003d\u003d[提]\u003d\u003d[优]\u003d\u003d\u003d#\n#\u003d\u003d\u003d[高]\u003d\u003d[化]\u003d\u003d\u003d#\n#\u003d\u003d\u003d[脚]\u003d\u003d[脚]\u003d\u003d\u003d#\n#\u003d\u003d\u003d[本]\u003d\u003d[本]\u003d\u003d\u003d#\n#\u003d\u003d\u003d[稳]\u003d\u003d[流]\u003d\u003d\u003d#\n#\u003d\u003d\u003d[定]\u003d\u003d[畅]\u003d\u003d\u003d#\n#\u003d\u003d\u003d[性]\u003d\u003d[度]\u003d\u003d\u003d#",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "运行清理",
+    "id": "A-abd10dab-104e-4a9d-97ad-d812df572f5e"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "CleanMediaDir",
+    "title": "CleanMediaDir",
+    "message": "{shellOut}",
+    "largeIcon": "file-search-two",
+    "smallIcon": "file-search-one",
+    "overrideAppName": "媒体文件夹清理",
+    "customContextDataKey": {
+    },
+    "id": "A-0a9ce11f-b5b6-4ab4-a846-66efe3afe4c4"
+  }],
+  "id": "SHARE-rule-19adad6c-de37-430f-a95b-4749b6f88f56",
+  "lastUpdateTime": "1741738254923",
+  "createTime": "1741619492882",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "清理外部存储空媒体文件夹",
+  "description": "通过LogCat检测挂载 清理外部Android空媒体文件夹 ( 总大小 \u003c 1MB )",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "evaluatePolicy": "Quit_EvaluatePolicy_Only_When_Is_Running"
+  },
+  "versionCode": "2",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-51b8f4dc-0eae-43e9-a7c8-9c42da0c4377",
+  "ruleInstanceIdGenerator": {
+    "@type": "type.googleapis.com/RuleInstanceIdGenerator_Static",
+    "insId": "CleanMediaDir"
+  }
+}
+###------###
+{"type":"rule"}
