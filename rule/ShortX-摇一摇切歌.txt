@@ -1,0 +1,62 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AccelerometerSensor",
+    "constraintsX": [{
+      "payload": {
+        "value": "50"
+      }
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-2489bb35-50c8-4119-9aef-77a6a34bdcd8"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-51ad48f3-705f-4995-b2ec-bf064759612d"
+  }, {
+    "@type": "type.googleapis.com/AppHasAudioFocus",
+    "pkgs": [{
+      "pkgName": "com.kugou.android.lite"
+    }, {
+      "pkgName": "com.kugou.android"
+    }, {
+      "pkgName": "com.netease.cloudmusic"
+    }, {
+      "pkgName": "com.tencent.qqmusic"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-9f4b2f1a-be8f-41e1-89e7-385b540935c2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/MediaPlayback",
+    "action": "MediaPlaybackAction_SkipToNext",
+    "customContextDataKey": {
+    },
+    "id": "A-8477a31e-0b12-4344-bc92-9f00cf7021cf"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 229,
+    "customContextDataKey": {
+    },
+    "id": "A-4655bcf3-cdbd-4696-b89e-2c17395422de"
+  }],
+  "id": "SHARE-rule-4ebd1408-acee-470c-b3ff-f29f96e78165",
+  "lastUpdateTime": "1742368274108",
+  "createTime": "1738837001787",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "摇一摇切歌",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
