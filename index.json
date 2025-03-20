@@ -306,9 +306,9 @@
       "id": "SHARE-rule-452c40f0-f64b-4c5a-b219-3009d7a11160",
       "fileUrl": "ShortX-清理外部存储空媒体文件夹.txt",
       "title": "清理外部存储空媒体文件夹",
-      "description": "通过LogCat检测挂载 清理外部Android空媒体文件夹 ( 总大小 < 1MB )",
-      "versionCode": 2,
-      "updateTimeMillis": 1741738254923,
+      "description": "通过LogCat检测挂载 清理外部Android空媒体文件夹 ( 总大小 < 1MB )\n---\n可在下方切换清理模式\n> 轮询 Storage 文件夹\n> 针对挂载目录清理 (正则替换 动作内可切换选择的挂载点)",
+      "versionCode": 3,
+      "updateTimeMillis": 1741777645823,
       "author": "lanyi233",
       "tags": []
     },
