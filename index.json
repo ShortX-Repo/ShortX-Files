@@ -41,6 +41,16 @@
       "tags": []
     },
     {
+      "id": "SHARED-DA-31330f69-5864-4f05-bf4d-954785951892",
+      "fileUrl": "ShortX-获取视图_坐标悬浮窗工具.txt",
+      "title": "获取视图＆坐标悬浮窗工具",
+      "description": "显示悬浮窗，可以查看当前页面的视图ID，开启或关闭触摸坐标及轨迹的显示，主要是为了搭配动作里的[点击视图ID]、[点击坐标] 使用。",
+      "versionCode": 1,
+      "updateTimeMillis": 1743044360219,
+      "author": "李亦心",
+      "tags": []
+    },
+    {
       "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
       "fileUrl": "ShortX-获取已保存wifi密码.txt",
       "title": "获取已保存wifi密码 - 去重",
@@ -340,6 +350,16 @@
       "versionCode": 7,
       "updateTimeMillis": 1697221441061,
       "author": "lanyi233",
+      "tags": []
+    },
+    {
+      "id": "SHARE-rule-8d822656-fac1-4225-b5a5-e8317b689c52",
+      "fileUrl": "ShortX-取件码短信自动变成常驻通知.txt",
+      "title": "取件码短信自动变成常驻通知",
+      "description": "",
+      "versionCode": 1,
+      "updateTimeMillis": 1743648935021,
+      "author": "李亦心",
       "tags": []
     },
     {
