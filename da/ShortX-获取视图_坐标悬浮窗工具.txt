@@ -1,0 +1,73 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/EnableViewIdViewer",
+        "customContextDataKey": {
+        },
+        "id": "A-f0142a0a-a7f3-4cad-91da-c6a5b18d2358"
+      }],
+      "icon": "search-eye-line",
+      "label": "显示视图ID",
+      "id": "BTN-6479f20a-aa46-4f07-b009-a86906ee773c"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put system pointer_location 1",
+        "customContextDataKey": {
+        },
+        "id": "A-cf5b1a22-1787-4e8d-82ea-1cba2677c8a0"
+      }],
+      "icon": "connection-point-two",
+      "label": "显示触摸坐标",
+      "id": "BTN-a11023e8-8941-4bb0-a469-b198ba64603c"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put system pointer_location 0",
+        "customContextDataKey": {
+        },
+        "id": "A-9f10c088-5a00-44d6-97cc-cd74d5080f05"
+      }],
+      "icon": "connection-point-two",
+      "label": "关闭触摸坐标",
+      "id": "BTN-548b847e-044c-474e-9f2a-2667268915bd"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "customContextDataKey": {
+        },
+        "id": "A-2e546664-e0da-4459-a77f-093dec141a17"
+      }],
+      "icon": "close",
+      "label": "关闭",
+      "id": "BTN-95aa9780-be6c-4a91-908d-d28918e2f9c4"
+    }],
+    "tag": "2025-03-27 10:57:57",
+    "maxHeightInDp": 495,
+    "maxWidthInDp": 42,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 123,
+    "enableGlobalDrag": true,
+    "overlayPaddingH": 13,
+    "overlayPaddingV": 21,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-0aa85a3a-b2ed-4f07-8e6e-3056fa7710e0"
+  }],
+  "id": "SHARED-DA-31330f69-5864-4f05-bf4d-954785951892",
+  "lastUpdateTime": "1743044360219",
+  "createTime": "1726761016110",
+  "author": {
+    "name": "李亦心"
+  },
+  "title": "获取视图＆坐标悬浮窗工具",
+  "description": "显示悬浮窗，可以查看当前页面的视图ID，开启或关闭触摸坐标及轨迹的显示，主要是为了搭配动作里的[点击视图ID]、[点击坐标] 使用。",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,121 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "contentText": ".*取件码.*",
+      "apps": [{
+        "pkgName": "com.android.providers.telephony"
+      }, {
+        "pkgName": "com.android.mms"
+      }],
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-f17fc9f5-dda8-4bf5-9c62-64e5ae4265c1"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "noticeContent",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-93300772-c5c0-4448-8f27-a218ac173abe"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "noticeContent",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-aa616d3a-bd08-44e8-962c-5f87357685b1"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d7cc2646-f3d7-480e-8e8f-d85a8e83fc58"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "noticeContent",
+    "valueAsString": "{contentText}\n",
+    "customContextDataKey": {
+    },
+    "id": "A-f91413fa-db98-4f1a-8a7b-e79c83143309"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-12345678",
+    "title": "取件码",
+    "message": "globalVarOf$noticeContent",
+    "isImportant": true,
+    "largeIcon": "box",
+    "smallIcon": "box",
+    "button": [{
+      "id": "Button-073a5f30-b773-4a5c-8b17-a4e02491883e",
+      "action": [{
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "title": "取件码",
+          "apps": [{
+            "pkgName": "com.android.systemui"
+          }]
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-3137a085-0add-41c8-aa8a-1ba4c50e3e68"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "移除通知",
+        "customContextDataKey": {
+        },
+        "id": "A-d8716fb4-f8b6-4385-b6c3-6ab36ed779ee"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "noticeContent",
+        "op": "WriteGlobalVarOp_Clear",
+        "customContextDataKey": {
+        },
+        "id": "A-a0888205-dc0d-49fe-bcb7-5ddfda33779c"
+      }],
+      "label": "移除"
+    }],
+    "onGoing": true,
+    "customContextDataKey": {
+    },
+    "id": "A-9e3c36f9-3dff-45f8-9daf-3fed46aa3981"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotification",
+    "notification": {
+      "apps": [{
+        "pkgName": "com.android.providers.telephony"
+      }, {
+        "pkgName": "com.android.mms"
+      }],
+      "tag": "{notificationTag}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-da4043c4-b223-47e5-a09b-b98fe35d771f"
+  }],
+  "id": "SHARE-rule-8d822656-fac1-4225-b5a5-e8317b689c52",
+  "lastUpdateTime": "1743648935021",
+  "createTime": "1724658972769",
+  "author": {
+    "name": "李亦心"
+  },
+  "title": "取件码短信自动变成常驻通知",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
