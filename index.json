@@ -253,16 +253,6 @@
       "tags": []
     },
     {
-      "id": "SHARE-rule-2310d7d2-99ae-44c1-8085-94dde9f3257c",
-      "fileUrl": "ShortX-链接流体云_python_.txt",
-      "title": "链接流体云（python）",
-      "description": "显示链接流体云快速打开",
-      "versionCode": 1,
-      "updateTimeMillis": 1742460918442,
-      "author": "ShortX",
-      "tags": []
-    },
-    {
       "id": "lingshang-powerpanel",
       "fileUrl": "ShortX-电源面板.txt",
       "title": "电源面板",
@@ -270,6 +260,16 @@
       "versionCode": 3,
       "updateTimeMillis": 1690901484549,
       "author": "泠裳",
+      "tags": []
+    },
+    {
+      "id": "SHARE-rule-bae6aba0-5771-4a3b-8fa6-8ad7d8bd3b90",
+      "fileUrl": "ShortX-链接提取综合_python_.txt",
+      "title": "链接提取综合（python）",
+      "description": "高自定义的链接快速打开指令",
+      "versionCode": 1,
+      "updateTimeMillis": 1744119129984,
+      "author": "ShortX",
       "tags": []
     },
     {
