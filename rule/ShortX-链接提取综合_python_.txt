@@ -80,7 +80,7 @@
     "id": "A-4c8ee740-4d22-4407-9a61-d169e4f38585"
   }, {
     "@type": "type.googleapis.com/ShellCommand",
-    "command": "localVarOf$expect\nimport re\ndef reversal(a):\n    if a \u003d\u003d True:\n        return False\n    else:\n        return True\n               \ndef ri(a):\n    r \u003d a.replace(\"http://\",\"\")\n    r \u003d r.replace(\"https://\",\"\")\n    r \u003d r.split(\" \")[0]\n    return r\n\ndef db(a,output):\n    for i in output:\n        if ri(i) \u003d\u003d ri(a):\n            return False\n    else:\n        return True    \n              \ndef where(a,b): #查询元素位置\n    list1 \u003d []\n    for i in range(0,len(a)):\n        if ri(a[i]) \u003d\u003d ri(b):\n            list1.append(i)\n    return list1      \n    \ndef huisu(list,value_to_find,list_to_find): #将验证码添回链接后面\n    a \u003d where(list,value_to_find) #验证码位置列表\n    output \u003d []\n    for i in a:\n        for j in range(i-1,-1,-1):\n            if reversal(db(list[j],list_to_find)):\n                if len(list[j].split(\" \"))\u003c2:\n                    yzm \u003d value_to_find.split(\":\")[1]\n                    if yzm \u003d\u003d\"\":\n                        yzm \u003d list[i+1]\n                    yzm \u003d yzm.replace(\" \",\"\")\n                    output\u003dwhere(list_to_find,list[j]) \n                    if \"提取码:\" not in list_to_find[output[0]]:\n                        list_to_find[output[0]]\u003d list[j] + \" 提取码:\" + yzm\n                        break\n                    else:\n                        list_to_find.append(list[j] + \" 提取码:\" +yzm)\n                        break\n                        \ndef qvzi(a):\n    Extractioncodelist \u003d \"argOf$tqm\"\n    Extractioncodelist \u003d Extractioncodelist.split(\" \")\n    for i in Extractioncodelist:\n        a\u003da.replace(i,\" Extractioncode:\")  #验证码关键词替换\n    output \u003d\"\"      #去字\n    all \u003d \"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM#_/-:?%@\u003d.\u0026, ，；;1234567890 \\n\"\n    for i in a:\n        if i in all:\n            output +\u003d i\n    return output      \n\ndef shaixuan(a):    #筛选  \n    output \u003d[]\n    ecjc \u003d []\n    yzm \u003d False\n    Extractioncodelist \u003d []\n    a \u003d a.replace(\"http://\",\" http://\")\n    a \u003d a.replace(\"https://\",\" https://\") #前置分割\n    duanluo \u003d re.split(r\u0027\\n|,|，|；|;|\\s+\u0027,a)\n    duanluo \u003d [token for token in duanluo if token] #分段\n    if \"Extractioncode:\" in a:\n        yzm \u003d True \n        for i in duanluo: #提取所有验证码段\n            if \"Extractioncode:\" in i:\n                if i not in Extractioncodelist:\n                    Extractioncodelist.append(i)\n    dinjiyumin \u003d \"argOf$djym\"\n    dinjiyumin \u003d dinjiyumin.split(\",\")\n    emaillist\u003d \"argOf$email\"\n    emaillist \u003d emaillist.split(\",\")\n    for i in dinjiyumin:  #筛选顶级域名不在结尾的域名\n        for j in duanluo:\n            if \".\"+ i + \"/\" in j and len(j)\u003elen(i)+2:\n                if db(j,output):\n                    output.append(j)\n            elif \".\" + i + \"/\" not in j and len(j)\u003elen(i)+2:\n                if db(j,ecjc):\n                    ecjc.append(j)\n    for i in dinjiyumin:   #筛选顶级域名结尾的域名\n        for j in ecjc:\n            if \".\" + i in j and len(j)\u003elen(i)+1:\n                if j[len(j)-len(i)-1 : len(j)+1] \u003d\u003d \".\" + i:\n                    if db(j,output):\n                        for w in emaillist:\n                            if \"@\"+w in j:\n                                break\n                        else:\n                            output.append(j)\n            elif (\"http://\" in j or \"https://\" in j) and len(j)\u003e8 and \".\" in j: #筛选顶级域名未被收录的带请求头的域名\n                if db(j,output):\n                    output.append(j)\n    if yzm \u003d\u003d True:\n        for i in Extractioncodelist:\n            huisu(duanluo,i,output)\n    return output\n\ndef qinqiutou(a):  #添加请求头\n    httpslist \u003d \"argOf$httpsonly\" #仅HTTPS可用列表\n    httpslist \u003d httpslist.split(\",\")\n    output \u003d []\n    for i in a:\n        if \"http://\" not in i and \"https://\" not in i:\n            if \"http://\"+i not in output and \"https://\"+i not in output:\n                for j in httpslist:\n                    if j in i:\n                        output.append(\"https://\"+i)\n                        break\n                else:\n                    output.append(\"http://\"+i)\n        else:\n            if i not in output:\n                output.append(i)   \n    \n    return output\n            \n\ndef main(a):\n    b \u003d qinqiutou(shaixuan(qvzi(a)))\n    if len(b)!\u003d0:\n        for i in b:\n            print(i,end\u003d\",\")\n    else:\n        print(\"No links\")            \nmain(r\"\"\"\n{replaceResult}\n\"\"\")\n龘靐爨\n",
+    "command": "localVarOf$expect\nimport re\ndef reversal(a):\n    if a \u003d\u003d True:\n        return False\n    else:\n        return True\n               \ndef ri(a):\n    r \u003d a.replace(\"http://\",\"\")\n    r \u003d r.replace(\"https://\",\"\")\n    r \u003d r.split(\" \")[0]\n    return r\n\ndef db(a,output):\n    for i in output:\n        if ri(i) \u003d\u003d ri(a):\n            return False\n    else:\n        return True    \n              \ndef where(a,b): #查询元素位置\n    list1 \u003d []\n    for i in range(0,len(a)):\n        if ri(a[i]) \u003d\u003d ri(b):\n            list1.append(i)\n    return list1      \n    \ndef huisu(list,value_to_find,list_to_find): #将验证码添回链接后面\n    a \u003d where(list,value_to_find) #验证码位置列表\n    output \u003d []\n    for i in a:\n        for j in range(i-1,-1,-1):\n            if reversal(db(list[j],list_to_find)):\n                if len(list[j].split(\" \"))\u003c2:\n                    yzm \u003d value_to_find.split(\":\")[1]\n                    if yzm \u003d\u003d\"\":\n                        yzm \u003d list[i+1]\n                    yzm \u003d yzm.replace(\" \",\"\")\n                    output\u003dwhere(list_to_find,list[j]) \n                    if \"提取码:\" not in list_to_find[output[0]]:\n                        list_to_find[output[0]]\u003d list[j] + \" 提取码:\" + yzm\n                        break\n                    else:\n                        list_to_find.append(list[j] + \" 提取码:\" +yzm)\n                        break\n                        \ndef qvzi(a):\n    Extractioncodelist \u003d \"argOf$tqm\"\n    Extractioncodelist \u003d Extractioncodelist.split(\" \")\n    for i in Extractioncodelist:\n        a\u003da.replace(i,\" Extractioncode:\")  #验证码关键词替换\n    output \u003d\"\"      #去字\n    all \u003d \"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM#_/-:?%@\u003d.\u0026, ，；;1234567890 \\n\"\n    for i in a:\n        if i in all:\n            output +\u003d i\n    return output      \n\ndef shaixuan(a):    #筛选  \n    output \u003d[]\n    ecjc \u003d []\n    yzm \u003d False\n    Extractioncodelist \u003d []\n    a \u003d a.replace(\"http://\",\" http://\")\n    a \u003d a.replace(\"https://\",\" https://\") #前置分割\n    duanluo \u003d re.split(r\u0027\\n|,|，|；|;|\\s+\u0027,a)\n    duanluo \u003d [token for token in duanluo if token] #分段\n    if \"Extractioncode:\" in a:\n        yzm \u003d True \n        for i in duanluo: #提取所有验证码段\n            if \"Extractioncode:\" in i:\n                if i not in Extractioncodelist:\n                    Extractioncodelist.append(i)\n    dinjiyumin \u003d \"argOf$djym\"\n    dinjiyumin \u003d dinjiyumin.split(\",\")\n    emaillist\u003d \"argOf$email\"\n    emaillist \u003d emaillist.split(\",\")\n    for i in dinjiyumin:  #筛选顶级域名不在结尾的域名\n        for j in duanluo:\n            if \".\"+ i + \"/\" in j and len(j)\u003elen(i)+2:\n                if db(j,output):\n                    output.append(j)\n            elif \".\" + i + \"/\" not in j and len(j)\u003elen(i)+2:\n                if db(j,ecjc):\n                    ecjc.append(j)\n    for i in dinjiyumin:   #筛选顶级域名结尾的域名\n        for j in ecjc:\n            if \".\" + i in j and len(j)\u003elen(i)+1:\n                if j[len(j)-len(i)-1 : len(j)+1] \u003d\u003d \".\" + i:\n                    if db(j,output):\n                        for w in emaillist:\n                            if \"@\"+w in j:\n                                break\n                        else:\n                            output.append(j)\n            elif (\"http://\" in j or \"https://\" in j) and len(j)\u003e8 and \".\" in j: #筛选顶级域名未被收录的带请求头的域名\n                if db(j,output):\n                    output.append(j)\n    if yzm \u003d\u003d True:\n        for i in Extractioncodelist:\n            huisu(duanluo,i,output)\n    return output\n\ndef qinqiutou(a):  #添加请求头\n    httpslist \u003d \"argOf$httpsonly\" #仅HTTPS可用列表\n    httpslist \u003d httpslist.split(\",\")\n    output \u003d []\n    for i in a:\n        if \"http://\" not in i and \"https://\" not in i:\n            if \"http://\"+i not in output and \"https://\"+i not in output:\n                for j in httpslist:\n                    if j in i:\n                        output.append(\"https://\"+i)\n                        break\n                else:\n                    output.append(\"http://\"+i)\n        else:\n            if i not in output:\n                output.append(i)   \n    \n    return output\n    \ndef blacklist(linklist):\n    blacklist\u003d\"argOf$blacklist\"\n    blacklist\u003dblacklist.split(\",\")\n    for i in blacklist:\n        for j in linklist:\n            if i in j:\n                linklist.remove(j)\n    return linklist                \n\ndef main(a):\n    b \u003d blacklist(qinqiutou(shaixuan(qvzi(a))))\n    if len(b)!\u003d0:\n        for i in b:\n            print(i,end\u003d\",\")\n    else:\n        print(\"No links\")            \nmain(r\"\"\"\n{replaceResult}\n\"\"\")\n龘靐爨\n",
     "singleShot": true,
     "customContextDataKey": {
     },
@@ -581,6 +581,16 @@
             "op": "Contains",
             "varName": "links",
             "payload": {
+              "value": "3.cn"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-927abf4d-9e55-42a0-ae63-04d9cf2e1dc7"
+          }, {
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "Contains",
+            "varName": "links",
+            "payload": {
               "value": "item.m.jd.com"
             },
             "customContextDataKey": {
@@ -597,6 +607,10 @@
             },
             "id": "C-d23072a9-9dd6-491f-8716-f7563f8f2d31"
           }],
+          "caseCondOp": "MVEL",
+          "caseCondOpPayload": {
+            "expression": "(c1||c2)\u0026\u0026c3"
+          },
           "action": [{
             "@type": "type.googleapis.com/ShowStatusBarChip",
             "text": "京东链接",
@@ -885,7 +899,7 @@
                     "id": "A-2a7f932e-0f0e-4a7b-a14a-2aeb7b59f43c"
                   }, {
                     "@type": "type.googleapis.com/ShellCommand",
-                    "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nprint(a.split(\" 提取码:\")[0])\n龘靐爨",
+                    "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nb\u003da.split(\" 提取码:\")[0]\nprint(b.split(\"/1\")[1])\n龘靐爨",
                     "singleShot": true,
                     "customContextDataKey": {
                       "keys": [{
@@ -896,7 +910,33 @@
                     "id": "A-4714c1d0-5413-4bd2-b5fb-0637e3961b3d"
                   }, {
                     "@type": "type.googleapis.com/StartActivityUrlSchema",
-                    "urlSchema": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{nextlink}\u0026pwd\u003d{yzm}\u0026origin\u003d2\u0026channelName\u003dother\u0026userType\u003d\u0026source\u003d1028536z_1028892a\u0026channelType\u003dwap\u0026behavior\u003dsave_view\u0026isSaved\u003dno\u0026hasPanCode\u003dno",
+                    "urlSchema": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{nextlink}\u0026pwd\u003d{yzm}",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-9ea0896f-63ad-4575-9ca3-71db153165ba"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ShellCommand",
+                    "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nb\u003da.split(\"/1\")\nprint(b[1])\n龘靐爨",
+                    "singleShot": true,
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "shellOut",
+                        "second": "nextlink"
+                      }]
+                    },
+                    "id": "A-1ab07ae4-7f20-4d66-b5fb-d88d0f4a75b1"
+                  }, {
+                    "@type": "type.googleapis.com/ReplaceRegex",
+                    "string": "{nextlink}",
+                    "regex": "?pwd\u003d",
+                    "replacement": "\u0026pwd\u003d",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-404cf2b6-bf50-4faa-9554-dc08fcd3c246"
+                  }, {
+                    "@type": "type.googleapis.com/StartActivityUrlSchema",
+                    "urlSchema": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{replaceResult}",
                     "customContextDataKey": {
                     },
                     "id": "A-9ea0896f-63ad-4575-9ca3-71db153165ba"
@@ -954,6 +994,13 @@
                     "customContextDataKey": {
                     },
                     "id": "A-399ff1b6-31c1-4925-aacb-7b862acc1034"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/StartActivityIntentUri",
+                    "intentUri": "localVarOf$links",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-a2b42982-6bb4-42cf-8ef4-132a7643c059"
                   }],
                   "customContextDataKey": {
                   },
@@ -1760,6 +1807,16 @@
             "op": "Contains",
             "varName": "links",
             "payload": {
+              "value": "3.cn"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-36c19f47-fe48-44bd-af7b-583188e8b88d"
+          }, {
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "Contains",
+            "varName": "links",
+            "payload": {
               "value": "item.m.jd.com"
             },
             "customContextDataKey": {
@@ -1776,6 +1833,10 @@
             },
             "id": "C-d23072a9-9dd6-491f-8716-f7563f8f2d31"
           }],
+          "caseCondOp": "MVEL",
+          "caseCondOpPayload": {
+            "expression": "(c1||c2)\u0026\u0026c3"
+          },
           "action": [{
             "@type": "type.googleapis.com/ShowOverlayButton",
             "buttonSettings": [{
@@ -2074,6 +2135,17 @@
             "@type": "type.googleapis.com/ShowOverlayButton",
             "buttonSettings": [{
               "actions": [{
+                "@type": "type.googleapis.com/CreateGlobalVar",
+                "globalVar": {
+                  "name": "yz",
+                  "type": {
+                    "@type": "type.googleapis.com/StringVar"
+                  }
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-8db5822a-5e52-4aa9-91d7-9bd22870701a"
+              }, {
                 "@type": "type.googleapis.com/ShowMenuDialog",
                 "items": [{
                   "title": "跳转",
@@ -2103,7 +2175,7 @@
                       "id": "A-2a7f932e-0f0e-4a7b-a14a-2aeb7b59f43c"
                     }, {
                       "@type": "type.googleapis.com/ShellCommand",
-                      "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nprint(a.split(\" 提取码:\")[0])\n龘靐爨",
+                      "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nb\u003da.split(\" 提取码:\")[0]\nprint(b.split(\"/1\")[1])\n龘靐爨",
                       "singleShot": true,
                       "customContextDataKey": {
                         "keys": [{
@@ -2114,7 +2186,33 @@
                       "id": "A-4714c1d0-5413-4bd2-b5fb-0637e3961b3d"
                     }, {
                       "@type": "type.googleapis.com/StartActivityUrlSchema",
-                      "urlSchema": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{nextlink}\u0026pwd\u003d{yzm}\u0026origin\u003d2\u0026channelName\u003dother\u0026userType\u003d\u0026source\u003d1028536z_1028892a\u0026channelType\u003dwap\u0026behavior\u003dsave_view\u0026isSaved\u003dno\u0026hasPanCode\u003dno",
+                      "urlSchema": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{nextlink}\u0026pwd\u003d{yzm}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-9ea0896f-63ad-4575-9ca3-71db153165ba"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ShellCommand",
+                      "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nb\u003da.split(\"/1\")\nprint(b[1])\n龘靐爨",
+                      "singleShot": true,
+                      "customContextDataKey": {
+                        "keys": [{
+                          "first": "shellOut",
+                          "second": "nextlink"
+                        }]
+                      },
+                      "id": "A-1ab07ae4-7f20-4d66-b5fb-d88d0f4a75b1"
+                    }, {
+                      "@type": "type.googleapis.com/ReplaceRegex",
+                      "string": "{nextlink}",
+                      "regex": "?pwd\u003d",
+                      "replacement": "\u0026pwd\u003d",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-404cf2b6-bf50-4faa-9554-dc08fcd3c246"
+                    }, {
+                      "@type": "type.googleapis.com/StartActivityUrlSchema",
+                      "urlSchema": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{replaceResult}",
                       "customContextDataKey": {
                       },
                       "id": "A-9ea0896f-63ad-4575-9ca3-71db153165ba"
@@ -2173,6 +2271,13 @@
                       },
                       "id": "A-399ff1b6-31c1-4925-aacb-7b862acc1034"
                     }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "localVarOf$links",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-a2b42982-6bb4-42cf-8ef4-132a7643c059"
+                    }],
                     "customContextDataKey": {
                     },
                     "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
@@ -2184,18 +2289,7 @@
                 },
                 "customContextDataKey": {
                 },
-                "id": "A-9be54887-e698-4ae6-919a-3b0b7afb8e09"
-              }, {
-                "@type": "type.googleapis.com/CreateGlobalVar",
-                "globalVar": {
-                  "name": "yz",
-                  "type": {
-                    "@type": "type.googleapis.com/StringVar"
-                  }
-                },
-                "customContextDataKey": {
-                },
-                "id": "A-8db5822a-5e52-4aa9-91d7-9bd22870701a"
+                "id": "A-f3b37a77-911b-428c-b660-dcc0e132a352"
               }, {
                 "@type": "type.googleapis.com/DeleteGlobalVar",
                 "varName": "yz",
@@ -2626,11 +2720,11 @@
     },
     "id": "A-3173668a-8642-42c6-a439-abe970495a9c"
   }],
-  "id": "SHARE-rule-bae6aba0-5771-4a3b-8fa6-8ad7d8bd3b90",
-  "lastUpdateTime": "1744119129984",
+  "id": "SHARE-rule-1335ab81-831d-4406-ae78-c3ce30153e66",
+  "lastUpdateTime": "1746070191866",
   "createTime": "1723386652518",
   "author": {
-    "name": "ShortX"
+    "name": "nyehueh"
   },
   "title": "链接提取综合（python）",
   "description": "高自定义的链接快速打开指令",
@@ -2750,7 +2844,7 @@
     "comments": "环境变量"
   }, {
     "name": "djym",
-    "defaultValue": "com,cn,top,love,xyz,net,org,vip,cloud,online,icu,fun,work,tv,wiki,email,plus,co,ltd,shop,tech,wang,site,xin,store,art,cc,website,press,space,beer,luxe,video,group,ren,fit,yoga,pro,ink,info,mobi,kim,red,run,chat,cool,zone,host",
+    "defaultValue": "com,cn,top,love,xyz,net,org,vip,cloud,online,icu,fun,work,tv,wiki,email,plus,co,ltd,shop,tech,wang,site,xin,store,art,cc,website,press,space,beer,luxe,video,group,ren,fit,yoga,pro,ink,info,mobi,kim,red,run,chat,cool,zone,host,biz",
     "comments": "顶级域名列表（,隔开）"
   }, {
     "name": "tqm",
@@ -2773,6 +2867,11 @@
     "defaultValue": "流体云",
     "isRequired": true,
     "comments": "设置显示模式（流体云，浮窗）"
+  }, {
+    "name": "blacklist",
+    "defaultValue": "🈚️",
+    "isRequired": true,
+    "comments": "链接黑名单关键词命中则不响应该链接（英文逗号分割）"
   }]
 }
 ###------###
