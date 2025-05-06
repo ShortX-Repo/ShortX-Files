@@ -73,6 +73,41 @@
       },
       "id": "A-415461bc-e1d1-42bb-84d0-bf93dcccb3c2"
     }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "disabled",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-dda49499-0dfc-48bf-9065-f9da7b62beb4"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "title": "指令已禁用",
+        "message": "未认真阅读使用说明或环境异常，指令已禁用，请重新关闭再打开指令",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-409e0f3a-9bba-4599-a367-397ed9b47c86"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-37a770f9-c092-4480-9641-47d996e4a86c"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-42186f1a-cb09-4160-8b4e-1d03655d22af"
+    }],
     "customContextDataKey": {
     },
     "id": "A-18dac282-1a56-4816-b608-572f927e104e"
@@ -203,13 +238,6 @@
       "action": [{
         "@type": "type.googleapis.com/ShowAlertDialog",
         "positive": "确定",
-        "onPositive": [{
-          "@type": "type.googleapis.com/SetRuleEnabled",
-          "ruleId": "SHARE-rule-84921480-ed43-45b5-9f11-d4abb776c403",
-          "customContextDataKey": {
-          },
-          "id": "A-9f5edd03-7758-4f36-aaff-9efd2b0b2b4b"
-        }],
         "title": "python环境异常",
         "message": "请先安装python环境（termux）或自行配置并确保您的python环境可用",
         "cancelable": true,
@@ -218,6 +246,23 @@
         "customContextDataKey": {
         },
         "id": "A-8b092968-e8f8-4658-a0f5-0d82a2040853"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "指令已禁用，请完成环境配置后重新开关指令",
+        "customContextDataKey": {
+        },
+        "id": "A-bd149b9e-8ec1-4b03-aa97-13c2d1d328b4"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "disabled",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-558674fb-dcb5-45de-b745-4b0ae04e1ac8"
       }, {
         "@type": "type.googleapis.com/BreakActionExecute",
         "scope": "BreakActionExecuteScope_Root",
@@ -242,19 +287,6 @@
       "action": [{
         "@type": "type.googleapis.com/ShowAlertDialog",
         "positive": "确定",
-        "onPositive": [{
-          "@type": "type.googleapis.com/SetRuleEnabled",
-          "ruleId": "SHARE-rule-84921480-ed43-45b5-9f11-d4abb776c403",
-          "customContextDataKey": {
-          },
-          "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
-        }, {
-          "@type": "type.googleapis.com/BreakActionExecute",
-          "scope": "BreakActionExecuteScope_Root",
-          "customContextDataKey": {
-          },
-          "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
-        }],
         "title": "shell运行异常",
         "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
         "cancelable": true,
@@ -263,6 +295,29 @@
         "customContextDataKey": {
         },
         "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "指令已禁用，请完成环境配置后重新开关指令",
+        "customContextDataKey": {
+        },
+        "id": "A-6c857a4b-a574-4d32-b259-f2141421e185"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "disabled",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-96291aec-3b10-4ec5-8680-7acdb954e620"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-fe03f9ab-40c8-4658-bf47-28a2d534d714"
       }],
       "description": "rooterror",
       "id": "Case-8b30957b-97c2-40ae-83d9-67f174fbb096",
@@ -3351,8 +3406,8 @@
     },
     "id": "A-3173668a-8642-42c6-a439-abe970495a9c"
   }],
-  "id": "SHARE-rule-d56b6f59-5950-488c-b581-2b6b5d8d86a5",
-  "lastUpdateTime": "1746555066919",
+  "id": "SHARE-rule-15ff73af-6e25-4442-bb61-5a000bd7161b",
+  "lastUpdateTime": "1746575566520",
   "createTime": "1723386652518",
   "author": {
     "name": "nyehueh"
@@ -3470,11 +3525,22 @@
                 "@type": "type.googleapis.com/ShowAlertDialog",
                 "positive": "确定",
                 "onPositive": [{
-                  "@type": "type.googleapis.com/SetRuleEnabled",
-                  "ruleId": "SHARE-rule-84921480-ed43-45b5-9f11-d4abb776c403",
+                  "@type": "type.googleapis.com/CreateGlobalVar",
+                  "globalVar": {
+                    "name": "disabled",
+                    "type": {
+                      "@type": "type.googleapis.com/StringVar"
+                    }
+                  },
                   "customContextDataKey": {
                   },
-                  "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+                  "id": "A-3564e38e-356d-4a33-bb5e-5bba86c224c2"
+                }, {
+                  "@type": "type.googleapis.com/ShowToast",
+                  "message": "指令已禁用，请重新开关指令重试",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-388dddc8-ce35-424c-8a8b-a160020c2a10"
                 }, {
                   "@type": "type.googleapis.com/BreakActionExecute",
                   "scope": "BreakActionExecuteScope_Root",
@@ -3595,16 +3661,21 @@
         }],
         "ElseActions": [{
           "@type": "type.googleapis.com/ShowToast",
-          "message": "请仔细查看使用说明后再点击继续",
+          "message": "请仔细查看使用说明后再点击继续，指令已禁用，请重新开关指令",
           "customContextDataKey": {
           },
           "id": "A-49339a94-ea7e-4305-a7c6-8ed62954a759"
         }, {
-          "@type": "type.googleapis.com/SetRuleEnabled",
-          "ruleId": "SHARE-rule-84921480-ed43-45b5-9f11-d4abb776c403",
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "disabled",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
           "customContextDataKey": {
           },
-          "id": "A-7e66472d-16cf-403d-bcba-c30319871d80"
+          "id": "A-f0a1cd9d-b0e1-4e8c-9a3a-460bbf0e624c"
         }],
         "customContextDataKey": {
         },
@@ -3618,6 +3689,20 @@
       "customContextDataKey": {
       },
       "id": "A-56c14bda-039c-4f72-98ba-d50d4c36a4fa"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "disabled",
+      "customContextDataKey": {
+      },
+      "id": "A-d55dd346-1add-4217-9737-4cd4db6cb23e"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "disabled",
+      "customContextDataKey": {
+      },
+      "id": "A-09f99cb7-a43f-4e59-aec0-486b4f95968d"
     }]
   },
   "quit": {
