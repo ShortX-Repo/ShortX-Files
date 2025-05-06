@@ -1,11 +1,36 @@
 {
   "facts": [{
     "@type": "type.googleapis.com/ClipboardContentChanged",
+    "tag": "剪切板",
     "customContextDataKey": {
     },
     "id": "F-368b7435-12fd-4dcb-82b4-c86ea8bee793"
+  }, {
+    "@type": "type.googleapis.com/OnMenuActionTrigger",
+    "tag": "选中",
+    "customContextDataKey": {
+    },
+    "id": "F-f56f0921-c580-4cb3-8cd1-4821cef2ee58"
   }],
   "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "小窗配置",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-36a08a3a-57e9-43e0-b57b-b892d0986e6a"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "小窗配置",
+    "valueAsString": "argOf$小窗配置",
+    "customContextDataKey": {
+    },
+    "id": "A-a5a38be3-a67f-4b82-aba5-6b0e723a5612"
+  }, {
     "@type": "type.googleapis.com/CreateLocalVar",
     "localVar": {
       "name": "mode",
@@ -71,13 +96,35 @@
     "note": "环境变量",
     "id": "A-94c7b868-7d01-4171-8c24-de32f0723a6a"
   }, {
-    "@type": "type.googleapis.com/ReplaceRegex",
-    "string": "{clipboardContent}",
-    "regex": "\\$|\"\"\"|\\^|`|`",
-    "replacement": " ",
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "剪切板",
+      "customContextDataKey": {
+      },
+      "id": "C-f89e76f4-6110-4354-8c97-619fb1ed8a7c"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{clipboardContent}",
+      "regex": "\\$|\"\"\"|\\^|`|`",
+      "replacement": " ",
+      "customContextDataKey": {
+      },
+      "id": "A-4c8ee740-4d22-4407-9a61-d169e4f38585"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{selectedText}",
+      "regex": "\\$|\"\"\"|\\^|`|`",
+      "replacement": " ",
+      "customContextDataKey": {
+      },
+      "id": "A-4c8ee740-4d22-4407-9a61-d169e4f38585"
+    }],
     "customContextDataKey": {
     },
-    "id": "A-4c8ee740-4d22-4407-9a61-d169e4f38585"
+    "id": "A-ae37ecf0-1325-4514-980e-8fd714f44388"
   }, {
     "@type": "type.googleapis.com/ShellCommand",
     "command": "localVarOf$expect\nimport re\ndef reversal(a):\n    if a \u003d\u003d True:\n        return False\n    else:\n        return True\n               \ndef ri(a):\n    r \u003d a.replace(\"http://\",\"\")\n    r \u003d r.replace(\"https://\",\"\")\n    r \u003d r.split(\" \")[0]\n    return r\n\ndef db(a,output):\n    for i in output:\n        if ri(i) \u003d\u003d ri(a):\n            return False\n    else:\n        return True    \n              \ndef where(a,b): #查询元素位置\n    list1 \u003d []\n    for i in range(0,len(a)):\n        if ri(a[i]) \u003d\u003d ri(b):\n            list1.append(i)\n    return list1      \n    \ndef huisu(list,value_to_find,list_to_find): #将验证码添回链接后面\n    a \u003d where(list,value_to_find) #验证码位置列表\n    output \u003d []\n    for i in a:\n        for j in range(i-1,-1,-1):\n            if reversal(db(list[j],list_to_find)):\n                if len(list[j].split(\" \"))\u003c2:\n                    yzm \u003d value_to_find.split(\":\")[1]\n                    if yzm \u003d\u003d\"\":\n                        yzm \u003d list[i+1]\n                    yzm \u003d yzm.replace(\" \",\"\")\n                    output\u003dwhere(list_to_find,list[j]) \n                    if \"提取码:\" not in list_to_find[output[0]]:\n                        list_to_find[output[0]]\u003d list[j] + \" 提取码:\" + yzm\n                        break\n                    else:\n                        list_to_find.append(list[j] + \" 提取码:\" +yzm)\n                        break\n                        \ndef qvzi(a):\n    Extractioncodelist \u003d \"argOf$tqm\"\n    Extractioncodelist \u003d Extractioncodelist.split(\" \")\n    for i in Extractioncodelist:\n        a\u003da.replace(i,\" Extractioncode:\")  #验证码关键词替换\n    output \u003d\"\"      #去字\n    all \u003d \"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM#_/-:?%@\u003d.\u0026, ，；;1234567890 \\n\"\n    for i in a:\n        if i in all:\n            output +\u003d i\n    return output      \n\ndef shaixuan(a):    #筛选  \n    output \u003d[]\n    ecjc \u003d []\n    yzm \u003d False\n    Extractioncodelist \u003d []\n    a \u003d a.replace(\"http://\",\" http://\")\n    a \u003d a.replace(\"https://\",\" https://\") #前置分割\n    duanluo \u003d re.split(r\u0027\\n|,|，|；|;|\\s+\u0027,a)\n    duanluo \u003d [token for token in duanluo if token] #分段\n    if \"Extractioncode:\" in a:\n        yzm \u003d True \n        for i in duanluo: #提取所有验证码段\n            if \"Extractioncode:\" in i:\n                if i not in Extractioncodelist:\n                    Extractioncodelist.append(i)\n    dinjiyumin \u003d \"argOf$djym\"\n    dinjiyumin \u003d dinjiyumin.split(\",\")\n    emaillist\u003d \"argOf$email\"\n    emaillist \u003d emaillist.split(\",\")\n    for i in dinjiyumin:  #筛选顶级域名不在结尾的域名\n        for j in duanluo:\n            if \".\"+ i + \"/\" in j and len(j)\u003elen(i)+2:\n                if db(j,output):\n                    output.append(j)\n            elif \".\" + i + \"/\" not in j and len(j)\u003elen(i)+2:\n                if db(j,ecjc):\n                    ecjc.append(j)\n    for i in dinjiyumin:   #筛选顶级域名结尾的域名\n        for j in ecjc:\n            if \".\" + i in j and len(j)\u003elen(i)+1:\n                if j[len(j)-len(i)-1 : len(j)+1] \u003d\u003d \".\" + i:\n                    if db(j,output):\n                        for w in emaillist:\n                            if \"@\"+w in j:\n                                break\n                        else:\n                            output.append(j)\n            elif (\"http://\" in j or \"https://\" in j) and len(j)\u003e8 and \".\" in j: #筛选顶级域名未被收录的带请求头的域名\n                if db(j,output):\n                    output.append(j)\n    if yzm \u003d\u003d True:\n        for i in Extractioncodelist:\n            huisu(duanluo,i,output)\n    return output\n\ndef qinqiutou(a):  #添加请求头\n    httpslist \u003d \"argOf$httpsonly\" #仅HTTPS可用列表\n    httpslist \u003d httpslist.split(\",\")\n    output \u003d []\n    for i in a:\n        if \"http://\" not in i and \"https://\" not in i:\n            if \"http://\"+i not in output and \"https://\"+i not in output:\n                for j in httpslist:\n                    if j in i:\n                        output.append(\"https://\"+i)\n                        break\n                else:\n                    output.append(\"http://\"+i)\n        else:\n            if i not in output:\n                output.append(i)   \n    \n    return output\n    \ndef blacklist(linklist):\n    blacklist\u003d\"argOf$blacklist\"\n    blacklist\u003dblacklist.split(\",\")\n    for i in blacklist:\n        for j in linklist:\n            if i in j:\n                linklist.remove(j)\n    return linklist                \n\ndef main(a):\n    b \u003d blacklist(qinqiutou(shaixuan(qvzi(a))))\n    if len(b)!\u003d0:\n        for i in b:\n            print(i,end\u003d\",\")\n    else:\n        print(\"No links\")            \nmain(r\"\"\"\n{replaceResult}\n\"\"\")\n龘靐爨\n",
@@ -118,6 +165,26 @@
         },
         "id": "C-6f7152f2-973d-4f5e-91d3-9d7447f9144c"
       }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/RequireFactTag",
+          "tag": "选中",
+          "customContextDataKey": {
+          },
+          "id": "C-9b1b445a-cf8e-4b8d-b4e6-95cd7c813311"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "未识别到链接",
+          "customContextDataKey": {
+          },
+          "id": "A-0d16dda1-c80d-4007-96a9-5a512f0c1643"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4a8f0a81-c213-4983-a570-a494c01c65e7"
+      }],
       "description": "nolinks",
       "id": "Case-7bd658d3-aec9-4633-9a01-971c682dfd6b",
       "isBreak": true
@@ -138,7 +205,7 @@
         "positive": "确定",
         "onPositive": [{
           "@type": "type.googleapis.com/SetRuleEnabled",
-          "ruleId": "SHARE-rule-295b2665-eaa9-4c32-aa90-f8037a9f8519",
+          "ruleId": "SHARE-rule-84921480-ed43-45b5-9f11-d4abb776c403",
           "customContextDataKey": {
           },
           "id": "A-9f5edd03-7758-4f36-aaff-9efd2b0b2b4b"
@@ -177,7 +244,7 @@
         "positive": "确定",
         "onPositive": [{
           "@type": "type.googleapis.com/SetRuleEnabled",
-          "ruleId": "SHARE-rule-295b2665-eaa9-4c32-aa90-f8037a9f8519",
+          "ruleId": "SHARE-rule-84921480-ed43-45b5-9f11-d4abb776c403",
           "customContextDataKey": {
           },
           "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
@@ -342,7 +409,14 @@
                   "id": "A-c992f6af-33ae-4514-ae85-afa61d03c646"
                 }]
               }, {
-                "title": "不跳转"
+                "title": "小窗跳转",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"fleamarket://2.taobao.com/onepiece?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                }]
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
@@ -352,6 +426,17 @@
                   },
                   "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                 }]
+              }, {
+                "title": "自适应应用打开（小窗）",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                }]
+              }, {
+                "title": "不跳转"
               }],
               "title": "检测到闲鱼链接，是否跳转",
               "cancelable": true,
@@ -433,7 +518,14 @@
                   "id": "A-c992f6af-33ae-4514-ae85-afa61d03c646"
                 }]
               }, {
-                "title": "不跳转"
+                "title": "小窗跳转",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"tbopen://m.taobao.com/tbopen/index.html?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                }]
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
@@ -443,6 +535,17 @@
                   },
                   "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                 }]
+              }, {
+                "title": "自适应应用打开（小窗）",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                }]
+              }, {
+                "title": "不跳转"
               }],
               "title": "检测到淘宝链接，是否跳转",
               "cancelable": true,
@@ -534,6 +637,15 @@
                   "id": "A-c992f6af-33ae-4514-ae85-afa61d03c646"
                 }]
               }, {
+                "title": "小窗跳转淘宝",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"tbopen://m.taobao.com/tbopen/index.html?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                }]
+              }, {
                 "title": "跳转闲鱼",
                 "clickActions": [{
                   "@type": "type.googleapis.com/StartActivityUrlSchema",
@@ -543,7 +655,14 @@
                   "id": "A-c992f6af-33ae-4514-ae85-afa61d03c646"
                 }]
               }, {
-                "title": "不跳转"
+                "title": "小窗跳转闲鱼",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"fleamarket://2.taobao.com/onepiece?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                }]
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
@@ -553,6 +672,17 @@
                   },
                   "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                 }]
+              }, {
+                "title": "自适应应用打开（小窗）",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                }]
+              }, {
+                "title": "不跳转"
               }],
               "title": "检测到淘宝/闲鱼链接，是否跳转",
               "cancelable": true,
@@ -638,7 +768,14 @@
                   "id": "A-4f5c4611-44a7-4fa3-b4c5-3f31414b8ddd"
                 }]
               }, {
-                "title": "不跳转"
+                "title": "小窗跳转",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"openapp.jdmobile://virtual?params\u003d{\u0027category\u0027:\u0027jump\u0027,\u0027des\u0027:\u0027m\u0027,\u0027url\u0027:\u0027\"+localVarOf$links+\"\u0027}\"; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                }]
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
@@ -648,6 +785,17 @@
                   },
                   "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                 }]
+              }, {
+                "title": "自适应应用打开（小窗）",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                }]
+              }, {
+                "title": "不跳转"
               }],
               "title": "检测到京东链接，是否跳转",
               "cancelable": true,
@@ -719,7 +867,14 @@
                   "id": "A-4f5c4611-44a7-4fa3-b4c5-3f31414b8ddd"
                 }]
               }, {
-                "title": "不跳转"
+                "title": "小窗跳转",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"snssdk1128://webview?url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                }]
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
@@ -729,6 +884,17 @@
                   },
                   "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                 }]
+              }, {
+                "title": "自适应应用打开（小窗）",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                }]
+              }, {
+                "title": "不跳转"
               }],
               "title": "检测到抖音链接，是否跳转",
               "cancelable": true,
@@ -800,7 +966,14 @@
                   "id": "A-e8c2d9c0-be34-4f42-868d-e31634fd2932"
                 }]
               }, {
-                "title": "不跳转"
+                "title": "小窗跳转",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"pddopen://?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                }]
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
@@ -810,6 +983,17 @@
                   },
                   "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                 }]
+              }, {
+                "title": "自适应应用打开（小窗）",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\n\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                }]
+              }, {
+                "title": "不跳转"
               }],
               "title": "检测到拼多多链接，是否跳转",
               "cancelable": true,
@@ -946,7 +1130,79 @@
                   "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
                 }]
               }, {
-                "title": "不跳转"
+                "title": "小窗跳转",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "Contains",
+                    "varName": "links",
+                    "payload": {
+                      "value": "提取码"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-71aeb211-a58d-4a19-8c70-9ac92d9aafb1"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/ShellCommand",
+                    "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nprint(a.split(\" 提取码:\")[1])\n龘靐爨",
+                    "singleShot": true,
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "shellOut",
+                        "second": "yzm"
+                      }]
+                    },
+                    "id": "A-2a7f932e-0f0e-4a7b-a14a-2aeb7b59f43c"
+                  }, {
+                    "@type": "type.googleapis.com/ShellCommand",
+                    "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nb\u003da.split(\" 提取码:\")[0]\nprint(b.split(\"/1\")[1])\n龘靐爨",
+                    "singleShot": true,
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "shellOut",
+                        "second": "nextlink"
+                      }]
+                    },
+                    "id": "A-4714c1d0-5413-4bd2-b5fb-0637e3961b3d"
+                  }, {
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d\"+{nextlink}+\"\u0026pwd\u003d\"+{yzm}; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ShellCommand",
+                    "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nb\u003da.split(\"/1\")\nprint(b[1])\n龘靐爨",
+                    "singleShot": true,
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "shellOut",
+                        "second": "nextlink"
+                      }]
+                    },
+                    "id": "A-1ab07ae4-7f20-4d66-b5fb-d88d0f4a75b1"
+                  }, {
+                    "@type": "type.googleapis.com/ReplaceRegex",
+                    "string": "{nextlink}",
+                    "regex": "?pwd\u003d",
+                    "replacement": "\u0026pwd\u003d",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-404cf2b6-bf50-4faa-9554-dc08fcd3c246"
+                  }, {
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d\"+{replaceResult}; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
+                }]
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
@@ -1006,6 +1262,67 @@
                   },
                   "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
                 }]
+              }, {
+                "title": "自适应应用打开（小窗）",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateContextVar",
+                    "op": "Contains",
+                    "varName": "link",
+                    "payload": {
+                      "value": "提取码"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-14a52cca-88d9-4d13-8379-b6828562f027"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/ShellCommand",
+                    "command": "localVarOf$expect\na \u003d\"{shellOut}\"\nprint(a.split(\" 提取码:\")[1])\n龘靐爨",
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "shellOut",
+                        "second": "yzm"
+                      }]
+                    },
+                    "id": "A-2a7f932e-0f0e-4a7b-a14a-2aeb7b59f43c"
+                  }, {
+                    "@type": "type.googleapis.com/ShellCommand",
+                    "command": "localVarOf$expect\na \u003d\"{shellOut}\"\nprint(a.split(\" 提取码:\")[0])\n龘靐爨",
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "shellOut",
+                        "second": "nextlink"
+                      }]
+                    },
+                    "id": "A-4714c1d0-5413-4bd2-b5fb-0637e3961b3d"
+                  }, {
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d {nextlink};\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-a3f047b6-c07a-4dd6-91e9-bed9c309149a"
+                  }, {
+                    "@type": "type.googleapis.com/WriteClipboard",
+                    "text": "{yzm}",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-399ff1b6-31c1-4925-aacb-7b862acc1034"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
+                }]
+              }, {
+                "title": "不跳转"
               }],
               "title": "检测到百度网盘链接，是否跳转",
               "cancelable": true,
@@ -1075,6 +1392,16 @@
                   "@type": "type.googleapis.com/WriteLocalVar",
                   "varName": "打开方式",
                   "valueAsString": "自适应",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-ff76fa00-7cd9-41c7-9dc6-bcb38130a7d7"
+                }]
+              }, {
+                "title": "自适应应用打开（小窗）",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/WriteLocalVar",
+                  "varName": "打开方式",
+                  "valueAsString": "自适应小窗",
                   "customContextDataKey": {
                   },
                   "id": "A-ff76fa00-7cd9-41c7-9dc6-bcb38130a7d7"
@@ -1351,6 +1678,28 @@
                 "description": "自适应",
                 "id": "Case-334e9d3b-cc7b-458b-a940-41769e824a1c",
                 "isBreak": true
+              }, {
+                "case": [{
+                  "@type": "type.googleapis.com/EvaluateLocalVar",
+                  "op": "EqualTo",
+                  "varName": "打开方式",
+                  "payload": {
+                    "value": "自适应小窗"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "C-f37a6813-7b59-4ff0-bc1b-2666c732844f"
+                }],
+                "action": [{
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d {nextlink};\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                }],
+                "description": "自适应小窗",
+                "id": "Case-d1e9c1d7-7c36-4cca-b45c-25fe78c74251",
+                "isBreak": true
               }],
               "customContextDataKey": {
               },
@@ -1516,7 +1865,14 @@
                     "id": "A-c992f6af-33ae-4514-ae85-afa61d03c646"
                   }]
                 }, {
-                  "title": "不跳转"
+                  "title": "小窗跳转",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"fleamarket://2.taobao.com/onepiece?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }]
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
@@ -1526,6 +1882,17 @@
                     },
                     "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                   }]
+                }, {
+                  "title": "自适应应用打开（小窗）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                  }]
+                }, {
+                  "title": "不跳转"
                 }],
                 "title": "检测到闲鱼链接，是否跳转",
                 "cancelable": true,
@@ -1533,7 +1900,7 @@
                 },
                 "customContextDataKey": {
                 },
-                "id": "A-68493cb2-8274-4bd0-938d-7d68519de577"
+                "id": "A-2c401865-36bd-420c-9c6f-12634942bfce"
               }, {
                 "@type": "type.googleapis.com/DeleteGlobalVar",
                 "varName": "yz",
@@ -1624,7 +1991,14 @@
                     "id": "A-c992f6af-33ae-4514-ae85-afa61d03c646"
                   }]
                 }, {
-                  "title": "不跳转"
+                  "title": "小窗跳转",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"tbopen://m.taobao.com/tbopen/index.html?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }]
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
@@ -1634,6 +2008,17 @@
                     },
                     "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                   }]
+                }, {
+                  "title": "自适应应用打开（小窗）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                  }]
+                }, {
+                  "title": "不跳转"
                 }],
                 "title": "检测到淘宝链接，是否跳转",
                 "cancelable": true,
@@ -1641,7 +2026,7 @@
                 },
                 "customContextDataKey": {
                 },
-                "id": "A-68493cb2-8274-4bd0-938d-7d68519de577"
+                "id": "A-cd7ad065-98de-4edb-bcd0-28f08d1b92c4"
               }, {
                 "@type": "type.googleapis.com/DeleteGlobalVar",
                 "varName": "yz",
@@ -1742,6 +2127,15 @@
                     "id": "A-c992f6af-33ae-4514-ae85-afa61d03c646"
                   }]
                 }, {
+                  "title": "小窗跳转淘宝",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"tbopen://m.taobao.com/tbopen/index.html?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }]
+                }, {
                   "title": "跳转闲鱼",
                   "clickActions": [{
                     "@type": "type.googleapis.com/StartActivityUrlSchema",
@@ -1751,7 +2145,14 @@
                     "id": "A-c992f6af-33ae-4514-ae85-afa61d03c646"
                   }]
                 }, {
-                  "title": "不跳转"
+                  "title": "小窗跳转闲鱼",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"fleamarket://2.taobao.com/onepiece?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }]
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
@@ -1761,6 +2162,17 @@
                     },
                     "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                   }]
+                }, {
+                  "title": "自适应应用打开（小窗）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                  }]
+                }, {
+                  "title": "不跳转"
                 }],
                 "title": "检测到淘宝/闲鱼链接，是否跳转",
                 "cancelable": true,
@@ -1768,7 +2180,7 @@
                 },
                 "customContextDataKey": {
                 },
-                "id": "A-68493cb2-8274-4bd0-938d-7d68519de577"
+                "id": "A-70973c0c-a518-4409-880c-b5ea52444076"
               }, {
                 "@type": "type.googleapis.com/DeleteGlobalVar",
                 "varName": "yz",
@@ -1863,7 +2275,14 @@
                     "id": "A-4f5c4611-44a7-4fa3-b4c5-3f31414b8ddd"
                   }]
                 }, {
-                  "title": "不跳转"
+                  "title": "小窗跳转",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"openapp.jdmobile://virtual?params\u003d{\u0027category\u0027:\u0027jump\u0027,\u0027des\u0027:\u0027m\u0027,\u0027url\u0027:\u0027\"+localVarOf$links+\"\u0027}\"; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }]
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
@@ -1873,6 +2292,17 @@
                     },
                     "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                   }]
+                }, {
+                  "title": "自适应应用打开（小窗）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                  }]
+                }, {
+                  "title": "不跳转"
                 }],
                 "title": "检测到京东链接，是否跳转",
                 "cancelable": true,
@@ -1880,7 +2310,7 @@
                 },
                 "customContextDataKey": {
                 },
-                "id": "A-68493cb2-8274-4bd0-938d-7d68519de577"
+                "id": "A-34dea5a9-1fb7-4e97-b8a3-565d2c63f142"
               }, {
                 "@type": "type.googleapis.com/DeleteGlobalVar",
                 "varName": "yz",
@@ -1961,7 +2391,14 @@
                     "id": "A-4f5c4611-44a7-4fa3-b4c5-3f31414b8ddd"
                   }]
                 }, {
-                  "title": "不跳转"
+                  "title": "小窗跳转",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"snssdk1128://webview?url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }]
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
@@ -1971,6 +2408,17 @@
                     },
                     "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                   }]
+                }, {
+                  "title": "自适应应用打开（小窗）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                  }]
+                }, {
+                  "title": "不跳转"
                 }],
                 "title": "检测到抖音链接，是否跳转",
                 "cancelable": true,
@@ -1978,7 +2426,7 @@
                 },
                 "customContextDataKey": {
                 },
-                "id": "A-68493cb2-8274-4bd0-938d-7d68519de577"
+                "id": "A-dcfc2fb2-2cc6-46a6-ab9c-10dd5f26cb6f"
               }, {
                 "@type": "type.googleapis.com/DeleteGlobalVar",
                 "varName": "yz",
@@ -2059,7 +2507,14 @@
                     "id": "A-e8c2d9c0-be34-4f42-868d-e31634fd2932"
                   }]
                 }, {
-                  "title": "不跳转"
+                  "title": "小窗跳转",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"pddopen://?h5Url\u003d\"+localVarOf$links; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                  }]
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
@@ -2069,6 +2524,17 @@
                     },
                     "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
                   }]
+                }, {
+                  "title": "自适应应用打开（小窗）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                  }]
+                }, {
+                  "title": "不跳转"
                 }],
                 "title": "检测到拼多多链接，是否跳转",
                 "cancelable": true,
@@ -2076,7 +2542,7 @@
                 },
                 "customContextDataKey": {
                 },
-                "id": "A-68493cb2-8274-4bd0-938d-7d68519de577"
+                "id": "A-7f35c37c-2e93-471d-bacf-983cfa580d3a"
               }, {
                 "@type": "type.googleapis.com/DeleteGlobalVar",
                 "varName": "yz",
@@ -2222,7 +2688,79 @@
                     "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
                   }]
                 }, {
-                  "title": "不跳转"
+                  "title": "小窗跳转",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "Contains",
+                      "varName": "links",
+                      "payload": {
+                        "value": "提取码"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-71aeb211-a58d-4a19-8c70-9ac92d9aafb1"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/ShellCommand",
+                      "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nprint(a.split(\" 提取码:\")[1])\n龘靐爨",
+                      "singleShot": true,
+                      "customContextDataKey": {
+                        "keys": [{
+                          "first": "shellOut",
+                          "second": "yzm"
+                        }]
+                      },
+                      "id": "A-2a7f932e-0f0e-4a7b-a14a-2aeb7b59f43c"
+                    }, {
+                      "@type": "type.googleapis.com/ShellCommand",
+                      "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nb\u003da.split(\" 提取码:\")[0]\nprint(b.split(\"/1\")[1])\n龘靐爨",
+                      "singleShot": true,
+                      "customContextDataKey": {
+                        "keys": [{
+                          "first": "shellOut",
+                          "second": "nextlink"
+                        }]
+                      },
+                      "id": "A-4714c1d0-5413-4bd2-b5fb-0637e3961b3d"
+                    }, {
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d\"+{nextlink}+\"\u0026pwd\u003d\"+{yzm}; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ShellCommand",
+                      "command": "localVarOf$expect\na \u003d\"localVarOf$links\"\nb\u003da.split(\"/1\")\nprint(b[1])\n龘靐爨",
+                      "singleShot": true,
+                      "customContextDataKey": {
+                        "keys": [{
+                          "first": "shellOut",
+                          "second": "nextlink"
+                        }]
+                      },
+                      "id": "A-1ab07ae4-7f20-4d66-b5fb-d88d0f4a75b1"
+                    }, {
+                      "@type": "type.googleapis.com/ReplaceRegex",
+                      "string": "{nextlink}",
+                      "regex": "?pwd\u003d",
+                      "replacement": "\u0026pwd\u003d",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-404cf2b6-bf50-4faa-9554-dc08fcd3c246"
+                    }, {
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d\"+{replaceResult}; // 替换为你要启动的 URL Scheme\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+                    }],
+                    "customContextDataKey": {
+                    },
+                    "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
+                  }]
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
@@ -2282,6 +2820,67 @@
                     },
                     "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
                   }]
+                }, {
+                  "title": "自适应应用打开（小窗）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateContextVar",
+                      "op": "Contains",
+                      "varName": "link",
+                      "payload": {
+                        "value": "提取码"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-14a52cca-88d9-4d13-8379-b6828562f027"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/ShellCommand",
+                      "command": "localVarOf$expect\na \u003d\"{shellOut}\"\nprint(a.split(\" 提取码:\")[1])\n龘靐爨",
+                      "customContextDataKey": {
+                        "keys": [{
+                          "first": "shellOut",
+                          "second": "yzm"
+                        }]
+                      },
+                      "id": "A-2a7f932e-0f0e-4a7b-a14a-2aeb7b59f43c"
+                    }, {
+                      "@type": "type.googleapis.com/ShellCommand",
+                      "command": "localVarOf$expect\na \u003d\"{shellOut}\"\nprint(a.split(\" 提取码:\")[0])\n龘靐爨",
+                      "customContextDataKey": {
+                        "keys": [{
+                          "first": "shellOut",
+                          "second": "nextlink"
+                        }]
+                      },
+                      "id": "A-4714c1d0-5413-4bd2-b5fb-0637e3961b3d"
+                    }, {
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d {nextlink};\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-a3f047b6-c07a-4dd6-91e9-bed9c309149a"
+                    }, {
+                      "@type": "type.googleapis.com/WriteClipboard",
+                      "text": "{yzm}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-399ff1b6-31c1-4925-aacb-7b862acc1034"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d localVarOf$links;\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                    }],
+                    "customContextDataKey": {
+                    },
+                    "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
+                  }]
+                }, {
+                  "title": "不跳转"
                 }],
                 "title": "检测到百度网盘链接，是否跳转",
                 "cancelable": true,
@@ -2289,7 +2888,7 @@
                 },
                 "customContextDataKey": {
                 },
-                "id": "A-f3b37a77-911b-428c-b660-dcc0e132a352"
+                "id": "A-db115f88-faf6-4196-bbfb-20b8ab7d5d75"
               }, {
                 "@type": "type.googleapis.com/DeleteGlobalVar",
                 "varName": "yz",
@@ -2368,6 +2967,16 @@
                     "@type": "type.googleapis.com/WriteLocalVar",
                     "varName": "打开方式",
                     "valueAsString": "自适应",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-ff76fa00-7cd9-41c7-9dc6-bcb38130a7d7"
+                  }]
+                }, {
+                  "title": "自适应应用打开（小窗）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/WriteLocalVar",
+                    "varName": "打开方式",
+                    "valueAsString": "自适应小窗",
                     "customContextDataKey": {
                     },
                     "id": "A-ff76fa00-7cd9-41c7-9dc6-bcb38130a7d7"
@@ -2644,6 +3253,28 @@
                   "description": "自适应",
                   "id": "Case-334e9d3b-cc7b-458b-a940-41769e824a1c",
                   "isBreak": true
+                }, {
+                  "case": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "EqualTo",
+                    "varName": "打开方式",
+                    "payload": {
+                      "value": "自适应小窗"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-b95eaf1a-4c58-4da5-9cb5-712a41c8ace9"
+                  }],
+                  "action": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d localVarOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d {nextlink};\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+                  }],
+                  "description": "自适应小窗",
+                  "id": "Case-64fa854a-7440-442d-8f36-21173a844040",
+                  "isBreak": true
                 }],
                 "customContextDataKey": {
                 },
@@ -2720,8 +3351,8 @@
     },
     "id": "A-3173668a-8642-42c6-a439-abe970495a9c"
   }],
-  "id": "SHARE-rule-1335ab81-831d-4406-ae78-c3ce30153e66",
-  "lastUpdateTime": "1746070191866",
+  "id": "SHARE-rule-d56b6f59-5950-488c-b581-2b6b5d8d86a5",
+  "lastUpdateTime": "1746555066919",
   "createTime": "1723386652518",
   "author": {
     "name": "nyehueh"
@@ -2731,102 +3362,256 @@
   "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "(System.currentTimeMillis() / 1000)",
+      "customContextDataKey": {
+      },
+      "id": "A-184238b7-8b94-4156-a090-130aa4d7194d"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "time",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c73db09e-0280-492b-bcc3-9c6afd1c7d11"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "time",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-cb4dc66a-1c84-4b12-9ab0-535b07253695"
+    }, {
       "@type": "type.googleapis.com/ShowAlertDialog",
-      "positive": "同意并继续",
+      "positive": "继续",
       "onPositive": [{
-        "@type": "type.googleapis.com/CreateLocalVar",
-        "localVar": {
-          "name": "test",
-          "type": {
-            "@type": "type.googleapis.com/StringVar"
-          }
-        },
-        "customContextDataKey": {
-        },
-        "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
-      }, {
-        "@type": "type.googleapis.com/SwitchCase",
-        "case": [{
-          "case": [{
-            "@type": "type.googleapis.com/True",
-            "customContextDataKey": {
-            },
-            "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
-          }],
-          "action": [{
-            "@type": "type.googleapis.com/ShellCommand",
-            "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\npython3 - \u003c\u003c龘靐爨\nprint(False)\n龘靐爨",
-            "customContextDataKey": {
-            },
-            "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
-          }, {
-            "@type": "type.googleapis.com/WriteLocalVar",
-            "varName": "test",
-            "valueAsString": "{shellOut}",
-            "customContextDataKey": {
-            },
-            "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
-          }],
-          "description": "2",
-          "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "((System.currentTimeMillis() / 1000)-(long)localVarOf$time)\u003e\u003d5",
+          "customContextDataKey": {
+          },
+          "id": "C-28374e37-01c5-4936-9603-14ae9489f2ce"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "test",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-acc572b5-da85-466f-a7ae-3861b230ec5b"
         }, {
+          "@type": "type.googleapis.com/SwitchCase",
           "case": [{
-            "@type": "type.googleapis.com/True",
-            "customContextDataKey": {
-            },
-            "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
-          }],
-          "action": [{
-            "@type": "type.googleapis.com/Delay",
-            "timeString": "300",
-            "customContextDataKey": {
-            },
-            "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
-          }, {
-            "@type": "type.googleapis.com/IfThenElse",
-            "If": [{
-              "@type": "type.googleapis.com/EvaluateLocalVar",
-              "op": "EqualTo",
+            "case": [{
+              "@type": "type.googleapis.com/True",
+              "customContextDataKey": {
+              },
+              "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "echo true",
+              "customContextDataKey": {
+              },
+              "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
               "varName": "test",
-              "payload": {
-                "value": "False"
-              },
+              "valueAsString": "{shellOut}",
               "customContextDataKey": {
               },
-              "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+              "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
             }],
-            "IfActions": [{
-              "@type": "type.googleapis.com/ShowToast",
-              "message": "python环境正常",
+            "description": "2",
+            "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/True",
               "customContextDataKey": {
               },
-              "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+              "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
             }],
-            "ElseActions": [{
-              "@type": "type.googleapis.com/ShowAlertDialog",
-              "positive": "确定",
-              "title": "python环境（termux）异常",
-              "message": "请先安装python环境（termux）或自行配置并确保您的python环境可用",
-              "cancelable": true,
-              "style": {
-              },
+            "action": [{
+              "@type": "type.googleapis.com/Delay",
+              "timeString": "300",
               "customContextDataKey": {
               },
-              "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+              "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateLocalVar",
+                "op": "EqualTo",
+                "varName": "test",
+                "payload": {
+                  "value": "true"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "shell正常",
+                "customContextDataKey": {
+                },
+                "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowAlertDialog",
+                "positive": "确定",
+                "onPositive": [{
+                  "@type": "type.googleapis.com/SetRuleEnabled",
+                  "ruleId": "SHARE-rule-84921480-ed43-45b5-9f11-d4abb776c403",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+                }, {
+                  "@type": "type.googleapis.com/BreakActionExecute",
+                  "scope": "BreakActionExecuteScope_Root",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+                }],
+                "title": "shell运行异常",
+                "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+                "cancelable": true,
+                "style": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
             }],
-            "customContextDataKey": {
-            },
-            "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+            "description": "1",
+            "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
           }],
-          "description": "1",
-          "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+          "customContextDataKey": {
+          },
+          "id": "A-2b567395-151b-4af8-9422-13e48a16a39d"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "test",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
+        }, {
+          "@type": "type.googleapis.com/SwitchCase",
+          "case": [{
+            "case": [{
+              "@type": "type.googleapis.com/True",
+              "customContextDataKey": {
+              },
+              "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\npython3 - \u003c\u003c龘靐爨\nprint(False)\n龘靐爨",
+              "customContextDataKey": {
+              },
+              "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "test",
+              "valueAsString": "{shellOut}",
+              "customContextDataKey": {
+              },
+              "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
+            }],
+            "description": "2",
+            "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/True",
+              "customContextDataKey": {
+              },
+              "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/Delay",
+              "timeString": "300",
+              "customContextDataKey": {
+              },
+              "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateLocalVar",
+                "op": "EqualTo",
+                "varName": "test",
+                "payload": {
+                  "value": "False"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "python环境正常",
+                "customContextDataKey": {
+                },
+                "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowAlertDialog",
+                "positive": "确定",
+                "title": "python环境（termux）异常",
+                "message": "请先安装python环境（termux）或自行配置并确保您的python环境可用",
+                "cancelable": true,
+                "style": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+            }],
+            "description": "1",
+            "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "请仔细查看使用说明后再点击继续",
+          "customContextDataKey": {
+          },
+          "id": "A-49339a94-ea7e-4305-a7c6-8ed62954a759"
+        }, {
+          "@type": "type.googleapis.com/SetRuleEnabled",
+          "ruleId": "SHARE-rule-84921480-ed43-45b5-9f11-d4abb776c403",
+          "customContextDataKey": {
+          },
+          "id": "A-7e66472d-16cf-403d-bcba-c30319871d80"
         }],
         "customContextDataKey": {
         },
-        "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
+        "id": "A-3aef0531-94d0-4f74-9651-75f593383fe3"
       }],
-      "title": "用户协议",
-      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.本指令依赖python环境，请事先安装好python环境（指令默认调用termux环境，如需使用其他环境可在指令参数处修改）\n3.python安装教程：先安装termux应用，然后在里面执行pkg install python3 -y\n4.顶级域名列表，邮箱列表，提取码关键词词列表，仅HTTPS可用列表可在指令参数处自定义\n5.部分系统状态栏chlip可能无法正常显示，请在指令参数出切换显示模式为浮窗",
+      "title": "使用说明（5秒后可继续）",
+      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.本指令依赖python环境，请事先安装好python环境（指令默认调用termux环境，如需使用其他环境可在指令参数处修改）\n3.python安装教程：先安装termux应用，然后在里面执行pkg install python3 -y\n4.顶级域名列表，邮箱列表，提取码关键词词列表，仅HTTPS可用列表可在指令参数处自定义\n5.部分系统状态栏chlip可能无法正常显示，请在指令参数出切换显示模式为浮窗\n6.小窗打开功能需要没有中转层才可正常使用（如：空浏览,其他浏览器打开等）\n7.选中提取功能可能需要手动重命名并选择一下上下文菜单触发器",
       "cancelable": true,
       "style": {
       },
@@ -2844,7 +3629,7 @@
     "comments": "环境变量"
   }, {
     "name": "djym",
-    "defaultValue": "com,cn,top,love,xyz,net,org,vip,cloud,online,icu,fun,work,tv,wiki,email,plus,co,ltd,shop,tech,wang,site,xin,store,art,cc,website,press,space,beer,luxe,video,group,ren,fit,yoga,pro,ink,info,mobi,kim,red,run,chat,cool,zone,host,biz",
+    "defaultValue": "com,cn,top,love,xyz,net,org,vip,cloud,online,icu,fun,work,tv,wiki,email,plus,co,ltd,shop,tech,wang,site,xin,store,art,cc,website,press,space,beer,luxe,video,group,ren,fit,yoga,pro,ink,info,mobi,kim,red,run,chat,cool,zone,host,biz,me",
     "comments": "顶级域名列表（,隔开）"
   }, {
     "name": "tqm",
@@ -2872,6 +3657,11 @@
     "defaultValue": "🈚️",
     "isRequired": true,
     "comments": "链接黑名单关键词命中则不响应该链接（英文逗号分割）"
+  }, {
+    "name": "小窗配置",
+    "defaultValue": "1200 1100 0.6 200 150 400 80",
+    "isRequired": true,
+    "comments": "竖屏高度 横屏高度 宽高比 竖屏左侧留空 横屏左侧留空 竖屏上侧留空 横屏上侧留空"
   }]
 }
 ###------###
