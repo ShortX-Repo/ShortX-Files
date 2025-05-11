@@ -1,0 +1,50 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "\"http://download.omarea.com/scene7/\"",
+    "customContextDataKey": {
+    },
+    "id": "A-d520d567-4a14-463e-90f6-939c7cb7116f"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "verl\u003d$(curl -sS \"{mvelRet}\"|\\\n       sed -n \u0027s/\u003ca href\u003d\"\\(.*apk\\)\"\u003e.*/\\1/p\u0027|\\\n       grep -vi \"Edition\"|\\\n       sort -V)\nlat\u003d($verl)\na\u003d${#lat[@]}\napkname\u003d${lat[a-1]}\napk\u003d$(printf \u0027%b\u0027 \"${apkname//%/\\\\x}\")\necho $apk",
+    "customContextDataKey": {
+    },
+    "id": "A-975b8da4-02d4-4391-b5f2-57bf6c6e2fe3"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1746973852535",
+    "title": "scene当前最新版本:  {shellOut}",
+    "smallIcon": "chat-2-line",
+    "button": [{
+      "id": "Button-5d410d64-5caf-4f98-ae1b-e06f027da00e",
+      "action": [{
+        "@type": "type.googleapis.com/DownloadFile",
+        "subject": {
+          "url": "{mvelRet}{shellOut}",
+          "fileName": "{shellOut}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-7c555dff-f340-431d-aa13-95d85ab1ac64"
+      }],
+      "label": "点我下载最新版"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-51fc4e49-79cc-48bd-949b-579d1c950888"
+  }],
+  "id": "SHARED-DA-d773f5df-5e3d-4244-a38b-2283846261f9",
+  "lastUpdateTime": "1746974227882",
+  "createTime": "1746973640508",
+  "author": {
+    "name": "moexiyuki"
+  },
+  "title": "一键检查scene最新版",
+  "description": "支持检查scene最新版并下载",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}
