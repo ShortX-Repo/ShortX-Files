@@ -1,6 +1,36 @@
 {
   "directActions": [
     {
+      "id": "SHARED-DA-e0989da1-151f-4af8-adf5-def96d436368",
+      "fileUrl": "ShortX-Noactive高级设置.txt",
+      "title": "Noactive高级设置",
+      "description": "配置大师配置和fcm",
+      "versionCode": 1,
+      "updateTimeMillis": 1745681038540,
+      "author": "nyehueh",
+      "tags": []
+    },
+    {
+      "id": "SHARED-DA-d773f5df-5e3d-4244-a38b-2283846261f9",
+      "fileUrl": "ShortX-一键检查scene最新版.txt",
+      "title": "一键检查scene最新版",
+      "description": "支持检查scene最新版并下载",
+      "versionCode": 1,
+      "updateTimeMillis": 1746974227882,
+      "author": "moexiyuki",
+      "tags": []
+    },
+    {
+      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
+      "fileUrl": "ShortX-设置项监视器_4.4.txt",
+      "title": "设置项监视器 4.4",
+      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
+      "versionCode": 8,
+      "updateTimeMillis": 1729245841948,
+      "author": "He",
+      "tags": []
+    },
+    {
       "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
       "fileUrl": "ShortX-获取已保存wifi密码.txt",
       "title": "获取已保存wifi密码 - 去重",
@@ -41,6 +71,16 @@
       "tags": []
     },
     {
+      "id": "SHARED-DA-1557c535-df1d-4f4c-ae89-a0e0e8ce5b8b",
+      "fileUrl": "ShortX-设置间隔闹钟.txt",
+      "title": "设置间隔闹钟",
+      "description": "设置起始时间和结束时间之间每隔一段时间一个的闹钟",
+      "versionCode": 1,
+      "updateTimeMillis": 1746976786475,
+      "author": "nyehueh",
+      "tags": []
+    },
+    {
       "id": "DA8f33eb1b-cb44-4234-a3f9-46dc21fbb483",
       "fileUrl": "ShortX-Bing壁纸查看_中国大陆_.txt",
       "title": "Bing壁纸查看（中国大陆）",
@@ -78,6 +118,16 @@
       "versionCode": 3,
       "updateTimeMillis": 1729452177527,
       "author": "零点ww",
+      "tags": []
+    },
+    {
+      "id": "SHARED-DA-2e643ec8-a8fb-48d7-9aa0-7084670672f5",
+      "fileUrl": "ShortX-Shortcuts_快捷方式.txt",
+      "title": "Shortcuts(快捷方式",
+      "description": "3.0版本\n支持全部类型快捷方式\n支持多用户",
+      "versionCode": 3,
+      "updateTimeMillis": 1741933181420,
+      "author": "ShortX",
       "tags": []
     },
     {
@@ -170,6 +220,16 @@
       "versionCode": 1,
       "updateTimeMillis": 1708491806518,
       "author": "源梦",
+      "tags": []
+    },
+    {
+      "id": "SHARE-rule-debea634-75d4-4727-b672-ada30c7eaf2d",
+      "fileUrl": "ShortX-代理Boss_2.1.txt",
+      "title": "代理Boss(2.1",
+      "description": "自动开关代理\n没预设的代理工具自己手动输入代理应用的包名即可",
+      "versionCode": 0,
+      "updateTimeMillis": 1726051081836,
+      "author": "He",
       "tags": []
     },
     {
@@ -333,12 +393,12 @@
       "tags": []
     },
     {
-      "id": "SHARE-rule-15ff73af-6e25-4442-bb61-5a000bd7161b",
+      "id": "SHARE-rule-86500168-5a50-4e30-bad1-d6c02a49d930",
       "fileUrl": "ShortX-链接提取综合_python_.txt",
       "title": "链接提取综合（python）",
       "description": "高自定义的链接快速打开指令",
       "versionCode": 1,
-      "updateTimeMillis": 1746575566520,
+      "updateTimeMillis": 1746688503524,
       "author": "nyehueh",
       "tags": []
     },
