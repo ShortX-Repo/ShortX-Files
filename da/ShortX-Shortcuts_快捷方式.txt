@@ -1,0 +1,415 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "cursor-line",
+    "customContextDataKey": {
+    },
+    "id": "A-7f6ece38-9e34-4f80-982c-d7917e358f44"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d 0; // 用于统计纯数字文件夹的数量\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders++;\n            // 一旦找到超过1个纯数字文件夹，输出true并停止\n            if (numberFolders \u003e 1) {\n                true;\n                break;\n            }\n        }\n    }\n\n    // 如果数量不超过1个，输出false\n    if (numberFolders \u003c\u003d 1) {\n        false;\n    }\n} else {\n    false;\n}",
+        "customContextDataKey": {
+        },
+        "id": "C-70af419d-7970-47ac-ac13-62ef0e0da80c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d []; // 用于存储纯数字文件夹的列表\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders.push(fileName);\n        }\n    }\n\n    // 拼接所有纯数字文件夹\n    var result \u003d numberFolders.length \u003e 0 ? numberFolders.join(\" , \") : \"没有找到纯数字文件夹\";\n    result;\n} else {\n    \"目录不存在或不是一个有效的目录\";\n}\n",
+        "context": "CoroutineContext_IO",
+        "customContextDataKey": {
+        },
+        "id": "A-3a501361-72b4-4219-8096-48ec1fcfc111"
+      }, {
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "选择用户",
+        "data": "{jsRet}",
+        "delimiter": [" , "],
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b0f7cb34-1340-4a9f-9c04-1e789465dcbe"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "inputString \u003d {selectedListItem};\noutputString \u003d inputString.replace(\"[\", \"\").replace(\"]\", \"\");",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "userId"
+          }]
+        },
+        "id": "A-05d2e487-2dfb-4e17-8470-06d8bbf935da"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(java.io.File);\n\n// 获取包管理器\nvar pm \u003d context.getPackageManager();\n\n// 定义目录路径\nvar dirPath \u003d \"/data/system_ce/\" + userId + \"/shortcut_service/packages/\";\nvar dir \u003d new File(dirPath);\n\n// 获取该目录下的所有文件\nvar files \u003d dir.listFiles();\nvar appMap \u003d {}; // 使用对象存储唯一应用\n\nif (files) {\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        \n        // 去掉后缀名\n        var dotIndex \u003d fileName.lastIndexOf(\u0027.xml\u0027);\n        if (dotIndex \u003e -1) {\n            fileName \u003d fileName.substring(0, dotIndex);\n        }\n        \n        // 使用文件名（包名）获取应用名称\n        try {\n            var appInfo \u003d pm.getApplicationInfo(fileName, PackageManager.GET_META_DATA);\n            var appName \u003d pm.getApplicationLabel(appInfo).toString();\n            \n            // 将应用名称和包名存入对象，避免重复\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d appName;\n            }\n        } catch (e) {\n            // 如果找不到应用，记录“未找到”的信息\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d \"应用未找到\";\n            }\n        }\n    }\n\n    // 拼接输出字符串\n    var appListStr \u003d \"\";\n    for (var key in appMap) {\n        appListStr +\u003d appMap[key] + \"\\n\" + key + \" , \";\n    }\n\n    // 去除最后的逗号和空格\n    if (appListStr.endsWith(\" , \")) {\n        appListStr \u003d appListStr.slice(0, -3);\n    }\n} else {\n    appListStr \u003d \"该目录为空或无法访问\";\n}\n\n// 输出结果\nappListStr;",
+        "customContextDataKey": {
+        },
+        "id": "A-9b99ed20-bf31-45a5-9743-de11ed251790"
+      }],
+      "description": "多用户",
+      "id": "Case-64908d19-27c7-4218-bb6c-59bfc69c4ab2"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d 0; // 用于统计纯数字文件夹的数量\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders++;\n            // 一旦找到超过1个纯数字文件夹，输出true并停止\n            if (numberFolders \u003e 1) {\n                true;\n                break;\n            }\n        }\n    }\n\n    // 如果数量不超过1个，输出false\n    if (numberFolders \u003c\u003d 1) {\n        false;\n    }\n} else {\n    false;\n}",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-eedf5825-33aa-4130-8dcc-7c4d982d3054"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "0",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "userId"
+          }]
+        },
+        "id": "A-ac15eab2-a4c4-4ac2-b13b-2892e8dde66c"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(java.io.File);\n\n// 获取包管理器\nvar pm \u003d context.getPackageManager();\n\n// 定义目录路径\nvar dirPath \u003d \"/data/system_ce/0/shortcut_service/packages/\";\nvar dir \u003d new File(dirPath);\n\n// 获取该目录下的所有文件\nvar files \u003d dir.listFiles();\nvar appMap \u003d {}; // 使用对象存储唯一应用\n\nif (files) {\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        \n        // 去掉后缀名\n        var dotIndex \u003d fileName.lastIndexOf(\u0027.xml\u0027);\n        if (dotIndex \u003e -1) {\n            fileName \u003d fileName.substring(0, dotIndex);\n        }\n        \n        // 使用文件名（包名）获取应用名称\n        try {\n            var appInfo \u003d pm.getApplicationInfo(fileName, PackageManager.GET_META_DATA);\n            var appName \u003d pm.getApplicationLabel(appInfo).toString();\n            \n            // 将应用名称和包名存入对象，避免重复\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d appName;\n            }\n        } catch (e) {\n            // 如果找不到应用，记录“未找到”的信息\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d \"应用未找到\";\n            }\n        }\n    }\n\n    // 拼接输出字符串\n    var appListStr \u003d \"\";\n    for (var key in appMap) {\n        appListStr +\u003d appMap[key] + \"\\n\" + key + \" , \";\n    }\n\n    // 去除最后的逗号和空格\n    if (appListStr.endsWith(\" , \")) {\n        appListStr \u003d appListStr.slice(0, -3);\n    }\n} else {\n    appListStr \u003d \"该目录为空或无法访问\";\n}\n\n// 输出结果\nappListStr;",
+        "context": "CoroutineContext_IO",
+        "customContextDataKey": {
+        },
+        "id": "A-698ec623-38ba-4684-add3-ca85e3e61862"
+      }],
+      "description": "单用户",
+      "id": "Case-a7a57373-8d31-4c47-9131-6765bd55446d"
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "选择应用",
+        "data": "{jsRet}",
+        "delimiter": [" , "],
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-77035e85-a928-4381-b01d-ca58b5847d1c"
+      }],
+      "description": "选择应用",
+      "id": "Case-76b1539f-24ce-463d-a552-a8c9884596b8"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "selectedListItem",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-a6854282-4246-43ed-ad92-c91f419ca936"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "inputString \u003d {selectedListItem};\noutputString \u003d inputString.replace(\"[\", \"\").replace(\"]\", \"\");",
+        "customContextDataKey": {
+        },
+        "id": "A-d2403211-0c20-4ab1-bf7d-f769a3db6893"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "{mvelRet}.split(\u0027\\n\u0027)[1]",
+        "customContextDataKey": {
+        },
+        "id": "A-4679c3b5-6d76-4c3a-a20a-e7702cd1705c"
+      }],
+      "description": "提取包名",
+      "id": "Case-28b16e71-0ed9-423d-a321-485d8d8b9b66"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "selectedListItem",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-53a87e3c-972b-483d-9c3a-dd60aeea510c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-d8517812-aef5-4338-883f-3eafd8b41348"
+      }],
+      "description": "不选择",
+      "id": "Case-8207aeb1-84c1-4dc3-8234-c985edce559b"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003c\u003d 11;",
+        "customContextDataKey": {
+        },
+        "id": "C-dc659ba6-1e29-4b07-87bd-2670d31f1966"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.util.Scanner;\n\nString pkgName \u003d mvelRet;\n\n// 读取文件内容\nnew Scanner(new File(\"/data/system_ce/\" + userId + \"/shortcut_service/packages/\" + pkgName + \".xml\")).useDelimiter(\"\\\\Z\").next()",
+        "context": "CoroutineContext_IO",
+        "customContextDataKey": {
+        },
+        "id": "A-39e72e12-2781-47ef-bc27-ab3ef36b44d2"
+      }],
+      "description": "11以下",
+      "id": "Case-c4299d06-4d7d-4149-8f69-45e2beb8b4ff",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003d\u003d 12 || androidVersion \u003d\u003d 13;",
+        "customContextDataKey": {
+        },
+        "id": "C-62e4a30c-795b-4de8-8489-bf4453897d76"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.nio.charset.StandardCharsets;\nimport org.xmlpull.v1.XmlSerializer;\nimport java.io.StringWriter;\nimport android.util.TypedXmlPullParser;\nimport android.util.Xml;\nimport java.io.*;\n\nString pkgName \u003d mvelRet;\n\n// 设置输入路径\nString inputPath \u003d \"/data/system_ce/\" + userId + \"/shortcut_service/packages/\" + pkgName + \".xml\";\n\n\n// 打开输入流\nInputStream input \u003d new FileInputStream(inputPath);\n\n// 创建序列化器\nXmlSerializer serializer \u003d Xml.newSerializer();\n\n// 使用 StringWriter 作为输出\nStringWriter outputWriter \u003d new StringWriter();\nserializer.setOutput(outputWriter);\nserializer.setFeature(\"http://xmlpull.org/v1/doc/features.html#indent-output\", true);\n\n// 使用 Android Xml 解析器\nTypedXmlPullParser parser \u003d Xml.newBinaryPullParser(); // 确保这个类可用\nparser.setInput(input, StandardCharsets.UTF_8.name());\n\n// 复制 XML 内容到 StringWriter\nXml.copy(parser, serializer);\n\n// 输出结果到屏幕\noutputWriter.toString();",
+        "customContextDataKey": {
+        },
+        "note": "Android 13",
+        "id": "A-faec75cf-a5fb-48f0-9283-42804b5922df"
+      }],
+      "description": "12~13",
+      "id": "Case-79b744fa-cf54-4ecd-85c3-3cd08fde7c6a",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003e\u003d 14;",
+        "customContextDataKey": {
+        },
+        "id": "C-ed93999d-f9e4-4f1f-b2ab-89a3958d91bf"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.*;\nimport android.util.Xml;\nimport java.nio.charset.StandardCharsets;\nimport com.android.modules.utils.TypedXmlPullParser;\nimport org.xmlpull.v1.XmlSerializer;\n\nString pkgName \u003d mvelRet;\n\ndef openInput() {\n    return new FileInputStream(\"/data/system_ce/\" + userId + \"/shortcut_service/packages/\" + pkgName + \".xml\");\n}\n\nTypedXmlPullParser newPullParser \u003d Xml.newBinaryPullParser();\nXmlSerializer out \u003d Xml.newSerializer();\nStringWriter writer \u003d new StringWriter(); // 用于存储输出结果\n\nInputStream inputStream \u003d openInput();\n\nnewPullParser.setInput(inputStream, StandardCharsets.UTF_8.name());\nout.setOutput(writer); // 设置输出为StringWriter\nout.setFeature(\"http://xmlpull.org/v1/doc/features.html#indent-output\", true);\n\n// 复制并解析XML内容\nXml.copy(newPullParser, out);\nout.flush();\n\n// 输出解析后的XML到屏幕\nwriter.toString();",
+        "customContextDataKey": {
+        },
+        "note": "Android 14",
+        "id": "A-97533239-ce3d-48ee-8b1a-2edf99afbd54"
+      }],
+      "description": "14以上",
+      "id": "Case-43a88f8c-2030-4852-a76d-abd44d4b8401",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ac7eae90-7b51-4409-a40e-48c2086ee6c3"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "function decodeHTMLEntities(str) {\n    const htmlEntities \u003d {\n        \u0027\u0026quot;\u0027: \u0027\"\u0027,\n        \u0027\u0026amp;\u0027: \u0027\u0026\u0027,\n        \u0027\u0026lt;\u0027: \u0027\u003c\u0027,\n        \u0027\u0026gt;\u0027: \u0027\u003e\u0027,\n        \u0027\u0026apos;\u0027: \"\u0027\",\n        // 添加更多 HTML 实体映射\n        \u0027\u0026nbsp;\u0027: \u0027 \u0027, // 不换行空格\n        \u0027\u0026copy;\u0027: \u0027©\u0027,\n        \u0027\u0026reg;\u0027: \u0027®\u0027,\n        // 根据需要继续添加...\n    };\n\n    return str.replace(/\u0026[a-zA-Z0-9#]+;/g, match \u003d\u003e {\n        return htmlEntities[match] || match; // 返回对应的字符或原字符串\n    });\n}\n\nfunction parseXMLWithRegex(xmlString) {\n    // 替换 HTML 实体\n    xmlString \u003d decodeHTMLEntities(xmlString);\n\n    var result \u003d [];\n\n    // 匹配所有 \u003cshortcut\u003e 元素及其内容\n    var shortcutRegex \u003d /\u003cshortcut[^\u003e]*\u003e([\\s\\S]*?)\u003c\\/shortcut\u003e/g;\n    var match;\n\n    while ((match \u003d shortcutRegex.exec(xmlString)) !\u003d\u003d null) {\n        var shortcut \u003d match[0];\n\n        // 提取 title 属性\n        var titleMatch \u003d shortcut.match(/title\u003d\"([^\"]*)\"/);\n        var title \u003d titleMatch ? titleMatch[1] : \"未定义标题\";\n\n        // 提取 intent 属性\n        var intentMatch \u003d shortcut.match(/\u003cintent intent-base\u003d\"([^\"]*)\"/);\n        var intentBase \u003d intentMatch ? intentMatch[1] : \"未定义 intent\";\n\n        // 初始化最终的 intent 字符串\n        var finalIntentString \u003d \"intent:\" + intentBase.replace(/end$/, \"\");\n\n        // 检查是否存在 \u003cextras\u003e 元素\n        var extrasMatch \u003d shortcut.match(/\u003cextras\u003e([\\s\\S]*?)\u003c\\/extras\u003e/);\n        if (extrasMatch) {\n            var extrasContent \u003d extrasMatch[1];\n\n            // 提取 boolean 元素\n            var booleanRegex \u003d /\u003cboolean name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var booleanMatch;\n            while ((booleanMatch \u003d booleanRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";B.\" + booleanMatch[1] + \"\u003d\" + booleanMatch[2];\n            }\n\n            // 提取 int 元素\n            var intRegex \u003d /\u003cint name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var intMatch;\n            while ((intMatch \u003d intRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";i.\" + intMatch[1] + \"\u003d\" + intMatch[2];\n            }\n\n            // 提取 string 元素\n            var stringRegex \u003d /\u003cstring name\u003d\"([^\"]*)\"\u003e([^\u003c]*)\u003c\\/string\u003e/g;\n            var stringMatch;\n            while ((stringMatch \u003d stringRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";S.\" + stringMatch[1] + \"\u003d\" + stringMatch[2];\n            }\n\n            // 提取 long 元素\n            var longRegex \u003d /\u003clong name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var longMatch;\n            while ((longMatch \u003d longRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";l.\" + longMatch[1] + \"\u003d\" + longMatch[2];\n            }\n\n            // 在最后添加 end，避免重复的分号\n            finalIntentString +\u003d \";end\";\n        } else {\n            // 如果没有 \u003cextras\u003e，直接添加 end，避免重复的分号\n            finalIntentString +\u003d \";end\";\n        }\n\n        // 确保最终的意图字符串中只存在一个分号\n        finalIntentString \u003d finalIntentString.replace(/;;/g, \";\");\n\n        // 将结果加入数组\n        result.push((result.length + 1) + \". \" + title + \" : \" + finalIntentString);\n    }\n\n    return result.join(\"\\n , \\n \");\n}\n\n// 使用示例\nvar xmlString \u003d mvelRet; // 请确保 mvelRet 是您要解析的 XML 字符串\nvar result \u003d parseXMLWithRegex(xmlString);\nresult;",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "jsRet",
+        "second": "Shortcuts"
+      }]
+    },
+    "id": "A-c01ce24a-9532-4619-a272-4871402cdba5"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var input \u003d Shortcuts;\n\n// 去除换行符和多余空格\ninput \u003d input.replace(/\\s*,\\s*\\n\\s*/g, \" , \");\n\n// 将字符串按 ` , ` 分割\nvar entries \u003d input.split(\" , \");\n\n// 定义一个数组用于存储处理后的结果\nvar result \u003d [];\n\n// 遍历每个条目\nfor (var i \u003d 0; i \u003c entries.length; i++) {\n    // 分割应用名称和 intent 部分\n    var parts \u003d entries[i].split(\" : \");\n    if (parts.length \u003e 1) {\n        // 取应用名称\n        var appName \u003d parts[0];\n        result.push(appName); // 添加到结果数组\n    }\n}\n\n// 将结果数组用 ` , ` 连接成字符串\nvar output \u003d result.join(\" , \");\n\n// 输出结果\noutput; // 返回处理后的字符串",
+    "customContextDataKey": {
+    },
+    "id": "A-f07b6c35-ca1d-4b14-acf2-a01e922d9c9d"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "Shortcuts 解析结果",
+    "data": "{jsRet}",
+    "delimiter": [" , "],
+    "needConfirmAction": true,
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-232c7131-492d-4c42-9cce-e6bf86cd027d"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "selectedListItem",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-88ab858d-e4bf-43c6-b280-f7c7073f68ac"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var shortcutsInput \u003d Shortcuts;\n\n// 将字符串按逗号分割为多个快捷方式条目\nvar shortcutEntries \u003d shortcutsInput.split(\",\");\n\n// 创建一个字典用于存储快捷方式名称与快捷方式的映射\nvar shortcutMap \u003d {};\n\n// 遍历每个条目，分离出应用名称和快捷方式信息\nfor (var i \u003d 0; i \u003c shortcutEntries.length; i++) {\n    // 分割快捷方式名称和快捷方式信息\n    var parts \u003d shortcutEntries[i].split(\" : \");\n    if (parts.length \u003e 1) {\n        // 将快捷方式名称作为键，快捷方式信息作为值，存入字典\n        var appName \u003d parts[0].trim();\n        var shortcutInfo \u003d parts[1].trim();\n        shortcutMap[appName] \u003d shortcutInfo;\n    }\n}\n\n// 函数：根据输入的应用名称列表（用 [] 包裹）输出对应的快捷方式信息\nfunction getShortcutInfo(appNames) {\n    // 去除输入中的 [ 和 ]，并分割出各个应用名称\n    appNames \u003d appNames.replace(\"[\", \"\").replace(\"]\", \"\").split(\", \");\n    var shortcutList \u003d [];\n    \n    // 遍历每个快捷方式名称，获取其对应的快捷方式信息\n    for (var i \u003d 0; i \u003c appNames.length; i++) {\n        var appName \u003d appNames[i].trim();\n        var shortcut \u003d shortcutMap[appName] || \"快捷方式不存在\";\n        shortcutList.push(shortcut);\n    }\n\n    // 返回所有匹配的快捷方式信息，按行显示\n    return shortcutList.join(\"\\n\\n\");\n}\n\n// 定义 URL 编码中文字符的函数\nfunction encodeChineseChars(str) {\n    return str.replace(/[\\u4e00-\\u9fa5]/g, function(char) {\n        return encodeURIComponent(char);\n    });\n}\n\n// 测试：传入一个包含多个快捷方式名称的字符串，输出对应的快捷方式信息并对中文字符进行 URL 编码\nvar appNamesInput \u003d {selectedListItem};\nvar output \u003d getShortcutInfo(appNamesInput);\nvar encodedOutput \u003d encodeChineseChars(output);\nencodedOutput; // 返回仅对中文字符进行编码后的字符串",
+      "customContextDataKey": {
+      },
+      "id": "A-0f8b3798-c455-4e82-82da-3e265626233f"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "Intent",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-5b688eca-78d3-4cd5-8a1e-5b6d92faeecc"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "userId",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-713f2f94-31f9-4a8c-bbe4-09fac1823dd6"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "userId",
+      "valueAsString": "{userId}",
+      "customContextDataKey": {
+      },
+      "id": "A-dc8229c4-cc64-459a-ac0b-5c8c6a7f4a37"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "Intent",
+      "valueAsString": "{jsRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-5e4b291a-a609-475f-abd4-b9ba009756fb"
+    }, {
+      "@type": "type.googleapis.com/ShowChoiceDialog",
+      "title": "复制类型",
+      "cancelable": true,
+      "choices": [{
+        "label": "Shell命令",
+        "value": "Shell"
+      }, {
+        "label": "Intent Uri",
+        "value": "Intent Uri"
+      }],
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-98516b4a-8cff-4b8c-bba2-f3fa84f55235"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "choices",
+        "payload": {
+          "value": "Shell"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c1f12d68-53cb-4d4f-a836-55a56d975c0d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "function generateAMCommands(intents) {\n    // 按换行符分割字符串并过滤掉空行\n    var intentArray \u003d intents.split(\u0027\\n\u0027).filter(function(intent) {\n        return intent.trim() !\u003d\u003d \u0027\u0027;\n    });\n\n    // 生成命令\n    var commands \u003d intentArray.map(function(intent, index) {\n        // 第一个命令不加延迟，其余的命令前加 `sleep 2 \u0026\u0026`\n        return (index \u003d\u003d\u003d 0 ? \"\" : \"sleep 2 \u0026\u0026 \") + \"am start --user \" + userId + \" \u0027\" + intent + \"\u0027\";\n    });\n\n    return commands.join(\"\\n\");\n}\n\nvar intents \u003d jsRet;\n\ngenerateAMCommands(intents);",
+        "customContextDataKey": {
+        },
+        "id": "A-729b5e7c-0c35-401d-b028-b2347ce23d1e"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-9b502ce8-d7db-4ffa-b96a-bcdde3872da4"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{jsRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-a2afd8fb-24c6-4c37-a502-3e093aec0618"
+    }, {
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "function generateAMCommands(intents) {\n    // 按换行符分割字符串并过滤掉空行\n    var intentArray \u003d intents.split(\u0027\\n\u0027).filter(function(intent) {\n        return intent.trim() !\u003d\u003d \u0027\u0027;\n    });\n\n    // 生成命令\n    var commands \u003d intentArray.map(function(intent, index) {\n        // 第一个命令不加延迟，其余的命令前加 `sleep 2 \u0026\u0026`\n        return (index \u003d\u003d\u003d 0 ? \"\" : \"sleep 2 \u0026\u0026 \") + \"am start --user \" + localVarOf$userId + \" \u0027\" + intent + \"\u0027\";\n    });\n\n    return commands.join(\"\\n\");\n}\n\nvar intents \u003d localVarOf$Intent;\n\ngenerateAMCommands(intents);",
+          "customContextDataKey": {
+          },
+          "id": "A-729b5e7c-0c35-401d-b028-b2347ce23d1e"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "true",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-50f04a40-8be2-41df-b478-e5b09c25b549"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "{jsRet}",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-e84dd798-42ca-43f2-b812-cf3e12864a8c"
+        }],
+        "icon": "preview-open",
+        "label": "打开",
+        "id": "BTN-3383ffa2-f784-4ccc-b104-f0773747ca4f"
+      }],
+      "tag": "open",
+      "maxHeightInDp": 40,
+      "maxWidthInDp": 84,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 68,
+      "enableGlobalDrag": true,
+      "overlayPaddingV": 15,
+      "customContextDataKey": {
+      },
+      "id": "A-48e8e24a-ccae-42ef-8f17-1773d86e0e23"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "IsExists",
+        "varName": "true",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-65eb0741-324a-4660-8f0f-725549595237"
+      }],
+      "timeout": "5000",
+      "customContextDataKey": {
+      },
+      "id": "A-a132e4ac-2398-48dd-a4d7-b82233b3be31"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["open"],
+      "customContextDataKey": {
+      },
+      "id": "A-cc3f32c0-d286-4b45-aa94-d78ca07304b9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fcc8ce5b-bf88-4156-99c9-a6c7266cf8ab"
+  }],
+  "id": "SHARED-DA-2e643ec8-a8fb-48d7-9aa0-7084670672f5",
+  "lastUpdateTime": "1741933181420",
+  "createTime": "1728975821982",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Shortcuts(快捷方式",
+  "description": "3.0版本\n支持全部类型快捷方式\n支持多用户",
+  "versionCode": "3",
+  "directActionSetId": "DS-ca777fd1-e91d-4e85-b63e-fc0cda08b202",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

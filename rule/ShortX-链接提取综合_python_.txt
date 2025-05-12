@@ -15,6 +15,24 @@
   "actions": [{
     "@type": "type.googleapis.com/CreateLocalVar",
     "localVar": {
+      "name": "自适应方式",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-7d6706e9-0488-466b-ba23-dadcf09439f7"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "自适应方式",
+    "valueAsString": "argOf$自适应应用打开方式",
+    "customContextDataKey": {
+    },
+    "id": "A-4ff58a66-452f-42f6-8c30-20c11291e506"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
       "name": "小窗配置",
       "type": {
         "@type": "type.googleapis.com/StringVar"
@@ -475,11 +493,35 @@
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
-                  "@type": "type.googleapis.com/StartActivityIntentUri",
-                  "intentUri": "localVarOf$links",
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "EqualTo",
+                    "varName": "自适应方式",
+                    "payload": {
+                      "value": "系统"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/StartActivityIntentUri",
+                    "intentUri": "localVarOf$links",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                  }],
                   "customContextDataKey": {
                   },
-                  "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                  "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                 }]
               }, {
                 "title": "自适应应用打开（小窗）",
@@ -584,11 +626,35 @@
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
-                  "@type": "type.googleapis.com/StartActivityIntentUri",
-                  "intentUri": "localVarOf$links",
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "EqualTo",
+                    "varName": "自适应方式",
+                    "payload": {
+                      "value": "系统"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/StartActivityIntentUri",
+                    "intentUri": "localVarOf$links",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                  }],
                   "customContextDataKey": {
                   },
-                  "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                  "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                 }]
               }, {
                 "title": "自适应应用打开（小窗）",
@@ -721,11 +787,35 @@
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
-                  "@type": "type.googleapis.com/StartActivityIntentUri",
-                  "intentUri": "localVarOf$links",
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "EqualTo",
+                    "varName": "自适应方式",
+                    "payload": {
+                      "value": "系统"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/StartActivityIntentUri",
+                    "intentUri": "localVarOf$links",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                  }],
                   "customContextDataKey": {
                   },
-                  "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                  "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                 }]
               }, {
                 "title": "自适应应用打开（小窗）",
@@ -834,11 +924,35 @@
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
-                  "@type": "type.googleapis.com/StartActivityIntentUri",
-                  "intentUri": "localVarOf$links",
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "EqualTo",
+                    "varName": "自适应方式",
+                    "payload": {
+                      "value": "系统"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/StartActivityIntentUri",
+                    "intentUri": "localVarOf$links",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                  }],
                   "customContextDataKey": {
                   },
-                  "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                  "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                 }]
               }, {
                 "title": "自适应应用打开（小窗）",
@@ -933,11 +1047,35 @@
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
-                  "@type": "type.googleapis.com/StartActivityIntentUri",
-                  "intentUri": "localVarOf$links",
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "EqualTo",
+                    "varName": "自适应方式",
+                    "payload": {
+                      "value": "系统"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/StartActivityIntentUri",
+                    "intentUri": "localVarOf$links",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                  }],
                   "customContextDataKey": {
                   },
-                  "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                  "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                 }]
               }, {
                 "title": "自适应应用打开（小窗）",
@@ -1032,11 +1170,35 @@
               }, {
                 "title": "自适应应用打开",
                 "clickActions": [{
-                  "@type": "type.googleapis.com/StartActivityIntentUri",
-                  "intentUri": "localVarOf$links",
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "EqualTo",
+                    "varName": "自适应方式",
+                    "payload": {
+                      "value": "系统"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/StartActivityIntentUri",
+                    "intentUri": "localVarOf$links",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                  }],
                   "customContextDataKey": {
                   },
-                  "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                  "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                 }]
               }, {
                 "title": "自适应应用打开（小窗）",
@@ -1294,11 +1456,35 @@
                     },
                     "id": "A-4714c1d0-5413-4bd2-b5fb-0637e3961b3d"
                   }, {
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "{nextlink}",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "{nextlink}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d {nextlink};\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-a2b42982-6bb4-42cf-8ef4-132a7643c059"
+                    "id": "A-3b3b2eb2-e7cf-4c52-915e-9eaa91485d58"
                   }, {
                     "@type": "type.googleapis.com/WriteClipboard",
                     "text": "{yzm}",
@@ -1307,11 +1493,35 @@
                     "id": "A-399ff1b6-31c1-4925-aacb-7b862acc1034"
                   }],
                   "ElseActions": [{
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "localVarOf$links",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "localVarOf$links",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-a2b42982-6bb4-42cf-8ef4-132a7643c059"
+                    "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                   }],
                   "customContextDataKey": {
                   },
@@ -1724,11 +1934,35 @@
                   "id": "C-38a6be88-85cc-46ba-8d30-274a62b1503e"
                 }],
                 "action": [{
-                  "@type": "type.googleapis.com/StartActivityIntentUri",
-                  "intentUri": "{nextlink}",
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateLocalVar",
+                    "op": "EqualTo",
+                    "varName": "自适应方式",
+                    "payload": {
+                      "value": "系统"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/StartActivityIntentUri",
+                    "intentUri": "{nextlink}",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d {nextlink};\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                  }],
                   "customContextDataKey": {
                   },
-                  "id": "A-b9c340ac-2715-44fb-a89e-38997d8c8809"
+                  "id": "A-619fa9f3-1c6f-4634-84b0-d87f5f4474e8"
                 }],
                 "description": "自适应",
                 "id": "Case-334e9d3b-cc7b-458b-a940-41769e824a1c",
@@ -1931,11 +2165,35 @@
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "localVarOf$links",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "localVarOf$links",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                    "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                   }]
                 }, {
                   "title": "自适应应用打开（小窗）",
@@ -2057,11 +2315,35 @@
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "localVarOf$links",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "localVarOf$links",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                    "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                   }]
                 }, {
                   "title": "自适应应用打开（小窗）",
@@ -2211,11 +2493,35 @@
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "localVarOf$links",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "localVarOf$links",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                    "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                   }]
                 }, {
                   "title": "自适应应用打开（小窗）",
@@ -2341,11 +2647,35 @@
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "localVarOf$links",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "localVarOf$links",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                    "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                   }]
                 }, {
                   "title": "自适应应用打开（小窗）",
@@ -2457,11 +2787,35 @@
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "localVarOf$links",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "localVarOf$links",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                    "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                   }]
                 }, {
                   "title": "自适应应用打开（小窗）",
@@ -2573,11 +2927,35 @@
                 }, {
                   "title": "自适应应用打开",
                   "clickActions": [{
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "localVarOf$links",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "localVarOf$links",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-169d0cbe-81f7-41c4-b3e6-fff9604acd33"
+                    "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                   }]
                 }, {
                   "title": "自适应应用打开（小窗）",
@@ -2852,11 +3230,35 @@
                       },
                       "id": "A-4714c1d0-5413-4bd2-b5fb-0637e3961b3d"
                     }, {
-                      "@type": "type.googleapis.com/StartActivityIntentUri",
-                      "intentUri": "{nextlink}",
+                      "@type": "type.googleapis.com/IfThenElse",
+                      "If": [{
+                        "@type": "type.googleapis.com/EvaluateLocalVar",
+                        "op": "EqualTo",
+                        "varName": "自适应方式",
+                        "payload": {
+                          "value": "系统"
+                        },
+                        "customContextDataKey": {
+                        },
+                        "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                      }],
+                      "IfActions": [{
+                        "@type": "type.googleapis.com/StartActivityIntentUri",
+                        "intentUri": "{nextlink}",
+                        "customContextDataKey": {
+                        },
+                        "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                      }],
+                      "ElseActions": [{
+                        "@type": "type.googleapis.com/ExecuteMVEL",
+                        "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d {nextlink};\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                        "customContextDataKey": {
+                        },
+                        "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                      }],
                       "customContextDataKey": {
                       },
-                      "id": "A-a2b42982-6bb4-42cf-8ef4-132a7643c059"
+                      "id": "A-f739bba0-5603-4b57-a491-2e72e0c53145"
                     }, {
                       "@type": "type.googleapis.com/WriteClipboard",
                       "text": "{yzm}",
@@ -2865,11 +3267,35 @@
                       "id": "A-399ff1b6-31c1-4925-aacb-7b862acc1034"
                     }],
                     "ElseActions": [{
-                      "@type": "type.googleapis.com/StartActivityIntentUri",
-                      "intentUri": "localVarOf$links",
+                      "@type": "type.googleapis.com/IfThenElse",
+                      "If": [{
+                        "@type": "type.googleapis.com/EvaluateLocalVar",
+                        "op": "EqualTo",
+                        "varName": "自适应方式",
+                        "payload": {
+                          "value": "系统"
+                        },
+                        "customContextDataKey": {
+                        },
+                        "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                      }],
+                      "IfActions": [{
+                        "@type": "type.googleapis.com/StartActivityIntentUri",
+                        "intentUri": "localVarOf$links",
+                        "customContextDataKey": {
+                        },
+                        "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                      }],
+                      "ElseActions": [{
+                        "@type": "type.googleapis.com/ExecuteMVEL",
+                        "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d localVarOf$links;\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                        "customContextDataKey": {
+                        },
+                        "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                      }],
                       "customContextDataKey": {
                       },
-                      "id": "A-a2b42982-6bb4-42cf-8ef4-132a7643c059"
+                      "id": "A-d0c74b6d-5fc5-49ec-9dc0-97633603fe1a"
                     }],
                     "customContextDataKey": {
                     },
@@ -3299,11 +3725,35 @@
                     "id": "C-38a6be88-85cc-46ba-8d30-274a62b1503e"
                   }],
                   "action": [{
-                    "@type": "type.googleapis.com/StartActivityIntentUri",
-                    "intentUri": "{nextlink}",
+                    "@type": "type.googleapis.com/IfThenElse",
+                    "If": [{
+                      "@type": "type.googleapis.com/EvaluateLocalVar",
+                      "op": "EqualTo",
+                      "varName": "自适应方式",
+                      "payload": {
+                        "value": "系统"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-6c1fc122-cb05-43d8-8e7d-8e0cdc6dad98"
+                    }],
+                    "IfActions": [{
+                      "@type": "type.googleapis.com/StartActivityIntentUri",
+                      "intentUri": "{nextlink}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+                    }],
+                    "ElseActions": [{
+                      "@type": "type.googleapis.com/ExecuteMVEL",
+                      "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d {nextlink};\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+                    }],
                     "customContextDataKey": {
                     },
-                    "id": "A-b9c340ac-2715-44fb-a89e-38997d8c8809"
+                    "id": "A-619fa9f3-1c6f-4634-84b0-d87f5f4474e8"
                   }],
                   "description": "自适应",
                   "id": "Case-334e9d3b-cc7b-458b-a940-41769e824a1c",
@@ -3406,8 +3856,8 @@
     },
     "id": "A-3173668a-8642-42c6-a439-abe970495a9c"
   }],
-  "id": "SHARE-rule-15ff73af-6e25-4442-bb61-5a000bd7161b",
-  "lastUpdateTime": "1746575566520",
+  "id": "SHARE-rule-86500168-5a50-4e30-bad1-d6c02a49d930",
+  "lastUpdateTime": "1746688503524",
   "createTime": "1723386652518",
   "author": {
     "name": "nyehueh"
@@ -3682,7 +4132,7 @@
         "id": "A-3aef0531-94d0-4f74-9651-75f593383fe3"
       }],
       "title": "使用说明（5秒后可继续）",
-      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.本指令依赖python环境，请事先安装好python环境（指令默认调用termux环境，如需使用其他环境可在指令参数处修改）\n3.python安装教程：先安装termux应用，然后在里面执行pkg install python3 -y\n4.顶级域名列表，邮箱列表，提取码关键词词列表，仅HTTPS可用列表可在指令参数处自定义\n5.部分系统状态栏chlip可能无法正常显示，请在指令参数出切换显示模式为浮窗\n6.小窗打开功能需要没有中转层才可正常使用（如：空浏览,其他浏览器打开等）\n7.选中提取功能可能需要手动重命名并选择一下上下文菜单触发器",
+      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.本指令依赖python环境，请事先安装好python环境（指令默认调用termux环境，如需使用其他环境可在指令参数处修改）\n3.python安装教程：先安装termux应用，然后在里面执行pkg install python3 -y\n4.顶级域名列表，邮箱列表，提取码关键词词列表，仅HTTPS可用列表可在指令参数处自定义\n5.部分系统状态栏chlip可能无法正常显示，请在指令参数出切换显示模式为浮窗\n6.小窗打开功能需要没有中转层才可正常使用（如：空浏览,其他浏览器打开等）\n7.选中提取功能可能需要手动重命名并选择一下上下文菜单触发器\n8.自定义应用打开方式为空浏览时将使用空浏览app做链接分发，修改后不影响自适应应用打开（小窗），小窗仍为系统分发，无需将空浏览app设置为默认浏览器，设置空浏览为默认浏览器后会导致自适应应用打开（小窗）功能在调用浏览器时全屏",
       "cancelable": true,
       "style": {
       },
@@ -3747,6 +4197,11 @@
     "defaultValue": "1200 1100 0.6 200 150 400 80",
     "isRequired": true,
     "comments": "竖屏高度 横屏高度 宽高比 竖屏左侧留空 横屏左侧留空 竖屏上侧留空 横屏上侧留空"
+  }, {
+    "name": "自适应应用打开方式",
+    "defaultValue": "系统",
+    "isRequired": true,
+    "comments": "系统，空浏览"
   }]
 }
 ###------###
