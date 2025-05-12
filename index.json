@@ -273,6 +273,16 @@
       "tags": []
     },
     {
+      "id": "SHARE-rule-dd796cad-97c8-41d2-9824-4e99e386118a",
+      "fileUrl": "ShortX-Gemini_VPN.txt",
+      "title": "Gemini VPN",
+      "description": "",
+      "versionCode": 1,
+      "updateTimeMillis": 1747010392546,
+      "author": "ritajiuzu@outlook.com",
+      "tags": []
+    },
+    {
       "id": "rule-467d80ee-2eda-4bbd-9aa1-fdd9ea56f975",
       "fileUrl": "ShortX-获取视图id_v1.0.0.txt",
       "title": "获取视图id_v1.0.0",
