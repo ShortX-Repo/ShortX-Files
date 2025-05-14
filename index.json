@@ -223,6 +223,16 @@
       "tags": []
     },
     {
+      "id": "SHARE-rule-cb780e2e-c1ee-484d-a19d-c10d70ca3d37",
+      "fileUrl": "ShortX-链接提取综合2.3_Beta.txt",
+      "title": "链接提取综合2.3 Beta",
+      "description": "高自定义的链接快速打开指令",
+      "versionCode": 1,
+      "updateTimeMillis": 1747133271893,
+      "author": "nyehueh",
+      "tags": []
+    },
+    {
       "id": "SHARE-rule-debea634-75d4-4727-b672-ada30c7eaf2d",
       "fileUrl": "ShortX-代理Boss_2.1.txt",
       "title": "代理Boss(2.1",
@@ -400,16 +410,6 @@
       "versionCode": 7,
       "updateTimeMillis": 1697221441061,
       "author": "lanyi233",
-      "tags": []
-    },
-    {
-      "id": "SHARE-rule-86500168-5a50-4e30-bad1-d6c02a49d930",
-      "fileUrl": "ShortX-链接提取综合_python_.txt",
-      "title": "链接提取综合（python）",
-      "description": "高自定义的链接快速打开指令",
-      "versionCode": 1,
-      "updateTimeMillis": 1746688503524,
-      "author": "nyehueh",
       "tags": []
     },
     {
