@@ -43,7 +43,7 @@
   "lastUpdateTime": "1747783298118",
   "createTime": "1747752249519",
   "author": {
-    "name": "V"
+    "name": "Victorious"
   },
   "title": "Color OS双击电源打开相机",
   "description": "替换Color OS双击电源打开钱包-NFC刷卡页的行为，适用于一加手机",
@@ -52,7 +52,7 @@
   },
   "quit": {
   },
-  "versionCode": "1",
+  "versionCode": "1.0",
   "conflictPolicy": "ConflictStrategy_SkipNew"
 }
 ###------###
