@@ -1,0 +1,59 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.finshell.wallet"
+      },
+      "className": "com.nearme.wallet.nfc.ui.NfcConsumeActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-9fa12b39-06c5-4868-bce3-f029dc143dfb"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "id": "C-5e57f50e-1b18-4461-9996-63b96bef127a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StartActivityIntentUri",
+      "intentUri": "intent:#Intent;action\u003dandroid.media.action.STILL_IMAGE_CAMERA_SECURE;launchFlags\u003d0x14800000;package\u003dcom.oplus.camera;component\u003dcom.oplus.camera/.Camera;i.com.android.systemui.camera_launch_source\u003d3;end",
+      "customContextDataKey": {
+      },
+      "id": "A-915b5e8c-34f5-40ce-9b70-19993b263f2b"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/LaunchApp",
+      "appPkg": {
+        "pkgName": "com.oplus.camera"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d2712e5a-8d50-4ef6-b433-75b6c33ba8f9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-72a79018-e663-496e-9e5b-b2ee95bc5509"
+  }],
+  "id": "SHARE-rule-30a70e5c-00db-46f0-8f04-3ea516aedb14",
+  "lastUpdateTime": "1747783298118",
+  "createTime": "1747752249519",
+  "author": {
+    "name": "V"
+  },
+  "title": "Color OS双击电源打开相机",
+  "description": "替换Color OS双击电源打开钱包-NFC刷卡页的行为，适用于一加手机",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}
