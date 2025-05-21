@@ -1489,7 +1489,7 @@
             }, {
               "@type": "type.googleapis.com/ForEach",
               "data": "{selectedListItem}",
-              "delimiter": [","],
+              "delimiter": [", "],
               "actions": [{
                 "@type": "type.googleapis.com/CreateLocalVar",
                 "localVar": {
@@ -1946,7 +1946,7 @@
             }, {
               "@type": "type.googleapis.com/ForEach",
               "data": "{selectedListItem}",
-              "delimiter": [","],
+              "delimiter": [", "],
               "actions": [{
                 "@type": "type.googleapis.com/CreateLocalVar",
                 "localVar": {
@@ -2439,7 +2439,7 @@
             }, {
               "@type": "type.googleapis.com/ForEach",
               "data": "{selectedListItem}",
-              "delimiter": [","],
+              "delimiter": [", "],
               "actions": [{
                 "@type": "type.googleapis.com/CreateLocalVar",
                 "localVar": {
@@ -2845,8 +2845,8 @@
     },
     "id": "A-3b1c6a4d-e065-46c8-91ea-9d9486e0d9e2"
   }],
-  "id": "SHARED-DA-e0989da1-151f-4af8-adf5-def96d436368",
-  "lastUpdateTime": "1745681038540",
+  "id": "SHARED-DA-c9ce2238-cfcb-439a-9f4e-6f5b67813bec",
+  "lastUpdateTime": "1747640302826",
   "createTime": "1745565071665",
   "author": {
     "name": "nyehueh"

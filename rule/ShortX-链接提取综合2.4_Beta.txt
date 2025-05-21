@@ -72,7 +72,7 @@
     "id": "A-ad0d6119-3648-49be-892c-178b2f0b633c"
   }, {
     "@type": "type.googleapis.com/ExecuteJS",
-    "expression": "function reversal(a) {\n    return a \u003d\u003d\u003d true ? false : true;\n}\n\nfunction ri(a) {\n    var r \u003d a.replace(\"http://\", \"\").replace(\"https://\", \"\");\n    r \u003d r.split(\" \")[0];\n    return r;\n}\n\nfunction db(a, output) {\n    for (var i \u003d 0; i \u003c output.length; i++) {\n        if (ri(output[i]) \u003d\u003d\u003d ri(a)) {\n            return false;\n        }\n    }\n    return true;\n}\n\nfunction where(a, b) {\n    var list1 \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (ri(a[i]) \u003d\u003d\u003d ri(b)) {\n            list1.push(i);\n        }\n    }\n    return list1;\n}\n\nfunction huisu(list, value_to_find, list_to_find) {\n    var a \u003d where(list, value_to_find); // 验证码位置列表\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var pos \u003d a[i];\n        for (var j \u003d pos - 1; j \u003e\u003d 0; j--) {\n            if (!db(list[j], list_to_find)) {\n                if (list[j].split(\" \").length \u003c 2) {\n                    var yzm \u003d value_to_find.split(\":\")[1];\n                    if (yzm \u003d\u003d\u003d \"\") {\n                        yzm \u003d list[pos + 1];\n                    }\n                    yzm \u003d yzm.replace(\" \", \"\");\n                    var outputIndices \u003d where(list_to_find, list[j]);\n                    if (outputIndices.length \u003e 0) {\n                        if (list_to_find[outputIndices[0]].indexOf(\"提取码:\") \u003d\u003d\u003d -1) {\n                            list_to_find[outputIndices[0]] \u003d list[j] + \" 提取码:\" + yzm;\n                        } else {\n                            list_to_find.push(list[j] + \" 提取码:\" + yzm);\n                        }\n                        break;\n                    }\n                }\n            }\n        }\n    }\n}\n\nfunction qvzi(a) {\n    var Extractioncodelist \u003d argOf$tqm;\n    Extractioncodelist \u003d Extractioncodelist.split(\" \");\n    for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n        a \u003d a.replace(new RegExp(Extractioncodelist[i], \"g\"), \" Extractioncode:\");\n    }\n\n    var output \u003d \"\";\n    var all \u003d \"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM#_/-:?%@\u003d.\u0026, ，；;1234567890 \\n\";\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (all.indexOf(a[i]) !\u003d\u003d -1) {\n            output +\u003d a[i];\n        }\n    }\n    return output;\n}\n\nfunction shaixuan(a) {\n    a \u003d a.replace(/http:\\/\\//g, \" http://\").replace(/https:\\/\\//g, \" https://\");\n    var duanluo \u003d a.split(/\\n|,|，|；|;|\\s+/);\n    duanluo \u003d duanluo.filter(function(token) { return token.trim() !\u003d\u003d \"\"; });\n\n    var output \u003d [];\n    var ecjc \u003d [];\n    var yzm \u003d false;\n    var Extractioncodelist \u003d [];\n\n    if (a.indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n        yzm \u003d true;\n        for (var i \u003d 0; i \u003c duanluo.length; i++) {\n            if (duanluo[i].indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n                if (Extractioncodelist.indexOf(duanluo[i]) \u003d\u003d\u003d -1) {\n                    Extractioncodelist.push(duanluo[i]);\n                }\n            }\n        }\n    }\n\n    var dinjiyumin \u003d argOf$djym;\n    dinjiyumin \u003d dinjiyumin.split(\",\");\n    var emaillist \u003d argOf$email;\n    emaillist \u003d emaillist.split(\",\");\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c duanluo.length; j++) {\n            if (duanluo[j].indexOf(\".\" + dinjiyumin[i] + \"/\") !\u003d\u003d -1 \u0026\u0026 duanluo[j].length \u003e dinjiyumin[i].length + 2) {\n                if (db(duanluo[j], output)) {\n                    output.push(duanluo[j]);\n                }\n            } else if (db(duanluo[j], ecjc)) {\n                ecjc.push(duanluo[j]);\n            }\n        }\n    }\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c ecjc.length; j++) {\n            if (ecjc[j].indexOf(\".\" + dinjiyumin[i]) !\u003d\u003d -1 \u0026\u0026 ecjc[j].length \u003e dinjiyumin[i].length + 1) {\n                var suffix \u003d \".\" + dinjiyumin[i];\n                if (ecjc[j].substr(ecjc[j].length - suffix.length) \u003d\u003d\u003d suffix) {\n                    if (db(ecjc[j], output)) {\n                        var isEmail \u003d false;\n                        for (var w \u003d 0; w \u003c emaillist.length; w++) {\n                            if (ecjc[j].indexOf(\"@\" + emaillist[w]) !\u003d\u003d -1) {\n                                isEmail \u003d true;\n                                break;\n                            }\n                        }\n                        if (!isEmail) {\n                            output.push(ecjc[j]);\n                        }\n                    }\n                }\n            } else if ((ecjc[j].indexOf(\"http://\") !\u003d\u003d -1 || ecjc[j].indexOf(\"https://\") !\u003d\u003d -1) \u0026\u0026 ecjc[j].length \u003e 8 \u0026\u0026 ecjc[j].indexOf(\".\") !\u003d\u003d -1) {\n                if (db(ecjc[j], output)) {\n                    output.push(ecjc[j]);\n                }\n            }\n        }\n    }\n\n    if (yzm) {\n        for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n            huisu(duanluo, Extractioncodelist[i], output);\n        }\n    }\n\n    return output;\n}\n\nfunction qinqiutou(a) {\n    var httpslist \u003d \"argOf$httpsonly\".split(\",\");\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var link \u003d a[i];\n        if (link.indexOf(\"http://\") \u003d\u003d\u003d -1 \u0026\u0026 link.indexOf(\"https://\") \u003d\u003d\u003d -1) {\n            var httpLink \u003d \"http://\" + link;\n            var httpsLink \u003d \"https://\" + link;\n            if (output.indexOf(httpLink) \u003d\u003d\u003d -1 \u0026\u0026 output.indexOf(httpsLink) \u003d\u003d\u003d -1) {\n                var useHttps \u003d false;\n                for (var j \u003d 0; j \u003c httpslist.length; j++) {\n                    if (link.indexOf(httpslist[j]) !\u003d\u003d -1) {\n                        useHttps \u003d true;\n                        break;\n                    }\n                }\n                output.push(useHttps ? httpsLink : httpLink);\n            }\n        } else if (output.indexOf(link) \u003d\u003d\u003d -1) {\n            output.push(link);\n        }\n    }\n    return output;\n}\n\nfunction blacklist(linklist) {\n    var blacklist \u003d \"argOf$blacklist\".split(\",\");\n    for (var i \u003d 0; i \u003c blacklist.length; i++) {\n        for (var j \u003d 0; j \u003c linklist.length; j++) {\n            if (linklist[j].indexOf(blacklist[i]) !\u003d\u003d -1) {\n                linklist.splice(j, 1);\n                j--;\n            }\n        }\n    }\n    return linklist;\n}\n\nfunction main(a) {\n    var b \u003d blacklist(qinqiutou(shaixuan(qvzi(a))));\n    if (b.length !\u003d\u003d 0) {\n        return b.join(\",\");\n    } else {\n        return \"No links\";\n    }\n}\n\n// 示例调用\nmain({replaceResult});\n",
+    "expression": "function reversal(a) {\n    return a \u003d\u003d\u003d true ? false : true;\n}\n\nfunction ri(a) {\n    var r \u003d a.replace(\"http://\", \"\").replace(\"https://\", \"\");\n    r \u003d r.split(\" \")[0];\n    return r;\n}\n\nfunction db(a, output) {\n    for (var i \u003d 0; i \u003c output.length; i++) {\n        if (ri(output[i]) \u003d\u003d\u003d ri(a)) {\n            return false;\n        }\n    }\n    return true;\n}\n\nfunction where(a, b) {\n    var list1 \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (ri(a[i]) \u003d\u003d\u003d ri(b)) {\n            list1.push(i);\n        }\n    }\n    return list1;\n}\n\nfunction huisu(list, value_to_find, list_to_find) {\n    var a \u003d where(list, value_to_find); // 验证码位置列表\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var pos \u003d a[i];\n        for (var j \u003d pos - 1; j \u003e\u003d 0; j--) {\n            if (!db(list[j], list_to_find)) {\n                if (list[j].split(\" \").length \u003c 2) {\n                    var yzm \u003d value_to_find.split(\":\")[1];\n                    if (yzm \u003d\u003d\u003d \"\") {\n                        yzm \u003d list[pos + 1];\n                    }\n                    yzm \u003d yzm.replace(\" \", \"\");\n                    var outputIndices \u003d where(list_to_find, list[j]);\n                    if (outputIndices.length \u003e 0) {\n                        if (list_to_find[outputIndices[0]].indexOf(\"提取码:\") \u003d\u003d\u003d -1) {\n                            list_to_find[outputIndices[0]] \u003d list[j] + \" 提取码:\" + yzm;\n                        } else {\n                            list_to_find.push(list[j] + \" 提取码:\" + yzm);\n                        }\n                        break;\n                    }\n                }\n            }\n        }\n    }\n}\n\nfunction qvzi(a) {\n    var Extractioncodelist \u003d argOf$tqm;\n    Extractioncodelist \u003d Extractioncodelist.split(\" \");\n    for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n        a \u003d a.replace(new RegExp(Extractioncodelist[i], \"g\"), \" Extractioncode:\");\n    }\n\n    var output \u003d \"\";\n    var all \u003d \"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM#_/-:?%@\u003d.\u0026, ，；;1234567890 \\n\";\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (all.indexOf(a[i]) !\u003d\u003d -1) {\n            output +\u003d a[i];\n        }\n    }\n    return output;\n}\n\nfunction shaixuan(a) {\n    a \u003d a.replace(/http:\\/\\//g, \" http://\").replace(/https:\\/\\//g, \" https://\");\n    var duanluo \u003d a.split(/\\n|,|，|；|;|\\s+/);\n    duanluo \u003d duanluo.filter(function(token) { return token.trim() !\u003d\u003d \"\"; });\n\n    var output \u003d [];\n    var ecjc \u003d [];\n    var yzm \u003d false;\n    var Extractioncodelist \u003d [];\n\n    if (a.indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n        yzm \u003d true;\n        for (var i \u003d 0; i \u003c duanluo.length; i++) {\n            if (duanluo[i].indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n                if (Extractioncodelist.indexOf(duanluo[i]) \u003d\u003d\u003d -1) {\n                    Extractioncodelist.push(duanluo[i]);\n                }\n            }\n        }\n    }\n\n    var dinjiyumin \u003d argOf$djym;\n    dinjiyumin \u003d dinjiyumin.split(\",\");\n    var emaillist \u003d argOf$email;\n    emaillist \u003d emaillist.split(\",\");\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c duanluo.length; j++) {\n            if (duanluo[j].indexOf(\".\" + dinjiyumin[i] + \"/\") !\u003d\u003d -1 \u0026\u0026 duanluo[j].length \u003e dinjiyumin[i].length + 2) {\n                if (db(duanluo[j], output)) {\n                    output.push(duanluo[j]);\n                }\n            } else if (db(duanluo[j], ecjc)) {\n                ecjc.push(duanluo[j]);\n            }\n        }\n    }\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c ecjc.length; j++) {\n            if (ecjc[j].indexOf(\".\" + dinjiyumin[i]) !\u003d\u003d -1 \u0026\u0026 ecjc[j].length \u003e dinjiyumin[i].length + 1) {\n                var suffix \u003d \".\" + dinjiyumin[i];\n                if (ecjc[j].substr(ecjc[j].length - suffix.length) \u003d\u003d\u003d suffix) {\n                    if (db(ecjc[j], output)) {\n                        var isEmail \u003d false;\n                        for (var w \u003d 0; w \u003c emaillist.length; w++) {\n                            if (ecjc[j].indexOf(\"@\" + emaillist[w]) !\u003d\u003d -1) {\n                                isEmail \u003d true;\n                                break;\n                            }\n                        }\n                        if (!isEmail) {\n                            output.push(ecjc[j]);\n                        }\n                    }\n                }\n            } else if ((ecjc[j].indexOf(\"http://\") !\u003d\u003d -1 || ecjc[j].indexOf(\"https://\") !\u003d\u003d -1) \u0026\u0026 ecjc[j].length \u003e 8 \u0026\u0026 ecjc[j].indexOf(\".\") !\u003d\u003d -1) {\n                if (db(ecjc[j], output)) {\n                    output.push(ecjc[j]);\n                }\n            }\n        }\n    }\n\n    if (yzm) {\n        for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n            huisu(duanluo, Extractioncodelist[i], output);\n        }\n    }\n\n    return output;\n}\n\nfunction qinqiutou(a) {\n    var httpslist \u003d argOf$httpsonly.split(\",\");\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var link \u003d a[i];\n        if (link.indexOf(\"http://\") \u003d\u003d\u003d -1 \u0026\u0026 link.indexOf(\"https://\") \u003d\u003d\u003d -1) {\n            var httpLink \u003d \"http://\" + link;\n            var httpsLink \u003d \"https://\" + link;\n            if (output.indexOf(httpLink) \u003d\u003d\u003d -1 \u0026\u0026 output.indexOf(httpsLink) \u003d\u003d\u003d -1) {\n                var useHttps \u003d false;\n                for (var j \u003d 0; j \u003c httpslist.length; j++) {\n                    if (link.indexOf(httpslist[j]) !\u003d\u003d -1) {\n                        useHttps \u003d true;\n                        break;\n                    }\n                }\n                output.push(useHttps ? httpsLink : httpLink);\n            }\n        } else if (output.indexOf(link) \u003d\u003d\u003d -1) {\n            output.push(link);\n        }\n    }\n    return output;\n}\n\nfunction blacklist(linklist) {\n    var blacklist \u003d argOf$blacklist.split(\",\");\n    for (var i \u003d 0; i \u003c blacklist.length; i++) {\n        for (var j \u003d 0; j \u003c linklist.length; j++) {\n            if (linklist[j].indexOf(blacklist[i]) !\u003d\u003d -1) {\n                linklist.splice(j, 1);\n                j--;\n            }\n        }\n    }\n    return linklist;\n}\n\nfunction main(a) {\n    var b \u003d blacklist(qinqiutou(shaixuan(qvzi(a))));\n    if (b.length !\u003d\u003d 0) {\n        return b.join(\",\");\n    } else {\n        return \"No links\";\n    }\n}\n\n// 示例调用\nmain({replaceResult});\n",
     "customContextDataKey": {
       "keys": [{
         "first": "jsRet",
@@ -346,27 +346,13 @@
     },
     "id": "A-c4a37d69-4e9c-4904-a239-41dfd97c576c"
   }, {
-    "@type": "type.googleapis.com/ExecuteMVEL",
-    "expression": "text \u003d localVarOf$links;\ncount \u003d text.split(\",\").length;",
-    "customContextDataKey": {
-      "keys": [{
-        "first": "mvelRet",
-        "second": "count"
-      }]
-    },
-    "id": "A-8b3b09d1-ad96-4b4e-ac5b-e08db2ce280a"
-  }, {
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
-      "@type": "type.googleapis.com/EvaluateContextVar",
-      "op": "LessThanOrEQ",
-      "varName": "count",
-      "payload": {
-        "value": "1"
-      },
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "text \u003d localVarOf$links;\ntext.split(\",\").length\u003c\u003d1;",
       "customContextDataKey": {
       },
-      "id": "C-d1f12b7d-eb87-4ca9-bd15-6e372b8d73d5"
+      "id": "C-de4e34d7-89ea-4398-9d6a-64c4526f1ba6"
     }],
     "IfActions": [{
       "@type": "type.googleapis.com/ReplaceRegex",
@@ -456,11 +442,17 @@
         "customContextDataKey": {
         },
         "id": "C-967e39fd-dba3-4f7c-ad23-23b16f6dc2da"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.taobao.idlefish\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+        "customContextDataKey": {
+        },
+        "id": "C-cd621ce6-8cfb-4db3-83da-c5b16a71f340"
       }],
       "action": [{
         "@type": "type.googleapis.com/WriteLocalVar",
         "varName": "urlschame",
-        "valueAsString": "fleamarket://2.taobao.com/onepiece?h5Url\u003dlocalVarOf$links",
+        "valueAsString": "fleamarket://2.taobao.com/onepiece?h5Url\u003d{chooselink}",
         "customContextDataKey": {
         },
         "id": "A-4bda6240-00ad-48d4-8b9a-c32d87704b99"
@@ -489,11 +481,17 @@
         "customContextDataKey": {
         },
         "id": "C-a977d093-84d4-4384-8cfc-8955ee2892f3"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.taobao.taobao\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+        "customContextDataKey": {
+        },
+        "id": "C-fb5ac5ad-f079-4f14-ba64-36b24b6a565f"
       }],
       "action": [{
         "@type": "type.googleapis.com/WriteLocalVar",
         "varName": "urlschame",
-        "valueAsString": "tbopen://m.taobao.com/tbopen/index.html?h5Url\u003dlocalVarOf$links",
+        "valueAsString": "tbopen://m.taobao.com/tbopen/index.html?h5Url\u003d{chooselink}",
         "customContextDataKey": {
         },
         "id": "A-670cfc10-a017-4878-8301-9bed1148a528"
@@ -525,12 +523,25 @@
       }],
       "caseCondOp": "ANY",
       "action": [{
-        "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "urlschame",
-        "valueAsString": "openapp.jdmobile://virtual?params\u003d{\u0027category\u0027:\u0027jump\u0027,\u0027des\u0027:\u0027m\u0027,\u0027url\u0027:\u0027localVarOf$links\u0027}",
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.jingdong.app.mall\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cc51a7cf-583d-49c7-b061-234eb587a63b"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "openapp.jdmobile://virtual?params\u003d{\u0027category\u0027:\u0027jump\u0027,\u0027des\u0027:\u0027m\u0027,\u0027url\u0027:\u0027{chooselink}\u0027}",
+          "customContextDataKey": {
+          },
+          "id": "A-c557de9b-c5bc-406d-9fba-ee32bc76f24d"
+        }],
         "customContextDataKey": {
         },
-        "id": "A-c557de9b-c5bc-406d-9fba-ee32bc76f24d"
+        "id": "A-6b4e1757-b788-493e-b7b9-4c09fc26e265"
       }],
       "description": "京东",
       "id": "Case-38a78169-5e23-41ff-b9fb-9a1402c09e89",
@@ -548,12 +559,25 @@
         "id": "C-e433ed07-8a62-4d54-98cb-7e86fff1b1f9"
       }],
       "action": [{
-        "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "urlschame",
-        "valueAsString": "snssdk1128://webview?url\u003dlocalVarOf$links",
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.ss.android.ugc.aweme\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-f34c3f23-38e2-438b-81e2-39fb0b8aaa27"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "snssdk1128://webview?url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-ec63ccbb-c24a-423e-a751-5bafdebf26bc"
+        }],
         "customContextDataKey": {
         },
-        "id": "A-ec63ccbb-c24a-423e-a751-5bafdebf26bc"
+        "id": "A-49e2a599-df68-4a71-9742-395906e9340a"
       }],
       "description": "抖音",
       "id": "Case-ca19fa8c-2033-41f8-a5e3-6b9f4ddff4a7",
@@ -571,12 +595,25 @@
         "id": "C-285fdc92-46f3-4fa4-ac32-008102655391"
       }],
       "action": [{
-        "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "urlschame",
-        "valueAsString": "pddopen://?h5Url\u003dlocalVarOf$links",
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.xunmeng.pinduoduo\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-b0b80e18-f5a1-415e-bf97-a91641b423b8"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "pddopen://?h5Url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
         "customContextDataKey": {
         },
-        "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        "id": "A-f8e87e8c-b13f-4050-8a04-90cef1e28ad3"
       }],
       "description": "拼多多",
       "id": "Case-c409eff1-534a-4b97-94ab-632af189b8d3",
@@ -594,96 +631,941 @@
         "id": "C-3c9828fd-fadd-42a6-a291-b94c02c3f0e1"
       }],
       "action": [{
-        "@type": "type.googleapis.com/CreateLocalVar",
-        "localVar": {
-          "name": "link",
-          "type": {
-            "@type": "type.googleapis.com/StringVar"
-          }
-        },
-        "customContextDataKey": {
-        },
-        "id": "A-2df33e6a-e72c-4548-9769-15aff7169939"
-      }, {
-        "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "link",
-        "valueAsString": "{chooselink}",
-        "customContextDataKey": {
-        },
-        "id": "A-ebf37856-b888-4973-a982-b371bbd344eb"
-      }, {
         "@type": "type.googleapis.com/IfThenElse",
         "If": [{
-          "@type": "type.googleapis.com/EvaluateLocalVar",
-          "op": "Contains",
-          "varName": "links",
-          "payload": {
-            "value": "提取码"
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.baidu.netdisk\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-69679a83-522c-4a9c-847a-d30f0d1ac1c0"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
           },
           "customContextDataKey": {
           },
-          "id": "C-71aeb211-a58d-4a19-8c70-9ac92d9aafb1"
+          "id": "A-2df33e6a-e72c-4548-9769-15aff7169939"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-ebf37856-b888-4973-a982-b371bbd344eb"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "Contains",
+            "varName": "links",
+            "payload": {
+              "value": "提取码"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-71aeb211-a58d-4a19-8c70-9ac92d9aafb1"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[1]",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "tqm"
+              }]
+            },
+            "id": "A-c3ed6a4d-9feb-4062-a474-15266f16963a"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[0];\noutput\u003dcount.split(\"/1\")[1];\noutput;",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "nextlink"
+              }]
+            },
+            "id": "A-2c67559d-abfe-4961-bc25-1b6e160c3d9d"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "urlschame",
+            "valueAsString": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{nextlink}\u0026pwd\u003d{tqm}",
+            "customContextDataKey": {
+            },
+            "id": "A-66249a8e-cfc6-4c06-bede-6bf33600c752"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"/1\")[1]",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "nextlink"
+              }]
+            },
+            "id": "A-701bc7ac-6135-46cf-bf8c-54a4a4a07168"
+          }, {
+            "@type": "type.googleapis.com/ReplaceRegex",
+            "string": "{nextlink}",
+            "regex": "?pwd\u003d",
+            "replacement": "\u0026pwd\u003d",
+            "customContextDataKey": {
+            },
+            "id": "A-404cf2b6-bf50-4faa-9554-dc08fcd3c246"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "urlschame",
+            "valueAsString": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{replaceResult}",
+            "customContextDataKey": {
+            },
+            "id": "A-69257dac-1bb5-4ed6-8e32-a72d6fe505ad"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-535e4e2d-3c2b-4d19-90cf-3ccdd88c55ff"
+      }],
+      "description": "百度网盘",
+      "id": "Case-3e72c367-aed6-43ae-b96e-4353d11632ea",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "bilibili.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-fd044e46-c394-4c32-814f-2c537d268cef"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "bili33.cn"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-a8fdb0f8-0076-4937-90d3-7005b100e213"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "m.acg.tv"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-a8545b69-56b6-4057-a0d5-cf969b62fb60"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "b23.cn"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-0bde89fb-edd2-4141-a2d1-38cde12019de"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "bilibili.cn"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-87e2d1f3-5727-4ac0-aa22-300e4d26fc61"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "bilibili.tv"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-33cd8d4b-b55e-4a0e-b490-93437e5e08d4"
+      }],
+      "caseCondOp": "ANY",
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/tv.danmaku.bili\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-105ebd24-c38a-4b19-9992-c3055c24d546"
         }],
         "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "bilibili://browser?url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-444b145d-445f-4ee4-8f4e-9391043b32a3"
+      }],
+      "description": "bilibili",
+      "id": "Case-bf782203-3309-4e7e-a092-741eb39b4ce7",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "zhihu.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-32a24682-8f54-42a2-9698-7d75f36e20e8"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.zhihu.android\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
           "@type": "type.googleapis.com/ExecuteMVEL",
-          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[1]",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"/answer/\")[1];\ncount.split(\"\\\\?\")[0]",
           "customContextDataKey": {
             "keys": [{
               "first": "mvelRet",
-              "second": "tqm"
+              "second": "answer"
             }]
           },
           "id": "A-c3ed6a4d-9feb-4062-a474-15266f16963a"
         }, {
           "@type": "type.googleapis.com/ExecuteMVEL",
-          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[0];\noutput\u003dcount.split(\"/1\")[1];\noutput;",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"\u0026utm_psn\u003d\")[1]",
           "customContextDataKey": {
             "keys": [{
               "first": "mvelRet",
-              "second": "nextlink"
+              "second": "psn"
             }]
           },
-          "id": "A-2c67559d-abfe-4961-bc25-1b6e160c3d9d"
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
         }, {
           "@type": "type.googleapis.com/WriteLocalVar",
           "varName": "urlschame",
-          "valueAsString": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{nextlink}\u0026pwd\u003d{tqm}",
+          "valueAsString": "zhihu://answers/{answer}?open\u003d1\u0026utm_psn\u003d{psn}",
           "customContextDataKey": {
           },
-          "id": "A-66249a8e-cfc6-4c06-bede-6bf33600c752"
-        }],
-        "ElseActions": [{
-          "@type": "type.googleapis.com/ExecuteMVEL",
-          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"/1\")[1]",
-          "customContextDataKey": {
-            "keys": [{
-              "first": "mvelRet",
-              "second": "nextlink"
-            }]
-          },
-          "id": "A-701bc7ac-6135-46cf-bf8c-54a4a4a07168"
-        }, {
-          "@type": "type.googleapis.com/ReplaceRegex",
-          "string": "{nextlink}",
-          "regex": "?pwd\u003d",
-          "replacement": "\u0026pwd\u003d",
-          "customContextDataKey": {
-          },
-          "id": "A-404cf2b6-bf50-4faa-9554-dc08fcd3c246"
-        }, {
-          "@type": "type.googleapis.com/WriteLocalVar",
-          "varName": "urlschame",
-          "valueAsString": "bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d{replaceResult}",
-          "customContextDataKey": {
-          },
-          "id": "A-69257dac-1bb5-4ed6-8e32-a72d6fe505ad"
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
         }],
         "customContextDataKey": {
         },
-        "id": "A-e882ff88-baa2-41d0-9ceb-9660bf3a9bcd"
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
       }],
-      "description": "百度网盘",
-      "id": "Case-3e72c367-aed6-43ae-b96e-4353d11632ea",
+      "description": "知乎",
+      "id": "Case-a5d193e8-9cca-4fb8-88be-ad8907642a46",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "alipan.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-61bf9dbe-14c3-4c21-89cd-2f2c60d14f0b"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.alicloud.databox\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[0];\ncount.split(\"/s/\")[1]",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "shareid"
+            }]
+          },
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "chooselink",
+            "payload": {
+              "value": "提取码"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-1ec1bdde-dbc7-4a90-be15-a5fd79e9096f"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[1]",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "tqm"
+              }]
+            },
+            "id": "A-c3ed6a4d-9feb-4062-a474-15266f16963a"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "urlschame",
+            "valueAsString": "smartdrive://share/browse?shareId\u003d{shareid}\u0026sharePwd\u003d{tqm}",
+            "customContextDataKey": {
+            },
+            "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "urlschame",
+            "valueAsString": "smartdrive://share/browse?shareId\u003d{shareid}\u0026sharePwd\u003d",
+            "customContextDataKey": {
+            },
+            "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-bdfe9460-32db-4bd2-8dbc-92d2954d1ea8"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "阿里云盘",
+      "id": "Case-10f470ab-70af-43de-bc6c-c11f7a8784f7",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "pan.quark.cn"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-df833641-7a19-4c75-a53c-7d7889e292e7"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.quark.browser\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "qklink://www.uc.cn/b20b84fd735a8dd3f7541129bacc4e9a?action\u003dopen_url\u0026url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "夸克网盘",
+      "id": "Case-114a2560-c8c2-4660-b8d5-2a6c3284776b",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "123pan.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-25ab3aa2-d0aa-4cb5-80e2-4b5d3e7f7b6d"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.mfcloudcalculate.networkdisk\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[0];\ncount.split(\"/s/\")[1]",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "shareid"
+            }]
+          },
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "chooselink",
+            "payload": {
+              "value": "提取码"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-1ec1bdde-dbc7-4a90-be15-a5fd79e9096f"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[1]",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "tqm"
+              }]
+            },
+            "id": "A-c3ed6a4d-9feb-4062-a474-15266f16963a"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "urlschame",
+            "valueAsString": "pan://umeng.com/share/list?sharePwd\u003d{tqm}\u0026_sdk_\u003dumeng\u0026action\u003dshare_list\u0026shareKey\u003d{shareid}",
+            "customContextDataKey": {
+            },
+            "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "urlschame",
+            "valueAsString": "pan://umeng.com/share/list?sharePwd\u003d\u0026_sdk_\u003dumeng\u0026action\u003dshare_list\u0026shareKey\u003d{shareid}",
+            "customContextDataKey": {
+            },
+            "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-bdfe9460-32db-4bd2-8dbc-92d2954d1ea8"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "123网盘",
+      "id": "Case-4e698c4e-6892-4a0d-9fc5-8565d91beceb",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "1688.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b07d6bd8-d40b-400b-99c6-e43c9a520dbc"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.alibaba.wireless\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "wireless1688://ma.m.1688.com/plugin?url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "1688",
+      "id": "Case-a65e4d3b-0afc-4f7c-86db-369f4eecd973",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "coolapk.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-6787ecd0-acb3-4339-b61f-29599836d52b"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.coolapk.market\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ReplaceRegex",
+          "string": "{chooselink}",
+          "regex": "http|https",
+          "replacement": "coolmarket",
+          "customContextDataKey": {
+          },
+          "id": "A-72a69e34-818d-41ba-a9cf-3e83adad7cfa"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "{replaceResult}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "酷安",
+      "id": "Case-f34b5735-8e9c-473a-86bc-07d466ea5e71",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "kurobbs.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b6e5c651-bc90-475a-a248-033704868c2c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.kurogame.kjq\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"\\\\?postId\u003d\")[1]",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "shareid"
+            }]
+          },
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "kjq://home/post/postDetail?postId\u003d{shareid}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "库街区",
+      "id": "Case-e778a91a-46eb-4d9a-bba0-156da19783dc",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "xhslink.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-bf62c144-bda7-4b64-8501-7539caae56e1"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.xingin.xhs\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "xhsdiscover://item/6809ccfd000000001a007525?open_url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "小红书",
+      "id": "Case-5a7ce75f-abb2-40cb-8ff1-d0c4f53c70a3",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "tieba.baidu.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-be6cced4-30f9-4ecd-af2c-e1626b30f2e0"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.baidu.tieba\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"\\\\?\")[0];\ncount.split(\"/p/\")[1]",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "shareid"
+            }]
+          },
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "com.baidu.tieba://unidispatch/pb?tid\u003d{shareid}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "百度贴吧",
+      "id": "Case-eb3a9046-71a5-474a-aaa8-d13a8d4b3a45",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "kuaishou.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-5fde8d1f-845f-489e-bb82-bcb967d2eba9"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.smile.gifmaker\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "kwai://webview?url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "快手",
+      "id": "Case-09e2a761-0c96-4089-a4b5-e9235a492de9",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "weibo.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-66faf4f2-cfec-4e7e-895e-3abb7c501d8b"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.sina.weibo\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"/\");\ncount[count.length -1];",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "shareid"
+            }]
+          },
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "sinaweibo://detail?mblogid\u003d{shareid}",
+          "customContextDataKey": {
+          },
+          "id": "A-ec63ccbb-c24a-423e-a751-5bafdebf26bc"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "新浪微博",
+      "id": "Case-a3a79617-365f-47e2-8c20-f940708bd952",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "dpurl.cn"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-f419c090-5ac0-42fc-aed5-6aff50f9d308"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.sankuai.meituan\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "imeituan://www.meituan.com/web?notitlebar\u003d1\u0026url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.sankuai.meituan.takeoutnew\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+            "customContextDataKey": {
+            },
+            "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "urlschame",
+            "valueAsString": "meituanwaimai://waimai.meituan.com/browser?inner_url\u003d{chooselink}",
+            "customContextDataKey": {
+            },
+            "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "美团（外卖）",
+      "id": "Case-3965e06a-056e-4140-9238-c3e2381f4507",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "miyoushe.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-188fa272-0aa3-4d21-b76d-00305fc4ffe9"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.mihoyo.hyperion\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "mihoyobbs://webview?link\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "米游社",
+      "id": "Case-d56af4fe-ee3a-4799-ae4e-e7093ea6c98e",
       "isBreak": true
     }],
     "customContextDataKey": {
@@ -1246,13 +2128,13 @@
     },
     "id": "A-aa622a08-3953-4346-8bf7-2c9d4b61cbbd"
   }],
-  "id": "SHARE-rule-cb780e2e-c1ee-484d-a19d-c10d70ca3d37",
-  "lastUpdateTime": "1747133271893",
+  "id": "SHARE-rule-9decf3e7-37d7-4f31-8c89-d53ebb567a25",
+  "lastUpdateTime": "1747578380393",
   "createTime": "1723386652518",
   "author": {
     "name": "nyehueh"
   },
-  "title": "链接提取综合2.3 Beta",
+  "title": "链接提取综合2.4 Beta",
   "description": "高自定义的链接快速打开指令",
   "isEnabled": true,
   "hook": {
@@ -1413,7 +2295,7 @@
     "comments": "系统，空浏览"
   }, {
     "name": "默认响应",
-    "defaultValue": "小窗跳转,自适应应用打开（小窗）",
+    "defaultValue": "询问,询问",
     "isRequired": true,
     "comments": "点击后执行的动作\n命中链接分发时的动作，未命中链接分发时的动作（例如：小窗跳转,自适应应用打开）注：分割为英文逗号"
   }]
