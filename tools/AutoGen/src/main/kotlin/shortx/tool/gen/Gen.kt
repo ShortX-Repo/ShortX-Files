@@ -39,6 +39,7 @@ object Gen {
                         id = directAction.id,
                         versionCode = directAction.versionCode,
                         updateTimeMillis = directAction.lastUpdateTime,
+                        requireMinShortXProtoVersion = directAction.requireMinShortXProtoVersion,
                         tags = emptyList(),
                         icon = null,
                         iconColor = null
@@ -63,6 +64,7 @@ object Gen {
                         id = rule.id,
                         versionCode = rule.versionCode,
                         updateTimeMillis = rule.lastUpdateTime,
+                        requireMinShortXProtoVersion = rule.requireMinShortXProtoVersion,
                         tags = emptyList(),
                         icon = null,
                         iconColor = null
