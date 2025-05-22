@@ -1,0 +1,113 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "pie-chart-2-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-e769737c-4a21-48a8-9c25-d515b7836b8b"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "cpuused",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-2cb325a5-dae1-408e-95b4-e13e1f19ed6a"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "memused",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-61fdf295-692d-4e7c-b51c-50a45dece9a1"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "label": "cpu globalVarOf$cpuused%",
+      "componentType": "OverlayButtonComponentType_CircleProgress",
+      "progress": "globalVarOf$cpuused",
+      "id": "BTN-e0bc3fb3-f590-4488-8457-6a1e6ab20701"
+    }, {
+      "label": "mem globalVarOf$memused%",
+      "componentType": "OverlayButtonComponentType_CircleProgress",
+      "progress": "globalVarOf$memused",
+      "id": "BTN-7022e0e3-843d-4610-98f0-91342bb63176"
+    }],
+    "tag": "cpumem",
+    "maxHeightInDp": 310,
+    "maxWidthInDp": 72,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 136,
+    "enableGlobalDrag": true,
+    "overlayPaddingH": 1,
+    "overlayPaddingV": 13,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-ad033513-f1ec-418a-a20b-bf606db22d1e"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "id": "C-78adeadc-2505-4997-9eb4-5c582330914f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "cpuused",
+        "valueAsString": "100 - %CpuAvailabilityPercent%",
+        "customContextDataKey": {
+        },
+        "note": "100减可用百分比等于已用百分比",
+        "id": "A-555b59d0-65a1-4713-b9ba-fa54fb3bed99"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "memused",
+        "valueAsString": "100 - %MemAvailabilityPercent%",
+        "customContextDataKey": {
+        },
+        "id": "A-4c00cf00-5967-4b80-b6ab-574cfc84f457"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5fb40012-58db-405a-9e42-b92061b2f082"
+    }],
+    "delay": 1000,
+    "customContextDataKey": {
+    },
+    "id": "A-b9c675ea-27cd-44bb-aa4a-d4b44fd889bc"
+  }],
+  "id": "SHARED-DA-267b686d-02eb-47b7-88f4-11bdf8e7aa30",
+  "lastUpdateTime": "1747883919861",
+  "createTime": "1747876336636",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "cpu内存使用情况",
+  "description": "每隔一秒刷新cpu和内存的使用率，用悬浮窗显示",
+  "versionCode": "1",
+  "requireMinShortXProtoVersion": "20250523",
+  "hook": {
+    "actionsOnStop": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["cpumem"],
+      "customContextDataKey": {
+      },
+      "id": "A-9666ad1e-e0c3-4f63-b938-ecae1036a9fb"
+    }]
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}
