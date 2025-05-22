@@ -3,7 +3,9 @@ package shortx.tool.gen
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.runBlocking
 import tornaco.apps.shortx.core.rule.parseShareContentDA
+import tornaco.apps.shortx.core.rule.parseShareContentDAOrThrow
 import tornaco.apps.shortx.core.rule.parseShareContentRule
+import tornaco.apps.shortx.core.rule.parseShareContentRuleOrThrow
 import tornaco.apps.shortx.core.rule.repo.Index
 import tornaco.apps.shortx.core.rule.repo.Item
 import java.io.File
@@ -24,9 +26,11 @@ object Gen {
 
                 val das = allDAFiles.toList().map {
                     val fileContent = it.readText()
-                    val directAction = requireNotNull(parseShareContentDA(fileContent)) {
-                        "Unable to parse Direct action: $fileContent"
-                    }
+                    val directAction = runCatching {
+                        parseShareContentDAOrThrow(fileContent)
+                    }.onFailure { err ->
+                       Logger.info( "Unable to parse Direct action: ${it.nameWithoutExtension} ${err.stackTraceToString()}")
+                    }.getOrThrow()
                     Item(
                         fileUrl = it.name,
                         title = directAction.title,
@@ -46,9 +50,11 @@ object Gen {
                 Logger.debug(allDAFiles)
                 val rules = allRuleFiles.toList().map {
                     val fileContent = it.readText()
-                    val rule = requireNotNull(parseShareContentRule(fileContent)) {
-                        "Unable to parse Rule: $fileContent"
-                    }
+                    val rule = kotlin.runCatching {
+                        parseShareContentRuleOrThrow(fileContent)
+                    }.onFailure { err ->
+                        Logger.info( "Unable to parse Rule: ${it.nameWithoutExtension} ${err.stackTraceToString()}")
+                    }.getOrThrow()
                     Item(
                         fileUrl = it.name,
                         title = rule.title,
