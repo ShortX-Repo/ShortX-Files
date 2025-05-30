@@ -65,7 +65,7 @@
       "IfActions": [{
         "@type": "type.googleapis.com/WriteGlobalVar",
         "varName": "cpuused",
-        "valueAsString": "100 - %CpuAvailabilityPercent%",
+        "valueAsString": "@math{100 - %CpuAvailabilityPercent%},
         "customContextDataKey": {
         },
         "note": "100减可用百分比等于已用百分比",
@@ -73,7 +73,7 @@
       }, {
         "@type": "type.googleapis.com/WriteGlobalVar",
         "varName": "memused",
-        "valueAsString": "100 - %MemAvailabilityPercent%",
+        "valueAsString": "@math{100 - %MemAvailabilityPercent%}",
         "customContextDataKey": {
         },
         "id": "A-4c00cf00-5967-4b80-b6ab-574cfc84f457"
@@ -95,7 +95,7 @@
   },
   "title": "cpu内存使用情况",
   "description": "每隔一秒刷新cpu和内存的使用率，用悬浮窗显示",
-  "versionCode": "1",
+  "versionCode": "2",
   "requireMinShortXProtoVersion": "20250523",
   "hook": {
     "actionsOnStop": [{
