@@ -65,7 +65,7 @@
       "IfActions": [{
         "@type": "type.googleapis.com/WriteGlobalVar",
         "varName": "cpuused",
-        "valueAsString": "@math{100 - %CpuAvailabilityPercent%},
+        "valueAsString": "@math{100 - %CpuAvailabilityPercent%}",
         "customContextDataKey": {
         },
         "note": "100减可用百分比等于已用百分比",
@@ -87,8 +87,8 @@
     },
     "id": "A-b9c675ea-27cd-44bb-aa4a-d4b44fd889bc"
   }],
-  "id": "SHARED-DA-267b686d-02eb-47b7-88f4-11bdf8e7aa30",
-  "lastUpdateTime": "1747883919861",
+  "id": "SHARED-DA-da4102e7-1f0b-4d80-a649-cd436850cb4a",
+  "lastUpdateTime": "1748672570672",
   "createTime": "1747876336636",
   "author": {
     "name": "ShortX"
@@ -96,7 +96,6 @@
   "title": "cpu内存使用情况",
   "description": "每隔一秒刷新cpu和内存的使用率，用悬浮窗显示",
   "versionCode": "2",
-  "requireMinShortXProtoVersion": "20250523",
   "hook": {
     "actionsOnStop": [{
       "@type": "type.googleapis.com/HideOverlayButton",
