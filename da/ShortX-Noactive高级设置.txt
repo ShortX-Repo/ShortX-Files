@@ -347,7 +347,7 @@
       "id": "A-61b5b9bf-f090-4f72-abe3-63fe79685d45"
     }, {
       "@type": "type.googleapis.com/ExecuteJS",
-      "expression": "// 假设 jsonData 是一个字符串，例如：\njsonData \u003d globalVarOf$NoactiveConfig;\n\n// 如果 jsonData 是字符串，需要先解析为 JSON 对象\naaa \u003d JSON.parse(jsonData); // 将字符串解析为对象\n\n// 从 JSON 对象中提取各个值\nisBackgroundOptimizeEnabled \u003d aaa.backgroundOptimize;\nisCommandInjectEnabled \u003d aaa.commandInject;\ndozeType \u003d aaa.dozeType;\nisFreezeBinderEnabled \u003d aaa.freezeBinder;\nisMemoryOptimizeEnabled \u003d aaa.memoryOptimize;\nnetworkLinkStatus \u003d aaa.netLink;\nrotationInterval \u003d aaa.rotationInterval;\nisRotationThawEnabled \u003d aaa.rotationThaw;\nisSkipXposedEnabled \u003d aaa.skipXposed;\nsystemAppSet \u003d aaa.systemAppSet;\nuserAppSet \u003d aaa.userAppSet;\n\n// 构建并输出结果字符串\nresult \u003disBackgroundOptimizeEnabled + \n\"；\" + isCommandInjectEnabled + \n\"；\" + dozeType + \n\"；\" + isFreezeBinderEnabled + \n\"；\" + isMemoryOptimizeEnabled + \n\"；\" + networkLinkStatus + \n\"；\" + rotationInterval + \n\"；\" + isRotationThawEnabled + \n\"；\" + isSkipXposedEnabled + \n\"；\" + systemAppSet+\n\"；\" + userAppSet;\n\nresult; // 输出结果",
+      "expression": "// 假设 jsonData 是一个字符串，例如：\njsonData \u003d globalVarOf$NoactiveConfig;\n\n// 如果 jsonData 是字符串，需要先解析为 JSON 对象\naaa \u003d JSON.parse(jsonData); // 将字符串解析为对象\n\n// 从 JSON 对象中提取各个值\nisBackgroundOptimizeEnabled \u003d aaa.backgroundOptimize;\nisCommandInjectEnabled \u003d aaa.commandInject;\ndozeType \u003d aaa.dozeType;\nisFreezeBinderEnabled \u003d aaa.freezeBinder;\nisMemoryOptimizeEnabled \u003d aaa.memoryOptimize;\nnetworkLinkStatus \u003d aaa.netLink;\nrotationInterval \u003d aaa.rotationInterval;\nisRotationThawEnabled \u003d aaa.rotationThaw;\nisSkipXposedEnabled \u003d aaa.skipXposed;\nsystemAppSet \u003d aaa.systemAppSet;\nuserAppSet \u003d aaa.userAppSet;\nstartLimit\u003daaa.startLimit;\n\n// 构建并输出结果字符串\nresult \u003disBackgroundOptimizeEnabled + \n\"；\" + isCommandInjectEnabled + \n\"；\" + dozeType + \n\"；\" + isFreezeBinderEnabled + \n\"；\" + isMemoryOptimizeEnabled + \n\"；\" + networkLinkStatus + \n\"；\" + rotationInterval + \n\"；\" + isRotationThawEnabled + \n\"；\" + isSkipXposedEnabled + \n\"；\" + systemAppSet+\n\"；\" + userAppSet+\n\"；\" + startLimit;\n\nresult; // 输出结果",
       "customContextDataKey": {
       },
       "id": "A-c867eed3-28c3-4051-b3f6-97961f4563c8"
@@ -419,6 +419,16 @@
             "customContextDataKey": {
             },
             "id": "C-662a5ccf-dcd4-4d76-9015-bdd7b5f13289"
+          }, {
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "foreachData",
+            "payload": {
+              "value": "-1"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-5fe4aa97-9c39-4a8a-a12c-30283296fefd"
           }],
           "caseCondOp": "ANY",
           "action": [{
@@ -479,6 +489,29 @@
           "id": "Case-b996e71b-7205-4ed6-902a-c5d0a03265b0",
           "isBreak": true
         }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "foreachData",
+            "payload": {
+              "value": "0"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-73b14c99-a90c-40a4-a67a-ef8824dd50b0"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "configlist",
+            "valueAsString": "自动",
+            "customContextDataKey": {
+            },
+            "id": "A-97f71cae-b1d2-43bf-8eae-3a762701e7fb"
+          }],
+          "description": "自动",
+          "id": "Case-c71f104d-5201-41d0-a904-5c83ce7e44f1",
+          "isBreak": true
+        }, {
           "action": [{
             "@type": "type.googleapis.com/WriteGlobalVar",
             "varName": "configlist",
@@ -512,7 +545,7 @@
     }, {
       "@type": "type.googleapis.com/WriteLocalVar",
       "varName": "list",
-      "valueAsString": "[\n    {\n        \"name\": \"保存并退出\",\n        \"__value\": \"退出\",\n        \"__icon\": \"save-3-line\"\n    },{\n        \"name\": \"FCM全局解冻\",\n        \"version\": \"globalVarOf$configlistfcm[0]\",\n        \"__value\": \"FCM全局解冻\",\n        \"__icon\": \"google-fill\"\n    },",
+      "valueAsString": "[\n    {\n        \"name\": \"保存并退出\",\n        \"__value\": \"保存并退出\",\n        \"__icon\": \"save-3-line\"\n    },{\n        \"name\": \"退出（放弃修改）\",\n        \"__value\": \"退出\",\n        \"__icon\": \"logout-circle-line\"\n    },{\n        \"name\": \"FCM全局解冻\",\n        \"version\": \"globalVarOf$configlistfcm[0]\",\n        \"__value\": \"FCM全局解冻\",\n        \"__icon\": \"google-fill\"\n    },",
       "customContextDataKey": {
       },
       "id": "A-566be902-4203-4791-a558-32a79f2a5249"
@@ -595,7 +628,7 @@
     }, {
       "@type": "type.googleapis.com/WriteLocalVar",
       "varName": "list",
-      "valueAsString": "localVarOf$list{\n        \"name\": \"跳过xposed模块\",\n        \"version\": \"globalVarOf$configlist[8]\",\n        \"__value\": \"跳过xposed模块\",\n        \"__icon\": \"skip-right-line\"\n    },{\n        \"name\": \"视为系统应用列表\",\n        \"__value\": \"视为系统应用列表\",\n        \"__icon\":\"list\"\n    },{\n        \"name\": \"视为用户应用列表\",\n        \"__value\": \"视为用户应用列表\",\n        \"__icon\": \"list\"\n}]",
+      "valueAsString": "localVarOf$list{\n        \"name\": \"跳过xposed模块\",\n        \"version\": \"globalVarOf$configlist[8]\",\n        \"__value\": \"跳过xposed模块\",\n        \"__icon\": \"skip-right-line\"\n    },{\n        \"name\": \"自启动管理\",\n        \"__value\": \"自启动管理\",\n        \"version\": \"globalVarOf$configlist[11]\",\n        \"__icon\":\"shield-keyhole-fill\"\n    },{\n        \"name\": \"视为系统应用列表\",\n        \"__value\": \"视为系统应用列表\",\n        \"__icon\":\"list\"\n    },{\n        \"name\": \"视为用户应用列表\",\n        \"__value\": \"视为用户应用列表\",\n        \"__icon\": \"list\"\n}]",
       "customContextDataKey": {
       },
       "id": "A-c1d5f233-d14a-481e-bb05-0ac718f5e585"
@@ -617,10 +650,10 @@
       "case": [{
         "case": [{
           "@type": "type.googleapis.com/EvaluateContextVar",
-          "op": "Contains",
+          "op": "EqualTo",
           "varName": "selectedListItem",
           "payload": {
-            "value": "退出"
+            "value": "保存并退出"
           },
           "customContextDataKey": {
           },
@@ -681,8 +714,66 @@
           },
           "id": "A-21150b9a-56f7-4575-9a2c-8b1f1378224c"
         }],
-        "description": "退出",
+        "description": "保存并退出",
         "id": "Case-e84d6951-73aa-4cc7-ab69-be2193e04732",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "selectedListItem",
+          "payload": {
+            "value": "退出"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-82f76355-b0e7-4f25-8047-106086571048"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "configlistmem",
+          "customContextDataKey": {
+          },
+          "id": "A-21150b9a-56f7-4575-9a2c-8b1f1378224c"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "configlist",
+          "customContextDataKey": {
+          },
+          "id": "A-1b974445-ff42-4043-bc28-90a7ecdff50e"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "NoactiveConfigmem",
+          "customContextDataKey": {
+          },
+          "id": "A-b884031f-00b2-498e-bfcf-104aa02997d1"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "configlistfcm",
+          "customContextDataKey": {
+          },
+          "id": "A-ec84e562-f7e6-439f-bebc-56df61f12b5c"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "NoactiveConfigfcm",
+          "customContextDataKey": {
+          },
+          "id": "A-5513f3c0-275b-4f92-848a-5d66aa8d5a84"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "NoactiveConfig",
+          "customContextDataKey": {
+          },
+          "id": "A-aa4d6736-1f71-4535-a9eb-a95c66415c16"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-54cddb81-1cb7-4ede-a1f1-d4ad60681a87"
+        }],
+        "description": "退出",
+        "id": "Case-94b23b06-faa4-4508-89b3-89ca9dea72f3",
         "isBreak": true
       }, {
         "case": [{
@@ -2816,6 +2907,64 @@
         "description": "虚拟内存阈值",
         "id": "Case-83266ca7-a0cf-49c3-8e2a-cccf2b3f5f7a",
         "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "Contains",
+          "varName": "selectedListItem",
+          "payload": {
+            "value": "自启动管理"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-4ed1ac13-1b49-492b-8699-966bd4c68e8a"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "globalVarOf$configlist[11]\u003d\u003d\"开启\"",
+            "customContextDataKey": {
+            },
+            "id": "C-3e563c8b-6d8a-428c-9236-30a03f08d731"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "// 假设 jsonData 是一个字符串，例如：\njsonData \u003d globalVarOf$NoactiveConfig;\n\n// 如果 jsonData 是字符串，需要先解析为 JSON 对象\naaa \u003d JSON.parse(jsonData); // 将字符串解析为对象\n\n// 修改 JSON 数据中的某些字段\naaa.startLimit \u003d false; \nmodifiedJsonData \u003d JSON.stringify(aaa);\n\n// 输出修改后的 JSON 字符串\nmodifiedJsonData;",
+            "customContextDataKey": {
+            },
+            "id": "A-3866f495-f718-4415-b9fe-4406b10e60c5"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "NoactiveConfig",
+            "valueAsString": "{jsRet}",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-d217f624-5518-4d92-a267-679b9d675bd1"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "// 假设 jsonData 是一个字符串，例如：\njsonData \u003d globalVarOf$NoactiveConfig;\n\n// 如果 jsonData 是字符串，需要先解析为 JSON 对象\naaa \u003d JSON.parse(jsonData); // 将字符串解析为对象\n\n// 修改 JSON 数据中的某些字段\naaa.startLimit \u003d true; \nmodifiedJsonData \u003d JSON.stringify(aaa);\n\n// 输出修改后的 JSON 字符串\nmodifiedJsonData;",
+            "customContextDataKey": {
+            },
+            "id": "A-3866f495-f718-4415-b9fe-4406b10e60c5"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "NoactiveConfig",
+            "valueAsString": "{jsRet}",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-9f6e2829-0cb0-4129-9d7b-ec175fb17e68"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-4f4dc894-5039-4c27-8327-10344a0c56a1"
+        }],
+        "description": "自启动管理",
+        "id": "Case-5b30930f-4f14-42e1-92f7-1b19a50cc349",
+        "isBreak": true
       }],
       "customContextDataKey": {
       },
@@ -2845,8 +2994,8 @@
     },
     "id": "A-3b1c6a4d-e065-46c8-91ea-9d9486e0d9e2"
   }],
-  "id": "SHARED-DA-c9ce2238-cfcb-439a-9f4e-6f5b67813bec",
-  "lastUpdateTime": "1747640302826",
+  "id": "SHARED-DA-560afd30-4017-471c-bdc8-6094e124889a",
+  "lastUpdateTime": "1749046164476",
   "createTime": "1745565071665",
   "author": {
     "name": "nyehueh"
