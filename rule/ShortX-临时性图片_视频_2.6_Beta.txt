@@ -1,0 +1,949 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresent",
+    "tag": "clean",
+    "customContextDataKey": {
+    },
+    "id": "F-92c12862-01ea-45a2-9083-5557d826e7a5"
+  }, {
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "jpg|png|mp4|JPG|JPEG|MP4|PNG",
+    "options": "RegexMatchOptions_ContainsMatchIn",
+    "tag": "问",
+    "customContextDataKey": {
+    },
+    "id": "F-d40df969-3bcf-4c3c-abf7-103307e284aa"
+  }, {
+    "@type": "type.googleapis.com/AppUpdated",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "tag": "提醒",
+    "customContextDataKey": {
+    },
+    "id": "F-c9a0652c-0b69-4494-848b-6c273b1621b3"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "{\n  \"id\": \"toggle-ea9f9567-e525-43ef-bab0-48da0256e9b0\",\n  \"lastUpdateTime\": \"1748848810153\",\n  \"createTime\": \"1747719314217\",\n  \"author\": {\n    \"name\": \"nyehueh\"\n  },\n  \"title\": \"保留图片/视频\",\n  \"versionCode\": \"1\",\n  \"actionsOnEnabled\": [{\n    \"@type\": \"type.googleapis.com/IfThenElse\",\n    \"If\": [{\n      \"@type\": \"type.googleapis.com/EvaluateGlobalVar\",\n      \"op\": \"IsNotEmpty\",\n      \"varName\": \"whitetime\",\n      \"payload\": {\n      },\n      \"customContextDataKey\": {\n      },\n      \"id\": \"C-2ee3501d-3e91-4ee4-8420-02816a15920d\"\n    }],\n    \"IfActions\": [{\n      \"@type\": \"type.googleapis.com/WriteGlobalVar\",\n      \"varName\": \"whitetime\",\n      \"valueAsString\": \"globalVarOf$whitetime,%CurrentTimeMillis%:\",\n      \"op\": \"WriteGlobalVarOp_Override\",\n      \"customContextDataKey\": {\n      },\n      \"id\": \"A-58d9be42-0a7e-4807-adeb-ce6488c4b26b\"\n    }],\n    \"ElseActions\": [{\n      \"@type\": \"type.googleapis.com/WriteGlobalVar\",\n      \"varName\": \"whitetime\",\n      \"valueAsString\": \"%CurrentTimeMillis%:\",\n      \"op\": \"WriteGlobalVarOp_Override\",\n      \"customContextDataKey\": {\n      },\n      \"id\": \"A-58d9be42-0a7e-4807-adeb-ce6488c4b26b\"\n    }],\n    \"customContextDataKey\": {\n    },\n    \"id\": \"A-3fae07f7-63ae-4d4e-9463-0ea3e2b693cc\"\n  }],\n  \"actionsOnDisabled\": [{\n    \"@type\": \"type.googleapis.com/IfThenElse\",\n    \"If\": [{\n      \"@type\": \"type.googleapis.com/EvaluateGlobalVar\",\n      \"op\": \"IsNotEmpty\",\n      \"varName\": \"whitetime\",\n      \"payload\": {\n      },\n      \"customContextDataKey\": {\n      },\n      \"id\": \"C-2ee3501d-3e91-4ee4-8420-02816a15920d\"\n    }],\n    \"IfActions\": [{\n      \"@type\": \"type.googleapis.com/WriteGlobalVar\",\n      \"varName\": \"whitetime\",\n      \"valueAsString\": \"globalVarOf$whitetime:%CurrentTimeMillis%\",\n      \"op\": \"WriteGlobalVarOp_Override\",\n      \"customContextDataKey\": {\n      },\n      \"id\": \"A-58d9be42-0a7e-4807-adeb-ce6488c4b26b\"\n    }],\n    \"ElseActions\": [{\n      \"@type\": \"type.googleapis.com/WriteGlobalVar\",\n      \"varName\": \"whitetime\",\n      \"valueAsString\": \":%CurrentTimeMillis%\",\n      \"op\": \"WriteGlobalVarOp_Override\",\n      \"customContextDataKey\": {\n      },\n      \"id\": \"A-58d9be42-0a7e-4807-adeb-ce6488c4b26b\"\n    }],\n    \"customContextDataKey\": {\n    },\n    \"id\": \"A-be7f3682-6d8d-48f8-8e05-1c5961586a4e\"\n  }],\n  \"stateHandle\": {\n    \"@type\": \"type.googleapis.com/ToggleStateHandleByCondition\",\n    \"conditions\": [{\n      \"@type\": \"type.googleapis.com/MatchMVEL\",\n      \"expression\": \"text \\u003d globalVarOf$whitetime;\\ntext !\\u003d null \\u0026\\u0026 text.length() \\u003e 0 \\u0026\\u0026 text.charAt(text.length() - 1) \\u003d\\u003d \\u0027:\\u0027 ? true : false\",\n      \"customContextDataKey\": {\n      },\n      \"id\": \"C-fd8e5064-a43f-40d7-9954-7fb2d276bab3\"\n    }]\n  },\n  \"tileSetting\": {\n  }\n}\n###------###\n{\"type\":\"toggle\"}",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️\n点开复制内部所有内容，剪切板导入开关",
+    "id": "A-2d46ae10-999b-4e0c-8c2d-3f4360e257d2"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "询问形式",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-88fd083d-e218-4ac5-bdec-44fa6dde7667"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "作用域",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-32c34654-e395-43de-8180-376ac92eb7bc"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "询问形式",
+    "valueAsString": "浮窗",
+    "customContextDataKey": {
+    },
+    "note": "⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️\n点开这里配置询问形式\n可选项：状态栏，浮窗，弹窗，不询问",
+    "id": "A-b041f11e-7825-4d0f-be2a-69b4e740afaf"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "作用域",
+    "valueAsString": "/data/media/0/Pictures/,/data/media/0/DCIM/,/data/media/0/Movies/",
+    "customContextDataKey": {
+    },
+    "note": "⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️\n点开这里配置作用域（英文逗号分割）\n✅/data/media/0/Pictures/\n❌/storage/emulated/0/Pictures/\n❌/sdcard/Pictures/",
+    "id": "A-a559f829-749a-4e7a-ad9f-e97c511a4c23"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "clean",
+        "customContextDataKey": {
+        },
+        "id": "C-3a75c76c-1e87-4d95-89a4-ebbb2754d66a"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchJS",
+          "expression": "var File \u003d java.io.File;\nvar SimpleDateFormat \u003d java.text.SimpleDateFormat;\nvar Calendar \u003d java.util.Calendar;\n\nfunction isFileModifiedToday(path) {\n    var file \u003d new File(path);\n    if (!file.exists()) {\n        true;\n    }\n\n    var lastModified \u003d file.lastModified(); \n    var cal \u003d Calendar.getInstance();\n    cal.setTimeInMillis(lastModified);\n\n    var today \u003d Calendar.getInstance();\n    if (cal.get(Calendar.YEAR) \u003d\u003d\u003d today.get(Calendar.YEAR) \u0026\u0026\n        cal.get(Calendar.MONTH) \u003d\u003d\u003d today.get(Calendar.MONTH) \u0026\u0026\n        cal.get(Calendar.DAY_OF_MONTH) \u003d\u003d\u003d today.get(Calendar.DAY_OF_MONTH)) {\n        return false;\n    } else {\n        return true;\n    }\n}\nisFileModifiedToday(globalVarOf$shortxpath+\"/log/clean.log\");",
+          "customContextDataKey": {
+          },
+          "id": "C-07c42123-6453-4743-bd00-710604192908"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "new java.io.File(globalVarOf$shortxpath+\"/tmp/.Regret_medicine/\").mkdirs();",
+          "customContextDataKey": {
+          },
+          "note": "创建后悔药文件夹",
+          "id": "A-89db6b8a-ef76-4cca-802e-4b7b4c12bcf6"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importPackage(java.io);\nimportPackage(java.util);\nvar File \u003d java.io.File;\nvar FileWriter \u003d java.io.FileWriter;\nvar BufferedWriter \u003d java.io.BufferedWriter;\nvar IOException \u003d java.io.IOException;\nimportClass(Packages.tornaco.apps.shortx.core.proto.action.ShellCommand);\nfunction escapeShellPath(path) {\n    var escaped \u003d path.replaceAll(\"\u0027\", \"\u0027\\\\\u0027\u0027\");\n    return \"\u0027\" + escaped + \"\u0027\";\n}\nfunction appendToFile(filePath, content) {\n    try {\n        var file \u003d new File(filePath);\n        if (!file.exists()) {\n            file.getParentFile().mkdirs(); \n            file.createNewFile();\n        }\n        var writer \u003d new BufferedWriter(new FileWriter(file, true));\n        writer.write(content);\n        writer.newLine();\n        writer.close();\n        true;\n    } catch (e) {\n        if (e instanceof IOException) {\n            false;\n        } else {\n            throw e;\n        }\n    }\n}\nvar timewhiteliststring \u003d globalVarOf$whitetime;\nvar timeRangeWhitelist \u003d timewhiteliststring.split(\",\");\n\nfunction getMidnight(offsetDays) {\n  var now \u003d new Date();\n  return new Date(now.getFullYear(), now.getMonth(), now.getDate() + offsetDays, 0, 0, 0, 0).getTime();\n}\n\nfunction isNDaysAgo(fileDate, n) {\n  var now \u003d new Date();\n  var targetDate \u003d new Date(now.getFullYear(), now.getMonth(), now.getDate() - n);\n  return fileDate.getFullYear() \u003d\u003d\u003d targetDate.getFullYear() \u0026\u0026\n         fileDate.getMonth() \u003d\u003d\u003d targetDate.getMonth() \u0026\u0026\n         fileDate.getDate() \u003d\u003d\u003d targetDate.getDate();\n}\n\nfunction inWhitelistRange(timestamp) {\n  for (var i \u003d 0; i \u003c timeRangeWhitelist.length; i++) {\n    var entry \u003d timeRangeWhitelist[i];\n    var start, end;\n\n    if (entry.indexOf(\"::\") !\u003d\u003d -1) {\n      var parts \u003d entry.split(\"::\");\n      if (parts.length \u003d\u003d\u003d 2) {\n        start \u003d parseFloat(parts[0]);\n        end \u003d parseFloat(parts[1]);\n      }\n    } else if (entry.startsWith(\":\")) {\n      start \u003d getMidnight(-1);\n      end \u003d parseFloat(entry.substring(1));\n    } else if (entry.endsWith(\":\")) {\n      start \u003d parseFloat(entry.substring(0, entry.length - 1));\n      end \u003d getMidnight(0) - 1;\n    }\n\n    if (!isNaN(start) \u0026\u0026 !isNaN(end) \u0026\u0026 timestamp \u003e\u003d start \u0026\u0026 timestamp \u003c\u003d end) {\n      return true;\n    }\n  }\n  return false;\n}\n\nfunction checkFiles(dir, resultList, n,needwhite) {\n  var files \u003d dir.listFiles();\n  if (!files) return;\n\n  for (var i \u003d 0; i \u003c files.length; i++) {\n    var file \u003d files[i];\n\n    if (file.isDirectory()) {\n      checkFiles(file, resultList, n,needwhite);\n    } else {\n      var lastModifiedMillis \u003d file.lastModified();\n      var fileDate \u003d new Date(lastModifiedMillis);\n      if (needwhite){\n         if (isNDaysAgo(fileDate, n) \u0026\u0026 !inWhitelistRange(lastModifiedMillis)) {\n        resultList.push(file.getAbsolutePath());\n         }\n      }else{\n      if (isNDaysAgo(fileDate, n)) {\n        resultList.push(file.getAbsolutePath());\n         }\n      }\n    }\n  }\n}\n\nfunction getShell(dirs, n, top, end, needwhite) {\n  var resultList \u003d [];\n\n  for (var i \u003d 0; i \u003c dirs.length; i++) {\n    var dir \u003d new File(dirs[i]);\n    checkFiles(dir, resultList, n, needwhite);\n  }\n\n  if (resultList.length \u003e 0) {\n    var escapedList \u003d resultList.map(function(path) {\n      return top + escapeShellPath(path) + end;\n    });\n    return escapedList.join(\"\\n\");\n  } else {\n    return \"\";\n  }\n}\nfunction getCurrentTimeFormatted() {\n  var now \u003d new Date();\n  function pad(n) {\n    return n \u003c 10 ? \u00270\u0027 + n : n;\n  }\n\n  var year \u003d now.getFullYear();\n  var month \u003d pad(now.getMonth() + 1);\n  var day \u003d pad(now.getDate());\n\n  var hours \u003d pad(now.getHours());\n  var minutes \u003d pad(now.getMinutes());\n  var seconds \u003d pad(now.getSeconds());\n\n  return year + \u0027-\u0027 + month + \u0027-\u0027 + day + \u0027 \u0027 + hours + \u0027:\u0027 + minutes + \u0027:\u0027 + seconds;\n}\n\nvar dirstr \u003d localVarOf$作用域;\nvar dir \u003d globalVarOf$shortxpath+\"/tmp/.Regret_medicine/\"\n\nvar MoveFileShell \u003d getShell(dirstr.split(\",\"), 1 ,\"mv \",\" \"+globalVarOf$shortxpath+\"/tmp/.Regret_medicine/\",true);\nvar RemoveFileShell \u003dgetShell([dir],3,\"rm -r \",\"\",false);\nvar Shell \u003dMoveFileShell+\"\\n\"+RemoveFileShell+\"\\nam broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/\";\nappendToFile(globalVarOf$shortxpath+\"/log/clean.log\",\"\\n\\n\\n--------------------------------------\\n\"+getCurrentTimeFormatted()+\"\\n--------------------------------------\\n\"+Shell);\nvar command \u003d ShellCommand.newBuilder()\n    .setCommand(Shell).build();\n\nshortx.executeAction(command);",
+          "customContextDataKey": {
+          },
+          "id": "A-99537dc7-511d-4003-a0b8-515a1f0548d7"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "whitetime",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-ef01b4e2-fdd7-4d6e-8374-52d92e0c7b5d"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0c792646-df20-4eb0-a7a3-ff8ae2a8ce64"
+      }],
+      "description": "clean",
+      "id": "Case-80f85a80-c7e1-447c-9b4e-f25879263ddc",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "问",
+        "customContextDataKey": {
+        },
+        "id": "C-3927a44e-4f99-4167-b82e-2c51141581fd"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{mediaFilePath}",
+        "regex": "/storage/emulated/0/",
+        "replacement": "/data/media/0/",
+        "customContextDataKey": {
+        },
+        "id": "A-91fec51d-395d-476c-bd52-c12199901013"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchJS",
+          "expression": "function isPathInList(targetPath, pathList) {\n    function normalize(path) {\n        return path.replace(/\\\\/g, \"/\").replace(/\\/+$/, \"\");\n    }\n\n    var normalizedTarget \u003d normalize(targetPath);\n\n    for (var i \u003d 0; i \u003c pathList.length; i++) {\n        var basePath \u003d normalize(pathList[i]);\n        if (normalizedTarget \u003d\u003d\u003d basePath || normalizedTarget.indexOf(basePath + \"/\") \u003d\u003d\u003d 0) {\n            return true;\n        }\n    }\n\n    return false;\n}\nvar filePath \u003d {replaceResult};\nvar pathliststr\u003dlocalVarOf$作用域;\nvar allowedPaths \u003d pathliststr.split(\",\");\n\nisPathInList(filePath, allowedPaths); ",
+          "customContextDataKey": {
+          },
+          "id": "C-6cf4e626-5cdc-4b63-9abe-53c93be9354c"
+        }, {
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "text \u003d globalVarOf$whitetime;\ntext !\u003d null \u0026\u0026 text.length() \u003e 0 \u0026\u0026 text.charAt(text.length() - 1) \u003d\u003d \u0027:\u0027 ? false : true",
+          "customContextDataKey": {
+          },
+          "id": "C-b6828fb1-9c03-42c3-b4bb-c9b2fb364a79"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importPackage(java.io);\nimportPackage(java.lang);\n\nvar filePath \u003d {replaceResult}; // 替换为实际路径\nvar file \u003d new File(filePath);\nvar fileName \u003d file.getName();\n\nfunction getStableLastModified(targetFile) {\n    var last \u003d targetFile.lastModified();\n    while (true) {\n        Thread.sleep(500);\n        var current \u003d targetFile.lastModified();\n        if (current \u003d\u003d\u003d last) {\n            break;\n        }\n        last \u003d current;\n    }\n    return last;\n}\n\nfunction stripPendingName(name) {\n    return name.replaceAll(\"\\\\.pending-\\\\d+-\", \"\");\n}\n\nvar resultTimestamp;\n\nif (fileName.contains(\".pending\")) {\n    // 1. 等待 pending 文件消失\n    while (file.exists()) {\n        Thread.sleep(500);\n    }\n\n    // 2. 构造实际目标文件路径\n    var parent \u003d file.getParent();\n    var strippedName \u003d stripPendingName(fileName);\n    var realFile \u003d new File(parent, strippedName);\n\n    // 3. 如果存在，则等待修改时间稳定\n    if (realFile.exists()) {\n        resultTimestamp \u003d getStableLastModified(realFile);\n    } else {\n        // 否则 fallback 当前时间\n        resultTimestamp \u003d System.currentTimeMillis();\n    }\n} else if (file.exists()) {\n    // 非 .pending 文件，存在时也判断是否仍在刷新\n    resultTimestamp \u003d getStableLastModified(file);\n} else {\n    // 文件完全不存在，fallback 当前时间\n    resultTimestamp \u003d System.currentTimeMillis();\n}\n\n// ✅ 最后一行表达式作为返回值（不能写 return）\n(resultTimestamp - 1) + \"::\" + (resultTimestamp + 1);",
+          "context": "CoroutineContext_IO",
+          "customContextDataKey": {
+          },
+          "id": "A-b9ada627-a604-4a49-8307-ee7d9f327755"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "issave",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-ae199184-240a-4681-82ca-5a5aace8df53"
+        }, {
+          "@type": "type.googleapis.com/SwitchCase",
+          "case": [{
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "询问形式",
+              "payload": {
+                "value": "状态栏"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-09206487-6ae2-4f69-8582-d7d1e0821725"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShowStatusBarChip",
+              "text": "点击保留",
+              "icon": "remix://locking-picture",
+              "clickAction": [{
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "issave",
+                "valueAsString": "true",
+                "customContextDataKey": {
+                },
+                "id": "A-9bbb2bff-b38b-4777-ad4a-a419b77a3b09"
+              }, {
+                "@type": "type.googleapis.com/HideStatusBarClip",
+                "customContextDataKey": {
+                },
+                "id": "A-6072f35c-1565-4856-82b3-55e0c446a06f"
+              }],
+              "longClickAction": [{
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "issave",
+                "valueAsString": "keep saving",
+                "customContextDataKey": {
+                },
+                "id": "A-9cdbb28c-8aae-45b8-848b-e5547ccb2654"
+              }, {
+                "@type": "type.googleapis.com/HideStatusBarClip",
+                "customContextDataKey": {
+                },
+                "id": "A-8be483a0-b610-40d3-88a4-67d297267116"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-725b8aea-eb4b-41c6-827a-091d8377d5e3"
+            }],
+            "description": "状态栏",
+            "id": "Case-28364d62-17f2-4444-9f56-108aea1d90de",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "询问形式",
+              "payload": {
+                "value": "浮窗"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-61f64b6e-d68f-47e1-9a25-92bf002380ab"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShowOverlayButton",
+              "buttonSettings": [{
+                "actions": [{
+                  "@type": "type.googleapis.com/WriteLocalVar",
+                  "varName": "issave",
+                  "valueAsString": "true",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-9bbb2bff-b38b-4777-ad4a-a419b77a3b09"
+                }],
+                "icon": "locking-picture",
+                "label": "点击保留",
+                "longClickActions": [{
+                  "@type": "type.googleapis.com/WriteLocalVar",
+                  "varName": "issave",
+                  "valueAsString": "keep saving",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-9cdbb28c-8aae-45b8-848b-e5547ccb2654"
+                }],
+                "id": "BTN-c459ab7f-29ba-4d99-a5b7-708dcfabcaad"
+              }],
+              "tag": "lockpicture",
+              "maxHeightInDp": 20,
+              "maxWidthInDp": 20,
+              "backgroundAlpha": 0.8,
+              "buttonMinWidth": 20,
+              "enableGlobalDrag": true,
+              "disableAutoEdge": true,
+              "closeOnAction": true,
+              "customContextDataKey": {
+              },
+              "id": "A-c3c5a8bd-3866-4f14-8175-6def94673def"
+            }],
+            "description": "浮窗",
+            "id": "Case-2de17ce9-d045-4da4-a4b3-983eb1e7bc21",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "询问形式",
+              "payload": {
+                "value": "弹窗"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-5073ea98-80be-4b52-a556-92932e054e09"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShowMenuDialog",
+              "items": [{
+                "title": "保留",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/WriteLocalVar",
+                  "varName": "issave",
+                  "valueAsString": "true",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-9bbb2bff-b38b-4777-ad4a-a419b77a3b09"
+                }]
+              }, {
+                "title": "进入持续保留模式",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/WriteLocalVar",
+                  "varName": "issave",
+                  "valueAsString": "keep saving",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-9cdbb28c-8aae-45b8-848b-e5547ccb2654"
+                }]
+              }, {
+                "title": "不保留"
+              }],
+              "title": "保留？",
+              "cancelable": true,
+              "style": {
+                "fontScale": 1.0
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-bbd18d20-e2ce-44f8-bd30-cde583fdc911"
+            }],
+            "description": "弹窗",
+            "id": "Case-1d01e90e-dd08-4d6a-8c12-4e551be1405e",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/True",
+              "customContextDataKey": {
+              },
+              "id": "C-e26b38ba-7dd3-466e-bb6b-9731d16f0e4c"
+            }],
+            "description": "不询问",
+            "id": "Case-ebf6dc65-cca9-4ad9-b3ba-7ab432b02c5c",
+            "isBreak": true
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-ddf5b5c5-1324-4b20-b426-b4603268158e"
+        }, {
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "IsEmpty",
+            "varName": "issave",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-ae1f4fd5-13a5-497c-a911-8afdf0e6686b"
+          }],
+          "timeoutStr": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-4dcb6a66-9743-4ead-9524-877af2f5a0e6"
+        }, {
+          "@type": "type.googleapis.com/SwitchCase",
+          "case": [{
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "询问形式",
+              "payload": {
+                "value": "状态栏"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-09206487-6ae2-4f69-8582-d7d1e0821725"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/HideStatusBarClip",
+              "customContextDataKey": {
+              },
+              "id": "A-e5912a11-517b-4978-b996-e29f34d678ac"
+            }],
+            "description": "状态栏",
+            "id": "Case-28364d62-17f2-4444-9f56-108aea1d90de",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "询问形式",
+              "payload": {
+                "value": "浮窗"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-61f64b6e-d68f-47e1-9a25-92bf002380ab"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/HideOverlayButton",
+              "overlayTags": ["lockpicture"],
+              "customContextDataKey": {
+              },
+              "id": "A-2df1a7a3-d592-40b8-81b5-097b9061434d"
+            }],
+            "description": "浮窗",
+            "id": "Case-2de17ce9-d045-4da4-a4b3-983eb1e7bc21",
+            "isBreak": true
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-2d8b6e9d-2265-491c-93ea-570fc68ca09e"
+        }, {
+          "@type": "type.googleapis.com/SwitchCase",
+          "case": [{
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "issave",
+              "payload": {
+                "value": "true"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-c3511238-d134-47cf-af04-97cd9676c5e6"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateGlobalVar",
+                "op": "IsEmpty",
+                "varName": "whitetime",
+                "payload": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-619a4397-668f-48aa-8188-d5a7420440c4"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "whitetime",
+                "valueAsString": "{jsRet}",
+                "customContextDataKey": {
+                },
+                "id": "A-a0aa5e7c-d90f-4f38-a6a0-e516df34b8db"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "whitetime",
+                "valueAsString": "globalVarOf$whitetime,{jsRet}",
+                "customContextDataKey": {
+                },
+                "id": "A-a0aa5e7c-d90f-4f38-a6a0-e516df34b8db"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-71885c42-b6ad-4c0c-a684-c7a53d21e169"
+            }],
+            "description": "保留",
+            "id": "Case-0f892736-c18b-4e10-a751-458aa781632b",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "issave",
+              "payload": {
+                "value": "keep saving"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-df3cbbc3-7891-4d02-aa57-5218f4d4ae0c"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "text \u003d {jsRet};\ncount \u003d text.split(\"::\")[0]",
+              "customContextDataKey": {
+              },
+              "id": "A-e3e5e055-7898-4c2a-9e8d-61befc548098"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateGlobalVar",
+                "op": "IsEmpty",
+                "varName": "whitetime",
+                "payload": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-619a4397-668f-48aa-8188-d5a7420440c4"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "whitetime",
+                "valueAsString": "{mvelRet}:",
+                "customContextDataKey": {
+                },
+                "id": "A-a0aa5e7c-d90f-4f38-a6a0-e516df34b8db"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "whitetime",
+                "valueAsString": "globalVarOf$whitetime,{mvelRet}:",
+                "customContextDataKey": {
+                },
+                "id": "A-a0aa5e7c-d90f-4f38-a6a0-e516df34b8db"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-71885c42-b6ad-4c0c-a684-c7a53d21e169"
+            }, {
+              "@type": "type.googleapis.com/PostNotification",
+              "tag": "picturelocking",
+              "title": "保存模式已开启",
+              "message": "点击关闭",
+              "smallIcon": "locking-picture",
+              "clickAction": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"::\")[1]",
+                "customContextDataKey": {
+                },
+                "id": "A-e3e5e055-7898-4c2a-9e8d-61befc548098"
+              }, {
+                "@type": "type.googleapis.com/IfThenElse",
+                "If": [{
+                  "@type": "type.googleapis.com/EvaluateGlobalVar",
+                  "op": "IsEmpty",
+                  "varName": "whitetime",
+                  "payload": {
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "C-619a4397-668f-48aa-8188-d5a7420440c4"
+                }],
+                "IfActions": [{
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "whitetime",
+                  "valueAsString": ":{mvelRet}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-a0aa5e7c-d90f-4f38-a6a0-e516df34b8db"
+                }],
+                "ElseActions": [{
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "whitetime",
+                  "valueAsString": "globalVarOf$whitetime:{mvelRet}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-a0aa5e7c-d90f-4f38-a6a0-e516df34b8db"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-71885c42-b6ad-4c0c-a684-c7a53d21e169"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "picturelocking"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-62439c4d-41b3-48e8-be1f-69e63e82daa1"
+              }],
+              "onGoing": true,
+              "customContextDataKey": {
+              },
+              "id": "A-24e85937-d811-4382-bd2c-db20553b6291"
+            }],
+            "description": "持续保留",
+            "id": "Case-1a369460-8b4e-44fd-8117-4db1852c0975",
+            "isBreak": true
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-72a65f2e-048c-4fc9-af6d-b515dbf9b7ca"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-f4dded1f-8784-45ce-a63f-b8d56e2c3809"
+      }],
+      "description": "问",
+      "id": "Case-5438c75e-6eb4-442c-9b6c-dad188596597",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "提醒",
+        "customContextDataKey": {
+        },
+        "id": "C-4f9f14b0-d1ff-4e00-9dff-f0333ff91c6a"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportPackage(android.util);\nimportPackage(java.lang);\n\nfunction runOnUiThread(fn) {\n    new Handler(Looper.getMainLooper()).post(new Runnable({ run: fn }));\n}\n\nrunOnUiThread(function () {\n    var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n    var layout \u003d new LinearLayout(context);\n    layout.setOrientation(LinearLayout.VERTICAL);\n    layout.setBackgroundColor(Color.TRANSPARENT);\n\n    var backgroundDrawable \u003d new android.graphics.drawable.GradientDrawable();\n    backgroundDrawable.setColor(Color.WHITE);\n    backgroundDrawable.setCornerRadius(50);\n    layout.setBackground(backgroundDrawable);\n    layout.setPadding(40, 40, 40, 40);\n\n    var layoutParams \u003d new WindowManager.LayoutParams(\n        1000,\n        800,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        PixelFormat.TRANSLUCENT\n    );\n    layoutParams.gravity \u003d Gravity.CENTER;\n    var titleView \u003d new TextView(context);\n    titleView.setText(\"ShortX已更新\");\n    titleView.setTextSize(22);\n    titleView.setTextColor(Color.BLACK);\n    titleView.setGravity(Gravity.CENTER);\n    titleView.setPadding(0, 0, 0, 20);\n    layout.addView(titleView);\n    var scrollView \u003d new ScrollView(context);\n    var scrollParams \u003d new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.MATCH_PARENT,\n        0,\n        1 \n    );\n    scrollView.setLayoutParams(scrollParams);\n\n    var textView \u003d new TextView(context);\n    textView.setText(\"ShortX已更新，更新后后悔药文件夹及其内容将会被清除，请确认无误删的重要文件后再重启\");\n    textView.setTextSize(18);\n    textView.setTextColor(Color.DKGRAY);\n    textView.setGravity(Gravity.LEFT);\n    scrollView.addView(textView);\n    layout.addView(scrollView);\n    var buttonLayout \u003d new LinearLayout(context);\n    buttonLayout.setOrientation(LinearLayout.HORIZONTAL);\n    buttonLayout.setGravity(Gravity.CENTER);\n    buttonLayout.setPadding(0, 30, 0, 0);\n    layout.addView(buttonLayout);\n\n    var closeButton \u003d new Button(context);\n    closeButton.setText(\"我知道了 (3)\");\n    closeButton.setTextColor(Color.WHITE);\n    closeButton.setEnabled(false); // 初始不可用\n\n    function createRoundedDrawable(color) {\n        var drawable \u003d new android.graphics.drawable.GradientDrawable();\n        drawable.setColor(color);\n        drawable.setCornerRadius(30); // 圆角\n        return drawable;\n    }\n    closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#BDBDBD\")));\n\n    buttonLayout.addView(closeButton);\n    var secondsRemaining \u003d 3;\n    var handler \u003d new Handler();\n    var countdownRunnable \u003d new Runnable({\n        run: function () {\n            secondsRemaining--;\n            if (secondsRemaining \u003e 0) {\n                closeButton.setText(\"我知道了 (\" + secondsRemaining + \")\");\n                handler.postDelayed(this, 1000);\n            } else {\n                closeButton.setEnabled(true);\n                closeButton.setText(\"我知道了\");\n                closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#08C661\"))); \n            }\n        }\n    });\n    handler.postDelayed(countdownRunnable, 1000);\n\n    closeButton.setOnClickListener(new View.OnClickListener({\n        onClick: function () {\n            if (!closeButton.isEnabled()) return;\n            var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                .setVarName(\"next\")\n                .setValueAsString(\"true\")\n                .build();\n            shortx.executeAction(writeLocalVar);\n            try {\n                windowManager.removeView(layout);\n            } catch (e) {}\n        }\n    }));\n\n    try {\n        windowManager.addView(layout, layoutParams);\n    } catch (e) {\n        console.log(\"添加视图失败：\" + e);\n    }\n});",
+        "context": "CoroutineContext_UI",
+        "customContextDataKey": {
+        },
+        "note": "倒计时对话框（更新提示）",
+        "id": "A-d0f5235f-35f8-40d5-80ff-62cd62aecf34"
+      }],
+      "description": "提醒",
+      "id": "Case-9d3a8398-b702-44fa-8a96-3a06210185ec",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-e364e850-5b6c-434a-b5fc-2355d067c054"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "test",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-d5827c6d-85ab-4bff-b47f-0a3ec5b455f6"
+      }, {
+        "@type": "type.googleapis.com/ForEach",
+        "data": "localVarOf$作用域",
+        "delimiter": [","],
+        "actions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(java.io.File);\n\nfunction listAllFiles(dirPath) {\n    function traverse(dir, result) {\n        var files \u003d dir.listFiles();\n        if (files \u003d\u003d null) return;\n\n        for (var i \u003d 0; i \u003c files.length; i++) {\n            var file \u003d files[i];\n            if (file.isDirectory()) {\n                traverse(file, result);\n            } else if (file.isFile()) {\n                result.push(file.getAbsolutePath());\n            }\n        }\n    }\n\n    var root \u003d new File(dirPath);\n    var resultList \u003d [];\n    if (root.exists() \u0026\u0026 root.isDirectory()) {\n        traverse(root, resultList);\n    }\n\n    return resultList;\n}\n\n// 示例使用\nvar targetDirectory \u003d {foreachData};\nlistAllFiles(targetDirectory); // Rhino 脚本中以 return 返回结果",
+          "customContextDataKey": {
+          },
+          "id": "A-e9939ceb-feeb-4651-953a-0a21bb474af6"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "IsEmpty",
+            "varName": "jsRet",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-c9c2f359-0666-4052-a3d2-7afff7a6f688"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "确定",
+            "title": "❌作用域{foreachData}错误",
+            "message": "{foreachData}目录为空或无权限\n✅/data/media/0/Pictures/\n❌/storage/emulated/0/Pictures/\n❌/sdcard/Pictures/",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-e0deb396-0cd1-43e1-89a0-3b4c191ab05e"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "test",
+            "valueAsString": "error",
+            "customContextDataKey": {
+            },
+            "id": "A-d269ad8e-38e3-4511-b920-60a22b8397a4"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-680df2e0-66ef-458a-82e4-a7d651f664a5"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-72982e70-8bc3-4087-991c-d6970e85d46f"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "test",
+          "payload": {
+            "value": "error"
+          },
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-4577756a-586b-4cd4-b000-8a168d3e422a"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "作用域测试通过",
+          "customContextDataKey": {
+          },
+          "id": "A-8f52dde7-e5e8-41a2-937b-c9d1ebada432"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-56ce3852-1daa-4a0d-83f6-cc792dc31261"
+      }],
+      "description": "作用域测试",
+      "id": "Case-47b0f1b2-0486-4a85-966c-f8f7b8c79f96",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a9a7891a-cc83-46eb-b3b1-34f678d71814"
+  }],
+  "id": "SHARE-rule-6004e11d-950b-47b0-96d9-f0160b799325",
+  "lastUpdateTime": "1749535430232",
+  "createTime": "1747922429402",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "临时性图片/视频 2.6 Beta",
+  "description": "自动移除临时性图片/视频",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "whitetime",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-769335ef-228f-436f-8c6a-6fd03e57f9b1"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "whitetime",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-bf4aafb9-0d9a-4d66-a5cc-2cf3a50c5a7b"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "whitetime",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-86e3757e-bc8f-46de-8ce5-47705297fc78"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ce293b51-2f5f-4d20-8c74-d73e8d96a43a"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "next",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-dcac7617-d62c-4ad4-a4c4-47125e268e03"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "importPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportPackage(android.util);\nimportPackage(java.lang);\n\nfunction runOnUiThread(fn) {\n    new Handler(Looper.getMainLooper()).post(new Runnable({ run: fn }));\n}\n\nrunOnUiThread(function () {\n    var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n    var layout \u003d new LinearLayout(context);\n    layout.setOrientation(LinearLayout.VERTICAL);\n    layout.setBackgroundColor(Color.TRANSPARENT);\n\n    var backgroundDrawable \u003d new android.graphics.drawable.GradientDrawable();\n    backgroundDrawable.setColor(Color.WHITE);\n    backgroundDrawable.setCornerRadius(50);\n    layout.setBackground(backgroundDrawable);\n    layout.setPadding(40, 40, 40, 40);\n\n    var layoutParams \u003d new WindowManager.LayoutParams(\n        1000,\n        2000,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        PixelFormat.TRANSLUCENT\n    );\n    layoutParams.gravity \u003d Gravity.CENTER;\n    var titleView \u003d new TextView(context);\n    titleView.setText(\"使用说明\");\n    titleView.setTextSize(22);\n    titleView.setTextColor(Color.BLACK);\n    titleView.setGravity(Gravity.CENTER);\n    titleView.setPadding(0, 0, 0, 20);\n    layout.addView(titleView);\n    var scrollView \u003d new ScrollView(context);\n    var scrollParams \u003d new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.MATCH_PARENT,\n        0,\n        1 \n    );\n    scrollView.setLayoutParams(scrollParams);\n\n    var textView \u003d new TextView(context);\n    textView.setText(\"1.使用前请确定shell正常\\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\\n2.自行导入附加开关（在指令动作的关闭的shell命令动作内，复制全部内容，剪切板导入，以导入开关），并绑定磁贴（重命名磁贴和修改磁贴LOGO需要自己进行），并在控制中心添加绑定的磁贴。\\n3.需要保留图片时（询问形式为不询问），点开磁贴后保存即可，并在不需要保存图片后关闭磁贴。\\n4.被清理的图片会存放在shortx目录/tmp/.Regret_medicine下（shortx目录可在全局变量列表→shortxpath变量处查看），3天后会被彻底删除，如果有重要文件误删，请在后悔药目录找回，移动回原目录时无需开启保存。\\n5.清理日志在shortx目录/log/clean.log，指令高度依赖日志判断每日执行，请勿删除日志和写日志动作\\n6.询问形式，作用域修改在动作写入全局变量处，作用域修改完成后点击指令图标，执行动作可进行作用域测试\\n7.询问形式为状态栏，浮窗时，点击保留当前，长按进入持续保留模式，点击常驻通知关闭持续保留模式，询问可和开关同时使用\\n8.更新shortx后重启会导致后悔药文件夹及其内容丢失，请在更新前确定是否存在误删的重要文件\");\n    textView.setTextSize(18);\n    textView.setTextColor(Color.DKGRAY);\n    textView.setGravity(Gravity.LEFT);\n    scrollView.addView(textView);\n    layout.addView(scrollView);\n    var buttonLayout \u003d new LinearLayout(context);\n    buttonLayout.setOrientation(LinearLayout.HORIZONTAL);\n    buttonLayout.setGravity(Gravity.CENTER);\n    buttonLayout.setPadding(0, 30, 0, 0);\n    layout.addView(buttonLayout);\n\n    var closeButton \u003d new Button(context);\n    closeButton.setText(\"下一步 (5)\");\n    closeButton.setTextColor(Color.WHITE);\n    closeButton.setEnabled(false); // 初始不可用\n\n    function createRoundedDrawable(color) {\n        var drawable \u003d new android.graphics.drawable.GradientDrawable();\n        drawable.setColor(color);\n        drawable.setCornerRadius(30); // 圆角\n        return drawable;\n    }\n    closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#BDBDBD\")));\n\n    buttonLayout.addView(closeButton);\n    var secondsRemaining \u003d 5;\n    var handler \u003d new Handler();\n    var countdownRunnable \u003d new Runnable({\n        run: function () {\n            secondsRemaining--;\n            if (secondsRemaining \u003e 0) {\n                closeButton.setText(\"下一步 (\" + secondsRemaining + \")\");\n                handler.postDelayed(this, 1000);\n            } else {\n                closeButton.setEnabled(true);\n                closeButton.setText(\"下一步\");\n                closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#08C661\"))); \n            }\n        }\n    });\n    handler.postDelayed(countdownRunnable, 1000);\n\n    closeButton.setOnClickListener(new View.OnClickListener({\n        onClick: function () {\n            if (!closeButton.isEnabled()) return;\n            var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                .setVarName(\"next\")\n                .setValueAsString(\"true\")\n                .build();\n            shortx.executeAction(writeLocalVar);\n            try {\n                windowManager.removeView(layout);\n            } catch (e) {}\n        }\n    }));\n\n    try {\n        windowManager.addView(layout, layoutParams);\n    } catch (e) {\n        console.log(\"添加视图失败：\" + e);\n    }\n});",
+      "context": "CoroutineContext_UI",
+      "customContextDataKey": {
+      },
+      "note": "倒计时对话框（使用说明）",
+      "id": "A-019418c1-cebd-4b76-a5b7-12394bc789c3"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "next",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ccf207d6-afdf-4982-818e-6a9ff13c8af5"
+      }],
+      "timeoutStr": "0",
+      "customContextDataKey": {
+      },
+      "note": "等待对话框被关闭",
+      "id": "A-d6e9dabb-f74d-45e1-be8d-dc2a8d315678"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo 1",
+      "customContextDataKey": {
+      },
+      "id": "A-5f70b498-ec53-456e-9961-7ee62f16af4a"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "shellOut",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-be2b4430-e926-4693-92d9-f6436566d4d8"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "title": "shell运行异常",
+        "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+        "cancelable": true,
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "shell正常",
+        "customContextDataKey": {
+        },
+        "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-7142f905-9258-4974-9591-8723c72e238f"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "shortxpath",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e582f75d-a9c8-48f1-ac71-2a5e3e317429"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ls /data/system/",
+        "customContextDataKey": {
+        },
+        "id": "A-801c4fa6-eba2-4e51-afa8-00191d700d69"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "shortxpath",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-373cb3e0-d030-4784-98de-cd9a4632e460"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-c179c93c-34d4-450e-b832-ab5d869180ed"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "shell异常自动获取shortx目录失败，请手动填写/data/system/目录下的shortx开头的目录名",
+          "cancelable": true,
+          "textFields": [{
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-addd959f-370e-48bb-bb7b-b3db30758a37"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shortxpath",
+          "valueAsString": "/data/system/{textFieldInput1}",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-5316575c-0810-4b20-85f6-a27e15b61187"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{shellOut}",
+          "delimiter": ["\n"],
+          "actions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "Contains",
+              "varName": "foreachData",
+              "payload": {
+                "value": "shortx_"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-6c199b1c-6d08-4a4c-85ea-5615d2f8f726"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shortxpath",
+              "valueAsString": "/data/system/{foreachData}",
+              "op": "WriteGlobalVarOp_Override",
+              "customContextDataKey": {
+              },
+              "id": "A-aaa8e53c-aa10-49ac-b87c-5035be6aa2d9"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Parent",
+              "customContextDataKey": {
+              },
+              "id": "A-42d5e9ca-0990-4a8f-9a45-fe2de0f430c0"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-6fde485b-40d1-46f5-9933-d9e6447a25db"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-b635e834-78aa-4842-b588-0d6cb00ce008"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4538b55f-3e02-4bab-879a-df01428e3bc0"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "查询shortx目录",
+      "id": "A-bbe2562b-89ae-4799-b29e-c40fb9d9d5b2"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString dirPath \u003d globalVarOf$shortxpath+\"/log/clean.log\"; \nFile dir \u003d new File(dirPath);\n\nreturn dir.exists() \u0026\u0026 dir.isFile();",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-6db991b8-48b1-4700-939e-61f863468adc"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var File \u003d java.io.File;\nvar FileWriter \u003d java.io.FileWriter;\nvar BufferedWriter \u003d java.io.BufferedWriter;\nvar IOException \u003d java.io.IOException;\n\nfunction appendToFile(filePath, content) {\n    try {\n        var file \u003d new File(filePath);\n        if (!file.exists()) {\n            file.getParentFile().mkdirs(); \n            file.createNewFile(); \n        }\n        var writer \u003d new BufferedWriter(new FileWriter(file, true));\n        writer.write(content);\n        writer.newLine(); \n        writer.close();\n        true; \n    } catch (e) {\n        if (e instanceof IOException) {\n            false; \n        } else {\n            throw e; \n        }\n    }\n}\nappendToFile(globalVarOf$shortxpath+\"/log/clean.log\",\"清理日志\\n\");",
+        "customContextDataKey": {
+        },
+        "note": "日志（勿删）",
+        "id": "A-99f01d26-41ab-4a3f-a2a3-1dc27c940e8c"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "初始化日志",
+      "id": "A-1d601fef-7f5d-4c53-a85a-c26eb85ababf"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
