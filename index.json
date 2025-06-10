@@ -34,6 +34,17 @@
       "requireMinShortXProtoVersion": 0
     },
     {
+      "id": "SHARED-DA-61176e1e-63ad-44ef-8835-f57045684afd",
+      "fileUrl": "ShortX-屏幕点击器.txt",
+      "title": "屏幕点击器",
+      "description": "持续点击或滑动屏幕",
+      "versionCode": 1,
+      "updateTimeMillis": 1749469719616,
+      "author": "nyehueh",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
       "id": "DA9122b14f-a902-48f5-8dcb-f2b98881519d",
       "fileUrl": "ShortX-IP查询.txt",
       "title": "IP查询",
@@ -67,12 +78,23 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-c9ce2238-cfcb-439a-9f4e-6f5b67813bec",
+      "id": "SHARED-DA-25f3c8d3-51b5-4f1f-aeee-0c9049d2262b",
+      "fileUrl": "ShortX-坐标提取器.txt",
+      "title": "坐标提取器",
+      "description": "提取下次点击或滑动坐标",
+      "versionCode": 1,
+      "updateTimeMillis": 1749469545030,
+      "author": "nyehueh",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARED-DA-560afd30-4017-471c-bdc8-6094e124889a",
       "fileUrl": "ShortX-Noactive高级设置.txt",
       "title": "Noactive高级设置",
       "description": "配置大师配置和fcm",
       "versionCode": 1,
-      "updateTimeMillis": 1747640302826,
+      "updateTimeMillis": 1749046164476,
       "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -267,17 +289,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-f535a3dd-edb0-474b-b2dd-86c68dafb9a9",
-      "fileUrl": "ShortX-临时性图片_视频.txt",
-      "title": "临时性图片/视频",
-      "description": "自动清理临时性图片/视频",
-      "versionCode": 3,
-      "updateTimeMillis": 1727853727608,
-      "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-d3f32eb0-71ae-4c9a-a143-83757e516545",
       "fileUrl": "ShortX-微信支付自动输密码.txt",
       "title": "微信支付自动输密码",
@@ -461,6 +472,17 @@
       "versionCode": 1,
       "updateTimeMillis": 1735580909749,
       "author": "ShortX",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARE-rule-6004e11d-950b-47b0-96d9-f0160b799325",
+      "fileUrl": "ShortX-临时性图片_视频_2.6_Beta.txt",
+      "title": "临时性图片/视频 2.6 Beta",
+      "description": "自动移除临时性图片/视频",
+      "versionCode": 1,
+      "updateTimeMillis": 1749535430232,
+      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
