@@ -1,0 +1,112 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["翻墙"],
+    "tag": "开启",
+    "customContextDataKey": {
+    },
+    "id": "F-654f2356-a7a3-4e21-aadc-6b230e4d5f17"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["翻墙"],
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-8800490a-8b4d-4b2e-a83e-e84c0785b9f6"
+  }, {
+    "@type": "type.googleapis.com/TaskRemoved",
+    "pkgSets": ["翻墙"],
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-c924d666-1e77-4ebd-8ff4-db23fde36fff"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开启",
+      "customContextDataKey": {
+      },
+      "id": "C-8861e9a2-e8ed-414e-a609-accba44ec50e"
+    }, {
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-c4c00ebe-4134-411d-99e0-afe348787b77"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am force-stop com.follow.clash\n\nsu -c \u0027pm grant com.follow.clash android.permission.BIND_VPN_SERVICE\u0027\n\nam start-service -n com.follow.clash/com.follow.clash.services.FlClashService\n\nam start-foreground-service -n com.follow.clash/com.follow.clash.services.FlClashVpnService",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-a5753062-d24c-40b2-a0cc-1594257620fa"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已开启VPN",
+      "customContextDataKey": {
+      },
+      "id": "A-093f1fab-3b3a-48a6-b41a-d17adef9d111"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-6d37aead-2ff1-405b-8e02-65bf92a9db22"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "关闭",
+      "customContextDataKey": {
+      },
+      "id": "C-62e40dbe-ca91-4b33-9416-66bea6b9dd44"
+    }, {
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-a340637b-7a81-4028-8154-8c7366868143"
+    }, {
+      "@type": "type.googleapis.com/AppHasTask",
+      "pkgSets": ["翻墙"],
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-b48cde0a-c756-49d0-8059-1e0f6bffb4eb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.follow.clash"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-616f79de-2ed7-4df4-a551-4d44332824d4"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已关闭VPN",
+      "customContextDataKey": {
+      },
+      "id": "A-325d20b7-39c0-428f-bde1-6864dfb1b021"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a0dc444b-546f-4be3-82c1-d17c94d20f13"
+  }],
+  "id": "SHARE-rule-362a1996-1e17-4f51-8d30-2b0cdc53353b",
+  "lastUpdateTime": "1750577186513",
+  "createTime": "1708125008669",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动VPN_flclash版",
+  "description": "自动关闭和开启vpn，flclash版，划卡即停",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-c4c34820-4756-4b38-bea1-49643c3f43e6"
+}
+###------###
+{"type":"rule"}
