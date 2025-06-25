@@ -52,8 +52,8 @@
     "IfActions": [{
       "@type": "type.googleapis.com/ReplaceRegex",
       "string": "{clipboardContent}",
-      "regex": "\\$|\"|\\^|`|`|\n",
-      "replacement": "      ",
+      "regex": "\\{|\\}",
+      "replacement": " ",
       "customContextDataKey": {
       },
       "id": "A-4c8ee740-4d22-4407-9a61-d169e4f38585"
@@ -61,8 +61,8 @@
     "ElseActions": [{
       "@type": "type.googleapis.com/ReplaceRegex",
       "string": "{selectedText}",
-      "regex": "\\$|\"|\\^|`|`|\n",
-      "replacement": "     ",
+      "regex": "\\{|\\}",
+      "replacement": " ",
       "customContextDataKey": {
       },
       "id": "A-4c8ee740-4d22-4407-9a61-d169e4f38585"
@@ -72,7 +72,7 @@
     "id": "A-ad0d6119-3648-49be-892c-178b2f0b633c"
   }, {
     "@type": "type.googleapis.com/ExecuteJS",
-    "expression": "function reversal(a) {\n    return a \u003d\u003d\u003d true ? false : true;\n}\n\nfunction ri(a) {\n    var r \u003d a.replace(\"http://\", \"\").replace(\"https://\", \"\");\n    r \u003d r.split(\" \")[0];\n    return r;\n}\n\nfunction db(a, output) {\n    for (var i \u003d 0; i \u003c output.length; i++) {\n        if (ri(output[i]) \u003d\u003d\u003d ri(a)) {\n            return false;\n        }\n    }\n    return true;\n}\n\nfunction where(a, b) {\n    var list1 \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (ri(a[i]) \u003d\u003d\u003d ri(b)) {\n            list1.push(i);\n        }\n    }\n    return list1;\n}\n\nfunction huisu(list, value_to_find, list_to_find) {\n    var a \u003d where(list, value_to_find); // 验证码位置列表\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var pos \u003d a[i];\n        for (var j \u003d pos - 1; j \u003e\u003d 0; j--) {\n            if (!db(list[j], list_to_find)) {\n                if (list[j].split(\" \").length \u003c 2) {\n                    var yzm \u003d value_to_find.split(\":\")[1];\n                    if (yzm \u003d\u003d\u003d \"\") {\n                        yzm \u003d list[pos + 1];\n                    }\n                    yzm \u003d yzm.replace(\" \", \"\");\n                    var outputIndices \u003d where(list_to_find, list[j]);\n                    if (outputIndices.length \u003e 0) {\n                        if (list_to_find[outputIndices[0]].indexOf(\"提取码:\") \u003d\u003d\u003d -1) {\n                            list_to_find[outputIndices[0]] \u003d list[j] + \" 提取码:\" + yzm;\n                        } else {\n                            list_to_find.push(list[j] + \" 提取码:\" + yzm);\n                        }\n                        break;\n                    }\n                }\n            }\n        }\n    }\n}\n\nfunction qvzi(a) {\n    var Extractioncodelist \u003d argOf$tqm;\n    Extractioncodelist \u003d Extractioncodelist.split(\" \");\n    for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n        a \u003d a.replace(new RegExp(Extractioncodelist[i], \"g\"), \" Extractioncode:\");\n    }\n\n    var output \u003d \"\";\n    var all \u003d \"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM#_/-:?%@\u003d.\u0026, ，；;1234567890 \\n\";\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (all.indexOf(a[i]) !\u003d\u003d -1) {\n            output +\u003d a[i];\n        }\n    }\n    return output;\n}\n\nfunction shaixuan(a) {\n    a \u003d a.replace(/http:\\/\\//g, \" http://\").replace(/https:\\/\\//g, \" https://\");\n    var duanluo \u003d a.split(/\\n|,|，|；|;|\\s+/);\n    duanluo \u003d duanluo.filter(function(token) { return token.trim() !\u003d\u003d \"\"; });\n\n    var output \u003d [];\n    var ecjc \u003d [];\n    var yzm \u003d false;\n    var Extractioncodelist \u003d [];\n\n    if (a.indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n        yzm \u003d true;\n        for (var i \u003d 0; i \u003c duanluo.length; i++) {\n            if (duanluo[i].indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n                if (Extractioncodelist.indexOf(duanluo[i]) \u003d\u003d\u003d -1) {\n                    Extractioncodelist.push(duanluo[i]);\n                }\n            }\n        }\n    }\n\n    var dinjiyumin \u003d argOf$djym;\n    dinjiyumin \u003d dinjiyumin.split(\",\");\n    var emaillist \u003d argOf$email;\n    emaillist \u003d emaillist.split(\",\");\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c duanluo.length; j++) {\n            if (duanluo[j].indexOf(\".\" + dinjiyumin[i] + \"/\") !\u003d\u003d -1 \u0026\u0026 duanluo[j].length \u003e dinjiyumin[i].length + 2) {\n                if (db(duanluo[j], output)) {\n                    output.push(duanluo[j]);\n                }\n            } else if (db(duanluo[j], ecjc)) {\n                ecjc.push(duanluo[j]);\n            }\n        }\n    }\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c ecjc.length; j++) {\n            if (ecjc[j].indexOf(\".\" + dinjiyumin[i]) !\u003d\u003d -1 \u0026\u0026 ecjc[j].length \u003e dinjiyumin[i].length + 1) {\n                var suffix \u003d \".\" + dinjiyumin[i];\n                if (ecjc[j].substr(ecjc[j].length - suffix.length) \u003d\u003d\u003d suffix) {\n                    if (db(ecjc[j], output)) {\n                        var isEmail \u003d false;\n                        for (var w \u003d 0; w \u003c emaillist.length; w++) {\n                            if (ecjc[j].indexOf(\"@\" + emaillist[w]) !\u003d\u003d -1) {\n                                isEmail \u003d true;\n                                break;\n                            }\n                        }\n                        if (!isEmail) {\n                            output.push(ecjc[j]);\n                        }\n                    }\n                }\n            } else if ((ecjc[j].indexOf(\"http://\") !\u003d\u003d -1 || ecjc[j].indexOf(\"https://\") !\u003d\u003d -1) \u0026\u0026 ecjc[j].length \u003e 8 \u0026\u0026 ecjc[j].indexOf(\".\") !\u003d\u003d -1) {\n                if (db(ecjc[j], output)) {\n                    output.push(ecjc[j]);\n                }\n            }\n        }\n    }\n\n    if (yzm) {\n        for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n            huisu(duanluo, Extractioncodelist[i], output);\n        }\n    }\n\n    return output;\n}\n\nfunction qinqiutou(a) {\n    var httpslist \u003d argOf$httpsonly.split(\",\");\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var link \u003d a[i];\n        if (link.indexOf(\"http://\") \u003d\u003d\u003d -1 \u0026\u0026 link.indexOf(\"https://\") \u003d\u003d\u003d -1) {\n            var httpLink \u003d \"http://\" + link;\n            var httpsLink \u003d \"https://\" + link;\n            if (output.indexOf(httpLink) \u003d\u003d\u003d -1 \u0026\u0026 output.indexOf(httpsLink) \u003d\u003d\u003d -1) {\n                var useHttps \u003d false;\n                for (var j \u003d 0; j \u003c httpslist.length; j++) {\n                    if (link.indexOf(httpslist[j]) !\u003d\u003d -1) {\n                        useHttps \u003d true;\n                        break;\n                    }\n                }\n                output.push(useHttps ? httpsLink : httpLink);\n            }\n        } else if (output.indexOf(link) \u003d\u003d\u003d -1) {\n            output.push(link);\n        }\n    }\n    return output;\n}\n\nfunction blacklist(linklist) {\n    var blacklist \u003d argOf$blacklist.split(\",\");\n    for (var i \u003d 0; i \u003c blacklist.length; i++) {\n        for (var j \u003d 0; j \u003c linklist.length; j++) {\n            if (linklist[j].indexOf(blacklist[i]) !\u003d\u003d -1) {\n                linklist.splice(j, 1);\n                j--;\n            }\n        }\n    }\n    return linklist;\n}\n\nfunction main(a) {\n    var b \u003d blacklist(qinqiutou(shaixuan(qvzi(a))));\n    if (b.length !\u003d\u003d 0) {\n        return b.join(\",\");\n    } else {\n        return \"No links\";\n    }\n}\n\n// 示例调用\nmain({replaceResult});\n",
+    "expression": "function reversal(a) {\n    return a \u003d\u003d\u003d true ? false : true;\n}\n\nfunction ri(a) {\n    var r \u003d a.replace(\"http://\", \"\").replace(\"https://\", \"\");\n    r \u003d r.split(\" \")[0];\n    return r;\n}\n\nfunction db(a, output) {\n    for (var i \u003d 0; i \u003c output.length; i++) {\n        if (ri(output[i]) \u003d\u003d\u003d ri(a)) {\n            return false;\n        }\n    }\n    return true;\n}\n\nfunction where(a, b) {\n    var list1 \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (ri(a[i]) \u003d\u003d\u003d ri(b)) {\n            list1.push(i);\n        }\n    }\n    return list1;\n}\n\nfunction huisu(list, value_to_find, list_to_find) {\n    var a \u003d where(list, value_to_find); // 验证码位置列表\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var pos \u003d a[i];\n        for (var j \u003d pos - 1; j \u003e\u003d 0; j--) {\n            if (!db(list[j], list_to_find)) {\n                if (list[j].split(\" \").length \u003c 2) {\n                    var yzm \u003d value_to_find.split(\":\")[1];\n                    if (yzm \u003d\u003d\u003d \"\") {\n                        yzm \u003d list[pos + 1];\n                    }\n                    yzm \u003d yzm.replace(\" \", \"\");\n                    var outputIndices \u003d where(list_to_find, list[j]);\n                    if (outputIndices.length \u003e 0) {\n                        if (list_to_find[outputIndices[0]].indexOf(\"提取码:\") \u003d\u003d\u003d -1) {\n                            list_to_find[outputIndices[0]] \u003d list[j] + \" 提取码:\" + yzm;\n                        } else {\n                            list_to_find.push(list[j] + \" 提取码:\" + yzm);\n                        }\n                        break;\n                    }\n                }\n            }\n        }\n    }\n}\n\nfunction qvzi(a) {\n    var Extractioncodelist \u003d argOf$tqm;\n    Extractioncodelist \u003d Extractioncodelist.split(\" \");\n    for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n        a \u003d a.replace(new RegExp(Extractioncodelist[i], \"g\"), \" Extractioncode:\");\n    }\n\n    var output \u003d \"\";\n    var all \u003d \"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM#_/-:?%@\u003d.\u0026, ，；;1234567890 \\n\";\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (all.indexOf(a[i]) !\u003d\u003d -1) {\n            output +\u003d a[i];\n        }\n    }\n    return output;\n}\n\nfunction shaixuan(a) {\n    a \u003d a.replace(/http:\\/\\//g, \" http://\").replace(/https:\\/\\//g, \" https://\");\n    var duanluo \u003d a.split(/\\n|,|，|；|;|\\s+/);\n    duanluo \u003d duanluo.filter(function(token) { return token.trim() !\u003d\u003d \"\"; });\n\n    var output \u003d [];\n    var ecjc \u003d [];\n    var yzm \u003d false;\n    var Extractioncodelist \u003d [];\n\n    if (a.indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n        yzm \u003d true;\n        for (var i \u003d 0; i \u003c duanluo.length; i++) {\n            if (duanluo[i].indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n                if (Extractioncodelist.indexOf(duanluo[i]) \u003d\u003d\u003d -1) {\n                    Extractioncodelist.push(duanluo[i]);\n                }\n            }\n        }\n    }\n\n    var dinjiyumin \u003d argOf$djym;\n    dinjiyumin \u003d dinjiyumin.split(\",\");\n    var emaillist \u003d argOf$email;\n    emaillist \u003d emaillist.split(\",\");\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c duanluo.length; j++) {\n            if (duanluo[j].indexOf(\".\" + dinjiyumin[i] + \"/\") !\u003d\u003d -1 \u0026\u0026 duanluo[j].length \u003e dinjiyumin[i].length + 2) {\n                if (db(duanluo[j], output)) {\n                    output.push(duanluo[j]);\n                }\n            } else if (db(duanluo[j], ecjc)) {\n                ecjc.push(duanluo[j]);\n            }\n        }\n    }\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c ecjc.length; j++) {\n            if (ecjc[j].indexOf(\".\" + dinjiyumin[i]) !\u003d\u003d -1 \u0026\u0026 ecjc[j].length \u003e dinjiyumin[i].length + 1) {\n                var suffix \u003d \".\" + dinjiyumin[i];\n                if (ecjc[j].substr(ecjc[j].length - suffix.length) \u003d\u003d\u003d suffix) {\n                    if (db(ecjc[j], output)) {\n                        var isEmail \u003d false;\n                        for (var w \u003d 0; w \u003c emaillist.length; w++) {\n                            if (ecjc[j].indexOf(\"@\" + emaillist[w]) !\u003d\u003d -1) {\n                                isEmail \u003d true;\n                                break;\n                            }\n                        }\n                        if (!isEmail) {\n                            output.push(ecjc[j]);\n                        }\n                    }\n                }\n            } else if ((ecjc[j].indexOf(\"http://\") !\u003d\u003d -1 || ecjc[j].indexOf(\"https://\") !\u003d\u003d -1) \u0026\u0026 ecjc[j].length \u003e 8 \u0026\u0026 ecjc[j].indexOf(\".\") !\u003d\u003d -1) {\n                if (db(ecjc[j], output)) {\n                    output.push(ecjc[j]);\n                }\n            }\n        }\n    }\n\n    if (yzm) {\n        for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n            huisu(duanluo, Extractioncodelist[i], output);\n        }\n    }\n\n    return output;\n}\n\nfunction qinqiutou(a) {\n    var httpslist \u003d argOf$httpsonly.split(\",\");\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var link \u003d a[i];\n        if (link.indexOf(\"http://\") \u003d\u003d\u003d -1 \u0026\u0026 link.indexOf(\"https://\") \u003d\u003d\u003d -1) {\n            var httpLink \u003d \"http://\" + link;\n            var httpsLink \u003d \"https://\" + link;\n            if (output.indexOf(httpLink) \u003d\u003d\u003d -1 \u0026\u0026 output.indexOf(httpsLink) \u003d\u003d\u003d -1) {\n                var useHttps \u003d false;\n                for (var j \u003d 0; j \u003c httpslist.length; j++) {\n                    if (link.indexOf(httpslist[j]) !\u003d\u003d -1) {\n                        useHttps \u003d true;\n                        break;\n                    }\n                }\n                output.push(useHttps ? httpsLink : httpLink);\n            }\n        } else if (output.indexOf(link) \u003d\u003d\u003d -1) {\n            output.push(link);\n        }\n    }\n    return output;\n}\n\nfunction blacklist(linklist) {\n    var blacklist \u003d argOf$blacklist.split(\",\");\n    for (var i \u003d 0; i \u003c blacklist.length; i++) {\n        for (var j \u003d 0; j \u003c linklist.length; j++) {\n            if (linklist[j].indexOf(blacklist[i]) !\u003d\u003d -1) {\n                linklist.splice(j, 1);\n                j--;\n            }\n        }\n    }\n    return linklist;\n}\n\nfunction main(a) {\n    var b \u003d blacklist(qinqiutou(shaixuan(qvzi(a))));\n    if (b.length !\u003d\u003d 0) {\n        return b.join(\",\");\n    } else {\n        return \"No links\";\n    }\n}\n\n// 示例调用\nmain(`{replaceResult}`);",
     "customContextDataKey": {
       "keys": [{
         "first": "jsRet",
@@ -158,6 +158,27 @@
       }],
       "description": "nolinks",
       "id": "Case-7bd658d3-aec9-4633-9a01-971c682dfd6b",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "IsEmpty",
+        "varName": "jsRet",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-08928e8e-e6b8-42f9-aa6b-08429ca45348"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-9c1b5eae-872f-4e59-8c09-ff654485f465"
+      }],
+      "description": "error",
+      "id": "Case-d1f6f300-c91f-40dd-bc54-88f64773e048",
       "isBreak": true
     }, {
       "case": [{
@@ -2128,126 +2149,128 @@
     },
     "id": "A-aa622a08-3953-4346-8bf7-2c9d4b61cbbd"
   }],
-  "id": "SHARE-rule-9decf3e7-37d7-4f31-8c89-d53ebb567a25",
-  "lastUpdateTime": "1747578380393",
+  "id": "SHARE-rule-84e5afbe-7f05-4a64-a7f0-549e5f9110af",
+  "lastUpdateTime": "1750852587082",
   "createTime": "1723386652518",
   "author": {
     "name": "nyehueh"
   },
-  "title": "链接提取综合2.4 Beta",
+  "title": "链接提取综合2.5 Beta",
   "description": "高自定义的链接快速打开指令",
   "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
-      "@type": "type.googleapis.com/ShowAlertDialog",
-      "positive": "继续",
-      "onPositive": [{
-        "@type": "type.googleapis.com/CreateLocalVar",
-        "localVar": {
-          "name": "test",
-          "type": {
-            "@type": "type.googleapis.com/StringVar"
-          }
-        },
-        "customContextDataKey": {
-        },
-        "id": "A-acc572b5-da85-466f-a7ae-3861b230ec5b"
-      }, {
-        "@type": "type.googleapis.com/SwitchCase",
-        "case": [{
-          "case": [{
-            "@type": "type.googleapis.com/True",
-            "customContextDataKey": {
-            },
-            "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
-          }],
-          "action": [{
-            "@type": "type.googleapis.com/ShellCommand",
-            "command": "echo true",
-            "customContextDataKey": {
-            },
-            "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
-          }, {
-            "@type": "type.googleapis.com/WriteLocalVar",
-            "varName": "test",
-            "valueAsString": "{shellOut}",
-            "customContextDataKey": {
-            },
-            "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
-          }],
-          "description": "2",
-          "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
-        }, {
-          "case": [{
-            "@type": "type.googleapis.com/True",
-            "customContextDataKey": {
-            },
-            "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
-          }],
-          "action": [{
-            "@type": "type.googleapis.com/Delay",
-            "timeString": "300",
-            "customContextDataKey": {
-            },
-            "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
-          }, {
-            "@type": "type.googleapis.com/IfThenElse",
-            "If": [{
-              "@type": "type.googleapis.com/EvaluateLocalVar",
-              "op": "EqualTo",
-              "varName": "test",
-              "payload": {
-                "value": "true"
-              },
-              "customContextDataKey": {
-              },
-              "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
-            }],
-            "IfActions": [{
-              "@type": "type.googleapis.com/ShowToast",
-              "message": "shell正常",
-              "customContextDataKey": {
-              },
-              "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
-            }],
-            "ElseActions": [{
-              "@type": "type.googleapis.com/ShowAlertDialog",
-              "positive": "确定",
-              "onPositive": [{
-                "@type": "type.googleapis.com/ShowToast",
-                "message": "shell异常时选择应用打开功能不可用",
-                "customContextDataKey": {
-                },
-                "id": "A-388dddc8-ce35-424c-8a8b-a160020c2a10"
-              }],
-              "title": "shell运行异常",
-              "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
-              "cancelable": true,
-              "style": {
-              },
-              "customContextDataKey": {
-              },
-              "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
-            }],
-            "customContextDataKey": {
-            },
-            "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
-          }],
-          "description": "1",
-          "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
-        }],
-        "customContextDataKey": {
-        },
-        "id": "A-2b567395-151b-4af8-9422-13e48a16a39d"
-      }],
-      "title": "使用说明",
-      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)，shell不正常时选择应用打开无效\n4.顶级域名列表，邮箱列表，提取码关键词词列表，仅HTTPS可用列表可在指令参数处自定义\n5.部分系统状态栏chlip可能无法正常显示，请在指令参数出切换显示模式为浮窗\n6.小窗打开功能需要没有中转层才可正常使用（如：空浏览,其他浏览器打开等）\n7.选中提取功能可能需要手动重命名并选择一下上下文菜单触发器\n8.自定义应用打开方式为空浏览时将使用空浏览app做链接分发，修改后不影响自适应应用打开（小窗），小窗仍为系统分发，无需将空浏览app设置为默认浏览器，设置空浏览为默认浏览器后会导致自适应应用打开（小窗）功能在调用浏览器时全屏",
-      "cancelable": true,
-      "style": {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "importPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportPackage(android.util);\nimportPackage(java.lang);\n\nfunction runOnUiThread(fn) {\n    new Handler(Looper.getMainLooper()).post(new Runnable({ run: fn }));\n}\n\nrunOnUiThread(function () {\n    var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n    var layout \u003d new LinearLayout(context);\n    layout.setOrientation(LinearLayout.VERTICAL);\n    layout.setBackgroundColor(Color.TRANSPARENT);\n\n    var backgroundDrawable \u003d new android.graphics.drawable.GradientDrawable();\n    backgroundDrawable.setColor(Color.WHITE);\n    backgroundDrawable.setCornerRadius(50);\n    layout.setBackground(backgroundDrawable);\n    layout.setPadding(40, 40, 40, 40);\n\n    var layoutParams \u003d new WindowManager.LayoutParams(\n        1000,\n        2000,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        PixelFormat.TRANSLUCENT\n    );\n    layoutParams.gravity \u003d Gravity.CENTER;\n    var titleView \u003d new TextView(context);\n    titleView.setText(\"使用说明\");\n    titleView.setTextSize(22);\n    titleView.setTextColor(Color.BLACK);\n    titleView.setGravity(Gravity.CENTER);\n    titleView.setPadding(0, 0, 0, 20);\n    layout.addView(titleView);\n    var scrollView \u003d new ScrollView(context);\n    var scrollParams \u003d new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.MATCH_PARENT,\n        0,\n        1 \n    );\n    scrollView.setLayoutParams(scrollParams);\n\n    var textView \u003d new TextView(context);\n    textView.setText(\"1.使用前请确定shell正常\\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)，shell不正常时选择应用打开无效\\n2.顶级域名列表，邮箱列表，提取码关键词词列表，仅HTTPS可用列表可在指令参数处自定义\\n3.部分系统状态栏chlip可能无法正常显示，请在指令参数出切换显示模式为浮窗\\n4.小窗打开功能需要没有中转层才可正常使用（如：空浏览,其他浏览器打开等），ColorOS因系统魔改严重暂不支持，会以全屏打开\\n5.选中提取功能可能需要手动重命名并选择一下上下文菜单触发器\\n6.自定义应用打开方式为空浏览时将使用空浏览app做链接分发，修改后不影响自适应应用打开（小窗），小窗仍为系统分发，无需将空浏览app设置为默认浏览器，设置空浏览为默认浏览器后会导致自适应应用打开（小窗）功能在调用浏览器时全屏\");\n    textView.setTextSize(18);\n    textView.setTextColor(Color.DKGRAY);\n    textView.setGravity(Gravity.LEFT);\n    scrollView.addView(textView);\n    layout.addView(scrollView);\n    var buttonLayout \u003d new LinearLayout(context);\n    buttonLayout.setOrientation(LinearLayout.HORIZONTAL);\n    buttonLayout.setGravity(Gravity.CENTER);\n    buttonLayout.setPadding(0, 30, 0, 0);\n    layout.addView(buttonLayout);\n\n    var closeButton \u003d new Button(context);\n    closeButton.setText(\"下一步 (5)\");\n    closeButton.setTextColor(Color.WHITE);\n    closeButton.setEnabled(false); // 初始不可用\n\n    function createRoundedDrawable(color) {\n        var drawable \u003d new android.graphics.drawable.GradientDrawable();\n        drawable.setColor(color);\n        drawable.setCornerRadius(30); // 圆角\n        return drawable;\n    }\n    closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#BDBDBD\")));\n\n    buttonLayout.addView(closeButton);\n    var secondsRemaining \u003d 5;\n    var handler \u003d new Handler();\n    var countdownRunnable \u003d new Runnable({\n        run: function () {\n            secondsRemaining--;\n            if (secondsRemaining \u003e 0) {\n                closeButton.setText(\"下一步 (\" + secondsRemaining + \")\");\n                handler.postDelayed(this, 1000);\n            } else {\n                closeButton.setEnabled(true);\n                closeButton.setText(\"下一步\");\n                closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#08C661\"))); \n            }\n        }\n    });\n    handler.postDelayed(countdownRunnable, 1000);\n\n    closeButton.setOnClickListener(new View.OnClickListener({\n        onClick: function () {\n            if (!closeButton.isEnabled()) return;\n            var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                .setVarName(\"next\")\n                .setValueAsString(\"true\")\n                .build();\n            shortx.executeAction(writeLocalVar);\n            try {\n                windowManager.removeView(layout);\n            } catch (e) {}\n        }\n    }));\n\n    try {\n        windowManager.addView(layout, layoutParams);\n    } catch (e) {\n        console.log(\"添加视图失败：\" + e);\n    }\n});",
+      "context": "CoroutineContext_UI",
+      "customContextDataKey": {
+      },
+      "note": "倒计时对话框（使用说明）",
+      "id": "A-4a117b47-bbdf-415a-8a8b-18509284b947"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "test",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
       },
       "customContextDataKey": {
       },
-      "id": "A-56c14bda-039c-4f72-98ba-d50d4c36a4fa"
+      "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo true",
+          "customContextDataKey": {
+          },
+          "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "test",
+          "valueAsString": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
+        }],
+        "description": "2",
+        "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "300",
+          "customContextDataKey": {
+          },
+          "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "test",
+            "payload": {
+              "value": "true"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "shell正常",
+            "customContextDataKey": {
+            },
+            "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "确定",
+            "onPositive": [{
+              "@type": "type.googleapis.com/SetRuleEnabled",
+              "ruleId": "rule-98f8b5fd-8577-4be9-b809-f4b1b84ed7fa",
+              "customContextDataKey": {
+              },
+              "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Root",
+              "customContextDataKey": {
+              },
+              "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+            }],
+            "title": "shell运行异常",
+            "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+            "cancelable": true,
+            "style": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+        }],
+        "description": "1",
+        "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
     }]
   },
   "quit": {
