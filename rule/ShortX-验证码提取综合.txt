@@ -787,6 +787,41 @@
       "note": "执行动作",
       "id": "A-e858bad5-5265-4436-80da-9f368077172f"
     }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "识别模式",
+        "payload": {
+          "value": "通知"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-873caaad-aab2-4c4a-b74a-10980e2adf0e"
+      }, {
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "pkgName",
+        "payload": {
+          "value": "com.android.mms"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-b57c9bb0-e6fa-4b8d-bd5c-ac53c23d7f34"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-27fc0835-b70b-42e4-8308-38ebce0a5ccb"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "防止其他app触发的验证码误删短信",
+      "id": "A-54f640cc-3b9b-4716-9920-3559d31ff7b4"
+    }, {
       "@type": "type.googleapis.com/SwitchCase",
       "case": [{
         "case": [{
@@ -883,8 +918,8 @@
     "note": "输入mvel中匹配到的验证码",
     "id": "A-03417dcd-2dc6-42a9-815b-34c81719e460"
   }],
-  "id": "SHARE-rule-32271676-027f-4639-9349-0a26c54d1776",
-  "lastUpdateTime": "1750952302400",
+  "id": "SHARE-rule-1a22fcff-5023-4c3b-a13c-72c2b883c27e",
+  "lastUpdateTime": "1750953579297",
   "createTime": "1689214148528",
   "author": {
     "name": "nyehueh"
