@@ -234,17 +234,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-9decf3e7-37d7-4f31-8c89-d53ebb567a25",
-      "fileUrl": "ShortX-链接提取综合2.4_Beta.txt",
-      "title": "链接提取综合2.4 Beta",
-      "description": "高自定义的链接快速打开指令",
-      "versionCode": 1,
-      "updateTimeMillis": 1747578380393,
-      "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-8f1a5a71-6a0a-4371-8259-22fe2da7b369",
       "fileUrl": "ShortX-恋爱辅助.txt",
       "title": "恋爱辅助",
@@ -296,6 +285,17 @@
       "versionCode": 0,
       "updateTimeMillis": 1726051081836,
       "author": "He",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARE-rule-84e5afbe-7f05-4a64-a7f0-549e5f9110af",
+      "fileUrl": "ShortX-链接提取综合2.5_Beta.txt",
+      "title": "链接提取综合2.5 Beta",
+      "description": "高自定义的链接快速打开指令",
+      "versionCode": 1,
+      "updateTimeMillis": 1750852587082,
+      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
