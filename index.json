@@ -166,12 +166,12 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-560afd30-4017-471c-bdc8-6094e124889a",
+      "id": "SHARED-DA-f97c443c-121e-460a-98af-f335c41545b0",
       "fileUrl": "ShortX-Noactive高级设置.txt",
       "title": "Noactive高级设置",
       "description": "配置大师配置和fcm",
       "versionCode": 1,
-      "updateTimeMillis": 1749046164476,
+      "updateTimeMillis": 1753711307256,
       "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -311,6 +311,17 @@
       "requireMinShortXProtoVersion": 0
     },
     {
+      "id": "SHARE-rule-a86d455e-195c-4b6c-88d9-bdbc1661c13f",
+      "fileUrl": "ShortX-临时性图片_视频_2.7_Beta.txt",
+      "title": "临时性图片/视频 2.7 Beta",
+      "description": "自动移除临时性图片/视频",
+      "versionCode": 1,
+      "updateTimeMillis": 1753510658345,
+      "author": "nyehueh",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
       "id": "rule-44ce2d5a-e67c-475d-af60-95a51d4dc308",
       "fileUrl": "ShortX-剪切板助手v1.0.7.txt",
       "title": "剪切板助手v1.0.7",
@@ -417,17 +428,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1735580909749,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-6004e11d-950b-47b0-96d9-f0160b799325",
-      "fileUrl": "ShortX-临时性图片_视频_2.6_Beta.txt",
-      "title": "临时性图片/视频 2.6 Beta",
-      "description": "自动移除临时性图片/视频",
-      "versionCode": 1,
-      "updateTimeMillis": 1749535430232,
-      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -582,6 +582,39 @@
       "versionCode": 6,
       "updateTimeMillis": 1696850479780,
       "author": "Rarlya",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARE-rule-59081317-3cbb-4926-adce-0a5e80d1c08a",
+      "fileUrl": "ShortX-验证码浮窗.txt",
+      "title": "验证码浮窗",
+      "description": "显示验证码浮窗，点击输入",
+      "versionCode": 1,
+      "updateTimeMillis": 1751243067515,
+      "author": "nyehueh",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARE-rule-e6a972ca-18f3-4d64-b45c-bbd8346bb0d1",
+      "fileUrl": "ShortX-链接流体云2.7.txt",
+      "title": "链接流体云2.7",
+      "description": "⬆️点击上方图标→执行动作，进入设置页",
+      "versionCode": 1,
+      "updateTimeMillis": 1753607122536,
+      "author": "nyehueh",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARE-rule-beec02c9-c62e-4b05-89b7-c42a1226b89a",
+      "fileUrl": "ShortX-外卖焦点通知上状态栏.txt",
+      "title": "外卖焦点通知上状态栏",
+      "description": "配合HyperCeiler的移除焦点通知白名单功能可将外卖焦点通知显示在状态栏",
+      "versionCode": 1,
+      "updateTimeMillis": 1753435268635,
+      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
