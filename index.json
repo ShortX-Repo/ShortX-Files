@@ -476,6 +476,17 @@
       "requireMinShortXProtoVersion": 0
     },
     {
+      "id": "SHARE-rule-d6cedfd2-2b18-4c22-a72b-04a83259048a",
+      "fileUrl": "ShortX-整点报时.txt",
+      "title": "整点报时",
+      "description": "",
+      "versionCode": 1,
+      "updateTimeMillis": 1756873547122,
+      "author": "李亦心",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
       "id": "rule-6e0cad9a-a822-4eee-a6d0-5db5cb5c7130",
       "fileUrl": "ShortX-自动VPN_v1.1.1.txt",
       "title": "自动VPN_v1.1.1",
