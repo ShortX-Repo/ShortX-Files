@@ -1,0 +1,66 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+    },
+    "end": {
+      "hour": 23
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "3600000"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-46ec75e1-b091-4602-b134-15abd8e0f7e8"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "time",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-7781a747-f4ed-4616-97d2-2225f0b8328b"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "time",
+    "valueAsString": "%CurrentTimeFormated%",
+    "customContextDataKey": {
+    },
+    "id": "A-e8808dd7-af18-405e-b477-84354e36b8ad"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "hour \u003d localVarOf$time.split(\" \")[1].split(\":\")[0];",
+    "customContextDataKey": {
+    },
+    "id": "A-644444ef-c32b-42f0-b0f6-04dcb1507297"
+  }, {
+    "@type": "type.googleapis.com/TTS",
+    "text": "现在是北京时间{mvelRet}点整",
+    "customContextDataKey": {
+    },
+    "id": "A-f4ff7826-5889-489b-8445-519b323cbfdb"
+  }],
+  "id": "SHARE-rule-d6cedfd2-2b18-4c22-a72b-04a83259048a",
+  "lastUpdateTime": "1756873547122",
+  "createTime": "1756871220192",
+  "author": {
+    "name": "李亦心"
+  },
+  "title": "整点报时",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
