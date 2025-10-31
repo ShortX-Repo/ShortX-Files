@@ -9,7 +9,18 @@
     }],
     "customContextDataKey": {
     },
-    "id": "F-9fa12b39-06c5-4868-bce3-f029dc143dfb"
+    "id": "SHARE-rule-30a70e5c-00db-46f0-8f04-3ea516aedb14"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/AppHasWindowFocus",
+    "pkgs": [{
+      "pkgName": "com.finshell.wallet"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-2f545bd6-7150-477a-a894-8836a780210d"
   }],
   "actions": [{
     "@type": "type.googleapis.com/IfThenElse",
@@ -39,20 +50,20 @@
     },
     "id": "A-72a79018-e663-496e-9e5b-b2ee95bc5509"
   }],
-  "id": "SHARE-rule-30a70e5c-00db-46f0-8f04-3ea516aedb14",
-  "lastUpdateTime": "1747783298118",
+  "id": "SHARE-rule-521b4f7d-1f02-4e4b-b332-e775325be423",
+  "lastUpdateTime": "1761918746627",
   "createTime": "1747752249519",
   "author": {
-    "name": "Victorious"
+    "name": "V"
   },
   "title": "Color OS双击电源打开相机",
-  "description": "替换Color OS双击电源打开钱包-NFC刷卡页的行为，适用于一加手机",
+  "description": "替换Color OS双击电源打开钱包-NFC刷卡页的行为。钱包应用在前台的时候不触发。",
   "isEnabled": true,
   "hook": {
   },
   "quit": {
   },
-  "versionCode": "1.0",
+  "versionCode": "1.1",
   "conflictPolicy": "ConflictStrategy_SkipNew"
 }
 ###------###
