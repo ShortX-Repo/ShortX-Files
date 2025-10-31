@@ -9,7 +9,7 @@
     }],
     "customContextDataKey": {
     },
-    "id": "SHARE-rule-30a70e5c-00db-46f0-8f04-3ea516aedb14"
+    "id": "F-9fa12b39-06c5-4868-bce3-f029dc143dfb"
   }],
   "conditions": [{
     "@type": "type.googleapis.com/AppHasWindowFocus",
