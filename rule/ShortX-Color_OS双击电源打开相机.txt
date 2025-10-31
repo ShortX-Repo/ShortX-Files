@@ -50,7 +50,7 @@
     },
     "id": "A-72a79018-e663-496e-9e5b-b2ee95bc5509"
   }],
-  "id": "SHARE-rule-521b4f7d-1f02-4e4b-b332-e775325be423",
+  "id": "SHARE-rule-30a70e5c-00db-46f0-8f04-3ea516aedb14",
   "lastUpdateTime": "1761918746627",
   "createTime": "1747752249519",
   "author": {
