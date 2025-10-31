@@ -54,7 +54,7 @@
   "lastUpdateTime": "1761918746627",
   "createTime": "1747752249519",
   "author": {
-    "name": "V"
+    "name": "Victorious"
   },
   "title": "Color OS双击电源打开相机",
   "description": "替换Color OS双击电源打开钱包-NFC刷卡页的行为。钱包应用在前台的时候不触发。",
