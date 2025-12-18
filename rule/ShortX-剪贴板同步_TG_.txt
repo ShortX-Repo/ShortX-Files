@@ -1,0 +1,165 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "tag": "剪贴板",
+    "customContextDataKey": {
+    },
+    "id": "F-a3ff31ff-3cb3-47f9-9c2f-a5aec97992a4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://globalVarOf$tg_api/botglobalVarOf$tg_token/sendMessage",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter"
+    },
+    "method": "POST",
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n \"chat_id\":\"globalVarOf$tg_id\",\n \"parse_mode\":\"MarkDown\",\n \"text\":\"{clipboardContent}\"\n}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-fa8df2e3-6f59-4b94-aec9-476bf2277494"
+  }],
+  "id": "SHARE-rule-0fa51c39-72e8-428b-9e5d-3ad635ad89e7",
+  "lastUpdateTime": "1766087945262",
+  "createTime": "1744567749161",
+  "author": {
+    "name": "二次寒树"
+  },
+  "title": "剪贴板同步(TG)",
+  "description": "剪贴板变化自动发送到TG机器人",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "tg_api",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "剪贴板同步(TG)"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c5f30b25-45d9-4789-ad27-85b214e7350b"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "tg_token",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "剪贴板同步(TG)"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-299e6881-16a1-4fff-a673-b4b9193c6db8"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "tg_id",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "剪贴板同步(TG)"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0c428131-7245-47b3-92fb-6af6be9e51a9"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "确认",
+      "message": "如果你有自己的域名，推荐vercel反代tg api，无需代理且连接稳定\n\ngithub新建仓库→根目录创建vercel.json写入以下内容→在vercel部署项目(需要绑自己域名)\n\n{\n    \"version\": 2,\n    \"routes\": [\n      {\"src\": \"/(.*)\",\"dest\": \"https://api.telegram.org\"}\n    ]\n}",
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b33c77ed-25a6-4cc6-826f-fc72c6335c2d"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "参数设置",
+      "textFields": [{
+        "placeholder": "TG api 接口",
+        "value": "api.telegram.org"
+      }, {
+        "placeholder": "TG bot token"
+      }, {
+        "placeholder": "TG 用户 id"
+      }],
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-74197b0e-4564-492f-9a96-cc314bafaed5"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "tg_api",
+      "valueAsString": "{textFieldInput1}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-05d081fa-6c17-4581-b863-b68b37104eb4"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "tg_token",
+      "valueAsString": "{textFieldInput2}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-a6c17887-b418-477e-acac-78ab70eea84b"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "tg_id",
+      "valueAsString": "{textFieldInput3}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-6da55077-3b07-485e-ac73-9af9bd713f76"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "tg_api",
+      "customContextDataKey": {
+      },
+      "id": "A-5270cccd-063e-456d-bedf-779fae1658bf"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "tg_token",
+      "customContextDataKey": {
+      },
+      "id": "A-3c0ac368-a068-4c08-99f7-07f326b717b4"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "tg_id",
+      "customContextDataKey": {
+      },
+      "id": "A-a387d481-4fa6-4264-b5f2-5ccd1107afef"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "tg_api",
+      "customContextDataKey": {
+      },
+      "id": "A-5bd496a8-9236-4ce0-b28f-9d61e9c62139"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "tg_token",
+      "customContextDataKey": {
+      },
+      "id": "A-f37858c8-3219-4329-8b64-7bb9b7b4a84e"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "tg_id",
+      "customContextDataKey": {
+      },
+      "id": "A-47d66601-4d9a-4518-9304-c83e3f339522"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
