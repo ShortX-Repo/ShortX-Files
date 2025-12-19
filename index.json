@@ -399,6 +399,17 @@
       "requireMinShortXProtoVersion": 0
     },
     {
+      "id": "SHARE-rule-228357cb-305d-4422-8740-8f3905f51254",
+      "fileUrl": "ShortX-微信自动记账2.1.txt",
+      "title": "微信自动记账2.0",
+      "description": "",
+      "versionCode": 1,
+      "updateTimeMillis": 1766138030092,
+      "author": "FTReey@cooapk",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
       "id": "rule-44ce2d5a-e67c-475d-af60-95a51d4dc308",
       "fileUrl": "ShortX-剪切板助手v1.0.7.txt",
       "title": "剪切板助手v1.0.7",
