@@ -366,6 +366,17 @@
       "requireMinShortXProtoVersion": 0
     },
     {
+      "id": "SHARE-rule-ce3e9353-1e9b-48ed-83cd-a81074b24b69",
+      "fileUrl": "ShortX-dex2oat.txt",
+      "title": "dex2oat",
+      "description": "应用安装/更新自动dex2oat编译",
+      "versionCode": 1,
+      "updateTimeMillis": 1766086238850,
+      "author": "二次寒树",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
       "id": "rule-066c2825-24f7-48e2-b7cd-baa5695bf672",
       "fileUrl": "ShortX-米游社签到1.8.txt",
       "title": "米游社签到1.8",
@@ -593,6 +604,17 @@
       "versionCode": 1,
       "updateTimeMillis": 1747010392546,
       "author": "ritajiuzu@outlook.com",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARE-rule-0fa51c39-72e8-428b-9e5d-3ad635ad89e7",
+      "fileUrl": "ShortX-剪贴板同步_TG_.txt",
+      "title": "剪贴板同步(TG)",
+      "description": "剪贴板变化自动发送到TG机器人",
+      "versionCode": 1,
+      "updateTimeMillis": 1766087945262,
+      "author": "二次寒树",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
