@@ -1,0 +1,108 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-f49d8edf-7767-430a-b49b-e6d7facbc042"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.lite.ui.WxaLiteAppTransparentLiteUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-cf7ae7c0-956d-40cd-8aac-7ddd628c2de8"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-471cd4ea-37b4-44ca-97a4-3b28c209a9f8",
+    "isDisabled": true
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.lite.ui.WxaLiteAppTransparentLiteUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-87baf929-3292-4afc-a9d6-fa5383431ab3",
+    "isDisabled": true
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentActivity",
+    "activities": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.lite.ui.WxaLiteAppTransparentLiteUI"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-f1a99d25-c025-45b4-8b7c-39cc1c7f395e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WaitForIdle",
+    "customContextDataKey": {
+    },
+    "id": "A-17aece80-3328-4791-a4e2-82022f8f96ac"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#①一键闪记，无振动，有彩框\nam start-foreground-service -p \"com.coloros.colordirectservice\" --ei \"triggerType\" 1",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-194cc173-f8e5-484d-af23-ec8c6f7f0f5a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#②同三指上滑，震一下，有彩框\nam start-foreground-service -p \"com.coloros.colordirectservice\" --ei \"triggerType\" 2",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-6836d52e-d70b-41a4-b770-e18a0a3a2939"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#③静默（无框，无声），仅顶部提示\nam start-foreground-service -p \"com.coloros.colordirectservice\" --ei \"triggerType\" 12",
+    "customContextDataKey": {
+    },
+    "id": "A-4d702946-afef-4710-8758-c9390031dcd3"
+  }],
+  "id": "SHARE-rule-228357cb-305d-4422-8740-8f3905f51254",
+  "lastUpdateTime": "1766138030092",
+  "createTime": "1766091739192",
+  "author": {
+    "name": "FTReey@cooapk"
+  },
+  "title": "微信自动记账2.0",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
