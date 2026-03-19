@@ -311,6 +311,17 @@
       "requireMinShortXProtoVersion": 0
     },
     {
+      "id": "SHARE-rule-92a3839f-0200-4527-a462-00e256b64587",
+      "fileUrl": "ShortX-检测剪贴板有m3u8链接转跳mxplay播放.txt",
+      "title": "检测剪贴板有m3u8链接转跳mxplay播放",
+      "description": "",
+      "versionCode": 1,
+      "updateTimeMillis": 1770368217300,
+      "author": "ShortX",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
       "id": "rule-171fa653-24a4-4b52-8614-448a1bea21f9",
       "fileUrl": "ShortX-出站关闭NFC.txt",
       "title": "出站关闭NFC",
