@@ -24,7 +24,7 @@ dependencies {
     implementation(protoBufUtil)
     implementation(protoBuf)
 
-    implementation(files("libs/core.jar"))
+    implementation(files("libs/core-api.jar"))
 
     testImplementation(kotlin("test"))
 }

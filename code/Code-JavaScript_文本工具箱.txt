@@ -1,0 +1,16 @@
+{
+  "id": "CODELIB-7a1f2b44-3d8e-4eb3-a8f7-12fd9fb9a202",
+  "name": "JavaScript 文本工具箱",
+  "description": "常用字符串拼接和时长格式化函数示例。",
+  "type": "CodeType_JAVASCRIPT",
+  "content": "function joinNotBlank(list, sep) {\n  var out = [];\n  if (!list) return \"\";\n  for (var i = 0; i < list.length; i++) {\n    var value = list[i];\n    if (value !== null && value !== undefined) {\n      var text = String(value).trim();\n      if (text.length > 0) {\n        out.push(text);\n      }\n    }\n  }\n  return out.join(sep || \", \");\n}\n\nfunction formatDuration(ms) {\n  var total = Math.max(0, Math.floor((ms || 0) / 1000));\n  var hours = Math.floor(total / 3600);\n  var minutes = Math.floor((total % 3600) / 60);\n  var seconds = total % 60;\n  var parts = [];\n  if (hours > 0) parts.push(hours + \"h\");\n  if (minutes > 0) parts.push(minutes + \"m\");\n  parts.push(seconds + \"s\");\n  return parts.join(\" \");\n}",
+  "createdAt": "1773888000000",
+  "updatedAt": "1773888000000",
+  "tags": [
+    "example",
+    "javascript",
+    "text"
+  ]
+}
+###------###
+{"type":"CodeLibraryItem","author":"ShortX"}

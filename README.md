@@ -1,6 +1,6 @@
 # ShortX Repo
 
-这是ShortX发现页面的在线指令数据仓库，指令更新时，通过Github Action自动创建PR更新Index文件。
+这是ShortX发现页面的在线一键指令、自动指令和代码库数据仓库，内容更新时，通过Github Action自动创建PR更新Index文件。
 
 [![Update index](https://github.com/ShortX-Repo/ShortX-Files/actions/workflows/update_index.yml/badge.svg)](https://github.com/ShortX-Repo/ShortX-Files/actions/workflows/update_index.yml)
 
@@ -19,15 +19,19 @@
 
 `index.json`
 
-这是指令的索引文件，记录了所有一键指令和自动指令的基础信息以及其url
+这是索引文件，记录了所有一键指令、自动指令和代码库的基础信息以及其url
 
 `da`
 
 这是放一键指令的目录，每个指令对应一个文件，可以通过App分享功能直接生成文件。
 
-`rules`
+`rule`
 
 这是放自动指令的目录，每个指令对应一个文件，可以通过App分享功能直接生成文件。
+
+`code`
+
+这是放代码库的目录，每个代码库对应一个文件。可以通过App里的代码库分享功能导出，再按需调整内容。
 
 
 ## 版本控制
