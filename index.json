@@ -1,17 +1,6 @@
 {
   "directActions": [
     {
-      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
-      "fileUrl": "ShortX-设置项监视器_4.4.txt",
-      "title": "设置项监视器 4.4",
-      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
-      "versionCode": 8,
-      "updateTimeMillis": 1729245841948,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-dd970e86-d75c-45ae-937c-fe5788f48d27",
       "fileUrl": "ShortX-早安祝福_模板_.txt",
       "title": "早安祝福（模板）",
@@ -140,17 +129,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1697092423054,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "DA34ba9a3f-12ce-4dac-9d21-43019977edb5",
-      "fileUrl": "ShortX-获取经纬度判断是否在家.txt",
-      "title": "获取经纬度判断是否在家",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1706088858561,
-      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -287,17 +265,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
-      "fileUrl": "ShortX-设置项监视器_2.0.txt",
-      "title": "设置项监视器 2.0",
-      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
-      "versionCode": 2,
-      "updateTimeMillis": 1728726764194,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-aad4594a-a475-4e10-b3a1-6825b1cf8026",
       "fileUrl": "ShortX-本地图片展示.txt",
       "title": "本地图片展示",
@@ -338,28 +305,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1702779853772,
       "author": "XFiend",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "DA312fa1a8-9ac7-40a0-9cb2-e949a4e37572",
-      "fileUrl": "ShortX-快递查询.txt",
-      "title": "快递查询",
-      "description": "不要频繁查询，会被拉黑IP\n需要Termux以及安装相关库:\npkg install python3 -y\npip install requests\npip install beautifulsoup4",
-      "versionCode": 1,
-      "updateTimeMillis": 1702739628806,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
-      "fileUrl": "ShortX-设置项监视器_4.2.txt",
-      "title": "设置项监视器 4.2",
-      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
-      "versionCode": 6,
-      "updateTimeMillis": 1729134837919,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -448,17 +393,6 @@
       "versionCode": 0,
       "updateTimeMillis": 1689414154622,
       "author": "",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
-      "fileUrl": "ShortX-设置项监视器_4.3.txt",
-      "title": "设置项监视器 4.3",
-      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
-      "versionCode": 7,
-      "updateTimeMillis": 1729243082528,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -650,17 +584,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
-      "fileUrl": "ShortX-设置项监视器_4.0.txt",
-      "title": "设置项监视器 4.0",
-      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
-      "versionCode": 5,
-      "updateTimeMillis": 1728736632200,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-6e47832e-8a90-4416-b32c-850a8f157a3a",
       "fileUrl": "ShortX-Show_and_open_rencent_app.txt",
       "title": "Show and open rencent app",
@@ -749,17 +672,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
-      "fileUrl": "ShortX-获取已保存wifi密码_-_去重.txt",
-      "title": "获取已保存wifi密码 - 去重",
-      "description": "基于mvel",
-      "versionCode": 1,
-      "updateTimeMillis": 1691452793746,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "DA1648493a-8a58-498d-bfe9-b6449182acce",
       "fileUrl": "ShortX-切换刷新率.txt",
       "title": "切换刷新率",
@@ -793,17 +705,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-4e7ac850-c1b9-4f53-b011-a83911ffddf2",
-      "fileUrl": "ShortX-WIFI (1).txt",
-      "title": "WIFI 🛜",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1760185262399,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-73c99635-6da0-4e23-8554-a2a3fe01cbfb",
       "fileUrl": "ShortX-Sync_toggle_button.txt",
       "title": "Sync toggle button",
@@ -815,17 +716,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
-      "fileUrl": "ShortX-设置项监视器_3.0.txt",
-      "title": "设置项监视器 3.0",
-      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
-      "versionCode": 3,
-      "updateTimeMillis": 1728730486217,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-1c28abf7-0de0-4185-af19-636eea90afde",
       "fileUrl": "ShortX-toggle_wifi.txt",
       "title": "toggle wifi",
@@ -833,6 +723,17 @@
       "versionCode": 1,
       "updateTimeMillis": 1759934673775,
       "author": "A.K",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARED-DA-4e7ac850-c1b9-4f53-b011-a83911ffddf2",
+      "fileUrl": "ShortX-WIFI.txt",
+      "title": "WIFI 🛜",
+      "description": "",
+      "versionCode": 1,
+      "updateTimeMillis": 1760185262399,
+      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -859,17 +760,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
-      "fileUrl": "ShortX-获取已经保存的wifi密码.txt",
-      "title": "获取已经保存的wifi密码",
-      "description": "基于mvel",
-      "versionCode": 1,
-      "updateTimeMillis": 1691414142330,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-1e21599f-6dbd-4fc1-90b5-693f47983f26",
       "fileUrl": "ShortX-直到条件满足.txt",
       "title": "直到条件满足",
@@ -888,17 +778,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1741933514310,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
-      "fileUrl": "ShortX-设置项监视器_1.0.txt",
-      "title": "设置项监视器 1.0",
-      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
-      "versionCode": 1,
-      "updateTimeMillis": 1728720751613,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -1145,17 +1024,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-9a91caf6-6f85-4636-b310-0b2b4c8fc5a7",
-      "fileUrl": "ShortX-列表使用示例-最近任务 (1) (1).txt",
-      "title": "列表使用示例-最近任务",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1759089171792,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-a665f003-1a52-4eb1-9dce-c7e4b31c9632",
       "fileUrl": "ShortX-Box4工具箱.txt",
       "title": "Box4工具箱",
@@ -1266,17 +1134,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
-      "fileUrl": "ShortX-设置项监视器_3.5.txt",
-      "title": "设置项监视器 3.5",
-      "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
-      "versionCode": 4,
-      "updateTimeMillis": 1728731943527,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-2abc2cb3-8764-48b3-9841-7a19c9046121",
       "fileUrl": "ShortX-Surfing同步黑名单到双配置.txt",
       "title": "Surfing同步黑名单到双配置",
@@ -1294,17 +1151,6 @@
       "description": "",
       "versionCode": 1,
       "updateTimeMillis": 1697733767625,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARED-DA-db042099-9f31-4725-952f-86b780f71d6f",
-      "fileUrl": "ShortX-case.txt",
-      "title": "case",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1759744606090,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -1453,6 +1299,17 @@
       "requireMinShortXProtoVersion": 0
     },
     {
+      "id": "SHARED-DA-9a91caf6-6f85-4636-b310-0b2b4c8fc5a7",
+      "fileUrl": "ShortX-列表使用示例-最近任务 (1).txt",
+      "title": "列表使用示例-最近任务",
+      "description": "",
+      "versionCode": 1,
+      "updateTimeMillis": 1759089171792,
+      "author": "ShortX",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
       "id": "DA37a8b4f9-9c44-414e-99f4-23bb1bd3ad10",
       "fileUrl": "ShortX-工具类悬浮窗.txt",
       "title": "工具类悬浮窗",
@@ -1481,17 +1338,6 @@
       "description": "",
       "versionCode": 1,
       "updateTimeMillis": 1769306353054,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARED-DA-3cf9fa79-e6f8-4723-bf57-5bd9d2b54b6c",
-      "fileUrl": "ShortX-Shortcuts_快捷方式 (1).txt",
-      "title": "Shortcuts(快捷方式",
-      "description": "3.0版本\n支持全部类型快捷方式\n支持多用户",
-      "versionCode": 3,
-      "updateTimeMillis": 1740054442525,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -1607,17 +1453,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-83746f96-f278-4e75-ad00-1e4bef39fc51",
-      "fileUrl": "ShortX-屏幕文本查找直达 1.0.txt",
-      "title": "屏幕文本查找直达",
-      "description": "1.0版本\n自动滑动屏幕查找指定文本，直达目标；特别适合在不带搜索功能的长列表页面或网页里使用。\n\n使用方法：在待查找的页面里，使用Deeplink功能调用该指令。\n\n音量-，停止查找。",
-      "versionCode": 1,
-      "updateTimeMillis": 1765536834262,
-      "author": "HeWei",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "DAf9cac13c-d15f-4a89-818b-e906cf60eb9d",
       "fileUrl": "ShortX-ShortX自动备份.txt",
       "title": "ShortX自动备份",
@@ -1695,12 +1530,12 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-1ac3fb41-80c6-4abc-80c3-16de753a6fd3",
+      "id": "SHARED-DA-3cf9fa79-e6f8-4723-bf57-5bd9d2b54b6c",
       "fileUrl": "ShortX-Shortcuts_快捷方式.txt",
       "title": "Shortcuts(快捷方式",
       "description": "3.0版本\n支持全部类型快捷方式\n支持多用户",
       "versionCode": 3,
-      "updateTimeMillis": 1739548384484,
+      "updateTimeMillis": 1740054442525,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -1860,34 +1695,12 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-9a91caf6-6f85-4636-b310-0b2b4c8fc5a7",
-      "fileUrl": "ShortX-列表使用示例-最近任务.txt",
-      "title": "列表使用示例-最近任务",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1759089171792,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-db178ab3-92ba-4a9f-aaa7-46efff16a24b",
       "fileUrl": "ShortX-手电筒浮窗.txt",
       "title": "手电筒浮窗",
       "description": "手电筒+浮窗+亮度调节",
       "versionCode": 1,
       "updateTimeMillis": 1760187545051,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "DA679a17f5-e262-4db8-83a3-3c6c5cde900c",
-      "fileUrl": "ShortX-解除屏幕锁.txt",
-      "title": "解除屏幕锁",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1689992382856,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -1965,17 +1778,6 @@
       "description": "",
       "versionCode": 1,
       "updateTimeMillis": 1777425037514,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "DA679a17f5-e262-4db8-83a3-3c6c5cde900c",
-      "fileUrl": "ShortX-亮屏并解锁手机_MIUI专用_需在全局变量中添加名为_锁屏密码_的变量_.txt",
-      "title": "亮屏并解锁手机（MIUI专用，需在全局变量中添加名为“锁屏密码”的变量）",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1690339941751,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -2135,17 +1937,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "DAa41c7d09-7225-4361-9378-95522ae56063",
-      "fileUrl": "ShortX-无水印下载皮皮虾_评论图片.txt",
-      "title": "无水印下载皮皮虾 评论图片",
-      "description": "使用方法 复制图片分享链接 使用此指令即可",
-      "versionCode": 1,
-      "updateTimeMillis": 1700299546259,
-      "author": "XFiend",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARED-DA-788bdf48-caeb-491d-a8ff-db4ee9c28c5e",
       "fileUrl": "ShortX-真实好友_1.4.3.txt",
       "title": "真实好友 1.4.3",
@@ -2230,17 +2021,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1720538542467,
       "author": "Muort",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
-      "fileUrl": "ShortX-13_已保存wifi密码.txt",
-      "title": "13+已保存wifi密码",
-      "description": "基于shell实现",
-      "versionCode": 1,
-      "updateTimeMillis": 1706248336966,
-      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -2641,17 +2421,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARED-DA-39c10e54-a82c-4da0-bc20-5baa00d24f37",
-      "fileUrl": "ShortX-小米步数管理2.1.txt",
-      "title": "小米步数管理2.1",
-      "description": "🏃🏃🏃🏃🏃\n已实现：加减步数、指定步数",
-      "versionCode": 1,
-      "updateTimeMillis": 1729157871346,
-      "author": "零点",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "DA4984ff50-7708-4c2e-8fc1-f0947662e425",
       "fileUrl": "ShortX-Test_get_acc.txt",
       "title": "Test get acc",
@@ -2714,17 +2483,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1771492798079,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "DA7484294a-40fa-4405-883f-a69ad932ebd9",
-      "fileUrl": "ShortX-PlusNE签到.txt",
-      "title": "PlusNE签到",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1710823732029,
-      "author": "HeWei",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -2885,17 +2643,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-9b3fc9f2-47fd-4efe-b19b-0ab45671147b",
-      "fileUrl": "ShortX-验证码流体云 (1).txt",
-      "title": "验证码流体云",
-      "description": "流体云样式显示提取的验证码，点击键入",
-      "versionCode": 4,
-      "updateTimeMillis": 1728192130068,
-      "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-502e006a-285f-4890-906b-279d1c70e0bc",
       "fileUrl": "ShortX-自动开启USB网络共享.txt",
       "title": "自动开启USB网络共享",
@@ -2947,17 +2694,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1762679007932,
       "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-53c01d0f-c4d6-4ac8-8fc0-35518ba2cf64",
-      "fileUrl": "ShortX-调试_应用趋势通知.txt",
-      "title": "[调试]应用趋势通知",
-      "description": "当应用趋势时发送一条通知",
-      "versionCode": 1,
-      "updateTimeMillis": 1696524904697,
-      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -3050,17 +2786,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-e8bc228e-6404-4c0c-bd4d-01ce811bba88",
-      "fileUrl": "ShortX-自动开关clash.txt",
-      "title": "自动开关clash",
-      "description": "clash自动开关\n去clash应用集中添加需要代理APP",
-      "versionCode": 1,
-      "updateTimeMillis": 1695378473976,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-a0edc420-e647-4446-a616-7c7a7c17e197",
       "fileUrl": "ShortX-WIFI_AUTO.txt",
       "title": "WIFI_AUTO",
@@ -3079,17 +2804,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1690164277603,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-f60faaec-da0e-4ee5-af3b-500a9693a8ef",
-      "fileUrl": "ShortX-诗词.txt",
-      "title": "诗词",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1712894045677,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -3633,12 +3347,12 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-ef6f6cae-d611-41bb-8941-7e0151b3c6cf",
+      "id": "SHARE-rule-f82c2718-c1f6-4686-a13f-a4c07e52982a",
       "fileUrl": "ShortX-链接提取综合2.3_Beta.txt",
       "title": "链接提取综合2.3 Beta",
       "description": "高自定义的链接快速打开指令",
       "versionCode": 1,
-      "updateTimeMillis": 1747571643823,
+      "updateTimeMillis": 1747574686411,
       "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -3717,17 +3431,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1751248339932,
       "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-b8595280-2a4b-4fff-8d1e-56a64f1ead9c",
-      "fileUrl": "ShortX-自动记账Pro.txt",
-      "title": "自动记账Pro",
-      "description": "初步适配钱迹",
-      "versionCode": 1,
-      "updateTimeMillis": 1737166255581,
-      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -3875,17 +3578,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-bc2e3a28-3935-496c-819c-cc8a492282ee",
-      "fileUrl": "ShortX-通知过滤_v1.0.txt",
-      "title": "通知过滤 v1.0",
-      "description": "过滤垃圾通知",
-      "versionCode": 1,
-      "updateTimeMillis": 1708562415616,
-      "author": "cong",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-a5648b52-964c-41df-b9a4-ce605c7a99f3",
       "fileUrl": "ShortX-链接流体云3.9.txt",
       "title": "链接流体云3.9",
@@ -3915,28 +3607,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1745473048491,
       "author": "dreamy05",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-421a7519-df3b-4ed1-8093-83a3ab58cd3f",
-      "fileUrl": "ShortX-蓝奏云直链解析.txt",
-      "title": "蓝奏云直链解析",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1703042011943,
-      "author": "Muort",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-dada7157-c91b-4e72-a327-71fe41147bfb",
-      "fileUrl": "ShortX-净化分享链接.txt",
-      "title": "净化分享链接",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1713879086192,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -4025,17 +3695,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1700628297995,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-451d8e68-7744-491a-b433-4679c3f6b7f2",
-      "fileUrl": "ShortX-自动记账Pro(1).txt",
-      "title": "自动记账Pro",
-      "description": "累计消费 ¥globalVarOf$记账 \n今日消费 ¥globalVarOf$记账当天 \n本月消费 ¥globalVarOf$记账本月 \n详细日志目录：/sdcard/Android/自动记账.txt",
-      "versionCode": 1,
-      "updateTimeMillis": 1712412733648,
-      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -4271,17 +3930,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-cf801b7e-c7ab-4bcf-bb7b-0265a155d513",
-      "fileUrl": "ShortX-输入法助手_1.1.txt",
-      "title": "输入法助手(1.1",
-      "description": "例:复制/粘贴\n单击复制，长按粘贴\n第一个复制是全局复制",
-      "versionCode": 1,
-      "updateTimeMillis": 1709778635821,
-      "author": "HeWei",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-ec73dd42-e6be-4070-a822-ca97f5ed033e",
       "fileUrl": "ShortX-超级小爱.txt",
       "title": "超级小爱",
@@ -4321,17 +3969,6 @@
       "description": "",
       "versionCode": 0,
       "updateTimeMillis": 1710439524822,
-      "author": "HeWei",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-b37788e5-e62d-466e-aba7-bf63477f30fd",
-      "fileUrl": "ShortX-ShortX检测更新.txt",
-      "title": "ShortX检测更新",
-      "description": "进入ShortX前台检测更新\n需要curl，如果你系统不自带\n下载Termux，并pkg install curl",
-      "versionCode": 1,
-      "updateTimeMillis": 1710988022786,
       "author": "HeWei",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -4425,17 +4062,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
-      "fileUrl": "ShortX-电量提醒_电流控制_v1.1.txt",
-      "title": "电量提醒/电流控制 v1.1",
-      "description": "2023.12.27",
-      "versionCode": 1,
-      "updateTimeMillis": 1703657846608,
-      "author": "cong",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-61ce407d-2103-4461-8164-e8c521ade0dd",
       "fileUrl": "ShortX-调整亮度后自动_10.txt",
       "title": "调整亮度后自动+10",
@@ -4524,17 +4150,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-e4462102-ac38-48bf-a342-f2a6aa3d7673",
-      "fileUrl": "ShortX-应用焕新_v4.1.txt",
-      "title": "应用焕新 v4.1",
-      "description": "把想检测更新的应用放在应用集\n适合那种在检测源上架，软件没有内置更新并且你追求更新的应用(比如：ShortX\n比较版本号检测\n检测源：\n应用宝✅\n酷安✅\nAppShare✅\n华为应用市场✅\n小米应用商店✅\nvivo应用商店✅\n魅族应用商店✅\n百度手机助手✅\n360手机助手✅\n应用汇✅\n豌豆荚|PP助手✅\n历趣市场✅",
-      "versionCode": 3,
-      "updateTimeMillis": 1727788247074,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-c894284f-656c-4ad2-9d6c-b9ac6afb3d52",
       "fileUrl": "ShortX-蓝牙解锁.txt",
       "title": "蓝牙解锁",
@@ -4575,17 +4190,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1703824604817,
       "author": "HeWei",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-e4462102-ac38-48bf-a342-f2a6aa3d7673",
-      "fileUrl": "ShortX-应用焕新_v4.0.txt",
-      "title": "应用焕新 v4.0",
-      "description": "把想检测更新的应用放在应用集\n适合那种在检测源上架，软件没有内置更新并且你追求更新的应用(比如：ShortX\n比较版本号检测\n检测源：\n应用宝✅\n酷安✅\nAppShare✅\n华为应用市场✅\n小米应用商店✅\nvivo应用商店✅\n魅族应用商店✅\n百度手机助手✅\n360手机助手✅\n应用汇✅\n豌豆荚|PP助手✅\n历趣市场✅",
-      "versionCode": 1,
-      "updateTimeMillis": 1727788247074,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -4641,17 +4245,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1700480295806,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-451d8e68-7744-491a-b433-4679c3f6b7f2",
-      "fileUrl": "ShortX-自动记账Pro (2).txt",
-      "title": "自动记账Pro",
-      "description": "累计消费 ¥globalVarOf$记账 \n今日消费 ¥globalVarOf$记账当天 \n本月消费 ¥globalVarOf$记账本月 \n详细日志目录：/sdcard/Android/自动记账.txt",
-      "versionCode": 1,
-      "updateTimeMillis": 1712413706750,
-      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -4843,17 +4436,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-cbf1d33d-45f3-4d84-b1bf-9a5886af67c6",
-      "fileUrl": "ShortX-支付宝支付自动输密码__.txt",
-      "title": "支付宝支付自动输密码  ",
-      "description": "为root了用不了指纹支付且不装指纹模块的用户提供输密码服务",
-      "versionCode": 1,
-      "updateTimeMillis": 1693996365301,
-      "author": "1",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-7d05e200-08c8-4cac-9ee3-fc85e3c71f40",
       "fileUrl": "ShortX-自动省电模式.txt",
       "title": "自动省电模式",
@@ -4883,17 +4465,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1695702693947,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-6b3a48d8-41da-467a-a0d6-22adb4e98ac8",
-      "fileUrl": "ShortX-有道翻译.txt",
-      "title": "有道翻译",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1697161514379,
-      "author": "我无聊了",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -4964,19 +4535,8 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-8cfa06d5-148c-4c3f-baa5-071ab86bb2ff",
-      "fileUrl": "ShortX-阿里云盘自动签到.txt",
-      "title": "阿里云盘自动签到",
-      "description": "自动签到并领取奖励\n自动获取cookie",
-      "versionCode": 1,
-      "updateTimeMillis": 1753367823842,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-66ed0ca6-2688-40dd-837a-15bbf6355db1",
-      "fileUrl": "ShortX-阿里云盘自动签到 (1).txt",
+      "fileUrl": "ShortX-阿里云盘自动签到.txt",
       "title": "阿里云盘自动签到",
       "description": "自动签到并领取奖励",
       "versionCode": 1,
@@ -5037,17 +4597,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1766484869545,
       "author": "阿然@xin-blog.com",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-65ea881b-0f42-4349-a813-cf00c170db25",
-      "fileUrl": "ShortX-消息转发至TGBot (4).txt",
-      "title": "消息转发至TGBot",
-      "description": "将指定应用的通知消息转发至TGBot",
-      "versionCode": 5,
-      "updateTimeMillis": 1701421818435,
-      "author": "lanyi233",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -5125,17 +4674,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1756096622961,
       "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-dada7157-c91b-4e72-a327-71fe41147bfb",
-      "fileUrl": "ShortX-净化分享链接v0.0.4.txt",
-      "title": "净化分享链接v0.0.4",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1714105460781,
-      "author": "墨上千里",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -5316,17 +4854,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-53c01d0f-c4d6-4ac8-8fc0-35518ba2cf64",
-      "fileUrl": "ShortX-应用趋势通知-小改shell.txt",
-      "title": "应用趋势通知",
-      "description": "当应用趋势时发送一条通知",
-      "versionCode": 1,
-      "updateTimeMillis": 1696343189349,
-      "author": "lanyi233",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-9dd1a76b-dccb-4d1f-a019-82cb7fc3327c",
       "fileUrl": "ShortX-智能息屏断网.txt",
       "title": "智能息屏断网",
@@ -5503,17 +5030,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
-      "fileUrl": "ShortX-电量提醒_电流控制_v1.6.txt",
-      "title": "电量提醒/电流控制 v1.6",
-      "description": "2023.12.22",
-      "versionCode": 1,
-      "updateTimeMillis": 1703250639805,
-      "author": "cong",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-49463490-dba9-4427-870d-334d75731724",
       "fileUrl": "ShortX-动态刷新率.txt",
       "title": "动态刷新率",
@@ -5580,17 +5096,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-8d395566-d9f3-4cb7-abff-d63beeaa8a29",
-      "fileUrl": "ShortX-神秘 (1).txt",
-      "title": "神秘",
-      "description": "磁贴，应用前台、停止\n将要代理的应用创建一个 proxy 应用集",
-      "versionCode": 1,
-      "updateTimeMillis": 1721658144059,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-84ee192b-430b-4c5c-9007-17e5eb63846b",
       "fileUrl": "ShortX-应用焕新_v2.0.txt",
       "title": "应用焕新 v2.0",
@@ -5609,17 +5114,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1723705259855,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-228ca8dd-298e-4755-b025-6dda04e94e82",
-      "fileUrl": "ShortX-自动开关代理 (1).txt",
-      "title": "自动开关代理",
-      "description": "",
-      "versionCode": 0,
-      "updateTimeMillis": 1689931192806,
-      "author": "zimk",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -5701,17 +5195,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-dada7157-c91b-4e72-a327-71fe41147bfb",
-      "fileUrl": "ShortX-净化分享链接v0.0.3.txt",
-      "title": "净化分享链接v0.0.3",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1714040751781,
-      "author": "墨上千里",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-0f241893-9baa-4914-85e0-94735e47eb23",
       "fileUrl": "ShortX-链接流体云4.0.1.txt",
       "title": "链接流体云4.0.1",
@@ -5763,17 +5246,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1706168504055,
       "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
-      "fileUrl": "ShortX-应用进程优化_v1.1.txt",
-      "title": "应用进程优化 v1.1",
-      "description": "优化各毒瘤软件的占用",
-      "versionCode": 1,
-      "updateTimeMillis": 1701943894756,
-      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -5851,17 +5323,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1762533891977,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-e4462102-ac38-48bf-a342-f2a6aa3d7673",
-      "fileUrl": "ShortX-应用焕新_v4.4.txt",
-      "title": "应用焕新 v4.4",
-      "description": "把想检测更新的应用放在应用集\n适合那种在检测源上架，软件没有内置更新并且你追求更新的应用(比如：ShortX\n比较版本号检测\n检测源：\n应用宝✅\n酷安✅\nAppShare✅\n华为应用市场✅\n小米应用商店✅\nvivo应用商店✅\n魅族应用商店✅\n百度手机助手✅\n360手机助手✅\n应用汇✅\n豌豆荚|PP助手✅\n历趣市场✅",
-      "versionCode": 6,
-      "updateTimeMillis": 1730033390136,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -5987,17 +5448,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
-      "fileUrl": "ShortX-电量控制_提醒.txt",
-      "title": "电量控制/提醒",
-      "description": " ",
-      "versionCode": 1,
-      "updateTimeMillis": 1699025587032,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-83ddbd4a-447e-4b6b-b922-2631a8aa7363",
       "fileUrl": "ShortX-流体云组件3.1.2.txt",
       "title": "流体云组件3.1.2",
@@ -6053,17 +5503,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-ece94269-8400-43b4-a4a6-8a06a9d89692",
-      "fileUrl": "ShortX-触摸屏幕超时.txt",
-      "title": "触摸屏幕超时",
-      "description": "距离上次触摸屏幕的时间，超时默认20秒，更改请到循环动作里的比较局部变量改。",
-      "versionCode": 1,
-      "updateTimeMillis": 1704338358678,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-e3989ab4-024f-4646-8f92-cd6f978c8a60",
       "fileUrl": "ShortX-微信_Tim发送位置自动打开位置服务.txt",
       "title": "微信、Tim发送位置自动打开位置服务",
@@ -6093,28 +5532,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1702436757612,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-b37788e5-e62d-466e-aba7-bf63477f30fd",
-      "fileUrl": "ShortX-ShortX检测更新_3.0.txt",
-      "title": "ShortX检测更新(3.0",
-      "description": "ShortX前台检测更新\n定时检测更新\n对比酷安api版本号检测\n指令设置了每天检测上限",
-      "versionCode": 1,
-      "updateTimeMillis": 1714322127195,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-80249783-e0af-4409-aa60-4cd5e304efd6",
-      "fileUrl": "ShortX-冷启动.txt",
-      "title": "冷启动",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1714662850905,
-      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -6218,17 +5635,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-0f068c06-1842-4990-8506-5eb0494a1482",
-      "fileUrl": "ShortX-代理Boss_1.3.txt",
-      "title": "代理Boss(1.3",
-      "description": "自动开关代理\n涵盖多个主流代理工具",
-      "versionCode": 0,
-      "updateTimeMillis": 1712217490207,
-      "author": "HeWei",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-62156b06-64d1-4342-b4c4-f69cd33f6fcf",
       "fileUrl": "ShortX-链接流体云2.4.txt",
       "title": "链接流体云2.4",
@@ -6251,12 +5657,12 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-dd74e009-fa86-45a9-9cc2-905500a5f22d",
+      "id": "rule-8d395566-d9f3-4cb7-abff-d63beeaa8a29",
       "fileUrl": "ShortX-神秘.txt",
       "title": "神秘",
-      "description": "",
+      "description": "磁贴，应用前台、停止\n将要代理的应用创建一个 proxy 应用集",
       "versionCode": 1,
-      "updateTimeMillis": 1721043110683,
+      "updateTimeMillis": 1721658144059,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -6350,17 +5756,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
-      "fileUrl": "ShortX-电量控制_提醒_v1.4.txt",
-      "title": "电量控制/提醒 v1.4",
-      "description": "2023.11.08",
-      "versionCode": 1,
-      "updateTimeMillis": 1699439155122,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-2a13cc52-adcc-4942-986e-49e1573e9994",
       "fileUrl": "ShortX-局域网自动剪切板流转.txt",
       "title": "局域网自动剪切板流转",
@@ -6389,17 +5784,6 @@
       "description": "白名单动作内修改",
       "versionCode": 1,
       "updateTimeMillis": 1701040002475,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
-      "fileUrl": "ShortX-电量控制_提醒_v1.5.txt",
-      "title": "电量控制/提醒 v1.5",
-      "description": "2023.11.08",
-      "versionCode": 1,
-      "updateTimeMillis": 1699454920132,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -6478,17 +5862,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1753334833918,
       "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-0f068c06-1842-4990-8506-5eb0494a1482",
-      "fileUrl": "ShortX-代理Boss_1.2.txt",
-      "title": "代理Boss(1.2",
-      "description": "自动开关代理\n涵盖多个主流代理工具",
-      "versionCode": 0,
-      "updateTimeMillis": 1712195606521,
-      "author": "HeWei",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -6577,6 +5950,17 @@
       "versionCode": 1,
       "updateTimeMillis": 1703954804776,
       "author": "lanyi233",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
+      "id": "SHARE-rule-2068b338-5ba1-461a-82c0-31895eadd830",
+      "fileUrl": "ShortX-音乐岛可移动版 (1).txt",
+      "title": "音乐岛可移动版",
+      "description": "移动版本",
+      "versionCode": 1,
+      "updateTimeMillis": 1751752573602,
+      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -6687,17 +6071,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1763720618457,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-f68bd20d-7899-4464-b389-92dd2f9effd1",
-      "fileUrl": "ShortX-应用停止移除最近任务.txt",
-      "title": "应用停止移除最近任务",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1701936953770,
-      "author": "A.K",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -6834,17 +6207,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-84ee192b-430b-4c5c-9007-17e5eb63846b",
-      "fileUrl": "ShortX-应用集前台检测更新_1.1.txt",
-      "title": "应用集前台检测更新(1.1",
-      "description": "把想检测更新的应用放在应用集\n应用集内应用必须在酷安上架\n对比酷安Api，版本号检测\n指令设置了每天检测上限",
-      "versionCode": 1,
-      "updateTimeMillis": 1714395641305,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-2418b226-cd4d-44d1-ac52-286ebee6ae00",
       "fileUrl": "ShortX-复制上岛.txt",
       "title": "复制上岛",
@@ -6863,28 +6225,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1693888575451,
       "author": "1",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-84ee192b-430b-4c5c-9007-17e5eb63846b",
-      "fileUrl": "ShortX-应用集前台检测更新_1.0.txt",
-      "title": "应用集前台检测更新(1.0",
-      "description": "把想检测更新的应用放在应用集\n应用集内应用必须在酷安上架\n对比酷安Api版本号检测\n指令设置了每天检测上限",
-      "versionCode": 1,
-      "updateTimeMillis": 1714357606877,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-228ca8dd-298e-4755-b025-6dda04e94e82",
-      "fileUrl": "ShortX-自动开关代理.txt",
-      "title": "自动开关代理",
-      "description": "自动开关surfboard",
-      "versionCode": 0,
-      "updateTimeMillis": 1687240817925,
-      "author": "",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -7120,12 +6460,12 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-a57d939c-8bfd-425b-aedc-478a07df7837",
+      "id": "SHARE-rule-9b3fc9f2-47fd-4efe-b19b-0ab45671147b",
       "fileUrl": "ShortX-验证码流体云.txt",
       "title": "验证码流体云",
-      "description": "流体云样式显示提取的验证码，点击键入，长按复制",
-      "versionCode": 5,
-      "updateTimeMillis": 1734589699523,
+      "description": "流体云样式显示提取的验证码，点击键入",
+      "versionCode": 4,
+      "updateTimeMillis": 1728192130068,
       "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -7340,17 +6680,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
-      "fileUrl": "ShortX-电量控制_提醒_v1.2.txt",
-      "title": "电量控制/提醒 v1.2",
-      "description": "2023.11.05",
-      "versionCode": 1,
-      "updateTimeMillis": 1699157750761,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-97387a25-b6ef-4ab0-ba53-527f2a3dd2db",
       "fileUrl": "ShortX-启动谷歌服务.txt",
       "title": "启动谷歌服务",
@@ -7423,17 +6752,6 @@
       "description": "",
       "versionCode": 1,
       "updateTimeMillis": 1762952411086,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-64bb785d-711f-4ba2-92a0-ae12866acd74",
-      "fileUrl": "ShortX-息屏连上耳机播放音乐.txt",
-      "title": "息屏连上耳机播放音乐",
-      "description": "熄屏连接特定蓝牙耳机启动椒盐音乐并播放",
-      "versionCode": 1,
-      "updateTimeMillis": 1695904342821,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -7670,17 +6988,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-f82c2718-c1f6-4686-a13f-a4c07e52982a",
-      "fileUrl": "ShortX-链接提取综合2.3_Beta (1).txt",
-      "title": "链接提取综合2.3 Beta",
-      "description": "高自定义的链接快速打开指令",
-      "versionCode": 1,
-      "updateTimeMillis": 1747574686411,
-      "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-1e3277b3-9859-457d-a01d-d4de648801ca",
       "fileUrl": "ShortX-外卖焦点通知上状态栏.txt",
       "title": "外卖焦点通知上状态栏",
@@ -7699,17 +7006,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1763143697049,
       "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
-      "fileUrl": "ShortX-电量控制_提醒_v1.1.txt",
-      "title": "电量控制/提醒 v1.1",
-      "description": "2023.11.05",
-      "versionCode": 1,
-      "updateTimeMillis": 1699151769063,
-      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -7791,17 +7087,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-451d8e68-7744-491a-b433-4679c3f6b7f2",
-      "fileUrl": "ShortX-自动记账Pro (1).txt",
-      "title": "自动记账Pro",
-      "description": "累计消费 ¥globalVarOf$记账 \n今日消费 ¥globalVarOf$记账当天 \n本月消费 ¥globalVarOf$记账本月 \n详细日志目录：/sdcard/Android/自动记账.txt",
-      "versionCode": 1,
-      "updateTimeMillis": 1717249780570,
-      "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-4caef283-c765-4893-b44e-515a0d9608a9",
       "fileUrl": "ShortX-微信地图界面自动开启定位.txt",
       "title": "微信地图界面自动开启定位",
@@ -7820,17 +7105,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1749912720477,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-16e31a33-108d-4ce5-ae44-f32f25ae66c2",
-      "fileUrl": "ShortX-Bing每日壁纸.txt",
-      "title": "Bing每日壁纸",
-      "description": "每天晚上12点自动更换壁纸(仅测试了miui其他不清楚能不能用)",
-      "versionCode": 0,
-      "updateTimeMillis": 1690843947978,
-      "author": "Fearless",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -7879,6 +7153,17 @@
       "requireMinShortXProtoVersion": 0
     },
     {
+      "id": "SHARE-rule-4b027184-3e4c-4779-a81b-4cfe68fe9946",
+      "fileUrl": "ShortX-微信指纹支付 (1).txt",
+      "title": "微信指纹支付",
+      "description": "动作-如果启用悬浮窗就禁用后续的动作。条件-找到颜色建议自己提取，深色模式和日常模式颜色自己定义。支付界面如果想手动输密码，一个返回手势就可以。",
+      "versionCode": 1,
+      "updateTimeMillis": 1760934832299,
+      "author": "ShortX",
+      "tags": [],
+      "requireMinShortXProtoVersion": 0
+    },
+    {
       "id": "rule-5dc0fdb3-7720-4ab2-bd68-b8e0ece2fe7f",
       "fileUrl": "ShortX-恩山论坛签到.txt",
       "title": "恩山论坛签到",
@@ -7886,17 +7171,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1699537748125,
       "author": "奋斗的青年",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
-      "fileUrl": "ShortX-电量提醒_v1.6.txt",
-      "title": "电量提醒 v1.6",
-      "description": "2023.11.15 by cong",
-      "versionCode": 1,
-      "updateTimeMillis": 1700031310621,
-      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -8007,17 +7281,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1770973813907,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-cd7e400c-6192-4c7c-b3c5-67696f359a09",
-      "fileUrl": "ShortX-复制链接自动打开 (2).txt",
-      "title": "复制链接自动打开",
-      "description": "复制链接自动打开",
-      "versionCode": 1,
-      "updateTimeMillis": 1717379290011,
-      "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -8176,23 +7439,12 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-33f6807f-b69b-4d59-95c8-5decd7fa2433",
-      "fileUrl": "ShortX-偷偷录音.txt",
-      "title": "偷偷录音",
-      "description": "",
-      "versionCode": 1,
-      "updateTimeMillis": 1694683444895,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-25944d24-fb85-4aef-91bf-8178e8aa3daa",
+      "id": "SHARE-rule-f927e4aa-f5de-46e7-9e96-36657858417d",
       "fileUrl": "ShortX-充电提示.txt",
       "title": "充电提示",
       "description": "显示充电统计通知",
       "versionCode": 1,
-      "updateTimeMillis": 1742107838860,
+      "updateTimeMillis": 1741673521001,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -8341,17 +7593,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-debea634-75d4-4727-b672-ada30c7eaf2d",
-      "fileUrl": "ShortX-代理Boss_2.1.txt",
-      "title": "代理Boss(2.1",
-      "description": "自动开关代理\n没预设的代理工具自己手动输入代理应用的包名即可",
-      "versionCode": 0,
-      "updateTimeMillis": 1726051081836,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-d951ee3a-a0d2-4cea-8a16-80986eef85c0",
       "fileUrl": "ShortX-通知转发.txt",
       "title": "通知转发",
@@ -8434,7 +7675,7 @@
       "title": "复制链接自动打开",
       "description": "复制链接自动打开",
       "versionCode": 1,
-      "updateTimeMillis": 1714808813141,
+      "updateTimeMillis": 1717379290011,
       "author": "nyehueh",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -8506,28 +7747,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-5459b505-5bc6-42cc-b683-38220373c5d6",
-      "fileUrl": "ShortX-崩铁抽卡链接.txt",
-      "title": "崩铁抽卡链接",
-      "description": "打开抽卡自动获取链接",
-      "versionCode": 1,
-      "updateTimeMillis": 1714725291125,
-      "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-b37788e5-e62d-466e-aba7-bf63477f30fd",
-      "fileUrl": "ShortX-ShortX检测更新_2.0.txt",
-      "title": "ShortX检测更新(2.0",
-      "description": "进入ShortX前台检测更新\n需要curl，如果你系统不自带\n下载Termux，并pkg install curl",
-      "versionCode": 1,
-      "updateTimeMillis": 1711429096921,
-      "author": "HeWei",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-8587281f-4034-488f-a640-4552fbdf612f",
       "fileUrl": "ShortX-充电悬浮窗控制.txt",
       "title": "充电悬浮窗控制",
@@ -8568,17 +7787,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1712499496844,
       "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-2068b338-5ba1-461a-82c0-31895eadd830",
-      "fileUrl": "ShortX-音乐岛可移动版 (1) (1).txt",
-      "title": "音乐岛可移动版",
-      "description": "移动版本",
-      "versionCode": 1,
-      "updateTimeMillis": 1751752573602,
-      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -8748,17 +7956,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-a570ac8f-1bb7-4961-ba49-a9a89ac3731b",
-      "fileUrl": "ShortX-应用进程优化.txt",
-      "title": "应用进程优化",
-      "description": "优化各毒瘤软件的占用",
-      "versionCode": 1,
-      "updateTimeMillis": 1701509080877,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "rule-33f6807f-b69b-4d59-95c8-5decd7fa2433",
       "fileUrl": "ShortX-录音.txt",
       "title": "录音",
@@ -8777,17 +7974,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1753932083075,
       "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-4b027184-3e4c-4779-a81b-4cfe68fe9946",
-      "fileUrl": "ShortX-微信指纹支付 (1) (2).txt",
-      "title": "微信指纹支付",
-      "description": "动作-如果启用悬浮窗就禁用后续的动作。条件-找到颜色建议自己提取，深色模式和日常模式颜色自己定义。支付界面如果想手动输密码，一个返回手势就可以。",
-      "versionCode": 1,
-      "updateTimeMillis": 1760934832299,
-      "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -8831,17 +8017,6 @@
       "description": "连接wifi切换clash_mode",
       "versionCode": 1,
       "updateTimeMillis": 1720418796641,
-      "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-f927e4aa-f5de-46e7-9e96-36657858417d",
-      "fileUrl": "ShortX-充电提示 (1).txt",
-      "title": "充电提示",
-      "description": "显示充电统计通知",
-      "versionCode": 1,
-      "updateTimeMillis": 1741673521001,
       "author": "ShortX",
       "tags": [],
       "requireMinShortXProtoVersion": 0
@@ -9067,17 +8242,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "SHARE-rule-debea634-75d4-4727-b672-ada30c7eaf2d",
-      "fileUrl": "ShortX-代理Boss_2.7.txt",
-      "title": "代理Boss(2.7",
-      "description": "自动开关代理\n智能化选择代理工具",
-      "versionCode": 6,
-      "updateTimeMillis": 1729951429568,
-      "author": "He",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-011a92e8-3c0c-4081-99f5-7004f410dd46",
       "fileUrl": "ShortX-净化分享链接v0.0.6___分享_.txt",
       "title": "净化分享链接v0.0.6  (分享)",
@@ -9100,17 +8264,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-1f94c332-3d12-4628-a3d5-7e0357cca2ff",
-      "fileUrl": "ShortX-输入辅助___脱敏_.txt",
-      "title": "输入辅助  (脱敏)",
-      "description": "显示输入辅助",
-      "versionCode": 1,
-      "updateTimeMillis": 1709808580128,
-      "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-a794265b-1c9b-4bc1-8de9-cac9a7364de8",
       "fileUrl": "ShortX-定量停充.txt",
       "title": "定量停充",
@@ -9118,17 +8271,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1733634044558,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
-      "fileUrl": "ShortX-电量记录.txt",
-      "title": "电量记录",
-      "description": "记录电量和温度（温度懒得弄awa",
-      "versionCode": 1,
-      "updateTimeMillis": 1696348158381,
-      "author": "lanyi233",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -9217,17 +8359,6 @@
       "versionCode": 1,
       "updateTimeMillis": 1713355156110,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-e4462102-ac38-48bf-a342-f2a6aa3d7673",
-      "fileUrl": "ShortX-应用焕新_v3.8.txt",
-      "title": "应用焕新 v3.8",
-      "description": "把想检测更新的应用放在应用集\n适合那种在检测源上架，软件没有内置更新并且你追求更新的应用(比如：ShortX\n比较版本号检测\n检测源：\n应用宝✅\n酷安✅\nAppShare✅\n华为应用市场✅\n小米应用商店✅\nvivo应用商店✅\n魅族应用商店✅\n百度手机助手✅\n360手机助手✅\n应用汇✅\n豌豆荚|PP助手✅\n历趣市场✅",
-      "versionCode": 1,
-      "updateTimeMillis": 1727788247074,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     },
@@ -9452,17 +8583,6 @@
       "requireMinShortXProtoVersion": 0
     },
     {
-      "id": "rule-16e31a33-108d-4ce5-ae44-f32f25ae66c2",
-      "fileUrl": "ShortX-Bing每日壁纸_v0.1.1.txt",
-      "title": "Bing每日壁纸 v0.1.1",
-      "description": "每天晚上12点自动更换壁纸(仅测试了miui其他不清楚能不能用)",
-      "versionCode": 0,
-      "updateTimeMillis": 1690868862066,
-      "author": "Fearless",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
       "id": "SHARE-rule-3c5b1ffe-f449-4075-a80c-85c15fb33338",
       "fileUrl": "ShortX-提取当前活动参数.txt",
       "title": "提取当前活动参数",
@@ -9514,28 +8634,6 @@
       "versionCode": 0,
       "updateTimeMillis": 1697887554317,
       "author": "ShortX",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "rule-451d8e68-7744-491a-b433-4679c3f6b7f2",
-      "fileUrl": "ShortX-自动记账Pro(3).txt",
-      "title": "自动记账Pro",
-      "description": "累计消费 ¥globalVarOf$记账 \n今日消费 ¥globalVarOf$记账当天 \n本月消费 ¥globalVarOf$记账本月 \n详细日志目录：/sdcard/Android/自动记账.txt",
-      "versionCode": 1,
-      "updateTimeMillis": 1712421213406,
-      "author": "nyehueh",
-      "tags": [],
-      "requireMinShortXProtoVersion": 0
-    },
-    {
-      "id": "SHARE-rule-debea634-75d4-4727-b672-ada30c7eaf2d",
-      "fileUrl": "ShortX-代理Boss_2.6.txt",
-      "title": "代理Boss(2.6",
-      "description": "自动开关代理\n智能化选择代理工具",
-      "versionCode": 5,
-      "updateTimeMillis": 1729852220797,
-      "author": "He",
       "tags": [],
       "requireMinShortXProtoVersion": 0
     }

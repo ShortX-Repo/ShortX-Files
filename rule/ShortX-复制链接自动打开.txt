@@ -50,7 +50,7 @@
       }, {
         "@type": "type.googleapis.com/ReplaceRegex",
         "string": "{replaceResult}",
-        "regex": "提取码：|密码：|提取码:|密码:",
+        "regex": "globalVarOf$提取码关键词",
         "replacement": "Extractioncode:",
         "customContextDataKey": {
         },
@@ -166,20 +166,10 @@
         "customContextDataKey": {
           "keys": [{
             "first": "shellOut",
-            "second": "shellOut"
-          }]
-        },
-        "id": "A-f2f8f2f8-4e88-4bd5-b7af-83c5ab5e5476"
-      }, {
-        "@type": "type.googleapis.com/ShellCommand",
-        "command": "VAR\u003d$(echo \"{shellOut}\" | sed -e \u0027s/http[s]*:\\/\\//__HTTP__/g\u0027 -e \u0027s/Extractioncode:/___EXTRACT___/g\u0027 | tr -d \u0027:：\u0027 | sed -e \u0027s/__HTTP__/http:\\/\\//g\u0027 -e \u0027s/__HTTPS__/https:\\/\\//g\u0027 -e \u0027s/___EXTRACT___/Extractioncode:/g\u0027)\necho $VAR",
-        "customContextDataKey": {
-          "keys": [{
-            "first": "shellOut",
             "second": "clean"
           }]
         },
-        "id": "A-e597eae8-af36-4cb7-9cab-c5460f70a217"
+        "id": "A-f2f8f2f8-4e88-4bd5-b7af-83c5ab5e5476"
       }, {
         "@type": "type.googleapis.com/WriteGlobalVar",
         "varName": "暂存原文",
@@ -361,7 +351,7 @@
       }],
       "action": [{
         "@type": "type.googleapis.com/ShellCommand",
-        "command": "contains_desired_tld\u003d$(echo \"globalVarOf$oldlink\" | tr \u0027,\u0027 \u0027\\n\u0027 | grep -E \u0027.*\\.(com|cn|top|love|xyz|net|org|vip|cloud|online|icu|fun|work|tv|wiki|email|plus|co|ltd|shop|tech|wang|site|xin|store|art|cc|website|press|space|beer|luxe|video|group|ren|fit|yoga|pro|ink|info|mobi|kim|red|run|chat|cool|zone|host)(\\/.*)?$\u0027 \u003e /dev/null \u0026\u0026 echo \"true\" || echo \"false\")\necho \"$contains_desired_tld\"",
+        "command": "contains_desired_tld\u003d$(echo \"globalVarOf$oldlink\" | tr \u0027 ,\u0027 \u0027\\n\u0027 | grep -E \u0027.*\\.(com|cn|top|love|xyz|net|org|vip|cloud|online|icu|fun|work|tv|wiki|email|plus|co|ltd|shop|tech|wang|site|xin|store|art|cc|website|press|space|beer|luxe|video|group|ren|fit|yoga|pro|ink|info|mobi|kim|red|run|chat|cool|zone|host)(\\/.*)?$\u0027 \u003e /dev/null \u0026\u0026 echo \"true\" || echo \"false\")\necho \"$contains_desired_tld\"",
         "customContextDataKey": {
         },
         "id": "A-2f746a6f-0911-414f-af97-cd7e0436c940"
@@ -380,7 +370,7 @@
         }],
         "IfActions": [{
           "@type": "type.googleapis.com/ShellCommand",
-          "command": "filtered_domains\u003d$(echo \"globalVarOf$oldlink\" | awk -F \u0027,\u0027 \u0027{for (i\u003d1; i\u003c\u003dNF; i++) {if ($i ~ /\\.com$|\\.cn$|\\.top$|\\.love$|\\.xyz$|\\.net$|\\.org$|\\.vip$|\\.cloud$|\\.online$|\\.icu$|\\.fun$|\\.work$|\\.tv$|\\.wiki$|\\.email$|\\.plus$|\\.co$|\\.ltd$|\\.shop$|\\.tech$|\\.wang$|\\.site$|\\.xin$|\\.store$|\\.art$|\\.cc$|\\.website$|\\.press$|\\.space$|\\.beer$|\\.luxe$|\\.video$|\\.group$|\\.ren$|\\.fit$|\\.yoga$|\\.pro$|\\.ink$|\\.info$|\\.mobi$|\\.kim$|\\.red$|\\.run$|\\.chat$|\\.cool$|\\.zone$|\\.host$|\\.com\\/|\\.cn\\/|\\.top\\/|\\.love\\/|\\.xyz\\/|\\.net\\/|\\.org\\/|\\.vip\\/|\\.cloud\\/|\\.online\\/|\\.icu\\/|\\.fun\\/|\\.work\\/|\\.tv\\/|\\.wiki\\/|\\.email\\/|\\.plus\\/|\\.co\\/|\\.ltd\\/|\\.shop\\/|\\.tech\\/|\\.wang\\/|\\.site\\/|\\.xin\\/|\\.store\\/|\\.art\\/|\\.cc\\/|\\.website\\/|\\.press\\/|\\.space\\/|\\.beer\\/|\\.luxe\\/|\\.video\\/|\\.group\\/|\\.ren\\/|\\.fit\\/|\\.yoga\\/|\\.pro\\/|\\.ink\\/|\\.info\\/|\\.mobi\\/|\\.kim\\/|\\.red\\/|\\.run\\/|\\.chat\\/|\\.cool\\/|\\.zone\\/|\\.host\\/)/) print $i}}\u0027 | paste -sd \",\" -)\necho \"$filtered_domains\"",
+          "command": "filtered_domains\u003d$(echo \"globalVarOf$oldlink\" | awk -F \u0027 ,\u0027 \u0027{for (i\u003d1; i\u003c\u003dNF; i++) {if ($i ~ /\\.com$|\\.cn$|\\.top$|\\.love$|\\.xyz$|\\.net$|\\.org$|\\.vip$|\\.cloud$|\\.online$|\\.icu$|\\.fun$|\\.work$|\\.tv$|\\.wiki$|\\.email$|\\.plus$|\\.co$|\\.ltd$|\\.shop$|\\.tech$|\\.wang$|\\.site$|\\.xin$|\\.store$|\\.art$|\\.cc$|\\.website$|\\.press$|\\.space$|\\.beer$|\\.luxe$|\\.video$|\\.group$|\\.ren$|\\.fit$|\\.yoga$|\\.pro$|\\.ink$|\\.info$|\\.mobi$|\\.kim$|\\.red$|\\.run$|\\.chat$|\\.cool$|\\.zone$|\\.host$|\\.com\\/|\\.cn\\/|\\.top\\/|\\.love\\/|\\.xyz\\/|\\.net\\/|\\.org\\/|\\.vip\\/|\\.cloud\\/|\\.online\\/|\\.icu\\/|\\.fun\\/|\\.work\\/|\\.tv\\/|\\.wiki\\/|\\.email\\/|\\.plus\\/|\\.co\\/|\\.ltd\\/|\\.shop\\/|\\.tech\\/|\\.wang\\/|\\.site\\/|\\.xin\\/|\\.store\\/|\\.art\\/|\\.cc\\/|\\.website\\/|\\.press\\/|\\.space\\/|\\.beer\\/|\\.luxe\\/|\\.video\\/|\\.group\\/|\\.ren\\/|\\.fit\\/|\\.yoga\\/|\\.pro\\/|\\.ink\\/|\\.info\\/|\\.mobi\\/|\\.kim\\/|\\.red\\/|\\.run\\/|\\.chat\\/|\\.cool\\/|\\.zone\\/|\\.host\\/)/) print $i}}\u0027 | paste -sd \",\" -)\necho \"$filtered_domains\"",
           "customContextDataKey": {
           },
           "id": "A-607c8960-3a5c-484a-b844-7b2a40c3fb12"
@@ -409,7 +399,7 @@
         }, {
           "@type": "type.googleapis.com/ReplaceRegex",
           "string": "{replaceResult}",
-          "regex": "http://http://",
+          "regex": "http://http://|http://：|http://:|http://： |http://: ",
           "replacement": "http://",
           "customContextDataKey": {
           },
@@ -417,7 +407,7 @@
         }, {
           "@type": "type.googleapis.com/ReplaceRegex",
           "string": "{replaceResult}",
-          "regex": "http://https://",
+          "regex": "http://https://|https://：|https://:|https://： |https://: ",
           "replacement": "https://",
           "customContextDataKey": {
           },
@@ -513,6 +503,29 @@
         "customContextDataKey": {
         },
         "id": "A-93a3dc87-c5f6-4a4f-abeb-aefc7a70fe90"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "shellOut",
+          "payload": {
+            "value": "0"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-4b48ae8b-6ad2-4fc8-bbec-c1059e0338b8"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-b142b94d-1520-4da5-b2e9-589a16f07059"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-89e3dabe-02aa-4b98-a9f0-254b4dfdff82"
       }, {
         "@type": "type.googleapis.com/IfThenElse",
         "If": [{
@@ -3047,7 +3060,7 @@
     "id": "A-85e3826b-34dc-4031-b380-87af781e2c76"
   }],
   "id": "rule-cd7e400c-6192-4c7c-b3c5-67696f359a09",
-  "lastUpdateTime": "1714808813141",
+  "lastUpdateTime": "1717379290011",
   "createTime": "1713841781094",
   "author": {
     "name": "nyehueh"
@@ -3060,72 +3073,112 @@
       "@type": "type.googleapis.com/ShowAlertDialog",
       "positive": "同意并继续",
       "onPositive": [{
-        "@type": "type.googleapis.com/ShowMenuDialog",
-        "items": [{
-          "title": "始终用浏览器打开",
-          "clickActions": [{
-            "@type": "type.googleapis.com/CreateGlobalVar",
-            "globalVar": {
-              "name": "浏览器模式",
-              "type": {
-                "@type": "type.googleapis.com/StringVar"
-              }
-            },
-            "customContextDataKey": {
-            },
-            "id": "A-06507482-8b8b-4808-a2a7-c124acd6c943"
-          }]
-        }, {
-          "title": "选择应用打开",
-          "clickActions": [{
-            "@type": "type.googleapis.com/DeleteGlobalVar",
-            "varName": "浏览器模式",
-            "customContextDataKey": {
-            },
-            "id": "A-8e9802d9-2124-43f6-a7a8-ea06e8aa4051"
-          }]
-        }],
-        "title": "打开方式",
-        "cancelable": true,
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "test",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
         "customContextDataKey": {
         },
-        "id": "A-400cc79c-0c76-4388-a65e-619185058daf"
+        "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "echo true",
+            "customContextDataKey": {
+            },
+            "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "test",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
+          }],
+          "description": "2",
+          "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "300",
+            "customContextDataKey": {
+            },
+            "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "test",
+              "payload": {
+                "value": "true"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "shell正常",
+              "customContextDataKey": {
+              },
+              "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "确定",
+              "onPositive": [{
+                "@type": "type.googleapis.com/SetRuleEnabled",
+                "ruleId": "rule-451d8e68-7744-491a-b433-4679c3f6b7f2",
+                "customContextDataKey": {
+                },
+                "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+              }, {
+                "@type": "type.googleapis.com/BreakActionExecute",
+                "scope": "BreakActionExecuteScope_Root",
+                "customContextDataKey": {
+                },
+                "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+              }],
+              "title": "shell运行异常",
+              "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+              "customContextDataKey": {
+              },
+              "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+          }],
+          "description": "1",
+          "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
       }],
       "title": "用户协议",
-      "message": "使用前请确定shell正常\n关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
-      "cancelable": true,
+      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)",
       "customContextDataKey": {
       },
-      "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
-    }, {
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "echo 1",
-      "customContextDataKey": {
-      },
-      "id": "A-8dbbd393-d8af-48a9-9cf1-bad70dac6a2a"
-    }, {
-      "@type": "type.googleapis.com/IfThenElse",
-      "If": [{
-        "@type": "type.googleapis.com/EvaluateContextVar",
-        "op": "EqualTo",
-        "varName": "shellOut",
-        "payload": {
-          "value": "1"
-        },
-        "customContextDataKey": {
-        },
-        "id": "C-0b02b750-e8ad-402c-9149-58bf6f044fda"
-      }],
-      "IfActions": [{
-        "@type": "type.googleapis.com/ShowToast",
-        "message": "shell运行正常",
-        "customContextDataKey": {
-        },
-        "id": "A-68c6fad5-c39c-48c4-8a3e-09915bba125b"
-      }],
-      "customContextDataKey": {
-      },
-      "id": "A-eba33473-1e8e-4956-b0bf-483d6f5e63a2"
+      "id": "A-dc845ff6-6323-4f0a-9df0-688b36a05f71"
     }, {
       "@type": "type.googleapis.com/IfThenElse",
       "If": [{
@@ -3261,6 +3314,40 @@
       "customContextDataKey": {
       },
       "id": "A-b75ebdd5-398d-4f1d-8126-01fe268e2896"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "提取码关键词",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-bb19dedb-121c-47c0-84f2-515d290ffe10"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "提取码关键词",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-fcbe144d-d9d4-4322-94a9-05e269fffb8a"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "提取码关键词",
+        "valueAsString": "提取码：|密码：|提取码:|密码:|访问码:|访问码：",
+        "customContextDataKey": {
+        },
+        "id": "A-8dbfa4c9-7d9c-4633-84bf-2bc1522fa278"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-7a0b3aa6-a839-42f8-b4e9-8e3b78788eb8"
     }],
     "actionsOnDeleted": [{
       "@type": "type.googleapis.com/DeleteGlobalVar",

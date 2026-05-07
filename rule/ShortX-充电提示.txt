@@ -175,7 +175,7 @@
         "@type": "type.googleapis.com/PostNotification",
         "tag": "tag-1741170738766",
         "title": "充电完成",
-        "message": "globalVarOf$充电开始时间[2]%→100%，共用时{fulltime}\n快速充电用时{100time}\n涓流充电用时{jltime}",
+        "message": "充电完成，共用时{fulltime}\n快速充电用时{100time}\n涓流充电用时{jltime}",
         "smallIcon": "chat-2-line",
         "customContextDataKey": {
         },
@@ -195,14 +195,15 @@
     },
     "id": "A-8b683c31-c5d0-474b-8e32-aa955a36307c"
   }],
-  "id": "SHARE-rule-25944d24-fb85-4aef-91bf-8178e8aa3daa",
-  "lastUpdateTime": "1742107838860",
+  "id": "SHARE-rule-f927e4aa-f5de-46e7-9e96-36657858417d",
+  "lastUpdateTime": "1741673521001",
   "createTime": "1741170199275",
   "author": {
     "name": "ShortX"
   },
   "title": "充电提示",
   "description": "显示充电统计通知",
+  "isEnabled": true,
   "hook": {
   },
   "quit": {
@@ -251,7 +252,7 @@
       "@type": "type.googleapis.com/PostNotification",
       "tag": "tag-1741170625895",
       "title": "充电停止",
-      "message": "globalVarOf$充电开始时间[2]%→%BatteryLevel%%，充电时间：{mvelRet}",
+      "message": "充电停止globalVarOf$充电开始时间[2]%→%BatteryLevel%%，充电时间：{mvelRet}",
       "smallIcon": "chat-2-line",
       "customContextDataKey": {
       },

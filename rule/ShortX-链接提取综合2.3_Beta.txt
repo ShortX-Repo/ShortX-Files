@@ -1130,6 +1130,350 @@
       "description": "123网盘",
       "id": "Case-4e698c4e-6892-4a0d-9fc5-8565d91beceb",
       "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "1688.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b07d6bd8-d40b-400b-99c6-e43c9a520dbc"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.alibaba.wireless\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "wireless1688://ma.m.1688.com/plugin?url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "1688",
+      "id": "Case-a65e4d3b-0afc-4f7c-86db-369f4eecd973",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "coolapk.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-6787ecd0-acb3-4339-b61f-29599836d52b"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.coolapk.market\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ReplaceRegex",
+          "string": "{chooselink}",
+          "regex": "http|https",
+          "replacement": "coolmarket",
+          "customContextDataKey": {
+          },
+          "id": "A-72a69e34-818d-41ba-a9cf-3e83adad7cfa"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "{replaceResult}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "酷安",
+      "id": "Case-f34b5735-8e9c-473a-86bc-07d466ea5e71",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "kurobbs.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b6e5c651-bc90-475a-a248-033704868c2c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.kurogame.kjq\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"\\\\?postId\u003d\")[1]",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "shareid"
+            }]
+          },
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "kjq://home/post/postDetail?postId\u003d{shareid}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "库街区",
+      "id": "Case-e778a91a-46eb-4d9a-bba0-156da19783dc",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "xhslink.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-bf62c144-bda7-4b64-8501-7539caae56e1"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.xingin.xhs\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "xhsdiscover://item/6809ccfd000000001a007525?open_url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "小红书",
+      "id": "Case-5a7ce75f-abb2-40cb-8ff1-d0c4f53c70a3",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "tieba.baidu.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-be6cced4-30f9-4ecd-af2c-e1626b30f2e0"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.baidu.tieba\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"\\\\?\")[0];\ncount.split(\"/p/\")[1]",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "shareid"
+            }]
+          },
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "com.baidu.tieba://unidispatch/pb?tid\u003d{shareid}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "百度贴吧",
+      "id": "Case-eb3a9046-71a5-474a-aaa8-d13a8d4b3a45",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "kuaishou.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-5fde8d1f-845f-489e-bb82-bcb967d2eba9"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.smile.gifmaker\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "kwai://webview?url\u003d{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-d3c4f56a-cf0a-49d2-8e62-2bf0e9225393"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "快手",
+      "id": "Case-09e2a761-0c96-4089-a4b5-e9235a492de9",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "weibo.com"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-66faf4f2-cfec-4e7e-895e-3abb7c501d8b"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nString dirPath \u003d \"data/data/com.sina.weibo\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isDirectory();",
+          "customContextDataKey": {
+          },
+          "id": "C-cd835264-a436-4f1b-b4a9-e1e54fa80ac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "link",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-efe958f5-258e-4929-bf48-30eb93107e78"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "link",
+          "valueAsString": "{chooselink}",
+          "customContextDataKey": {
+          },
+          "id": "A-4060a0ae-fdb2-427d-a3d9-29198bd4532e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\"/\");\ncount[count.length -1];",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "shareid"
+            }]
+          },
+          "id": "A-d793e2d5-d6a9-4b9e-a523-16efe5f188df"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "urlschame",
+          "valueAsString": "sinaweibo://detail?mblogid\u003d{shareid}",
+          "customContextDataKey": {
+          },
+          "id": "A-ec63ccbb-c24a-423e-a751-5bafdebf26bc"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0a5509e2-135e-4d99-86bb-fc2ab19a27e7"
+      }],
+      "description": "新浪微博",
+      "id": "Case-a3a79617-365f-47e2-8c20-f940708bd952",
+      "isBreak": true
     }],
     "customContextDataKey": {
     },
@@ -1691,8 +2035,8 @@
     },
     "id": "A-aa622a08-3953-4346-8bf7-2c9d4b61cbbd"
   }],
-  "id": "SHARE-rule-ef6f6cae-d611-41bb-8941-7e0151b3c6cf",
-  "lastUpdateTime": "1747571643823",
+  "id": "SHARE-rule-f82c2718-c1f6-4686-a13f-a4c07e52982a",
+  "lastUpdateTime": "1747574686411",
   "createTime": "1723386652518",
   "author": {
     "name": "nyehueh"

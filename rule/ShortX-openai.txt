@@ -47,7 +47,7 @@
           "value": "application/json"
         }, {
           "key": "Authorization",
-          "value": "Bearer APIKEY"
+          "value": "Bearer TOKEN"
         }],
         "requestBody": {
           "@type": "type.googleapis.com/HttpRequestBodyJson",
