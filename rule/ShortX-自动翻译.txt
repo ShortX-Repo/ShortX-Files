@@ -1,0 +1,239 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.baidu.input"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-ed89f842-d0e6-4e91-ab19-a06c6afaab4c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.regex.*;\n\n// 定义一个正则表达式，匹配中文字符、数字和表情符号，但不包括中文标点符号\nPattern pattern \u003d Pattern.compile(\"[\\\\u4e00-\\\\u9fa5\\\\d\\\\x{1F600}-\\\\x{1F64F}\\\\x{1F300}-\\\\x{1F5FF}\\\\x{1F680}-\\\\x{1F6FF}\\\\x{1F700}-\\\\x{1F77F}]\");\n\n// 使用正则表达式测试contentText变量\nboolean containsChineseOrNumberOrEmoji \u003d pattern.matcher(contentText).find();\n\n// 返回结果\nreturn containsChineseOrNumberOrEmoji;",
+    "customContextDataKey": {
+    },
+    "id": "A-9b76310f-2f77-4e53-a490-2420913a5c70"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{mvelRet} \u003d\u003d false;",
+      "customContextDataKey": {
+      },
+      "id": "C-4c944284-1a3e-46bf-99aa-cc38da2e3709"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#salt\u003d$(date +%s)\n#echo \"$salt\"\n\nrandomNumber\u003d$(awk -v min\u003d1000000000 -v max\u003d9999999999 \u0027BEGIN{srand(); print int(min+rand()*(max-min+1))}\u0027)\n\necho \"$randomNumber\"",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "salt"
+        }]
+      },
+      "id": "A-ab6cacbe-1683-4cc0-9c6c-76d831c3b015"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "appid\u003d\"globalVarOf$bdfy_appid\"\ntext\u003d\"{contentText}\"\nsalt\u003d\"{salt}\"\nkey\u003d\"globalVarOf$bdfy_key\"\n\n# 构建签名字符串\nsign_str\u003d\"$appid$text$salt$key\"\n\n# 计算签名，使用md5sum计算MD5哈希值并提取前32字符\nsign\u003d$(echo -n \"$sign_str\" | md5sum | awk \u0027{print $1}\u0027)\necho \"$sign\"",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "sign"
+        }]
+      },
+      "id": "A-96a5502c-b699-4827-8537-c3d06969f09e"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api.fanyi.baidu.com/api/trans/vip/translate?q\u003d{contentText}\u0026from\u003dauto\u0026to\u003dzh\u0026appid\u003dglobalVarOf$bdfy_appid\u0026salt\u003d{salt}\u0026sign\u003d{sign}",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["trans_result[0].src", "trans_result[0].dst", "from", "to"]
+      },
+      "headers": [{
+        "key": "User-Agent",
+        "value": "Mozilla/5.0 (Linux; Android 6.0;)"
+      }, {
+        "key": "Host",
+        "value": "api.fanyi.baidu.com"
+      }, {
+        "key": "Connection",
+        "value": "Keep-Alive"
+      }, {
+        "key": "Accept-Encoding",
+        "value": "gzip"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "id": "A-fae2718c-e326-4e93-97d6-10a5a1b7db99"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "复制翻译结果",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{httpRequestRet2}",
+        "customContextDataKey": {
+        },
+        "id": "A-414c626e-7fa9-4d40-b6ad-7c4be7ad0718"
+      }],
+      "title": "                     {httpRequestRet3} → {httpRequestRet4}",
+      "message": "原文：{httpRequestRet1}\n译文：{httpRequestRet2}",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-36110750-812a-466b-a4ed-99dce95122a2"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotificationForPackage",
+      "appPkg": [{
+        "pkgName": "com.baidu.input"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-047f1dfc-0eab-476a-837a-8de4ef30665e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/RemoveNotificationForPackage",
+      "appPkg": [{
+        "pkgName": "com.baidu.input"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-39bed31e-3b1b-4a74-8dbf-41d4ed967a23"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c3436db2-60d7-4007-90fb-f18edb7e2d0e"
+  }],
+  "id": "rule-c8277786-63c1-4faa-a775-683da44c0da3",
+  "lastUpdateTime": "1696306997634",
+  "createTime": "1696268952409",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "自动翻译",
+  "description": "如果包含中文字符、数字和表情符号，不执行翻译！",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "bdfy_appid",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-d44c0619-b830-4b35-8d52-97b7175eb55c"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "bdfy_key",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-46282314-3500-45a5-b2f4-8c30daf45d61"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "bdfy_appid",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-d44c4e23-7170-4028-9873-bba98923535b"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "bdfy_key",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-c41ed691-a9ef-48fa-b025-9969dc737d5e"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsEmpty",
+          "varName": "bdfy_appid",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-26ae18bc-0f6c-4a63-8c66-c58bdc857577"
+        }, {
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsEmpty",
+          "varName": "bdfy_key",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-9b2de176-493f-4dcc-94c0-de5864b47089"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "请填写百度翻译appid和key",
+          "cancelable": true,
+          "textFields": [{
+            "placeholder": "20230201000123456"
+          }, {
+            "placeholder": "0JrC5ZuvU9KTSegI_pLB"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-8e326fbd-6c2f-43ce-80d1-b96f2ea372d0"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "bdfy_appid",
+          "valueAsString": "{textFieldInput1}",
+          "customContextDataKey": {
+          },
+          "id": "A-be9b4efa-da0f-4cb9-91fd-a81774869a9f"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "bdfy_key",
+          "valueAsString": "{textFieldInput2}",
+          "customContextDataKey": {
+          },
+          "id": "A-6e945d13-6d3a-4ca1-8448-667bde24876c"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "layout-3-fill",
+          "customContextDataKey": {
+          },
+          "id": "A-dab9ac55-ffb3-4ff8-a8cf-eb533071d8e7"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-ee3044c2-ae93-4613-bcbb-4898a9188e73"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-96f82737-207a-4c09-b6a0-efad4e0f7b41"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ecbce194-e52b-4ccf-8514-cf921913d463"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

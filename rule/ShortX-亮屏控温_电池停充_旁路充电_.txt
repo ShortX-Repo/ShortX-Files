@@ -1,0 +1,124 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-07dbaf18-121e-4ee8-b726-379389504fc9"
+  }, {
+    "@type": "type.googleapis.com/BatteryTemperatureChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-b5a2ae05-b0f3-406e-a8eb-3b5dd09d65a6"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-030866bd-f79e-49c6-9f8f-9272f0e8a9b8"
+  }, {
+    "@type": "type.googleapis.com/ChargeState",
+    "requireIsCharge": true,
+    "customContextDataKey": {
+    },
+    "id": "C-a474b1bd-3563-433e-a642-5295d9d81898"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/BatteryPercent",
+      "value": 95,
+      "op": "IntLessThan",
+      "customContextDataKey": {
+      },
+      "id": "C-eb21ccee-e4d4-4588-a833-76a030378e6d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "GreaterThanOrEQ",
+        "varName": "batteryTemperature",
+        "payload": {
+          "value": "42"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-d779f859-5eb5-4fe3-8568-30e98e219a90"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"1\" \u003e /sys/class/power_supply/battery/night_charging",
+        "customContextDataKey": {
+        },
+        "note": "充电时，当电池温度大于等于42度，开启旁路充电，仅向手机主板供电，停止向电池充电",
+        "id": "A-cf2f9ca5-7668-4a41-baaa-6ccb91f9672d"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"0\" \u003e /sys/class/power_supply/battery/night_charging",
+        "customContextDataKey": {
+        },
+        "note": "充电时，当电池温度小于42度，关闭旁路充电，向电池正常充电",
+        "id": "A-c63a2b2c-c566-410a-84df-fec35d5aca9e"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "充电时，当电池温度大于等于42度，开启旁路充电，仅向手机主板供电，停止向电池充电",
+      "id": "A-7bebb18c-8984-44c7-8d69-72e5a8d0a0a0"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo \"1\" \u003e /sys/class/power_supply/battery/night_charging",
+      "customContextDataKey": {
+      },
+      "note": "充电到95%，开启旁路充电，仅向手机主板供电，停止向电池充电",
+      "id": "A-4a40133d-1484-48c4-b707-6b9b2ee616df"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "充电时，当电池温度大于等于42度，开启旁路充电，仅向手机主板供电，停止向电池充电",
+    "id": "A-f0da65df-46ec-4beb-b2db-e1234ab46730"
+  }],
+  "id": "SHARE-rule-f254a423-cb18-4f5c-ab43-95ce6571b1e4",
+  "lastUpdateTime": "1752920870866",
+  "createTime": "1752828288094",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "亮屏控温，电池停充(旁路充电)",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ChargerUnplug",
+      "customContextDataKey": {
+      },
+      "id": "F-543ad584-0b02-458f-b6c5-e8e7d4b9946f"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-e2741c36-8e34-4061-a40c-1441de6b22be"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo \"0\" \u003e /sys/class/power_supply/battery/night_charging",
+      "customContextDataKey": {
+      },
+      "note": "充电结束后，关闭旁路充电",
+      "id": "A-30018db7-60f0-458f-b84e-6c7baf2eb190"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-5401af21-1d48-4036-a9c6-5e6eff7297a1"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

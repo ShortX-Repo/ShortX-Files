@@ -1,0 +1,24 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "id": "F-6d9f3a15-a4da-48b1-a84f-654d0a11c711"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "lock",
+    "valueAsString": "true",
+    "id": "A-68f8163d-5d96-4558-b2b9-1599f180ebfa"
+  }],
+  "id": "rule-01972253-4114-4288-a524-17c00c1b49a2",
+  "lastUpdateTime": "1689086015541",
+  "createTime": "1689085791043",
+  "title": "息屏",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

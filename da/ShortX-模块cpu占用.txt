@@ -1,0 +1,27 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "su\npgrep -lf /data/adb | awk \u0027{print $2}\u0027 | while read name ;do \n#name\u003d${path##*/}\n\ncat \u003c\u003ckey\n$name cpu占用：$(dumpsys cpuinfo | grep -i \"$name\" )\n\nkey\ndone\n\nsu -c dumpsys cpuinfo | grep \u0027sh\u0027 | sed \u0027s|^*[[:space:]]||g\u0027\nsu -c dumpsys cpuinfo | grep \u0027busybox\u0027 | sed \u0027s|^*[[:space:]]||g\u0027\nsu -c dumpsys cpuinfo | grep \u0027crond\u0027 | sed \u0027s|^*[[:space:]]||g\u0027\nsu -c dumpsys cpuinfo | grep lspd | sed \u0027s|^*[[:space:]]||g\u0027\nsu -c dumpsys cpuinfo | grep logd | sed \u0027s|^*[[:space:]]||g\u0027\nsu -c dumpsys cpuinfo | grep magiskd | sed \u0027s|^*[[:space:]]||g\u0027\n",
+    "customContextDataKey": {
+    },
+    "id": "A-c4614632-d107-4ac3-ac42-669596777264"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "title": "模块cpu占用",
+    "message": "{shellOut}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-89aab00b-8ac0-4138-b8b0-87d29e9d03a4"
+  }],
+  "id": "DAa3e78f69-b5f4-4207-8bb2-307c7d6b9cc1",
+  "lastUpdateTime": "1715624559994",
+  "createTime": "1715624525662",
+  "author": {
+    "name": "Crystal"
+  },
+  "title": "模块cpu占用",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

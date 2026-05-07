@@ -1,0 +1,32 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["killed"],
+    "id": "F-21468956-709b-49c8-9254-37251f0c27e0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/RemoveTasks",
+    "pkgSets": ["killed"],
+    "id": "A-c9dfc6d3-3b57-43d0-ab25-64a087627d78"
+  }],
+  "id": "rule-62b8174a-f111-4270-ab20-2a90ad78fb5d",
+  "lastUpdateTime": "1691948503311",
+  "createTime": "1691948288376",
+  "author": {
+    "name": "Genicur"
+  },
+  "title": "划卡删除",
+  "description": "将需要的应用放入killed应用集",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "killed",
+      "id": "A-aced0f8a-dd71-4ffa-adfd-9d8c3f5f2528"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

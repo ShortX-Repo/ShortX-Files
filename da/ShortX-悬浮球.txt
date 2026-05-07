@@ -1,0 +1,325 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "label": " ",
+      "id": "BTN-8504a547-3978-407f-9e88-870da605a5d8"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["悬浮球"],
+        "customContextDataKey": {
+        },
+        "id": "A-70ff145b-c107-42a2-b0e4-d9689c010290"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "layout-2-fill",
+          "label": " ",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-91fdc8ad-248d-4a24-9882-51f2104602ca"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "layout-top-2-fill",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-d0cfe8e2-658b-4682-872c-9e5d53a86818"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "layout-top-2-fill",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-985a4462-86a5-47e4-9909-a207b97fb77f"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "layout-bottom-line",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-77b7af6d-35f7-45dc-b658-1e60f54ea78e"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "reply-fill",
+          "label": "返回",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-8bd583f1-ccd5-4670-b074-017797ac2700"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "focus-fill",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-c068cc42-b7f7-4065-8166-b64318504ecb"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "mark-pen-line",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-63f6cc2c-d978-4a19-9fed-af5b558e67f9"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "grid-fill",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-751c06bb-34de-445b-a595-f511037a33d7"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "icon": "layout-top-line",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["菜单"],
+            "customContextDataKey": {
+            },
+            "id": "A-ab5fffe9-89e7-405a-bbc6-b8914388f4cc"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+            "customContextDataKey": {
+            },
+            "id": "A-41cdcb63-8b99-46f9-8c8e-3eb1a8e62be9"
+          }],
+          "id": "BTN-c2f759a8-1b9c-4203-82e7-46f16411db28"
+        }],
+        "tag": "菜单",
+        "maxHeightInDp": 153,
+        "maxWidthInDp": 500,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 82,
+        "enableGlobalDrag": true,
+        "overlayPaddingH": 23,
+        "overlayPaddingV": 50,
+        "disableAutoEdge": true,
+        "customContextDataKey": {
+        },
+        "id": "A-a4ffee27-6c81-4c82-a862-695b62beecd5"
+      }],
+      "icon": "focus-fill",
+      "label": "  ",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["悬浮球"],
+        "customContextDataKey": {
+        },
+        "id": "A-a42a03b3-2adf-44ac-8c3f-194d3f45d654"
+      }],
+      "id": "BTN-2d941f5c-414e-4cbe-87f1-35dda8a5abba"
+    }],
+    "autoCollapse": true,
+    "tag": "悬浮球",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "customContextDataKey": {
+    },
+    "id": "A-fa9c0f9f-f1cb-4044-be21-183707707fe4"
+  }],
+  "id": "DA4786d300-d07e-4eeb-a6ad-045f1289def3",
+  "lastUpdateTime": "1706345848844",
+  "createTime": "1706344067402",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "悬浮球",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

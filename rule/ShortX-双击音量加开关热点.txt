@@ -1,0 +1,51 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "gesture": "KeyMultiplePress",
+    "isInterceptMode": true,
+    "customContextDataKey": {
+    },
+    "id": "F-ee83392c-3762-41a9-8948-8b6b6967f26d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "import android.content.Context;\nimport android.net.wifi.WifiManager;\n    WifiManager wifiManager \u003d (WifiManager) context.getSystemService(Context.WIFI_SERVICE);\n    return wifiManager.isWifiApEnabled();",
+      "customContextDataKey": {
+      },
+      "id": "C-e31719b5-8106-4a2a-9258-4b318c64a7ae"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetHotSpotEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-df6dace1-a700-4fa1-8999-93f583408916"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetHotSpotEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-b2b6d24c-098b-46ea-836f-798fae796131"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-06e2e600-db98-4596-84a1-f47bf0b1e6b4"
+  }],
+  "id": "rule-1b7b03b9-d240-4576-9866-97247c5c8ef0",
+  "lastUpdateTime": "1701400274747",
+  "createTime": "1701400007405",
+  "author": {
+    "name": "奋斗的青年"
+  },
+  "title": "双击音量加开关热点",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

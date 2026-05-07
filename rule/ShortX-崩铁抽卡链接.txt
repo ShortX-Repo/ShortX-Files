@@ -1,0 +1,177 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Logcat",
+    "regex": "ContentCatcher_catcher: WebViewController : getUrl()-",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-b59cb066-c583-47ab-957a-d0d24a3c4a00"
+  }, {
+    "@type": "type.googleapis.com/Logcat",
+    "regex": "ContentCatcher_catcher: WebViewController : newUrl:",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-5e290ccb-ed72-4380-8e07-211ac37839f8"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "com.miHoYo.hkrpg"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-97a29ea9-4f17-4801-852e-941844fda5e5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "var\u003d\"{line}\"\necho \"$var\" | sed \u0027s/http/\\n\u0026/g\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-b93bf284-bf2d-4048-bfba-6cfc10ebd01f"
+  }, {
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{shellOut}",
+    "regex": "\\n",
+    "replacement": ",",
+    "customContextDataKey": {
+    },
+    "id": "A-353d2e74-59c7-44ef-8525-aad1893e25d8"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "filtered_var\u003d$(echo \"{replaceResult}\" | awk -F \u0027,\u0027 \u0027{for(i\u003d1;i\u003c\u003dNF;i++) if($i ~ /^(http:\\/\\/|https:\\/\\/)/) printf(\"%s%s\", $i, (i\u003d\u003dNF)?ORS:OFS)}\u0027)\necho \"$filtered_var\"",
+    "customContextDataKey": {
+    },
+    "id": "A-607c8960-3a5c-484a-b844-7b2a40c3fb12"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制链接",
+    "onPositive": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "防重复",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-88fe6047-42fe-49fb-9628-154c0707fbc7"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-5d3bad29-b247-4e33-bcd0-bdebcff74f6f"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-661636b4-72bc-4d90-82b8-af5640665cf1"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "防重复",
+      "customContextDataKey": {
+      },
+      "id": "A-3982a782-2d87-4436-a190-7f18dccf5871"
+    }],
+    "negative": "复制并打开星铁小助手",
+    "onNegative": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "防重复",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-e4b15e01-62ed-471d-949b-27f8acc7e6eb"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-77c3160f-e857-4172-a8b2-423d16f9495d"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;S.ext_info\u003dshortcut_5ac2b4c29bc3a36f3fc3b0c39ac3a90333c2ae251ec2bac28dc2aa40;S.digest\u003d8adb9e57f5545749a60a29350a7eae3d;S.id\u003dshortcut_4ac2a4c3bcc3a6613cc3b5c39ac2bf5465c2a82648c3acc3b9c3bf03c3af;i.type\u003d1;S.token\u003db4fb474a514d7e108f547c2c27c5d5f0;i.ext_info_1\u003d0;end\"",
+      "customContextDataKey": {
+      },
+      "id": "A-b4d2695e-9261-4610-a490-d701f20d7773"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-3f682e18-45ec-4df4-97cb-ca02593bfe49"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "防重复",
+      "customContextDataKey": {
+      },
+      "id": "A-d963312b-6d98-4bec-a868-09c27fb3858a"
+    }],
+    "neutral": "复制并打开星穹工坊",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "防重复",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-88fe6047-42fe-49fb-9628-154c0707fbc7"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-5d3bad29-b247-4e33-bcd0-bdebcff74f6f"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;S.ext_info\u003dshortcut_5ac2b4c29ac2b16138c2a3c28dc3aa0365c2ad734fc2bac288c3bc11;S.digest\u003d121b4b6c83ff6e228bac4fe7c9cb333e;S.id\u003dshortcut_4ac2a4c3bcc2b1646ec3b6c28cc2ba5162c2af234bc2b7c3b9c3bf03c3af;i.type\u003d1;S.token\u003dbdcf8660f4dd5a87f150bbf8c3aae4ab;i.ext_info_1\u003d0;end\"",
+      "customContextDataKey": {
+      },
+      "id": "A-d83a4488-e05c-484d-9a39-c098e33fa0e1"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-661636b4-72bc-4d90-82b8-af5640665cf1"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "防重复",
+      "customContextDataKey": {
+      },
+      "id": "A-3982a782-2d87-4436-a190-7f18dccf5871"
+    }],
+    "title": "抽卡链接",
+    "message": "{shellOut}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-4ff245c1-e9e9-421a-b185-446a52c16d9c"
+  }],
+  "id": "rule-5459b505-5bc6-42cc-b683-38220373c5d6",
+  "lastUpdateTime": "1714725291125",
+  "createTime": "1714718627800",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "崩铁抽卡链接",
+  "description": "打开抽卡自动获取链接",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,47 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/OcrDetect",
+    "rectSrc": {
+      "@type": "type.googleapis.com/RectSourceSelectScreenArea"
+    },
+    "threads": 4,
+    "separator": " ",
+    "customContextDataKey": {
+    },
+    "id": "A-1fc443d6-da44-4dc0-8dcd-06f173b80a10"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{ocrResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-4c80fcb2-85dd-4fae-85a5-54c1ad11b5a1"
+    }],
+    "title": "demo",
+    "message": "{ocrResult}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-9844f0c7-2559-4084-b9b6-96839943f21f"
+  }],
+  "id": "SHARED-DA-830ef9d9-cb45-46fd-b56f-922eb7b79a0a",
+  "lastUpdateTime": "1749814423382",
+  "createTime": "1749814324173",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "OCR Demo",
+  "description": "需安装 OCR 扩展",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

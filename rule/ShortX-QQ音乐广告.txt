@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/HasFoundNodeOnScreen",
+    "componentName": "com.tencent.qqmusic/.activity.AppStarterActivity",
+    "matchers": [{
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过"
+    }],
+    "detectTimeout": "5000",
+    "customContextDataKey": {
+    },
+    "id": "F-74d47dd9-f583-4fc1-a16e-d08176f34201"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FindAndClickMatchedView",
+    "customContextDataKey": {
+    },
+    "id": "A-43af3dab-47fe-465b-8f0a-87a2b12f5085"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "不看广告😆",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-39a639e3-f540-4bac-b9bf-25f76dda9610"
+  }],
+  "id": "rule-6306e879-09e8-4ec8-abd3-963bbd2da0ec",
+  "lastUpdateTime": "1693557589839",
+  "createTime": "1693557232842",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "QQ音乐广告",
+  "description": "不看广告",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

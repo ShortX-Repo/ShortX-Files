@@ -1,0 +1,64 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopAll",
+    "gesture": "SingleTap",
+    "customContextDataKey": {
+    },
+    "id": "F-10898871-fb44-45ae-983a-e40210063f0c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "关键词",
+    "cancelable": true,
+    "textFields": [{
+    }],
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-99c716e1-7efa-4f4b-ac7e-4d93d6535281"
+  }, {
+    "@type": "type.googleapis.com/OcrDetect",
+    "rectSrc": {
+      "@type": "type.googleapis.com/RectSourceFullScreen"
+    },
+    "threads": 4,
+    "separator": " ",
+    "customContextDataKey": {
+    },
+    "id": "A-cd25d60c-781a-4cff-a9da-a390b8fcb9ae"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// \u003d\u003d\u003d\u003d 配置部分 \u003d\u003d\u003d\u003d\nvar API_URL \u003d \"自己改\";\nvar API_KEY \u003d \"sk-自己改\";\nvar MODEL \u003d \"自己改\";\n\n// \u003d\u003d\u003d\u003d 核心HTTP请求函数 \u003d\u003d\u003d\u003d\nfunction makeHttpRequest(url, method, headers, body) {\n  try {\n    var connection \u003d new java.net.URL(url).openConnection();\n    connection.setRequestMethod(method);\n    connection.setDoOutput(true);\n    \n    // 设置请求头\n    var keys \u003d Object.keys(headers);\n    for (var i \u003d 0; i \u003c keys.length; i++) {\n      var key \u003d keys[i];\n      connection.setRequestProperty(key, headers[key]);\n    }\n    \n    // 写入请求体\n    var bytes \u003d new java.lang.String(body).getBytes(\"UTF-8\");\n    var outputStream \u003d connection.getOutputStream();\n    outputStream.write(bytes);\n    outputStream.close();\n    \n    // 读取响应\n    var inputStream \u003d connection.getInputStream();\n    var bufferedReader \u003d new java.io.BufferedReader(new java.io.InputStreamReader(inputStream));\n    var response \u003d \"\";\n    var line;\n    while ((line \u003d bufferedReader.readLine()) !\u003d null) {\n      response +\u003d line + \"\\n\";\n    }\n    bufferedReader.close();\n    \n    return {\n      status: connection.getResponseCode(),\n      body: response.trim()\n    };\n  } catch (e) {\n    throw \"HTTP请求失败: \" + e;\n  }\n}\n\n// \u003d\u003d\u003d\u003d AI调用函数 \u003d\u003d\u003d\u003d\nfunction callDeepSeekAI(prompt) {\n  var requestBody \u003d JSON.stringify({\n    model: MODEL,\n    messages: [{ role: \"user\", content: prompt }],\n    temperature: 0.7\n  });\n  \n  var response \u003d makeHttpRequest(\n    API_URL,\n    \"POST\",\n    {\n      \"Content-Type\": \"application/json\",\n      \"Authorization\": \"Bearer \" + API_KEY\n    },\n    requestBody\n  );\n  \n  if (response.status !\u003d\u003d 200) {\n    throw \"API返回错误状态码: \" + response.status;\n  }\n  \n  var result \u003d JSON.parse(response.body);\n  return result.choices[0].message.content;\n}\n\n// \u003d\u003d\u003d\u003d 主执行逻辑 \u003d\u003d\u003d\u003d\ntry {\n  var prompt \u003d {textFieldInput1} + {ocrResult};\n  var result \u003d callDeepSeekAI(prompt); \n  result; // 直接返回结果\n} catch (e) {\n  \"ERROR: \" + e;\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-40912bdc-be59-4446-9f3d-d377814178f6"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "确定",
+    "message": "{jsRet}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-3b07ab07-67a4-4e18-bfa6-4fa6ccc9c320"
+  }],
+  "id": "SHARE-rule-614457b6-552c-4d77-8ec1-be6c090ee8f8",
+  "lastUpdateTime": "1767694263949",
+  "createTime": "1766907960435",
+  "author": {
+    "name": "Summer"
+  },
+  "title": "手势激活Ai",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

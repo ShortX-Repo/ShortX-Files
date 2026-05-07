@@ -1,0 +1,86 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.android.browser"
+      },
+      "className": "com.android.browser.fullsearch.FullSearchActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-3525a68b-a6d2-448a-abe4-a8b961dcbe61"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d {activityIntentUri}; \n\nPattern pattern \u003d Pattern.compile(\u0027intent://m.baidu.com/s\\\\?from\u003d1002253t\u0026word\u003d(.*)\u0026bd_ck\u003d0\u0026ex_bp_rt\u003d1\u0027);\nMatcher matcher \u003d pattern.matcher(msgText);\nif (matcher.find()) {\n    String pinCode \u003d matcher.group(1);\n    return pinCode;\n} else {\n    return false;\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-47342664-f1f8-4c2f-80ca-29819e182ca7"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "find",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-ba4874c6-a20e-4a96-9152-d52a95cb55b3"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "find",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-b8c64932-d82b-4df0-b9d2-f5d7529918cf"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "find",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4d91af40-3e8a-4248-baa6-2b99106767ca"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-e930a215-689c-4402-ad3e-6c3e73137b50"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start \"intent:#Intent;scheme\u003dhttps;action\u003dandroid.intent.action.SEARCH;launchFlags\u003d0x1000000;component\u003dcom.android.browser/.fullsearch.FullSearchActivity;S.source\u003dfullsearch;S.com.android.browser.application_id\u003dcom.android.quicksearchbox;S.urlTemp\u003dhttps%3A%2F%2Fcn.bing.com%2Fsearch%3Fq%3D%7BsearchTerms%7D;S.query\u003dhttps%3A%2F%2Fcn.bing.com%2Fsearch%3Fq%3D{mvelRet};end\"",
+      "customContextDataKey": {
+      },
+      "id": "A-b0276dac-9837-49f2-8b8b-dec37f67b847"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ea5a4cfd-5dea-47d2-b7ac-65fcc9e3e985"
+  }],
+  "id": "rule-a37b93ac-dcbc-477e-833b-e9cc9e89b3a7",
+  "lastUpdateTime": "1709604653623",
+  "createTime": "1709553618871",
+  "author": {
+    "name": "JavaScript"
+  },
+  "title": "MIUI搜索 Bing",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-4b2cb348-97ac-4a50-af13-c05fa2520ee8"
+}
+###------###
+{"type":"rule"}

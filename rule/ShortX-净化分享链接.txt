@@ -1,0 +1,371 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "note": "净化分享链接\n用于净化 ht删tp  这种链接，仅复制到剪切板，提取码以Toast显示\nBy酷安墨上千里",
+    "id": "F-2344f2f7-e6fc-439a-8e1f-321e8cf3b8ac"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "//此处条件为防止匹配出链接二次复制\nimport java.util.regex.Pattern;\n\n// 定义待判断的字符串\nString str \u003d {clipboardContent};\n\n// 使用正则表达式匹配中文字符\nPattern pattern \u003d Pattern.compile(\"[\\\\u4E00-\\\\u9FA5]\");\nboolean hasChineseCharacter \u003d pattern.matcher(str).find();\n\nhasChineseCharacter;",
+    "customContextDataKey": {
+    },
+    "id": "C-d352dfc4-2c13-4ad9-9270-224544b59026"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "//过滤过滤那些中文混在链接内的文章\nimport java.util.regex.Pattern;\n\n// 定义待判断的字符串\nString str \u003d {clipboardContent};\n\n// 使用正则表达式匹配中文字符\nPattern pattern \u003d Pattern.compile(\"[\\\\u4E00-\\\\u9FA5]\");\nboolean hasChineseCharacter \u003d pattern.matcher(str).find();\n\nhasChineseCharacter;",
+      "customContextDataKey": {
+      },
+      "id": "C-7545b506-c0e9-49c5-b0dd-3080963d4d20"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "//使用别人造的轮子拿来直接用，匹配关键词，可防止一些特殊情况\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n// 定义消息文本\nString msgText \u003d {clipboardContent};\n\n// 定义要匹配的关键词数组\nString[] keyword \u003d {\"html\", \"ww.\", \"123\", \"3pan\", \"pan\", \"提取码\", \"htt\", \"删\", \"://\", \"ww\", \"激活代码\", \"http\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \".com\"};\n\n// 定义变量以判断是否存在匹配项\nboolean containsMatch \u003d false;\n\n// 遍历关键词数组并进行匹配\nfor (String keywordList : keyword) {\n    // 如果尚未找到匹配项，则使用正则表达式进行匹配\n    if (!containsMatch) {\n        Pattern pattern \u003d Pattern.compile(\".*\" + keywordList + \".*\");\n        Matcher matcher \u003d pattern.matcher(msgText);\n\n        // 如果找到匹配项，则将containsMatch设置为true\n        if (matcher.find()) {\n            containsMatch \u003d true;\n        }\n    }\n}\n\n// 返回是否存在匹配项\nreturn containsMatch;\n",
+      "customContextDataKey": {
+      },
+      "id": "C-6d8a831f-b56f-46e9-8ee9-cb4aaa4872c2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "//再次过滤下\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n// 定义消息文本\nString msgText \u003d {clipboardContent};\n\n// 定义要匹配的关键词数组\nString[] keyword \u003d {\"html\", \"ww.\", \"123\", \"3pan\", \"pan\", \"提取码\", \"链接\", \"删\", \"://\", \"ww\", \"激活代码\", \"http\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \".com\"};\n\n// 定义变量以判断是否存在匹配项\nboolean containsMatch \u003d false;\n\n// 遍历关键词数组并进行匹配\nfor (String keywordList : keyword) {\n    // 如果尚未找到匹配项，则使用正则表达式进行匹配\n    if (!containsMatch) {\n        Pattern pattern \u003d Pattern.compile(\".*\" + keywordList + \".*\");\n        Matcher matcher \u003d pattern.matcher(msgText);\n\n        // 如果找到匹配项，则将containsMatch设置为true\n        if (matcher.find()) {\n            containsMatch \u003d true;\n        }\n    }\n}\n\n// 返回是否存在匹配项\nreturn containsMatch;\n",
+        "customContextDataKey": {
+        },
+        "id": "C-e31b5615-873b-407b-a248-2fcd516a87d8"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ReadClipboard",
+        "customContextDataKey": {
+        },
+        "id": "A-d186fa57-aff6-4ddb-96ee-9abd6c1dde34"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n\n// 定义原始文本字符串\nString url \u003d {clipboardContent};\n\n\n// 匹配提取码后面的所有文字内容\n//Pattern contentPattern \u003d Pattern.compile(\"码(.*$)\");\nPattern contentPattern \u003d Pattern.compile(\"码(.*)\");\nMatcher contentMatcher \u003d contentPattern.matcher(url);\nString extractedContent \u003d \"\";\nif (contentMatcher.find()) {\n    extractedContent \u003d contentMatcher.group(1);\n}\n\n// 去除中文字符\nextractedContent \u003d extractedContent.replaceAll(\"[\\\\u4e00-\\\\u9fa5]\", \"\");\n\n// 匹配字母数字组合\nPattern codePattern \u003d Pattern.compile(\"[a-zA-Z0-9]+\");\nMatcher codeMatcher2\u003d  codePattern.matcher(extractedContent);\n\nString resultText\u003d\"\";\nwhile (codeMatcher2 .find()) {\n    resultText +\u003d codeMatcher2.group();\n}\n\nif (!resultText.isEmpty()) {\n    return resultText;\n} else {\n    return \"未找到或无提取码\";\n}\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "Key"
+          }]
+        },
+        "note": "如果有提取码则匹配提取码，如果链接给定了pwd\u003d先不做匹配，满足大部分情况了",
+        "id": "A-5f150fcf-3451-4c67-9f86-c1a620c18fa5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString url \u003d {clipboardContent};// 您的URL\nString code \u003d \"提取码：o7cr\"; // 您的提取码\n\n// 去除中文字符的正则表达式\nString regex \u003d \"[\\\\u4e00-\\\\u9fa5]\"; \n\n// 匹配并去除包含在中括号[]中的内容\nurl \u003d url.replaceAll(\"\\\\[[^\\\\]]*\\\\]\", \"\");\n\n// 去除中文字符\nurl \u003d url.replaceAll(regex, \"\");\n//去除符号\n\n// 去除链接后面的符号\nurl \u003d url.replaceAll(\"[,，]+$\", \"\");  \ncode \u003d code.replaceAll(regex, \"\");\n\n// 接下来是您原来的逻辑\nPattern urlPattern \u003d Pattern.compile(\"(https?://\\\\S+)\");\nMatcher urlMatcher \u003d urlPattern.matcher(url);\nString extractedUrl \u003d urlMatcher.find() ? urlMatcher.group(1) : null;\n\n\n\nif (extractedUrl !\u003d null ) {\n    String result \u003d  extractedUrl ;\n    return result;\n} else {\n    return false;\n}\n\n\n\n\n\n\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "Url"
+          }]
+        },
+        "note": "首先尝试匹配出https链接",
+        "id": "A-8d2c4363-cc6e-4884-a967-a4bbc38769ac"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "Url",
+          "payload": {
+            "value": "false"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-081839e1-502f-416e-84da-68515835a65e"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString url \u003d {clipboardContent}; // 您的URL\nString code \u003d \"提取码：o7cr\"; // 您的提取码\n\n// 去除中文字符的正则表达式\nString regex \u003d \"[\\\\u4e00-\\\\u9fa5]\"; \n\n// 匹配并去除包含在中括号[]中的内容\nurl \u003d url.replaceAll(\"\\\\[[^\\\\]]*\\\\]\", \"\");\n\n// 去除中文字符\nurl \u003d url.replaceAll(regex, \"\");\ncode \u003d code.replaceAll(regex, \"\");\n\n\n\n// 匹配 www 开头但不包含 http 或 https 的链接\nPattern urlPattern \u003d Pattern.compile(\"(www\\\\.\\\\S+)\");\nMatcher urlMatcher \u003d urlPattern.matcher(url);\nString extractedUrl \u003d (urlMatcher.find()) ? urlMatcher.group(0) : null;\n\n\nif (extractedUrl !\u003d null ) {\n    String result \u003d  extractedUrl ;\n    return result;\n} else {\n    return false;\n}",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "UrlW"
+            }]
+          },
+          "note": "匹配www链接",
+          "id": "A-87e695a3-21b9-4db1-9dcd-790f1064615c"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "UrlW",
+            "payload": {
+              "value": "false"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-63ea02ff-fd53-4b63-acaf-0a8f20be72a8"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "匹配失败",
+            "customContextDataKey": {
+            },
+            "id": "A-7866b620-bb72-4ad9-94ea-1f7c1bcd12ab"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "打开",
+            "onPositive": [{
+              "@type": "type.googleapis.com/StartActivityUrlSchema",
+              "urlSchema": "{UrlW}",
+              "customContextDataKey": {
+              },
+              "id": "A-9d126d9f-13ea-4361-94a1-5b0afeacb83d"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "EqualTo",
+                "varName": "Key",
+                "payload": {
+                  "value": "未找到或无提取码"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-537d2edc-9bae-49a3-8764-59b35b832c2a"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "{Key}",
+                "customContextDataKey": {
+                },
+                "id": "A-1a7a5745-7a0c-4c09-8f7a-865043b3285a"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "提取码:{Key}",
+                "customContextDataKey": {
+                },
+                "id": "A-f85ec543-5c37-4e40-9535-34f946e45650"
+              }, {
+                "@type": "type.googleapis.com/WriteClipboard",
+                "text": "{Key}",
+                "customContextDataKey": {
+                },
+                "id": "A-6a1c6efd-4d96-4610-8de7-ea7d5648f698"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-776c8786-d6e2-44ca-a6f9-6390f5e8b953"
+            }],
+            "negative": "取消",
+            "onNegative": [{
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Root",
+              "customContextDataKey": {
+              },
+              "id": "A-945ecc71-a55d-4274-bffd-3c577b822713"
+            }],
+            "neutral": "复制",
+            "onNeutral": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "已复制:{UrlW}",
+              "customContextDataKey": {
+              },
+              "id": "A-38e895b3-5dec-4144-acf5-a5c31457f214"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "EqualTo",
+                "varName": "Key",
+                "payload": {
+                  "value": "未找到或无提取码"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-537d2edc-9bae-49a3-8764-59b35b832c2a"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "{Key}",
+                "customContextDataKey": {
+                },
+                "id": "A-1a7a5745-7a0c-4c09-8f7a-865043b3285a"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "提取码:{Key}",
+                "customContextDataKey": {
+                },
+                "id": "A-f85ec543-5c37-4e40-9535-34f946e45650"
+              }, {
+                "@type": "type.googleapis.com/WriteClipboard",
+                "text": "{Key}",
+                "customContextDataKey": {
+                },
+                "id": "A-6a1c6efd-4d96-4610-8de7-ea7d5648f698"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-914133a4-565f-4429-a723-217f3b9ba28f"
+            }, {
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "{UrlW}",
+              "customContextDataKey": {
+              },
+              "note": "匹配出www链接跳出",
+              "id": "A-75641c4a-88e4-44a7-82fb-f14ec57ad4a9"
+            }],
+            "title": "发现链接",
+            "message": "{UrlW}",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-a0228057-3412-4ae5-9c37-c9235af3a51b"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-d937f1c1-0958-4855-a08e-0234668f4761"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "打开",
+          "onPositive": [{
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "{Url}",
+            "customContextDataKey": {
+            },
+            "id": "A-b5657a86-58b5-4456-8299-62e6391b4eb2"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "Key",
+              "payload": {
+                "value": "未找到或无提取码"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-537d2edc-9bae-49a3-8764-59b35b832c2a"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "{Key}",
+              "customContextDataKey": {
+              },
+              "id": "A-1a7a5745-7a0c-4c09-8f7a-865043b3285a"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "提取码:{Key}",
+              "customContextDataKey": {
+              },
+              "id": "A-f85ec543-5c37-4e40-9535-34f946e45650"
+            }, {
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "{Key}",
+              "customContextDataKey": {
+              },
+              "id": "A-6a1c6efd-4d96-4610-8de7-ea7d5648f698"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-b366f948-cc85-476b-b40d-058f4b17ee69"
+          }],
+          "negative": "取消",
+          "onNegative": [{
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-945ecc71-a55d-4274-bffd-3c577b822713"
+          }],
+          "neutral": "复制",
+          "onNeutral": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "已复制:{Url}",
+            "customContextDataKey": {
+            },
+            "note": "这里是匹配到https跳出",
+            "id": "A-3557c52c-a688-44b6-b91e-5bc86c449328"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "Key",
+              "payload": {
+                "value": "未找到或无提取码"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-537d2edc-9bae-49a3-8764-59b35b832c2a"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "{Key}",
+              "customContextDataKey": {
+              },
+              "id": "A-1a7a5745-7a0c-4c09-8f7a-865043b3285a"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "提取码:{Key}",
+              "customContextDataKey": {
+              },
+              "id": "A-f85ec543-5c37-4e40-9535-34f946e45650"
+            }, {
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "{Key}",
+              "customContextDataKey": {
+              },
+              "id": "A-6a1c6efd-4d96-4610-8de7-ea7d5648f698"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-914133a4-565f-4429-a723-217f3b9ba28f"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{Url}",
+            "customContextDataKey": {
+            },
+            "id": "A-8db1419f-65c9-42ee-befe-b591a4d5dbf6"
+          }],
+          "title": "发现链接",
+          "message": "{Url}",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-a0228057-3412-4ae5-9c37-c9235af3a51b"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "未匹配到则尝试匹配www链接",
+        "id": "A-54640687-c659-48d9-94ad-29ae7ccea1d4"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "匹配到目标开始判断",
+      "id": "A-52003dd0-0fde-4930-9d9e-c67bd47d7a49"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "OK，开始匹配嘻嘻",
+    "id": "A-d230162c-834a-4a6c-883b-a9c1c1330ead"
+  }],
+  "id": "rule-dada7157-c91b-4e72-a327-71fe41147bfb",
+  "lastUpdateTime": "1713879086192",
+  "createTime": "1706289837200",
+  "author": {
+    "name": "He"
+  },
+  "title": "净化分享链接",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ae373b52-9a2d-42f4-ad9c-725beb773f93"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,78 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["User"],
+    "tag": "移除任务",
+    "customContextDataKey": {
+    },
+    "id": "F-f288a1a4-63b4-49ce-88b9-f2b28dbef5db"
+  }, {
+    "@type": "type.googleapis.com/TaskRemoved",
+    "tag": "停止应用",
+    "customContextDataKey": {
+    },
+    "id": "F-e23e663e-0e36-4bda-a9df-b2dc5f88952c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "移除任务",
+      "customContextDataKey": {
+      },
+      "id": "C-8590f0e0-78d0-45ba-aa3e-79a98e0bfc01"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/RemoveTasksByPkg",
+      "pkgAndUsers": [{
+        "first": "{pkgName}",
+        "second": "0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d664eff5-028b-472b-8fd3-568b8461c496"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-adab4967-0655-4ea8-badd-63d5dad56ee9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "停止应用",
+      "customContextDataKey": {
+      },
+      "id": "C-c60251b7-8111-49f3-8186-c504736f5602"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopAppByPkg",
+      "pkgAndUsers": [{
+        "first": "{pkgName}",
+        "second": "0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-efb3ed26-8ed4-46dd-bb46-2f9b79c720e8"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-67ad802c-a5dd-47ea-9eaa-3649c5ffbbac"
+  }],
+  "id": "rule-f68bd20d-7899-4464-b389-92dd2f9effd1",
+  "lastUpdateTime": "1708874516966",
+  "createTime": "1701936851567",
+  "author": {
+    "name": "源梦"
+  },
+  "title": "任务管理_v1.0.1",
+  "description": "♦️功能列表♦️\n移除任务自动停止应用\n应用停止自动移除任务",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ced961d7-7ce0-46c8-aa8f-31cfd495f5e8"
+}
+###------###
+{"type":"rule"}

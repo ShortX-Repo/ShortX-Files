@@ -1,0 +1,92 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+    }],
+    "tag": "开启",
+    "customContextDataKey": {
+    },
+    "id": "F-846f3d5c-c9b4-43d7-9f2e-224595a6dc3b"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+    }],
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-09d8a068-b4f9-4fd8-85be-b93c67cf87f6"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开启",
+      "customContextDataKey": {
+      },
+      "id": "C-f3fb67f4-0e9c-432d-81ca-104168cbcb80"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-0f2ad6bd-396e-42f0-bdf9-8f20fba30334"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "定位开",
+      "customContextDataKey": {
+      },
+      "id": "A-7ba2bbde-af24-43b9-8ac5-162286318b05"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d04212ac-f278-43f1-809e-327cedd81992"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "关闭",
+      "customContextDataKey": {
+      },
+      "id": "C-457ef640-8b91-433f-9371-d15ac1d686b3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-a9cfff7d-259f-463c-b267-c97d28f78720"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "定位关",
+      "customContextDataKey": {
+      },
+      "id": "A-3887e52f-ee90-4663-9a33-261a122f4ec2"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-38bfe31a-2339-4d6d-bf26-efe8f964717b"
+  }],
+  "id": "SHARE-rule-c4649005-64f5-4f29-afe7-3d97900dde78",
+  "lastUpdateTime": "1729236655209",
+  "createTime": "1729235772989",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信自动开关定位",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

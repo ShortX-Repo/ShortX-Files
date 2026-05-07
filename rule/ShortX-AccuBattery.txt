@@ -1,0 +1,65 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "id": "F-93fa7743-125a-45d3-bad0-e2e5f2c08674"
+  }, {
+    "@type": "type.googleapis.com/ChargerUnplug",
+    "id": "F-4b1fa888-9a8e-46e7-8f4c-85f36b8f993b"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.digibites.accubattery"
+      }],
+      "id": "C-ce2630ec-1817-4c2d-928e-d3a73122acd9"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "id": "C-9cf1af6e-7063-4a82-8130-00716e78a7ba"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.digibites.accubattery"
+      }],
+      "id": "A-c9513fc6-bc61-411f-9286-424b7f32919d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgs": [{
+          "pkgName": "com.digibites.accubattery"
+        }],
+        "id": "C-20cedd67-f1dd-4510-9e88-9ca47ce2f1a5"
+      }, {
+        "@type": "type.googleapis.com/ChargeState",
+        "requireIsCharge": true,
+        "id": "C-e2f416e6-fe7d-4a11-b735-8c54e1ee0629"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StartAppProcess",
+        "appPkg": [{
+          "pkgName": "com.digibites.accubattery"
+        }],
+        "id": "A-cf6e4ab3-5377-4356-b7b0-c629803374a0"
+      }],
+      "id": "A-f812332d-80ca-46ce-ba0a-3cb76d0ff824"
+    }],
+    "id": "A-6f7b9971-911f-4a9f-adb7-504cd95f3628"
+  }],
+  "id": "rule-97bf9269-0786-4e48-9842-6db542da09a8",
+  "lastUpdateTime": "1689136467801",
+  "createTime": "1689135795744",
+  "title": "AccuBattery",
+  "isEnabled": true,
+  "condOp": "ANY",
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,221 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.sdjictec.qdmetro"
+    }],
+    "tag": "蓝牙",
+    "customContextDataKey": {
+    },
+    "id": "F-78776720-47e1-46b9-929b-ed595a1251c3"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.autonavi.minimap"
+    }, {
+      "pkgName": "com.baidu.BaiduMap"
+    }],
+    "tag": "定位",
+    "customContextDataKey": {
+    },
+    "id": "F-4dac6a0d-0509-4cf2-b7f2-10b12904579a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.sdjictec.qdmetro"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e47355f6-7379-4750-93ad-ece1b08aba9d"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "import android.bluetooth.BluetoothAdapter;\nBluetoothAdapter bluetoothAdapter \u003d BluetoothAdapter.getDefaultAdapter();\nboolean isBluetoothEnabled \u003d bluetoothAdapter.isEnabled();",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-4e946689-ffd8-4919-9041-13fac00174db"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetBTEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-64b18092-d52f-4b28-b668-8f64c9b1a7d0"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "开启蓝牙✓",
+      "customContextDataKey": {
+      },
+      "id": "A-4a7cce21-36bf-4f29-ab48-0dd717151322"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "蓝牙",
+    "id": "A-1c4baf5a-60bb-43ea-b741-fd939b4f231f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.autonavi.minimap"
+      }, {
+        "pkgName": "com.baidu.BaiduMap"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-e8b4363b-6b3d-43fe-950f-ab3b0fd79fd7"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "定位",
+      "customContextDataKey": {
+      },
+      "id": "C-d7726ea1-8987-4cdf-85b1-77197c10ae3f"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "import android.location.LocationManager;\nlocationManager \u003d context.getSystemService(context.LOCATION_SERVICE);\n    boolean gpsEnabled \u003d locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-7208ba16-2424-47e3-b640-b12cbcf3382a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-6164427b-a927-46b9-867f-a4cfe577e064"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "开启定位✓",
+      "customContextDataKey": {
+      },
+      "id": "A-26be7d36-f8d9-4f8c-8ca4-18513959c883"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "定位",
+    "id": "A-b86ee97c-dc6d-43d9-b9ea-c3965de8cf05"
+  }],
+  "id": "rule-b2b41e7a-2543-46b7-af66-d0557d58aa27",
+  "lastUpdateTime": "1710836780514",
+  "createTime": "1709139349155",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "自动开关定位/蓝牙",
+  "description": "高德百度地图开关定位\n青岛地铁打开蓝牙",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "apps": [{
+        "pkgName": "com.autonavi.minimap"
+      }, {
+        "pkgName": "com.baidu.BaiduMap"
+      }],
+      "tag": "定位",
+      "customContextDataKey": {
+      },
+      "id": "F-0633a58b-613a-480c-badd-a38a757c5d92"
+    }, {
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "apps": [{
+        "pkgName": "com.sdjictec.qdmetro"
+      }],
+      "tag": "蓝牙",
+      "customContextDataKey": {
+      },
+      "id": "F-bac678fe-3c0a-4a3f-96e4-f917a9d78246"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "定位",
+        "customContextDataKey": {
+        },
+        "id": "C-d5e711dc-1bb6-43ea-971b-50ea03eecd8a"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.location.LocationManager;\nlocationManager \u003d context.getSystemService(context.LOCATION_SERVICE);\n    boolean gpsEnabled \u003d locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);",
+        "customContextDataKey": {
+        },
+        "id": "C-5f44a330-264a-4dd7-9391-71987e950bb4"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetLocationEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-10cf9522-6042-489b-848c-a691bf12f0cf"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "关闭定位✓",
+        "customContextDataKey": {
+        },
+        "id": "A-d01b755b-77fd-41c2-a28e-a889ad7b4a8d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-79697af0-5348-4777-b47c-4fea3ea5f893"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppHasTask",
+        "pkgs": [{
+          "pkgName": "com.sdjictec.qdmetro"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-ff8d335a-18b9-4cbc-82e3-54ec51cfda0d"
+      }, {
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "com.sdjictec.qdmetro"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-1ccb950e-f550-4eda-989e-be5d4706de8f"
+      }, {
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "蓝牙",
+        "customContextDataKey": {
+        },
+        "id": "C-b0b12e15-cedd-4cd1-94e3-ad74bdd8723d"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.bluetooth.BluetoothAdapter;\nBluetoothAdapter bluetoothAdapter \u003d BluetoothAdapter.getDefaultAdapter();\nboolean isBluetoothEnabled \u003d bluetoothAdapter.isEnabled();",
+        "customContextDataKey": {
+        },
+        "id": "C-4df1cabd-73ee-4ab9-8640-ff3de0557ee0"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetBTEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-f0d756be-4883-443e-aa5a-4fbc41cea71b"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "关闭蓝牙✓",
+        "customContextDataKey": {
+        },
+        "id": "A-4a7cce21-36bf-4f29-ab48-0dd717151322"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f60fe199-5593-4921-b9fc-5d9f54387321"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

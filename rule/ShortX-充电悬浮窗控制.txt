@@ -1,0 +1,170 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-6adac0fe-a334-4b40-a975-1f3413740b36"
+  }, {
+    "@type": "type.googleapis.com/ChargerUnplug",
+    "customContextDataKey": {
+    },
+    "id": "F-e452fd04-4cdd-4cee-bc3b-993cdde19b5d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/PlugState",
+      "type": "PlugType_PlugAC",
+      "customContextDataKey": {
+      },
+      "id": "C-97fdb1a9-60ae-4e46-a9ff-6a1a9d4e0c84"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-d433858b-54b6-491f-bee0-7d9d534463e7"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "最大电流值",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-24ac55cc-3c00-48e1-91a3-5ff76eb2eae3"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "最大电流值",
+          "valueAsString": "4500000",
+          "customContextDataKey": {
+          },
+          "note": "快充电流单位为微安\n5.5A\u003d5500mA\u003d5500000μA",
+          "id": "A-8debdf0d-a7e0-4c4d-b489-a65891247c0b"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "current\u003dlocalVarOf$最大电流值\nchmod 0777 /sys/class/power_supply/usb/boost_current\nchmod 0777 /sys/class/power_supply/battery/input_current_limited\necho \u00270\u0027 \u003e /sys/class/power_supply/battery/input_current_limited\necho \u00271\u0027 \u003e /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/battery/input_current_limited\n# 以下命令改自@coolapk 代号10007的温控模块\nfind /sys -iname \"*_charge_level\" -o -iname \"boost_current\" -o -iname \"input_current_settled\" -o -iname \"hw_current_max\" -o -iname \"pd_current_max\" -o -iname \"constant_charge_current_max\"  -o -iname \"charge_current\"  -o -iname \"restricted_current\" -o -iname \"current_max\" -o -iname \"thermal_input_current\" -o -iname \"fast_charge_current\" -o -iname \"constant_charge_current\" -o -iname \"hw_current\" -o -iname \"pd_current\"  -o -iname \"default_.*_icl_ma\" -o -iname \"dcp_max_current\" -o -iname \"hvdcp_max_current\" -o -iname \"ctm_current_max\" -o -iname \"sdp_current_max\" -o -iname \"max_current\" -o -iname \"input_current\" 2\u003e /dev/null | while read i ;do\nlocal file\u003d\"$i\"\n\ttest -f \"$file\" \u0026\u0026 {\n\t\tlocal value\u003d\"$(cat $file)\"\n\t\techo \"存在 $file 值：$value \"\n\t}\ntest \"$(echo \"$current\")\" \u003d\u003d \"\" \u0026\u0026 continue\ntest -f \"${i}\" \u0026\u0026 {\n\tchmod 0777 \"${i}\"\n\t\techo \"${current}\" \u003e \"${i}\"\n  chmod 0444 \"${i}\"\n\t}\n\tdone\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-7fab8c3e-8f7d-46d5-a4bf-271e8f4284f9"
+        }, {
+          "@type": "type.googleapis.com/ShowDanmu",
+          "text": "满血快充~",
+          "customContextDataKey": {
+          },
+          "id": "A-7af26b46-9d57-43be-b9b3-6d2c0503c95e"
+        }],
+        "label": "快充",
+        "id": "BTN-eccbb58d-2b2a-4078-a8d7-274c2cb22bff"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "最小电流值",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-c992227e-5826-4d97-8dc0-79e8dc64506e"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "最小电流值",
+          "valueAsString": "550000",
+          "customContextDataKey": {
+          },
+          "note": "慢充电流单位为微安\n1A\u003d1000mA\u003d1000000μA",
+          "id": "A-2be19c13-9a13-4e16-b86f-8de23aa2b794"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "current\u003dlocalVarOf$最小电流值\nchmod 0777 /sys/class/power_supply/usb/boost_current\nchmod 0777 /sys/class/power_supply/battery/input_current_limited\necho \u00270\u0027 \u003e /sys/class/power_supply/battery/input_current_limited\necho \u00271\u0027 \u003e /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/battery/input_current_limited\n# 以下命令改自@coolapk 代号10007的温控模块\nfind /sys -iname \"*_charge_level\" -o -iname \"boost_current\" -o -iname \"input_current_settled\" -o -iname \"hw_current_max\" -o -iname \"pd_current_max\" -o -iname \"constant_charge_current_max\"  -o -iname \"charge_current\"  -o -iname \"restricted_current\" -o -iname \"current_max\" -o -iname \"thermal_input_current\" -o -iname \"fast_charge_current\" -o -iname \"constant_charge_current\" -o -iname \"hw_current\" -o -iname \"pd_current\"  -o -iname \"default_.*_icl_ma\" -o -iname \"dcp_max_current\" -o -iname \"hvdcp_max_current\" -o -iname \"ctm_current_max\" -o -iname \"sdp_current_max\" -o -iname \"max_current\" -o -iname \"input_current\" 2\u003e /dev/null | while read i ;do\nlocal file\u003d\"$i\"\n\ttest -f \"$file\" \u0026\u0026 {\n\t\tlocal value\u003d\"$(cat $file)\"\n\t\techo \"存在 $file 值：$value \"\n\t}\ntest \"$(echo \"$current\")\" \u003d\u003d \"\" \u0026\u0026 continue\ntest -f \"${i}\" \u0026\u0026 {\n\tchmod 0777 \"${i}\"\n\t\techo \"${current}\" \u003e \"${i}\"\n  chmod 0444 \"${i}\"\n\t}\n\tdone\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "慢充",
+          "id": "A-524245a2-fd60-4fad-b03a-e0ad0ed343fb"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "慢充localVarOf$最小电流值\n",
+          "customContextDataKey": {
+          },
+          "id": "A-e111a86e-a672-4351-8fe0-92abfcdd17af"
+        }],
+        "label": "慢充",
+        "id": "BTN-4ec0514f-943c-43f5-a509-5536be550446"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["充电控制"],
+          "customContextDataKey": {
+          },
+          "id": "A-e6a4b97a-bccd-4f2c-bad0-3878ce4d9281"
+        }],
+        "label": "关闭",
+        "id": "BTN-3f318adc-7731-44d8-8b73-0a0c384ea429"
+      }],
+      "autoCollapse": true,
+      "tag": "充电控制",
+      "maxHeightInDp": 20,
+      "maxWidthInDp": 193,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 20,
+      "enableGlobalDrag": true,
+      "customContextDataKey": {
+      },
+      "id": "A-307c7429-e45e-4836-a197-b55df2cba54a"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["充电控制"],
+      "customContextDataKey": {
+      },
+      "id": "A-20801627-4ee5-4a00-9858-9912d01b0083"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-cbf05d1d-2829-4ccc-b617-8812970441dd"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-89bff3c1-b92e-4fb3-85fa-5199bf29e26a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["充电控制"],
+      "customContextDataKey": {
+      },
+      "id": "A-dec47f3e-7482-4568-aff9-cf1241a9d7a2"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ab3affb7-4f7b-4b10-9f4e-d8f9be3d696f"
+  }],
+  "id": "rule-8587281f-4034-488f-a640-4552fbdf612f",
+  "lastUpdateTime": "1712050817179",
+  "createTime": "1710340162194",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "充电悬浮窗控制",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-a08b9b17-9bc9-4823-8403-196652d1aa20"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,882 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "note": "净化分享链接\n用于净化 ht删tp  这种链接，复制到剪切板，提取码以Toast显示，当前版本支持两种模式，模式一保持原来的Toast显示及复制，模式二支持多种链接以列表形式显示选择并复制，特殊情况还待优化\nBy酷安墨上千里",
+    "id": "F-91d31865-1237-4771-ba42-910a948222ae"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "//此处条件为防止匹配出链接二次复制\nimport java.util.regex.Pattern;\n\n// 定义待判断的字符串\nString str \u003d {clipboardContent};\n\n// 使用正则表达式匹配中文字符\nPattern pattern \u003d Pattern.compile(\"[\\\\u4E00-\\\\u9FA5]\");\nboolean hasChineseCharacter \u003d pattern.matcher(str).find();\n\nhasChineseCharacter;",
+    "customContextDataKey": {
+    },
+    "id": "C-f54e9e88-8160-4258-93f4-ce6eef66eabe"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "//过滤过滤那些中文混在链接内的文章\nimport java.util.regex.Pattern;\n\n// 定义待判断的字符串\nString str \u003d {clipboardContent};\n\n// 使用正则表达式匹配中文字符\nPattern pattern \u003d Pattern.compile(\"[\\\\u4E00-\\\\u9FA5]\");\nboolean hasChineseCharacter \u003d pattern.matcher(str).find();\n\nhasChineseCharacter;",
+      "customContextDataKey": {
+      },
+      "id": "C-7545b506-c0e9-49c5-b0dd-3080963d4d20"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "//使用别人造的轮子拿来直接用，匹配关键词，可防止一些特殊情况\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n// 定义消息文本\nString msgText \u003d {clipboardContent};\n\n// 定义要匹配的关键词数组\nString[] keyword \u003d {\"html\", \"ww.\", \"123\", \"3pan\", \"pan\", \"提取码\", \"htt\", \"删\", \"://\", \"ww\", \"激活代码\", \"http\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \".com\"};\n\n// 定义变量以判断是否存在匹配项\nboolean containsMatch \u003d false;\n\n// 遍历关键词数组并进行匹配\nfor (String keywordList : keyword) {\n    // 如果尚未找到匹配项，则使用正则表达式进行匹配\n    if (!containsMatch) {\n        Pattern pattern \u003d Pattern.compile(\".*\" + keywordList + \".*\");\n        Matcher matcher \u003d pattern.matcher(msgText);\n\n        // 如果找到匹配项，则将containsMatch设置为true\n        if (matcher.find()) {\n            containsMatch \u003d true;\n        }\n    }\n}\n\n// 返回是否存在匹配项\nreturn containsMatch;\n",
+      "customContextDataKey": {
+      },
+      "id": "C-6d8a831f-b56f-46e9-8ee9-cb4aaa4872c2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "//再次过滤下\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n// 定义消息文本\nString msgText \u003d {clipboardContent};\n\n// 定义要匹配的关键词数组\nString[] keyword \u003d {\"html\", \"ww.\", \"123\", \"3pan\", \"pan\", \"提取码\", \"链接\", \"删\", \"://\", \"ww\", \"激活代码\", \"http\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \".com\"};\n\n// 定义变量以判断是否存在匹配项\nboolean containsMatch \u003d false;\n\n// 遍历关键词数组并进行匹配\nfor (String keywordList : keyword) {\n    // 如果尚未找到匹配项，则使用正则表达式进行匹配\n    if (!containsMatch) {\n        Pattern pattern \u003d Pattern.compile(\".*\" + keywordList + \".*\");\n        Matcher matcher \u003d pattern.matcher(msgText);\n\n        // 如果找到匹配项，则将containsMatch设置为true\n        if (matcher.find()) {\n            containsMatch \u003d true;\n        }\n    }\n}\n\n// 返回是否存在匹配项\nreturn containsMatch;\n",
+        "customContextDataKey": {
+        },
+        "id": "C-e31b5615-873b-407b-a248-2fcd516a87d8"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ReadClipboard",
+        "customContextDataKey": {
+        },
+        "id": "A-d186fa57-aff6-4ddb-96ee-9abd6c1dde34"
+      }, {
+        "@type": "type.googleapis.com/MatchRegex",
+        "string": "{clipboardContent}",
+        "regex": "【淘宝】",
+        "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+        "customContextDataKey": {
+        },
+        "id": "A-6ce7644e-30c3-4b0f-8d09-fc77db83153b"
+      }, {
+        "@type": "type.googleapis.com/MatchRegex",
+        "string": "{clipboardContent}",
+        "regex": "【京东】",
+        "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "isMatch",
+            "second": "isJD"
+          }]
+        },
+        "id": "A-139bf221-ea72-4475-9da6-82804eed124b"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{clipboardContent}",
+        "regex": "\\s",
+        "customContextDataKey": {
+        },
+        "id": "A-a5006eb2-0df6-416c-8428-e780fcf92ab4"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 定义消息文本\n msgText \u003d {replaceResult}; // 替换为实际的文本内容\n\n// 移除字符串中的所有空白字符\nmsgText \u003d msgText.replace(/\\\\n/g, \"\");\n\n// 定义要匹配的关键词及其对应的数字\nconst keywordToNumber \u003d {\n  \"淘宝\": 1,\n  \"m.tb.cn\": 2,\n  \"复制打开抖音\": 3,\n  \"京东\": 4\n};\n\n// 定义变量以保存匹配到的关键词对应的数字\nvar matchNumber \u003d 0;\n\n// 遍历关键词及其对应的数字\nfor ( keyword in keywordToNumber) {\n  if (msgText.includes(keyword)) {\n    matchNumber \u003d keywordToNumber[keyword];\n    // 找到匹配项后退出循环\n    \n  }\n}\n\n// 返回匹配到的关键词对应的数字，如果没有匹配到任何关键词，则返回0\nmatchNumber;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "isJD"
+          }]
+        },
+        "id": "A-66edb35c-25a6-4e80-a09c-7e94de3ecfcc"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "varName": "KL",
+          "payload": {
+            "value": "0"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-736e9f14-02e7-44fd-b3a1-5a8312539a74"
+        }, {
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "isMatch",
+          "payload": {
+            "value": "true"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-1245d9b6-05cf-4172-9f35-8ca617978a4b"
+        }, {
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "isJD",
+          "payload": {
+            "value": "4"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-1aaf2c2a-6c99-435c-9e4b-0838efe11600"
+        }, {
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "isJD",
+          "payload": {
+            "value": "3"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-e32fef6f-5323-43f5-a875-6eeb29e61df8"
+        }],
+        "IfCondOp": "ANY",
+        "IfActions": [{
+          "@type": "type.googleapis.com/SwitchCase",
+          "case": [{
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "isMatch",
+              "payload": {
+                "value": "true"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-25b00a0b-fbb1-4616-9dc6-f39ed8d2e272"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "规避淘宝口令",
+              "customContextDataKey": {
+              },
+              "id": "A-95407a9f-69e6-462d-bfff-5dee26bc1e3e"
+            }],
+            "description": "命中淘宝",
+            "id": "Case-a902069c-99c1-4f25-8763-17961ee8042f",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "isJD",
+              "payload": {
+                "value": "3"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-57cf5ab7-034c-478b-9e65-3aaf7ae8a2c8"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "规避抖音口令",
+              "customContextDataKey": {
+              },
+              "id": "A-16b64ba4-dd85-43d1-bb70-8d6de35c125d"
+            }],
+            "description": "命中抖音",
+            "id": "Case-8ae622a4-5cc1-4945-95c1-353cb8cf67b2",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "isJD",
+              "payload": {
+                "value": "4"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-540d9c4d-980f-422b-a1a2-1a9cbc3a891e"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "规避京东口令",
+              "customContextDataKey": {
+              },
+              "id": "A-5f67814f-b638-488f-b114-92b79d76032c"
+            }],
+            "description": "命中京东",
+            "id": "Case-2a2216c7-9b9d-492e-a4e4-29b9afca9021",
+            "isBreak": true
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-f4535268-2556-4910-9a5f-f9e929b5243c"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n\n// 定义原始文本字符串\nString url \u003d {clipboardContent};\n\n\n// 匹配提取码后面的所有文字内容\n//Pattern contentPattern \u003d Pattern.compile(\"码(.*$)\");\nPattern contentPattern \u003d Pattern.compile(\"码(.*)\");\nMatcher contentMatcher \u003d contentPattern.matcher(url);\nString extractedContent \u003d \"\";\nif (contentMatcher.find()) {\n    extractedContent \u003d contentMatcher.group(1);\n}\n\n// 去除中文字符\nextractedContent \u003d extractedContent.replaceAll(\"[\\\\u4e00-\\\\u9fa5]\", \"\");\n\n// 匹配字母数字组合\nPattern codePattern \u003d Pattern.compile(\"[a-zA-Z0-9]+\");\nMatcher codeMatcher2\u003d  codePattern.matcher(extractedContent);\n\nString resultText\u003d\"\";\nwhile (codeMatcher2 .find()) {\n    resultText +\u003d codeMatcher2.group();\n}\n\nif (!resultText.isEmpty()) {\n    return \"提取码:\"+resultText;\n} else {\n    return \"未找到或无提取码\";\n}\n",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "Key"
+            }]
+          },
+          "note": "如果有提取码则匹配提取码，如果链接给定了pwd\u003d先不做匹配，满足大部分情况了",
+          "id": "A-050c35ba-35f9-4d61-a022-829547cb408a"
+        }, {
+          "@type": "type.googleapis.com/SwitchCase",
+          "case": [{
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateGlobalVar",
+              "op": "EqualTo",
+              "varName": "CleanUrlModule",
+              "payload": {
+                "value": "Toast"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-6b8f1705-538b-46ed-bfe7-91d97ec94b55"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "// 定义 URL 和提取码\nurl \u003d {clipboardContent};\ncode \u003d \"提取码：o7cr\";\n\n// 去除方括号内的内容\nurl \u003d url.replaceAll(\"\\\\[[^\\\\]]*\\\\]\", \"\");\n\n// 去除中文字符\nchineseRegex \u003d \"[\\\\u4e00-\\\\u9fa5]\";\nurl \u003d url.replaceAll(chineseRegex, \"\");\ncode \u003d code.replaceAll(chineseRegex, \"\");\n\n// 去除链接末尾的符号\nurl \u003d url.replaceAll(\"[,，)]+$\", \"\").replaceAll(\"[^a-zA-Z0-9]+$\", \"\");\n\n// 提取 URL\nurlPattern \u003d java.util.regex.Pattern.compile(\"(https?://\\\\S+)\");\nurlMatcher \u003d urlPattern.matcher(url);\nextractedUrl \u003d urlMatcher.find() ? urlMatcher.group(1) : null;\n\n// 返回处理后的 URL 或 false\nextractedUrl !\u003d null ? extractedUrl.replaceAll(\"[^a-zA-Z0-9]+$\", \"\") : false;\n",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "Url"
+                }]
+              },
+              "note": "首先尝试匹配出https链接",
+              "id": "A-9be3e96d-c0fe-4d2c-8795-f4250405ce35"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "EqualTo",
+                "varName": "Url",
+                "payload": {
+                  "value": "false"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-081839e1-502f-416e-84da-68515835a65e"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString url \u003d {clipboardContent}; // 您的URL\nString code \u003d \"提取码：o7cr\"; // 您的提取码\n\n// 去除中文字符的正则表达式\nString regex \u003d \"[\\\\u4e00-\\\\u9fa5]\"; \n\n// 匹配并去除包含在中括号[]中的内容\nurl \u003d url.replaceAll(\"\\\\[[^\\\\]]*\\\\]\", \"\");\n\n// 去除中文字符\nurl \u003d url.replaceAll(regex, \"\");\ncode \u003d code.replaceAll(regex, \"\");\n\nurl \u003d url.replaceAll(\"[,，]+$\", \"\");  \nurl \u003d url.replaceAll(\"[^a-zA-Z0-9]+$\", \"\");\n\n// 匹配 www 开头但不包含 http 或 https 的链接\nPattern urlPattern \u003d Pattern.compile(\"(www\\\\.\\\\S+)\");\nMatcher urlMatcher \u003d urlPattern.matcher(url);\nString extractedUrl \u003d (urlMatcher.find()) ? urlMatcher.group(0) : null;\n\n\nif (extractedUrl !\u003d null ) {\n    String result \u003d  extractedUrl.replaceAll(\"[^a-zA-Z0-9]+$\", \"\") ;\n    return result;\n} else {\n    return false;\n}",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "UrlW"
+                  }]
+                },
+                "note": "匹配www链接",
+                "id": "A-87e695a3-21b9-4db1-9dcd-790f1064615c"
+              }, {
+                "@type": "type.googleapis.com/IfThenElse",
+                "If": [{
+                  "@type": "type.googleapis.com/EvaluateContextVar",
+                  "op": "EqualTo",
+                  "varName": "UrlW",
+                  "payload": {
+                    "value": "false"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "C-63ea02ff-fd53-4b63-acaf-0a8f20be72a8"
+                }],
+                "IfActions": [{
+                  "@type": "type.googleapis.com/ShowToast",
+                  "message": "匹配失败",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-7866b620-bb72-4ad9-94ea-1f7c1bcd12ab"
+                }],
+                "ElseActions": [{
+                  "@type": "type.googleapis.com/SwitchCase",
+                  "case": [{
+                    "case": [{
+                      "@type": "type.googleapis.com/EvaluateGlobalVar",
+                      "op": "EqualTo",
+                      "varName": "CleanUrlModule",
+                      "payload": {
+                        "value": "Toast"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-0b7c97dc-0773-4480-81bb-7cb8503dc2f3"
+                    }],
+                    "action": [{
+                      "@type": "type.googleapis.com/ShowToast",
+                      "message": "仅复制:{UrlW}",
+                      "customContextDataKey": {
+                      },
+                      "note": "这里是匹配到https跳出",
+                      "id": "A-317f438b-3561-4fe5-8fb8-2b5c036a5f40"
+                    }, {
+                      "@type": "type.googleapis.com/ShowToast",
+                      "message": "{Key}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-28c43615-79f5-4ed8-8909-b0cc814bf9a2"
+                    }, {
+                      "@type": "type.googleapis.com/WriteClipboard",
+                      "text": "{UrlW}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-a394ede7-cf33-4861-b2c2-37349984b17a"
+                    }],
+                    "description": "WWW模式一",
+                    "id": "Case-ea840d0d-6a31-47bd-a65e-378af0766b1c"
+                  }, {
+                    "case": [{
+                      "@type": "type.googleapis.com/EvaluateGlobalVar",
+                      "op": "EqualTo",
+                      "varName": "CleanUrlModule",
+                      "payload": {
+                        "value": "Dialog"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-4b7f8534-0ef4-41c6-8208-041448f40a1d"
+                    }],
+                    "action": [{
+                      "@type": "type.googleapis.com/ShowListDialog",
+                      "title": "净化后链接如下",
+                      "cancelable": true,
+                      "data": "{UrlW},B,C",
+                      "delimiter": [","],
+                      "needConfirmAction": true,
+                      "style": {
+                        "fontScale": 1.0
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "A-40539f1d-5f98-47c5-ad44-f42af37e2b4e"
+                    }, {
+                      "@type": "type.googleapis.com/ShowChoiceDialog",
+                      "cancelable": true,
+                      "choices": [{
+                        "label": "Choice 0",
+                        "value": "{Url}"
+                      }, {
+                        "label": "Choice 1",
+                        "value": "{Url2}"
+                      }],
+                      "style": {
+                        "fontScale": 1.0
+                      },
+                      "customContextDataKey": {
+                      },
+                      "isDisabled": true,
+                      "id": "A-5d9c0d1e-cb32-4ba7-a643-54e5cc3b22d3"
+                    }, {
+                      "@type": "type.googleapis.com/WriteClipboard",
+                      "text": "{selectedListItem}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-1dfbb4d4-a3a1-4a52-8c33-5de0d9e27889"
+                    }],
+                    "description": "WWW模式二",
+                    "id": "Case-0aef6aa0-0e68-46e6-95b6-69963cfd8f09"
+                  }, {
+                    "case": [{
+                      "@type": "type.googleapis.com/EvaluateGlobalVar",
+                      "op": "NotSet",
+                      "varName": "CleanUrlModule",
+                      "payload": {
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-ba61d49d-dd63-455c-bc3c-7474b417eb4c"
+                    }, {
+                      "@type": "type.googleapis.com/EvaluateGlobalVar",
+                      "op": "IsNotExists",
+                      "varName": "CleanUrlModule",
+                      "payload": {
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-521b3554-a2ef-4888-b68c-e0db83675b3c"
+                    }],
+                    "caseCondOp": "ANY",
+                    "action": [{
+                      "@type": "type.googleapis.com/ShowToast",
+                      "message": "全局变量CleanUrlModule值错误",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-294efbb3-69fd-410b-b1de-0761f3f6ee51"
+                    }],
+                    "description": "CleanUrlModule变量不正确",
+                    "id": "Case-82510200-a1c1-46cc-872c-9febcec119e1"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-a62e9065-7d5c-4142-b10a-4933dc4421a8"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-d937f1c1-0958-4855-a08e-0234668f4761"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/SwitchCase",
+                "case": [{
+                  "case": [{
+                    "@type": "type.googleapis.com/EvaluateGlobalVar",
+                    "op": "EqualTo",
+                    "varName": "CleanUrlModule",
+                    "payload": {
+                      "value": "Toast"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-0b7c97dc-0773-4480-81bb-7cb8503dc2f3"
+                  }],
+                  "action": [{
+                    "@type": "type.googleapis.com/ShowToast",
+                    "message": "仅复制:{Url}",
+                    "customContextDataKey": {
+                    },
+                    "note": "这里是匹配到https跳出",
+                    "id": "A-317f438b-3561-4fe5-8fb8-2b5c036a5f40"
+                  }, {
+                    "@type": "type.googleapis.com/ShowToast",
+                    "message": "{Key}",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-28c43615-79f5-4ed8-8909-b0cc814bf9a2"
+                  }, {
+                    "@type": "type.googleapis.com/WriteClipboard",
+                    "text": "{Url}",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-a394ede7-cf33-4861-b2c2-37349984b17a"
+                  }],
+                  "description": "模式一",
+                  "id": "Case-ea840d0d-6a31-47bd-a65e-378af0766b1c"
+                }, {
+                  "case": [{
+                    "@type": "type.googleapis.com/EvaluateGlobalVar",
+                    "op": "NotSet",
+                    "varName": "CleanUrlModule",
+                    "payload": {
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-ba61d49d-dd63-455c-bc3c-7474b417eb4c"
+                  }, {
+                    "@type": "type.googleapis.com/EvaluateGlobalVar",
+                    "op": "IsNotExists",
+                    "varName": "CleanUrlModule",
+                    "payload": {
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-521b3554-a2ef-4888-b68c-e0db83675b3c"
+                  }],
+                  "caseCondOp": "ANY",
+                  "action": [{
+                    "@type": "type.googleapis.com/ShowToast",
+                    "message": "全局变量CleanUrlModule值错误",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-294efbb3-69fd-410b-b1de-0761f3f6ee51"
+                  }],
+                  "description": "CleanUrlModule变量不正确",
+                  "id": "Case-82510200-a1c1-46cc-872c-9febcec119e1"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-dc5069c4-09ad-4971-990a-eee0caded988"
+              }],
+              "customContextDataKey": {
+              },
+              "note": "未匹配到则尝试匹配www链接",
+              "id": "A-e87e3d26-dc18-40ff-ad4e-2b28183e1340"
+            }],
+            "description": "模式一固定单链接",
+            "id": "Case-577cd935-4a42-4443-b943-d7fb97b4720b",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/EvaluateGlobalVar",
+              "op": "EqualTo",
+              "varName": "CleanUrlModule",
+              "payload": {
+                "value": "Dialog"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-a2524ce3-7ed1-4a06-b7fe-a0194defc083"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "// 定义输入字符串\ninput \u003d {clipboardContent};\n\n// 去除方括号内的内容\ninput \u003d input.replaceAll(\"\\\\[[^\\\\]]*\\\\]\", \"\");\n\n// 去除中文字符\nchineseRegex \u003d \"[\\\\u4e00-\\\\u9fa5]\";\ninput \u003d input.replaceAll(chineseRegex, \"\");\n\n// 去除链接末尾的符号\ninput \u003d input.replaceAll(\"[,，)]+$\", \"\").replaceAll(\"[^a-zA-Z0-9]+$\", \"\");\n\n// 匹配所有 URL（支持 http、https、www 和 ftp 开头的链接）\nurlPattern \u003d java.util.regex.Pattern.compile(\"(https?://\\\\S+|www\\\\.\\\\S+|ftp://\\\\S+)\");\nurlMatcher \u003d urlPattern.matcher(input);\n\n// 提取并处理所有链接\nurls \u003d [];\nwhile (urlMatcher.find()) {\n    url \u003d urlMatcher.group(1);\n    // 进一步清理 URL\n    url \u003d url.replaceAll(\"[^a-zA-Z0-9]+$\", \"\");\n    urls.add(url);\n}\n\n// 去重\nuniqueUrls \u003d new java.util.HashSet(urls);\nurls \u003d new java.util.ArrayList(uniqueUrls);\n\n// 排序\nurls.sort(null);\n\n// 返回链接列表或 false\nurls.isEmpty() ? false : urls;",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "Url"
+                }]
+              },
+              "note": "首次匹配，已支持多链接",
+              "id": "A-8149cf91-663b-4b72-b8c1-796be84459e9"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "EqualTo",
+                "varName": "Url",
+                "payload": {
+                  "value": "false"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-081839e1-502f-416e-84da-68515835a65e"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "// 定义输入字符串\nurl \u003d {clipboardContent};\ncode \u003d \"提取码：o7cr\";\n\n// 去除中文字符的正则表达式\nregex \u003d \"[\\\\u4e00-\\\\u9fa5]\"; \n\n// 匹配并去除包含在中括号[]中的内容\nurl \u003d url.replaceAll(\"\\\\[[^\\\\]]*\\\\]\", \"\");\n\n// 去除中文字符\nurl \u003d url.replaceAll(regex, \"\");\ncode \u003d code.replaceAll(regex, \"\");\n\n// 去除链接末尾的符号\nurl \u003d url.replaceAll(\"[,，]+$\", \"\");  \nurl \u003d url.replaceAll(\"[^a-zA-Z0-9]+$\", \"\");\n\n// 匹配 http、https 或 www 开头的链接\nurlPattern \u003d java.util.regex.Pattern.compile(\"(https?://\\\\S+|www\\\\.\\\\S+)\");\nurlMatcher \u003d urlPattern.matcher(url);\n\n// 提取所有匹配的链接\nurls \u003d [];\nwhile (urlMatcher.find()) {\n    extractedUrl \u003d urlMatcher.group(0);\n    // 进一步清理 URL\n    extractedUrl \u003d extractedUrl.replaceAll(\"[^a-zA-Z0-9]+$\", \"\");\n    urls.add(extractedUrl);\n}\n\n// 返回链接列表或 false\nurls.isEmpty() ? false : urls;",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "UrlW"
+                  }]
+                },
+                "note": "匹配www链接，支持多种链接",
+                "id": "A-87e695a3-21b9-4db1-9dcd-790f1064615c"
+              }, {
+                "@type": "type.googleapis.com/IfThenElse",
+                "If": [{
+                  "@type": "type.googleapis.com/EvaluateContextVar",
+                  "op": "EqualTo",
+                  "varName": "UrlW",
+                  "payload": {
+                    "value": "false"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "C-63ea02ff-fd53-4b63-acaf-0a8f20be72a8"
+                }],
+                "IfActions": [{
+                  "@type": "type.googleapis.com/ShowToast",
+                  "message": "匹配失败",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-7866b620-bb72-4ad9-94ea-1f7c1bcd12ab"
+                }],
+                "ElseActions": [{
+                  "@type": "type.googleapis.com/SwitchCase",
+                  "case": [{
+                    "case": [{
+                      "@type": "type.googleapis.com/EvaluateGlobalVar",
+                      "op": "EqualTo",
+                      "varName": "CleanUrlModule",
+                      "payload": {
+                        "value": "Toast"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-0b7c97dc-0773-4480-81bb-7cb8503dc2f3"
+                    }],
+                    "action": [{
+                      "@type": "type.googleapis.com/ShowToast",
+                      "message": "仅复制:{UrlW}",
+                      "customContextDataKey": {
+                      },
+                      "note": "这里是匹配到https跳出",
+                      "id": "A-317f438b-3561-4fe5-8fb8-2b5c036a5f40"
+                    }, {
+                      "@type": "type.googleapis.com/ShowToast",
+                      "message": "{Key}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-28c43615-79f5-4ed8-8909-b0cc814bf9a2"
+                    }, {
+                      "@type": "type.googleapis.com/WriteClipboard",
+                      "text": "{UrlW}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-a394ede7-cf33-4861-b2c2-37349984b17a"
+                    }],
+                    "description": "WWW模式一",
+                    "id": "Case-ea840d0d-6a31-47bd-a65e-378af0766b1c"
+                  }, {
+                    "case": [{
+                      "@type": "type.googleapis.com/EvaluateGlobalVar",
+                      "op": "EqualTo",
+                      "varName": "CleanUrlModule",
+                      "payload": {
+                        "value": "Dialog"
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-4b7f8534-0ef4-41c6-8208-041448f40a1d"
+                    }],
+                    "action": [{
+                      "@type": "type.googleapis.com/ShowListDialog",
+                      "title": "净化后链接如下",
+                      "cancelable": true,
+                      "data": "{UrlW},B,C",
+                      "delimiter": [","],
+                      "needConfirmAction": true,
+                      "style": {
+                        "fontScale": 1.0
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "A-40539f1d-5f98-47c5-ad44-f42af37e2b4e"
+                    }, {
+                      "@type": "type.googleapis.com/ShowChoiceDialog",
+                      "cancelable": true,
+                      "choices": [{
+                        "label": "Choice 0",
+                        "value": "{Url}"
+                      }, {
+                        "label": "Choice 1",
+                        "value": "{Url2}"
+                      }],
+                      "style": {
+                        "fontScale": 1.0
+                      },
+                      "customContextDataKey": {
+                      },
+                      "isDisabled": true,
+                      "id": "A-5d9c0d1e-cb32-4ba7-a643-54e5cc3b22d3"
+                    }, {
+                      "@type": "type.googleapis.com/WriteClipboard",
+                      "text": "{selectedListItem}",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-1dfbb4d4-a3a1-4a52-8c33-5de0d9e27889"
+                    }],
+                    "description": "WWW模式二",
+                    "id": "Case-0aef6aa0-0e68-46e6-95b6-69963cfd8f09"
+                  }, {
+                    "case": [{
+                      "@type": "type.googleapis.com/EvaluateGlobalVar",
+                      "op": "NotSet",
+                      "varName": "CleanUrlModule",
+                      "payload": {
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-ba61d49d-dd63-455c-bc3c-7474b417eb4c"
+                    }, {
+                      "@type": "type.googleapis.com/EvaluateGlobalVar",
+                      "op": "IsNotExists",
+                      "varName": "CleanUrlModule",
+                      "payload": {
+                      },
+                      "customContextDataKey": {
+                      },
+                      "id": "C-521b3554-a2ef-4888-b68c-e0db83675b3c"
+                    }],
+                    "caseCondOp": "ANY",
+                    "action": [{
+                      "@type": "type.googleapis.com/ShowToast",
+                      "message": "全局变量CleanUrlModule值错误",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-294efbb3-69fd-410b-b1de-0761f3f6ee51"
+                    }],
+                    "description": "CleanUrlModule变量不正确",
+                    "id": "Case-82510200-a1c1-46cc-872c-9febcec119e1"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-a62e9065-7d5c-4142-b10a-4933dc4421a8"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-d937f1c1-0958-4855-a08e-0234668f4761"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/SwitchCase",
+                "case": [{
+                  "case": [{
+                    "@type": "type.googleapis.com/EvaluateGlobalVar",
+                    "op": "EqualTo",
+                    "varName": "CleanUrlModule",
+                    "payload": {
+                      "value": "Dialog"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-4b7f8534-0ef4-41c6-8208-041448f40a1d"
+                  }],
+                  "action": [{
+                    "@type": "type.googleapis.com/ShowListDialog",
+                    "title": "净化后链接如下",
+                    "cancelable": true,
+                    "data": "{Url}",
+                    "delimiter": [","],
+                    "needConfirmAction": true,
+                    "style": {
+                      "fontScale": 1.0
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "A-40539f1d-5f98-47c5-ad44-f42af37e2b4e"
+                  }, {
+                    "@type": "type.googleapis.com/WriteClipboard",
+                    "text": "{selectedListItem}",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-1dfbb4d4-a3a1-4a52-8c33-5de0d9e27889"
+                  }, {
+                    "@type": "type.googleapis.com/ShowToast",
+                    "message": "已复制:{selectedListItem}",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-05994386-0178-49ca-ae06-c5218ed52247"
+                  }],
+                  "description": "模式二",
+                  "id": "Case-0aef6aa0-0e68-46e6-95b6-69963cfd8f09"
+                }, {
+                  "case": [{
+                    "@type": "type.googleapis.com/EvaluateGlobalVar",
+                    "op": "NotSet",
+                    "varName": "CleanUrlModule",
+                    "payload": {
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-ba61d49d-dd63-455c-bc3c-7474b417eb4c"
+                  }, {
+                    "@type": "type.googleapis.com/EvaluateGlobalVar",
+                    "op": "IsNotExists",
+                    "varName": "CleanUrlModule",
+                    "payload": {
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-521b3554-a2ef-4888-b68c-e0db83675b3c"
+                  }],
+                  "caseCondOp": "ANY",
+                  "action": [{
+                    "@type": "type.googleapis.com/ShowToast",
+                    "message": "全局变量CleanUrlModule值错误",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-294efbb3-69fd-410b-b1de-0761f3f6ee51"
+                  }],
+                  "description": "CleanUrlModule变量不正确",
+                  "id": "Case-82510200-a1c1-46cc-872c-9febcec119e1"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-dc5069c4-09ad-4971-990a-eee0caded988"
+              }],
+              "customContextDataKey": {
+              },
+              "note": "未匹配到则尝试匹配www链接",
+              "id": "A-e660443f-08cc-4885-a825-0284a170a941"
+            }],
+            "description": "模式二可多链接",
+            "id": "Case-78c3e60d-14d1-4aae-b54a-3c22882fce13",
+            "isBreak": true
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-d78309c8-2625-4b6f-b728-dbdd76ede23a"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-a7a7c13d-00d8-467b-b1c4-ff5afd22e537"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "匹配到目标开始判断",
+      "id": "A-52003dd0-0fde-4930-9d9e-c67bd47d7a49"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "OK，开始匹配嘻嘻",
+    "id": "A-c8fed0ac-c172-4f25-b3d6-1cbae0d291cb"
+  }],
+  "id": "SHARE-rule-011a92e8-3c0c-4081-99f5-7004f410dd46",
+  "lastUpdateTime": "1739077374472",
+  "createTime": "1706289837200",
+  "author": {
+    "name": "墨上千里"
+  },
+  "title": "净化分享链接v0.0.6  (分享)",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "CleanUrlModule",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "精华分享链接模式"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ecbc06aa-bcdd-4940-b058-59b03610c747"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "模式1:净化后以Toast提示并复制到剪贴板",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "CleanUrlModule",
+          "valueAsString": "Toast",
+          "customContextDataKey": {
+          },
+          "id": "A-f6379d0f-3956-4a27-8222-014be84ff26e"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "已选择模式1",
+          "customContextDataKey": {
+          },
+          "id": "A-6e32348c-b428-4a98-8f77-83fe27631a2b"
+        }]
+      }, {
+        "title": "模式2:净化以对话框提示可直接打开链接",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "CleanUrlModule",
+          "valueAsString": "Dialog",
+          "customContextDataKey": {
+          },
+          "id": "A-99636cfc-5dfc-45aa-af01-589462c3e5dc"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "已选择模式2",
+          "customContextDataKey": {
+          },
+          "id": "A-0f3286e8-f889-4cb0-a52e-c241d800dc4a"
+        }]
+      }],
+      "title": "选择模式",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-df7b2b03-f718-4b06-8a03-8aef60ccaed5"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "NotSet",
+        "varName": "CleanUrlModule",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e5d1ac5d-f386-4967-a60c-b6d7bdaf454f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-8d80f2af-ee4d-49dc-a282-9dca5d7a5350",
+        "customContextDataKey": {
+        },
+        "id": "A-6d1fccd1-f0aa-46f0-92d3-af13fe7d490d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-748036b0-8e1c-419b-be5a-90e5f857d838"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "CleanUrlModule",
+      "customContextDataKey": {
+      },
+      "id": "A-307f1166-0c99-445f-859b-5db7f6ccea44"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ae373b52-9a2d-42f4-ad9c-725beb773f93"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,73 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-05751675-5b38-46da-8910-fd2fd75ce905"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-4043ab3f-9620-40f8-a082-4cdb1ba7d7a7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.app.StatusBarManager;\nimport android.content.Context;\n\n// 获取状态栏管理器\nStatusBarManager statusBarManager \u003d (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);\n\n// 尝试隐藏通知和系统信息以及时钟\nstatusBarManager.disable(StatusBarManager.DISABLE_NOTIFICATION_ICONS | StatusBarManager.DISABLE_SYSTEM_INFO | StatusBarManager.DISABLE_CLOCK);",
+    "customContextDataKey": {
+    },
+    "id": "A-f325f23c-2efa-463e-8dcc-e5ed1a329db1"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.os.BatteryManager;\n\n// 获取BatteryManager实例\nBatteryManager batteryManager \u003d (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);\n\n// 获取当前电量\nint currentLevel \u003d batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);\n\n// 创建电量字符串并添加表情\nreturn batteryStatus \u003d currentLevel + \"%\";",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "batteryLevel"
+      }]
+    },
+    "note": "电量",
+    "id": "A-29b5c854-fb1e-4b12-a1f9-8267ffc2e6a0"
+  }, {
+    "@type": "type.googleapis.com/ShowStatusBarChip",
+    "text": " 充电中  {batteryLevel}",
+    "icon": "remix://flashlight-line",
+    "customContextDataKey": {
+    },
+    "id": "A-0aacb0ca-869c-4433-a0f5-f1c84a133c5a"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3500",
+    "customContextDataKey": {
+    },
+    "id": "A-24468c38-4a23-44b3-bbec-75e9669151a0"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.app.StatusBarManager;\nimport android.content.Context;\n\n// 获取状态栏管理器\nStatusBarManager statusBarManager \u003d (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);\n\n// 恢复所有图标\nstatusBarManager.disable(0); // 0表示不禁用任何功能",
+    "customContextDataKey": {
+    },
+    "id": "A-43499ddc-bf42-4c04-b2d2-e451f0529482"
+  }, {
+    "@type": "type.googleapis.com/HideStatusBarClip",
+    "customContextDataKey": {
+    },
+    "id": "A-0f9d4a6e-7fb3-49d4-89db-e7a6ff5a9c1d"
+  }],
+  "id": "SHARE-rule-2629bf24-bb4e-4e9f-800b-54f2c555ba0e",
+  "lastUpdateTime": "1731437312410",
+  "createTime": "1731425888654",
+  "author": {
+    "name": "He"
+  },
+  "title": "充电 Chip",
+  "description": "纯Mvel表达式版本",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-d9a13582-8e16-4ece-bc7b-8cab2065c2fa"
+}
+###------###
+{"type":"rule"}

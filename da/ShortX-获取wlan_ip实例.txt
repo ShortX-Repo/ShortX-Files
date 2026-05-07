@@ -1,0 +1,32 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo $(ip route|grep wlan)",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-5ddfd5f2-207b-4d38-978d-454b65d85727"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var str \u003d {shellOut}\nstr.split(\u0027 \u0027)[8]\n",
+    "customContextDataKey": {
+    },
+    "id": "A-0e3f0641-56bd-45f0-8adc-5b0cfbd0e3e7"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{jsRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-df04c52a-8693-4b69-aef5-207d63d5137b"
+  }],
+  "id": "DA6ce05103-fcce-4b6d-8ad3-150b109fbbe4",
+  "lastUpdateTime": "1720337238802",
+  "createTime": "1720336934754",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "获取wlan ip实例",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

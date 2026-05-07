@@ -1,0 +1,92 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["定时杀死"],
+    "customContextDataKey": {
+    },
+    "id": "F-78dcb0ba-86ec-4df6-b080-f61442f10300"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "pkg",
+    "valueAsString": "{pkgName}",
+    "customContextDataKey": {
+    },
+    "id": "A-26a30f2e-0fc3-47f0-8ff3-c5c3b682bf6b"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "60000",
+    "customContextDataKey": {
+    },
+    "id": "A-454538e1-b002-4584-bd5f-270d0b63ce71"
+  }, {
+    "@type": "type.googleapis.com/StopAppByPkg",
+    "pkgAndUsers": [{
+      "first": "{pkgName}",
+      "second": "0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-11ae1ded-aa1a-4805-88c7-96a1706f58ab"
+  }],
+  "id": "rule-ae4ca2f0-5d8b-493a-b0bf-a80730023744",
+  "lastUpdateTime": "1693181604804",
+  "createTime": "1692989738350",
+  "author": {
+    "name": "ZIMK"
+  },
+  "title": "应用回后台1分钟后杀死",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "定时杀死",
+      "customContextDataKey": {
+      },
+      "id": "A-f114459a-969c-4913-a7f5-1c6e657be12b"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "pkg",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-f6736bb6-f452-4b07-87e4-37f1eaa665f6"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeFg",
+      "pkgSets": ["定时杀死"],
+      "customContextDataKey": {
+      },
+      "id": "F-0a0a7eb2-0781-4b68-aa01-3059fa94b6be"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "Contains",
+      "varName": "pkg",
+      "payload": {
+        "value": "{pkgName}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d12aee9e-467d-4e1c-b147-de4d4960055e"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "pkg",
+      "valueAsString": "{pkgName}",
+      "op": "WriteGlobalVarOp_DeleteValue",
+      "customContextDataKey": {
+      },
+      "id": "A-50e41aa3-9b83-4f5a-ba70-a4527218e995"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

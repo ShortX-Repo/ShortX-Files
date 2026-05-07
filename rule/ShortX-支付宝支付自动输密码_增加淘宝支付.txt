@@ -1,0 +1,142 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/HasFoundNodeOnScreen",
+    "packageName": "com.eg.android.AlipayGphone",
+    "componentName": "com.eg.android.AlipayGphone/com.alipay.android.msp.ui.views.MspContainerActivity",
+    "matchers": [{
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "请输入支付密码"
+    }],
+    "detectTimeout": "5000",
+    "customContextDataKey": {
+    },
+    "id": "F-270c6ef3-fa05-41df-b329-a2f4384feaea"
+  }, {
+    "@type": "type.googleapis.com/HasFoundNodeOnScreen",
+    "packageName": "com.taobao.taobao",
+    "componentName": "com.taobao.taobao/com.alipay.android.msp.ui.views.MspContainerActivity",
+    "matchers": [{
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "请输入支付密码"
+    }],
+    "detectTimeout": "5000",
+    "customContextDataKey": {
+    },
+    "id": "F-782d9305-8d59-493a-9879-7f855145d763"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/EvaluateGlobalVar",
+    "op": "IsNotEmpty",
+    "varName": "支付宝支付密码",
+    "payload": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "C-1c66b55a-88f0-4c45-b18d-f349b59492e7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "确认",
+    "onPositive": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "input text globalVarOf$支付宝支付密码",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut"
+        }, {
+          "first": "shellErr"
+        }, {
+          "first": "shellCode"
+        }]
+      },
+      "id": "A-eddd0e22-49e4-4ad9-a2b1-8edb8ca4d6e8"
+    }],
+    "negative": "取消支付",
+    "onNegative": [{
+      "@type": "type.googleapis.com/KillProcessByName",
+      "processes": [{
+        "processName": "com.eg.android.AlipayGphone/com.alipay.android.msp.ui.views.MspContainerActivity"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ca4ec8c6-3c41-47c9-8acd-316441302588"
+    }],
+    "title": "支付确认",
+    "message": "是否确认支付",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-dfbb4c31-da04-41fb-9239-0cfdf2192a5a"
+  }],
+  "id": "rule-cbf1d33d-45f3-4d84-b1bf-9a5886af67c6",
+  "lastUpdateTime": "1698025558995",
+  "createTime": "1691669241412",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "支付宝支付自动输密码  ",
+  "description": "为root了用不了指纹支付且不装指纹模块的用户提供输密码服务",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "支付宝支付密码",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-be1b99c4-0b22-4619-854a-4a3a0f63e0f0"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "支付宝支付密码",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "isSecret": true
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-9688e286-a684-4cd1-9427-eff0a2fc1c05"
+      }, {
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "输入支付密码(加密本地保存)",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "输入支付密码"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4cfb391e-4c51-4d19-9c18-dcd74b42cb8c"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "支付宝支付密码",
+        "valueAsString": "{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-5d724340-e196-47c4-b821-7b42b55bdfd1"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-97c28265-0f93-4235-9df3-b01ca5c192be"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "支付宝支付密码",
+      "customContextDataKey": {
+      },
+      "id": "A-cccedb1c-ea93-43ec-8ec9-3d885fe6de4d"
+    }]
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

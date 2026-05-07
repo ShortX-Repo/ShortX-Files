@@ -1,0 +1,120 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-b0edf8b3-4d12-4b08-a321-a9925af374c0"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 60,
+    "customContextDataKey": {
+    },
+    "id": "F-4dd3c621-5392-4b24-97b6-5d5cf99f8136"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 100,
+    "customContextDataKey": {
+    },
+    "id": "F-057aff76-2283-4600-942b-573aeb33ba5d"
+  }, {
+    "@type": "type.googleapis.com/ChargerUnplug",
+    "customContextDataKey": {
+    },
+    "id": "F-33715525-3354-43f3-b8ff-cb71540fec4f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/BatteryPercent",
+      "value": 60,
+      "op": "IntLessThanOrEQ",
+      "customContextDataKey": {
+      },
+      "id": "C-03f66eac-7640-40a3-aae5-fed49e401a17"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo 0 \u003e /sys/class/power_supply/battery/input_suspend",
+      "customContextDataKey": {
+      },
+      "note": "恢复充电",
+      "id": "A-f4cd4636-dafb-4d8f-995b-267c68f93a93"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-5f16dae9-0668-4497-a099-5e49ade13fd6"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-deb3c4ca-5c61-48ad-81eb-2419d5246d30"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/BatteryPercent",
+      "value": 90,
+      "op": "IntGreaterThanOrEQ",
+      "customContextDataKey": {
+      },
+      "id": "C-5f5db4b3-4929-4212-a0c9-b411ef966936"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo 1 \u003e /sys/class/power_supply/battery/input_suspend",
+      "customContextDataKey": {
+      },
+      "note": "禁止充电",
+      "id": "A-65c3509f-7f08-4601-b4cd-9d0b0945d912"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-2a65cb62-b98e-4b56-b254-d9c99dcd2937"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ac6136ea-d038-421e-a3ec-edf3fcc7b6b9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-4734b35d-d8f5-4d51-bb8a-7170aea2f1a8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system POWER_SAVE_MODE_OPEN 1",
+      "customContextDataKey": {
+      },
+      "note": "省电模式",
+      "id": "A-afecaf7f-c6a1-41ae-9128-620ce30ffdde"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-c9c99d0d-9f0a-4391-a458-88a965fa0a2b"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0595a45b-d281-417d-9b78-c5892571a72d"
+  }],
+  "id": "rule-f93fb6c3-056e-4960-83fb-7477fdae6469",
+  "lastUpdateTime": "1696462632628",
+  "createTime": "1695363745304",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "充电控制",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

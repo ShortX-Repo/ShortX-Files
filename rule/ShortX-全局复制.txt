@@ -1,0 +1,25 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "id": "F-ee961c51-4531-40c8-b863-09ce714a6ac9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/EnableUniversalCopy",
+    "id": "A-75e652f9-0331-49a6-80c6-fa5302836a14"
+  }],
+  "id": "rule-134447d6-11e1-4f1a-972a-e0d86b4f3dd3",
+  "lastUpdateTime": "1691716536535",
+  "createTime": "1690942741822",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "全局复制",
+  "description": "和李跳跳冲突",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

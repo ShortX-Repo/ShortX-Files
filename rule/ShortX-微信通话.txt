@@ -1,0 +1,1111 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnStartOp",
+    "opCodes": [27],
+    "apps": [{
+      "pkgName": "com.tencent.mm"
+    }, {
+      "pkgName": "com.tencent.mm",
+      "userId": 999
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-4972930d-b4c9-4163-a926-b458c9dcf1b4"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentActivity",
+    "activities": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.voip.ui.VideoActivity"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm",
+        "userId": 999
+      },
+      "className": "com.tencent.mm.plugin.voip.ui.VideoActivity"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-b0e4af99-a500-422a-ac3f-14868e4081de"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsNotExists",
+      "varName": "微信录音提取",
+      "payload": {
+        "value": "语音"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-a3a3449d-33f6-44e0-a6e0-97f11de318db"
+    }, {
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsNotExists",
+      "varName": "微信录屏提取",
+      "payload": {
+        "value": "视频"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-7bf6a73b-4fc0-4970-9c9d-5da9d0e3fc76"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "微信录音状态",
+        "payload": {
+          "value": "不存在"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b10b8979-7b07-40c4-b508-7280ecf6340e"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "微信录屏状态",
+        "payload": {
+          "value": "不存在"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-0f8a0160-6177-4ba5-bb85-8fdf0bd56545"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys notification --noredact | \\\ngrep -A 50 \"com.tencent.mm\" | \\\ngrep -A 20 \"extras\u003d\" | \\\ngrep -E \"android.title\u003d|android.text\u003d\" | \\\nsed -nE \u0027s/.*android.title\u003dString \\(([^)]*)\\).*/\\1/p; s/.*android.text\u003dString \\(([^)]*)\\).*/\\1/p\u0027 | \\\ngrep -A 1 -B 1 -E \"^视频通话中$|邀请你视频通话$|语音通话中$|邀请你语音通话$\" | \\\ngrep -v \"^--$\" | \\\ntail -n 2",
+        "customContextDataKey": {
+        },
+        "note": "通话判断",
+        "id": "A-67b0b9bd-5a97-440e-944a-d1ee11048f53"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "100",
+        "customContextDataKey": {
+        },
+        "id": "A-fab782f1-702d-49fd-a2e1-bf0ac7d01cde"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "shellOut",
+            "payload": {
+              "value": "语音"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-189fb003-2cd0-4da5-9327-444dc0b19ee5"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "微信录音提取",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-9f844f9a-5bbd-4bc6-9086-61dbde4dcb36"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "100",
+            "customContextDataKey": {
+            },
+            "id": "A-f60cffbe-b7f4-440f-a5f8-04f08513b93a"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "微信录音提取",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-98e373fe-b163-4868-9880-889f55859737"
+          }],
+          "description": "语音",
+          "id": "Case-81796017-8492-4f03-ab75-ab27fb15a79c",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "shellOut",
+            "payload": {
+              "value": "视频"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-c68b85a3-cbe0-4bab-9413-7afb53ebe66e"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "微信录屏提取",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-57362f1a-3f73-42f2-84c4-3483c5cd138f"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "100",
+            "customContextDataKey": {
+            },
+            "id": "A-0ad6dfe4-2c8c-4873-a88f-3dd53225b144"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "微信录屏提取",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-6e2bd1c0-61fc-4de4-9fb4-a6ef92a095a9"
+          }],
+          "description": "视频",
+          "id": "Case-9e66e27f-4627-49c4-9400-f1336c31ccad",
+          "isBreak": true
+        }],
+        "customContextDataKey": {
+        },
+        "note": "满足变量",
+        "id": "A-37aff6f0-a6a4-4a94-adc0-2fa5b1757f48"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "IsExists",
+            "varName": "微信录音状态",
+            "payload": {
+              "value": "存在"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-d5475c33-da8a-43bc-8e1b-20af23f326ea"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/DeleteGlobalVar",
+            "varName": "微信录音状态",
+            "customContextDataKey": {
+            },
+            "id": "A-61f8b8bc-669b-4a82-a540-0457041f70bf"
+          }],
+          "description": "录音变量",
+          "id": "Case-70a4c390-b3a9-4212-9498-cd8e39e0defd"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "IsExists",
+            "varName": "微信录屏状态",
+            "payload": {
+              "value": "存在"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-b1c20118-1727-402c-bfe9-100fa0d170d0"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/DeleteGlobalVar",
+            "varName": "微信录屏状态",
+            "customContextDataKey": {
+            },
+            "id": "A-5fa3e828-4cfb-4fb4-8ba5-a26f9c29b338"
+          }],
+          "description": "录屏变量",
+          "id": "Case-ebb177a4-34d2-4313-8881-cc8da5eecad5"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "变量整理",
+        "id": "A-2d11ad76-7c73-4b47-85f3-2ecceae94caf"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "变量已整理！",
+        "customContextDataKey": {
+        },
+        "id": "A-dd66422e-bac6-4226-a6e6-94d4f1b0e473"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-16558aaf-1613-4e40-b8fc-0e0b05714a7f"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-53ea9542-9ef1-4301-a675-ef408a0258b1"
+    }],
+    "delay": 200,
+    "repeatTimes": 20,
+    "customContextDataKey": {
+    },
+    "note": "检测通话",
+    "id": "A-006e767f-8e4b-44ff-899e-21d94b80cf19"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "text \u003d globalVarOf$whitetime;\ntext !\u003d null \u0026\u0026 text.length() \u003e 0 \u0026\u0026 text.charAt(text.length() - 1) \u003d\u003d \u0027:\u0027 ? true : false",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-3c0b0c1d-54bb-4a2e-bdc2-42b2fd24f857"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotEmpty",
+          "varName": "whitetime",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-2ee3501d-3e91-4ee4-8420-02816a15920d"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "whitetime",
+          "valueAsString": "globalVarOf$whitetime,%CurrentTimeMillis%:",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-58d9be42-0a7e-4807-adeb-ce6488c4b26b"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "whitetime",
+          "valueAsString": "%CurrentTimeMillis%:",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-58d9be42-0a7e-4807-adeb-ce6488c4b26b"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "打开",
+        "id": "A-3fae07f7-63ae-4d4e-9463-0ea3e2b693cc"
+      }],
+      "description": "保留模式",
+      "id": "Case-3610a278-ed4e-43d7-b888-40704ebb0b8c"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "Contains",
+        "varName": "微信录音提取",
+        "payload": {
+          "value": "语音"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ced3fbb9-c909-45e3-935f-935d1c217ab2"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "(localVarOf$微信录音提取.split(\"\\n\").length \u003e 1) \u0026\u0026 \n(\nlocalVarOf$微信录音提取.split(\"\\n\")[1].trim() \u003d\u003d \"语音通话中\" ||\nlocalVarOf$微信录音提取.split(\"\\n\")[1].trim().endsWith(\"邀请你语音通话\")\n)",
+            "customContextDataKey": {
+            },
+            "id": "C-cfcdf950-6909-4ead-833e-48af7ff15d89"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/AudioRecording",
+            "fileNamePrefix": "Audio",
+            "customContextDataKey": {
+            },
+            "id": "A-29b0bc96-80d4-4797-8b38-b0f6756f43af"
+          }, {
+            "@type": "type.googleapis.com/SwitchCase",
+            "case": [{
+              "case": [{
+                "@type": "type.googleapis.com/True",
+                "customContextDataKey": {
+                },
+                "id": "C-5b31ca61-ad69-4fb6-bdd9-2cff08f4d2ea"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "date \u0027+%Y.%m.%d-%H.%M.%S\u0027",
+                "singleShot": true,
+                "customContextDataKey": {
+                },
+                "note": "系统当前时间",
+                "id": "A-5e9fb04d-6a4c-4224-8262-679fd216455f"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "(localVarOf$微信录音提取.split(\"\\n\").length \u003e 1) \u0026\u0026 \n(localVarOf$微信录音提取.split(\"\\n\")[0].contains(\"微信\")) ? \n(\n(localVarOf$微信录音提取.split(\"\\n\")[1].trim().contains(\"邀请你语音通话\")) ? \nlocalVarOf$微信录音提取.split(\"\\n\")[1].trim().split(\"邀请你语音通话\")[0] :\nnull\n) : \nlocalVarOf$微信录音提取.split(\"\\n\")[0]",
+                "customContextDataKey": {
+                },
+                "id": "A-33d6c5f1-9f9e-42de-a75b-9c67ed160edc"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "100",
+                "customContextDataKey": {
+                },
+                "id": "A-1d646fc2-3f2f-4681-93ce-643a8c5a121b"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "微信录音",
+                "valueAsString": "{mvelRet}-{shellOut}",
+                "op": "WriteGlobalVarOp_Override",
+                "customContextDataKey": {
+                },
+                "id": "A-8ce65809-88de-4c0b-b148-5c5da91ff5dd"
+              }, {
+                "@type": "type.googleapis.com/CreateGlobalVar",
+                "globalVar": {
+                  "name": "微信录音状态",
+                  "type": {
+                    "@type": "type.googleapis.com/StringVar"
+                  }
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-a9eb4066-0bcd-4093-874a-c371f15427f6"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "111",
+                "customContextDataKey": {
+                },
+                "id": "A-8b154aee-1528-4199-bd3c-b3d22bdba2df"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "微信录音状态",
+                "valueAsString": "语音中",
+                "op": "WriteGlobalVarOp_Override",
+                "customContextDataKey": {
+                },
+                "id": "A-26902e30-c83e-41b1-9b60-b225826d34a0"
+              }],
+              "description": "与录音同步执行",
+              "id": "Case-af94da75-9da1-48a0-afa0-0e881d3fa6c8",
+              "isBreak": true
+            }],
+            "customContextDataKey": {
+            },
+            "note": "录音同步执行",
+            "id": "A-72aad4d2-5c63-413d-90bd-8891be3eb663"
+          }, {
+            "@type": "type.googleapis.com/SwitchCase",
+            "case": [{
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "语音通话中",
+                "icon": "remix://phone-fill",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-6d459466-4d6d-496f-8da0-f12e25b1b143"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-91b45e7a-6afb-480a-bd5a-9e949f986f3f"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "3000",
+                "customContextDataKey": {
+                },
+                "id": "A-34ca4da1-f567-406b-a717-045b3275e640"
+              }, {
+                "@type": "type.googleapis.com/HideStatusBarClip",
+                "customContextDataKey": {
+                },
+                "id": "A-a67698c0-549a-446b-8b31-45ff467c6e34"
+              }],
+              "description": "状态栏提示",
+              "id": "Case-4a63fdc3-0f25-4a2d-b61e-0b0903b18572",
+              "isBreak": true
+            }],
+            "customContextDataKey": {
+            },
+            "note": "状态栏提示",
+            "id": "A-c9411036-b624-4eda-88a9-cc9ab29059d7"
+          }],
+          "description": "开始录音",
+          "id": "Case-230d6c13-6d61-491f-94f1-ba77175f4487",
+          "isBreak": true,
+          "actionAsyncMode": "ActionAsyncMode_Async"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "开始录音",
+        "id": "A-6844a187-5206-4000-b10b-98c77fdc498a"
+      }],
+      "description": "语音",
+      "id": "Case-e4e79178-5ba2-4ce8-ad41-8a4594c0856d",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "Contains",
+        "varName": "微信录屏提取",
+        "payload": {
+          "value": "视频"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-82a6e272-93f2-4b21-bb7f-4e45279bf2f8"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "(localVarOf$微信录屏提取.split(\"\\n\").length \u003e 1) \u0026\u0026 \n(\nlocalVarOf$微信录屏提取.split(\"\\n\")[1].trim() \u003d\u003d \"视频通话中\" ||\nlocalVarOf$微信录屏提取.split(\"\\n\")[1].trim().endsWith(\"邀请你视频通话\")\n)",
+            "customContextDataKey": {
+            },
+            "id": "C-cfcdf950-6909-4ead-833e-48af7ff15d89"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "am start-foreground-service -n com.miui.screenrecorder/.service.RecorderService --ez is_start_immediately true",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "小米录屏开",
+            "id": "A-991b31fd-f75f-4e55-ba0f-15642318f2ce"
+          }, {
+            "@type": "type.googleapis.com/CreateGlobalVar",
+            "globalVar": {
+              "name": "微信录屏状态",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-e88f3f61-2e5e-494b-8a42-d53aacd5a966"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "111",
+            "customContextDataKey": {
+            },
+            "id": "A-49720c84-2fe1-49bc-87bd-a172351413aa"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "微信录屏状态",
+            "valueAsString": "视频中",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-26902e30-c83e-41b1-9b60-b225826d34a0"
+          }, {
+            "@type": "type.googleapis.com/SwitchCase",
+            "case": [{
+              "case": [{
+                "@type": "type.googleapis.com/KeyguardIsLocked",
+                "customContextDataKey": {
+                },
+                "id": "C-36c730e8-f220-4f7e-b89a-f05c7634bf54"
+              }],
+              "action": [{
+                "@type": "type.googleapis.com/ShowStatusBarChip",
+                "text": "视频通话中",
+                "icon": "remix://phone-video-call",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/HideStatusBarClip",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-6d459466-4d6d-496f-8da0-f12e25b1b143"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-91b45e7a-6afb-480a-bd5a-9e949f986f3f"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "5000",
+                "customContextDataKey": {
+                },
+                "id": "A-34ca4da1-f567-406b-a717-045b3275e640"
+              }, {
+                "@type": "type.googleapis.com/HideStatusBarClip",
+                "customContextDataKey": {
+                },
+                "id": "A-a67698c0-549a-446b-8b31-45ff467c6e34"
+              }],
+              "description": "锁屏状态栏提示",
+              "id": "Case-4a63fdc3-0f25-4a2d-b61e-0b0903b18572",
+              "isBreak": true
+            }],
+            "customContextDataKey": {
+            },
+            "note": "锁屏提示",
+            "id": "A-c9411036-b624-4eda-88a9-cc9ab29059d7"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "date \u0027+%Y.%m.%d-%H.%M.%S\u0027",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "系统当前时间",
+            "id": "A-5e9fb04d-6a4c-4224-8262-679fd216455f"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "(localVarOf$微信录屏提取.split(\"\\n\").length \u003e 1) \u0026\u0026 \n(localVarOf$微信录屏提取.split(\"\\n\")[0].contains(\"微信\")) ? \n(\n(localVarOf$微信录屏提取.split(\"\\n\")[1].trim().contains(\"邀请你语音通话\")) ? \nlocalVarOf$微信录屏提取.split(\"\\n\")[1].trim().split(\"邀请你语音通话\")[0] :\nnull\n) : \nlocalVarOf$微信录屏提取.split(\"\\n\")[0]",
+            "customContextDataKey": {
+            },
+            "id": "A-33d6c5f1-9f9e-42de-a75b-9c67ed160edc"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "100",
+            "customContextDataKey": {
+            },
+            "id": "A-1d646fc2-3f2f-4681-93ce-643a8c5a121b"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "微信录屏",
+            "valueAsString": "{mvelRet}-{shellOut}",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-8ce65809-88de-4c0b-b148-5c5da91ff5dd"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "666",
+            "customContextDataKey": {
+            },
+            "id": "A-08b1ef17-7885-494b-8a51-5d0c7c9b2c24"
+          }],
+          "description": "开始录屏",
+          "id": "Case-230d6c13-6d61-491f-94f1-ba77175f4487",
+          "isBreak": true
+        }],
+        "customContextDataKey": {
+        },
+        "note": "开始录屏",
+        "id": "A-e6457ad7-5e0e-43ac-9c17-febd8224c893"
+      }],
+      "description": "视频",
+      "id": "Case-b6963030-8818-4705-8f82-c49523a98970",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "微信录音状态",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2091013d-4e0e-4243-8782-6a250e389cc1"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "微信录屏状态",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-39801110-4716-45a8-94f8-8f9b07f982c9"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-d8884088-698a-4500-820b-68731854ac71"
+      }],
+      "description": "停止动作",
+      "id": "Case-0e7df384-0b25-416e-af2e-51dbcc8f4192"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "开始通话",
+    "id": "A-56f0963d-8013-4d19-833e-88a2a8f8cd74"
+  }],
+  "id": "SHARE-rule-2e552135-76d4-444e-a2d7-ff3b75cbdd18",
+  "lastUpdateTime": "1751959381001",
+  "createTime": "1703767690906",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信通话",
+  "description": "语音和视频记录6",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "微信录屏",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "视频记录"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-216ac0f4-fcca-4aef-ad29-e6a032b2a9f5"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "微信录音",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "语音记录"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-2ad121b3-a0ce-4331-9b46-fff53e5b5023"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "微信录音状态",
+          "payload": {
+            "value": "存在"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-d5475c33-da8a-43bc-8e1b-20af23f326ea"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "微信录音状态",
+          "customContextDataKey": {
+          },
+          "id": "A-61f8b8bc-669b-4a82-a540-0457041f70bf"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "变量已整理！",
+          "customContextDataKey": {
+          },
+          "id": "A-b02b3ae6-c4ad-44dd-a1de-b99a58333867"
+        }],
+        "description": "录音变量",
+        "id": "Case-70a4c390-b3a9-4212-9498-cd8e39e0defd"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "微信录屏状态",
+          "payload": {
+            "value": "存在"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-b1c20118-1727-402c-bfe9-100fa0d170d0"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "微信录屏状态",
+          "customContextDataKey": {
+          },
+          "id": "A-5fa3e828-4cfb-4fb4-8ba5-a26f9c29b338"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "变量已整理！",
+          "customContextDataKey": {
+          },
+          "id": "A-69873776-2c06-4b5e-b256-fa2e7dbcd097"
+        }],
+        "description": "录屏变量",
+        "id": "Case-ebb177a4-34d2-4313-8881-cc8da5eecad5"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "变量整理",
+      "id": "A-2d11ad76-7c73-4b47-85f3-2ecceae94caf"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "微信录屏",
+      "customContextDataKey": {
+      },
+      "id": "A-07080c00-06b8-45a4-88a7-517d3b9c6327"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "微信录音",
+      "customContextDataKey": {
+      },
+      "id": "A-6a2c4b77-533b-4ea0-90d6-8cdf6b3b31aa"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "微信录屏",
+      "customContextDataKey": {
+      },
+      "id": "A-07080c00-06b8-45a4-88a7-517d3b9c6327"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "微信录音",
+      "customContextDataKey": {
+      },
+      "id": "A-6a2c4b77-533b-4ea0-90d6-8cdf6b3b31aa"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/OnFinishOp",
+      "opCodes": [27],
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }, {
+        "pkgName": "com.tencent.mm",
+        "userId": 999
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-979f2169-7625-49d0-8630-69ecac75b90f"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "微信录屏状态",
+      "payload": {
+        "value": "视频中"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-85a38ff6-db1d-462c-98c4-ae78dd8fccc3"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "微信录音状态",
+      "payload": {
+        "value": "语音中"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-81dfa6b8-eb4c-48f6-b2b9-67e488cb6c5c"
+    }],
+    "isEnabled": true,
+    "condOp": "ANY",
+    "actions": [{
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "EqualTo",
+          "varName": "微信录音状态",
+          "payload": {
+            "value": "语音中"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-1d2c2d91-97b9-428e-9897-411641b3a624"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/StopAudioRecording",
+          "customContextDataKey": {
+          },
+          "id": "A-e0f762e5-0c51-498b-a65a-3d69326710e0"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "100",
+          "customContextDataKey": {
+          },
+          "id": "A-7786917f-8303-4224-b5ae-700ac88bff22"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start -n tornaco.apps.shortx/tornaco.apps.shortx.ui.record.AudioRecordActivity \u0026\u0026 input keyevent KEYCODE_BACK",
+          "customContextDataKey": {
+          },
+          "note": "预备录音文件",
+          "id": "A-3ddc7844-140f-4d7a-87b8-70f632081c26"
+        }, {
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/HasNodeOnScreen",
+            "matchers": [{
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "我的录音"
+            }],
+            "detectTimeout": "5000",
+            "customContextDataKey": {
+            },
+            "id": "C-402fa35b-e1f2-4835-b1a1-52919274d5a6"
+          }],
+          "timeoutStr": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-bc35db69-3b1a-425d-b445-e6cd9e4c6720"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "200",
+          "customContextDataKey": {
+          },
+          "id": "A-dd540dd9-8e66-4e38-b0ea-8f421f189a72"
+        }, {
+          "@type": "type.googleapis.com/RemoveTasks",
+          "appPkg": [{
+            "pkgName": "tornaco.apps.shortx"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-7ba75085-2e8a-4391-8f4a-e0cf6326280d"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "200",
+          "customContextDataKey": {
+          },
+          "id": "A-75f6ac14-a271-4d8d-8954-66a7666b7acd"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/system/bin/sh\nSRC\u003d\"argOf$微信录音路径\"\nDEST\u003d\"argOf$微信录音管理\"\nsu -c \"mkdir -p \u0027$DEST\u0027\" \u003e/dev/null 2\u003e\u00261\nlatest_file\u003d$(ls -At \"$SRC\" | head -n 1)\nif [ -n \"$latest_file\" ] \u0026\u0026 [ \"$latest_file\" !\u003d \".\" ] \u0026\u0026 [ \"$latest_file\" !\u003d \"..\" ]; then\nsu -c \"mv \u0027$SRC/$latest_file\u0027 \u0027$DEST/\u0027\" \u003e/dev/null 2\u003e\u00261\nfi",
+          "customContextDataKey": {
+          },
+          "id": "A-1e475dec-485d-411b-9db5-dbc7722c940d"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "1000",
+          "customContextDataKey": {
+          },
+          "id": "A-b04c53e0-3138-40ba-bdb1-4e79c9bd1a60"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/system/bin/sh\nRECORDS_DIR\u003d\"argOf$微信录音管理/\"\nTARGET_NAME\u003d\"globalVarOf$微信录音.aac\"\nLATEST_FILE\u003d$(su -c \"ls -t \\\"$RECORDS_DIR\\\"*.aac \\\"$RECORDS_DIR\\\".*.aac 2\u003e/dev/null | head -1\")\n[ -n \"$LATEST_FILE\" ] \u0026\u0026 su -c \"mv \\\"$LATEST_FILE\\\" \\\"$RECORDS_DIR$TARGET_NAME\\\"\" \u003e/dev/null 2\u003e\u00261",
+          "customContextDataKey": {
+          },
+          "id": "A-ba6823ee-2e70-43a3-98d7-e67409590d9f"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "title": "语音通话已结束",
+          "message": "globalVarOf$微信录音",
+          "smallIcon": "cross-ring-two",
+          "clickAction": [{
+            "@type": "type.googleapis.com/RemoveNotification",
+            "notification": {
+              "title": "视频通话已结束",
+              "tag": "tag-1742982362804"
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-58f18575-fe19-4d41-a9a0-a3addd93786f"
+          }],
+          "overrideAppName": "微信",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-d430fd75-30a9-4f6e-ab8e-8fbcce48cd07"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "微信录音状态",
+          "customContextDataKey": {
+          },
+          "id": "A-23498061-bf37-4b91-a1b7-93b41bb9ace5"
+        }, {
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "语音通话结束",
+          "icon": "remix://phone-video-call",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e1d35753-71d4-4431-8a64-1d8bbc3a0ecd"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-4b8bdc83-1340-45ff-a7ee-c4cadfe61a46"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-0249d173-f748-4dcf-ac71-5630b560a5a1"
+        }, {
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-60b1307d-aace-4f3c-88bb-7263b1bebf16"
+        }],
+        "description": "语音结束",
+        "id": "Case-fdd1d11a-a603-4440-90fb-63f9d86dd3ef",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "EqualTo",
+          "varName": "微信录屏状态",
+          "payload": {
+            "value": "视频中"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-ebc5607f-793e-4dc7-84d6-0133fe74d986"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am stop-service com.miui.screenrecorder/.service.RecorderService",
+          "customContextDataKey": {
+          },
+          "note": "结束小米录屏服务",
+          "id": "A-9005b90e-c5f2-4cc5-aa42-3084332f2f46"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "1000",
+          "customContextDataKey": {
+          },
+          "id": "A-dd540dd9-8e66-4e38-b0ea-8f421f189a72"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/system/bin/sh\nSRC\u003d\"argOf$微信录屏路径\"\nDEST\u003d\"argOf$微信录屏管理\"\nsu -c \"mkdir -p \u0027$DEST\u0027\" \u003e/dev/null 2\u003e\u00261\nlatest_file\u003d$(ls -At \"$SRC\" | head -n 1)\nif [ -n \"$latest_file\" ] \u0026\u0026 [ \"$latest_file\" !\u003d \".\" ] \u0026\u0026 [ \"$latest_file\" !\u003d \"..\" ]; then\nsu -c \"mv \u0027$SRC/$latest_file\u0027 \u0027$DEST/\u0027\" \u003e/dev/null 2\u003e\u00261\nfi",
+          "customContextDataKey": {
+          },
+          "id": "A-1e475dec-485d-411b-9db5-dbc7722c940d"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "1000",
+          "customContextDataKey": {
+          },
+          "id": "A-b04c53e0-3138-40ba-bdb1-4e79c9bd1a60"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/system/bin/sh\nRECORDS_DIR\u003d\"argOf$微信录屏管理/\"\nTARGET_NAME\u003d\"globalVarOf$微信录屏.mp4\"\nLATEST_FILE\u003d$(su -c \"ls -t \\\"$RECORDS_DIR\\\"*.mp4 \\\"$RECORDS_DIR\\\".*.mp4 2\u003e/dev/null | head -1\")\n[ -n \"$LATEST_FILE\" ] \u0026\u0026 su -c \"mv \\\"$LATEST_FILE\\\" \\\"$RECORDS_DIR$TARGET_NAME\\\"\" \u003e/dev/null 2\u003e\u00261",
+          "customContextDataKey": {
+          },
+          "id": "A-ba6823ee-2e70-43a3-98d7-e67409590d9f"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "title": "视频通话已结束",
+          "message": "globalVarOf$微信录屏",
+          "smallIcon": "cross-ring-two",
+          "clickAction": [{
+            "@type": "type.googleapis.com/RemoveNotification",
+            "notification": {
+              "title": "视频通话已结束",
+              "tag": "tag-1742982362804"
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-58f18575-fe19-4d41-a9a0-a3addd93786f"
+          }],
+          "overrideAppName": "微信",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-d430fd75-30a9-4f6e-ab8e-8fbcce48cd07"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "微信录屏状态",
+          "customContextDataKey": {
+          },
+          "id": "A-9ef2af15-a4b1-47d7-9210-ea56f22b4e7c"
+        }, {
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "视频通话结束",
+          "icon": "remix://phone-video-call",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e1d35753-71d4-4431-8a64-1d8bbc3a0ecd"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-4b8bdc83-1340-45ff-a7ee-c4cadfe61a46"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-0249d173-f748-4dcf-ac71-5630b560a5a1"
+        }, {
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-60b1307d-aace-4f3c-88bb-7263b1bebf16"
+        }],
+        "description": "视频结束",
+        "id": "Case-fb5ae707-d777-477f-b6db-beb8c530516a",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "note": "通话结束",
+      "id": "A-656cfb67-d1c0-4c65-9464-3a8c4ba799c3"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "text \u003d globalVarOf$whitetime;\ntext !\u003d null \u0026\u0026 text.length() \u003e 0 \u0026\u0026 text.charAt(text.length() - 1) \u003d\u003d \u0027:\u0027 ? true : false",
+          "customContextDataKey": {
+          },
+          "id": "C-32e0295d-e446-451f-b8a7-3ff9528f4276"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "1000",
+          "customContextDataKey": {
+          },
+          "id": "A-5bb32661-b676-4c65-a62f-5e54b62589d9"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "IsNotEmpty",
+            "varName": "whitetime",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-2ee3501d-3e91-4ee4-8420-02816a15920d"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "whitetime",
+            "valueAsString": "globalVarOf$whitetime:%CurrentTimeMillis%",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-58d9be42-0a7e-4807-adeb-ce6488c4b26b"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "whitetime",
+            "valueAsString": ":%CurrentTimeMillis%",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-58d9be42-0a7e-4807-adeb-ce6488c4b26b"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "关闭",
+          "id": "A-be7f3682-6d8d-48f8-8e05-1c5961586a4e"
+        }],
+        "description": "关闭保留",
+        "id": "Case-b34d1caf-151e-46de-a457-10f0b7fc5caa"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "关闭保留",
+      "id": "A-5d903155-305a-4202-9924-7e57ce32551c"
+    }],
+    "evaluatePolicy": "Quit_EvaluatePolicy_Once"
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "SHARE-RS-0a9307cc-e6fd-4f38-bba9-7d0040becd27",
+  "parameters": [{
+    "name": "微信录屏路径",
+    "defaultValue": "/storage/emulated/0/DCIM/ScreenRecorder"
+  }, {
+    "name": "微信录屏管理",
+    "defaultValue": "/storage/emulated/0/.楚C/微信录屏"
+  }, {
+    "name": "微信录音路径",
+    "defaultValue": "/data/data/tornaco.apps.shortx/files/records"
+  }, {
+    "name": "微信录音管理",
+    "defaultValue": "/storage/emulated/0/.楚C/微信录音"
+  }]
+}
+###------###
+{"type":"rule"}

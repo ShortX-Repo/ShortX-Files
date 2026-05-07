@@ -1,0 +1,50 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/KeyEvent",
+    "keyCode": 25,
+    "customContextDataKey": {
+    },
+    "id": "F-afb500ad-e0b9-4335-bbaa-e6cdeddf4562"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/EvaluateGlobalVar",
+    "op": "EqualTo",
+    "varName": "屏幕亮着",
+    "payload": {
+      "value": "false"
+    },
+    "customContextDataKey": {
+    },
+    "id": "C-0ee7955e-cb43-4c6f-9906-b2816f6f1f3f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.os.Build;\nimport android.os.IBinder;\nimport android.os.Parcel;\nimport android.os.ServiceManager;\nimport android.view.SurfaceControl;\n\n// 直接设置电源模式\nint displayMode \u003d 2; // 2: 开启, 0: 关闭\n\nif (Build.VERSION.SDK_INT \u003c 34) { // Android 14 之前的版本\n    // 获取 SurfaceControl 类\n    CLASS \u003d Class.forName(\"android.view.SurfaceControl\");\n\n    // 根据 Android 版本获取显示器 Token 方法\n    getGetBuiltInDisplayMethod \u003d (Build.VERSION.SDK_INT \u003c Build.VERSION_CODES.Q) ?\n        CLASS.getMethod(\"getBuiltInDisplay\", Integer.TYPE) :\n        CLASS.getMethod(\"getInternalDisplayToken\");\n\n    // 获取显示器 Token\n    getBuiltInDisplay \u003d (Build.VERSION.SDK_INT \u003c Build.VERSION_CODES.Q) ?\n        getGetBuiltInDisplayMethod.invoke(null, 0) :\n        getGetBuiltInDisplayMethod.invoke(null);\n\n    // 设置电源模式\n    method \u003d CLASS.getMethod(\"setDisplayPowerMode\", IBinder, Integer.TYPE);\n    if (displayMode \u003d\u003d 0 || displayMode \u003d\u003d 2) {\n        method.invoke(null, getBuiltInDisplay, displayMode);\n    }\n} else { // Android 14 及以上版本\n    // 获取 SurfaceFlinger 服务\n    surfaceFlingerService \u003d ServiceManager.getService(\"SurfaceFlingerAIDL\");\n\n    // 获取显示器 ID 列表\n    parcelData \u003d Parcel.obtain();\n    parcelReply \u003d Parcel.obtain();\n    parcelData.writeInterfaceToken(\"android.gui.ISurfaceComposer\");\n    surfaceFlingerService.transact(IBinder.FIRST_CALL_TRANSACTION + 5, parcelData, parcelReply, 0);\n    parcelReply.readException();\n    int displayCount \u003d parcelReply.readInt();\n    long[] displayIds \u003d new long[displayCount];\n\n    // 读取显示器 ID\n    for (index \u003d 0; index \u003c displayCount; index++) {\n        displayIds[index] \u003d parcelReply.readLong();\n    }\n    parcelData.recycle();\n    parcelReply.recycle();\n\n    // 遍历每个显示器，设置电源模式\n    for (displayId : displayIds) {\n        // 开启电源模式\n        parcelData \u003d Parcel.obtain();\n        parcelReply \u003d Parcel.obtain();\n        parcelData.writeInterfaceToken(\"android.gui.ISurfaceComposer\");\n        parcelData.writeLong(displayId);\n        surfaceFlingerService.transact(IBinder.FIRST_CALL_TRANSACTION + 6, parcelData, parcelReply, 0);\n        parcelReply.readException();\n        IBinder displayToken \u003d parcelReply.readStrongBinder();\n        parcelData.recycle();\n        parcelReply.recycle();\n\n        // 直接调用 SurfaceControl 的方法，设置电源模式\n        SurfaceControl.setDisplayPowerMode(displayToken, displayMode);\n    }\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-ba136496-9128-40c9-9937-93d6c3bd496d"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "屏幕亮着",
+    "valueAsString": "true",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-b0f35109-3ede-4b9f-9a5f-7ad77213672d"
+  }],
+  "id": "SHARE-rule-ffff60bd-699e-435a-a58f-e5763aec04ab",
+  "lastUpdateTime": "1732980258893",
+  "createTime": "1732943175427",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "解除息屏运行",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

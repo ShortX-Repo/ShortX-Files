@@ -1,0 +1,42 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "注入Frida-gadget",
+    "textFields": [{
+      "placeholder": "填写APP包名"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-244a3ffe-7be7-4360-a849-bbe325b63033"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {textFieldInput1};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);",
+    "customContextDataKey": {
+    },
+    "id": "A-121b6cc4-8fca-434c-9481-96d291e333c2"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\n# 提示用户输入包名\n#echo -n \"请输入包名: \"\n#read package_name\npackage_name\u003d\"{textFieldInput1}\"\n\n# 文件列表\nfiles\u003d(\"abcd\" \"libabcd.deploy.so\" \"libabcd.so\" \"libabcd64.deploy.so\" \"libabcd64.so\")\n\n# 原始路径\nsource_path\u003d\"/data/local/tmp/ABCD/\"\n\n# 目标路径\ntarget_path\u003d\"/data/data/$package_name/\"\n\n# 循环处理每个文件\nfor file in \"${files[@]}\"; do\n    # 构建文件路径\n    source_file\u003d\"$source_path$file\"\n    target_file\u003d\"$target_path$file\"\n\n    # 检查文件是否存在\n    if [ -e \"$source_file\" ]; then\n        # 复制二进制文件\n        cp \"$source_file\" \"$target_file\"\n\n        # 替换包名\n        sed -i \"s/包名/$package_name/g\" \"$target_file\"\n\n        # 设置文件权限为777\n        chmod 777 \"$target_file\"\n    else\n        echo \"文件 $source_file 不存在，跳过处理。\"\n    fi\ndone\n\necho \"脚本执行完成。\"",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-91196310-bd80-4b4e-ba65-709a1b13e834"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{mvelRet}已注入FridaGadget",
+    "customContextDataKey": {
+    },
+    "id": "A-50053cd5-3753-4b46-be3b-a11e56f7fc91"
+  }],
+  "id": "DAa7aad859-9665-4b4b-b9ef-79df590285f5",
+  "lastUpdateTime": "1703944475834",
+  "createTime": "1703766408942",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "注入Frida-gadget",
+  "description": "必看说明：http://muort.cn/S31230-21352386.png\n环境模块下载：https://gitee.com/wululu0922/zygisk-abcd/releases/tag/Zygisk-abcd",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

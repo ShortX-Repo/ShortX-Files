@@ -1,0 +1,64 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 生成随机字符串函数\ngenerate_random_string() {\n  # 设置生成字符串的长度\n  length\u003d$1\n  # 生成随机字符串\n  characters\u003d\"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\"\n  random_string\u003d$(cat /dev/urandom | LC_ALL\u003dC tr -dc \"$characters\" | head -c $length)\n  echo $random_string\n}\n# 调用生成随机字符串函数并指定长度为6\nresult\u003d$(generate_random_string 6)\n# 获取时间戳\ntimestamp\u003d$(date +%s)\n#米游社的Salt\nn\u003d\"t0qEgfub6cvueAPgR5m9aQWWVciEer7v\"\n#拼接\nmx\u003d\"salt\u003d${n}\u0026t\u003d${timestamp}\u0026r\u003d${result}\"\necho \"$timestamp,$result,$(echo -n $mx | md5sum | awk \u0027{print $1}\u0027)\"",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "DS"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "note": "ds拼接md5加密(数字加大小写)",
+    "id": "A-a043ff7a-b318-4c56-86fa-c09b3f0126ee"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 定义变量\nn\u003d\"t0qEgfub6cvueAPgR5m9aQWWVciEer7v\"\ni\u003d$(date +%s)\nr\u003d$((RANDOM%90000+100001))\nadd\u003d\"\u0026b\u003d\u0026q\u003d\"\n# 拼接字符串\nc\u003d\"salt\u003d${n}\u0026t\u003d${i}\u0026r\u003d${r}${add}\"\n# 输出时间戳, 随机数和MD5哈希值\necho \"${i},${r},$(echo -n \"$c\" | md5sum | awk \u0027{print $1}\u0027)\"\n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "DS"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "note": "ds拼接md5加密(1000001-2000000)",
+    "id": "A-8625e6fd-5f1d-4be4-9b0c-6a8a18dd7917"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.Random;\n        Random random \u003d new Random();\n        int randomNumber \u003d random.nextInt(90000) + 100001;\n        return randomNumber;\n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet"
+      }]
+    },
+    "isDisabled": true,
+    "id": "A-f4c655df-e68b-447f-a0a4-33dd5dccb8bc"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{httpRequestRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-d3cfdea1-8c5f-47fa-bcd2-21c309a67898"
+  }],
+  "id": "rule-752758e6-a733-4ca8-bd73-539e72d4e4c3",
+  "lastUpdateTime": "1693268100328",
+  "createTime": "1692926686488",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "ds算法",
+  "description": "米哈游ds算法",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

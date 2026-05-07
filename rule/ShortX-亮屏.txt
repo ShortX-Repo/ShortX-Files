@@ -1,0 +1,25 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresent",
+    "id": "F-779fe2b6-2a78-435e-94b2-a5ad562a881b"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-89c44016-3310-491d-b980-5153947c80e7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "lock",
+    "valueAsString": "false",
+    "id": "A-f417cbbc-375e-4f76-8afc-5b657d97ab40"
+  }],
+  "id": "rule-d1e5f52c-90e7-4a13-afa8-e56447b67b52",
+  "lastUpdateTime": "1689086008927",
+  "createTime": "1689085975798",
+  "title": "亮屏",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

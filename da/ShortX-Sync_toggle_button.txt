@@ -1,0 +1,88 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "EqualTo",
+          "varName": "sync",
+          "payload": {
+            "value": "off"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-bfe86536-578e-463a-a489-00174d9449f0"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/SetMasterSync",
+          "customContextDataKey": {
+          },
+          "id": "A-692edd6b-8dda-4ced-91e9-2ced567576bd"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "sync",
+          "valueAsString": "on",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-05d7d8ac-e96b-4afa-828b-e86338f0a90f"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/SetMasterSync",
+          "sync": "OnOffToggle_Off",
+          "customContextDataKey": {
+          },
+          "id": "A-fe90f99d-94d0-4046-8b4c-54abd0037081"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "sync",
+          "valueAsString": "off",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-0db92f4f-f791-458c-acb9-5c012a3a1d87"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-79c6f719-ffe6-458a-bb10-93088f8ea365"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "Sync globalVarOf$sync",
+        "customContextDataKey": {
+        },
+        "id": "A-1428abc9-2b8c-4f3e-bd0d-ccdc7e1712c2"
+      }],
+      "icon": "sync",
+      "label": "Sync globalVarOf$sync",
+      "id": "BTN-432ba5e7-4e9c-4aed-a52a-77d6e761930e"
+    }],
+    "tag": "2025-11-15 07:36:34",
+    "maxHeightInDp": 75,
+    "maxWidthInDp": 33,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 52,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 13,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-f643e1b7-5066-4086-8d61-fbb1f8902f15"
+  }],
+  "id": "SHARED-DA-73c99635-6da0-4e23-8554-a2a3fe01cbfb",
+  "lastUpdateTime": "1763152755642",
+  "createTime": "1763152342210",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Sync toggle button",
+  "versionCode": "1",
+  "directActionSetId": "DS-b4dc7d0f-efee-4429-951f-1bafb3ee79e4",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

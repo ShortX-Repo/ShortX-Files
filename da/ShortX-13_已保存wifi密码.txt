@@ -1,0 +1,36 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "cd /data/misc/apexdata/com.android.wifi/;sed -n \u0027s/\u0026quot;//g;/\"SS/s/\"\u003e/d\u003d/p;/\"Pre/{s/\"\u003e/k\u003d/;s/\u003cn/t\u003d/;p}\u0027 WifiConfigStore.xml||sed -n \u0027/[[:space:]]ssid\u003d/{/\u003d[^\"]/s/\\([0-9a-f]\\{2\\}\\)/\\\\x\\1/g;p};/psk\u003d/p;/key_mgmt\u003dNONE/p\u0027 wpa_supplicant.conf||echo 匹配失败...\n\necho -e arg1|sed \u0027s:\u003c/.*::;s:\"::g;s/.*d\u003d/\\nWIFI名称: /g;s/.*k\u003d/WIFI密码: /g;s/.*t\u003d.*/WIFI密码: 无/g;s/arg[1]/未检测到ROOT权限.../\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-686cdce9-6629-4ca8-97a4-8a59367b3085"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "copy",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-8c2be0b4-2bca-4626-ba61-735c4911cf91"
+    }],
+    "title": "wifi passwords",
+    "message": "{shellOut}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-a8ae6ad0-a191-4e6d-827d-5020ad99afe5"
+  }],
+  "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
+  "lastUpdateTime": "1706248336966",
+  "createTime": "1691412490806",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "13+已保存wifi密码",
+  "description": "基于shell实现",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

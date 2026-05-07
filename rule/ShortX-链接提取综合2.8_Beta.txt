@@ -1,0 +1,936 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "tag": "剪切板",
+    "customContextDataKey": {
+    },
+    "id": "F-990d4585-cd5a-4fcb-b666-d2ae4feffed4"
+  }, {
+    "@type": "type.googleapis.com/OnMenuActionTrigger",
+    "tag": "选中",
+    "customContextDataKey": {
+    },
+    "id": "F-7e9c9350-fb4e-4df4-ab0c-4f5d5354fb69"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsExists",
+      "varName": "copylink",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-42ccf641-b1a9-4520-b4fb-e1faa586014a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "copylink",
+      "customContextDataKey": {
+      },
+      "id": "A-c7506af0-4f13-4a83-9e72-f503501858c5"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-415461bc-e1d1-42bb-84d0-bf93dcccb3c2"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3499f27d-d083-43ba-a451-b37c7d825ff4"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "剪切板",
+      "customContextDataKey": {
+      },
+      "id": "C-f89e76f4-6110-4354-8c97-619fb1ed8a7c"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{clipboardContent}",
+      "regex": "\\{|\\}",
+      "replacement": " ",
+      "customContextDataKey": {
+      },
+      "id": "A-4c8ee740-4d22-4407-9a61-d169e4f38585"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{selectedText}",
+      "regex": "\\{|\\}",
+      "replacement": " ",
+      "customContextDataKey": {
+      },
+      "id": "A-4c8ee740-4d22-4407-9a61-d169e4f38585"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ad0d6119-3648-49be-892c-178b2f0b633c"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "function reversal(a) {\n    return a \u003d\u003d\u003d true ? false : true;\n}\n\nfunction ri(a) {\n    var r \u003d a.replace(\"http://\", \"\").replace(\"https://\", \"\");\n    r \u003d r.split(\" \")[0];\n    return r;\n}\n\nfunction db(a, output) {\n    for (var i \u003d 0; i \u003c output.length; i++) {\n        if (ri(output[i]) \u003d\u003d\u003d ri(a)) {\n            return false;\n        }\n    }\n    return true;\n}\n\nfunction where(a, b) {\n    var list1 \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (ri(a[i]) \u003d\u003d\u003d ri(b)) {\n            list1.push(i);\n        }\n    }\n    return list1;\n}\n\nfunction huisu(list, value_to_find, list_to_find) {\n    var a \u003d where(list, value_to_find); // 验证码位置列表\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var pos \u003d a[i];\n        for (var j \u003d pos - 1; j \u003e\u003d 0; j--) {\n            if (!db(list[j], list_to_find)) {\n                if (list[j].split(\" \").length \u003c 2) {\n                    var yzm \u003d value_to_find.split(\":\")[1];\n                    if (yzm \u003d\u003d\u003d \"\") {\n                        yzm \u003d list[pos + 1];\n                    }\n                    yzm \u003d yzm.replace(\" \", \"\");\n                    var outputIndices \u003d where(list_to_find, list[j]);\n                    if (outputIndices.length \u003e 0) {\n                        if (list_to_find[outputIndices[0]].indexOf(\"提取码:\") \u003d\u003d\u003d -1) {\n                            list_to_find[outputIndices[0]] \u003d list[j] + \" 提取码:\" + yzm;\n                        } else {\n                            list_to_find.push(list[j] + \" 提取码:\" + yzm);\n                        }\n                        break;\n                    }\n                }\n            }\n        }\n    }\n}\n\nfunction qvzi(a) {\n    var Extractioncodelist \u003d argOf$tqm;\n    Extractioncodelist \u003d Extractioncodelist.split(\" \");\n    for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n        a \u003d a.replace(new RegExp(Extractioncodelist[i], \"g\"), \" Extractioncode:\");\n    }\n\n    var output \u003d \"\";\n    var all \u003d \"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM#_/-:?%@\u003d.\u0026, ，；;1234567890 \\n\";\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        if (all.indexOf(a[i]) !\u003d\u003d -1) {\n            output +\u003d a[i];\n        }\n    }\n    return output;\n}\n\nfunction shaixuan(a) {\n    a \u003d a.replace(/http:\\/\\//g, \" http://\").replace(/https:\\/\\//g, \" https://\");\n    var duanluo \u003d a.split(/\\n|,|，|；|;|\\s+/);\n    duanluo \u003d duanluo.filter(function(token) { return token.trim() !\u003d\u003d \"\"; });\n\n    var output \u003d [];\n    var ecjc \u003d [];\n    var yzm \u003d false;\n    var Extractioncodelist \u003d [];\n\n    if (a.indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n        yzm \u003d true;\n        for (var i \u003d 0; i \u003c duanluo.length; i++) {\n            if (duanluo[i].indexOf(\"Extractioncode:\") !\u003d\u003d -1) {\n                if (Extractioncodelist.indexOf(duanluo[i]) \u003d\u003d\u003d -1) {\n                    Extractioncodelist.push(duanluo[i]);\n                }\n            }\n        }\n    }\n\n    var dinjiyumin \u003d argOf$djym;\n    dinjiyumin \u003d dinjiyumin.split(\",\");\n    var emaillist \u003d argOf$email;\n    emaillist \u003d emaillist.split(\",\");\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c duanluo.length; j++) {\n            if (duanluo[j].indexOf(\".\" + dinjiyumin[i] + \"/\") !\u003d\u003d -1 \u0026\u0026 duanluo[j].length \u003e dinjiyumin[i].length + 2) {\n                if (db(duanluo[j], output)) {\n                    output.push(duanluo[j]);\n                }\n            } else if (db(duanluo[j], ecjc)) {\n                ecjc.push(duanluo[j]);\n            }\n        }\n    }\n\n    for (var i \u003d 0; i \u003c dinjiyumin.length; i++) {\n        for (var j \u003d 0; j \u003c ecjc.length; j++) {\n            if (ecjc[j].indexOf(\".\" + dinjiyumin[i]) !\u003d\u003d -1 \u0026\u0026 ecjc[j].length \u003e dinjiyumin[i].length + 1) {\n                var suffix \u003d \".\" + dinjiyumin[i];\n                if (ecjc[j].substr(ecjc[j].length - suffix.length) \u003d\u003d\u003d suffix) {\n                    if (db(ecjc[j], output)) {\n                        var isEmail \u003d false;\n                        for (var w \u003d 0; w \u003c emaillist.length; w++) {\n                            if (ecjc[j].indexOf(\"@\" + emaillist[w]) !\u003d\u003d -1) {\n                                isEmail \u003d true;\n                                break;\n                            }\n                        }\n                        if (!isEmail) {\n                            output.push(ecjc[j]);\n                        }\n                    }\n                }\n            } else if ((ecjc[j].indexOf(\"http://\") !\u003d\u003d -1 || ecjc[j].indexOf(\"https://\") !\u003d\u003d -1) \u0026\u0026 ecjc[j].length \u003e 8 \u0026\u0026 ecjc[j].indexOf(\".\") !\u003d\u003d -1) {\n                if (db(ecjc[j], output)) {\n                    output.push(ecjc[j]);\n                }\n            }\n        }\n    }\n\n    if (yzm) {\n        for (var i \u003d 0; i \u003c Extractioncodelist.length; i++) {\n            huisu(duanluo, Extractioncodelist[i], output);\n        }\n    }\n\n    return output;\n}\n\nfunction qinqiutou(a) {\n    var httpslist \u003d argOf$httpsonly.split(\",\");\n    var output \u003d [];\n    for (var i \u003d 0; i \u003c a.length; i++) {\n        var link \u003d a[i];\n        if (link.indexOf(\"http://\") \u003d\u003d\u003d -1 \u0026\u0026 link.indexOf(\"https://\") \u003d\u003d\u003d -1) {\n            var httpLink \u003d \"http://\" + link;\n            var httpsLink \u003d \"https://\" + link;\n            if (output.indexOf(httpLink) \u003d\u003d\u003d -1 \u0026\u0026 output.indexOf(httpsLink) \u003d\u003d\u003d -1) {\n                var useHttps \u003d false;\n                for (var j \u003d 0; j \u003c httpslist.length; j++) {\n                    if (link.indexOf(httpslist[j]) !\u003d\u003d -1) {\n                        useHttps \u003d true;\n                        break;\n                    }\n                }\n                output.push(useHttps ? httpsLink : httpLink);\n            }\n        } else if (output.indexOf(link) \u003d\u003d\u003d -1) {\n            output.push(link);\n        }\n    }\n    return output;\n}\n\nfunction blacklist(linklist) {\n    var blacklist \u003d argOf$blacklist.split(\",\");\n    for (var i \u003d 0; i \u003c blacklist.length; i++) {\n        for (var j \u003d 0; j \u003c linklist.length; j++) {\n            if (linklist[j].indexOf(blacklist[i]) !\u003d\u003d -1) {\n                linklist.splice(j, 1);\n                j--;\n            }\n        }\n    }\n    return linklist;\n}\n\nfunction main(a) {\n    var b \u003d blacklist(qinqiutou(shaixuan(qvzi(a))));\n    if (b.length !\u003d\u003d 0) {\n        return b.join(\",\");\n    } else {\n        return \"No links\";\n    }\n}\n\n// 示例调用\nmain(`{replaceResult}`);",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "jsRet",
+        "second": "jsRet"
+      }]
+    },
+    "id": "A-452f1c8e-77e5-4949-b5d0-6587e044cff5"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "links",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-db6b129b-a329-4d4b-aa59-2c51533091eb"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "links",
+    "valueAsString": "{jsRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-f966d14b-5236-45fe-9142-b05ba3629d70"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "isclick",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-5a91e3c3-e583-49fc-ba4e-1fd5f3b29395"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "isclick",
+    "valueAsString": "false",
+    "customContextDataKey": {
+    },
+    "id": "A-1e0c8601-8e0a-4b85-8320-1f10832d85ae"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "jsRet",
+        "payload": {
+          "value": "No links"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-6f7152f2-973d-4f5e-91d3-9d7447f9144c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/RequireFactTag",
+          "tag": "选中",
+          "customContextDataKey": {
+          },
+          "id": "C-9b1b445a-cf8e-4b8d-b4e6-95cd7c813311"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "未识别到链接",
+          "customContextDataKey": {
+          },
+          "id": "A-0d16dda1-c80d-4007-96a9-5a512f0c1643"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4a8f0a81-c213-4983-a570-a494c01c65e7"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-a7520127-6b35-4c93-b2d4-e86a0f66f1e3"
+      }],
+      "description": "nolinks",
+      "id": "Case-7bd658d3-aec9-4633-9a01-971c682dfd6b",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "IsEmpty",
+        "varName": "jsRet",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-08928e8e-e6b8-42f9-aa6b-08429ca45348"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-9c1b5eae-872f-4e59-8c09-ff654485f465"
+      }],
+      "description": "error",
+      "id": "Case-d1f6f300-c91f-40dd-bc54-88f64773e048",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "选中",
+        "customContextDataKey": {
+        },
+        "id": "C-e11a41f0-e4e1-458b-9a06-979d0022d0e6"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "isclick",
+        "valueAsString": "true",
+        "customContextDataKey": {
+        },
+        "id": "A-bfbe7461-4c4c-46dc-a9b3-209250fc0f5a"
+      }],
+      "description": "选择",
+      "id": "Case-1885f60d-fb27-4211-9fbe-012ae5aa36b5",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "argOf$显示模式 \u003d\u003d \"状态栏\";",
+        "customContextDataKey": {
+        },
+        "id": "C-62ca5a0c-1f0c-4d7d-95cd-3ededba382ec"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "复制链接",
+        "icon": "remix://link-one",
+        "clickAction": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "isclick",
+          "valueAsString": "true",
+          "customContextDataKey": {
+          },
+          "id": "A-bc34ab44-2345-409b-a927-d49769c13a66"
+        }, {
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-47b4fe4e-134c-40b7-becf-7030a28f1354"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-741910db-3bd4-48e9-8253-2002b7ac0056"
+      }],
+      "description": "正常状态栏",
+      "id": "Case-c40495ea-926d-4d50-99af-798212f0d89f",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "argOf$显示模式 \u003d\u003d \"浮窗\";",
+        "customContextDataKey": {
+        },
+        "id": "C-b55bf932-9ee7-49c6-aa47-3e842a58c925"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "isclick",
+            "valueAsString": "true",
+            "customContextDataKey": {
+            },
+            "id": "A-bfbe7461-4c4c-46dc-a9b3-209250fc0f5a"
+          }],
+          "icon": "links-line",
+          "label": "已复制链接",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["copylink"],
+            "customContextDataKey": {
+            },
+            "id": "A-374cb2bd-ff85-4a55-9c2f-c33905988fdd"
+          }],
+          "id": "BTN-e50a6d76-c312-4297-ba48-155b6ebb5c03"
+        }],
+        "tag": "copylink",
+        "maxHeightInDp": 20,
+        "maxWidthInDp": 20,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 20,
+        "enableGlobalDrag": true,
+        "closeOnAction": true,
+        "customContextDataKey": {
+        },
+        "id": "A-abd448a9-7c83-42da-b516-b45ec318e806"
+      }],
+      "description": "正常浮窗",
+      "id": "Case-2ceb0b2e-2725-43b8-aae2-d5026d09daa9",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "note": "显示",
+    "id": "A-f88231f6-97b5-49d1-9d91-0e46b6a816d9"
+  }, {
+    "@type": "type.googleapis.com/WaitUtilConditionMatch",
+    "condition": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "isclick",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-c17f4d4a-4d20-4dc9-8fc0-6a2daa0ea5c2"
+    }],
+    "timeoutStr": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-5eb4dd30-0ee5-4af0-ae7b-566393a037d1"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "isclick",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d2cbc598-5b31-4d14-afc3-977de3cde32f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "argOf$显示模式 \u003d\u003d \"状态栏\";",
+          "customContextDataKey": {
+          },
+          "id": "C-159b8f7d-a978-42b2-8af6-32b04590f4c6"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-20ff009c-7955-4441-a62f-eaa95bd29db5"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-faad2098-dbdc-4b19-a10f-634b707db1f9"
+        }],
+        "description": "正常状态栏",
+        "id": "Case-c40495ea-926d-4d50-99af-798212f0d89f",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "argOf$显示模式 \u003d\u003d \"浮窗\";",
+          "customContextDataKey": {
+          },
+          "id": "C-efd70b52-589c-45bd-ab45-3520e6e49b35"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["copylink"],
+          "customContextDataKey": {
+          },
+          "id": "A-4222ba9d-0c81-44a5-9a5f-ebdc9b95ab72"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-7fc19871-b14f-4919-a766-8062b26a1d78"
+        }],
+        "description": "正常浮窗",
+        "id": "Case-2ceb0b2e-2725-43b8-aae2-d5026d09daa9",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f88231f6-97b5-49d1-9d91-0e46b6a816d9"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "隐藏",
+    "id": "A-c4a37d69-4e9c-4904-a239-41dfd97c576c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "text \u003d localVarOf$links;\ntext.split(\",\").length\u003c\u003d1;",
+      "customContextDataKey": {
+      },
+      "id": "C-de4e34d7-89ea-4398-9d6a-64c4526f1ba6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "localVarOf$links",
+      "regex": ",",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "replaceResult",
+          "second": "chooselink"
+        }]
+      },
+      "id": "A-51d0b8b3-b8c2-4087-a570-7bd006aa0cab"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowListDialog",
+      "title": "选择链接",
+      "cancelable": true,
+      "data": "localVarOf$links,取消",
+      "delimiter": [","],
+      "style": {
+      },
+      "customContextDataKey": {
+        "keys": [{
+          "first": "selectedListItem",
+          "second": "chooselink"
+        }]
+      },
+      "id": "A-9e8747b0-a7e9-49cd-9896-874aaa194864"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "chooselink",
+        "payload": {
+          "value": "取消"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b729cc0e-f4ec-40e8-9244-daac7b7d795c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-b868de59-c837-4ed5-a990-685bf7931103"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-411ce965-f255-4a17-a22e-7ce7b20f79c6"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "多链接选择链接",
+    "id": "A-70c7f317-b11f-4e7d-92a6-f0e0649d7009"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "urlschame",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-d9c08310-e819-4dd7-b3df-1358650537b1"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "function isAppinstall(pkgName) {\n    var path \u003d \"/data/data/\"+pkgName;\n    var File \u003d java.io.File;\n    var dir \u003d new File(path);\n    return dir.exists() \u0026\u0026 dir.isDirectory();\n}\n\nfunction checkString(input,all) {\n    if (input.indexOf(\"m.tb.cn\") !\u003d\u003d -1\u0026\u0026all.indexOf(\"闲鱼\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.taobao.idlefish\")) {\n        return [\"fleamarket://2.taobao.com/onepiece?h5Url\u003d\"+input,\"app://com.taobao.idlefish\"];\n    } else if (input.indexOf(\"m.tb.cn\") !\u003d\u003d -1\u0026\u0026all.indexOf(\"淘宝\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.taobao.taobao\")) {\n        return [\"tbopen://m.taobao.com/tbopen/index.html?h5Url\u003d\"+input,\"taobao-fill\"];\n    } else if ((input.indexOf(\"3.cn\") !\u003d\u003d -1||input.indexOf(\"jd.com\") !\u003d\u003d -1)\u0026\u0026isAppinstall(\"com.jingdong.app.mall\")) {\n        return [\"openapp.jdmobile://virtual?params\u003d{\u0027category\u0027:\u0027jump\u0027,\u0027des\u0027:\u0027m\u0027,\u0027url\u0027:\u0027\"+input+\"\u0027}\",\"app://com.jingdong.app.mall\"];\n    }else if (input.indexOf(\"douyin.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.ss.android.ugc.aweme\")) {\n        return [\"snssdk1128://webview?url\u003d\"+input,\"tiktok-fill\"];\n    } else if (input.indexOf(\"mobile.yangkeduo.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.xunmeng.pinduoduo\")) {\n        return [\"pddopen://?h5Url\u003d\"+input,\"app://com.xunmeng.pinduoduo\"];\n    } else if (input.indexOf(\"pan.baidu.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.baidu.netdisk\")) {\n        if(input.indexOf(\"提取码\") !\u003d\u003d -1){\n        var dplink;\n        var dptqm;\n        dplink\u003dinput.split(\" 提取码:\")[0].split(\"/1\")[1];\n        dptqm \u003d input.split(\" 提取码:\")[1];\n        return [\"bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d\"+dplink+\"\u0026pwd\u003d\"+dptqm,\"baidu-line\"];}else{\n        dplink\u003dinput.split(\" 提取码:\")[0].split(\"/1\")[1].replace(\"?\",\"\u0026\");\n        return [\"bdnetdisk://n/action.SHARE_LINK?m_n_v\u003d8.3.0\u0026surl\u003d\"+dplink,\"baidu-line\"];}\n        \n    } else if ((input.indexOf(\"bilibili.com\") !\u003d\u003d -1||input.indexOf(\"bili33.cn\") !\u003d\u003d -1||input.indexOf(\"m.acg.tv\") !\u003d\u003d -1||input.indexOf(\"b23.cn\") !\u003d\u003d -1||input.indexOf(\"bilibili.cn\") !\u003d\u003d -1||input.indexOf(\"bilibili.tv\") !\u003d\u003d -1)\u0026\u0026isAppinstall(\"tv.danmaku.bili\")) {\n        return [\"bilibili://browser?url\u003d\"+input,\"bilibili-fill\"];\n    } else if (input.indexOf(\"zhihu.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.zhihu.android\")) {\n        var zhanswer;\n        var zhpsn;\n        zhanswer\u003dinput.split(\"/answer/\")[1].split(\"\\\\?\")[0];\n        zhpsn\u003dinput.split(\"\u0026utm_psn\u003d\")[1]\n        return [\"zhihu://answers/\"+zhanswer+\"?open\u003d1\u0026utm_psn\u003d\"+zhpsn,\"zhihu-line\"];\n    }else if (input.indexOf(\"alipan.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.alicloud.databox\")) {\n        var alypshareid;\n        var alyptqm;\n        alypshareid\u003dinput.split(\" 提取码:\")[0].split(\"/s/\")[1];\n        if(input.indexOf(\"提取码\") !\u003d\u003d -1){\n            alyptqm\u003dinput.split(\" 提取码:\")[1];\n        }else{alyptqm\u003d\"\";}\n        return [\"smartdrive://share/browse?shareId\u003d\"+alypshareid+\"\u0026sharePwd\u003d\"+alyptqm,\"app://com.alicloud.databox\"];\n    }  else if (input.indexOf(\"pan.quark.cn\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.quark.browser\")) {\n        return [\"qklink://www.uc.cn/b20b84fd735a8dd3f7541129bacc4e9a?action\u003dopen_url\u0026url\u003d\"+input,\"app://com.quark.browser\"];\n    } else if (input.indexOf(\"123pan.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.mfcloudcalculate.networkdisk\")) {\n        var yespanshareid;\n        var yespantqm;\n        yespanshareid\u003dinput.split(\" 提取码:\")[0].split(\"/s/\")[1];\n        if(input.indexOf(\"提取码\") !\u003d\u003d -1){\n            yespantqm\u003dinput.split(\" 提取码:\")[1];}else{yespantqm\u003d\"\";}\n        return [\"pan://umeng.com/share/list?sharePwd\u003d\"+yespantqm+\"\u0026_sdk_\u003dumeng\u0026action\u003dshare_list\u0026shareKey\u003d\"+yespanshareid,\"app://com.mfcloudcalculate.networkdisk\"];\n    } else if (input.indexOf(\"1688.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.alibaba.wireless\")) {\n        return [\"wireless1688://ma.m.1688.com/plugin?url\u003d\"+input,\"app://com.alibaba.wireless\"];\n    }else if (input.indexOf(\"coolapk.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.coolapk.market\")) {\n        return [input.replace(\"http\",\"coolmarket\").replace(\"https\",\"coolmarket\"),\"app://com.coolapk.market\"];\n    }  else if (input.indexOf(\"kurobbs.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.kurogame.kjq\")) {\n        var kjqpostid;\n        kjqpostid\u003dinput.split(\"\\\\?postId\u003d\")[1];\n        return [\"kjq://home/post/postDetail?postId\u003d\"+kjqpostid,\"app://com.kurogame.kjq\"];\n    }else if (input.indexOf(\"xhslink.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.xingin.xhs\")) {\n        return [\"xhsdiscover://item/6809ccfd000000001a007525?open_url\u003d\"+input,\"app://com.xingin.xhs\"];\n    }  else if (input.indexOf(\"tieba.baidu.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.baidu.tieba\")) {\n        var bdtbtid;\n        bdtbtid\u003dinput.split(\"\\\\?\")[0].split(\"/p/\")[1];\n        return [\"com.baidu.tieba://unidispatch/pb?tid\u003d\"+bdtbtid,\"app://com.baidu.tieba\"];\n    }else if (input.indexOf(\"kuaishou.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.smile.gifmaker\")) {\n        return [\"kwai://webview?url\u003d\"+input,\"app://com.smile.gifmaker\"];\n    }  else if (input.indexOf(\"weibo.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.sina.weibo\")) {\n        var xlwblinkpart;\n        var xlwbblogid;\n        xlwblinkpart\u003dinput.split(\"/\")\n        xlwbblogid\u003dxlwblinkpart[xlwblinkpart.length()-1];\n        return [\"sinaweibo://detail?mblogid\u003d\"+xlwbblogid,\"weibo-fill\"];\n    } else if (input.indexOf(\"dpurl.cn\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.sankuai.meituan\")) {\n        return [\"imeituan://www.meituan.com/web?notitlebar\u003d1\u0026url\u003d\"+input,\"app://com.sankuai.meituan\"];\n    } else if (input.indexOf(\"dpurl.cn\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.sankuai.meituan.takeoutnew\")) {\n        return [\"meituanwaimai://waimai.meituan.com/browser?inner_url\u003d\"+input,\"app://com.sankuai.meituan.takeoutnew\"];\n    }else if (input.indexOf(\"miyoushe.com\") !\u003d\u003d -1\u0026\u0026isAppinstall(\"com.mihoyo.hyperion\")) {\n        return [\"mihoyobbs://webview?link\u003d\"+input,\"app://com.mihoyo.hyperion\"];\n    }  else {\n        return \"\"; // 未匹配\n    }\n}\n\nvar result;\nif({factTag}\u003d\u003d\"剪切板\"){\nresult\u003dcheckString({chooselink},{clipboardContent});}else{result\u003dcheckString({chooselink},{selectedText});}\n\nvar writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                .setVarName(\"urlschame\")\n                .setValueAsString(result[0])\n                .build();\n            shortx.executeAction(writeLocalVar);\nresult[1];",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "jsRet",
+        "second": "icon"
+      }]
+    },
+    "note": "urlschame跳转控制",
+    "id": "A-dc471ffb-6b01-4de2-a4da-c36a54dca4d8"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "mrxy \u003d argOf$默认响应;\nif(localVarOf$urlschame\u003d\u003d\"\"){\n    if(mrxy.split(\",\")[1]\u003d\u003d\"询问\"){\n        true;\n    }else{false;}\n}else{\n    if(mrxy.split(\",\")[0]\u003d\u003d\"询问\"){\n    true;\n    }else{false;}\n}",
+      "customContextDataKey": {
+      },
+      "id": "C-6e7a886d-e663-4065-aef1-0a8cadb14e04"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "IsNotEmpty",
+        "varName": "urlschame",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ecb4e8a9-a071-400a-9418-473c148d9451"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "打开方式",
+        "cancelable": true,
+        "data": "\n [\n    {\n        \"name\": \"跳转应用\",\n        \"version\": \"全屏\",\n        \"__value\": \"跳转\",\n        \"__icon\": \"{icon}\"\n    },\n    {\n        \"name\": \"跳转应用\",\n        \"version\": \"小窗\",\n        \"__value\": \"小窗跳转\",\n        \"__icon\": \"{icon}\"\n    },\n    {\n        \"name\": \"自适应应用打开\",\n        \"version\": \"全屏\",\n        \"__value\": \"自适应应用打开\",\n        \"__icon\": \"internal-transmission\"\n    },\n    {\n        \"name\": \"自适应应用打开\",\n        \"version\": \"小窗\",\n        \"__value\": \"自适应应用打开（小窗）\",\n        \"__icon\": \"picture-in-picture-line\"\n    },\n    {\n        \"name\": \"选择应用打开\",\n        \"version\": \"全屏\",\n        \"__value\": \"选择应用打开\",\n        \"__icon\": \"blocks-and-arrows\"\n    },\n    {\n        \"name\": \"复制链接\",\n        \"__value\": \"复制链接\",\n        \"__icon\": \"file-copy-2-line\"\n    },\n    {\n        \"name\": \"取消\",\n        \"__value\": \"取消\",\n        \"__icon\": \"close\"\n    }\n]\n",
+        "delimiter": [","],
+        "dataType": "ShowListDialogDataType_Json",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+          "keys": [{
+            "first": "selectedListItem",
+            "second": "打开方式"
+          }]
+        },
+        "id": "A-af355041-bf2c-4e01-b547-eb3f4daad2ed"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "打开方式",
+        "cancelable": true,
+        "data": "\n [\n    {\n        \"name\": \"自适应应用打开\",\n        \"version\": \"全屏\",\n        \"__value\": \"自适应应用打开\",\n        \"__icon\": \"internal-transmission\"\n    },\n    {\n        \"name\": \"自适应应用打开\",\n        \"version\": \"小窗\",\n        \"__value\": \"自适应应用打开（小窗）\",\n        \"__icon\": \"picture-in-picture-line\"\n    },\n    {\n        \"name\": \"选择应用打开\",\n        \"version\": \"全屏\",\n        \"__value\": \"选择应用打开\",\n        \"__icon\": \"blocks-and-arrows\"\n    },\n    {\n        \"name\": \"复制链接\",\n        \"__value\": \"复制链接\",\n        \"__icon\": \"file-copy-2-line\"\n    },\n    {\n        \"name\": \"取消\",\n        \"__value\": \"取消\",\n        \"__icon\": \"close\"\n    }\n]\n",
+        "delimiter": [","],
+        "dataType": "ShowListDialogDataType_Json",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+          "keys": [{
+            "first": "selectedListItem",
+            "second": "打开方式"
+          }]
+        },
+        "id": "A-af355041-bf2c-4e01-b547-eb3f4daad2ed"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a3b16a31-46ed-432e-a3be-aa68d9e42750"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var sy;\nvar urlschame;\nurlschame\u003dlocalVarOf$urlschame\nif (urlschame \u003d\u003d null || urlschame \u003d\u003d \"\"|| urlschame \u003d\u003d \"NO VALUE\") {\n    sy \u003d 1;\n} else {\n    sy \u003d 0;\n}\n\nvar list \u003d [];\nif (argOf$默认响应 !\u003d null) {\n    list \u003d argOf$默认响应.split(\",\");\n}\n\nvar val \u003d (list.length \u003e sy) ? list[sy] : \"无效值\";\n\nvar result;\nswitch (val) {\n    case \"自适应应用打开\":\n        result \u003d \"自适应应用打开\";\n        break;\n\n    case \"自适应应用打开（小窗）\":\n        result \u003d \"自适应应用打开（小窗）\";\n        break;\n\n    case \"跳转\":\n        result \u003d \"跳转\";\n        break;\n\n    case \"小窗跳转\":\n        result \u003d \"小窗跳转\";\n        break;\n\n    case \"选择应用打开\":\n        result \u003d \"选择应用打开\";\n        break;\n\n    case \"复制链接\":\n        result \u003d \"复制链接\";\n        break;\n\n    default:\n        result \u003d \"取消\";\n}\n\nresult;",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "打开方式"
+        }]
+      },
+      "id": "A-4aa8c859-0cd9-42fe-b518-72c374b2f790"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "默认响应控制",
+    "id": "A-980a480d-e5d1-44ba-9057-4d3a05bf238e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "Contains",
+      "varName": "chooselink",
+      "payload": {
+        "value": "提取码:"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d8e2b980-1cc6-43fc-8065-a46020a9e6a4"
+    }, {
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "DoesNotContain",
+      "varName": "打开方式",
+      "payload": {
+        "value": "跳转"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4e952dbc-7f4a-4e03-b582-2059c7f2fbe4"
+    }, {
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "DoesNotContain",
+      "varName": "打开方式",
+      "payload": {
+        "value": "取消"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4d019ab8-3e17-4e5c-8e08-2bc825716f36"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "link",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-7f83b9c9-7a1c-4f5d-8e52-9fa42711194a"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "link",
+      "valueAsString": "{chooselink}",
+      "customContextDataKey": {
+      },
+      "id": "A-36856aa9-895c-431a-941a-01b05a8f5820"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[1]",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "tqm"
+        }]
+      },
+      "id": "A-e59b1cb9-717e-4766-858b-9ac500c1ecdb"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "text \u003d localVarOf$link;\ncount \u003d text.split(\" 提取码:\")[0]",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "nextlink"
+        }]
+      },
+      "id": "A-e9b85f98-a39e-42d1-9760-f4aa7bc5fe5f"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{tqm}",
+      "customContextDataKey": {
+      },
+      "id": "A-01dc8407-f353-4474-a2c9-01098d9d2f84"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "text\u003d{chooselink};\ntext;",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "nextlink"
+        }]
+      },
+      "id": "A-ae2c2f16-615c-4564-b111-b2e50b5d2459"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ae7d5c78-c9b8-4f3a-8d64-28f19dbc3d0b"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "打开方式",
+        "payload": {
+          "value": "取消"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-5a4f9300-8bef-4857-aadc-19374b953a59"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-3e1af78a-e06a-4ca6-a809-0661a5226f99"
+      }],
+      "description": "取消",
+      "id": "Case-a1043892-984e-4c4e-b801-8124d20ea953",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "打开方式",
+        "payload": {
+          "value": "跳转"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-bcfcc765-a3b2-4911-8703-e4de15a9eccb"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "localVarOf$urlschame",
+        "customContextDataKey": {
+        },
+        "id": "A-b307240d-3831-4c81-8c80-f85a71e08d55"
+      }],
+      "description": "跳转",
+      "id": "Case-51e9b497-1fb7-44a9-ba4b-3eda14e58dff",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "打开方式",
+        "payload": {
+          "value": "小窗跳转"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b12e2106-5748-4da6-9233-9ba588e447ac"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d localVarOf$urlschame; // 替换为你要启动的 URL Scheme\nstr \u003d argOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(argOf$小窗参数);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+        "customContextDataKey": {
+        },
+        "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+      }],
+      "description": "小窗跳转",
+      "id": "Case-5b017c54-bd95-4c9c-977b-d9a4e2c50146",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "打开方式",
+        "payload": {
+          "value": "自适应应用打开"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-68e29b07-f07a-4bcd-b7e5-99e311322b89"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "argOf$自适应应用打开方式 \u003d\u003d\"系统\";",
+          "customContextDataKey": {
+          },
+          "id": "C-cec35088-296e-4a61-a744-63afeeb363d0"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/StartActivityIntentUri",
+          "intentUri": "{nextlink}",
+          "customContextDataKey": {
+          },
+          "id": "A-aad56cf7-38bd-41cd-8a5a-2ac527ca8e34"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "package_name \u003d \"air.svran.browser.nb\";\ntext \u003d {nextlink};\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+          "customContextDataKey": {
+          },
+          "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-619fa9f3-1c6f-4634-84b0-d87f5f4474e8"
+      }],
+      "description": "自适应应用打开",
+      "id": "Case-85e84014-1f47-4a5e-b315-18d37f9fb88c",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "打开方式",
+        "payload": {
+          "value": "自适应应用打开（小窗）"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-a4cb6ad3-88d3-4fab-827f-3014ff39d16c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nstr \u003d argOf$小窗配置;\nwindowconfig \u003d str.split(\" \");\nintentUri \u003d {nextlink};\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? (int)windowconfig[0] : (int)windowconfig[1];\nh \u003d (int)(w / (float)windowconfig[2]);\nl \u003d portrait ? (int)windowconfig[3] : (int)windowconfig[4];\nt \u003d portrait ? (int)windowconfig[5] : (int)windowconfig[6];\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(argOf$小窗参数);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+        "customContextDataKey": {
+        },
+        "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+      }],
+      "description": "自适应应用打开（小窗）",
+      "id": "Case-fe1439ce-fe56-48cf-a72f-802747e37c33",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "打开方式",
+        "payload": {
+          "value": "选择应用打开"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-cc8b6d80-aeec-4204-be38-d9b1b9f00217"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start -d \"{nextlink}\"",
+        "customContextDataKey": {
+        },
+        "id": "A-c7419016-d354-4f67-96da-cd7ab585a522"
+      }],
+      "description": "选择应用打开",
+      "id": "Case-34771ca6-f0e4-4979-b8cd-343d15776a26",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "打开方式",
+        "payload": {
+          "value": "复制链接"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-bfcc69d2-f2b8-4198-b84a-3cc3c0fdf2f8"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{nextlink}",
+        "customContextDataKey": {
+        },
+        "id": "A-83343ed7-d509-4ce8-9ba6-33a50686b817"
+      }],
+      "description": "复制链接",
+      "id": "Case-3abf3d76-c8ee-4f56-9eee-0c7402e6a9a6",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-aa622a08-3953-4346-8bf7-2c9d4b61cbbd"
+  }],
+  "id": "SHARE-rule-392158c3-4a6e-44df-9106-78e3bc051aba",
+  "lastUpdateTime": "1751046501977",
+  "createTime": "1723386652518",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "链接提取综合2.8 Beta",
+  "description": "高自定义的链接快速打开指令",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "importPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportPackage(android.util);\nimportPackage(java.lang);\n\nfunction runOnUiThread(fn) {\n    new Handler(Looper.getMainLooper()).post(new Runnable({ run: fn }));\n}\n\nrunOnUiThread(function () {\n    var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n    var layout \u003d new LinearLayout(context);\n    layout.setOrientation(LinearLayout.VERTICAL);\n    layout.setBackgroundColor(Color.TRANSPARENT);\n\n    var backgroundDrawable \u003d new android.graphics.drawable.GradientDrawable();\n    backgroundDrawable.setColor(Color.WHITE);\n    backgroundDrawable.setCornerRadius(50);\n    layout.setBackground(backgroundDrawable);\n    layout.setPadding(40, 40, 40, 40);\n\n    var layoutParams \u003d new WindowManager.LayoutParams(\n        1000,\n        2000,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        PixelFormat.TRANSLUCENT\n    );\n    layoutParams.gravity \u003d Gravity.CENTER;\n    var titleView \u003d new TextView(context);\n    titleView.setText(\"使用说明\");\n    titleView.setTextSize(22);\n    titleView.setTextColor(Color.BLACK);\n    titleView.setGravity(Gravity.CENTER);\n    titleView.setPadding(0, 0, 0, 20);\n    layout.addView(titleView);\n    var scrollView \u003d new ScrollView(context);\n    var scrollParams \u003d new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.MATCH_PARENT,\n        0,\n        1 \n    );\n    scrollView.setLayoutParams(scrollParams);\n\n    var textView \u003d new TextView(context);\n    textView.setText(\"1.使用前请确定shell正常\\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)，shell不正常时选择应用打开无效\\n2.顶级域名列表，邮箱列表，提取码关键词词列表，仅HTTPS可用列表可在指令参数处自定义\\n3.部分系统状态栏chlip可能无法正常显示，请在指令参数出切换显示模式为浮窗\\n4.小窗打开功能需要没有中转层才可正常使用（如：空浏览,其他浏览器打开等），ColorOS需在指令参数出将小窗参数的值从5改为100，否则会以全屏打开\\n5.选中提取功能可能需要手动重命名并选择一下上下文菜单触发器\\n6.自定义应用打开方式为空浏览时将使用空浏览app做链接分发，修改后不影响自适应应用打开（小窗），小窗仍为系统分发，无需将空浏览app设置为默认浏览器，设置空浏览为默认浏览器后会导致自适应应用打开（小窗）功能在调用浏览器时全屏\");\n    textView.setTextSize(18);\n    textView.setTextColor(Color.DKGRAY);\n    textView.setGravity(Gravity.LEFT);\n    scrollView.addView(textView);\n    layout.addView(scrollView);\n    var buttonLayout \u003d new LinearLayout(context);\n    buttonLayout.setOrientation(LinearLayout.HORIZONTAL);\n    buttonLayout.setGravity(Gravity.CENTER);\n    buttonLayout.setPadding(0, 30, 0, 0);\n    layout.addView(buttonLayout);\n\n    var closeButton \u003d new Button(context);\n    closeButton.setText(\"下一步 (5)\");\n    closeButton.setTextColor(Color.WHITE);\n    closeButton.setEnabled(false); // 初始不可用\n\n    function createRoundedDrawable(color) {\n        var drawable \u003d new android.graphics.drawable.GradientDrawable();\n        drawable.setColor(color);\n        drawable.setCornerRadius(30); // 圆角\n        return drawable;\n    }\n    closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#BDBDBD\")));\n\n    buttonLayout.addView(closeButton);\n    var secondsRemaining \u003d 5;\n    var handler \u003d new Handler();\n    var countdownRunnable \u003d new Runnable({\n        run: function () {\n            secondsRemaining--;\n            if (secondsRemaining \u003e 0) {\n                closeButton.setText(\"下一步 (\" + secondsRemaining + \")\");\n                handler.postDelayed(this, 1000);\n            } else {\n                closeButton.setEnabled(true);\n                closeButton.setText(\"下一步\");\n                closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#08C661\"))); \n            }\n        }\n    });\n    handler.postDelayed(countdownRunnable, 1000);\n\n    closeButton.setOnClickListener(new View.OnClickListener({\n        onClick: function () {\n            if (!closeButton.isEnabled()) return;\n            var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                .setVarName(\"next\")\n                .setValueAsString(\"true\")\n                .build();\n            shortx.executeAction(writeLocalVar);\n            try {\n                windowManager.removeView(layout);\n            } catch (e) {}\n        }\n    }));\n\n    try {\n        windowManager.addView(layout, layoutParams);\n    } catch (e) {\n        console.log(\"添加视图失败：\" + e);\n    }\n});",
+      "context": "CoroutineContext_UI",
+      "customContextDataKey": {
+      },
+      "note": "倒计时对话框（使用说明）",
+      "id": "A-4a117b47-bbdf-415a-8a8b-18509284b947"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo 1",
+      "customContextDataKey": {
+      },
+      "id": "A-093debde-1ce8-4e6b-87b9-b544b94b3faa"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "shellOut",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-f6a68423-f699-45b7-a8cb-c7d51776ddfd"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "shell正常",
+        "customContextDataKey": {
+        },
+        "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "onPositive": [{
+          "@type": "type.googleapis.com/SetRuleEnabled",
+          "ruleId": "rule-98f8b5fd-8577-4be9-b809-f4b1b84ed7fa",
+          "customContextDataKey": {
+          },
+          "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+        }],
+        "title": "shell运行异常",
+        "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+        "cancelable": true,
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleInstanceIdGenerator": {
+    "@type": "type.googleapis.com/RuleInstanceIdGenerator_String",
+    "insId": "{clipboardContent}{selectedText}"
+  },
+  "parameters": [{
+    "name": "djym",
+    "defaultValue": "com,cn,top,love,xyz,net,org,vip,cloud,online,icu,fun,work,tv,wiki,email,plus,co,ltd,shop,tech,wang,site,xin,store,art,cc,website,press,space,beer,luxe,video,group,ren,fit,yoga,pro,ink,info,mobi,kim,red,run,chat,cool,zone,host,biz,me",
+    "comments": "顶级域名列表（,隔开）"
+  }, {
+    "name": "tqm",
+    "defaultValue": "提取码： 密码： 提取码: 密码: 访问码: 访问码： 提取码:",
+    "comments": "提取码列表（空格隔开）"
+  }, {
+    "name": "email",
+    "defaultValue": "qq.com,126.com,163.com,139.com,gmail.com,hotmail.com,sohu.com,sina.com,sina.cn,foxmail.com,outlook.com,aliyun.com,tom.com,yeah.net,live.cn,msn.com",
+    "comments": "邮箱列表（,分割）"
+  }, {
+    "name": "httpsonly",
+    "defaultValue": "123pan.com",
+    "comments": "仅HTTPS可用列表"
+  }, {
+    "name": "显示模式",
+    "defaultValue": "状态栏",
+    "isRequired": true,
+    "comments": "设置显示模式（状态栏，浮窗）"
+  }, {
+    "name": "blacklist",
+    "defaultValue": "🈚️",
+    "isRequired": true,
+    "comments": "链接黑名单关键词命中则不响应该链接（英文逗号分割）"
+  }, {
+    "name": "小窗配置",
+    "defaultValue": "1200 1100 0.6 200 150 400 80",
+    "isRequired": true,
+    "comments": "竖屏高度 横屏高度 宽高比 竖屏左侧留空 横屏左侧留空 竖屏上侧留空 横屏上侧留空"
+  }, {
+    "name": "自适应应用打开方式",
+    "defaultValue": "系统",
+    "isRequired": true,
+    "comments": "系统，空浏览"
+  }, {
+    "name": "默认响应",
+    "defaultValue": "询问,询问",
+    "isRequired": true,
+    "comments": "点击后执行的动作\n命中链接分发时的动作，未命中链接分发时的动作（例如：小窗跳转,自适应应用打开）注：分割为英文逗号\n未命中可选项：询问，自适应应用打开，选择应用打开，复制链接，自适应应用打开（小窗）\n命中可选项：跳转，小窗跳转，询问，自适应应用打开，选择应用打开，复制链接，自适应应用打开（小窗）"
+  }, {
+    "name": "小窗参数",
+    "defaultValue": "5",
+    "isRequired": true,
+    "comments": "MIUI/澎湃/原生：5\nColorOS：100"
+  }]
+}
+###------###
+{"type":"rule"}

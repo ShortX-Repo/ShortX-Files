@@ -1,0 +1,40 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["map"],
+    "id": "F-e148b97c-70ea-4d0f-8b7f-e0d2f73c3c5c"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-34153a92-90be-45e3-b214-a0a7f0821283"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["map"],
+      "id": "C-6e13bd3f-6760-4510-9c10-0995af48e00d"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgSets": ["map"],
+      "id": "C-69d628f2-9f50-44a2-8630-ad6f41c52782"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "id": "A-cc2843e6-9519-4a8c-97ec-3a3f2d0a4eae"
+    }],
+    "id": "A-38cacce7-3398-470f-8928-0bc7c763c892"
+  }],
+  "id": "rule-47ab8611-8b07-47e7-ab0f-ea41dc8844ba",
+  "lastUpdateTime": "1687308252102",
+  "createTime": "1687305153540",
+  "title": "自动开启定位",
+  "description": "地图自动开启定位",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

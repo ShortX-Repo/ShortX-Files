@@ -1,0 +1,224 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsExists",
+      "varName": "HLXusername",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-c05ec905-6c5a-4433-977d-d1a4b9bcf8d1"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsExists",
+      "varName": "HLXpassword",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f24dd839-26fb-4d75-a54e-fe7cf6f025df"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "\n#!/system/bin/sh\n\npassword\u003d\"globalVarOf$HLXpassword\"\nhashed_password\u003d$(echo -n \"$password\" | md5sum | awk \u0027{print $1}\u0027)\necho $hashed_password\n",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "PasswordMd5"
+        }]
+      },
+      "note": "密码MD5",
+      "id": "A-21383f3f-fc23-4716-9f05-89e9b4f90794"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "\nusername\u003dglobalVarOf$HLXusername\npassword\u003d{PasswordMd5}\n\n sign \u003d \"account\" + username + \"device_code[d]b305cc73-8db8-4a25-886f-e73c502b1e99password\" + password + \"voice_codefa1c28a5b62e79c3e63d9030b6142e4b\";\n\n\n(sign);\n",
+      "customContextDataKey": {
+      },
+      "note": "拼接字符串",
+      "id": "A-6339094a-68ae-482d-9f04-7bb85a9d0f83"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n# 使用md5命令进行哈希计算\nsign\u003d{jsRet}\nhashed_sign\u003d$(echo -n \"$sign\" | md5sum | awk \u0027{print $1}\u0027)\necho $hashed_sign\n",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "SignMd5"
+        }]
+      },
+      "note": "拼接后的Sign计算",
+      "id": "A-b971a3e1-4ae2-49cd-84bd-157876426e24"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://floor.huluxia.com/account/login/ANDROID/4.1.8?platform\u003d2\u0026gkey\u003d000000\u0026app_version\u003d4.2.1.6.1\u0026versioncode\u003d367\u0026market_id\u003dtool_web\u0026_key\u003d\u0026device_code\u003d%5Bd%5Db305cc73-8db8-4a25-886f-e73c502b1e99\u0026phone_brand_type\u003dVO",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "POST",
+      "headers": [{
+        "key": "User-Agent",
+        "value": "okhttp/3.8.1"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyForm",
+        "items": [{
+          "key": "account",
+          "value": "globalVarOf$HLXusername"
+        }, {
+          "key": "login_type",
+          "value": "2"
+        }, {
+          "key": "password",
+          "value": "{PasswordMd5}"
+        }, {
+          "key": "sign",
+          "value": "{SignMd5}"
+        }]
+      },
+      "withCookieJar": true,
+      "trustAllCerts": true,
+      "customContextDataKey": {
+      },
+      "id": "A-2aac0bd1-fac2-4b3e-a6fb-d15f65857b8c"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Temporary",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-841c107d-3ff4-4b88-a4e0-654c142275dc"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Temporary",
+      "valueAsString": "{httpRequestRet}",
+      "customContextDataKey": {
+      },
+      "note": "以上为返回值的全部内容，为后续匹配的目标！",
+      "id": "A-1e54311e-9c40-4953-bb47-2938217c132a"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d globalVarOf$Temporary; \n\nPattern patternKey \u003d Pattern.compile(\"\\\"_key\\\":\\\"(.*?)\\\"\");\nPattern patternNick \u003d Pattern.compile(\"\\\"nick\\\":\\\"(.*?)\\\"\");\n\nMatcher matcherKey \u003d patternKey.matcher(msgText);\nMatcher matcherNick \u003d patternNick.matcher(msgText);\n\nString key \u003d null;\nString nick \u003d null;\n\nif (matcherKey.find()) {\n    key \u003d matcherKey.group(1);\n}\n\nif (matcherNick.find()) {\n    nick \u003d matcherNick.group(1);\n}\n\nreturn \"葫芦侠登录Key:\" + key + \" \\n昵称: \" + nick;\n",
+      "customContextDataKey": {
+      },
+      "note": "匹配出相关内容",
+      "id": "A-56ffe010-78c7-4672-bed8-21ab113bc7e1"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "复制Key",
+      "onPositive": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d globalVarOf$Temporary; \n\nPattern patternKey \u003d Pattern.compile(\"\\\"_key\\\":\\\"(.*?)\\\"\");\n\nMatcher matcherKey \u003d patternKey.matcher(msgText);\n\nString key \u003d null;\n\nif (matcherKey.find()) {\n    key \u003d matcherKey.group(1);\n\n}\n\nreturn key ;\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "CopyKey"
+          }]
+        },
+        "note": "纯key",
+        "id": "A-6447046e-c2e2-47e1-ae5b-27bc443986c7"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已复制",
+        "customContextDataKey": {
+        },
+        "id": "A-37f42e85-f138-4fce-9881-4591f39068dd"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{CopyKey}",
+        "customContextDataKey": {
+        },
+        "id": "A-97761a1e-5a14-4957-a55a-28439d99ae94"
+      }],
+      "title": "葫芦侠",
+      "message": "{mvelRet}",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-a2a0d825-8151-44f0-aa56-bafd68692585"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "账号密码",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "账号"
+      }, {
+        "placeholder": "密码"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "你要输入的账号密码，会在第一次执行指令时提示，请自行判断正确与否！",
+      "id": "A-4993399c-a51a-4867-aa24-84b9675e0fe3"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "HLXusername",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true,
+        "note": "葫芦侠账号"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-752cb7c7-08e9-4dff-be92-5c469eb4454a"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "HLXpassword",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true,
+        "note": "葫芦侠密码"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-a54b2508-0312-47e7-968d-c3a6a7cdee5a"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "HLXusername",
+      "valueAsString": "{textFieldInput1}",
+      "customContextDataKey": {
+      },
+      "id": "A-859a55db-1b92-4958-a2e9-11f2b933f849"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "HLXpassword",
+      "valueAsString": "{textFieldInput2}",
+      "customContextDataKey": {
+      },
+      "note": "以上为存储账号密码的全局变量，为隐私变量！",
+      "id": "A-3ab5826e-7703-4c3a-a322-3a7642a9904e"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "写入完成，请再执行一次指令",
+      "customContextDataKey": {
+      },
+      "id": "A-04c4d91b-65b9-4382-a566-85ca8631c89b"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "OK 开始吧",
+    "id": "A-e9ccff02-1b28-40e3-a68d-82ae54f2fbef"
+  }],
+  "id": "SHARED-DA-69c21403-54d7-4c1c-9df1-1b215f41c187",
+  "lastUpdateTime": "1728971603785",
+  "createTime": "1712403696552",
+  "author": {
+    "name": "墨上千里"
+  },
+  "title": "葫芦侠获取key请求版.",
+  "description": "By酷安墨上千里\n用于葫芦侠三楼请求Key的获取",
+  "versionCode": "1",
+  "directActionSetId": "DS-83b2200e-63bd-481c-b97e-52b5671276d6",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,138 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "customContextDataKey": {
+    },
+    "id": "F-89decec9-f099-4a44-8ab7-01e039279150"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var activityName\u003dString(componentName);\nvar intentUrl\u003dString(activityIntentUri);\nvar packageName\u003dString(pkgName)\nvar records \u003d JSON.parse(globalVarOf$activityrecords);\nvar recordscount\u003drecords.length;\nif(recordscount\u003d\u003d0){\n    records.push({\"activityname\":activityName,\"intenturl\":intentUrl,\"packagename\":packageName});\n}else{\n    var lastrecord\u003drecords[recordscount-1];\n    if(lastrecord[\"activityname\"]!\u003d\u003dactivityName || lastrecord[\"intenturl\"]!\u003d\u003dintentUrl){\n        records.push({\"activityname\":activityName,\"intenturl\":intentUrl,\"packagename\":packageName});\n    }\n}\nshortx.writeGlobalVarWithOp(\"activityrecords\", JSON.stringify(records), 3);   ",
+    "customContextDataKey": {
+    },
+    "id": "A-3928cedf-0b27-43c0-9d95-467e6a5384f6"
+  }],
+  "id": "SHARE-rule-1386c7fe-833c-4afb-b3d2-36e81e241759",
+  "lastUpdateTime": "1765636530163",
+  "createTime": "1765634234302",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "活动记录器",
+  "description": "记录活动和intentURL变化",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "activityrecords",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d7526dd8-0e46-452c-bfcd-5cf7a2127a41"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "activityrecords",
+      "valueAsString": "[]",
+      "customContextDataKey": {
+      },
+      "id": "A-39b09003-3f0f-450e-ba26-3e5c56100df4"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var records\u003dJSON.parse(globalVarOf$activityrecords);\nvar outjson\u003d[{\n        \"name\": \"取消\",\n        \"__value\": \"取消\",\n        \"__icon\": \"close\"\n    }];\nfor(i in records){\n    var record\u003drecords[i];\n    outjson.push({\n            \"name\": record[\"activityname\"],\n        \"version\": record[\"intenturl\"],\n        \"__value\": JSON.stringify(record),\n        \"__icon\": \"app://\"+record[\"packagename\"]\n    })\n}\nJSON.stringify(outjson);",
+      "customContextDataKey": {
+      },
+      "id": "A-95e9fd66-fc60-4c6f-b45a-5b2f4f922ef2"
+    }, {
+      "@type": "type.googleapis.com/ShowListDialog",
+      "title": "选择活动记录",
+      "cancelable": true,
+      "data": "{jsRet}",
+      "delimiter": [","],
+      "dataType": "ShowListDialogDataType_Json",
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1cbfce7f-8097-45ab-942c-b18b7689fa6c"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "selectedListItem[0]!\u003d\"取消\"",
+        "customContextDataKey": {
+        },
+        "id": "C-e65cdae3-24cd-4f00-b420-31510a48aafe"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "复制活动名",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "JSON.parse(selectedListItem[0])[\"activityname\"];",
+            "customContextDataKey": {
+            },
+            "id": "A-80de38c5-b5ee-4d4d-a227-38f85b28e1d0"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-c41f1bbf-63e7-42dd-af6b-1ee5929abfd8"
+          }]
+        }, {
+          "title": "复制intentURL",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "JSON.parse(selectedListItem[0])[\"intenturl\"];",
+            "customContextDataKey": {
+            },
+            "id": "A-80de38c5-b5ee-4d4d-a227-38f85b28e1d0"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-6be0a889-8ac1-4493-abfe-a99dd3b54b1f"
+          }]
+        }, {
+          "title": "取消"
+        }],
+        "title": "选择操作",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-dd624491-480e-49b2-91ff-aa04d22573f3"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d310c2cd-0c3a-403c-b70d-4ae57ca52f1a"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "activityrecords",
+      "customContextDataKey": {
+      },
+      "id": "A-2e5130fb-0d1e-42c9-9ed1-86864a1c6c2f"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "activityrecords",
+      "customContextDataKey": {
+      },
+      "id": "A-2e5130fb-0d1e-42c9-9ed1-86864a1c6c2f"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

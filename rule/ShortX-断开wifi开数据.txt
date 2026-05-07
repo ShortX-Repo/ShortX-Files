@@ -1,0 +1,83 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-28039dd2-4749-4375-bead-a3ded8424294"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-62d951cc-eaf4-4fb8-a256-d9a0e84edbf7"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireWifiConnected",
+      "requiredSSID": "*",
+      "customContextDataKey": {
+      },
+      "id": "C-c42a04bb-043a-434f-afe6-75dfe92a8e97"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-86dc7611-c79b-4c7e-a9da-6f8960c0f6eb"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-cc5acbbe-2d97-4158-bcee-4c3484dee78b"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1750439655659",
+      "title": "已断开wifi打开数据",
+      "message": "点击关闭数据",
+      "isImportant": true,
+      "smallIcon": "sphere",
+      "vibrate": true,
+      "sound": true,
+      "clickAction": [{
+        "@type": "type.googleapis.com/SetDataEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-6414fd14-081a-43e9-9f82-ec1a7ba091bb"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "tag": "tag-1750439655659"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-d655df3f-8edc-48c6-a0bb-5c3b8978df6e"
+      }],
+      "onGoing": true,
+      "customContextDataKey": {
+      },
+      "id": "A-7ffecbd9-6f6a-48e0-98a1-83ef9a543820"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-75148ed7-4912-4f1b-af11-0aa979de61d4"
+  }],
+  "id": "SHARE-rule-ec736612-11be-4d68-8867-0253ba0dd88f",
+  "lastUpdateTime": "1750439933457",
+  "createTime": "1750264757188",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "断开wifi开数据",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

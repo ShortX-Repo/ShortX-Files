@@ -1,0 +1,76 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI00"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI01"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI02"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI03"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI04"
+    }],
+    "tag": "on",
+    "customContextDataKey": {
+    },
+    "id": "F-a939a080-6c90-4200-a2b4-6d672becc96e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "on",
+      "customContextDataKey": {
+      },
+      "id": "C-2bb665fb-1c77-4397-997b-68267049f1b8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-d96fea4b-f50d-4f57-a7ae-abb14c6303a8"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已开启定位",
+      "customContextDataKey": {
+      },
+      "id": "A-113c309e-34c9-4e0b-91cb-f46c2a6e28f3"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3262376b-60a1-415e-8653-0ad928515c31"
+  }],
+  "id": "SHARE-rule-b0ac7c4e-a556-44c6-a140-bb368edbe350",
+  "lastUpdateTime": "1741797944639",
+  "createTime": "1741797020665",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信小程序自动开启定位",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,633 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "star-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-037ba522-5b92-46c2-9d41-5e234776f131"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [ -d \"/data/adb/sfm/\" ];then echo 1;else echo 0; fi",
+    "customContextDataKey": {
+    },
+    "id": "A-256666a7-82f7-441b-b1c1-932c6a25765e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "shellOut",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-e4d0f21f-1298-4c38-8f68-66a960a6e28f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://localhost:23333/api/maho/list",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["mode"]
+      },
+      "headers": [{
+        "key": "authorization",
+        "value": "argOf$password"
+      }, {
+        "key": "Content-Type",
+        "value": "application/json"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "if(httpRequestRet1 \u003d\u003d\u003d \"white\"){\n   \"白名单模式\"\n}else{\n   \"黑名单模式\"\n}",
+      "customContextDataKey": {
+      },
+      "id": "A-6ed2c7bf-e486-4e49-90fd-15a26325b189"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "查看名单列表",
+        "clickActions": [{
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "http://localhost:23333/api/maho/list",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["white", "black"]
+          },
+          "headers": [{
+            "key": "authorization",
+            "value": "argOf$password"
+          }, {
+            "key": "Content-Type",
+            "value": "application/json"
+          }],
+          "requestBody": {},
+          "customContextDataKey": {
+          },
+          "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "cat /data/adb/sfm/src/appLabels.json",
+          "customContextDataKey": {
+          },
+          "id": "A-e1c5da17-a0ca-47aa-ae20-28e26f78063e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "// 定义初始变量\nvar results \u003d [];\nvar output \u003d \"\";\nconst jsonString \u003d shellOut;\nconst obj \u003d JSON.parse(jsonString);\nconst trimmedwhite \u003d httpRequestRet1.replaceAll(\u0027[\u0027, \u0027\u0027).replaceAll(\u0027]\u0027, \u0027\u0027);\nconst a \u003d trimmedwhite.replaceAll(\u0027\"\u0027, \u0027\u0027); \nconst whitelist \u003d a.split(\u0027,\u0027); \nconst trimmedblack \u003d httpRequestRet2.replaceAll(\u0027[\u0027, \u0027\u0027).replaceAll(\u0027]\u0027, \u0027\u0027);\nconst b \u003d trimmedblack.replaceAll(\u0027\"\u0027, \u0027\u0027); \nconst blacklist \u003d b.split(\u0027,\u0027); \n\n// 通过 JSON 包名查找应用名的函数\nfunction find(list,label){\n    results.push(label);\n    results.push(\"-------------\");\n for (var i \u003d 0; i \u003c list.length; i++) {  \n    results.push(obj.labels[list[i]]);\n }\n}\n\nif(whitelist[0] !\u003d \"\" \u0026\u0026 blacklist[0] !\u003d \"\"){\n  find(whitelist,\"白名单应用:\");\n  results.push(\"\");\n  find(blacklist,\"黑名单应用:\");\n  output \u003d results.join(\"\\n\");\n}else if(whitelist[0] !\u003d \"\"){\n  find(whitelist,\"白名单应用:\");\n  output \u003d results.join(\"\\n\");\n}else if(blacklist[0] !\u003d \"\"){\n  find(blacklist,\"黑名单应用:\");\n  output \u003d results.join(\"\\n\");\n}else{\n  output \u003d \"你的列表中没有应用，请检查 /data/adb/sfm/src/baseConfig.yaml\"\n}\noutput;",
+          "customContextDataKey": {
+          },
+          "id": "A-7a62c10e-2bb1-4caf-a7e6-65b2f912cb7f"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "关闭",
+          "negative": "返回",
+          "onNegative": [{
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA-1578d012-56c8-429f-956c-8f7de4188580",
+            "funcParameterInputs": [{
+              "name": "password",
+              "value": "node"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-458d703b-8f35-4ca4-b215-5c90e43c46ba"
+          }],
+          "title": "查看列表",
+          "message": "{jsRet}",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-2d3265d5-bebc-4683-9186-9fbbd2d14599"
+        }]
+      }, {
+        "title": "黑/白模式切换",
+        "clickActions": [{
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "http://localhost:23333/api/maho/list",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["mode"]
+          },
+          "headers": [{
+            "key": "authorization",
+            "value": "argOf$password"
+          }, {
+            "key": "Content-Type",
+            "value": "application/json"
+          }],
+          "requestBody": {},
+          "customContextDataKey": {
+          },
+          "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "httpRequestRet1",
+            "payload": {
+              "value": "black"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-c010de49-a564-4080-9956-092b057080bb"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "http://localhost:23333/api/maho/list/mode",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestRawAdapter"
+            },
+            "method": "PATCH",
+            "headers": [{
+              "key": "authorization",
+              "value": "argOf$password"
+            }, {
+              "key": "Content-Type",
+              "value": "application/json"
+            }],
+            "requestBody": {
+              "@type": "type.googleapis.com/HttpRequestBodyJson",
+              "json": "{\n  \"mode\":\"white\"\n}"
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "已切换为白名单模式",
+            "customContextDataKey": {
+            },
+            "id": "A-54532fcf-17f5-4878-9fe0-fe4ebe5cae2e"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "http://localhost:23333/api/maho/list/mode",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestRawAdapter"
+            },
+            "method": "PATCH",
+            "headers": [{
+              "key": "authorization",
+              "value": "argOf$password"
+            }, {
+              "key": "Content-Type",
+              "value": "application/json"
+            }],
+            "requestBody": {
+              "@type": "type.googleapis.com/HttpRequestBodyJson",
+              "json": "{\n  \"mode\":\"black\"\n}"
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "已切换为黑名单模式",
+            "customContextDataKey": {
+            },
+            "id": "A-54532fcf-17f5-4878-9fe0-fe4ebe5cae2e"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-b00c9138-9542-4065-9d40-30babffa1863"
+        }]
+      }, {
+        "title": "控制黑名单应用",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShowMenuDialog",
+          "items": [{
+            "title": "添加应用",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "添加黑名单",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "包名/应用名（需要使用英文逗号隔开）"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-7a6a57c9-8d15-44df-8fbd-b2c9afa6a310"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://localhost:23333/api/maho/list",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["black"]
+              },
+              "headers": [{
+                "key": "authorization",
+                "value": "argOf$password"
+              }, {
+                "key": "Content-Type",
+                "value": "application/json"
+              }],
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "cat /data/adb/sfm/src/appLabels.json",
+              "customContextDataKey": {
+              },
+              "id": "A-e1c5da17-a0ca-47aa-ae20-28e26f78063e"
+            }, {
+              "@type": "type.googleapis.com/ExecuteJS",
+              "expression": "var jsonString \u003d shellOut;\nconst jsonMap \u003d JSON.parse(jsonString);\nconst input \u003d textFieldInput1.split(\u0027,\u0027);\nvar Appkg \u003d []; // 存储包名的数组\n\n// 清理 httpRequestRet1 的格式，去掉多余的字符并拆分为数组\nconst trim \u003d httpRequestRet1.replaceAll(\u0027[\u0027, \u0027\u0027).replaceAll(\u0027]\u0027, \u0027\u0027);\nconst list \u003d trim.split(\u0027,\u0027).filter(Boolean); \n\n// 查找应用名称对应的包名\nfunction find(appName) {\n    for (var key in jsonMap.labels) {\n        if (jsonMap.labels[key] \u003d\u003d\u003d appName) {\n            return key;\n        }\n    }\n    return null;\n}\n\n// 如果为应用名调用 find 返回包名，如果为包名直接压入数组\ninput.forEach(function(value) {\n    if (value.search(\"\\\\.\") !\u003d\u003d -1) {\n        Appkg.push(\"\\\"\" + value + \"\\\"\");\n    } else {\n        const findpkg \u003d find(value);\n        if (findpkg) {\n            Appkg.push(\"\\\"\" + findpkg + \"\\\"\");\n        }\n    }\n});\n\n// 合并数组，并过滤掉可能的空值和重复的值\nvar merge \u003d list.concat(Appkg).filter(Boolean);\nvar result \u003d merge.filter((item, index) \u003d\u003e merge.indexOf(item) \u003d\u003d\u003d index);\n\n// 输出结果为字符串形式，去掉多余的逗号\n\"[\" + result.join(\",\") + \"]\";",
+              "customContextDataKey": {
+              },
+              "id": "A-f495f773-48c4-47ca-8c8a-d2a49c13f576"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://localhost:23333/api/maho/list/list",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestRawAdapter"
+              },
+              "method": "PATCH",
+              "headers": [{
+                "key": "authorization",
+                "value": "argOf$password"
+              }, {
+                "key": "Content-Type",
+                "value": "application/json"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\n \"mode\":\"black\",\n  \"list\": {jsRet}\n}"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-5e638702-0280-46aa-84e0-2151f993a542"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "IsEmpty",
+                "varName": "httpRequestRet",
+                "payload": {
+                  "value": "null"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-6fae0a11-be74-416c-a665-f9968d482a9f"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "添加成功",
+                "customContextDataKey": {
+                },
+                "id": "A-5841d519-22bf-4433-afff-48ca6bacaffe"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "添加失败\n{httpRequestRet}",
+                "customContextDataKey": {
+                },
+                "id": "A-1f57adac-ffc3-403e-ba83-b33e899f718c"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-cea39687-1211-44d5-b92c-69c83e62d858"
+            }]
+          }, {
+            "title": "移除应用",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "删除黑名单",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "包名/应用名（需要使用英文逗号隔开）"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-7a6a57c9-8d15-44df-8fbd-b2c9afa6a310"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://localhost:23333/api/maho/list",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["black"]
+              },
+              "headers": [{
+                "key": "authorization",
+                "value": "argOf$password"
+              }, {
+                "key": "Content-Type",
+                "value": "application/json"
+              }],
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "cat /data/adb/sfm/src/appLabels.json",
+              "customContextDataKey": {
+              },
+              "id": "A-e1c5da17-a0ca-47aa-ae20-28e26f78063e"
+            }, {
+              "@type": "type.googleapis.com/ExecuteJS",
+              "expression": "var jsonString \u003d shellOut;\nconst jsonMap \u003d JSON.parse(jsonString);\nconst input \u003d textFieldInput1.split(\u0027,\u0027);\nvar appkg \u003d [];\n\n// 清理 httpRequestRet1 的格式，去掉多余的字符并拆分\nconst trim \u003d httpRequestRet1.replaceAll(\u0027[\u0027, \u0027\u0027).replaceAll(\u0027]\u0027, \u0027\u0027);\nconst list \u003d trim.split(\u0027,\u0027).filter(Boolean);\n\n// 查找应用名称对应的包名\nfunction find(appName) {\n    for (var key in jsonMap.labels) {\n        if (jsonMap.labels[key] \u003d\u003d\u003d appName) {\n            return key;\n        }\n    }\n    return null;\n}\n\n// 遍历用户输入并生成包名数组\ninput.forEach(function(value) {\n    if (value.search(\"\\\\.\") !\u003d\u003d -1) {\n        appkg.push(\"\\\"\" + value + \"\\\"\");\n    } else {\n        const findpkg \u003d find(value);\n        if (findpkg) {\n            appkg.push(\"\\\"\" + findpkg + \"\\\"\");\n        }\n    }\n});\n\n// 仅基于 list，过滤掉与 input 匹配的内容\nvar result \u003d list.filter(item \u003d\u003e !appkg.includes(item)).filter((item, index, self) \u003d\u003e self.indexOf(item) \u003d\u003d\u003d index); // 去重\n\"[\" + result.join(\",\") + \"]\"; // 返回最终结果",
+              "customContextDataKey": {
+              },
+              "id": "A-f495f773-48c4-47ca-8c8a-d2a49c13f576"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://localhost:23333/api/maho/list/list",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestRawAdapter"
+              },
+              "method": "PATCH",
+              "headers": [{
+                "key": "authorization",
+                "value": "argOf$password"
+              }, {
+                "key": "Content-Type",
+                "value": "application/json"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\n \"mode\":\"black\",\n  \"list\": {jsRet}\n}"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-5e638702-0280-46aa-84e0-2151f993a542"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "IsEmpty",
+                "varName": "httpRequestRet",
+                "payload": {
+                  "value": "null"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-6fae0a11-be74-416c-a665-f9968d482a9f"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "删除成功",
+                "customContextDataKey": {
+                },
+                "id": "A-5841d519-22bf-4433-afff-48ca6bacaffe"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "删除失败",
+                "customContextDataKey": {
+                },
+                "id": "A-1f57adac-ffc3-403e-ba83-b33e899f718c"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-cea39687-1211-44d5-b92c-69c83e62d858"
+            }]
+          }],
+          "title": "控制黑名单",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-d5f87050-f55b-4bda-8041-3e207639df8d"
+        }]
+      }, {
+        "title": "控制白名单应用",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShowMenuDialog",
+          "items": [{
+            "title": "添加应用",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "添加白名单",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "包名/应用名（需要使用英文逗号隔开）"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-7a6a57c9-8d15-44df-8fbd-b2c9afa6a310"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://localhost:23333/api/maho/list",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["white"]
+              },
+              "headers": [{
+                "key": "authorization",
+                "value": "argOf$password"
+              }, {
+                "key": "Content-Type",
+                "value": "application/json"
+              }],
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "cat /data/adb/sfm/src/appLabels.json",
+              "customContextDataKey": {
+              },
+              "id": "A-e1c5da17-a0ca-47aa-ae20-28e26f78063e"
+            }, {
+              "@type": "type.googleapis.com/ExecuteJS",
+              "expression": "var jsonString \u003d shellOut;\nconst jsonMap \u003d JSON.parse(jsonString);\nconst input \u003d textFieldInput1.split(\u0027,\u0027);\nvar Appkg \u003d []; // 存储包名的数组\n\n// 清理 httpRequestRet1 的格式，去掉多余的字符并拆分为数组\nconst trim \u003d httpRequestRet1.replaceAll(\u0027[\u0027, \u0027\u0027).replaceAll(\u0027]\u0027, \u0027\u0027);\nconst list \u003d trim.split(\u0027,\u0027).filter(Boolean); \n\n// 查找应用名称对应的包名\nfunction find(appName) {\n    for (var key in jsonMap.labels) {\n        if (jsonMap.labels[key] \u003d\u003d\u003d appName) {\n            return key;\n        }\n    }\n    return null;\n}\n\n// 如果为应用名调用 find 返回包名，如果为包名直接压入数组\ninput.forEach(function(value) {\n    if (value.search(\"\\\\.\") !\u003d\u003d -1) {\n        Appkg.push(\"\\\"\" + value + \"\\\"\");\n    } else {\n        const findpkg \u003d find(value);\n        if (findpkg) {\n            Appkg.push(\"\\\"\" + findpkg + \"\\\"\");\n        }\n    }\n});\n\n// 合并数组，并过滤掉可能的空值和重复的值\nvar merge \u003d list.concat(Appkg).filter(Boolean);\nvar result \u003d merge.filter((item, index) \u003d\u003e merge.indexOf(item) \u003d\u003d\u003d index);\n\n// 输出结果为字符串形式，去掉多余的逗号\n\"[\" + result.join(\",\") + \"]\";",
+              "customContextDataKey": {
+              },
+              "id": "A-f495f773-48c4-47ca-8c8a-d2a49c13f576"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://localhost:23333/api/maho/list/list",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestRawAdapter"
+              },
+              "method": "PATCH",
+              "headers": [{
+                "key": "authorization",
+                "value": "argOf$password"
+              }, {
+                "key": "Content-Type",
+                "value": "application/json"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\n \"mode\":\"white\",\n  \"list\": {jsRet}\n}"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-5e638702-0280-46aa-84e0-2151f993a542"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "IsEmpty",
+                "varName": "httpRequestRet",
+                "payload": {
+                  "value": "null"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-6fae0a11-be74-416c-a665-f9968d482a9f"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "添加成功",
+                "customContextDataKey": {
+                },
+                "id": "A-5841d519-22bf-4433-afff-48ca6bacaffe"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "添加失败\n{httpRequestRet}",
+                "customContextDataKey": {
+                },
+                "id": "A-1f57adac-ffc3-403e-ba83-b33e899f718c"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-cea39687-1211-44d5-b92c-69c83e62d858"
+            }]
+          }, {
+            "title": "移除应用",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "删除白名单",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "包名/应用名（需要使用英文逗号隔开）"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-7a6a57c9-8d15-44df-8fbd-b2c9afa6a310"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://localhost:23333/api/maho/list",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["white"]
+              },
+              "headers": [{
+                "key": "authorization",
+                "value": "argOf$password"
+              }, {
+                "key": "Content-Type",
+                "value": "application/json"
+              }],
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "cat /data/adb/sfm/src/appLabels.json",
+              "customContextDataKey": {
+              },
+              "id": "A-e1c5da17-a0ca-47aa-ae20-28e26f78063e"
+            }, {
+              "@type": "type.googleapis.com/ExecuteJS",
+              "expression": "var jsonString \u003d shellOut;\nconst jsonMap \u003d JSON.parse(jsonString);\nconst input \u003d textFieldInput1.split(\u0027,\u0027);\nvar appkg \u003d [];\n\n// 清理 httpRequestRet1 的格式，去掉多余的字符并拆分\nconst trim \u003d httpRequestRet1.replaceAll(\u0027[\u0027, \u0027\u0027).replaceAll(\u0027]\u0027, \u0027\u0027);\nconst list \u003d trim.split(\u0027,\u0027).filter(Boolean);\n\n// 查找应用名称对应的包名\nfunction find(appName) {\n    for (var key in jsonMap.labels) {\n        if (jsonMap.labels[key] \u003d\u003d\u003d appName) {\n            return key;\n        }\n    }\n    return null;\n}\n\n// 遍历用户输入并生成包名数组\ninput.forEach(function(value) {\n    if (value.search(\"\\\\.\") !\u003d\u003d -1) {\n        appkg.push(\"\\\"\" + value + \"\\\"\");\n    } else {\n        const findpkg \u003d find(value);\n        if (findpkg) {\n            appkg.push(\"\\\"\" + findpkg + \"\\\"\");\n        }\n    }\n});\n\n// 仅基于 list，过滤掉与 input 匹配的内容\nvar result \u003d list.filter(item \u003d\u003e !appkg.includes(item)).filter((item, index, self) \u003d\u003e self.indexOf(item) \u003d\u003d\u003d index); // 去重\n\"[\" + result.join(\",\") + \"]\"; // 返回最终结果",
+              "customContextDataKey": {
+              },
+              "id": "A-f495f773-48c4-47ca-8c8a-d2a49c13f576"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://localhost:23333/api/maho/list/list",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestRawAdapter"
+              },
+              "method": "PATCH",
+              "headers": [{
+                "key": "authorization",
+                "value": "argOf$password"
+              }, {
+                "key": "Content-Type",
+                "value": "application/json"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\n \"mode\":\"white\",\n  \"list\": {jsRet}\n}"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-5e638702-0280-46aa-84e0-2151f993a542"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "IsEmpty",
+                "varName": "httpRequestRet",
+                "payload": {
+                  "value": "null"
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-6fae0a11-be74-416c-a665-f9968d482a9f"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "删除成功",
+                "customContextDataKey": {
+                },
+                "id": "A-5841d519-22bf-4433-afff-48ca6bacaffe"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "删除失败",
+                "customContextDataKey": {
+                },
+                "id": "A-1f57adac-ffc3-403e-ba83-b33e899f718c"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-cea39687-1211-44d5-b92c-69c83e62d858"
+            }]
+          }],
+          "title": "控制白名单",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-d5f87050-f55b-4bda-8041-3e207639df8d"
+        }]
+      }],
+      "title": "神秘应用菜单（{jsRet}）",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-85e14c67-bc93-42bd-89b5-db46e433a17b"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "开启失败，你好像没有神秘",
+      "customContextDataKey": {
+      },
+      "id": "A-a0bd8b6d-7289-4163-8c92-b0a69a2f11ed"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e52341a3-a43d-4d71-b579-6bb09a5baedd"
+  }],
+  "id": "SHARED-DA-358b3283-998b-4ad7-8ffc-71efc889bf99",
+  "lastUpdateTime": "1729449742463",
+  "createTime": "1727618408522",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "“神秘”应用控制",
+  "description": "对“神秘”的应用黑名单/白名单进行操作",
+  "versionCode": "1",
+  "parameters": [{
+    "name": "password",
+    "defaultValue": "node"
+  }],
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

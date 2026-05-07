@@ -1,0 +1,34 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "com.miui.securitycenter",
+    "className": "com.xiaomi.security.xsof.MiSafetyDetectService",
+    "methodName": "l",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "id": "F-0c6d7428-cd34-440a-897e-f9dac3367eca"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "MiSafetyDetectService 被调用",
+    "customContextDataKey": {
+    },
+    "id": "A-1344bcd8-556d-494e-bc75-3bd8d4194d17"
+  }],
+  "id": "SHARE-rule-b3136bf0-d444-4a6a-8cff-c559fa7cca64",
+  "lastUpdateTime": "1743416051346",
+  "createTime": "1743415803321",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "捕捉 MiSafetyDetectService 事件",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

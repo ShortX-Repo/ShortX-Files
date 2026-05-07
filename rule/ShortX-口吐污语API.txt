@@ -1,0 +1,115 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-9c57b8ce-bd0d-4966-89a8-406b5a111e70"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "http://81.70.100.130/api/text_wu.php",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-5be44d5e-7266-4087-9ffd-53880d7ee655"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "# 使用sed提取特定文本\nextracted_text\u003d$(echo \u0027{httpRequestRet}\u0027 | sed -n \u0027/━━━━━━━━━/,/━━━━━━━━━/p\u0027 | sed \u00271d;$d\u0027)\n\n# 打印提取的文本\necho \"$extracted_text\"",
+        "customContextDataKey": {
+        },
+        "id": "A-b38c4605-acc8-4872-925b-af8b1800ade3"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-a5e1cda3-e6f5-4faa-9bcc-9d17d2083d4a"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "*",
+        "title": "口吐污语",
+        "message": "{shellOut}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-e4ab6679-18d1-4d72-9169-72cc9aae6580"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "id": "A-126f64be-b2e2-4890-956f-6caba23766dd"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "apps": [{
+            "pkgName": "tornaco.apps.shortx"
+          }]
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-41e341fb-f5eb-4743-b35f-8ea4fea98719"
+      }],
+      "icon": "user-voice-fill",
+      "id": "BTN-838f8144-2c29-43f5-bb7e-4b7a8da59ed4"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "customContextDataKey": {
+        },
+        "id": "A-d8744cc1-c66d-4d85-a609-9cc5638d58f3"
+      }],
+      "icon": "user-unfollow-fill",
+      "id": "BTN-941029fb-aa8b-42c1-a1f0-88e2358ec0c3"
+    }],
+    "tag": "*^_^*",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 158,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 6,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-87ffd032-46d9-451b-8e7c-a4a39299a5a8"
+  }],
+  "id": "rule-29967493-38b1-4996-aaf6-d24d1aa300eb",
+  "lastUpdateTime": "1703825703894",
+  "createTime": "1702538797645",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "口吐污语API",
+  "description": "使用API，更快",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-c109d809-8e07-49e7-8a12-f8b23eee9533"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["*^_^*"],
+      "customContextDataKey": {
+      },
+      "id": "A-4fb740da-619e-49fa-a649-1d858e6a18db"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ea5e1c9e-4ae5-4b61-8165-5350c2f682fb"
+}
+###------###
+{"type":"rule"}

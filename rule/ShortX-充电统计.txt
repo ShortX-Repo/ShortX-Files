@@ -1,0 +1,390 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-f4e91d9a-8b50-493e-ae19-b9a6aef225f1"
+  }, {
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "tag": "重启",
+    "customContextDataKey": {
+    },
+    "id": "F-2f6b6356-a01e-4aa8-bbc6-26d2b672882d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "重启",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-58d070fb-3c9f-4606-b7d6-cf1c7633da6c"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-0a2f889f-6b18-41a0-84ba-32deddc808a3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "\n[ -n \"globalVarOf$断充\" ] \u0026\u0026 echo $(($(date +%s%3N)-globalVarOf$断充)) || echo 999999",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-5dc010c0-0224-4f93-8b2e-62952f1e08c9"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "LessThan",
+        "varName": "shellOut",
+        "payload": {
+          "value": "3000"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2d79ebea-4ca3-443d-a1eb-7adfc7e2edd2"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotEmpty",
+        "varName": "起始时间",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05b9a235-8473-47c4-a2f2-196999738b66"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Parent",
+        "customContextDataKey": {
+        },
+        "id": "A-51c2fc6d-0a62-4db7-ada5-8f82c92e14c5"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-97259d5b-5c85-44a8-8237-d749f50af743"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "起始时间",
+      "valueAsString": "%CurrentTimeMillis%",
+      "customContextDataKey": {
+      },
+      "id": "A-b9266fe4-bc16-4f5c-ab35-2876fe55c216"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "起始电量",
+      "valueAsString": "%BatteryLevel%",
+      "customContextDataKey": {
+      },
+      "id": "A-1ea6189a-6932-4718-b07a-9cb1b890e425"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-1a1e26ef-d828-4fd2-be4b-9692d58dba94"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "初始化变量",
+    "id": "A-11014cc2-01b2-455b-8b3f-a1ebadec8bb2"
+  }, {
+    "@type": "type.googleapis.com/WaitUtilConditionMatch",
+    "condition": [{
+      "@type": "type.googleapis.com/BatteryPercent",
+      "value": 100,
+      "op": "IntEqualTo",
+      "customContextDataKey": {
+      },
+      "id": "C-9c27ae98-eefc-44b9-9d02-4dc317de58d2"
+    }],
+    "timeoutStr": "0",
+    "customContextDataKey": {
+    },
+    "note": "等待电量充至100%",
+    "id": "A-bfde521d-0678-4c99-98f4-8b425184e2ba"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "涓流时间",
+      "valueAsString": "%CurrentTimeMillis%",
+      "customContextDataKey": {
+      },
+      "id": "A-b9266fe4-bc16-4f5c-ab35-2876fe55c216"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "起始电量",
+        "payload": {
+          "value": "100"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-10c0d9d2-a040-4186-8665-55ee219924bd"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotEmpty",
+        "varName": "涓流时间",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b4d08d5b-8fc3-4270-b65b-035408549358"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Parent",
+        "customContextDataKey": {
+        },
+        "id": "A-3d0c1987-0b15-410e-83cd-014721d9324d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-03b803a3-e7cd-4ede-8080-6cb10ce21652"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "time\u003d$(date -u -d @$(( (globalVarOf$涓流时间-globalVarOf$起始时间)/1000 )) +\"%-H时%-M分%-S秒\")\n\necho \"电量已充满，globalVarOf$起始电量% \u003e 100% 耗时 $time\"\n",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "shellOut1"
+        }]
+      },
+      "id": "A-bfdea952-5fbe-4db3-b71f-d356bd91d8cb"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-114514",
+      "title": "充电统计",
+      "message": "{shellOut1}\n开始涓流",
+      "isImportant": true,
+      "smallIcon": "chat-2-line",
+      "customContextDataKey": {
+      },
+      "note": "发送充满通知",
+      "id": "A-8ddc4398-33d0-4461-8956-5f6b0121b876"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "起始电量",
+      "valueAsString": "100",
+      "customContextDataKey": {
+      },
+      "id": "A-c3132ff7-54f1-4822-835e-e6bc434b111c"
+    }],
+    "repeatTimes": 1,
+    "customContextDataKey": {
+    },
+    "note": "ui满电输出",
+    "id": "A-161ad13c-2bea-4998-9a78-346506b9cfc9"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "time\u003d$(date -u -d @$(( ($(date +%s%3N)-globalVarOf$涓流时间)/1000 )) +\"%-H时%-M分%-S秒\")\n\n[ -n \"${shellOut1}\" ] \u0026\u0026 echo \"{shellOut1}\"\necho \"涓流已完成，耗时 $time\"\n",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "shellOut2"
+        }]
+      },
+      "isDisabled": true,
+      "id": "A-077cb674-8ae2-448f-9a2d-f8f7fae8c5a7"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "count\u003d0\nwhile (($count!\u003d2));do\n  dc_I\u003d$(\u003c /sys/class/power_supply/battery/current_now)\n  if (($dc_I\u003d\u003d0)); then\n    let \"count++\"\n  else\n    count\u003d0\n  fi\n  sleep 5\ndone \n\ntime\u003d$(date -u -d @$(( ($(date +%s%3N)-globalVarOf$涓流时间)/ 1000 )) +\"%-H时%-M分%-S秒\")\n\n[ -n \"${shellOut1}\" ] \u0026\u0026 echo \"{shellOut1}\"\necho \"涓流已完成，耗时 $time\"\n",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "shellOut2"
+        }]
+      },
+      "id": "A-017a99de-24af-45ff-9527-615a66be6e66"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-114514",
+      "title": "充电统计",
+      "message": "{shellOut2}",
+      "smallIcon": "chat-2-line",
+      "customContextDataKey": {
+      },
+      "id": "A-e97fd9d7-9582-4bc1-a30d-d2b5e311b336"
+    }],
+    "repeatTimes": 1,
+    "customContextDataKey": {
+    },
+    "note": "涓流完成输出",
+    "id": "A-bf498acb-e92f-4868-a228-2657e8c67a7f"
+  }],
+  "id": "SHARE-rule-585135a7-732e-4730-99b0-ffb64b0c38cd",
+  "lastUpdateTime": "1742785560926",
+  "createTime": "1741134377647",
+  "author": {
+    "name": "Rarlya"
+  },
+  "title": "充电统计",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "起始时间",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3106452c-f251-4096-b602-69e55ab05e89"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "起始电量",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-4ecb78da-6bb8-48b1-959b-d11c5d41ff4a"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "涓流时间",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-cf8c8b0a-8f16-4976-bc9c-8275abf7e5e3"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "断充",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-f0d70546-b031-4238-b45c-83bc5bb24a38"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "起始时间",
+      "customContextDataKey": {
+      },
+      "id": "A-c7b5b9b9-1997-40a2-8117-76586f749afc"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "起始电量",
+      "customContextDataKey": {
+      },
+      "id": "A-6ac9221d-7878-47b4-86b7-e2515f189191"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "涓流时间",
+      "customContextDataKey": {
+      },
+      "id": "A-cd65822b-bcbb-40b5-802b-552adcda8b21"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "断充",
+      "customContextDataKey": {
+      },
+      "id": "A-8c50f4ed-2b06-41a7-94df-fdfd801b20e4"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ChargerUnplug",
+      "customContextDataKey": {
+      },
+      "id": "F-29bc071b-c8aa-4aa8-8024-827e34f6edfa"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo $((%BatteryLevel%-globalVarOf$起始电量))\n",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "d_Value"
+        }]
+      },
+      "note": "计算电量差值",
+      "id": "A-58de4380-e0a6-4dd1-ab19-45431650a517"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "GreaterThanOrEQ",
+        "varName": "d_Value",
+        "payload": {
+          "value": "5"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2bf87252-ec58-45a6-b471-ac08c3d95753"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "%BatteryLevel%",
+        "payload": {
+          "value": "100"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-9749fad3-76b9-49d4-834b-c25489c557bd"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "time\u003d$(date -u -d @$(( ($(date +%s%3N)-globalVarOf$起始时间)/1000 )) +\"%-H时%-M分%-S秒\")\necho \"globalVarOf$起始电量% \u003e %BatteryLevel%% 耗时 $time\"\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "计算时间并生成通知内容",
+        "id": "A-f39a071d-c570-4421-b4be-0eb25c2e1741"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-114514",
+        "title": "充电统计",
+        "message": "{shellOut}",
+        "isImportant": true,
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "note": "发送通知",
+        "id": "A-656a76c8-4a97-4585-99c3-10d7654f945c"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "冲入电量大于等于5%才通知",
+      "id": "A-c3391ee2-d69c-4c60-878d-7cc9aa0bdb0c"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "断充",
+      "valueAsString": "%CurrentTimeMillis%",
+      "customContextDataKey": {
+      },
+      "id": "A-c3132ff7-54f1-4822-835e-e6bc434b111c"
+    }],
+    "evaluatePolicy": "Quit_EvaluatePolicy_Only_When_Is_Running"
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-77b36271-1f74-4e4e-a940-965092d8a9a0"
+}
+###------###
+{"type":"rule"}

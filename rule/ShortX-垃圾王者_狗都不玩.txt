@@ -1,0 +1,120 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppAdded",
+    "customContextDataKey": {
+    },
+    "id": "F-03719386-8900-4e52-bfaa-be54f7d97067"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "pkgName",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-8e329042-7cf3-42a6-b278-f84add366862"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "pkgName",
+    "valueAsString": "{pkgName}",
+    "customContextDataKey": {
+    },
+    "id": "A-1af1e90d-306c-4986-987a-8e153d2fb3c0"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "pkgName",
+      "payload": {
+        "value": "com.tencent.tmgp.sgame"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-15621205-105c-49ef-9455-e5b46bcca2da"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "pm uninstall com.tencent.tmgp.sgame",
+      "customContextDataKey": {
+      },
+      "id": "A-4dc4ea6e-d0e3-4ca4-928a-4b82f4a56820"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "layout-top-2-fill",
+      "customContextDataKey": {
+      },
+      "id": "A-20da7372-4ebf-484b-af6c-5dab932e8bdd"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3f296482-fdd3-49c5-9b6b-d1b50541ea66"
+  }],
+  "id": "rule-15bbf290-4b8a-4c57-995c-2ef70930aa05",
+  "lastUpdateTime": "1709792908952",
+  "createTime": "1709792419939",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "垃圾王者，狗都不玩",
+  "description": "垃圾王者狗都不玩，你不卸载，我帮你卸载",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "pm list packages\n ",
+      "customContextDataKey": {
+      },
+      "id": "A-24d0463e-e1be-4b8a-9b99-18e49a8d9e26"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "pkgName",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9643320d-6163-4379-b542-305965c0e0de"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "pkgName",
+      "valueAsString": "{pkgName}",
+      "customContextDataKey": {
+      },
+      "id": "A-2a1c5647-e649-4433-a568-2fa07df10f5d"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "Contains",
+        "varName": "pkgName",
+        "payload": {
+          "value": "com.tencent.tmgp.sgame"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-47160f57-fed7-4027-bbb7-8fd286fa655f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "pm uninstall com.tencent.tmgp.sgame",
+        "customContextDataKey": {
+        },
+        "id": "A-71c1e6d9-1fba-4ea7-8e26-e17bafb122af"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-94aff1df-a4cd-44ab-b2a9-69271f5b9bbc"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

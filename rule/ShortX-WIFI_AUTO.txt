@@ -1,0 +1,198 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-95e41a20-04c2-4c63-a398-79cbaba852ed"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetDataEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-d1d0be6d-e25f-44a6-be34-f837e174e8ee"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{ssid} 连接中断，已打开数据",
+    "customContextDataKey": {
+    },
+    "id": "A-07ce2511-c398-4084-b7c1-31dac7462196"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.net.wifi.WifiManager;\nWifiManager wifiManager \u003d (WifiManager) context.getSystemService(Context.WIFI_SERVICE);\nboolean wifiEnabled \u003d wifiManager.isWifiEnabled();",
+    "customContextDataKey": {
+    },
+    "id": "A-6d003d15-7073-46e8-8df4-01c1bc0d254b"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{mvelRet} \u003d\u003d true",
+      "customContextDataKey": {
+      },
+      "id": "C-a1eb3ad0-5bc1-4a09-84cd-0b9123314dfb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "60000",
+      "customContextDataKey": {
+      },
+      "id": "A-8e0ea6db-92b2-4ec9-a31c-d41b422c8e8c"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireWifiDisconnected",
+        "customContextDataKey": {
+        },
+        "id": "C-1f7185eb-bbcf-4494-b1b2-cb8c99d02edc"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetWifiEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-29fdcdf1-445c-457c-97cb-ae35d77dabaa"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "连接WiFi超时，已关闭WiFi",
+        "customContextDataKey": {
+        },
+        "id": "A-d9ccdc3f-49b2-48d4-a169-398863ed5f53"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-c46bdf64-edce-4d1b-b803-0617979b168b"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4224fdd8-5d71-49aa-bd9f-d672478edc65"
+  }],
+  "id": "rule-a0edc420-e647-4446-a616-7c7a7c17e197",
+  "lastUpdateTime": "1697764342771",
+  "createTime": "1694843646929",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "WIFI_AUTO",
+  "description": "当WiFi断开连接时，打开移动数据，若60秒内重新连接WiFi并且能访问网络，则关闭移动数据，否则关闭WiFi。",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/WifiConnectedTo",
+      "ssidList": ["*"],
+      "customContextDataKey": {
+      },
+      "id": "F-be918915-76a2-4f81-b9a4-63f30462ff3f"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "网络状态",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9f3064c3-2e73-489a-be23-4c20ecebd7bb"
+    }, {
+      "@type": "type.googleapis.com/WhileLoop",
+      "conditions": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "网络状态",
+        "payload": {
+          "value": "网络连接正常"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-236cbe29-5f98-4b72-b447-ea05d28acb8c"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ping -c 1 -w 5 www.baidu.com \u003e /dev/null \u0026\u0026 echo \"网络连接正常\" || echo \"无法访问网络\"",
+        "customContextDataKey": {
+        },
+        "id": "A-2386049c-2d8b-4020-8e68-c41acb1afb0d"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "网络状态",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-634743cc-ed38-4f7a-bf2a-e6153633d713"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "网络状态",
+          "payload": {
+            "value": "网络连接正常"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-1eca3801-8e1f-4454-936a-fc84114e4b87"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/SetDataEnabled",
+          "customContextDataKey": {
+          },
+          "id": "A-0d8e72d6-6156-470e-acaa-690200ce39f1"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{ssid} 建立连接，已关闭数据",
+          "customContextDataKey": {
+          },
+          "id": "A-edd378d8-7c3d-4375-9840-27b78dc53cfc"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5405c56a-393f-4cd0-9634-16883b12f967"
+      }],
+      "delay": 1000,
+      "repeatTimes": 10,
+      "customContextDataKey": {
+      },
+      "id": "A-ae53b47d-fbce-4af5-9c87-5d5b9e92922a"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "网络状态",
+        "payload": {
+          "value": "无法访问网络"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-a8c0cdc2-cda5-4723-8808-31355e0b5e1b"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetWifiEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-c1c070e5-62cb-4ee2-8def-92e60dbb012a"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{ssid} 无法访问网络，已关闭WiFi",
+        "customContextDataKey": {
+        },
+        "id": "A-c91f58d1-d67c-40bc-926c-55823ca8bea5"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e3f97e2e-3d85-4a81-90b2-f470deceba83"
+    }]
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-224566a4-02f7-4a7e-9df5-2df70a7566d5"
+}
+###------###
+{"type":"rule"}

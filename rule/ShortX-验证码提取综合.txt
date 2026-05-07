@@ -918,7 +918,7 @@
     "note": "输入mvel中匹配到的验证码",
     "id": "A-03417dcd-2dc6-42a9-815b-34c81719e460"
   }],
-  "id": "SHARE-rule-1a22fcff-5023-4c3b-a13c-72c2b883c27e",
+  "id": "SHARE-rule-55022862-2e39-4dfb-a6ba-4ec202a41964",
   "lastUpdateTime": "1750953579297",
   "createTime": "1689214148528",
   "author": {

@@ -1,0 +1,123 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "BottomCenter",
+    "tag": "超级小爱",
+    "customContextDataKey": {
+    },
+    "note": "超级小爱",
+    "id": "F-011d7996-bb1f-43e8-9479-d93bac592902"
+  }, {
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "BottomCenter",
+    "gesture": "LongTap",
+    "tag": "小爱识屏",
+    "customContextDataKey": {
+    },
+    "note": "小爱识屏",
+    "id": "F-670d8874-6c0d-4be3-95b0-144f1d82dc92"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenOrientationIsPort",
+    "customContextDataKey": {
+    },
+    "id": "C-500d4cb9-2795-4393-9007-cb18c53a46e8"
+  }, {
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-3e37e867-0204-4f36-bfac-af8306c88af5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "超级小爱",
+        "customContextDataKey": {
+        },
+        "id": "C-8984568d-6b38-4142-88fa-ce6da4bfb911"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/Vibrate",
+        "vib3": 20,
+        "customContextDataKey": {
+        },
+        "id": "A-93f41d8c-1ee4-4e67-b2ee-1b8f8dc60e2e"
+      }, {
+        "@type": "type.googleapis.com/StartActivityIntent",
+        "intent": {
+          "action": "android.intent.action.VIEW",
+          "pkgName": "com.miui.voiceassist",
+          "className": "com.xiaomi.voiceassistant.mainui.home.HomeV5Activity"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-89048c30-3553-4b58-aad5-63bdbe8c0ef4"
+      }],
+      "description": "超级小爱",
+      "id": "Case-8b981a60-f7c2-43d9-9b93-6bbcc122296e",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "小爱识屏",
+        "customContextDataKey": {
+        },
+        "id": "C-7b5d17ca-00b4-4b5b-b150-4b5f4269677d"
+      }, {
+        "@type": "type.googleapis.com/RequireIMEVisibility",
+        "customContextDataKey": {
+        },
+        "id": "C-fe5e7ec5-e46c-45cd-a814-69af4d5ae358"
+      }, {
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "com.tencent.mm"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-b9add080-a949-44e5-beb2-1922ba98b187"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/Vibrate",
+        "vib3": 20,
+        "customContextDataKey": {
+        },
+        "id": "A-93f41d8c-1ee4-4e67-b2ee-1b8f8dc60e2e"
+      }, {
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.miui.voiceassist/com.xiaomi.voiceassistant.screenrecognition.ScreenRecognitionActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-45b33b32-cf9a-461c-879a-24c95bdf603e"
+      }],
+      "description": "小爱识屏",
+      "id": "Case-f2629e2d-15d5-448b-84ec-200e06407b02",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-41cc4caa-ed59-4e5c-9353-9e91eb726291"
+  }],
+  "id": "SHARE-rule-ec73dd42-e6be-4070-a822-ca97f5ed033e",
+  "lastUpdateTime": "1744951648630",
+  "createTime": "1735701448903",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "超级小爱",
+  "description": "小白条唤醒超级小爱和识屏",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-8c3e5fbc-9a04-4b1e-b60e-34004f973fdb"
+}
+###------###
+{"type":"rule"}

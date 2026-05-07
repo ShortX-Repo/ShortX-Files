@@ -1,0 +1,192 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "🔴 冻结应用",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\n// 获取系统服务\nvar packageManager \u003d context.getPackageManager();\n\nvar result \u003d new JSONArray();\n\nif (packageManager \u003d\u003d null) {\n    var errorItem \u003d new JSONObject();\n    errorItem.put(\"error\", \"无法获取PackageManager\");\n    result.put(errorItem);\n} else {\n    try {\n        // 获取所有安装的应用\n        var apps \u003d packageManager.getInstalledApplications(PackageManager.GET_META_DATA);\n        \n        if (apps \u003d\u003d null || apps.size() \u003d\u003d\u003d 0) {\n            var errorItem \u003d new JSONObject();\n            errorItem.put(\"error\", \"没有安装任何应用\");\n            result.put(errorItem);\n        } else {\n            for (var i \u003d 0; i \u003c apps.size(); i++) {\n                var app \u003d apps.get(i);\n                var packageName \u003d app.packageName;\n\n                // 检查应用是否被冻结\n                var appEnabled \u003d packageManager.getApplicationEnabledSetting(packageName);\n                if (appEnabled \u003d\u003d\u003d PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {\n                    continue; // 跳过已冻结应用\n                }\n                \n                // 获取应用名称\n                var appName \u003d packageManager.getApplicationLabel(app).toString();\n                \n                var item \u003d new JSONObject();\n                item.put(\"name\", appName);\n                item.put(\"package\", packageName);\n                item.put(\"__value\", packageName);\n                item.put(\"__icon\", \"app://\" + packageName);\n                \n                result.put(item);\n            }\n        }\n    } catch (e) {\n        var errorItem \u003d new JSONObject();\n        errorItem.put(\"error\", \"获取应用列表失败: \" + e.message);\n        result.put(errorItem);\n    }\n}\n\n// 输出JSON格式结果\nresult.toString();",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "获取系统全部应用的信息(排除已冻结应用)",
+        "id": "A-80fb9879-fe8c-4ca2-bf04-59ee02801437"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\n// 获取系统服务\nvar packageManager \u003d context.getPackageManager();\n\nvar result \u003d new JSONArray();\n\nif (packageManager \u003d\u003d null) {\n    var errorItem \u003d new JSONObject();\n    errorItem.put(\"error\", \"无法获取PackageManager\");\n    result.put(errorItem);\n} else {\n    try {\n        // 获取所有安装的应用\n        var apps \u003d packageManager.getInstalledApplications(PackageManager.GET_META_DATA);\n        \n        if (apps \u003d\u003d null || apps.size() \u003d\u003d\u003d 0) {\n            var errorItem \u003d new JSONObject();\n            errorItem.put(\"error\", \"没有安装任何应用\");\n            result.put(errorItem);\n        } else {\n            for (var i \u003d 0; i \u003c apps.size(); i++) {\n                var app \u003d apps.get(i);\n                \n                // 排除系统应用\n                if ((app.flags \u0026 ApplicationInfo.FLAG_SYSTEM) \u003d\u003d\u003d 0) {\n                    var packageName \u003d app.packageName;\n\n                    // 检查应用是否被冻结\n                    var appEnabled \u003d packageManager.getApplicationEnabledSetting(packageName);\n                    if (appEnabled \u003d\u003d\u003d PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {\n                        continue; // 跳过已冻结应用\n                    }\n                    \n                    // 获取应用名称\n                    var appName \u003d packageManager.getApplicationLabel(app).toString();\n                    \n                    var item \u003d new JSONObject();\n                    item.put(\"name\", appName);\n                    item.put(\"package\", packageName);\n                    item.put(\"__value\", packageName);\n                    item.put(\"__icon\", \"app://\" + packageName);\n                    \n                    result.put(item);\n                }\n            }\n        }\n    } catch (e) {\n        var errorItem \u003d new JSONObject();\n        errorItem.put(\"error\", \"获取用户应用列表失败: \" + e.message);\n        result.put(errorItem);\n    }\n}\n\n// 输出JSON格式结果\nresult.toString();",
+        "customContextDataKey": {
+        },
+        "note": "获取用户安装第三方应用信息(排除已冻结的应用)",
+        "id": "A-36c66ea2-1b46-4307-8823-ddc2ab4818e2"
+      }, {
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "应用列表",
+        "cancelable": true,
+        "data": "{jsRet}",
+        "isMultipleChoice": true,
+        "delimiter": [","],
+        "needConfirmAction": true,
+        "dataType": "ShowListDialogDataType_Json",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-65f2aaa8-670e-4e70-93f9-fb080c36f7bf"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsNotEmpty",
+          "varName": "selectedListItem",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-aa43398a-bad1-46a3-9ca1-e658db8baac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{selectedListItem}",
+          "delimiter": [", "],
+          "actions": [{
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "1000",
+            "customContextDataKey": {
+            },
+            "id": "A-b48a5339-c3b5-4ffa-94ab-bca9adf4ba84"
+          }, {
+            "@type": "type.googleapis.com/SetAppEnabledByPkg",
+            "pkgAndUsers": [{
+              "first": "{foreachData}",
+              "second": "0"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-cbfc3843-6dd7-4e2f-8c94-13ea5b3f8cb3"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "已冻结{foreachData}",
+            "customContextDataKey": {
+            },
+            "id": "A-cc4008f3-e596-42ea-b915-58e439099bf9"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-298aa368-201f-4bfb-a96e-7ff4c497ff27"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-4147f94c-a29f-4e29-adcb-3fe9c7bc2a07"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-a3251cfe-d6b8-4a2b-9c32-4ab95d7c5a5e"
+      }]
+    }, {
+      "title": "🟢 解冻应用",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\n// 获取系统服务\nvar packageManager \u003d context.getPackageManager();\n\nvar result \u003d new JSONArray();\n\nif (packageManager \u003d\u003d null) {\n    var errorItem \u003d new JSONObject();\n    errorItem.put(\"error\", \"无法获取系统服务\");\n    result.put(errorItem);\n} else {\n    // 获取所有应用包名\n    var packages \u003d packageManager.getInstalledApplications(PackageManager.GET_META_DATA);\n    \n    if (packages \u003d\u003d null || packages.size() \u003d\u003d\u003d 0) {\n        var errorItem \u003d new JSONObject();\n        errorItem.put(\"error\", \"无法获取已安装应用\");\n        result.put(errorItem);\n    } else {\n        for (var i \u003d 0; i \u003c packages.size(); i++) {\n            var appInfo \u003d packages.get(i);\n            var packageName \u003d appInfo.packageName;\n            \n            try {\n                // 获取应用的启用状态\n                var enabledStatus \u003d packageManager.getApplicationEnabledSetting(packageName);\n                \n                // 判断应用是否被冻结（禁用状态）\n                if (enabledStatus \u003d\u003d\u003d PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {\n                    var appName \u003d packageManager.getApplicationLabel(appInfo).toString();\n                    \n                    var item \u003d new JSONObject();\n                    item.put(\"name\", appName);\n                    item.put(\"package\", packageName);\n                    item.put(\"__value\", packageName);\n                    item.put(\"__icon\", \"app://\" + packageName);\n                    \n                    result.put(item);\n                }\n            } catch (e) {\n                // 异常处理：如果无法获取状态，则跳过该应用\n                continue;\n            }\n        }\n    }\n}\n\n// 输出JSON格式结果\nresult.toString();",
+        "customContextDataKey": {
+        },
+        "note": "获取冻结应用信息",
+        "id": "A-1930887e-d61a-4c09-8724-081ee5fe478c"
+      }, {
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "冻结应用列表",
+        "cancelable": true,
+        "data": "{jsRet}",
+        "isMultipleChoice": true,
+        "delimiter": [","],
+        "needConfirmAction": true,
+        "dataType": "ShowListDialogDataType_Json",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-c412e7ae-36bb-420d-b5b3-2b2279ffa78f"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsNotEmpty",
+          "varName": "selectedListItem",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-aa43398a-bad1-46a3-9ca1-e658db8baac4"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{selectedListItem}",
+          "delimiter": [", "],
+          "actions": [{
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "1000",
+            "customContextDataKey": {
+            },
+            "id": "A-b48a5339-c3b5-4ffa-94ab-bca9adf4ba84"
+          }, {
+            "@type": "type.googleapis.com/SetAppEnabledByPkg",
+            "pkgAndUsers": [{
+              "first": "{foreachData}",
+              "second": "0"
+            }],
+            "enable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-94127e95-66b7-4152-9b98-4e5ee9af135b"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "已解冻{foreachData}",
+            "customContextDataKey": {
+            },
+            "id": "A-cc4008f3-e596-42ea-b915-58e439099bf9"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-298aa368-201f-4bfb-a96e-7ff4c497ff27"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-4147f94c-a29f-4e29-adcb-3fe9c7bc2a07"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-a3251cfe-d6b8-4a2b-9c32-4ab95d7c5a5e"
+      }]
+    }],
+    "title": "应用管理",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-dfd2d3ea-7347-4a0a-aa6c-686a2a22a8d1"
+  }],
+  "id": "SHARED-DA-c02e0deb-0410-4e60-9837-bd61cf4fa61c",
+  "lastUpdateTime": "1759732639594",
+  "createTime": "1759728626895",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "冻结/解冻应用",
+  "description": "应用冻结/解冻管理",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

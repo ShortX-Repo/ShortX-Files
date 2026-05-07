@@ -1,0 +1,24 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input keyevent KEYCODE_ASSIST",
+    "customContextDataKey": {
+    },
+    "id": "A-9bdad0df-bf12-4912-af52-78d8214d384e"
+  }],
+  "id": "SHARED-DA-be79f14b-5548-42a9-ad62-e32f6369945c",
+  "lastUpdateTime": "1760315652646",
+  "createTime": "1760315581754",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Open Assistant / Gemini ",
+  "versionCode": "1",
+  "directActionSetId": "DS-a8d4fb12-e18f-4d9d-8845-b636709eb807",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

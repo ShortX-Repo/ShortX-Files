@@ -1,0 +1,76 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.dragon.read"
+    }, {
+      "pkgName": "com.kmxs.reader"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-f6b84222-5ce2-4ecb-a209-fa9255ca0347"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireTileState",
+    "state": "QSTileState_InActive",
+    "tileSpec": "custom(com.oplus.eyeprotect/.services.EyeProtectTileService)",
+    "customContextDataKey": {
+    },
+    "id": "C-1d7248ac-89cb-4404-a0c5-9b2a37586bad"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ClickTile",
+    "tile": {
+      "tileSpec": "custom(com.oplus.eyeprotect/.services.EyeProtectTileService)",
+      "label": "护眼模式"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-71265ba8-b04d-4501-85f2-d962babb0164"
+  }],
+  "id": "SHARE-rule-40f533b1-1867-413d-b3f1-32c16c7b2158",
+  "lastUpdateTime": "1740303054757",
+  "createTime": "1740160202789",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "小说护眼模式",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "apps": [{
+        "pkgName": "com.dragon.read"
+      }, {
+        "pkgName": "com.kmxs.reader"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-45918a08-baaa-4837-aef1-3cccbed23ea4"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/RequireTileState",
+      "state": "QSTileState_Active",
+      "tileSpec": "custom(com.oplus.eyeprotect/.services.EyeProtectTileService)",
+      "customContextDataKey": {
+      },
+      "id": "C-043362c1-726c-4306-ab7c-aa6ae87b7914"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ClickTile",
+      "tile": {
+        "tileSpec": "custom(com.oplus.eyeprotect/.services.EyeProtectTileService)",
+        "label": "护眼模式"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3390bf5f-03c6-4451-b5fc-40d05a14a421"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

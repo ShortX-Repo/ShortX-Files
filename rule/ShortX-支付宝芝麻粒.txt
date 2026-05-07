@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+    },
+    "end": {
+      "hour": 23,
+      "minutes": 57
+    },
+    "repeat": {
+      "days": ["SUNDAY", "SATURDAY", "TUESDAY", "FRIDAY", "THURSDAY", "MONDAY", "WEDNESDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByTimes",
+      "times": 5
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-3ce3b5f1-5fdf-42db-ae6e-ce2e175f3a57"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FromDA",
+    "daId": "DA02d49b6f-0cf1-4fdb-b333-beccdd62056c",
+    "customContextDataKey": {
+    },
+    "id": "A-0d4c9128-dcc4-4f84-b444-f213ac32dd85"
+  }],
+  "id": "rule-3f979dc3-c78e-4d1b-9ea2-3d0266598a70",
+  "lastUpdateTime": "1719038124668",
+  "createTime": "1719038033697",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "支付宝芝麻粒",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,278 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/CallStateChanged",
+    "callState": "CallStateRinging",
+    "customContextDataKey": {
+    },
+    "id": "F-0a679cb7-3e77-48a9-9a0d-78669b8920b8"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireBTConnected",
+    "device": "*",
+    "customContextDataKey": {
+    },
+    "id": "C-a4ac9382-68ae-49db-87d6-1a34cafb386c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "id": "C-316f996a-5411-4877-9ca5-3877a8a83aeb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "customContextDataKey": {
+      },
+      "id": "A-1fc22972-e75f-4728-ad4b-cd3221cd20bb"
+    }, {
+      "@type": "type.googleapis.com/StartActivity",
+      "componentNameAsString": "com.miui.home/com.miui.home.launcher.Launcher",
+      "customContextDataKey": {
+      },
+      "id": "A-2ab8c4c0-8674-415b-8059-2beb12f08285"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-c5ff1925-5467-45c3-9e92-df22618ece26"
+    }, {
+      "@type": "type.googleapis.com/InputSwipe",
+      "startX": 650,
+      "startY": 2100,
+      "endX": 650,
+      "endY": 520,
+      "swipeTime": "150",
+      "customContextDataKey": {
+      },
+      "note": "输入密码",
+      "id": "A-90945b4b-bd78-4157-aaa5-67a8967750aa"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-37ab622e-21a1-4dd3-a49b-cdf45338c946"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "input text globalVarOf$password",
+      "customContextDataKey": {
+      },
+      "note": "1234修改成你的密码",
+      "id": "A-8afc89d4-72d2-49e9-b98f-b5dbed3e5dfa"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-032a1cfa-8084-48fe-8249-ef243ac26cf3"
+    }, {
+      "@type": "type.googleapis.com/StartActivity",
+      "componentNameAsString": "com.android.incallui/com.android.incallui.InCallActivity",
+      "customContextDataKey": {
+      },
+      "id": "A-aa1bc476-1871-4399-936f-dc9967ee05dc"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "customContextDataKey": {
+      },
+      "id": "A-1f5e42be-a6ce-4f4c-a7f2-e9bc761c783a"
+    }, {
+      "@type": "type.googleapis.com/GetTextFromScreenNode",
+      "nodeId": "com.android.incallui:id/name",
+      "customContextDataKey": {
+      },
+      "id": "A-5e7edbed-c707-449a-b9c2-eb48c5845965"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#如果标题为纯数字则认定为非通讯录人员\n#意思就是记得通讯录备注(只要不是纯数字就行\n\n# 定义变量\nvariable\u003d{textOfTheView}\n\n# 检查变量是否为纯数字\nif [[ $variable \u003d\u003d *[!0-9]* ]]; then\n  echo \"接听\"\nelse\n  echo \"不接听\"\nfi",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "验证是否为联系人",
+      "id": "A-e773293c-5865-49e7-a63d-723610b69b37"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "接听情况",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-44400159-6316-48c8-bf50-7101a652c276"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "接听情况",
+        "payload": {
+          "value": "接听"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ebe647e0-b1c3-48b8-884e-7966c11071dd"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "2000",
+        "customContextDataKey": {
+        },
+        "id": "A-fa3eb9a2-228f-4191-9e3a-d637403884c3"
+      }, {
+        "@type": "type.googleapis.com/InjectKeyCode",
+        "keyCode": 5,
+        "customContextDataKey": {
+        },
+        "id": "A-95ae831a-afbe-4680-b04b-9b592fa48033"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-20ad7002-3094-4391-8408-d5c23b01d8df"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-73fc9a3b-bc56-4a43-bf2e-0a6624e5a5cd"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-6763941e-c8a5-4028-b3ee-871d5d4462cb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-e40dab23-28f4-4a88-9bfe-b5e9571ca147"
+    }, {
+      "@type": "type.googleapis.com/ClickNotification",
+      "notification": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9eb20603-4e4b-4bff-b6f0-16c3de8a4a3e"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "接听情况",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-8ec88e2e-1ddb-4d1a-b05e-fd113e36a406"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "customContextDataKey": {
+      },
+      "id": "A-5d521c56-d0fd-4594-a1da-27778ab03bb9"
+    }, {
+      "@type": "type.googleapis.com/GetTextFromScreenNode",
+      "nodeId": "com.android.incallui:id/name",
+      "customContextDataKey": {
+      },
+      "id": "A-5e7edbed-c707-449a-b9c2-eb48c5845965"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#如果标题为纯数字则认定为非通讯录人员\n#意思就是记得通讯录备注(只要不是纯数字就行\n\n# 定义变量\nvariable\u003d{textOfTheView}\n\n# 检查变量是否为纯数字\nif [[ $variable \u003d\u003d *[!0-9]* ]]; then\n  echo \"接听\"\nelse\n  echo \"不接听\"\nfi",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "验证是否为联系人",
+      "id": "A-e773293c-5865-49e7-a63d-723610b69b37"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "接听情况",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-44400159-6316-48c8-bf50-7101a652c276"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "接听情况",
+        "payload": {
+          "value": "接听"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ebe647e0-b1c3-48b8-884e-7966c11071dd"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "2000",
+        "customContextDataKey": {
+        },
+        "id": "A-fa3eb9a2-228f-4191-9e3a-d637403884c3"
+      }, {
+        "@type": "type.googleapis.com/InjectKeyCode",
+        "keyCode": 5,
+        "customContextDataKey": {
+        },
+        "id": "A-95ae831a-afbe-4680-b04b-9b592fa48033"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-20ad7002-3094-4391-8408-d5c23b01d8df"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7f2149d8-92a5-4e36-8b24-fba6a09f30fe"
+  }],
+  "id": "rule-8db60240-bd13-477a-8718-925879ea7bc7",
+  "lastUpdateTime": "1709480003650",
+  "createTime": "1709221556851",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "自动接听通讯录人员来电(小米)",
+  "description": "连接上任意蓝牙后，自动接听通讯录人员来电\n(看看动作了解了解实现原理",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "password",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true,
+        "note": "填写你的密码"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-194046b4-0ad5-4741-a521-53d3482d750a"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "填写你的屏幕密码，没有可不填写",
+      "cancelable": true,
+      "textFields": [{
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f941d4be-ea0f-4dcd-bdcd-c4f63f79dd43"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "password",
+      "valueAsString": "{textFieldInput1}",
+      "customContextDataKey": {
+      },
+      "id": "A-e5e6355e-f03d-49df-90a9-6ca49bc6b2dc"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,312 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "font-search",
+    "customContextDataKey": {
+    },
+    "id": "A-e08355af-a85b-496f-9169-f4ef82d9f41c"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "/*\n运行结果有三种。\n第一种就是查找成功，框选指定文本。\n第二种就是当前页面无法查找，没有任何视图ID以及文本。\n第三种是连续三次滑动，没有任何视图内容改变，指令则判定为无法已滑到头，停止查找。\n\n第三种情况，可以把三次机会调高一点，防止滑动过程中，对应的页面加载缓慢后没有视图改变，导致指令停止查找。\n从指令参数里面调整。\n\n无法查找情况一般就是对应的APP进行了限制，比如高版本的微信必须打开和系统无障碍服务名称相同的服务，才会正常查找。\n\nUI逻辑以及指令名字与简介参考AutoCMD作者制作的指令。，查找逻辑参考Tasker某个用户创作的指令。\n*/",
+    "customContextDataKey": {
+    },
+    "note": "使用说明",
+    "id": "A-87dbd350-d354-4c4d-9b0b-8d1fa9c8a225"
+  }, {
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "屏幕文本查找直达...",
+    "textFields": [{
+      "placeholder": "请输入要查找直达的文本..."
+    }],
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-831f6f3a-7ecf-4057-8aeb-8b870b7f38b3"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "(android.os.ServiceManager\n    .getService(\"package\")\n    .getPackageInfo(\"tornaco.apps.shortx\", 0, 0)\n    .versionCode) \u003c 1463328;",
+        "customContextDataKey": {
+        },
+        "id": "C-2af76288-781c-443e-9e8a-d078fa97c70a"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "title": "升级提示",
+        "message": "请升级ShortX版本，旧版本不支持该指令所使用的方法正常使用。",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-9f132437-7b9c-4f36-b534-0b75548affdf"
+      }],
+      "id": "Case-562e8977-faf2-460f-897e-1b46ca60a0d1",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "textFieldInput1",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-7ec503ab-70dc-44e1-94d1-3e4e7df07d5c"
+      }],
+      "id": "Case-82a2ff7d-ce0b-472f-9281-40a653113cd7",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "往后查找",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "\"down\"",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "direction"
+              }]
+            },
+            "id": "A-d33cb6bb-380f-41cb-8882-37740e0b0b5f"
+          }]
+        }, {
+          "title": "往前查找",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "\"up\"",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "direction"
+              }]
+            },
+            "id": "A-d33cb6bb-380f-41cb-8882-37740e0b0b5f"
+          }]
+        }],
+        "title": "查找方向",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-7520c737-c77a-4be3-87cd-064132299fc3"
+      }],
+      "description": "查找方向",
+      "id": "Case-045b87c4-eae8-46ad-8145-dc6ccde977b1"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "IsNotExists",
+        "varName": "direction",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-def0c0ed-bd98-42bc-bfdc-b9c3f7fbc637"
+      }],
+      "id": "Case-71680be2-87f1-493d-8667-12cc645bbc51",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "String.raw`// 导入 Java 类\nimportPackage(java.security);\n// 获取 UiAutomation 对象\nvar uiAutomation \u003d shortx.getUiAutomation();\n\nif (!uiAutomation.isConnected()) {\n    uiAutomation.connect();\n}\n\nuiAutomation.clearCache();\n\n// 获取根节点\nvar rootNode \u003d uiAutomation.getRootInActiveWindow();\n\n// 保存可见的文本列表\nvar list \u003d [];\n\n// 遍历节点\nfunction collect(node) {\n    if (!node) return;\n\n    // 只收集“可见的节点”\n    if (node.isVisibleToUser()) {\n        var text \u003d node.getText();\n        if (text) {\n            list.push(String(text));\n        }\n    }\n\n    // 继续遍历子节点\n    var count \u003d node.getChildCount();\n    for (var i \u003d 0; i \u003c count; i++) {\n        collect(node.getChild(i));\n    }\n}\n\n// 开始遍历\ncollect(rootNode);\nrootNode.recycle();\n\n// 去重 + 输出\nvar map \u003d {};\nvar text \u003d \"\";\n\nfor (var i \u003d 0; i \u003c list.length; i++) {\n    var t \u003d list[i];\n\n    if (!map[t]) {   // 去重\n        map[t] \u003d true;\n        text +\u003d t + \"\\n\";\n    }\n}\n\n\n// 指定要匹配的文本（从输入框中传入）\nvar target \u003d textFieldInput1;\n\n// 判断是否包含目标文本（不分大小写）\nvar matched \u003d false;\nif (text !\u003d null \u0026\u0026 target !\u003d null \u0026\u0026 text.toLowerCase().indexOf(target.toLowerCase()) !\u003d -1) {\n    matched \u003d true;\n}\n\n// 要计算 MD5 的字符串\nvar input \u003d text;\n\n// 获取 MD5 实例\nvar md \u003d MessageDigest.getInstance(\"MD5\");\n\n// 执行摘要\nvar bytes \u003d md.digest(new java.lang.String(input).getBytes(\"UTF-8\"));\n\n// 转换为十六进制字符串（大写）\nvar hex \u003d \"\";\nvar sb \u003d new java.lang.StringBuilder();\nfor (var i \u003d 0; i \u003c bytes.length; i++) {\n    var intVal \u003d (bytes[i] \u0026 0xFF) | 0;  // ✅ 强制转为整数\n    sb.append(java.lang.String.format(\"%02x\", new java.lang.Integer(intVal)));\n}\nvar md5 \u003d sb.toString().toUpperCase();\n\n// 检查视图文本是否存在，并判断是否可滑动\nvar isTextAvailable \u003d (typeof textOfTheView !\u003d \u0027\u0027 \u0026\u0026 textOfTheView !\u003d \u0027\u0027);\nvar isScrollable \u003d false;\n\nif (isTextAvailable) {\n    var json \u003d JSON.parse(textOfTheView);\n     \n    var isScrollable \u003d (json.md5 \u003d\u003d md5);\n}\n\nvar data \u003d {\n          isTextFound: matched,  // 转换为目标格式\n          isScrollable: isScrollable,\n          //text: text,\n          md5: md5\n        };\nJSON.stringify(data, null, 2);  // 返回转换后的 JSON\n`",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "JS"
+          }]
+        },
+        "id": "A-0144b3bd-8114-476b-aa4a-d040560ada23"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "eval(JS);",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "textOfTheView"
+          }]
+        },
+        "id": "A-8674b271-10c2-47ce-915d-0e9f41a64589"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var data \u003d JSON.parse(textOfTheView);\n\ndata.md5;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "Md5List"
+          }]
+        },
+        "id": "A-6f69d19c-a1d2-41c5-abee-0cbf5a76d6e6"
+      }, {
+        "@type": "type.googleapis.com/WhileLoop",
+        "conditions": [{
+          "@type": "type.googleapis.com/MatchJS",
+          "expression": "var data \u003d JSON.parse(textOfTheView);\ndata.isTextFound !\u003d true;",
+          "customContextDataKey": {
+          },
+          "id": "C-9c252b2a-5919-4201-976c-22650c5f6ba2"
+        }, {
+          "@type": "type.googleapis.com/MatchJS",
+          "expression": "var lines \u003d Md5List.trim().split(\"\\n\");\nvar len \u003d lines.length;\n\n// 不足 指定 行 → 直接 false\nif (len \u003c parseInt(argOf$upperlimit)) {\n    result \u003d false;\n} else {\n    var a \u003d lines[len - 3].trim();\n    var b \u003d lines[len - 2].trim();\n    var c \u003d lines[len - 1].trim();\n\n    result \u003d (a \u003d\u003d b \u0026\u0026 b \u003d\u003d c);\n}\n\n!result;",
+          "customContextDataKey": {
+          },
+          "id": "C-868fae36-9cab-44e9-8393-f69acfe5851c"
+        }, {
+          "@type": "type.googleapis.com/MatchJS",
+          "expression": "var data \u003d JSON.parse(textOfTheView);\ndata.isScrollable !\u003d true || data.isTextFound !\u003d true;",
+          "customContextDataKey": {
+          },
+          "id": "C-c41cc78b-307d-4bdf-aaae-bdbdf92d90c3"
+        }],
+        "actions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "/**\n * 模拟鼠标滚轮滚动\n *\n * @param vScroll  纵向滚动值（\u003e0 向下，\u003c0 向上）\n * @param x        滚动位置 X（可选，默认屏幕中心）\n * @param y        滚动位置 Y（可选，默认屏幕中心）\n * @return boolean 是否注入成功\n */\nfunction injectMouseScroll(vScroll, x, y) {\n    try {\n\n        importPackage(android.view);\n        importPackage(android.os);\n        importPackage(android.hardware.input);\n        \n        var im \u003d InputManager.getInstance();\n\n        // 如果未指定坐标，使用屏幕中心\n        if (x \u003d\u003d null || y \u003d\u003d null) {\n            var ctx \u003d android.app.ActivityThread\n                .currentActivityThread()\n                .getSystemContext();\n\n            var dm \u003d ctx.getSystemService(\n                android.content.Context.DISPLAY_SERVICE\n            );\n            var display \u003d dm.getDisplay(\n                android.view.Display.DEFAULT_DISPLAY\n            );\n            var size \u003d new android.graphics.Point();\n            display.getRealSize(size);\n\n            x \u003d size.x / 2;\n            y \u003d size.y / 2;\n        }\n\n        var now \u003d SystemClock.uptimeMillis();\n\n        console.log(\n            \"injectMouseScroll vScroll\u003d\" + vScroll +\n            \" x\u003d\" + x + \" y\u003d\" + y\n        );\n\n        // ---------- PointerProperties ----------\n        var pp \u003d java.lang.reflect.Array.newInstance(\n            MotionEvent.PointerProperties, 1\n        );\n        pp[0] \u003d new MotionEvent.PointerProperties();\n        pp[0].id \u003d 0;\n        pp[0].toolType \u003d MotionEvent.TOOL_TYPE_MOUSE;\n\n        // ---------- PointerCoords ----------\n        var pc \u003d java.lang.reflect.Array.newInstance(\n            MotionEvent.PointerCoords, 1\n        );\n        pc[0] \u003d new MotionEvent.PointerCoords();\n        pc[0].x \u003d x;\n        pc[0].y \u003d y;\n        pc[0].pressure \u003d 0;\n        pc[0].size \u003d 0;\n\n        // 1️⃣ HOVER_MOVE（建立鼠标位置）\n        var hover \u003d MotionEvent.obtain(\n            now,\n            now,\n            MotionEvent.ACTION_HOVER_MOVE,\n            1,\n            pp,\n            pc,\n            0,\n            0,\n            1.0,\n            1.0,\n            0,\n            0,\n            InputDevice.SOURCE_MOUSE | InputDevice.SOURCE_CLASS_POINTER,\n            0\n        );\n\n        im.injectInputEvent(\n            hover,\n            InputManager.INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH\n        );\n        hover.recycle();\n\n        // 2️⃣ ACTION_SCROLL\n        pc[0].setAxisValue(\n            MotionEvent.AXIS_VSCROLL,\n            vScroll\n        );\n\n        var scroll \u003d MotionEvent.obtain(\n            now,\n            now,\n            MotionEvent.ACTION_SCROLL,\n            1,\n            pp,\n            pc,\n            0,\n            MotionEvent.BUTTON_PRIMARY,\n            1.0,\n            1.0,\n            0,\n            0,\n            InputDevice.SOURCE_MOUSE | InputDevice.SOURCE_CLASS_POINTER,\n            0\n        );\n\n        var result \u003d im.injectInputEvent(\n            scroll,\n            InputManager.INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH\n        );\n\n        scroll.recycle();\n        return result;\n    } catch (e) {\n        console.log(\"injectMouseScroll 异常: \" + e);\n        return false;\n    }\n}\nif (typeof direction \u003d\u003d \"undefined\") {\n    direction \u003d \"down\";\n}\nif(direction\u003d\u003d\"down\"){\ninjectMouseScroll(-8)}else{\ninjectMouseScroll(8)\n}",
+          "customContextDataKey": {
+          },
+          "note": "滑动",
+          "id": "A-b96dd4fd-a87f-456d-9efd-fc3a1ad9c36e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "eval(JS);",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "jsRet",
+              "second": "textOfTheView"
+            }]
+          },
+          "id": "A-4aa38bb5-bc5b-435c-8712-16c6615af64c"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var data \u003d JSON.parse(textOfTheView);\n\nMd5List + \"\\n\" + data.md5;",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "jsRet",
+              "second": "Md5List"
+            }]
+          },
+          "id": "A-c095eaa4-e83b-49a6-aea4-d134c37f32a9"
+        }],
+        "condOp": "MVEL",
+        "condOpPayload": {
+          "expression": "c1 \u0026\u0026 (c2 \u0026\u0026 c3)"
+        },
+        "repeatTimes": 100,
+        "customContextDataKey": {
+        },
+        "id": "A-edb4d366-f57b-44e5-9986-0fefbf6f0767"
+      }],
+      "id": "Case-0ba9518c-e5ba-4308-9bb2-a39a5d5febd0"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "IsEmpty",
+        "varName": "textOfTheView",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-604e4ade-34e7-46d1-9a61-3998ec163291"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "当前页面无法查找",
+        "customContextDataKey": {
+        },
+        "id": "A-142ac50f-ba29-474a-9004-557a819fd792"
+      }],
+      "description": "无法找",
+      "id": "Case-715991a3-9c02-42b6-83a1-8605416753a0",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "var data \u003d JSON.parse(textOfTheView);\ndata.isTextFound \u003d\u003d false;",
+        "customContextDataKey": {
+        },
+        "id": "C-4aa9f137-3119-4fe2-9cb2-c04d13cd4f45"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "title": "屏幕查找结果",
+        "message": "已搜索结束，未找到 {textFieldInput1} 文本",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2d889022-4167-4b50-a7a4-36b5d4e3a9d9"
+      }],
+      "description": "未找到",
+      "id": "Case-af2e38b3-d6f3-4381-8d2a-a342c1c2964f",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 需要查找的文本（不分大小写）\nvar target \u003d textFieldInput1.toLowerCase();\n\n// 获取 UiAutomation\nvar uiAutomation \u003d shortx.getUiAutomation();\nif (!uiAutomation.isConnected()) uiAutomation.connect();\n\nuiAutomation.clearCache();\n\n// 获取根节点\nvar rootNode \u003d uiAutomation.getRootInActiveWindow();\nif (!rootNode) {\n    console.log(\"无法获取根节点\");\n}\n\nvar results \u003d [];\n\n// 遍历收集\nfunction collect(node) {\n    if (!node) return;\n\n    // 只处理可见节点\n    if (node.isVisibleToUser()) {\n        var text \u003d node.getText();\n        if (text) {\n            var t \u003d String(text);\n            var lower \u003d t.toLowerCase();\n\n            // ★★★★★ 不区分大小写的包含匹配\n            if (lower.indexOf(target) !\u003d -1) {\n\n                var rect \u003d new android.graphics.Rect();\n                node.getBoundsInScreen(rect);\n\n                results.push({\n                    text: t,\n                    bounds: {\n                        left: rect.left,\n                        top: rect.top,\n                        right: rect.right,\n                        bottom: rect.bottom\n                    }\n                });\n            }\n        }\n    }\n\n    // 遍历子节点\n    var count \u003d node.getChildCount();\n    for (var i \u003d 0; i \u003c count; i++) {\n        collect(node.getChild(i));\n    }\n}\n\n// 开始遍历\ncollect(rootNode);\nrootNode.recycle();\n\n// 输出 JSON\nJSON.stringify(results, null, 2);",
+        "customContextDataKey": {
+        },
+        "id": "A-9881ec61-04b1-46fd-9af2-163417b1dd65"
+      }, {
+        "@type": "type.googleapis.com/Vibrate",
+        "vib1": 400,
+        "vib2": 100,
+        "vib3": 100,
+        "customContextDataKey": {
+        },
+        "id": "A-2f3a8f7a-e263-44ff-a308-16ff8aaacc81"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 引入 Android 所需类 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nimportPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportClass(android.graphics.drawable.GradientDrawable);\nimportClass(android.graphics.drawable.RippleDrawable);\nimportClass(android.content.res.ColorStateList);\nimportClass(android.view.WindowManager);\nimportClass(android.view.Gravity);\nimportClass(android.os.Handler);\nimportClass(android.os.Looper);\nimportClass(java.lang.Runnable);\nimportClass(android.content.res.Configuration);\nimportClass(java.util.concurrent.CountDownLatch);\nimportClass(java.util.concurrent.TimeUnit);\nimportClass(android.content.Context);\nimportClass(java.lang.Class);\nimportClass(android.view.animation.AccelerateDecelerateInterpolator);\nimportClass(java.util.concurrent.Executors);\nimportClass(java.util.concurrent.ExecutorCompletionService);\nimportClass(java.lang.Runtime);\nimportClass(android.view.ViewOutlineProvider); // 新增：导入 ViewOutlineProvider\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 颜色辅助函数 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction toHexColor(colorInt) {\n    var rgb \u003d colorInt \u0026 0xFFFFFF;\n    return \"#\" + rgb.toString(16).padStart(6, \"0\").toUpperCase();\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 目标应用包名 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nvar targetPackage \u003d \"tornaco.apps.shortx\";\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 莫奈主题色 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nvar COLOR_FRAME_DARK_MODE, COLOR_FRAME_LIGHT_MODE, COLOR_FRAME_BG_DARK_MODE, COLOR_FRAME_BG_LIGHT_MODE;\n\ntry {\n    var otherContext \u003d context.createPackageContext(\n        targetPackage,\n        Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE\n    );\n    var RColorClass \u003d Class.forName(\"android.R$color\");\n\n    COLOR_FRAME_DARK_MODE \u003d toHexColor(otherContext.getResources().getColor(\n        RColorClass.getField(\"system_accent1_300\").getInt(null),\n        otherContext.getTheme()\n    ));\n    COLOR_FRAME_LIGHT_MODE \u003d toHexColor(otherContext.getResources().getColor(\n        RColorClass.getField(\"system_accent1_700\").getInt(null),\n        otherContext.getTheme()\n    ));\n\n    COLOR_FRAME_BG_DARK_MODE \u003d \"#22\" + COLOR_FRAME_DARK_MODE.substring(1);\n    COLOR_FRAME_BG_LIGHT_MODE \u003d \"#22\" + COLOR_FRAME_LIGHT_MODE.substring(1);\n} catch (e) {\n    console.log(\"颜色获取失败: \" + e);\n    COLOR_FRAME_DARK_MODE \u003d \"#FFFFFF\";\n    COLOR_FRAME_LIGHT_MODE \u003d \"#000000\";\n    COLOR_FRAME_BG_DARK_MODE \u003d \"#22FFFFFF\";\n    COLOR_FRAME_BG_LIGHT_MODE \u003d \"#22000000\";\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 线程池 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nvar threadPoolSize;\ntry {\n    threadPoolSize \u003d Math.max(2, Runtime.getRuntime().availableProcessors());\n} catch (e) {\n    console.log(\"无法访问 Runtime，使用默认线程池大小: \" + e);\n    threadPoolSize \u003d 4; // 回退到固定大小\n}\nvar threadPool \u003d Executors.newFixedThreadPool(threadPoolSize);\nvar ecs \u003d new ExecutorCompletionService(threadPool);\nvar uiHandler \u003d new Handler(Looper.getMainLooper());\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 主函数：显示多个区域边框并等待屏幕点击消失 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction showMultipleFrames(jsonData) {\n    var wm \u003d context.getSystemService(Context.WINDOW_SERVICE);\n    var latch \u003d new CountDownLatch(1);\n    var rootLayoutRef \u003d null;\n\n    uiHandler.post(new JavaAdapter(Runnable, {\n        run: function () {\n            try {\n                var isRemoving \u003d false;\n                var isDarkMode \u003d (context.getResources().getConfiguration().uiMode \u0026 Configuration.UI_MODE_NIGHT_MASK) \u003d\u003d Configuration.UI_MODE_NIGHT_YES;\n                var dm \u003d context.getResources().getDisplayMetrics();\n                var screenWidth \u003d dm.widthPixels;\n                var screenHeight \u003d dm.heightPixels;\n                var density \u003d dm.density;\n                function dp(value) { return Math.floor(value * density); }\n                var borderWidth \u003d dp(2); // 边框宽度，可调整\n                var borderColor \u003d Color.parseColor(isDarkMode ? COLOR_FRAME_DARK_MODE : COLOR_FRAME_LIGHT_MODE);\n                var bgColor \u003d Color.parseColor(isDarkMode ? COLOR_FRAME_BG_DARK_MODE : COLOR_FRAME_BG_LIGHT_MODE);\n                var cornerRadius \u003d dp(4); // 圆角半径\n\n                // \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 根布局：全屏透明 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n                var rootLayout \u003d new FrameLayout(context);\n                rootLayout.setLayerType(View.LAYER_TYPE_HARDWARE, null);\n                // 无背景、无elevation、无outline\n                rootLayout.setClickable(false);\n                rootLayout.setFocusable(false);\n\n                // \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 为每个 bounds 创建边框视图 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n                var frameViews \u003d [];\n                for (var i \u003d 0; i \u003c jsonData.length; i++) {\n                    var item \u003d jsonData[i];\n                    var bounds \u003d item.bounds;\n                    var originalWidth \u003d bounds.right - bounds.left;\n                    var originalHeight \u003d bounds.bottom - bounds.top;\n                    var width \u003d originalWidth + 2 * borderWidth;\n                    var height \u003d originalHeight + 2 * borderWidth;\n\n                    var frameView \u003d new View(context);\n                    var frameParams \u003d new FrameLayout.LayoutParams(width, height);\n                    frameParams.gravity \u003d Gravity.TOP | Gravity.LEFT;\n                    frameParams.leftMargin \u003d bounds.left - borderWidth;\n                    frameParams.topMargin \u003d bounds.top - borderWidth;\n                    frameView.setLayoutParams(frameParams);\n\n                    // 设置边框：GradientDrawable 作为 stroke，中间半透明遮罩，并添加圆角\n                    var shape \u003d new GradientDrawable();\n                    shape.setShape(GradientDrawable.RECTANGLE);\n                    shape.setStroke(borderWidth, borderColor);\n                    shape.setColor(bgColor); // 添加半透明遮罩\n                    shape.setCornerRadius(cornerRadius); // 添加圆角\n                    frameView.setBackground(shape);\n\n                    frameView.setClickable(false);\n                    frameView.setFocusable(false);\n\n                    rootLayout.addView(frameView);\n                    frameViews.push(frameView);\n                }\n\n                // \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 关闭函数 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n                function dismiss(callback) {\n                    if (isRemoving) return;\n                    isRemoving \u003d true;\n                    for (var j \u003d 0; j \u003c frameViews.length; j++) {\n                        var view \u003d frameViews[j];\n                        view.animate().cancel();\n                        view.animate()\n                            .alpha(0)\n                            .scaleX(0.95)\n                            .scaleY(0.95)\n                            .setDuration(200)\n                            .setInterpolator(new AccelerateDecelerateInterpolator())\n                            .start();\n                    }\n                    uiHandler.postDelayed(new JavaAdapter(Runnable, {\n                        run: function () {\n                            try {\n                                if (rootLayoutRef) wm.removeView(rootLayoutRef);\n                            } catch (e) { }\n                            rootLayoutRef \u003d null;\n                            threadPool.shutdownNow();\n                            if (callback) callback();\n                        }\n                    }), 400); // 稍延时以等待动画完成\n                }\n\n                // \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 监听屏幕点击（使用 ACTION_OUTSIDE） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n                rootLayout.setOnTouchListener(new View.OnTouchListener({\n                    onTouch: function (v, event) {\n                        if (event.getActionMasked() \u003d\u003d MotionEvent.ACTION_OUTSIDE) {\n                            latch.countDown();\n                            dismiss();\n                        }\n                        return false; // 返回 false 以允许事件穿透\n                    }\n                }));\n\n                // \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 显示动画 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n                var params \u003d new WindowManager.LayoutParams(\n                    WindowManager.LayoutParams.MATCH_PARENT,\n                    WindowManager.LayoutParams.MATCH_PARENT,\n                    WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,\n                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |\n                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |\n                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |\n                    WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH |\n                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,  // 添加 FLAG_NOT_TOUCHABLE 以不拦截触摸\n                    PixelFormat.TRANSPARENT  // 透明\n                );\n                if (Build.VERSION.SDK_INT \u003e 33) {\n                    params.layoutInDisplayCutoutMode \u003d WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;\n}\n                params.gravity \u003d Gravity.TOP | Gravity.LEFT;\n                params.x \u003d 0;\n                params.y \u003d 0;\n\n                rootLayoutRef \u003d rootLayout;\n                wm.addView(rootLayout, params);\n\n                // 动画：为每个边框设置出现动画\n                rootLayout.post(new JavaAdapter(Runnable, {\n                    run: function () {\n                        for (var k \u003d 0; k \u003c frameViews.length; k++) {\n                            var view \u003d frameViews[k];\n                            // 设置动画pivot到中心\n                            view.setPivotX(view.getWidth() / 2);\n                            view.setPivotY(view.getHeight() / 2);\n\n                            // 初始化动画状态\n                            view.setAlpha(0);\n                            view.setScaleX(0.95);\n                            view.setScaleY(0.95);\n\n                            view.animate()\n                                .alpha(1)\n                                .scaleX(1)\n                                .scaleY(1)\n                                .setDuration(200)\n                                .setInterpolator(new AccelerateDecelerateInterpolator())\n                                .start();\n                        }\n                    }\n                }));\n\n            } catch (e) {\n                console.log(\"MultipleFrames 初始化失败: \" + e);\n                latch.countDown();\n                threadPool.shutdownNow();\n            }\n        }\n    }));\n\n    // \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 等待结果 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n    var waited \u003d latch.await(60000, TimeUnit.MILLISECONDS);\n    if (!waited \u0026\u0026 rootLayoutRef) {\n        try { wm.removeView(rootLayoutRef); } catch (e) { }\n        threadPool.shutdownNow();\n    }\n    return \"边框已消失\";\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 调用 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nvar json \u003d JSON.parse(jsRet);\nshowMultipleFrames(json);",
+        "customContextDataKey": {
+        },
+        "id": "A-2fca81ff-fe4f-404f-9288-01431b6710f6"
+      }],
+      "description": "已找到",
+      "id": "Case-55cdaaf4-a9d8-4d67-83cd-16d3f81ef992",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4fdb65e4-0730-48b1-9782-02aaf0a7d46b"
+  }],
+  "id": "SHARED-DA-83746f96-f278-4e75-ad00-1e4bef39fc51",
+  "lastUpdateTime": "1765624571012",
+  "createTime": "1762422531214",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "屏幕文本查找直达",
+  "description": "1.3.5版本\n自动滑动屏幕查找指定文本，直达目标；特别适合在不带搜索功能的长列表页面或网页里使用。\n\n使用方法：在待查找的页面里，使用Deeplink功能调用该指令。\n\n音量-，停止查找。",
+  "versionCode": "5",
+  "parameters": [{
+    "name": "upperlimit",
+    "defaultValue": "3",
+    "comments": "默认查找三次，没有视图变化会被判定已滑到头，就会停止查找。"
+  }],
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/KeyEvent",
+      "keyCode": 25,
+      "customContextDataKey": {
+      },
+      "id": "F-f767d0a5-70c6-4596-8a4f-31c2941a5eb6"
+    }],
+    "isEnabled": true,
+    "evaluatePolicy": "Quit_EvaluatePolicy_Once"
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,32 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-ed146065-39e6-498e-8a66-f10177dcdbb4"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "currentapp\u003d\"+$(dumpsys window | sed -E \u0027/mCurrentFocus/!d;s/([^mCurrentFocus\u003dWindow\\{].*[[:space:]])(.*)(\\/.*\\}.*)/\\2/g;s/\\///g;s/[[:space:]]//g;/^[[:space:]]*$/d\u0027)\"\necho \"${currentapp}\"",
+    "customContextDataKey": {
+    },
+    "id": "A-fbdb6362-7a76-4b27-8690-6854bbcac2ed"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "noDozes\u003d\"\n+com.tencent.mm\n+com.netease.cloudmusic\n+com.tencent.mobileqq\n+com.salt.music\n+com.paget96.batteryguru\n+com.android.deskclock\n+tornaco.apps.shortx\n+com.tencent.wetype\n+com.ximalaya.ting.android\n+com.kugou.android\n+com.miui.aod\n+com.xiaomi.xmsf\n+com.google.android.gms\n{shellOut}\n\"\nnoDozes\u003d\"$(pm list packages -e | sed \"s/package:/-/g\")$noDozes\"\ndumpsys deviceidle whitelist $noDozes\ndumpsys deviceidle enable deep\ndumpsys deviceidle force-idle deep",
+    "customContextDataKey": {
+    },
+    "id": "A-6d0a7a4c-ef3d-4b53-9a0c-d0aceb66282d"
+  }],
+  "id": "DAc40d59ff-f614-4c0a-a6f6-6757b6fa644d",
+  "lastUpdateTime": "1702338224703",
+  "createTime": "1701447354566",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "doze",
+  "description": "立即 doze",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

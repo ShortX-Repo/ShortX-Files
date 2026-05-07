@@ -1,0 +1,66 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 90,
+    "customContextDataKey": {
+    },
+    "id": "F-22a65a42-5e58-487d-8bbb-82f6560ee3dd"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ChargeState",
+    "requireIsCharge": true,
+    "customContextDataKey": {
+    },
+    "id": "C-ea482ed7-aecd-47d0-947a-e7806e099a24"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "id": "C-0b70ae0a-341a-430b-988c-ee0934d64ef8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Vibrate",
+      "vib1": 100,
+      "vib2": 100,
+      "vib3": 100,
+      "customContextDataKey": {
+      },
+      "id": "A-9482d1e4-a847-4520-90db-c8bcddbef176"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "电量已达保护阈值",
+      "customContextDataKey": {
+      },
+      "id": "A-eeaaef9e-bfbb-4df0-95d9-afa64da0ccdd"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/TTS",
+      "text": "电量已达保护阈值",
+      "customContextDataKey": {
+      },
+      "id": "A-db0cc37d-cfb5-448b-99dd-c0053c2c094a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c03a3ce8-7488-4ba9-904a-71cb44e6763b"
+  }],
+  "id": "SHARE-rule-35516d86-87c1-4c00-8120-34507cc0c150",
+  "lastUpdateTime": "1760164611058",
+  "createTime": "1723625032395",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "充电保护",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-286347d4-3547-4e9b-bdca-4b364f6dec1a"
+}
+###------###
+{"type":"rule"}

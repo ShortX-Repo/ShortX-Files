@@ -1,0 +1,1249 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-63e89cab-022b-44ee-a726-d65f9f4c668d"
+  }, {
+    "@type": "type.googleapis.com/DeepLinkCall",
+    "deepLinkTag": "srfz",
+    "customContextDataKey": {
+    },
+    "id": "F-e6974196-e6ed-4125-9f4c-700fce0e3a01"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenOrientationIsPort",
+    "customContextDataKey": {
+    },
+    "id": "C-03fb3b36-07a2-43a9-a707-6804ceb3689f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["输入辅助"],
+        "customContextDataKey": {
+        },
+        "id": "A-db116321-87d4-40aa-b891-10ecf665e8a0"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的手机号 1",
+            "id": "A-762459b2-4642-4644-b8a9-e8a190ab773e"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-6d0cb590-9e95-4a33-8729-7805858d1fdf"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "phone-fill",
+          "label": "手机号",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的手机号 2",
+            "id": "A-bd2e41b3-f326-422f-a0c0-3357823dd379"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-6f7ade68-7d4e-485d-963b-eccd9feb9ceb"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-e151b72a-1122-44ef-b6b1-fcb9ef3a23e4"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的邮箱 1",
+            "id": "A-1e822304-3b40-4964-b0d4-763acbdec530"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-4e152948-8f3b-4a65-bb53-0d4fa40413eb"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "mail-unread-line",
+          "label": "邮箱",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的邮箱 2",
+            "id": "A-4ca86987-23fa-43bd-b60f-2de65c301877"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-e1369fc5-3611-461d-89ab-ccdfcbb6e5f8"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-18fd934e-ce2a-4378-8807-888a5d70b2b6"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的身份证",
+            "id": "A-b8edae1e-10df-460c-9c14-a2a0e3038d5e"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-871fe5d0-2fd6-4b36-8d1a-3881c99ccb54"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "layout-6-fill",
+          "label": "身份证",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为身份证地址或姓名",
+            "id": "A-6efe90b3-cce8-441b-91ab-1399d71b327e"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-4365c041-06a3-4e6e-8674-cffea5d0e021"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-aa3e5914-7eae-4748-b90c-ed1665683d45"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的 QQ1",
+            "id": "A-15b23b09-7081-4369-8f6c-68894170f0bf"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-4f317f3b-a6df-4242-a03c-166992175283"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "qq-fill",
+          "label": "QQ",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的 QQ2 或密码",
+            "id": "A-b18495e5-d5df-4de4-844c-9a2582c368d5"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-184dae16-41e5-48c0-94f8-e0fabf8e34bb"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-4be45446-5aeb-4c68-9abd-33043aaccf86"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-2606e467-adbf-4da1-9f30-a6aeb9fe0601"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "share-forward-fill",
+          "label": "返回",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-0f045d2b-2310-49d5-bf34-329ef922b95b"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-e4194b5f-d0ab-4838-a4c7-afd9d093731a"
+        }],
+        "tag": "快捷输入",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 500,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 64,
+        "enableGlobalDrag": true,
+        "disableAutoEdge": true,
+        "customContextDataKey": {
+        },
+        "note": "这里配置",
+        "id": "A-63ef16c5-e20a-40bb-9af6-57f79b77b438"
+      }],
+      "icon": "mark-pen-line",
+      "label": "快捷输入",
+      "id": "BTN-27c5be66-2c81-4816-8f55-e56bcf13a4eb"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Paste",
+        "customContextDataKey": {
+        },
+        "id": "A-71ab861c-c3a5-4970-b7f0-83d157038f34"
+      }],
+      "icon": "pantone-line",
+      "label": "粘贴/撤销",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Undo",
+        "customContextDataKey": {
+        },
+        "id": "A-54ae12a6-200a-48fb-bf13-a19667e771f4"
+      }],
+      "id": "BTN-a69e955c-2ca7-4289-b24e-07b028089e30"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "customContextDataKey": {
+        },
+        "id": "A-c0d3649e-54ed-4ad9-aff7-528f0896e430"
+      }],
+      "icon": "t-box-fill",
+      "label": "全选/清空",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "customContextDataKey": {
+        },
+        "id": "A-acafc9fe-e06d-439b-9a3f-86ff3bc14e2e"
+      }, {
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Cut",
+        "customContextDataKey": {
+        },
+        "id": "A-fb583630-1ea0-4b88-af28-40118a3490fa"
+      }],
+      "id": "BTN-9896c799-b667-4bf7-94a6-927ae0f5dbed"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShowClipboardView",
+        "customContextDataKey": {
+        },
+        "id": "A-4d2a43e0-455e-41b6-931b-47e377c74cf3"
+      }],
+      "icon": "scissors-fill",
+      "label": "剪贴板",
+      "id": "BTN-5e98ccd8-6e70-4efd-b86b-65c87cf4b4e7"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["输入辅助"],
+        "customContextDataKey": {
+        },
+        "id": "A-db116321-87d4-40aa-b891-10ecf665e8a0"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys window displays | grep \"mFocusedApp\" | grep -v \"AppWindowToken\" | awk \u0027{split($(NF-1), parts, \"/\"); print parts[1]}\u0027",
+        "customContextDataKey": {
+        },
+        "note": "当前活动",
+        "id": "A-32a763f4-97ca-46e9-8a76-5a81d37404ac"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {shellOut};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "mvel"
+          }]
+        },
+        "id": "A-1f18a97e-63fe-49da-970f-3665d81bf38f"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "当前应用名",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b3c4add5-698b-494a-910f-5d8983caf851"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "当前应用名",
+        "valueAsString": "{mvel}",
+        "customContextDataKey": {
+        },
+        "id": "A-f3baa2b5-c21e-432e-9119-d2990afdc927"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["密码本"],
+            "customContextDataKey": {
+            },
+            "id": "A-eb19a882-ee1f-430a-bb04-d5213e4e0e5a"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nfrom urllib.parse import unquote\nimport base64\n\ndef simple_decrypt(encoded_text, key):\n    # 对URL编码的字符串进行URL解码\n    url_decoded \u003d unquote(encoded_text)\n    \n    # 对URL解码后的字符串进行Base64解码\n    base64_decoded \u003d base64.b64decode(url_decoded)\n    \n    # 应用简单的替换解密\n    decrypted_bytes \u003d bytes((char - key) for char in base64_decoded)\n    \n    # 将解密后的字节解码为字符串\n    decrypted_text \u003d decrypted_bytes.decode(\u0027utf-8\u0027)\n    \n    return decrypted_text\n# 使用示例\n# 假设 encrypted_text 是通过之前的加密函数得到的加密字符串\n# key 是加密时使用的密钥\nc \u003d \"localVarOf$当前应用名\"\na \u003d \"globalVarOf$密码本\"\nb \u003d a.split(\u0027, \u0027)\nfor i in b:\n    d\u003di.split(\u0027///\u0027)\n    if d[0] \u003d\u003d c:\n        encrypted_text \u003d d[1]\n        break\nelse:\n    print(\"not found\")\n    encrypted_text \u003d\"\"        \n# 假设encrypted_text和key如下：\n#encrypted_text \u003d \"co%2BWlplWSoGZnJaOSw%3D%3D\"\nif encrypted_text:\n    key \u003d len(c)  # 选择的密钥\n\n# 解密操作\n    decrypted_text \u003d simple_decrypt(encrypted_text, key)\n    if decrypted_text is not None:\n        print(f\"{decrypted_text}\")\nEND",
+            "customContextDataKey": {
+            },
+            "note": "解密",
+            "id": "A-ef21648f-ea7e-4cd8-9741-fb28aceb5b29"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "shellOut",
+              "payload": {
+                "value": "not found"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-1d9d99d9-a5f8-47b3-b2b9-5865c68ec8ce"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "是（自动生成）",
+              "onPositive": [{
+                "@type": "type.googleapis.com/ShowTextFieldDialog",
+                "title": "密码生成器（输入位数）",
+                "cancelable": true,
+                "textFields": [{
+                  "placeholder": "密码位数"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-9eb4cf77-6c3d-40eb-bb6c-1b06e96376e3"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport random\na \u003dint(\"{textFieldInput1}\")#密码位数\nall \u003d \"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm,.:_@1234567890\"\nfor i in range(a):\n   b\u003drandom.randint(0, 65)\n   print(all[b],end\u003d\"\")\nEND",
+                "customContextDataKey": {
+                },
+                "id": "A-e1c2d995-f6fd-4da0-9262-85f929f23f2f"
+              }, {
+                "@type": "type.googleapis.com/WriteClipboard",
+                "text": "{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-007fe874-1dfa-4520-be66-f0fdb8981b09"
+              }, {
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "生成的密码已复制",
+                "customContextDataKey": {
+                },
+                "id": "A-055874f0-45b4-485f-862f-7e21f2c4d15d"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport base64\nfrom urllib.parse import quote\n\ndef simple_encrypt(plain_text, key):\n    # 将文本转换为字节\n    bytes_text \u003d plain_text.encode(\u0027utf-8\u0027)\n    \n    # 应用简单的替换加密\n    encrypted_bytes \u003d bytes((char + key) for char in bytes_text)\n    \n    # 对加密后的字节进行Base64编码\n    base64_encoded \u003d base64.b64encode(encrypted_bytes)\n    \n    # 对Base64编码的字符串进行URL编码\n    url_encoded \u003d quote(base64_encoded)\n    \n    return url_encoded\n\n# 示例使用\nyt\u003dstr(\"localVarOf$当前应用名\")\nplain_text \u003d \"{shellOut}\"\nkey \u003d len(yt)  # 密钥\nencrypted_text \u003d simple_encrypt(plain_text, key)\nprint(f\"{encrypted_text}\")\nEND\n",
+                "customContextDataKey": {
+                },
+                "note": "加密",
+                "id": "A-12ed3ef3-27b0-41ee-b163-d023d2862dda"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "密码本",
+                "valueAsString": "localVarOf$当前应用名///{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-e2645372-5a95-49b9-91d5-00bff9a4922e"
+              }],
+              "negative": "否",
+              "neutral": "导入",
+              "onNeutral": [{
+                "@type": "type.googleapis.com/ShowTextFieldDialog",
+                "title": "输入密码",
+                "cancelable": true,
+                "textFields": [{
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-e0a71e26-bd36-4312-bac3-067ae83331ff"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport base64\nfrom urllib.parse import quote\n\ndef simple_encrypt(plain_text, key):\n    # 将文本转换为字节\n    bytes_text \u003d plain_text.encode(\u0027utf-8\u0027)\n    \n    # 应用简单的替换加密\n    encrypted_bytes \u003d bytes((char + key) for char in bytes_text)\n    \n    # 对加密后的字节进行Base64编码\n    base64_encoded \u003d base64.b64encode(encrypted_bytes)\n    \n    # 对Base64编码的字符串进行URL编码\n    url_encoded \u003d quote(base64_encoded)\n    \n    return url_encoded\n\n# 示例使用\nyt\u003dstr(\"localVarOf$当前应用名\")\nplain_text \u003d \"{textFieldInput1}\"\nkey \u003d len(yt)  # 密钥\nencrypted_text \u003d simple_encrypt(plain_text, key)\nprint(f\"{encrypted_text}\")\nEND\n",
+                "customContextDataKey": {
+                },
+                "note": "加密",
+                "id": "A-12ed3ef3-27b0-41ee-b163-d023d2862dda"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "密码本",
+                "valueAsString": "localVarOf$当前应用名///{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-e2645372-5a95-49b9-91d5-00bff9a4922e"
+              }],
+              "title": "密码不存在",
+              "message": "应用 localVarOf$当前应用名 密码不存在，是否创建",
+              "cancelable": true,
+              "customContextDataKey": {
+              },
+              "id": "A-5dc780e2-3c4a-4f94-bdc5-828a42a76178"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "{shellOut}",
+              "customContextDataKey": {
+              },
+              "id": "A-7ddae5c1-9d98-4c7f-8eb4-f5a6b63ce0a9"
+            }, {
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "密码已复制",
+              "customContextDataKey": {
+              },
+              "id": "A-fb04d7d8-6e71-47e0-8889-a32ecfde5be6"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-8c277d69-0238-4032-8ee9-ea2d2d3fe0fd"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-cee93c03-a16c-41d7-808a-8cfb5cc0034c"
+          }],
+          "icon": "edit-box-fill",
+          "label": "localVarOf$当前应用名 密码",
+          "id": "BTN-6b517562-64ae-4ae9-94db-55262700ebb3"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["密码本"],
+            "customContextDataKey": {
+            },
+            "id": "A-0cd822e5-7c56-41c9-81a1-38a2725720a1"
+          }, {
+            "@type": "type.googleapis.com/ShowTextFieldDialog",
+            "title": "用于何处？",
+            "cancelable": true,
+            "textFields": [{
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-5770c4fd-6ff5-43d3-9edb-ea6e45ee4312"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nfrom urllib.parse import unquote\nimport base64\n\ndef simple_decrypt(encoded_text, key):\n    # 对URL编码的字符串进行URL解码\n    url_decoded \u003d unquote(encoded_text)\n    \n    # 对URL解码后的字符串进行Base64解码\n    base64_decoded \u003d base64.b64decode(url_decoded)\n    \n    # 应用简单的替换解密\n    decrypted_bytes \u003d bytes((char - key) for char in base64_decoded)\n    \n    # 将解密后的字节解码为字符串\n    decrypted_text \u003d decrypted_bytes.decode(\u0027utf-8\u0027)\n    \n    return decrypted_text\n# 使用示例\n# 假设 encrypted_text 是通过之前的加密函数得到的加密字符串\n# key 是加密时使用的密钥\nc \u003d \"{textFieldInput1}\"\na \u003d \"globalVarOf$密码本\"\nb \u003d a.split(\u0027, \u0027)\nfor i in b:\n    d\u003di.split(\u0027///\u0027)\n    if d[0] \u003d\u003d c:\n        encrypted_text \u003d d[1]\n        break\nelse:\n    print(\"not found\")\n    encrypted_text \u003d\"\"        \n# 假设encrypted_text和key如下：\n#encrypted_text \u003d \"co%2BWlplWSoGZnJaOSw%3D%3D\"\nif encrypted_text:\n    key \u003d len(c)  # 选择的密钥\n\n# 解密操作\n    decrypted_text \u003d simple_decrypt(encrypted_text, key)\n    if decrypted_text is not None:\n        print(f\"{decrypted_text}\")\nEND",
+            "customContextDataKey": {
+            },
+            "note": "解密",
+            "id": "A-7954ea25-455d-46e9-bd77-4b1bd2638e9f"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "shellOut",
+              "payload": {
+                "value": "not found"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-1d9d99d9-a5f8-47b3-b2b9-5865c68ec8ce"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "是（自动生成）",
+              "onPositive": [{
+                "@type": "type.googleapis.com/CreateLocalVar",
+                "localVar": {
+                  "name": "密码缓存",
+                  "type": {
+                    "@type": "type.googleapis.com/StringVar"
+                  }
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-c3c6e4db-0cf6-457b-9bf7-04a4e4ed2b21"
+              }, {
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "密码缓存",
+                "valueAsString": "{textFieldInput1}",
+                "customContextDataKey": {
+                },
+                "id": "A-4cefa331-f394-45b6-aa7e-a203f0fd7107"
+              }, {
+                "@type": "type.googleapis.com/ShowTextFieldDialog",
+                "title": "密码生成器（输入位数）",
+                "cancelable": true,
+                "textFields": [{
+                  "placeholder": "密码位数"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-9eb4cf77-6c3d-40eb-bb6c-1b06e96376e3"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport random\na \u003dint(\"{textFieldInput1}\")#密码位数\nall \u003d \"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm,.:_@1234567890\"\nfor i in range(a):\n   b\u003drandom.randint(0, 65)\n   print(all[b],end\u003d\"\")\nEND",
+                "customContextDataKey": {
+                },
+                "id": "A-e1c2d995-f6fd-4da0-9262-85f929f23f2f"
+              }, {
+                "@type": "type.googleapis.com/WriteClipboard",
+                "text": "{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-007fe874-1dfa-4520-be66-f0fdb8981b09"
+              }, {
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "生成的密码已复制",
+                "customContextDataKey": {
+                },
+                "id": "A-055874f0-45b4-485f-862f-7e21f2c4d15d"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport base64\nfrom urllib.parse import quote\n\ndef simple_encrypt(plain_text, key):\n    # 将文本转换为字节\n    bytes_text \u003d plain_text.encode(\u0027utf-8\u0027)\n    \n    # 应用简单的替换加密\n    encrypted_bytes \u003d bytes((char + key) for char in bytes_text)\n    \n    # 对加密后的字节进行Base64编码\n    base64_encoded \u003d base64.b64encode(encrypted_bytes)\n    \n    # 对Base64编码的字符串进行URL编码\n    url_encoded \u003d quote(base64_encoded)\n    \n    return url_encoded\n\n# 示例使用\nyt\u003dstr(\"localVarOf$密码缓存\")\nplain_text \u003d \"{shellOut}\"\nkey \u003d len(yt)  # 密钥\nencrypted_text \u003d simple_encrypt(plain_text, key)\nprint(f\"{encrypted_text}\")\nEND\n",
+                "customContextDataKey": {
+                },
+                "note": "加密",
+                "id": "A-12ed3ef3-27b0-41ee-b163-d023d2862dda"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "密码本",
+                "valueAsString": "localVarOf$密码缓存///{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-e2645372-5a95-49b9-91d5-00bff9a4922e"
+              }],
+              "negative": "否",
+              "neutral": "导入",
+              "onNeutral": [{
+                "@type": "type.googleapis.com/CreateLocalVar",
+                "localVar": {
+                  "name": "密码缓存",
+                  "type": {
+                    "@type": "type.googleapis.com/StringVar"
+                  }
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-5c9e8bc8-9174-4428-9d60-04a53db07eac"
+              }, {
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "密码缓存",
+                "valueAsString": "{textFieldInput1}",
+                "customContextDataKey": {
+                },
+                "id": "A-ab6353af-2d5c-4e5d-abaa-72a0a92d8604"
+              }, {
+                "@type": "type.googleapis.com/ShowTextFieldDialog",
+                "title": "输入密码",
+                "cancelable": true,
+                "textFields": [{
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-e0a71e26-bd36-4312-bac3-067ae83331ff"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport base64\nfrom urllib.parse import quote\n\ndef simple_encrypt(plain_text, key):\n    # 将文本转换为字节\n    bytes_text \u003d plain_text.encode(\u0027utf-8\u0027)\n    \n    # 应用简单的替换加密\n    encrypted_bytes \u003d bytes((char + key) for char in bytes_text)\n    \n    # 对加密后的字节进行Base64编码\n    base64_encoded \u003d base64.b64encode(encrypted_bytes)\n    \n    # 对Base64编码的字符串进行URL编码\n    url_encoded \u003d quote(base64_encoded)\n    \n    return url_encoded\n\n# 示例使用\nyt\u003dstr(\"localVarOf$密码缓存\")\nplain_text \u003d \"{textFieldInput1}\"\nkey \u003d len(yt)  # 密钥\nencrypted_text \u003d simple_encrypt(plain_text, key)\nprint(f\"{encrypted_text}\")\nEND\n",
+                "customContextDataKey": {
+                },
+                "note": "加密",
+                "id": "A-12ed3ef3-27b0-41ee-b163-d023d2862dda"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "密码本",
+                "valueAsString": "localVarOf$密码缓存///{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-e2645372-5a95-49b9-91d5-00bff9a4922e"
+              }],
+              "title": "密码不存在",
+              "message": "{textFieldInput1} 密码不存在，是否创建",
+              "cancelable": true,
+              "customContextDataKey": {
+              },
+              "id": "A-5dc780e2-3c4a-4f94-bdc5-828a42a76178"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "{shellOut}",
+              "customContextDataKey": {
+              },
+              "id": "A-7ddae5c1-9d98-4c7f-8eb4-f5a6b63ce0a9"
+            }, {
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "密码已复制",
+              "customContextDataKey": {
+              },
+              "id": "A-fb04d7d8-6e71-47e0-8889-a32ecfde5be6"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-a703e60c-4e3b-49f4-88f5-e0afd2fb7f47"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-3907b9fe-b332-432b-845f-52d2505d23a3"
+          }],
+          "icon": "file-search-two",
+          "label": "查询密码",
+          "id": "BTN-96e6cee6-039e-4cc9-a792-59e3104ccf51"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["密码本"],
+            "customContextDataKey": {
+            },
+            "id": "A-f9e05d73-f555-4900-a0df-9431105fc075"
+          }, {
+            "@type": "type.googleapis.com/ShowTextFieldDialog",
+            "title": "密码生成器（输入位数）",
+            "cancelable": true,
+            "textFields": [{
+              "placeholder": "密码位数"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-9eb4cf77-6c3d-40eb-bb6c-1b06e96376e3"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport random\na \u003dint(\"{textFieldInput1}\")#密码位数\nall \u003d \"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm,.:_@1234567890\"\nfor i in range(a):\n   b\u003drandom.randint(0, 65)\n   print(all[b],end\u003d\"\")\nEND",
+            "customContextDataKey": {
+            },
+            "id": "A-e1c2d995-f6fd-4da0-9262-85f929f23f2f"
+          }, {
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "使用",
+            "onPositive": [{
+              "@type": "type.googleapis.com/ShowMenuDialog",
+              "items": [{
+                "title": "是",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/ShowTextFieldDialog",
+                  "title": "用于何处？",
+                  "cancelable": true,
+                  "textFields": [{
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f30cd367-e9d1-45df-9c84-1e47c4d43d13"
+                }, {
+                  "@type": "type.googleapis.com/ShellCommand",
+                  "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nc\u003d\"{textFieldInput1}\"\na\u003d\"globalVarOf$密码本\"\nb\u003da.split(\u0027, \u0027)\nfor i in b:\n    d \u003di.split(\u0027///\u0027)\n    if d[0]\u003d\u003dc:\n        print(\u0027重复\u0027)\n        break\nelse:\n    print(\"未重复\")        \n        \nEND",
+                  "customContextDataKey": {
+                    "keys": [{
+                      "first": "shellOut",
+                      "second": "重复？"
+                    }]
+                  },
+                  "note": "重复检查",
+                  "id": "A-e884b04f-e633-4b37-addd-9aca979fc1bc"
+                }, {
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateContextVar",
+                    "op": "EqualTo",
+                    "varName": "重复？",
+                    "payload": {
+                      "value": "重复"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-1e3178d2-126a-4ba5-a5e8-a4f46a3d3f93"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/ShowAlertDialog",
+                    "positive": "是",
+                    "onPositive": [{
+                      "@type": "type.googleapis.com/ShellCommand",
+                      "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nc\u003d\"{textFieldInput1}\"\na\u003d\"globalVarOf$密码本\"\nb\u003da.split(\u0027, \u0027)\nfor i in range(0,len(b)):\n    d \u003db[i].split(\u0027///\u0027)\n    if d[0]\u003d\u003dc:\n        print(i)\n        break\n\n        \nEND",
+                      "customContextDataKey": {
+                        "keys": [{
+                          "first": "shellOut",
+                          "second": "改密"
+                        }]
+                      },
+                      "note": "查询位置",
+                      "id": "A-e884b04f-e633-4b37-addd-9aca979fc1bc"
+                    }, {
+                      "@type": "type.googleapis.com/WriteGlobalVar",
+                      "varName": "密码本",
+                      "valueAsString": "globalVarOf$密码本[{改密}]",
+                      "op": "WriteGlobalVarOp_DeleteValue",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-2f1ff0dc-3d1b-49b9-a8c3-2c55b46f70f8"
+                    }, {
+                      "@type": "type.googleapis.com/ShowToast",
+                      "message": "旧密码已删除，可重新录制新密码",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-e4311c54-aa69-440a-8cf9-63e755515ea0"
+                    }],
+                    "negative": "否",
+                    "onNegative": [{
+                      "@type": "type.googleapis.com/StartActivityUrlSchema",
+                      "urlSchema": "shortx://trigger?tag\u003dsrfz",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-2498ac84-9bdc-4511-8ef2-49769ebeaba3"
+                    }, {
+                      "@type": "type.googleapis.com/BreakActionExecute",
+                      "scope": "BreakActionExecuteScope_Root",
+                      "customContextDataKey": {
+                      },
+                      "id": "A-525a4447-26ed-4efc-b906-2eb09594e221"
+                    }],
+                    "title": "密码已存在",
+                    "message": "更改密码？",
+                    "cancelable": true,
+                    "customContextDataKey": {
+                    },
+                    "id": "A-f516b6a1-010f-4545-a048-2015a7d7851e"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-2151f711-5452-4678-80c3-d1f0841d6d5b"
+                }, {
+                  "@type": "type.googleapis.com/WriteClipboard",
+                  "text": "{shellOut}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-007fe874-1dfa-4520-be66-f0fdb8981b09"
+                }, {
+                  "@type": "type.googleapis.com/ShowToast",
+                  "message": "生成的密码已复制",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-055874f0-45b4-485f-862f-7e21f2c4d15d"
+                }, {
+                  "@type": "type.googleapis.com/ShellCommand",
+                  "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport base64\nfrom urllib.parse import quote\n\ndef simple_encrypt(plain_text, key):\n    # 将文本转换为字节\n    bytes_text \u003d plain_text.encode(\u0027utf-8\u0027)\n    \n    # 应用简单的替换加密\n    encrypted_bytes \u003d bytes((char + key) for char in bytes_text)\n    \n    # 对加密后的字节进行Base64编码\n    base64_encoded \u003d base64.b64encode(encrypted_bytes)\n    \n    # 对Base64编码的字符串进行URL编码\n    url_encoded \u003d quote(base64_encoded)\n    \n    return url_encoded\n\n# 示例使用\nyt\u003dstr(\"{textFieldInput1}\")\nplain_text \u003d \"{shellOut}\"\nkey \u003d len(yt)  # 密钥\nencrypted_text \u003d simple_encrypt(plain_text, key)\nprint(f\"{encrypted_text}\")\nEND\n",
+                  "customContextDataKey": {
+                  },
+                  "note": "加密",
+                  "id": "A-12ed3ef3-27b0-41ee-b163-d023d2862dda"
+                }, {
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "密码本",
+                  "valueAsString": "{textFieldInput1}///{shellOut}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-5086e8bd-d848-4667-b7c3-6d3ff6b6566d"
+                }]
+              }, {
+                "title": "否",
+                "clickActions": [{
+                  "@type": "type.googleapis.com/WriteClipboard",
+                  "text": "{shellOut}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-fc8d6fc0-5c26-4e3f-b1d1-41292e6c3d90"
+                }, {
+                  "@type": "type.googleapis.com/ShowToast",
+                  "message": "生成的密码已复制",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-9d30a193-13ab-43ff-a33b-42fd8635fdcf"
+                }]
+              }],
+              "title": "是否保存",
+              "cancelable": true,
+              "customContextDataKey": {
+              },
+              "id": "A-d2163cc8-2bfa-4642-a864-0e0461a63917"
+            }],
+            "neutral": "取消",
+            "title": "密码生成",
+            "message": "{shellOut}",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-aa499003-0c1b-4e6a-b074-b42c3afd6850"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-3907b9fe-b332-432b-845f-52d2505d23a3"
+          }],
+          "icon": "creative-commons-sa-fill",
+          "label": "密码生成",
+          "id": "BTN-20899a20-fa53-4775-8db9-a161819e869f"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["密码本"],
+            "customContextDataKey": {
+            },
+            "id": "A-f9e05d73-f555-4900-a0df-9431105fc075"
+          }, {
+            "@type": "type.googleapis.com/ShowOverlayButton",
+            "buttonSettings": [{
+              "actions": [{
+                "@type": "type.googleapis.com/HideOverlayButton",
+                "overlayTags": ["录入密码"],
+                "customContextDataKey": {
+                },
+                "id": "A-e20676c0-8338-43a6-9e2f-89622a3d96c3"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nc\u003d\"localVarOf$当前应用名\"\na\u003d\"globalVarOf$密码本\"\nb\u003da.split(\u0027, \u0027)\nfor i in b:\n    d \u003di.split(\u0027///\u0027)\n    if d[0]\u003d\u003dc:\n        print(\u0027重复\u0027)\n        break\nelse:\n    print(\"未重复\")        \n        \nEND",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "shellOut",
+                    "second": "重复？"
+                  }]
+                },
+                "note": "重复检查",
+                "id": "A-d0896c1f-2653-4d2c-ae92-12ee658ff477"
+              }, {
+                "@type": "type.googleapis.com/IfThenElse",
+                "If": [{
+                  "@type": "type.googleapis.com/EvaluateContextVar",
+                  "op": "EqualTo",
+                  "varName": "重复？",
+                  "payload": {
+                    "value": "重复"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "C-1e3178d2-126a-4ba5-a5e8-a4f46a3d3f93"
+                }],
+                "IfActions": [{
+                  "@type": "type.googleapis.com/ShowAlertDialog",
+                  "positive": "是",
+                  "onPositive": [{
+                    "@type": "type.googleapis.com/ShellCommand",
+                    "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nc\u003d\"localVarOf$当前应用名\"\na\u003d\"globalVarOf$密码本\"\nb\u003da.split(\u0027, \u0027)\nfor i in range(0,len(b)):\n    d \u003db[i].split(\u0027///\u0027)\n    if d[0]\u003d\u003dc:\n        print(i)\n        break\n\n        \nEND",
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "shellOut",
+                        "second": "改密"
+                      }]
+                    },
+                    "note": "查询位置",
+                    "id": "A-e884b04f-e633-4b37-addd-9aca979fc1bc"
+                  }, {
+                    "@type": "type.googleapis.com/WriteGlobalVar",
+                    "varName": "密码本",
+                    "valueAsString": "globalVarOf$密码本[{改密}]",
+                    "op": "WriteGlobalVarOp_DeleteValue",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-2f1ff0dc-3d1b-49b9-a8c3-2c55b46f70f8"
+                  }, {
+                    "@type": "type.googleapis.com/ShowToast",
+                    "message": "旧密码已删除，可重新录制新密码",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-e4311c54-aa69-440a-8cf9-63e755515ea0"
+                  }],
+                  "negative": "否",
+                  "onNegative": [{
+                    "@type": "type.googleapis.com/StartActivityUrlSchema",
+                    "urlSchema": "shortx://trigger?tag\u003dsrfz",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-2498ac84-9bdc-4511-8ef2-49769ebeaba3"
+                  }, {
+                    "@type": "type.googleapis.com/BreakActionExecute",
+                    "scope": "BreakActionExecuteScope_Root",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-525a4447-26ed-4efc-b906-2eb09594e221"
+                  }],
+                  "title": "密码已存在",
+                  "message": "更改密码？",
+                  "cancelable": true,
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f516b6a1-010f-4545-a048-2015a7d7851e"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-1641e13b-16cb-464f-aed4-56f5543bcd39"
+              }, {
+                "@type": "type.googleapis.com/ShowTextFieldDialog",
+                "title": "输入要录入的密码",
+                "cancelable": true,
+                "textFields": [{
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-abc767a3-8584-4489-b63e-65ad7d048d10"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport base64\nfrom urllib.parse import quote\n\ndef simple_encrypt(plain_text, key):\n    # 将文本转换为字节\n    bytes_text \u003d plain_text.encode(\u0027utf-8\u0027)\n    \n    # 应用简单的替换加密\n    encrypted_bytes \u003d bytes((char + key) for char in bytes_text)\n    \n    # 对加密后的字节进行Base64编码\n    base64_encoded \u003d base64.b64encode(encrypted_bytes)\n    \n    # 对Base64编码的字符串进行URL编码\n    url_encoded \u003d quote(base64_encoded)\n    \n    return url_encoded\n\n# 示例使用\nyt\u003dstr(\"localVarOf$当前应用名\")\nplain_text \u003d \"{textFieldInput1}\"\nkey \u003d len(yt)  # 密钥\nencrypted_text \u003d simple_encrypt(plain_text, key)\nprint(f\"{encrypted_text}\")\nEND\n",
+                "customContextDataKey": {
+                },
+                "note": "加密",
+                "id": "A-12ed3ef3-27b0-41ee-b163-d023d2862dda"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "密码本",
+                "valueAsString": "localVarOf$当前应用名///{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-7aa89454-609e-416b-a601-e7113f6a2bf0"
+              }, {
+                "@type": "type.googleapis.com/StartActivityUrlSchema",
+                "urlSchema": "shortx://trigger?tag\u003dsrfz",
+                "customContextDataKey": {
+                },
+                "id": "A-3907b9fe-b332-432b-845f-52d2505d23a3"
+              }],
+              "icon": "mark-pen-line",
+              "label": "为 localVarOf$当前应用名 创建",
+              "id": "BTN-61991d95-fb57-4286-8bd0-8faf4e8b58c1"
+            }, {
+              "actions": [{
+                "@type": "type.googleapis.com/HideOverlayButton",
+                "overlayTags": ["录入密码"],
+                "customContextDataKey": {
+                },
+                "id": "A-7246d6a4-1c90-4bbf-a9be-efb39a6c668b"
+              }, {
+                "@type": "type.googleapis.com/ShowTextFieldDialog",
+                "title": "输入用途和密码",
+                "cancelable": true,
+                "textFields": [{
+                  "placeholder": "用于何处？"
+                }, {
+                  "placeholder": "密码"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-c8cc01c4-8f10-4f1b-ba44-a4f6147078aa"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nc\u003d\"{textFieldInput1}\"\na\u003d\"globalVarOf$密码本\"\nb\u003da.split(\u0027, \u0027)\nfor i in b:\n    d \u003di.split(\u0027///\u0027)\n    if d[0]\u003d\u003dc:\n        print(\u0027重复\u0027)\n        break\nelse:\n    print(\"未重复\")        \n        \nEND",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "shellOut",
+                    "second": "重复？"
+                  }]
+                },
+                "note": "重复检查",
+                "id": "A-449c8ff1-f9fa-4bb7-b263-4bca46e3095b"
+              }, {
+                "@type": "type.googleapis.com/IfThenElse",
+                "If": [{
+                  "@type": "type.googleapis.com/EvaluateContextVar",
+                  "op": "EqualTo",
+                  "varName": "重复？",
+                  "payload": {
+                    "value": "重复"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "C-1e3178d2-126a-4ba5-a5e8-a4f46a3d3f93"
+                }],
+                "IfActions": [{
+                  "@type": "type.googleapis.com/ShowAlertDialog",
+                  "positive": "是",
+                  "onPositive": [{
+                    "@type": "type.googleapis.com/ShellCommand",
+                    "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nc\u003d\"{textFieldInput1}\"\na\u003d\"globalVarOf$密码本\"\nb\u003da.split(\u0027, \u0027)\nfor i in range(0,len(b)):\n    d \u003db[i].split(\u0027///\u0027)\n    if d[0]\u003d\u003dc:\n        print(i)\n        break\n\n        \nEND",
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "shellOut",
+                        "second": "改密"
+                      }]
+                    },
+                    "note": "查询位置",
+                    "id": "A-e884b04f-e633-4b37-addd-9aca979fc1bc"
+                  }, {
+                    "@type": "type.googleapis.com/WriteGlobalVar",
+                    "varName": "密码本",
+                    "valueAsString": "globalVarOf$密码本[{改密}]",
+                    "op": "WriteGlobalVarOp_DeleteValue",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-2f1ff0dc-3d1b-49b9-a8c3-2c55b46f70f8"
+                  }, {
+                    "@type": "type.googleapis.com/ShowToast",
+                    "message": "旧密码已删除，可重新录制新密码",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-e4311c54-aa69-440a-8cf9-63e755515ea0"
+                  }],
+                  "negative": "否",
+                  "onNegative": [{
+                    "@type": "type.googleapis.com/StartActivityUrlSchema",
+                    "urlSchema": "shortx://trigger?tag\u003dsrfz",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-2498ac84-9bdc-4511-8ef2-49769ebeaba3"
+                  }, {
+                    "@type": "type.googleapis.com/BreakActionExecute",
+                    "scope": "BreakActionExecuteScope_Root",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-525a4447-26ed-4efc-b906-2eb09594e221"
+                  }],
+                  "title": "密码已存在",
+                  "message": "更改密码？",
+                  "cancelable": true,
+                  "customContextDataKey": {
+                  },
+                  "id": "A-f516b6a1-010f-4545-a048-2015a7d7851e"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-aef1de11-73be-4e38-ab18-12729572c3f3"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nimport base64\nfrom urllib.parse import quote\n\ndef simple_encrypt(plain_text, key):\n    # 将文本转换为字节\n    bytes_text \u003d plain_text.encode(\u0027utf-8\u0027)\n    \n    # 应用简单的替换加密\n    encrypted_bytes \u003d bytes((char + key) for char in bytes_text)\n    \n    # 对加密后的字节进行Base64编码\n    base64_encoded \u003d base64.b64encode(encrypted_bytes)\n    \n    # 对Base64编码的字符串进行URL编码\n    url_encoded \u003d quote(base64_encoded)\n    \n    return url_encoded\n\n# 示例使用\nyt\u003dstr(\"{textFieldInput1}\")\nplain_text \u003d \"{textFieldInput2}\"\nkey \u003d len(yt)  # 密钥\nencrypted_text \u003d simple_encrypt(plain_text, key)\nprint(f\"{encrypted_text}\")\nEND\n",
+                "customContextDataKey": {
+                },
+                "note": "加密",
+                "id": "A-12ed3ef3-27b0-41ee-b163-d023d2862dda"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "密码本",
+                "valueAsString": "{textFieldInput1}///{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-77cb1232-f641-4670-a8d5-074d7205d3e7"
+              }, {
+                "@type": "type.googleapis.com/StartActivityUrlSchema",
+                "urlSchema": "shortx://trigger?tag\u003dsrfz",
+                "customContextDataKey": {
+                },
+                "id": "A-3907b9fe-b332-432b-845f-52d2505d23a3"
+              }],
+              "icon": "mark-pen-line",
+              "label": "自定义创建",
+              "id": "BTN-665bfc34-2e99-4a81-abad-b75cc8e87eb8"
+            }, {
+              "actions": [{
+                "@type": "type.googleapis.com/HideOverlayButton",
+                "overlayTags": ["录入密码"],
+                "customContextDataKey": {
+                },
+                "id": "A-e20676c0-8338-43a6-9e2f-89622a3d96c3"
+              }, {
+                "@type": "type.googleapis.com/StartActivityUrlSchema",
+                "urlSchema": "shortx://trigger?tag\u003dsrfz",
+                "customContextDataKey": {
+                },
+                "id": "A-3907b9fe-b332-432b-845f-52d2505d23a3"
+              }],
+              "icon": "back",
+              "label": "返回",
+              "id": "BTN-7845ee26-0402-4bfe-a6d1-1b0f3e5fe953"
+            }, {
+              "actions": [{
+                "@type": "type.googleapis.com/ShowTextFieldDialog",
+                "title": "要删何处",
+                "cancelable": true,
+                "textFields": [{
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-635bb91f-ca8e-4720-8f79-5b4cba92de26"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\nc\u003d\"{textFieldInput1}\"\na\u003d\"globalVarOf$密码本\"\nb\u003da.split(\u0027, \u0027)\nfor i in range(0,len(b)):\n    d \u003db[i].split(\u0027///\u0027)\n    if d[0]\u003d\u003dc:\n        print(i)\n        break\n\n        \nEND",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "shellOut",
+                    "second": "改密"
+                  }]
+                },
+                "note": "查询位置",
+                "id": "A-e884b04f-e633-4b37-addd-9aca979fc1bc"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "密码本",
+                "valueAsString": "globalVarOf$密码本[{改密}]",
+                "op": "WriteGlobalVarOp_DeleteValue",
+                "customContextDataKey": {
+                },
+                "id": "A-2f1ff0dc-3d1b-49b9-a8c3-2c55b46f70f8"
+              }, {
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "旧密码已删除，可重新录制新密码",
+                "customContextDataKey": {
+                },
+                "id": "A-e4311c54-aa69-440a-8cf9-63e755515ea0"
+              }],
+              "icon": "delete-key",
+              "label": "删除密码",
+              "id": "BTN-00b3509f-7704-4104-ac57-ec22fff2a7a9"
+            }],
+            "tag": "录入密码",
+            "maxHeightInDp": 500,
+            "maxWidthInDp": 500,
+            "backgroundAlpha": 0.8,
+            "buttonMinWidth": 64,
+            "enableGlobalDrag": true,
+            "disableAutoEdge": true,
+            "customContextDataKey": {
+            },
+            "id": "A-02cf66b2-3496-4710-9ddf-d4c855dd05bf"
+          }],
+          "icon": "edit-fill",
+          "label": "密码录入",
+          "id": "BTN-593131e3-18ed-4725-9b1c-dd39337c4e34"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["密码本"],
+            "customContextDataKey": {
+            },
+            "id": "A-f9e05d73-f555-4900-a0df-9431105fc075"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "back",
+          "label": "返回",
+          "id": "BTN-096c468e-2492-46fb-bd15-c2ac3a7abc15"
+        }],
+        "tag": "密码本",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 500,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 64,
+        "enableGlobalDrag": true,
+        "disableAutoEdge": true,
+        "customContextDataKey": {
+        },
+        "id": "A-63ef16c5-e20a-40bb-9af6-57f79b77b438"
+      }],
+      "icon": "notes",
+      "label": "密码本",
+      "id": "BTN-3a8ce7c3-4834-43d5-aa89-02e7c140c884"
+    }],
+    "tag": "输入辅助",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 500,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "note": "这里配置",
+    "id": "A-7a7a8b2e-45aa-450f-b5b7-8b5e96689d7d"
+  }],
+  "id": "rule-1f94c332-3d12-4628-a3d5-7e0357cca2ff",
+  "lastUpdateTime": "1724134190593",
+  "createTime": "1702212032291",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "输入辅助  (密码本)",
+  "description": "显示输入辅助（含密码本）\n本指令需要python环境\n请先安装termux后执行\npkg install python3 -y\n安装环境",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "密码本",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3af33d6e-4958-49bc-b58f-da85f604c832"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-dd6fedda-bc2f-4c25-a07d-32d12d82557e"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["快捷输入"],
+      "customContextDataKey": {
+      },
+      "id": "A-41e3a781-d1c9-4f90-a829-d6e5107d736c"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["输入辅助"],
+      "customContextDataKey": {
+      },
+      "id": "A-7fd20c21-9a4d-476c-a43f-14e96f2bb340"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
+}
+###------###
+{"type":"rule"}

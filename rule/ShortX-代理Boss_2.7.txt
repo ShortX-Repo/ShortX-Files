@@ -1,0 +1,383 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["Proxy"],
+    "tag": "开启",
+    "customContextDataKey": {
+    },
+    "id": "F-7b28adaa-eda0-4996-8949-f4b3da6bfc97"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["Proxy"],
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-5cb00388-e5a2-47c7-8103-6f93169069c2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "开启",
+        "customContextDataKey": {
+        },
+        "id": "C-5ab6ce05-6715-4e22-af7e-bb0ecd438750"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.content.Context;\nimport android.net.ConnectivityManager;\nimport android.net.NetworkInfo;\n\n// 获取ConnectivityManager实例\nConnectivityManager connectivityManager \u003d (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);\n\n// 获取当前活跃的网络信息\nNetworkInfo activeNetwork \u003d connectivityManager.getActiveNetworkInfo();\n\n// 检查是否连接到网络\nBoolean isConnected \u003d activeNetwork !\u003d null \u0026\u0026 activeNetwork.isConnectedOrConnecting();",
+        "customContextDataKey": {
+        },
+        "id": "C-9276e8e2-4ad1-43c9-bded-fcd9665ef769"
+      }, {
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-a9156c6f-a5b7-4593-9d74-5f1e608b1873"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "EqualTo",
+          "varName": "代理工具",
+          "payload": {
+            "value": "com.getsurfboard"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-939b776e-2570-461f-82fc-4d08bd339820"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/StartActivityIntentUri",
+          "intentUri": "surfboard:///start",
+          "customContextDataKey": {
+          },
+          "id": "A-f989c5f1-7d5a-4d16-a6c5-4226e93cfa46"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "// 导入所需的引用库\nimport android.content.ContextWrapper;\nimport android.content.pm.PackageManager;\nimport android.content.ComponentName;\nimport android.content.pm.ServiceInfo;\nimport java.lang.reflect.Method;\nimport android.content.Intent;\n\n// 指定目标应用包名\ntargetPackageName \u003d globalVarOf$代理工具;\n\n// 获取 PackageManager 实例\npackageManager \u003d context.getPackageManager();\n\n// 获取目标应用的所有服务信息\nserviceInfos \u003d packageManager.getPackageInfo(targetPackageName, PackageManager.GET_SERVICES).services;\n\n// 遍历服务信息，查找 VPN 服务类名\nvpnServiceClassName \u003d \"\";\nforeach (serviceInfo : serviceInfos) {\n    if (serviceInfo.permission \u003d\u003d \"android.permission.BIND_VPN_SERVICE\") {\n        vpnServiceClassName \u003d serviceInfo.name;\n    }\n}\n\n// 创建 Intent 对象\nIntent vpnIntent \u003d new Intent();\nvpnIntent.setClassName(targetPackageName, vpnServiceClassName);\n\n// 获取 Context 类的字节码对象\nctxClass \u003d java.lang.Class.forName(\"android.content.Context\");\n\n// 获取 startService 方法\nstartServiceMethod \u003d ctxClass.getMethod(\"startService\", java.lang.Class.forName(\"android.content.Intent\"));\n\n// 调用 startService 方法启动 VPN 服务\nstartServiceMethod.invoke(context, vpnIntent);\n\nvpnServiceClassName;",
+          "customContextDataKey": {
+          },
+          "id": "A-2476a3df-f643-4a35-bc80-78485c83c451"
+        }, {
+          "@type": "type.googleapis.com/StartService",
+          "intent": {
+            "action": "android.intent.action.VIEW",
+            "pkgName": "globalVarOf$代理工具",
+            "className": "{mvelRet}"
+          },
+          "isForegroundService": true,
+          "customContextDataKey": {
+          },
+          "id": "A-4d73f87c-e9a5-4ecf-b310-7d9482877708"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-43709944-bec1-4c9e-8f59-af3bb86ece6d"
+      }],
+      "description": "开启",
+      "id": "Case-638d828b-7714-48f2-8756-ab09c6509b4d",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "VPN Sleep",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-3b50c25f-f6bd-42c1-bbcd-e55b594d8cc1"
+      }, {
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "id": "C-4d06c198-d796-414c-ac5b-cf4b80ade5fa"
+      }, {
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["Proxy"],
+        "customContextDataKey": {
+        },
+        "id": "C-1fe34f5d-88bd-4f03-bc9d-ab96d81e181d"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WaitUtilConditionMatch",
+        "condition": [{
+          "@type": "type.googleapis.com/CurrentPkgList",
+          "pkgSets": ["Proxy"],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-a1d152b0-9084-4dbe-955c-80319cf82559"
+        }],
+        "timeout": "6000",
+        "customContextDataKey": {
+        },
+        "id": "A-472b2997-f0cb-40fc-9ccb-5001a926aaab"
+      }],
+      "description": "延迟",
+      "id": "Case-87319304-266c-4662-8dc5-9bc9af06110f"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "关闭",
+        "customContextDataKey": {
+        },
+        "id": "C-7815505f-aaf2-49ec-8f4b-720d6f04e9c8"
+      }, {
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["Proxy"],
+        "customContextDataKey": {
+        },
+        "id": "C-e47c3feb-b212-432e-9f28-8c360a1d7138"
+      }, {
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "id": "C-7b557083-d320-40ea-b5c1-b791743b0019"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "// 导入所需的引用库\nimport android.app.ActivityManager;\nimport android.content.Context;\nimport android.content.pm.PackageManager;\nimport android.content.ComponentName;\nimport android.content.pm.ServiceInfo;\nimport java.lang.reflect.Method;\n\n// 指定目标应用包名\ntargetPackageName \u003d globalVarOf$代理工具;\n\n// 获取 PackageManager 实例\npackageManager \u003d context.getPackageManager();\n\n// 获取目标应用的所有服务信息\nserviceInfos \u003d packageManager.getPackageInfo(targetPackageName, PackageManager.GET_SERVICES).services;\n\n// 遍历服务信息，查找 VPN 服务类名\nvpnServiceClassName \u003d \"\";\nforeach (serviceInfo : serviceInfos) {\n    if (serviceInfo.permission \u003d\u003d \"android.permission.BIND_VPN_SERVICE\") {\n        vpnServiceClassName \u003d serviceInfo.name;\n    }\n}\n\n// 检查是否找到了 VPN 服务\nif (vpnServiceClassName \u003d\u003d \"\") {\n    throw new RuntimeException(\"无法找到VPN服务\");\n}\n\n// 使用反射获取 ActivityManager 服务\nactivityManagerClass \u003d Class.forName(\"android.app.ActivityManager\");\nactivityManager \u003d context.getSystemService(\"activity\");\n\n// 通过反射获取ActivityManager中的\"forceStopPackage\"方法\nforceStopPackageMethod \u003d activityManagerClass.getDeclaredMethod(\"forceStopPackage\", Class.forName(\"java.lang.String\"));\nforceStopPackageMethod.setAccessible(true);\n\n// 调用 forceStopPackage 方法强制停止目标应用\nforceStopPackageMethod.invoke(activityManager, targetPackageName);",
+        "customContextDataKey": {
+        },
+        "id": "A-1c8059e1-817b-40e4-8faa-d4c3ef8a7116"
+      }],
+      "description": "关闭",
+      "id": "Case-5b8bfaf7-99fc-47c7-bfdf-c9e7d10f134a",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b094a927-ecca-4c09-a8fc-f6a8b62b00ee"
+  }],
+  "id": "SHARE-rule-debea634-75d4-4727-b672-ada30c7eaf2d",
+  "lastUpdateTime": "1729951429568",
+  "createTime": "1687238394751",
+  "author": {
+    "name": "He"
+  },
+  "title": "代理Boss(2.7",
+  "description": "自动开关代理\n智能化选择代理工具",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "代理工具",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-62147c45-9934-49e0-9e8b-546af356ac82"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "代理工具",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-ed5fd5f8-2354-484a-b854-0463a83870fd"
+        }],
+        "description": "创建变量",
+        "id": "Case-a0478545-669f-4220-a7df-29eb92377ed6"
+      }, {
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importPackage(android.content.pm);\nimportPackage(android.content);\nimportPackage(android.app);\n\ntry {\n    var appOps \u003d context.getSystemService(Context.APP_OPS_SERVICE);\n    var pm \u003d context.getPackageManager();\n    var packages \u003d pm.getInstalledPackages(0); // 获取所有已安装的应用包信息\n    var activatedVpnApps \u003d new java.util.HashSet(); // 使用 HashSet 进行查重\n\n    // 遍历所有安装的应用\n    for (var i \u003d 0; i \u003c packages.size(); i++) {\n        var packageInfo \u003d packages.get(i);\n        var packageName \u003d packageInfo.packageName;\n        \n        // 检查该应用是否为系统应用\n        if ((packageInfo.applicationInfo.flags \u0026 ApplicationInfo.FLAG_SYSTEM) !\u003d\u003d 0) {\n            continue; // 跳过系统应用\n        }\n        \n        // 检查该应用是否具有 ACTIVATE_VPN 的 App Ops 权限\n        var mode \u003d appOps.checkOpNoThrow(android.app.AppOpsManager.OPSTR_ACTIVATE_VPN, packageInfo.applicationInfo.uid, packageName);\n        \n        // 如果模式不是 AppOpsManager.MODE_IGNORED，说明应用具有该权限\n        if (mode !\u003d\u003d android.app.AppOpsManager.MODE_IGNORED) {\n            var appName \u003d packageInfo.applicationInfo.loadLabel(pm).toString(); // 获取应用名称\n            activatedVpnApps.add(appName + \" : \" + packageName); // 添加应用名称和包名到 HashSet\n        }\n    }\n\n    // 构建输出结果\n    var output \u003d \"\";\n    var it \u003d activatedVpnApps.iterator();\n    var count \u003d 0; // 计数器用于跟踪已添加的应用名称数量\n\n    while (it.hasNext()) {\n        if (count \u003e 0) {\n            output +\u003d \",\"; // 添加分隔符，除非是第一个应用名称\n        }\n        output +\u003d it.next(); // 添加应用名称和包名\n        count++; // 递增计数器\n    }\n\n    if (output \u003d\u003d\u003d \"\") {\n        output \u003d \"没有找到具有 ACTIVATE_VPN App Ops 权限的应用\";\n    }\n\n    output; // 直接返回结果变量\n\n} catch (e) {\n    // 处理错误\n    var errorOutput \u003d \"发生错误: \" + e.message;\n    errorOutput; // 直接返回错误信息\n}",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "jsRet",
+              "second": "PackageName"
+            }]
+          },
+          "id": "A-33378bb3-e26e-43e0-81e5-c0531ab663ed"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var input \u003d PackageName;\n\n// 将字符串按逗号分割\nvar entries \u003d input.split(\",\");\n\n// 定义一个数组用于存储处理后的结果\nvar result \u003d [];\n\n// 遍历每个条目\nfor (var i \u003d 0; i \u003c entries.length; i++) {\n    // 分割应用名称和包名\n    var parts \u003d entries[i].split(\" : \");\n    if (parts.length \u003e 1) {\n        // 取应用名称\n        var appName \u003d parts[0]; // 不再使用 trim() 方法去除空格\n        result.push(appName); // 添加到结果数组\n    }\n}\n\n// 将结果数组用 \" : \" 连接成字符串\nvar output \u003d result.join(\",\");\n\n// 输出结果\noutput; // 返回处理后的字符串",
+          "customContextDataKey": {
+          },
+          "id": "A-420626d1-46a3-4786-8659-c6378559d52d"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择你的代理工具",
+          "cancelable": true,
+          "data": "{jsRet}",
+          "delimiter": [","],
+          "customContextDataKey": {
+          },
+          "id": "A-7e4c7472-615e-48bd-ba04-79a63ad7f559"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "selectedListItem",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-d182ee5e-52b2-4268-b980-a927ac9e547e"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var input \u003d PackageName;\n\n// 将字符串按逗号分割\nvar entries \u003d input.split(\",\");\n\n// 创建一个字典用于存储应用名称到包名的映射\nvar appMap \u003d {};\n\n// 遍历每个条目\nfor (var i \u003d 0; i \u003c entries.length; i++) {\n    // 分割应用名称和包名\n    var parts \u003d entries[i].split(\" : \");\n    if (parts.length \u003e 1) {\n        // 将应用名称作为键，包名作为值，存入字典\n        var appName \u003d parts[0].trim();\n        var packageName \u003d parts[1].trim();\n        appMap[appName] \u003d packageName;\n    }\n}\n\n// 函数：根据输入的应用名称（用 [] 包裹）输出对应的包名\nfunction getPackageName(appName) {\n    // 去除输入中的 [ 和 ]\n    appName \u003d appName.replace(\"[\", \"\").replace(\"]\", \"\");\n    return appMap[appName] || \"应用名称不存在\";\n}\n\nvar Name \u003d {selectedListItem};\n\n// 测试：输出某个应用名称对应的包名\ngetPackageName(Name);",
+            "customContextDataKey": {
+            },
+            "id": "A-ad4151a3-480f-4bc8-818d-1af9f543b244"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "代理工具",
+            "valueAsString": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-70dbdfa7-5934-496b-b48b-07f88fb2e278"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-fe329381-ad25-4909-967c-588358b436c9"
+        }],
+        "description": "选择工具",
+        "id": "Case-7636b09c-4113-49d1-961d-61775190b4a1"
+      }, {
+        "action": [{
+          "@type": "type.googleapis.com/CreatePkgSet",
+          "label": "Proxy",
+          "customContextDataKey": {
+          },
+          "id": "A-b65545bb-bec3-4318-ae19-7c7c90be53e1"
+        }],
+        "description": "创建应用集",
+        "id": "Case-aad86d3d-ef38-420c-abd6-0701545c5141"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "VPN Sleep",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-ca9f626a-2626-4075-958b-bef9f308edca"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowChoiceDialog",
+          "title": "当最后一个需代理应用被杀死时，你选择立即停止VPN还是延迟停止？\n如果在延迟期间，你打开了一个需代理应用，会停止杀死VPN",
+          "cancelable": true,
+          "choices": [{
+            "label": "立即停止VPN",
+            "value": "立即"
+          }, {
+            "label": "延迟停止VPN",
+            "value": "延迟",
+            "isSelectedByDefault": true
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-a4b840cb-3007-4879-87ca-b53536b40620"
+        }],
+        "description": "选择方式",
+        "id": "Case-65ee4983-1ec7-4a7a-9911-1afad84e873e"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "choices",
+          "payload": {
+            "value": "[延迟]"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-66c9b2b8-6ff3-4b2a-b445-c4aa01692848"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "设置延迟(毫秒)",
+          "textFields": [{
+          }],
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-1b360796-a7c4-4960-ac63-d9a7f797c490"
+        }, {
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "VPN Sleep",
+            "type": {
+              "@type": "type.googleapis.com/Int64Var"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-d8980499-800b-43a4-abd3-ec995d43e6f8"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "VPN Sleep",
+          "valueAsString": "{textFieldInput1}",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-8936bdde-4ea8-45fb-95bc-78ec15b1adf9"
+        }],
+        "description": "设置延迟",
+        "id": "Case-47e355d5-958a-4156-bd17-9d3a8e44ff9d"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "代理工具",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-086ac2ab-5405-4189-8c36-4fb216ee8965"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "确定",
+          "negative": "取消",
+          "onNegative": [{
+            "@type": "type.googleapis.com/SetRuleEnabled",
+            "ruleId": "SHARE-rule-debea634-75d4-4727-b672-ada30c7eaf2d",
+            "customContextDataKey": {
+            },
+            "id": "A-7b89000f-3d60-47cb-b5f0-2ae994aeed9d"
+          }],
+          "title": "使用说明",
+          "message": "我已经创建一个叫做Proxy的应用集,把你需要代理的软件添加在里面\n给代理工具自启动和关联启动权限",
+          "customContextDataKey": {
+          },
+          "id": "A-d57c7f51-a637-4b67-bcd1-48bda6d895a4"
+        }],
+        "description": "使用说明",
+        "id": "Case-b5dacfb0-307c-4328-89b6-e714756a4b2a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-faddbab8-2597-4500-8ad7-5756f9f87345"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "代理工具",
+      "customContextDataKey": {
+      },
+      "id": "A-24c71324-76f1-4f75-9a50-78987fcd8f4d"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "6"
+}
+###------###
+{"type":"rule"}

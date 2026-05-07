@@ -1,0 +1,1329 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "tornaco.apps.shortx"
+      },
+      "className": "tornaco.apps.shortx.ui.pkgset.PkgSetListActivity"
+    }],
+    "tag": "应用集",
+    "customContextDataKey": {
+    },
+    "id": "F-4f348432-aafd-4dbc-b70d-ebf3ab49094b"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "tornaco.apps.shortx"
+      },
+      "className": "tornaco.apps.shortx.ui.addtoggle.AddToggleActivity"
+    }],
+    "tag": "开关",
+    "customContextDataKey": {
+    },
+    "id": "F-1ed133eb-2e6e-4462-85d1-837bd715d49a"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "tornaco.apps.shortx"
+      },
+      "className": "tornaco.apps.shortx.ui.addda.AddDirectActionActivity"
+    }],
+    "tag": "一键指令",
+    "customContextDataKey": {
+    },
+    "id": "F-c8d63429-b7b4-4d25-910b-cf8cd116b39c"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "tornaco.apps.shortx"
+      },
+      "className": "tornaco.apps.shortx.ui.addrule.AddRuleActivity"
+    }],
+    "tag": "自动指令",
+    "customContextDataKey": {
+    },
+    "id": "F-158fca2c-b71f-42c2-a74e-7dde62451c4e"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "tornaco.apps.shortx"
+      },
+      "className": "tornaco.apps.shortx.ui.gvar.GlobalVarListActivity"
+    }],
+    "tag": "全局变量",
+    "customContextDataKey": {
+    },
+    "id": "F-2ad830ab-439d-4a5b-85e4-1cd87f48f5d0"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "tornaco.apps.shortx"
+      },
+      "className": "tornaco.apps.shortx.ui.gesture.GestureRecordListActivity"
+    }],
+    "tag": "手势",
+    "customContextDataKey": {
+    },
+    "id": "F-f66174fd-2efd-4b96-af84-c3fc7cc3ebbc"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "tag": "集合",
+    "customContextDataKey": {
+    },
+    "id": "F-c86ce131-351a-442c-9632-00e26e7cf000"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "tag": "shortx启动",
+    "customContextDataKey": {
+    },
+    "id": "F-5dc22748-726e-4e7d-bed8-6939fd20bc30"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "time",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a18833c9-461f-4435-9da4-e1358da4db72"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "time",
+    "valueAsString": "%CurrentTimeFormated%",
+    "customContextDataKey": {
+    },
+    "id": "A-e25141a1-e6f2-441a-ae8f-bb400cc56429"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "自动指令",
+        "customContextDataKey": {
+        },
+        "id": "C-192f6a3f-853b-406c-9a81-f2bc09bc2bc2"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString filePath \u003dglobalVarOf$shortxpath + \"/data/u/0/data_store/rules.pb\"; \nFile file \u003d new File(filePath);\n\nif (!file.exists()) {\n    return false; // 文件不存在\n}\n\nlong lastModified \u003d file.lastModified(); // 获取最后修改时间\nlong currentTime \u003d System.currentTimeMillis(); // 当前时间\nlong oneMinuteMillis \u003d 6 * 1000; // 1分钟的毫秒数\n\n// 判断是否在1分钟内被修改\nreturn (currentTime - lastModified) \u003c\u003d oneMinuteMillis;",
+        "customContextDataKey": {
+        },
+        "id": "C-94ef5a83-2bce-423d-bb5b-0862a557ab52"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003d\"rules.pb\";\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$time+ \"-自动指令/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+        "customContextDataKey": {
+        },
+        "note": "复制",
+        "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$time+\"-自动指令\");\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-bba5e2f2-b10b-495d-9fd5-d16639d7c8d3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[0] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+        "customContextDataKey": {
+        },
+        "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "{jsRet}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+      }],
+      "description": "自动指令",
+      "id": "Case-ea269f25-c243-4b2c-b954-f26fbbdd3651",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "一键指令",
+        "customContextDataKey": {
+        },
+        "id": "C-4ff7cb90-c80e-40b1-81de-a8c3eeaf86c6"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString filePath \u003dglobalVarOf$shortxpath + \"/data/u/0/data_store/das.pb\"; \nFile file \u003d new File(filePath);\n\nif (!file.exists()) {\n    return false; // 文件不存在\n}\n\nlong lastModified \u003d file.lastModified(); // 获取最后修改时间\nlong currentTime \u003d System.currentTimeMillis(); // 当前时间\nlong oneMinuteMillis \u003d 6 * 1000; // 1分钟的毫秒数\n\n// 判断是否在1分钟内被修改\nreturn (currentTime - lastModified) \u003c\u003d oneMinuteMillis;",
+        "customContextDataKey": {
+        },
+        "id": "C-53d8fcda-dc94-4ed6-9ee9-473c28198db8"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003d\"das.pb\";\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$time+ \"-一键指令/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+        "customContextDataKey": {
+        },
+        "note": "复制",
+        "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$time+\"-一键指令\");\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-bba5e2f2-b10b-495d-9fd5-d16639d7c8d3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[1] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+        "customContextDataKey": {
+        },
+        "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "{jsRet}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+      }],
+      "description": "一键指令",
+      "id": "Case-1dd89869-49bc-4af8-8576-79dd7456e066",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "开关",
+        "customContextDataKey": {
+        },
+        "id": "C-90d662a8-9e75-4528-8393-16fd1ec1bcff"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString filePath \u003dglobalVarOf$shortxpath + \"/data/u/0/data_store/toggles.pb\"; \nFile file \u003d new File(filePath);\n\nif (!file.exists()) {\n    return false; // 文件不存在\n}\n\nlong lastModified \u003d file.lastModified(); // 获取最后修改时间\nlong currentTime \u003d System.currentTimeMillis(); // 当前时间\nlong oneMinuteMillis \u003d 6 * 1000; // 1分钟的毫秒数\n\n// 判断是否在1分钟内被修改\nreturn (currentTime - lastModified) \u003c\u003d oneMinuteMillis;",
+        "customContextDataKey": {
+        },
+        "id": "C-8d7f3c50-2c97-4c19-b4a0-0a566b3eded7"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003d\"toggles.pb\";\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$time+ \"-开关/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+        "customContextDataKey": {
+        },
+        "note": "复制",
+        "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$time+\"-开关\");\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-bba5e2f2-b10b-495d-9fd5-d16639d7c8d3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[2] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+        "customContextDataKey": {
+        },
+        "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "{jsRet}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+      }],
+      "description": "开关",
+      "id": "Case-ab9d8340-fb85-4f87-913e-4fd815828d95",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "手势",
+        "customContextDataKey": {
+        },
+        "id": "C-6d83965c-b2c3-474e-8b19-2af07d141f81"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString filePath \u003dglobalVarOf$shortxpath + \"/data/u/0/data_store/gestureRecords.pb\"; \nFile file \u003d new File(filePath);\n\nif (!file.exists()) {\n    return false; // 文件不存在\n}\n\nlong lastModified \u003d file.lastModified(); // 获取最后修改时间\nlong currentTime \u003d System.currentTimeMillis(); // 当前时间\nlong oneMinuteMillis \u003d 6 * 1000; // 1分钟的毫秒数\n\n// 判断是否在1分钟内被修改\nreturn (currentTime - lastModified) \u003c\u003d oneMinuteMillis;",
+        "customContextDataKey": {
+        },
+        "id": "C-bdf3f71c-f25e-4889-880d-e9ae0a36618e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003d\"gestureRecords.pb\";\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$time+ \"-手势/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+        "customContextDataKey": {
+        },
+        "note": "复制",
+        "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$time+\"-手势\");\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-bba5e2f2-b10b-495d-9fd5-d16639d7c8d3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[3] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+        "customContextDataKey": {
+        },
+        "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "{jsRet}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+      }],
+      "description": "手势",
+      "id": "Case-92a25423-3de7-4deb-ab89-0a7321ad6b47",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "应用集",
+        "customContextDataKey": {
+        },
+        "id": "C-e164ea28-2280-4dad-974b-2da5c436efa0"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString filePath \u003dglobalVarOf$shortxpath + \"/data/u/0/data_store/pkgsets.pb\"; \nFile file \u003d new File(filePath);\n\nif (!file.exists()) {\n    return false; // 文件不存在\n}\n\nlong lastModified \u003d file.lastModified(); // 获取最后修改时间\nlong currentTime \u003d System.currentTimeMillis(); // 当前时间\nlong oneMinuteMillis \u003d 6 * 1000; // 1分钟的毫秒数\n\n// 判断是否在1分钟内被修改\nreturn (currentTime - lastModified) \u003c\u003d oneMinuteMillis;",
+        "customContextDataKey": {
+        },
+        "id": "C-b75ed77b-5805-417e-8729-4ab33b1b1182"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003d\"pkgsets.pb\";\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$time+ \"-应用集/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+        "customContextDataKey": {
+        },
+        "note": "复制",
+        "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$time+\"-应用集\");\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-bba5e2f2-b10b-495d-9fd5-d16639d7c8d3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[4] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+        "customContextDataKey": {
+        },
+        "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "{jsRet}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+      }],
+      "description": "应用集",
+      "id": "Case-272ae30d-b345-4a91-8daf-5f9488f67771",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "集合",
+        "customContextDataKey": {
+        },
+        "id": "C-14b7a7c5-9623-46c7-8dd9-d3348085f0b5"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString filePath \u003dglobalVarOf$shortxpath + \"/data/u/0/data_store/dasets.pb\"; \nFile file \u003d new File(filePath);\n\nif (!file.exists()) {\n    return false; // 文件不存在\n}\n\nlong lastModified \u003d file.lastModified(); // 获取最后修改时间\nlong currentTime \u003d System.currentTimeMillis(); // 当前时间\nlong oneMinuteMillis \u003d 6 * 1000; // 1分钟的毫秒数\n\n// 判断是否在1分钟内被修改\nreturn (currentTime - lastModified) \u003c\u003d oneMinuteMillis;",
+        "customContextDataKey": {
+        },
+        "id": "C-d1c7218b-18ee-4661-82f5-1f0c0f17e131"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003d\"dasets.pb\";\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$time+ \"-一键指令集合/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+        "customContextDataKey": {
+        },
+        "note": "复制",
+        "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$time+\"-一键指令集合\");\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-bba5e2f2-b10b-495d-9fd5-d16639d7c8d3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[5] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+        "customContextDataKey": {
+        },
+        "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "{jsRet}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+      }],
+      "description": "一键指令集合",
+      "id": "Case-0ddb3ce4-69c6-4ff6-9ad5-fe0300199c49",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "集合",
+        "customContextDataKey": {
+        },
+        "id": "C-e5b354d6-0c67-4d5c-80bd-0412889afb91"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString filePath \u003dglobalVarOf$shortxpath + \"/data/u/0/data_store/rulesets.pb\"; \nFile file \u003d new File(filePath);\n\nif (!file.exists()) {\n    return false; // 文件不存在\n}\n\nlong lastModified \u003d file.lastModified(); // 获取最后修改时间\nlong currentTime \u003d System.currentTimeMillis(); // 当前时间\nlong oneMinuteMillis \u003d 6 * 1000; // 1分钟的毫秒数\n\n// 判断是否在1分钟内被修改\nreturn (currentTime - lastModified) \u003c\u003d oneMinuteMillis;",
+        "customContextDataKey": {
+        },
+        "id": "C-25cfdcd0-0221-46d3-9020-0fc8247af1a0"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003d\"rulesets.pb\";\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$time+ \"-自动指令集合/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+        "customContextDataKey": {
+        },
+        "note": "复制",
+        "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$time+\"-自动指令集合\");\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-bba5e2f2-b10b-495d-9fd5-d16639d7c8d3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[6] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+        "customContextDataKey": {
+        },
+        "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "{jsRet}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+      }],
+      "description": "自动指令集合",
+      "id": "Case-0a353a1f-d2e3-47f9-8db5-b2b7606a2b38",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "全局变量",
+        "customContextDataKey": {
+        },
+        "id": "C-31702c5c-dade-4d1f-bd89-3a2c632679a0"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString filePath \u003dglobalVarOf$shortxpath + \"/data/u/0/data_store/globalVars.pb\"; \nFile file \u003d new File(filePath);\n\nif (!file.exists()) {\n    return false; // 文件不存在\n}\n\nlong lastModified \u003d file.lastModified(); // 获取最后修改时间\nlong currentTime \u003d System.currentTimeMillis(); // 当前时间\nlong oneMinuteMillis \u003d 6 * 1000; // 1分钟的毫秒数\n\n// 判断是否在1分钟内被修改\nreturn (currentTime - lastModified) \u003c\u003d oneMinuteMillis;",
+        "customContextDataKey": {
+        },
+        "id": "C-65fc8416-32e7-4aff-af97-046d4c94ffa9"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003d\"globalVars.pb\";\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$time+ \"-全局变量/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+        "customContextDataKey": {
+        },
+        "note": "复制",
+        "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$time+\"-全局变量\");\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-bba5e2f2-b10b-495d-9fd5-d16639d7c8d3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[7] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+        "customContextDataKey": {
+        },
+        "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "{jsRet}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+      }],
+      "description": "全局变量",
+      "id": "Case-a9e537e4-d7e8-4df0-b146-9bcd9f1d34ac",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "shortx启动",
+        "customContextDataKey": {
+        },
+        "id": "C-103e9729-c7c8-4e53-a4f1-d1470676b83c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "startshortxtime",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-d2e8282a-d103-4015-b7e9-ecebb0cd4906"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "startshortxtime",
+        "valueAsString": "%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-d3a582d4-4f54-4288-a4e4-939a1c2336fd"
+      }],
+      "description": "shortx启动",
+      "id": "Case-90eb61c7-07a2-40e1-a496-251791ac21a9",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "集合",
+        "customContextDataKey": {
+        },
+        "id": "C-fd55e606-3b39-464c-8a0a-b468a91ee77a"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "changelist",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-83c5e34f-6ba7-4753-a25f-29073cc5dfe0"
+      }, {
+        "@type": "type.googleapis.com/ForEach",
+        "data": "rules,das,toggles,gestureRecords,pkgsets,dasets,rulesets",
+        "delimiter": [","],
+        "actions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "filename",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-9fd1300c-d919-4cee-adfc-73899d535b70"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "filename",
+          "valueAsString": "{foreachData}.pb",
+          "customContextDataKey": {
+          },
+          "id": "A-fe1aec33-3ad8-4583-983f-630351a22b6c"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "index",
+            "type": {
+              "@type": "type.googleapis.com/Int64Var"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-767f8a19-ec4a-4f15-8acb-988f0d6d6084"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "index",
+          "valueAsString": "{foreachIndex}",
+          "customContextDataKey": {
+          },
+          "id": "A-97888962-c703-4679-a298-9444feefc83b"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchJS",
+            "expression": "function isFileModifiedBetween(filePath, startTimestamp) {\n    var File \u003d java.io.File;\n    var file \u003d new File(filePath);\n\n    if (!file.exists()) {\n        throw \"文件不存在: \" + filePath;\n    }\n\n    var lastModified \u003d file.lastModified(); // 文件最后修改时间（毫秒）\n    var now \u003d java.lang.System.currentTimeMillis();\n\n    return lastModified \u003e\u003d startTimestamp \u0026\u0026 lastModified \u003c\u003d now;\n}\nfilename\u003dlocalVarOf$filename;\nvar path \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" + filename;\nvar startTime \u003d globalVarOf$startshortxtime.split(\",\")[localVarOf$index] +3000;\nvar result \u003d isFileModifiedBetween(path, startTime);\nresult;",
+            "customContextDataKey": {
+            },
+            "id": "C-40761423-4031-4e20-ad40-a1f10533402e"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "IsEmpty",
+              "varName": "changelist",
+              "payload": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-b1ba4cb5-bf5c-4cf5-8c62-6afbf63a5a79"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "changelist",
+              "valueAsString": "localVarOf$filename",
+              "customContextDataKey": {
+              },
+              "id": "A-5dc6c34e-2e8c-4df6-b9cd-308b2640df03"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "changelist",
+              "valueAsString": "localVarOf$changelist,localVarOf$filename",
+              "customContextDataKey": {
+              },
+              "id": "A-5dc6c34e-2e8c-4df6-b9cd-308b2640df03"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-ea3f8785-9892-4075-8377-d289c73ba1dd"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-9873c708-867f-4117-ba05-83642f4a4a21"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-46faed13-41e6-410e-a388-53e7fe2c7413"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsEmpty",
+          "varName": "changelist",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-3db5716d-b1f2-49ac-a886-bcff86516ca9"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-f6116c91-7ea9-4e25-9bf2-1a5b4ced053a"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-1a4fdcb6-b21e-45ad-9ddf-bf5320b33b29"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "localVarOf$changelist",
+        "regex": "rules.pb",
+        "replacement": "自动指令",
+        "customContextDataKey": {
+        },
+        "id": "A-8b9abe37-38be-4b72-929c-fce69a376708"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{replaceResult}",
+        "regex": "das.pb",
+        "replacement": "一键指令",
+        "customContextDataKey": {
+        },
+        "id": "A-d1544bdb-dcc1-44c6-8e4b-59ec6a5bfdaf"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{replaceResult}",
+        "regex": "dasets.pb",
+        "replacement": "一键指令集合",
+        "customContextDataKey": {
+        },
+        "id": "A-5c7ff061-519b-4ad7-90fa-8c50fa08e365"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{replaceResult}",
+        "regex": "rules.pb",
+        "replacement": "自动指令集合",
+        "customContextDataKey": {
+        },
+        "id": "A-04bc1817-7d28-4e8e-87ee-7ff8958ca873"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{replaceResult}",
+        "regex": "pkgsets.pb",
+        "replacement": "应用集",
+        "customContextDataKey": {
+        },
+        "id": "A-415528ba-1f44-4f89-8861-8816f1e47a54"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{replaceResult}",
+        "regex": "gestureRecords.pb",
+        "replacement": "手势",
+        "customContextDataKey": {
+        },
+        "id": "A-00a4aac2-3ea2-4275-8a8e-705e822082cc"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{replaceResult}",
+        "regex": "toggles.pb",
+        "replacement": "开关",
+        "customContextDataKey": {
+        },
+        "id": "A-871691fe-f823-4d51-8cf1-767c0d904f3a"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "pathname",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-afe46ae1-f2e9-4310-98b5-d1d9c310da7d"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "pathname",
+        "valueAsString": "未知变更-localVarOf$time-{replaceResult}",
+        "customContextDataKey": {
+        },
+        "id": "A-556896e0-14e2-4b64-973c-a87eceb09df5"
+      }, {
+        "@type": "type.googleapis.com/ForEach",
+        "data": "localVarOf$changelist",
+        "delimiter": [","],
+        "actions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "filename1",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-73a15023-3756-466f-a82b-9e3f0b0388e1"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "filename1",
+          "valueAsString": "{foreachData}",
+          "customContextDataKey": {
+          },
+          "id": "A-1fdad0a0-bc0e-42d5-93ec-93322eb973db"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003dlocalVarOf$filename1;\noldpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\nnewpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$pathname + \"/\" +filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+          "customContextDataKey": {
+          },
+          "note": "复制",
+          "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-c904abc7-43ee-45dc-9ec0-8f54b554fd8f"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(localVarOf$pathname);\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+        "customContextDataKey": {
+        },
+        "id": "A-44978200-3b79-4faf-9098-596f99e49615"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "startshortxtime",
+        "customContextDataKey": {
+        },
+        "id": "A-22952dcc-6a91-4f98-af27-c62e33ffbc94"
+      }],
+      "description": "shortx停止",
+      "id": "Case-2e8ad94d-4e2e-45a1-877e-ca6d7e86463b",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "IsEmpty",
+        "varName": "factTag",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2dc8cf37-610a-4d99-843d-c8ed1fc96690"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "查看变更记录",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "function readFileContent(filePath) {\n    var file \u003d new java.io.File(filePath);\n    if (!file.exists()) {\n        return \"\";\n    }\n\n    var scanner \u003d new java.util.Scanner(file, \"UTF-8\").useDelimiter(\"\\\\Z\");\n    var content \u003d scanner.hasNext() ? scanner.next() : \"\";\n    scanner.close();\n    return content;\n}\n\n// 示例调用\nreadFileContent(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");",
+            "customContextDataKey": {
+            },
+            "id": "A-866ab327-425f-42e9-945c-a91944ae2b79"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "changelog",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-5c5cb21b-2a9a-424c-ba73-1615cd97851f"
+          }, {
+            "@type": "type.googleapis.com/ForEach",
+            "data": "{jsRet}",
+            "delimiter": ["\n"],
+            "actions": [{
+              "@type": "type.googleapis.com/CreateLocalVar",
+              "localVar": {
+                "name": "pathname",
+                "type": {
+                  "@type": "type.googleapis.com/StringVar"
+                }
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-872b286d-0f55-49b9-a6fc-509dfe52dc97"
+            }, {
+              "@type": "type.googleapis.com/ReplaceRegex",
+              "string": "{foreachData}",
+              "regex": "回溯-",
+              "customContextDataKey": {
+              },
+              "id": "A-e13ab54d-041d-4a36-bf04-7f8f55605259"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "pathname",
+              "valueAsString": "{replaceResult}",
+              "customContextDataKey": {
+              },
+              "id": "A-d4d31f74-bd04-44af-aa4f-bf8d535eeee5"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/MatchMVEL",
+                "expression": "import java.io.File;\n\nString dirPath \u003dglobalVarOf$shortxpath+ \"/tmp/git/\"+localVarOf$pathname+\"/readme.txt\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个文件\nreturn dir.exists() \u0026\u0026 dir.isFile();",
+                "customContextDataKey": {
+                },
+                "id": "C-bcfaa424-f6f3-4b2c-814a-8cac193c3257"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ExecuteJS",
+                "expression": "function readFileContent(filePath) {\n    var file \u003d new java.io.File(filePath);\n    if (!file.exists()) {\n        return \"\";\n    }\n\n    var scanner \u003d new java.util.Scanner(file, \"UTF-8\").useDelimiter(\"\\\\Z\");\n    var content \u003d scanner.hasNext() ? scanner.next() : \"\";\n    scanner.close();\n    return content;\n}\n\n// 示例调用\nreadFileContent(globalVarOf$shortxpath+\"/tmp/git/\"+localVarOf$pathname+\"/readme.txt\");",
+                "customContextDataKey": {
+                },
+                "id": "A-a5eeef41-6fb1-423c-9a68-7c92fbf01258"
+              }, {
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "changelog",
+                "valueAsString": "localVarOf$changelog\n---------------------------------\n{foreachData}\n变更日志：\n{jsRet}\n",
+                "customContextDataKey": {
+                },
+                "id": "A-2488d762-bbbc-48bc-85c9-42912c85ac07"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "changelog",
+                "valueAsString": "localVarOf$changelog\n---------------------------------\nlocalVarOf$pathname\n变更日志：\n无\n",
+                "customContextDataKey": {
+                },
+                "id": "A-2488d762-bbbc-48bc-85c9-42912c85ac07"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-a04e6936-f327-4cb3-a672-f68af9dfca56"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-07b29f0d-c023-463b-bd82-a0684f1e84d5"
+          }, {
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "关闭",
+            "title": "变更列表",
+            "message": "localVarOf$changelog",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-f184a2ed-8f87-4f6f-b625-6868fbad677a"
+          }]
+        }, {
+          "title": "给变更添加日志",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "function readFileContent(filePath) {\n    var file \u003d new java.io.File(filePath);\n    if (!file.exists()) {\n        return \"\";\n    }\n\n    var scanner \u003d new java.util.Scanner(file, \"UTF-8\").useDelimiter(\"\\\\Z\");\n    var content \u003d scanner.hasNext() ? scanner.next() : \"\";\n    scanner.close();\n    return content;\n}\n\n// 示例调用\nreadFileContent(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");",
+            "customContextDataKey": {
+            },
+            "id": "A-7977bfe0-9897-490f-8ff8-db27d3fe2310"
+          }, {
+            "@type": "type.googleapis.com/ShowListDialog",
+            "title": "选择变更",
+            "cancelable": true,
+            "data": "{jsRet}",
+            "delimiter": ["\n"],
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-74f0b22e-17da-4c25-9821-d5255c119c5b"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "choose",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-1f6baa22-98fd-4e50-baba-46925b87e531"
+          }, {
+            "@type": "type.googleapis.com/ReplaceRegex",
+            "string": "{selectedListItem}",
+            "regex": "回溯-",
+            "customContextDataKey": {
+            },
+            "id": "A-98f0fc74-825a-4c0a-a388-fa787ec9ac78"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "choose",
+            "valueAsString": "{replaceResult}",
+            "customContextDataKey": {
+            },
+            "id": "A-c01ece1e-1229-420a-828d-6856760a90b5"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/MatchMVEL",
+              "expression": "import java.io.File;\n\nString dirPath \u003dglobalVarOf$shortxpath+ \"/tmp/git/\"+localVarOf$choose+\"/readme.txt\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个文件\nreturn dir.exists() \u0026\u0026 dir.isFile();",
+              "customContextDataKey": {
+              },
+              "id": "C-bcfaa424-f6f3-4b2c-814a-8cac193c3257"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ExecuteJS",
+              "expression": "function readFileContent(filePath) {\n    var file \u003d new java.io.File(filePath);\n    if (!file.exists()) {\n        return \"\";\n    }\n\n    var scanner \u003d new java.util.Scanner(file, \"UTF-8\").useDelimiter(\"\\\\Z\");\n    var content \u003d scanner.hasNext() ? scanner.next() : \"\";\n    scanner.close();\n    return content;\n}\n\n// 示例调用\nreadFileContent(globalVarOf$shortxpath+\"/tmp/git/\"+localVarOf$choose+\"/readme.txt\");",
+              "customContextDataKey": {
+              },
+              "id": "A-866ab327-425f-42e9-945c-a91944ae2b79"
+            }, {
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "修改变更日志",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "变更日志",
+                "value": "{jsRet}"
+              }],
+              "style": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-1f141431-ff77-43da-9cdd-b7337f3ed1a8"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "添加变更日志",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "变更日志"
+              }],
+              "style": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-1f141431-ff77-43da-9cdd-b7337f3ed1a8"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-a04e6936-f327-4cb3-a672-f68af9dfca56"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/\"+localVarOf$choose+\"/readme.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, false)); // false 表示覆盖写入\nwriter.write({textFieldInput1});\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+            "customContextDataKey": {
+            },
+            "id": "A-eabe0ec3-24a9-419a-b559-a46eaaa1c3e9"
+          }]
+        }, {
+          "title": "回溯变更",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "function readFileContent(filePath) {\n    var file \u003d new java.io.File(filePath);\n    if (!file.exists()) {\n        return \"\";\n    }\n\n    var scanner \u003d new java.util.Scanner(file, \"UTF-8\").useDelimiter(\"\\\\Z\");\n    var content \u003d scanner.hasNext() ? scanner.next() : \"\";\n    scanner.close();\n    return content;\n}\n\n// 示例调用\nreadFileContent(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");",
+            "customContextDataKey": {
+            },
+            "id": "A-7977bfe0-9897-490f-8ff8-db27d3fe2310"
+          }, {
+            "@type": "type.googleapis.com/ShowListDialog",
+            "title": "选择变更",
+            "cancelable": true,
+            "data": "{jsRet}",
+            "delimiter": ["\n"],
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-74f0b22e-17da-4c25-9821-d5255c119c5b"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "choose",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-1f6baa22-98fd-4e50-baba-46925b87e531"
+          }, {
+            "@type": "type.googleapis.com/ReplaceRegex",
+            "string": "{selectedListItem}",
+            "regex": "回溯-",
+            "customContextDataKey": {
+            },
+            "id": "A-98f0fc74-825a-4c0a-a388-fa787ec9ac78"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "choose",
+            "valueAsString": "{replaceResult}",
+            "customContextDataKey": {
+            },
+            "id": "A-c01ece1e-1229-420a-828d-6856760a90b5"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/MatchMVEL",
+              "expression": "import java.io.File;\n\nString dirPath \u003dglobalVarOf$shortxpath+ \"/tmp/git/\"+localVarOf$choose+\"/readme.txt\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个文件\nreturn dir.exists() \u0026\u0026 dir.isFile();",
+              "customContextDataKey": {
+              },
+              "id": "C-bcfaa424-f6f3-4b2c-814a-8cac193c3257"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ExecuteJS",
+              "expression": "function readFileContent(filePath) {\n    var file \u003d new java.io.File(filePath);\n    if (!file.exists()) {\n        return \"\";\n    }\n\n    var scanner \u003d new java.util.Scanner(file, \"UTF-8\").useDelimiter(\"\\\\Z\");\n    var content \u003d scanner.hasNext() ? scanner.next() : \"\";\n    scanner.close();\n    return content;\n}\n\n// 示例调用\nreadFileContent(globalVarOf$shortxpath+\"/tmp/git/\"+localVarOf$choose+\"/readme.txt\");",
+              "customContextDataKey": {
+              },
+              "id": "A-a5eeef41-6fb1-423c-9a68-7c92fbf01258"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"无\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "jsRet"
+                }]
+              },
+              "id": "A-21841e57-8504-4b95-bc02-d6dda37854f7"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-a2cd1330-cfd7-4a8b-9aca-0c5e7fcf7299"
+          }, {
+            "@type": "type.googleapis.com/ShowMenuDialog",
+            "items": [{
+              "title": "确认",
+              "clickActions": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "dir \u003d globalVarOf$shortxpath + \"/tmp/git/\" + localVarOf$choose;\nrootDir \u003d new java.io.File(dir);\nnames \u003d \"\";\n\nif (rootDir !\u003d null \u0026\u0026 rootDir.exists() \u0026\u0026 rootDir.isDirectory()) {\n    files \u003d rootDir.listFiles();\n    if (files !\u003d null) {\n        for (i \u003d 0; i \u003c files.length; i++) {\n            f \u003d files[i];\n            if (f !\u003d null \u0026\u0026 f.isFile()) {\n                if (names.length() \u003e 0) {\n                    names +\u003d \"\\n\";\n                }\n                names +\u003d f.getName();\n            }\n        }\n    }\n}\n\nreturn names;",
+                "customContextDataKey": {
+                },
+                "note": "获取子文件名",
+                "id": "A-71b83245-91a5-4ed0-a644-c1dcedf1113b"
+              }, {
+                "@type": "type.googleapis.com/ForEach",
+                "data": "{mvelRet}",
+                "delimiter": [","],
+                "actions": [{
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateContextVar",
+                    "op": "Contains",
+                    "varName": "foreachData",
+                    "payload": {
+                      "value": ".pb"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-f4ff32fd-41f3-4367-bf68-a5a7921d9ff4"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/CreateLocalVar",
+                    "localVar": {
+                      "name": "filename",
+                      "type": {
+                        "@type": "type.googleapis.com/StringVar"
+                      }
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "A-a40dba84-b207-4b17-8fd5-e79e4406e996"
+                  }, {
+                    "@type": "type.googleapis.com/WriteLocalVar",
+                    "varName": "filename",
+                    "valueAsString": "{foreachData}",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-999abbef-09fb-4ca6-8832-eff4aae7b6fa"
+                  }, {
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "import java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.StandardCopyOption;\nfilename\u003dlocalVarOf$filename;\nnewpath \u003d globalVarOf$shortxpath + \"/data/u/0/data_store/\" +filename;\noldpath \u003d globalVarOf$shortxpath + \"/tmp/git/\" +localVarOf$choose + \"/\" + filename;\nsrc \u003d new File(oldpath);\ndest \u003d new File(newpath);\n\n// 创建目标目录（如果不存在）\ndest.getParentFile().mkdirs();\n\n// 复制文件\nFiles.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);",
+                    "customContextDataKey": {
+                    },
+                    "note": "复制",
+                    "id": "A-2be8017a-9897-4b52-9542-60db8b5937f5"
+                  }, {
+                    "@type": "type.googleapis.com/ExecuteJS",
+                    "expression": "// 原始时间戳字符串（示例）\nvar timestamps \u003d globalVarOf$startshortxtime;\nvar filename \u003d localVarOf$filename\nswitch (filename){\n    case \"rules.pb\": index\u003d0;\n    case \"das.pb\": index\u003d1;\n    case \"toggles.pb\": index\u003d2;\n    case \"gestureRecords.pb\":index\u003d3;\n    case \"pkgsets.pb\": index \u003d4;\n    case \"dasets.pb\" :index\u003d5;\n    case \"rulesets.pb\" : index\u003d6;\n    case \"globalVars.pb\": index\u003d7;\n    }\n// 将字符串拆分成数组\nvar arr \u003d timestamps.split(\",\");\n\n// 获取当前时间戳（毫秒）\nvar now \u003d (new Date()).getTime();\n\n// 替换第一个时间戳\narr[index] \u003d now.toString();\n\n// 重新拼接为字符串\nvar newTimestamps \u003d arr.join(\",\");\n\n// 输出结果（你可以根据需要返回或打印）\nnewTimestamps;",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-000b7832-b881-4e7f-81b2-9c7c1d68c418"
+                  }, {
+                    "@type": "type.googleapis.com/WriteGlobalVar",
+                    "varName": "startshortxtime",
+                    "valueAsString": "{jsRet}",
+                    "op": "WriteGlobalVarOp_Override",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-a7201ad1-2181-4ca7-b77f-44998a6666c0"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-5f6dd985-711c-490e-91a0-4908f6678199"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-e18f4b47-e8dc-4f56-82c9-73deb498191f"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "file \u003d new java.io.File(globalVarOf$shortxpath+\"/tmp/git/gitlist.txt\");\nwriter \u003d new java.io.BufferedWriter(new java.io.FileWriter(file, true)); // false 表示覆盖写入\nwriter.write(\"回溯-\"+localVarOf$choose);\nwriter.newLine(); // 如果需要换行\nwriter.close();",
+                "customContextDataKey": {
+                },
+                "id": "A-eabe0ec3-24a9-419a-b559-a46eaaa1c3e9"
+              }, {
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "回溯已完成，重启后生效",
+                "customContextDataKey": {
+                },
+                "id": "A-76f1298e-18b4-4e87-a318-962f91c66250"
+              }]
+            }, {
+              "title": "取消"
+            }],
+            "title": "确认回溯\nlocalVarOf$choose？\n变更日志：\n{jsRet}",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-0460e68a-1dbc-4a54-9b59-681e8d39cd38"
+          }]
+        }, {
+          "title": "上传云端",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var File \u003d java.io.File;\nvar FileInputStream \u003d java.io.FileInputStream;\nvar FileOutputStream \u003d java.io.FileOutputStream;\nvar ZipOutputStream \u003d java.util.zip.ZipOutputStream;\nvar ZipEntry \u003d java.util.zip.ZipEntry;\n\nvar buffer \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);\n\nfunction zipFolder(folder, basePath, zos) {\n    var files \u003d folder.listFiles();\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var file \u003d files[i];\n        if (file.isDirectory()) {\n            zipFolder(file, basePath + file.getName() + \"/\", zos);\n        } else {\n            var fis \u003d new FileInputStream(file);\n            var entry \u003d new ZipEntry(basePath + file.getName());\n            zos.putNextEntry(entry);\n            var len;\n            while ((len \u003d fis.read(buffer)) \u003e 0) {\n                zos.write(buffer, 0, len);\n            }\n            fis.close();\n            zos.closeEntry();\n        }\n    }\n}\n\n// 输入路径（你可以从外部传入）\nvar dirPath\u003dglobalVarOf$shortxpath + \"/tmp/git/\";\nvar zipPath \u003d globalVarOf$shortxpath + \"/cache/backup/ShortXGit.zip\";\n\nvar root \u003d new File(dirPath);\nvar fos \u003d new FileOutputStream(zipPath);\nvar zos \u003d new ZipOutputStream(fos);\n\nzipFolder(root, \"\", zos);\n\nzos.close();\nfos.close();",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d578af-9702-44dd-b4cd-18f02653f6a0"
+          }, {
+            "@type": "type.googleapis.com/WebDavPut",
+            "profileId": "e6f50208-be65-4ccc-af70-9e84445e44f6",
+            "url": "https://dav.jianguoyun.com/dav/ShortX/ShortXGit.zip",
+            "localFilePath": "globalVarOf$shortxpath/cache/backup/ShortXGit.zip",
+            "customContextDataKey": {
+            },
+            "id": "A-02407355-db32-41d8-80fe-817cfe463d81"
+          }]
+        }, {
+          "title": "同步云端数据",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WebDavGet",
+            "profileId": "e6f50208-be65-4ccc-af70-9e84445e44f6",
+            "url": "https://dav.jianguoyun.com/dav/ShortX/ShortXGit.zip",
+            "destPath": "globalVarOf$shortxpath/cache/backup/ShortXGit.zip",
+            "customContextDataKey": {
+            },
+            "id": "A-8cd70c59-b4f7-4980-945c-6617c81c49c5"
+          }, {
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "function unzip(zipFilePath, destDirPath) {\n    var ZipInputStream \u003d java.util.zip.ZipInputStream;\n    var FileInputStream \u003d java.io.FileInputStream;\n    var FileOutputStream \u003d java.io.FileOutputStream;\n    var BufferedOutputStream \u003d java.io.BufferedOutputStream;\n    var File \u003d java.io.File;\n    var BufferedInputStream \u003d java.io.BufferedInputStream;\n\n    var bufferSize \u003d 4096;\n    var zipFile \u003d new File(zipFilePath);\n    var destDir \u003d new File(destDirPath);\n\n    if (!zipFile.exists()) {\n        throw \"ZIP文件不存在: \" + zipFilePath;\n    }\n\n    if (!destDir.exists()) {\n        destDir.mkdirs();\n    }\n\n    var zis \u003d new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile)));\n\n    var entry;\n    while ((entry \u003d zis.getNextEntry()) !\u003d null) {\n        var newFile \u003d new File(destDir, entry.getName());\n\n        if (entry.isDirectory()) {\n            newFile.mkdirs();\n        } else {\n            // 创建上级目录（如果不存在）\n            var parent \u003d newFile.getParentFile();\n            if (!parent.exists()) {\n                parent.mkdirs();\n            }\n\n            var bos \u003d new BufferedOutputStream(new FileOutputStream(newFile));\n            var buffer \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, bufferSize);\n            var len;\n            while ((len \u003d zis.read(buffer)) \u003e 0) {\n                bos.write(buffer, 0, len);\n            }\n            bos.close();\n        }\n\n        zis.closeEntry();\n    }\n\n    zis.close();\n}\nunzip(globalVarOf$shortxpath+\"/cache/backup/ShortXGit.zip\",globalVarOf$shortxpath+ \"/tmp/git\");",
+            "customContextDataKey": {
+            },
+            "note": "解压",
+            "id": "A-4366b74a-1448-43ba-af2c-689c248d4c56"
+          }]
+        }, {
+          "title": "退出"
+        }],
+        "title": "选择操作",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2fa06d84-9eb1-48c5-a90c-bd95f1069dc2"
+      }],
+      "description": "执行",
+      "id": "Case-067affcf-2c83-4aa6-9584-c94e7de84efd",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7fc03446-8813-43e1-ac83-41e582bf4e2a"
+  }],
+  "id": "SHARE-rule-c1d986d1-8dcf-49df-bf01-d1cfe2679b12",
+  "lastUpdateTime": "1747750553377",
+  "createTime": "1747716888283",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "ShortX Git",
+  "description": "变更记录器，记录变更\n点击图标→执行动作，进入操作菜单",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "ls /data/system/",
+      "customContextDataKey": {
+      },
+      "id": "A-801c4fa6-eba2-4e51-afa8-00191d700d69"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "shortxpath",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-373cb3e0-d030-4784-98de-cd9a4632e460"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "IsEmpty",
+        "varName": "shellOut",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c179c93c-34d4-450e-b832-ab5d869180ed"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "shell异常自动获取shortx目录失败，请手动填写/data/system/目录下的shortx开头的目录名",
+        "cancelable": true,
+        "textFields": [{
+        }],
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-addd959f-370e-48bb-bb7b-b3db30758a37"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "shortxpath",
+        "valueAsString": "/data/system/{textFieldInput1}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-5316575c-0810-4b20-85f6-a27e15b61187"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ForEach",
+        "data": "{shellOut}",
+        "delimiter": ["\n"],
+        "actions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "foreachData",
+            "payload": {
+              "value": "shortx_"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-6c199b1c-6d08-4a4c-85ea-5615d2f8f726"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "shortxpath",
+            "valueAsString": "/data/system/{foreachData}",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-aaa8e53c-aa10-49ac-b87c-5035be6aa2d9"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Parent",
+            "customContextDataKey": {
+            },
+            "id": "A-42d5e9ca-0990-4a8f-9a45-fe2de0f430c0"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-6fde485b-40d1-46f5-9933-d9e6447a25db"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-b635e834-78aa-4842-b588-0d6cb00ce008"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-4538b55f-3e02-4bab-879a-df01428e3bc0"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import java.io.File;\n\nString dirPath \u003d globalVarOf$shortxpath + \"/tmp/git\";\nFile dir \u003d new File(dirPath);\n\n// 如果目录不存在，则创建\nif (!dir.exists()) {\n    boolean created \u003d dir.mkdirs(); // 创建多级目录\n    return created; // 返回是否创建成功\n} else {\n    return true; // 已存在，视为成功\n}",
+      "customContextDataKey": {
+      },
+      "note": "新建文件夹",
+      "id": "A-eaddfea0-b81a-42aa-97eb-34d1deb3b14c"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "startshortxtime",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-efdcb00c-51c0-4c43-8240-82f4cda89ef3"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "startshortxtime",
+      "valueAsString": "%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%,%CurrentTimeMillis%",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-d3a582d4-4f54-4288-a4e4-939a1c2336fd"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

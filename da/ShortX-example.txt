@@ -1,0 +1,36 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\n// 获取系统服务\nvar packageManager \u003d context.getPackageManager();\n\nvar result \u003d new JSONArray();\n\nif (packageManager \u003d\u003d null) {\n    var errorItem \u003d new JSONObject();\n    errorItem.put(\"error\", \"无法获取PackageManager\");\n    result.put(errorItem);\n} else {\n    try {\n        // 获取所有安装的应用，包括已冻结的应用\n        var apps \u003d packageManager.getInstalledApplications(PackageManager.GET_META_DATA | PackageManager.GET_DISABLED_COMPONENTS);\n        \n        if (apps \u003d\u003d null || apps.size() \u003d\u003d\u003d 0) {\n            var errorItem \u003d new JSONObject();\n            errorItem.put(\"error\", \"没有安装任何应用\");\n            result.put(errorItem);\n        } else {\n            for (var i \u003d 0; i \u003c apps.size(); i++) {\n                var app \u003d apps.get(i);\n                var packageName \u003d app.packageName;\n                \n                // 获取应用名称\n                var appName \u003d packageManager.getApplicationLabel(app).toString();\n                \n                // 获取应用版本号\n                var versionName \u003d \"\";\n                try {\n                    var packageInfo \u003d packageManager.getPackageInfo(packageName, 0);\n                    versionName \u003d packageInfo.versionName || \"未知\";\n                } catch (e) {\n                    versionName \u003d \"无法获取版本\";\n                }\n                \n                // 检查应用是否被冻结（禁用）\n                var isEnabled \u003d app.enabled ? \"start using\" : \"Frozen\";\n                \n                var item \u003d new JSONObject();\n                item.put(\"name\", appName);\n                item.put(\"package\", packageName);\n                item.put(\"version\", versionName);\n                item.put(\"status\", isEnabled); // 添加应用状态（启用/已冻结）\n                item.put(\"__value\", packageName);\n                item.put(\"__icon\", \"app://\" + packageName);\n                \n                result.put(item);\n            }\n        }\n    } catch (e) {\n        var errorItem \u003d new JSONObject();\n        errorItem.put(\"error\", \"获取应用列表失败: \" + e.toString());\n        result.put(errorItem);\n    }\n}\n\n// 输出JSON格式结果\nresult.toString();",
+    "customContextDataKey": {
+    },
+    "id": "A-4fb6edba-7f75-4ff0-9ad3-28a8b1f82651"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "应用列表",
+    "cancelable": true,
+    "data": "{jsRet}",
+    "delimiter": [","],
+    "dataType": "ShowListDialogDataType_Json",
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-65f2aaa8-670e-4e70-93f9-fb080c36f7bf"
+  }],
+  "id": "SHARED-DA-49469595-5e52-43bf-9eec-5958b6a37f76",
+  "lastUpdateTime": "1760342422935",
+  "createTime": "1760335869751",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "example",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

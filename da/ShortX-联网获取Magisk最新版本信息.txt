@@ -1,0 +1,73 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "output_version\u003d$(sed -n \"s/.*MAGISK_VER\u003d\u0027\\([0-9.]*\\)\u0027.*/\\1/p\" /data/adb/magisk/util_functions.sh)\noutput_code\u003d$(sed -n \"s/.*MAGISK_VER_CODE\u003d\\([0-9]*\\).*/\\1/p\" /data/adb/magisk/util_functions.sh)\n\necho \"当前版本: v$output_version\"\necho \"当前版本号: $output_code\"",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-7bae7193-fb3d-40f0-891b-bb7365e04f35"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.github.com/repos/topjohnwu/magisk/releases/latest",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["tag_name", "assets[0].browser_download_url", "assets[0].updated_at", "body"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-61668767-334e-4a0a-aec4-2ca94dedcad1"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "String input \u003d {httpRequestRet3};\nString pattern \u003d \"[A-Z]\";\nString output \u003d input.replaceAll(pattern, \" \")",
+    "customContextDataKey": {
+    },
+    "id": "A-62ce3bc9-7447-494b-8ffb-f4f7b33f3165"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "查看",
+    "onPositive": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "https://github.com/topjohnwu/Magisk/releases",
+      "customContextDataKey": {
+      },
+      "id": "A-99ad70b8-444a-47a0-a1bf-011a896d39fa"
+    }],
+    "negative": "复制更新内容",
+    "onNegative": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{httpRequestRet4}",
+      "customContextDataKey": {
+      },
+      "id": "A-d48bffa3-af96-4330-bd00-7756ac2a83fd"
+    }],
+    "neutral": "下载",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "data": "{httpRequestRet2}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0c59e707-d4e5-400d-9fde-48165466f6d8"
+    }],
+    "title": "Magisk",
+    "message": "{shellOut}\n最新版本：{httpRequestRet1}\n上传时间：{mvelRet}\n更新内容：{httpRequestRet4}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-91e030c6-80d8-4a19-b4d6-cebbb233a32e"
+  }],
+  "id": "DAc088ffb9-8556-4198-b9b1-9536a42ed7e9",
+  "lastUpdateTime": "1701881346853",
+  "createTime": "1687485822717",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "联网获取Magisk最新版本信息",
+  "directActionSetId": "DS-5464a62b-fa33-4357-a1f1-b8f3f1cf2318"
+}
+###------###
+{"type":"da"}

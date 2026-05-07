@@ -1,0 +1,39 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-0e55e4de-8310-45df-ad93-ea90923b72f6"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "title": "{pkgName}",
+    "message": "{title}\n{contentText}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-21d76135-d9fb-4927-8d75-0d15f0ebdd0f"
+  }],
+  "id": "SHARE-rule-c9f4d674-14b7-48e1-b921-ce53fddf1540",
+  "lastUpdateTime": "1749044680999",
+  "createTime": "1749044541175",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "test",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

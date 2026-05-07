@@ -1,0 +1,138 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["120fps", "90fps", "60fps"],
+    "customContextDataKey": {
+    },
+    "id": "F-38cd6a59-dcb3-47dc-b7da-92d7ffc44c87"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["120fps", "90fps", "60fps"],
+    "customContextDataKey": {
+    },
+    "id": "F-010198bc-1273-424b-b2d1-e5700da2b1c5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["60fps"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-04c62548-9547-41c0-999b-8ecb4e5975a9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system peak_refresh_rate 60.0",
+      "customContextDataKey": {
+      },
+      "id": "A-dd2f5051-252c-4566-b595-d14b5dff8ddc"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system peak_refresh_rate 120.0",
+      "customContextDataKey": {
+      },
+      "id": "A-e5ab1f90-4f4d-47bc-8bed-94f1ae66e17d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b87878db-5129-44e5-b46b-4267838f6202"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["90fps"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-fdca1248-f8f7-438f-8e4e-75cb77de0880"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system peak_refresh_rate 90.0",
+      "customContextDataKey": {
+      },
+      "id": "A-dd2f5051-252c-4566-b595-d14b5dff8ddc"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system peak_refresh_rate 120.0",
+      "customContextDataKey": {
+      },
+      "id": "A-2a79e6e6-f73a-4470-8265-cb6b106d799c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a72f38aa-4631-463c-a43f-8c4b9b8ffc22"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["120fps"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-fdca1248-f8f7-438f-8e4e-75cb77de0880"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system peak_refresh_rate 120.0",
+      "customContextDataKey": {
+      },
+      "id": "A-dd2f5051-252c-4566-b595-d14b5dff8ddc"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-6ac4ad09-8a58-4632-b2ef-86eb637173d3"
+  }],
+  "id": "rule-49463490-dba9-4427-870d-334d75731724",
+  "lastUpdateTime": "1696742502654",
+  "createTime": "1692010278844",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "动态刷新率",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "120fps",
+      "customContextDataKey": {
+      },
+      "id": "A-d6866c0e-a51e-45e2-9eff-6a54d3cd4631"
+    }, {
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "90fps",
+      "customContextDataKey": {
+      },
+      "id": "A-67922810-c61c-4ccb-b80c-a3a5ce5e9a4a"
+    }, {
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "60fps",
+      "customContextDataKey": {
+      },
+      "id": "A-49f9e1d1-610b-431a-bff0-5708170cdec9"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "service call SurfaceFlinger 1035 i32 1",
+      "customContextDataKey": {
+      },
+      "id": "A-2c8c09dc-93ed-40e2-8a33-220c1fda0dd7"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "service call SurfaceFlinger 1035 i32 1",
+      "customContextDataKey": {
+      },
+      "id": "A-6a845a29-cbda-428c-b9c5-bf4fc23a221f"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,44 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "tileNumber": 4,
+    "customContextDataKey": {
+    },
+    "id": "F-6b3140ac-ca17-42f1-9265-e80ff5b4cd8a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\n# 读取 /sys/block/zram0/bd_stat 文件的内容\nbd_stat\u003d$(cat /sys/block/zram0/bd_stat)\n\n# 将文件内容按空格分割成数组\nvalues\u003d($bd_stat)\n\n# 检查是否有至少三个数值\nif [ ${#values[@]} -lt 3 ]; then\n    echo \"bd_stat 文件格式不正确，至少需要三个数值。\"\n    exit 1\nfi\n\n# 使用 bc 进行高精度计算\nwritten_back\u003d$(echo \"scale\u003d2; ${values[0]} * 4096 / 1024 / 1024\" | bc)\ntotal_read\u003d$(echo \"scale\u003d2; ${values[1]} * 4096 / 1024 / 1024\" | bc)\ntotal_written_back\u003d$(echo \"scale\u003d2; ${values[2]} * 4096 / 1024 / 1024\" | bc)\n\n# 输出结果\necho \"已回写: ${written_back} MB\"\necho \"总读取: ${total_read} MB\"\necho \"总回写: ${total_written_back} MB\"",
+    "customContextDataKey": {
+    },
+    "id": "A-0e1f3630-afa8-4d80-ba5b-490cf304d573"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "好",
+    "title": "Zram Writeback数据",
+    "message": "{shellOut}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-bcf0d3e6-8c68-4ba2-a49c-ff5836f32dd8"
+  }],
+  "id": "SHARE-rule-09daf5d6-fcb5-472c-ab79-4d4063e76cc9",
+  "lastUpdateTime": "1736379213828",
+  "createTime": "1736379127412",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "回写数据查看",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-12b309e4-fd30-488a-9a5b-376442e9a0e8"
+}
+###------###
+{"type":"rule"}

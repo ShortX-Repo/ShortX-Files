@@ -1,0 +1,205 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "客人",
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }, {
+        "pkgName": "com.tencent.mm",
+        "userId": 999
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-561436e6-ff82-4774-8e8c-919494c83c38"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-85c82419-a326-424e-82ef-f7079051c557"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppHasNotification",
+      "pkgs": [{
+        "pkgName": "com.tencent.mm"
+      }, {
+        "pkgName": "com.tencent.mm",
+        "userId": 999
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-cd831d0d-2377-4942-9c0c-b98517172f45"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "WeChatMessage",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-40908eb4-6d28-4ad0-8540-befcc5e1e2d8"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "WeChatMessage",
+      "valueAsString": "真",
+      "customContextDataKey": {
+      },
+      "id": "A-d7453772-24f9-42f5-b4ab-98b06860b6ec"
+    }, {
+      "@type": "type.googleapis.com/ShowFloatWindow",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/HideFloatWindow",
+          "customContextDataKey": {
+          },
+          "id": "A-01a22182-2814-43e0-b843-d4f3d8761930"
+        }, {
+          "@type": "type.googleapis.com/StopAllActions",
+          "customContextDataKey": {
+          },
+          "id": "A-95aea5e9-ad98-4b3d-8671-b01f81869958"
+        }],
+        "icon": "six-circular-connection",
+        "id": "BTN-78d84b74-a627-4a88-b0c6-dec3230f55ac"
+      }],
+      "tag": "ShortX",
+      "panelRadiusScale": 1.0,
+      "customContextDataKey": {
+      },
+      "id": "A-95bf3780-f6cb-4491-ae5c-c365e22f7617"
+    }, {
+      "@type": "type.googleapis.com/SetVolume",
+      "type": 2,
+      "index": 12,
+      "customContextDataKey": {
+      },
+      "id": "A-8c9a8600-b070-4c55-9d91-4d4f7dba0db1"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d31cbce0-25e2-4978-8214-7ad23307dc67"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "WeChatMessage",
+        "payload": {
+          "value": "真"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-50ed6d32-dacf-4b3a-ac8a-6e47c365ce67"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1",
+        "useAlarm": true,
+        "showCD": true,
+        "timeUnit": "TimeUnit_M",
+        "customContextDataKey": {
+        },
+        "id": "A-670a6066-84f0-4699-a482-d6fd02eeecec"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/CurrentPkgList",
+          "pkgs": [{
+            "pkgName": "com.tencent.mm",
+            "userId": 999
+          }, {
+            "pkgName": "com.tencent.mm"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-84d06223-752f-4380-954a-d1deea5ed851"
+        }, {
+          "@type": "type.googleapis.com/AppHasNotification",
+          "pkgs": [{
+            "pkgName": "com.tencent.mm"
+          }, {
+            "pkgName": "com.tencent.mm",
+            "userId": 999
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-448bb101-3fff-4d9a-b6ed-0aaaa2d54104"
+        }],
+        "IfCondOp": "ANY",
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "WeChatMessage",
+          "valueAsString": "假",
+          "customContextDataKey": {
+          },
+          "id": "A-e7e19adf-98ca-49a3-9d1b-0924d8aa8569"
+        }, {
+          "@type": "type.googleapis.com/HideFloatWindow",
+          "customContextDataKey": {
+          },
+          "id": "A-4840db89-6d0a-484e-9e1a-5bda720596f2"
+        }, {
+          "@type": "type.googleapis.com/StopAllActions",
+          "customContextDataKey": {
+          },
+          "id": "A-7c835b43-d0aa-48c6-93b8-99ba0fb15256"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-9112eda5-b56d-48bf-9ddf-f73a0db63fc0"
+      }, {
+        "@type": "type.googleapis.com/WhileLoop",
+        "actions": [{
+          "@type": "type.googleapis.com/PlayRingtone",
+          "ringtone": {
+            "title": "TZYP",
+            "uri": "content://media/external/audio/media/1000006759?title\u003dTZYP\u0026canonical\u003d1",
+            "type": 1
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-b17b229c-ebcf-4389-9566-5c8b893b41a6"
+        }],
+        "repeatTimes": 1,
+        "customContextDataKey": {
+        },
+        "id": "A-f2a13cea-ddf0-41a1-8ad9-6e76b56b31c1"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-4d81de11-ed88-4f55-b5fd-647f1edf373a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-9fe355de-a7a6-44d2-936b-feabd37b35e6"
+  }],
+  "id": "SHARE-rule-fbee99cb-4e4d-4d09-87c4-8c8d3d308588",
+  "lastUpdateTime": "1754419669773",
+  "createTime": "1753456672618",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "收到通知循环提醒",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

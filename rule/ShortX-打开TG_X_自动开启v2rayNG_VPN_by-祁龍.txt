@@ -1,0 +1,141 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStartRunning",
+    "apps": [{
+      "pkgName": "org.telegram.messenger.web"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-4e6bbb70-8aaf-49cc-b552-ec49ffff91aa"
+  }, {
+    "@type": "type.googleapis.com/PkgStartRunning",
+    "apps": [{
+      "pkgName": "com.twitter.android"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-b408686d-e9c4-401a-a291-26850db8aa19"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "telegram",
+    "customContextDataKey": {
+    },
+    "id": "A-6579570e-297a-49d3-b62e-ba4c890f544a"
+  }, {
+    "@type": "type.googleapis.com/StartActivityIntent",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.v2ray.ang",
+      "className": "com.v2ray.ang.service.V2RayVpnService"
+    },
+    "componentType": "AndroidIntentComponentTypeService",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-e0f43766-f01a-4870-80a8-65154cee3dd0"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "✓已自动打开v2rayNG VPN服务 请等待服务开启…",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-361b9bc2-9395-4284-963c-56d0431e2eee"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ServiceIsRunning",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.v2ray.ang"
+        },
+        "className": "com.v2ray.ang.service.V2RayVpnService"
+      }],
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-9b8c603d-8245-430b-ae09-c3ed7cab8b10"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.v2ray.ang",
+        "className": "com.v2ray.ang.service.V2RayVpnService"
+      },
+      "componentType": "AndroidIntentComponentTypeService",
+      "customContextDataKey": {
+      },
+      "id": "A-e0f43766-f01a-4870-80a8-65154cee3dd0"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "✓已自动打开v2rayNG VPN服务 请等待服务开启…",
+      "customContextDataKey": {
+      },
+      "id": "A-361b9bc2-9395-4284-963c-56d0431e2eee"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-99b5b623-542c-478d-8b67-1cd02c184a8d"
+  }],
+  "id": "SHARE-rule-c32f8644-4c2d-44a5-b6a1-a1b8ac0b7244",
+  "lastUpdateTime": "1742812847154",
+  "createTime": "1742070870587",
+  "author": {
+    "name": "祁龍"
+  },
+  "title": "打开TG X 自动开启v2rayNG VPN\nby-祁龍",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "apps": [{
+        "pkgName": "org.telegram.messenger.web"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-0008633a-b97a-42fe-a19f-464e9d9af4f0"
+    }, {
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "apps": [{
+        "pkgName": "com.twitter.android"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-d8718edd-ebd2-4948-8d49-0b01ac3ecfed"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.v2ray.ang"
+        },
+        "className": "com.v2ray.ang.service.V2RayVpnService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-9253bac4-3ca8-4ed2-900a-543135a3645f"
+    }, {
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.v2ray.ang"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-675358cf-0da1-41d3-94c8-d53dab50fde6"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已退出TG 正在关闭v2rayNG VPN服务…",
+      "customContextDataKey": {
+      },
+      "id": "A-e316b355-a3ab-4259-925e-6d07477dfd54"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-da29f010-6b0c-4a6e-990f-ad882f26e832"
+}
+###------###
+{"type":"rule"}

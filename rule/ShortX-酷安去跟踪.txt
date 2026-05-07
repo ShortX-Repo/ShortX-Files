@@ -1,0 +1,55 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "content": ".*www.coolapk.com.*",
+    "customContextDataKey": {
+    },
+    "id": "F-06c5a0c7-6005-4507-8a74-f3fca67fc30d"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-4d19a55e-5a21-442a-8fee-6d893eb5c9e1"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-1348a221-3f5b-4748-bfca-6c1744e4e0aa"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "String input \u003d {clipboardContent};\nString pattern \u003d \"\\\\b(shareKey\u003d|shareUid\u003d)[^\u0026]*\";\nString output \u003d input.replaceAll(pattern, \"\");",
+    "customContextDataKey": {
+    },
+    "id": "A-a2bcdb26-045c-4715-b52e-c03a0ab90157"
+  }, {
+    "@type": "type.googleapis.com/WriteClipboard",
+    "text": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-e30ab7a9-8e41-4c2a-8167-b9b859bcf222"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "酷安链接已去追踪ID",
+    "customContextDataKey": {
+    },
+    "id": "A-738af6c6-ef33-4771-b26a-c19d9bf87493"
+  }],
+  "id": "rule-5cc3c412-992e-4494-8aa7-2a57c60505ec",
+  "lastUpdateTime": "1695523429861",
+  "createTime": "1695519711511",
+  "author": {
+    "name": "1"
+  },
+  "title": "酷安去跟踪",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-f8d9d689-305c-43b9-9d55-2097d82b3bdf"
+}
+###------###
+{"type":"rule"}

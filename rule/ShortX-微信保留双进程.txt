@@ -1,0 +1,57 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-51b9842e-6464-41e0-bcb1-b4a157bada2d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "20000",
+    "customContextDataKey": {
+    },
+    "id": "A-decfe4c3-bfba-45c7-9402-38aedac60982"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-620425f8-ea08-42c0-8fe4-b1def0cdbf50"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "ps -ef|grep com.tencent.mm:|grep -v :push|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+      "customContextDataKey": {
+      },
+      "id": "A-3634fb0c-d6bc-47cd-b4c3-89e3046ae9ea"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-86fffdbc-c57b-49c7-a80a-ad640d05ce1e"
+  }],
+  "id": "rule-f5baf10a-6db7-469a-b250-8e02565967ee",
+  "lastUpdateTime": "1713355156110",
+  "createTime": "1713318473927",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信保留双进程",
+  "description": " ",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

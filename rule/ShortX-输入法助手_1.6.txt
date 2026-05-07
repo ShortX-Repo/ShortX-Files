@@ -1,0 +1,486 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-9ea95f4a-88c0-4d05-bcb2-212b313f0cdc"
+  }, {
+    "@type": "type.googleapis.com/DeepLinkCall",
+    "deepLinkTag": "Text editin",
+    "customContextDataKey": {
+    },
+    "id": "F-57f628e2-096c-4446-ad10-4c3b6ae8127d"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import android.app.ActivityManager;\nimport android.content.ComponentName;\nimport android.content.Context;\nimport java.util.List;\n\n// 获取 ActivityManager 实例\nActivityManager activityManager \u003d (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);\n\n// 获取正在运行的任务列表，参数为 1 表示只获取一个任务（即当前最前端的任务）\nList runningTasks \u003d activityManager.getRunningTasks(1);\n\n// 如果任务列表为空\nif (runningTasks.isEmpty()) {\n    return \"任务列表为空，无法获取当前运行任务的活动名称\";\n} else {\n    // 获取栈顶活动的组件名称\n    ComponentName topActivity \u003d runningTasks.get(0).topActivity;\n\n    // 如果栈顶活动为空\n    if (topActivity \u003d\u003d null) {\n        return \"栈顶活动为空，无法获取当前运行任务的活动名称\";\n    } else {\n        // 获取完整类名\n        String fullClassName \u003d topActivity.getClassName();\n        \n        // 获取包名\n        String packageName \u003d topActivity.getPackageName();\n        \n        // 在包名后面加上横杠\n        String componentName \u003d packageName + \"/.\" + fullClassName.substring(packageName.length() + 1);\n        \n        // 返回组件名称\n    }\n}\ncomponentName !\u003d \u0027tornaco.apps.shortx/.ui.main.MainActivity\u0027;",
+    "customContextDataKey": {
+    },
+    "id": "C-6f7a3797-c155-4fbe-aa68-f50a935e9558"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["Text editin"],
+        "customContextDataKey": {
+        },
+        "id": "A-d1c5d442-defe-4e4b-a920-7fee5c6df725"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": "globalVarOf$phone",
+            "customContextDataKey": {
+            },
+            "id": "A-dc25d60a-ee0c-4435-843a-9fc0db6a829a"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["Text"],
+            "customContextDataKey": {
+            },
+            "id": "A-44b29dbd-12fb-4953-b804-a400e473f979"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dText editin",
+            "customContextDataKey": {
+            },
+            "id": "A-41e15d5c-7e66-420f-bc12-d13f21d97532"
+          }],
+          "icon": "phone-fill",
+          "label": "手机号",
+          "id": "BTN-aecc430d-55a5-4d59-988b-4f3700ffa3aa"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": "globalVarOf$Mail",
+            "customContextDataKey": {
+            },
+            "id": "A-dc25d60a-ee0c-4435-843a-9fc0db6a829a"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["Text"],
+            "customContextDataKey": {
+            },
+            "id": "A-44b29dbd-12fb-4953-b804-a400e473f979"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dText editin",
+            "customContextDataKey": {
+            },
+            "id": "A-c9c292e9-cf5c-4608-8182-d036a41ff814"
+          }],
+          "icon": "mail-unread-line",
+          "label": "邮箱",
+          "id": "BTN-249d8ee5-42bb-4a4a-ba04-2a23c469c8b8"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": "globalVarOf$ID number",
+            "customContextDataKey": {
+            },
+            "id": "A-f7116fc6-5644-4a38-aebd-32f2acac90e9"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["Text"],
+            "customContextDataKey": {
+            },
+            "id": "A-44b29dbd-12fb-4953-b804-a400e473f979"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dText editin",
+            "customContextDataKey": {
+            },
+            "id": "A-7c540cbd-15a9-4d91-b668-db99db15e2df"
+          }],
+          "icon": "send-backward",
+          "label": "身份证",
+          "id": "BTN-ca66bfbf-e45f-4fdf-b9a9-355d37512974"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": "globalVarOf$QQ",
+            "customContextDataKey": {
+            },
+            "id": "A-dc25d60a-ee0c-4435-843a-9fc0db6a829a"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["Text"],
+            "customContextDataKey": {
+            },
+            "id": "A-44b29dbd-12fb-4953-b804-a400e473f979"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dText editin",
+            "customContextDataKey": {
+            },
+            "id": "A-a6882662-9bac-45a3-826b-f02a1a012678"
+          }],
+          "icon": "qq-fill",
+          "label": "QQ/微信",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": "globalVarOf$WeChat",
+            "customContextDataKey": {
+            },
+            "id": "A-dc25d60a-ee0c-4435-843a-9fc0db6a829a"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["Text"],
+            "customContextDataKey": {
+            },
+            "id": "A-44b29dbd-12fb-4953-b804-a400e473f979"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dText editin",
+            "customContextDataKey": {
+            },
+            "id": "A-d9ccea27-0035-42b2-af33-d72dd8a5968a"
+          }],
+          "id": "BTN-daae4fd4-30c3-473e-887e-7bb7d5eefbac"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["Text"],
+            "customContextDataKey": {
+            },
+            "id": "A-00d69117-7c9b-42ce-9ef3-9fd62ef9cb73"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dText editin",
+            "customContextDataKey": {
+            },
+            "id": "A-0ef10919-c014-4aa4-a5ef-9d4ce9ade28f"
+          }],
+          "icon": "reply-fill",
+          "label": "返回",
+          "id": "BTN-948d3a1d-d87c-45d4-ac93-ac2d20bedeca"
+        }],
+        "tag": "Text",
+        "maxHeightInDp": 20,
+        "maxWidthInDp": 500,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 20,
+        "disableAutoEdge": true,
+        "customContextDataKey": {
+        },
+        "id": "A-6e5f8204-bc60-4df4-b04e-11a03666535b"
+      }],
+      "icon": "pencil-fill",
+      "label": "输入/翻译",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/ReadClipboard",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "clipboardContent",
+            "second": "globalVarOf$Text"
+          }]
+        },
+        "id": "A-5d9d06c8-6d89-49e5-880e-6326f047e6e3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "function isChineseOrEnglish(text) {\n  var chinesePattern \u003d /^[\\u4E00-\\u9FFF]+$/; // 匹配中文字符的正则表达式\n  var englishPattern \u003d /^[A-Za-z]+$/; // 匹配英文字符的正则表达式\n\n  var filteredText \u003d text.replace(/[^\\u4E00-\\u9FFFA-Za-z]/g, \u0027\u0027); // 过滤掉非中文和非英文字符\n\n  if (chinesePattern.test(filteredText)) {\n    return 0;\n  } else if (englishPattern.test(filteredText)) {\n    return 1;\n  } else {\n    return 0;\n  }\n}\nvar text1 \u003d globalVarOf$Text;\nisChineseOrEnglish(text1);\n",
+        "customContextDataKey": {
+        },
+        "id": "A-cf63d218-a7b0-4491-8b13-85c563350cea"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://fanyi.so.com/index/search",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["data.fanyi"]
+        },
+        "method": "POST",
+        "headers": [{
+          "key": "Cookie",
+          "value": "QiHooGUID\u003d6A22167EC27EFDD962966111A40DE70F.1697164819698; Q_UDID\u003d7855fd68-9422-7018-bce0-b56776f593b6; __guid\u003d144965027.3658042857835989500.1697164780536.6106; count\u003d1"
+        }, {
+          "key": "DNT",
+          "value": "1"
+        }, {
+          "key": "Origin",
+          "value": "https://fanyi.so.com"
+        }, {
+          "key": "Pragma",
+          "value": "no-cache"
+        }, {
+          "key": "Pro",
+          "value": "fanyi"
+        }, {
+          "key": "Referer",
+          "value": "https://fanyi.so.com/"
+        }, {
+          "key": "User-Agent",
+          "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.78"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyForm",
+          "items": [{
+            "key": "eng",
+            "value": "{jsRet}"
+          }, {
+            "key": "query",
+            "value": "{globalVarOf$Text}"
+          }, {
+            "key": "validate"
+          }, {
+            "key": "ignore_trans",
+            "value": "0"
+          }]
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-1d8752c0-8f18-4a0d-9dc8-1020730d8eb8"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制译文",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{httpRequestRet1}",
+          "customContextDataKey": {
+          },
+          "id": "A-c68457d2-f2fc-43cb-84bf-fcb5c48ebab5"
+        }],
+        "title": "翻译结果",
+        "message": "原文：{globalVarOf$Text}\n译文：{httpRequestRet1}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8bb0ffb7-4afb-4cbb-a7c8-9be8338b7276"
+      }],
+      "id": "BTN-aecc430d-55a5-4d59-988b-4f3700ffa3aa"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "customContextDataKey": {
+        },
+        "id": "A-209b4396-905e-4353-9fa0-cd5f01991fae"
+      }],
+      "icon": "drag-move-2-line",
+      "label": "全选/清空",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "customContextDataKey": {
+        },
+        "id": "A-6d89677e-d632-4ede-9416-3f44acd2891e"
+      }, {
+        "@type": "type.googleapis.com/InjectKeyCode",
+        "keyCode": 67,
+        "customContextDataKey": {
+        },
+        "id": "A-c0c517e6-8202-4e58-9550-b5c7d8928df3"
+      }],
+      "id": "BTN-249d8ee5-42bb-4a4a-ba04-2a23c469c8b8"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Copy",
+        "customContextDataKey": {
+        },
+        "id": "A-851799fa-4cca-4890-acb8-92cf1da86079"
+      }],
+      "icon": "send-backward",
+      "label": "复制/粘贴",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Paste",
+        "customContextDataKey": {
+        },
+        "id": "A-39438f77-aee2-4398-bfa0-aaeb4b3f08f3"
+      }],
+      "id": "BTN-ca66bfbf-e45f-4fdf-b9a9-355d37512974"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShowClipboardView",
+        "customContextDataKey": {
+        },
+        "id": "A-6652b3ef-9516-421f-82e9-e8430a63a9f0"
+      }],
+      "icon": "align-left",
+      "label": "剪贴板",
+      "id": "BTN-daae4fd4-30c3-473e-887e-7bb7d5eefbac"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/InjectKeyCode",
+        "keyCode": 19,
+        "customContextDataKey": {
+        },
+        "id": "A-83c9919e-0099-4c4e-a0c6-d9412df4671f"
+      }],
+      "icon": "drop-fill",
+      "label": "移动焦点",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/InjectKeyCode",
+        "keyCode": 20,
+        "customContextDataKey": {
+        },
+        "id": "A-47491ff7-1f27-44fb-9e43-0c2587dae377"
+      }],
+      "id": "BTN-c54e313e-7f39-404a-961a-059b33e46d7d"
+    }],
+    "tag": "Text editin",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 444,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-2e33e62e-11b4-4ba3-a75a-c9ff8fe504fa"
+  }],
+  "id": "rule-cf801b7e-c7ab-4bcf-bb7b-0265a155d513",
+  "lastUpdateTime": "1709856411654",
+  "createTime": "1709771107788",
+  "author": {
+    "name": "He"
+  },
+  "title": "输入法助手(1.6",
+  "description": "例:复制/粘贴\n单击复制，长按粘贴",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "phone",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-71d6f583-4b3d-4299-a7d2-fca35986358e"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Mail",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-2cebb7b0-68eb-49a6-b6fa-d03d114c5785"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "ID number",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-f38a0216-bf2b-4993-87f5-dcf296d4c9f5"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "QQ",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-953d97b6-a4ed-4b33-9dde-e59a5dc9c0f7"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "WeChat",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-29f64131-1c06-4868-b569-48f7e17b7ec0"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "输入你的个人信息",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "手机号"
+      }, {
+        "placeholder": "邮箱"
+      }, {
+        "placeholder": "身份证"
+      }, {
+        "placeholder": "QQ"
+      }, {
+        "placeholder": "微信"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e73c8231-2a0e-43f9-b07f-cb355d5efecf"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "phone",
+      "valueAsString": "{textFieldInput1}",
+      "customContextDataKey": {
+      },
+      "id": "A-da2cb997-9c75-428c-8094-4b704c72093b"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Mail",
+      "valueAsString": "{textFieldInput2}",
+      "customContextDataKey": {
+      },
+      "id": "A-16dc30c6-f712-443b-b590-58618f720bab"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "ID number",
+      "valueAsString": "{textFieldInput3}",
+      "customContextDataKey": {
+      },
+      "id": "A-03f1a057-d5dc-409d-9fac-542ecc6b94f2"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "QQ",
+      "valueAsString": "{textFieldInput4}",
+      "customContextDataKey": {
+      },
+      "id": "A-193c39fe-79ee-47c3-85bf-631aca7373dd"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "WeChat",
+      "valueAsString": "{textFieldInput5}",
+      "customContextDataKey": {
+      },
+      "id": "A-e03f0367-3549-4f22-b47d-d225a224bbbd"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-01cc32cf-71a6-4f1a-9518-d10816bdc660"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["Text editin"],
+      "customContextDataKey": {
+      },
+      "id": "A-e38cb25b-f185-4ba4-a564-581fad6af2d4"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["Text"],
+      "customContextDataKey": {
+      },
+      "id": "A-44b29dbd-12fb-4953-b804-a400e473f979"
+    }]
+  },
+  "versionCode": "2",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-54c75bea-6f7e-424f-b420-ee267ad27844"
+}
+###------###
+{"type":"rule"}

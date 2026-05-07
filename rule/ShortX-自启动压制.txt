@@ -1,0 +1,48 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppProcessStarted",
+    "processName": [{
+      "processName": "com.tencent.mobileqq"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-22ce301d-d31b-492c-b955-fb3a02529a29"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgListByPkg",
+    "pkgAndUsers": [{
+      "first": "{pkgName}",
+      "second": "{userId}"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-b9edf8b2-d237-4cb4-9cd0-fdc5cc0024de"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/StopAppByPkg",
+    "pkgAndUsers": [{
+      "first": "{pkgName}",
+      "second": "{userId}"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-80658fb5-eba7-498e-a57e-60a81fa555d8"
+  }],
+  "id": "rule-574c810b-27cf-4e1c-a7d4-f5d1615c69a0",
+  "lastUpdateTime": "1716613759539",
+  "createTime": "1716613500562",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "自启动压制",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

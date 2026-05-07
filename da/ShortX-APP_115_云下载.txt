@@ -1,0 +1,242 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "jiantieban",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-446b316e-17f6-4a7e-a146-db1eac4e9ffb"
+  }, {
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-7440a127-a3bf-4c9f-a085-7339273aec8c"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "jiantieban",
+    "valueAsString": "{clipboardContent}",
+    "customContextDataKey": {
+    },
+    "id": "A-91abe009-1ae5-442f-adc5-1c02d6722881"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "magnet",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-640ed5d7-b509-4938-a4f0-77e4f1be959c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "Contains",
+      "varName": "jiantieban",
+      "payload": {
+        "value": "magnet:"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-302349e0-583d-486f-b916-b1e9f0f0765a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/MatchRegex",
+      "string": "localVarOf$jiantieban",
+      "regex": "magnet:.*?(?\u003d\\s|$)",
+      "customContextDataKey": {
+      },
+      "id": "A-6d2de512-e28b-4d34-aeed-992ed9766aa0"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{matchResult}",
+      "regex": ", ",
+      "replacement": "\n",
+      "customContextDataKey": {
+      },
+      "id": "A-d5662681-39ac-4cf1-82e4-14faebc425ed"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "magnet",
+      "valueAsString": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-22b745d4-a4fa-4d61-8179-9663d05d1342"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "message": "localVarOf$magnet",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-748c159b-328d-414e-b25e-2fe3d0a8bf16"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "magnet",
+      "customContextDataKey": {
+      },
+      "id": "A-3d90fa97-e2ba-4385-a6d0-80ac6dbf5e1d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-32ae7a9d-a724-4e1e-93a4-ec17bf0db1da"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "ed2k",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-efb4a7a1-5489-4378-9110-b2a13e3c3c14"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "Contains",
+      "varName": "jiantieban",
+      "payload": {
+        "value": "ed2k:"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d2430d42-463a-412f-a54e-0163bbb4ce16"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/MatchRegex",
+      "string": "localVarOf$jiantieban",
+      "regex": "ed2k:.*?(?\u003d\\s|$)",
+      "customContextDataKey": {
+      },
+      "id": "A-f150a953-332e-4a56-b3de-0f211cb70cd7"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{matchResult}",
+      "regex": ", ",
+      "replacement": "\n",
+      "customContextDataKey": {
+      },
+      "id": "A-0a11c89c-e56f-46d8-b104-70c918fe3c99"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "ed2k",
+      "valueAsString": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-869aa005-984d-4615-9a07-4e8de2b0d0b6"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "message": "localVarOf$ed2k",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-52e60495-e573-428d-a38c-39dd6f756e4b"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "ed2k",
+      "customContextDataKey": {
+      },
+      "id": "A-60b2b09a-a621-443c-9407-6d73174e4b2d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-9c654ad1-81ef-451d-b068-5ca2a534e525"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "Contains",
+      "varName": "magnet",
+      "payload": {
+        "value": "magnet:"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-877cfb66-88c6-4824-b135-5e429ee31bb0"
+    }, {
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "Contains",
+      "varName": "ed2k",
+      "payload": {
+        "value": "ed2k:"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-c5195ea0-7b77-4a4b-aa25-b00c02594b8b"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "localVarOf$magnet\nlocalVarOf$ed2k",
+      "customContextDataKey": {
+      },
+      "id": "A-826b2fdf-8cc1-42ed-afdc-a943d93ea04f"
+    }, {
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.yyw.wangpan",
+        "className": "com.main.disk.file.lixian.DiskOfflineTaskAddActivity"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b4003e05-1a7a-4c06-835a-0f53ea4d172a"
+    }, {
+      "@type": "type.googleapis.com/WaitForIdle",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-da0a58c7-e68c-4bba-9126-d836d0c70c77"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "点击载入",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-2552e8d9-53ed-47d1-bb85-1614bf9b8e9f"
+    }, {
+      "@type": "type.googleapis.com/FindAndClickViewById",
+      "viewId": "android:id/button1",
+      "timeout": "3000",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-cf9160d8-ddbc-409e-a9c4-f2cb44289408"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-1f8e4ce5-fa25-4518-9fa5-fc2ab12d08c8"
+  }],
+  "id": "SHARED-DA-2d42cb1e-24d7-4501-933c-bd1a4e000d28",
+  "lastUpdateTime": "1754794185272",
+  "createTime": "1754789961793",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "APP_115_云下载",
+  "versionCode": "1",
+  "directActionSetId": "DS-38e04775-689c-4311-9fce-221539eb3234",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

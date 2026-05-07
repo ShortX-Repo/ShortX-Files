@@ -1,0 +1,63 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+    },
+    "end": {
+      "hour": 23
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "3600000"
+    },
+    "id": "F-9d467da7-7974-4ef1-8f95-af0b2b944165"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/TimeInRange",
+      "range": {
+        "start": {
+        },
+        "end": {
+          "hour": 7
+        }
+      },
+      "id": "C-395d1fbf-ee36-4e6d-bb35-4cea418dd023"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure reduce_bright_colors_activated 1",
+      "id": "A-92112dca-f0e0-450e-83a4-be94a8b905ba"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure reduce_bright_colors_activated 0",
+      "id": "A-ad6ff33d-7a7f-49c0-86f4-e31e3533572f"
+    }],
+    "id": "A-783fb6ba-4acf-4c13-b8f5-520190e496a6"
+  }],
+  "id": "rule-3d021af6-50f8-4612-85ae-5b4c9115c898",
+  "lastUpdateTime": "1690150449093",
+  "createTime": "1690149619888",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "定时开关极暗模式",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure reduce_bright_colors_activated 0",
+      "id": "A-9b1ac3a3-7318-4ad2-bd84-715e96e18a5f"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,145 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-0d476f09-fa6c-40a4-b9ea-adee414dd47c"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 100,
+    "customContextDataKey": {
+    },
+    "id": "F-0c646b9b-6de4-4ed1-b0b0-d0c2a17216e1"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/BatteryPercent",
+    "value": 99,
+    "op": "IntGreaterThanOrEQ",
+    "customContextDataKey": {
+    },
+    "id": "C-72623839-2337-473d-9664-3935a2f919df"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1734921029197",
+    "title": "充电状态",
+    "message": "开始涓流充电",
+    "smallIcon": "chat-2-line",
+    "customContextDataKey": {
+    },
+    "id": "A-9bd3be93-dad2-457a-98ea-621847e684f2"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "dc_I",
+      "payload": {
+        "value": "0"
+      },
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-a558b60a-bdbf-4ed8-8429-507090135cf3"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ChargeState",
+        "requireIsCharge": true,
+        "customContextDataKey": {
+        },
+        "id": "C-183e9fdc-a7d6-4b61-96de-8988abaedf60"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dc_I\u003d$(cat /sys/class/power_supply/battery/current_now)\necho $dc_I",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "dc_I"
+          }]
+        },
+        "note": "电流监测",
+        "id": "A-f119068e-e07f-4a36-ada8-f3d7e16b079c"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "tag": "tag-1734921029197"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-c2167ac3-121c-456b-b124-c091b544abb9"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "充电器断开",
+        "customContextDataKey": {
+        },
+        "id": "A-11dc82c2-d826-4006-8d2e-a72d282f6392"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-cb18d5e3-96c3-4a87-be02-ae25090ae5b4"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "🔋充电功率",
+      "id": "A-141f762d-6f40-4b77-a1e2-76408236fa5f"
+    }],
+    "delay": 10000,
+    "customContextDataKey": {
+    },
+    "note": "监测电流，电流为0时执行下一步",
+    "id": "A-85c106d0-d6a7-49e4-a2c7-5ad052fd7a34"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotification",
+    "notification": {
+      "tag": "tag-1734921029197"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-f48a533e-3263-4587-a61d-7031413cad36"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1734530905566",
+    "title": "充电状态",
+    "message": "电量已充满",
+    "isImportant": true,
+    "smallIcon": "chat-2-line",
+    "customContextDataKey": {
+    },
+    "id": "A-e5890ccd-5c6e-4bf5-b28b-5559b01c4a56"
+  }],
+  "id": "SHARE-rule-8e07c551-1a4e-45c9-92ae-8a1bb723283d",
+  "lastUpdateTime": "1735380014972",
+  "createTime": "1734530423671",
+  "author": {
+    "name": "Rarlya"
+  },
+  "title": "涓流充电监测",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ChargerUnplug",
+      "customContextDataKey": {
+      },
+      "id": "F-23e9977f-42ad-4d7a-9f20-55bc42e32c28"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/StopAllActions",
+      "customContextDataKey": {
+      },
+      "id": "A-9dcdb552-92df-478b-93bd-e22fd30cc820"
+    }]
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-77b36271-1f74-4e4e-a940-965092d8a9a0"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,23 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var text \u003d \"https://115cdn.com/s/swwmu0w3wlk?password\u003dx640#%0A奥本海默%20(2023)%20-%20奥本海默.Oppenheimer.2023.UHD.Bluray.REMUX.2160p.HEVC.DV.HDR10.TrueHD.5.1.Atmos@oSpecialCN.mkv%0A访问码：x640%0A复制这段内容，可在115App中直接打开！\";\nvar pattern \u003d /\\?password\u003d([^#]*)(#|$)/;   // 捕获从开头到第一个#之前的所有字符\nvar match \u003d text.match(pattern);\n\nif (match) {\n    var result \u003d match[1];  // 括号里的分组\n    result; // rhino最后要返回值\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-7d834ab6-8b01-4e81-a0d9-002c30d8d2fd"
+  }],
+  "id": "SHARED-DA-d5fe94b3-dc8b-449d-b660-4018e55f5a64",
+  "lastUpdateTime": "1754444836209",
+  "createTime": "1754444658777",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "正则测试",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

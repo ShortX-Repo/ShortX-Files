@@ -1,0 +1,77 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppProcessStarted",
+    "processName": [{
+      "processName": "com.guoshi.httpcanary"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-e4ab157f-a32a-4fe1-9051-55e83a0a8eda"
+  }, {
+    "@type": "type.googleapis.com/TaskRemoved",
+    "apps": [{
+      "pkgName": "com.guoshi.httpcanary"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-68d20d86-68ff-4337-9311-0dc26660c4c2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.guoshi.httpcanary"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-c72b5cc6-35a8-45c9-b338-05e6b59252d3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "/data/adb/box/scripts/box.tproxy disable",
+      "customContextDataKey": {
+      },
+      "id": "A-8c00eb5b-2bc6-4c80-b09c-54ef4721cd2f"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "🥶暂停代理🥶",
+      "customContextDataKey": {
+      },
+      "id": "A-28d2c451-6b03-4d53-b3c1-9ac8f1e8d0d7"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "/data/adb/box/scripts/box.tproxy enable",
+      "customContextDataKey": {
+      },
+      "id": "A-4931be88-82c3-4f88-b60f-3f962e365b6c"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "🥳启动代理🥳",
+      "customContextDataKey": {
+      },
+      "id": "A-61c23c24-03bb-4fdd-b339-5b8b50fa9e39"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-2b0b7e38-cc78-4761-b6f7-536004897bd3"
+  }],
+  "id": "rule-87d3865c-047e-4104-a32f-74b681c23e30",
+  "lastUpdateTime": "1695372598476",
+  "createTime": "1694682751574",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "抓包自动开关box4",
+  "description": "开启VPN后自动关闭box4",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

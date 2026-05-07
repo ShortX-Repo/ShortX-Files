@@ -1,0 +1,65 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "LeftBottom",
+    "gesture": "SwipeFromBottom",
+    "customContextDataKey": {
+    },
+    "id": "F-492e8a15-5d64-4a1b-b443-f99872581c3c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/AdjustVolume",
+      "direction": "ADJUST_RAISE",
+      "showUI": true,
+      "customContextDataKey": {
+      },
+      "id": "A-dcb9dd5a-6130-4cb0-bab9-18aa82f895c1"
+    }],
+    "delay": 200,
+    "customContextDataKey": {
+    },
+    "id": "A-5e7e67d3-0072-4d93-9fa4-e9fe2c241a41"
+  }],
+  "id": "SHARE-rule-991630ae-ca35-4a50-a86f-f0bbdadae277",
+  "lastUpdateTime": "1770973813907",
+  "createTime": "1755004167584",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Volume 🔊UP",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabledAsyncMode": "ActionAsyncMode_Async"
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/EdgeGesture",
+      "edge": "LeftCenter",
+      "gesture": "SwipeFromBottom",
+      "customContextDataKey": {
+      },
+      "id": "F-a2dbf946-e863-4db1-b226-c4757ed2b29b"
+    }, {
+      "@type": "type.googleapis.com/EdgeGesture",
+      "edge": "LeftBottom",
+      "gesture": "SingleTap",
+      "customContextDataKey": {
+      },
+      "id": "F-48c1b218-077c-45b7-a349-64ad99434c73",
+      "isDisabled": true
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/StopAllActions",
+      "customContextDataKey": {
+      },
+      "id": "A-3dbe3a79-a766-4775-8785-66b73b49d1d3"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-e04d6fe7-75c7-4a44-8b56-bcd7a558330b"
+}
+###------###
+{"type":"rule"}

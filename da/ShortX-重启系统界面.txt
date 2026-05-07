@@ -1,0 +1,42 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "重启（点击对话框外取消）",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ps | grep -E \u0027system.*com.android.systemui\u0027 | awk \u0027{print $2}\u0027",
+        "customContextDataKey": {
+        },
+        "id": "A-933acb69-c80d-441b-a8ec-fe0b3045a5ec"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "50",
+        "customContextDataKey": {
+        },
+        "id": "A-f857aa01-2c09-4ac5-b7aa-6321505bbf00"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "kill -9 {shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-a089a9ad-c9ea-4029-931e-ff1972e23a34"
+      }]
+    }],
+    "title": "你确定要重启系统界面吗？",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-674a2cee-e31b-4d69-8dc4-a02089a8348a"
+  }],
+  "id": "DA22494572-cbf5-4481-99d4-e3d5ac82314f",
+  "lastUpdateTime": "1694800165658",
+  "createTime": "1694799409678",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "重启系统界面",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

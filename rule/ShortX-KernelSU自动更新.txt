@@ -1,0 +1,108 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-e3cf8700-e87b-45dd-9e72-d00762d6c1fa"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.github.com/repos/tiann/KernelSU/releases/latest",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["tag_name", "assets[assets.size() - 1].browser_download_url", "assets[assets.size() - 1].updated_at", "body"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-9bd960d3-9c33-46b7-8809-5c83813454c4"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.pm.PackageInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d \"me.weishu.kernelsu\";\nPackageManager packageManager \u003d context.getPackageManager();\nPackageInfo packageInfo \u003d packageManager.getPackageInfo(packageName, 0);\nString versionName \u003d packageInfo.versionName;\n// 返回版本名",
+    "customContextDataKey": {
+    },
+    "id": "A-aba3015c-43cc-4852-bd97-1b8191725cef"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "var\u003d\"{mvelRet}\"\nnew_var\u003d$(echo \"$var\" | cut -d\u0027-\u0027 -f1)\necho \"$new_var\"\n",
+    "customContextDataKey": {
+    },
+    "id": "A-a623c708-574b-4e9f-afa3-1889588e897d"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "httpRequestRet1",
+      "payload": {
+        "value": "{shellOut}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-e3dec9fa-f85e-49e6-b249-0ba4c5e3b464"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/DownloadFile",
+      "subject": {
+        "title": "KernelSU",
+        "description": "最新版本号为 {httpRequestRet1}",
+        "url": "https://gh.ddlc.top/{httpRequestRet2}",
+        "fileName": "KernelSU.apk"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1a35b1cf-1e49-4faf-9e66-fbabda492ba2"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "cp /sdcard/Download/KernelSU.apk /data/local/1.apk",
+      "customContextDataKey": {
+      },
+      "id": "A-b11ae1c0-e943-4b0f-86f5-b9e1b41f894d"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "pm install /data/local/1.apk",
+      "customContextDataKey": {
+      },
+      "id": "A-889d54e4-bc34-4eb9-ab45-4bb2ee1f4538"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "rm -rf /data/local/1.apk\nrm -rf /sdcard/Download/KernelSU.apk",
+      "customContextDataKey": {
+      },
+      "id": "A-dc4be335-7515-4f4a-884a-9277780eae4d"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1714280537430",
+      "title": "kernelsu",
+      "message": "已更新至{httpRequestRet1}",
+      "smallIcon": "chat-2-line",
+      "customContextDataKey": {
+      },
+      "id": "A-c3f74a4b-0af8-4d20-a41e-72da52e7e9d0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3df1f53b-b0e9-44da-8d62-674fbb2d731b"
+  }],
+  "id": "rule-8d84ea71-a097-44e1-bd7f-294070ef754b",
+  "lastUpdateTime": "1714280972689",
+  "createTime": "1714280630346",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "KernelSU自动更新",
+  "description": "每天定时检查是否有新版本如果有就自动安装更新",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

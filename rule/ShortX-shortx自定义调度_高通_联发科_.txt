@@ -1,0 +1,141 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["User"],
+    "tag": "进入前台",
+    "customContextDataKey": {
+    },
+    "id": "F-d41f9f10-de53-45b0-bda8-ecf3d2b0e12d"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.android.launcher"
+    }, {
+      "pkgName": "com.oplus.camera"
+    }],
+    "tag": "进入前台",
+    "customContextDataKey": {
+    },
+    "id": "F-20b2b0f7-2a25-4cd4-bf63-f0a8831d11da"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "进入前台",
+      "customContextDataKey": {
+      },
+      "id": "C-135478cb-824c-4eaf-88b5-3af8302f25eb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 往日志末尾追加：APP标记 + 包名 + 时间戳 + 人类时间\necho \"APP: {pkgName} $(date +%s) ($(date \u0027+%H:%M:%S\u0027))\" \u003e\u003e /storage/emulated/0/shortx_log/power_log.txt\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-2903bff5-4410-40de-89e2-b6820f8716f0"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\nAPP_FILE\u003d\"/storage/emulated/0/ShortX_Custom_Scheduler/app_config.json\"\n\n# 1. 抓当前焦点\nCURRENT_PKG\u003d$(dumpsys window | grep -E \u0027mCurrentFocus\u0027 | sed \u0027s/.* //; s/\\}//; s/\\/.*//\u0027)\n\n# 2. 抓取去重后的所有近期任务 (焦点包名排第一)\nALL_PKGS\u003d$( (echo \"$CURRENT_PKG\"; dumpsys activity recents | grep \u0027cmp\u003d\u0027 | sed -E \u0027s/.*cmp\u003d([^/]+).*/\\1/\u0027) | awk \u0027!a[$0]++\u0027 )\n\n# 3. 解析 JSON 判定最高档位 (纯内存计算)\nif [ -f \"$APP_FILE\" ]; then\n    CONFIG_RAW\u003d$(cat \"$APP_FILE\" | tr -d \u0027\\r\\n\\t \u0027)\n    DEFAULT_MODE\u003d$(echo \"$CONFIG_RAW\" | sed \u0027s/.*\"default_mode\":\"//;s/\".*//\u0027)\n    \n    TARGET_MODE\u003d\"\"\n    # 核心：按性能要求从高到低扫\n    for level in \"extreme\" \"performance\" \"balanced\" \"powersave\"; do\n        # 提取当前档位对应的包名列表\n        list\u003d$(echo \"$CONFIG_RAW\" | grep -o \"\\\"$level\\\":\\[[^]]*\\]\" | tr -d \u0027\"[]\u0027 | sed \"s/$level://\")\n        \n        for p in $ALL_PKGS; do\n            # 只要有一个任务命中了高档位名单，瞬间锁定并跳出\n            if echo \",$list,\" | grep -q \",$p,\"; then\n                TARGET_MODE\u003d\"$level\"\n                break 2\n            fi\n        done\n    done\n    [ -z \"$TARGET_MODE\" ] \u0026\u0026 TARGET_MODE\u003d\"$DEFAULT_MODE\"\nelse\n    # 如果没找到配置文件，给个兜底\n    TARGET_MODE\u003d\"balanced\"\nfi\n\n# 4. 【核心输出】直接吐出最终档位词\necho \"$TARGET_MODE\"\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-ad471cd1-2544-4ed2-b5b4-7ae13a715f1f"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\nAPP_FILE\u003d\"/storage/emulated/0/ShortX_Custom_Scheduler/appconfig.json\"\n\n# 1. 直接抓取并去重所有近期任务\nALL_PKGS\u003d$(dumpsys activity recents | grep \u0027cmp\u003d\u0027 | sed -E \u0027s/.*cmp\u003d([^/]+).*/\\1/\u0027 | awk \u0027!a[$0]++\u0027)\n\n# 2. 解析 JSON 判定最高档位\nif [ -f \"$APP_FILE\" ]; then\n    CONFIG_RAW\u003d$(cat \"$APP_FILE\" | tr -d \u0027\\r\\n\\t \u0027)\n    DEFAULT_MODE\u003d$(echo \"$CONFIG_RAW\" | sed \u0027s/.*\"默认模式\":\"//;s/\".*//\u0027)\n    \n    TARGET_MODE\u003d\"\"\n    for level in \"极速\" \"性能\" \"均衡\" \"省电\"; do\n        list\u003d$(echo \"$CONFIG_RAW\" | grep -o \"\\\"$level\\\":\\[[^]]*\\]\" | tr -d \u0027\"[]\u0027 | sed \"s/$level://\")\n        \n        if [ -n \"$list\" ]; then\n            for p in $ALL_PKGS; do\n                if echo \",$list,\" | grep -q \",$p,\"; then\n                    TARGET_MODE\u003d\"$level\"\n                    break 2 # 命中高档位瞬间打断，输出结果\n                fi\n            done\n        fi\n    done\n    \n    [ -z \"$TARGET_MODE\" ] \u0026\u0026 TARGET_MODE\u003d\"$DEFAULT_MODE\"\nelse\n    TARGET_MODE\u003d\"均衡\"\nfi\n\n# 3. 唯一输出\necho \"$TARGET_MODE\"\n",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "通用前台调度"
+        }]
+      },
+      "id": "A-a4e982e1-80ae-405a-99a9-4ee3e04f2700"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "通用前台调度",
+        "payload": {
+          "value": "{通用前台调度}"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-8c501c0c-bc76-4ad4-af98-7bc6b63108fb"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "通用前台调度",
+        "valueAsString": "{通用前台调度}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-df562bcb-c6ce-44d4-a5b3-e98870201bd2"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 1. 获取传入的第一个参数（比如 \"省电\", \"均衡\"）\nMODE\u003d\"{通用前台调度}\"\n\n# 2. 空值防御\nif [ -z \"$MODE\" ]; then\n    echo \"未传入模式参数！\"\n    exit 1\nfi\n\n# 3. 拼接目标脚本完整路径\nTARGET_SCRIPT\u003d\"/storage/emulated/0/ShortX_Custom_Scheduler/mode_${MODE}.sh\"\n\n# 4. 判断文件是否存在并执行\nif [ -f \"$TARGET_SCRIPT\" ]; then\n    # 使用 sh 强行执行，无视底层可执行权限状态\n    sh \"$TARGET_SCRIPT\"\n    echo \"成功执行: mode_${MODE}.sh\"\nelse\n    echo \"执行失败: 找不到文件 $TARGET_SCRIPT\"\n    exit 1\nfi\n",
+        "customContextDataKey": {
+        },
+        "id": "A-0509ee75-6214-4e5c-8c51-bc0c84a8402f"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ddeaf166-e569-420f-a1e8-9617720d5667"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-525de0e7-f52f-4b7f-bfad-e266797212a5"
+  }],
+  "id": "SHARE-rule-b1b09694-7842-45d9-9c5f-084aaea73140",
+  "lastUpdateTime": "1777693495094",
+  "createTime": "1776256509277",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "shortx自定义调度（高通，联发科）",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 全平台通用调度生成器 (高通/天玑兼容绝对安全版)\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nMOD_DIR\u003d\"/storage/emulated/0/ShortX_Custom_Scheduler\"\nmkdir -p \"$MOD_DIR\"\n\necho \"\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\"\necho \" 正在唤醒所有休眠核心，执行底层物理级探测... \"\necho \"\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\"\n\n# 工具函数 1：按百分比取频率 (直接返回原始数值，不搞单位换算，兼容性最强)\npick_freq() {\n    local freqs\u003d\"$1\"; local pct\u003d\"$2\"\n    local sorted\u003d$(echo \"$freqs\" | tr \u0027 \u0027 \u0027\\n\u0027 | grep -v \u0027^$\u0027 | sort -n)\n    local count\u003d$(echo \"$sorted\" | wc -l)\n    if [ \"$count\" -eq 0 ]; then echo \"\"; return; fi\n    local idx\u003d$(( (count - 1) * pct / 100 + 1 ))\n    echo \"$sorted\" | sed -n \"${idx}p\"\n}\n\n# 工具函数 2：智能选择最优调速器 (按优先级匹配)\nchoose_gov() {\n    local available\u003d\"$1\"\n    local preferences\u003d\"$2\"\n    for pref in $preferences; do\n        if echo \"$available\" | grep -qw \"$pref\"; then\n            echo \"$pref\"\n            return\n        fi\n    done\n    echo \"schedutil\" # 终极保底调速器\n}\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 0. 核心唤醒与状态快照机制\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\noriginal_status\u003d\"\"\nfor i in 0 1 2 3 4 5 6 7; do\n    node\u003d\"/sys/devices/system/cpu/cpu$i/online\"\n    if [ -f \"$node\" ]; then\n        st\u003d$(cat \"$node\" 2\u003e/dev/null)\n        original_status\u003d\"$original_status $st\"\n        chmod 666 \"$node\" 2\u003e/dev/null\n        echo 1 \u003e \"$node\" 2\u003e/dev/null\n    else\n        original_status\u003d\"$original_status 1\"\n    fi\ndone\n\nsleep 0.2\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 1. 动态探测 CPU 簇与路径 (兼容 policyX 和 cpuX)\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nif ls -d /sys/devices/system/cpu/cpufreq/policy* \u003e/dev/null 2\u003e\u00261; then\n    policies\u003d$(ls -d /sys/devices/system/cpu/cpufreq/policy* | grep -oE \u0027[0-9]+$\u0027 | sort -n)\n    base_path\u003d\"/sys/devices/system/cpu/cpufreq/policy\"\n    suffix_path\u003d\"\"\nelse\n    # 天玑备用路径\n    policies\u003d$(ls -d /sys/devices/system/cpu/cpu*/cpufreq 2\u003e/dev/null | grep -oE \u0027cpu[0-9]+\u0027 | grep -oE \u0027[0-9]+\u0027 | sort -n)\n    base_path\u003d\"/sys/devices/system/cpu/cpu\"\n    suffix_path\u003d\"/cpufreq\"\nfi\n\ncluster_count\u003d0\npolicy_list\u003d\"\"\n\nfor p in $policies; do\n    p_dir\u003d\"${base_path}${p}${suffix_path}\"\n    \n    af\u003d$(cat $p_dir/scaling_available_frequencies 2\u003e/dev/null)\n    [ -z \"$af\" ] \u0026\u0026 af\u003d\"300000 1000000 2000000\"\n    \n    ag\u003d$(cat $p_dir/scaling_available_governors 2\u003e/dev/null)\n    [ -z \"$ag\" ] \u0026\u0026 ag\u003d\"schedutil performance powersave conservative interactive\"\n    \n    eval \"p${cluster_count}_dir\u003d\\\"$p_dir\\\"\"\n    eval \"p${cluster_count}_freqs\u003d\\\"$af\\\"\"\n    eval \"p${cluster_count}_govs\u003d\\\"$ag\\\"\"\n    policy_list\u003d\"$policy_list $cluster_count\"\n    cluster_count\u003d$((cluster_count + 1))\ndone\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 2. 探测结束，恢复用户原来的核心状态\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nidx\u003d0\nfor st in $original_status; do\n    node\u003d\"/sys/devices/system/cpu/cpu$idx/online\"\n    if [ -f \"$node\" ]; then\n        echo \"$st\" \u003e \"$node\" 2\u003e/dev/null\n        chmod 644 \"$node\" 2\u003e/dev/null\n    fi\n    idx\u003d$((idx + 1))\ndone\n\necho \"CPU 数据抓取完毕，已恢复原系统状态。\"\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 3. 动态探测 GPU (兼容 高通KGSL 与 天玑Mali)\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nGPU_DIR\u003d\"\"\nfor d in /sys/class/kgsl/kgsl-3d0/devfreq \\\n         /sys/class/misc/mali0/device/devfreq \\\n         /sys/class/devfreq/*gpu* \\\n         /sys/class/devfreq/*.mali; do\n    if [ -d \"$d\" ] \u0026\u0026 [ -f \"$d/available_frequencies\" ]; then\n        GPU_DIR\u003d\"$d\"\n        break\n    fi\ndone\n\nif [ -n \"$GPU_DIR\" ]; then\n    g_af\u003d$(cat \"$GPU_DIR/available_frequencies\" 2\u003e/dev/null)\nelse\n    g_af\u003d\"\"\n    echo \"⚠️ 未能精准定位 GPU 调频节点，将跳过 GPU 调节。\"\nfi\n\nmodes\u003d\"powersave balanced performance extreme\"\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 4. 遍历生成 4 个模式脚本\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfor m in $modes; do\n    # 动态调速器优先级：找不到前面的，就往后降级\n    case $m in\n        \"powersave\") m_name\u003d\"省电\"; user_bg\u003d\"0-2\"; sys_bg\u003d\"0-2\"; fg\u003d\"0-5\"; top\u003d\"0-5\"; cores\u003d\"1,1,1,1,1,1,0,0\"; min_pct\u003d0; max_pct\u003d40; pref_gov\u003d\"conservative powersave schedutil\" ;;\n        \"balanced\")  m_name\u003d\"均衡\"; user_bg\u003d\"0-2\"; sys_bg\u003d\"0-2\"; fg\u003d\"0-5\"; top\u003d\"0-5\"; cores\u003d\"1,1,1,1,1,1,1,1\"; min_pct\u003d0; max_pct\u003d70; pref_gov\u003d\"schedutil interactive\" ;;\n        \"performance\") m_name\u003d\"性能\"; user_bg\u003d\"0-2\"; sys_bg\u003d\"0-2\"; fg\u003d\"0-7\"; top\u003d\"0-7\"; cores\u003d\"1,1,1,1,1,1,1,1\"; min_pct\u003d0; max_pct\u003d100; pref_gov\u003d\"walt sugov_ext schedutil performance\" ;;\n        \"extreme\")   m_name\u003d\"极速\"; user_bg\u003d\"0-2\"; sys_bg\u003d\"0-2\"; fg\u003d\"0-7\"; top\u003d\"0-7\"; cores\u003d\"1,1,1,1,1,1,1,1\"; min_pct\u003d20; max_pct\u003d100; pref_gov\u003d\"performance walt sugov_ext schedutil\" ;;\n    esac\n\n    FILE_PATH\u003d\"$MOD_DIR/mode_${m_name}.sh\"\n\n    # 【防触碰锁】\n    if [ -f \"$FILE_PATH\" ]; then\n        echo \"🛡️ 检测到已存在文件，跳过并保留: mode_${m_name}.sh\"\n        continue\n    fi\n\n    # --- 阶段 A：构造动态 CONFIG_DATA ---\n    {\n        echo \"#!/system/bin/sh\"\n        echo \"CONFIG_DATA\u003d\\\"\"\n        echo \"user_bg\u003d$user_bg\"\n        echo \"sys_bg\u003d$sys_bg\"\n        echo \"fg\u003d$fg\"\n        echo \"top\u003d$top\"\n        echo \"cores\u003d$cores\"\n        echo \"gpu_dir\u003d$GPU_DIR\"\n        \n        for i in $policy_list; do\n            eval \"p_dir\u003d\\$p${i}_dir\"\n            eval \"af\u003d\\$p${i}_freqs\"\n            eval \"ag\u003d\\$p${i}_govs\"\n            \n            best_gov\u003d$(choose_gov \"$ag\" \"$pref_gov\")\n            \n            echo \"c${i}_dir\u003d$p_dir\"\n            echo \"c${i}_gov\u003d$best_gov\"\n            echo \"c${i}_min\u003d$(pick_freq \"$af\" $min_pct)\"\n            echo \"c${i}_max\u003d$(pick_freq \"$af\" $max_pct)\"\n        done\n        \n        if [ -n \"$g_af\" ]; then\n            echo \"gpu_min\u003d$(pick_freq \"$g_af\" $min_pct)\"\n            echo \"gpu_max\u003d$(pick_freq \"$g_af\" $max_pct)\"\n        fi\n        echo \"\\\"\"\n    } \u003e \"$FILE_PATH\"\n\n    # --- 阶段 B：缝合执行逻辑 ---\n    cat \u003c\u003c \u0027EOF\u0027 \u003e\u003e \"$FILE_PATH\"\n\n[ -z \"$CONFIG_DATA\" ] \u0026\u0026 exit 0\n\nget_val() {\n    echo \"$CONFIG_DATA\" | grep \"^$1\u003d\" | cut -d\u0027\u003d\u0027 -f2\n}\n\nuser_bg\u003d$(get_val \"user_bg\")\nsys_bg\u003d$(get_val \"sys_bg\")\nfg\u003d$(get_val \"fg\")\ntop\u003d$(get_val \"top\")\ncores\u003d$(get_val \"cores\")\ngpu_dir\u003d$(get_val \"gpu_dir\")\ngpu_min\u003d$(get_val \"gpu_min\")\ngpu_max\u003d$(get_val \"gpu_max\")\n\nsafe_write() {\n    local path\u003d$1; local val\u003d$2\n    [ -z \"$val\" ] || [ ! -f \"$path\" ] \u0026\u0026 return\n    chmod 666 \"$path\" 2\u003e/dev/null\n    echo \"$val\" \u003e \"$path\" 2\u003e/dev/null\n    chmod 644 \"$path\" 2\u003e/dev/null\n}\n\nsafe_freq_write() {\n    local min_p\u003d$1; local max_p\u003d$2; local n_min\u003d$3; local n_max\u003d$4\n    [ -z \"$n_min\" ] || [ -z \"$n_max\" ] || [ ! -f \"$min_p\" ] \u0026\u0026 return\n    chmod 666 \"$min_p\" \"$max_p\" 2\u003e/dev/null\n    local cur_max\u003d$(cat \"$max_p\" 2\u003e/dev/null)\n    if [ -n \"$cur_max\" ] \u0026\u0026 [ \"$n_min\" -gt \"$cur_max\" ] 2\u003e/dev/null; then\n        echo \"$n_max\" \u003e \"$max_p\" 2\u003e/dev/null\n        echo \"$n_min\" \u003e \"$min_p\" 2\u003e/dev/null\n    else\n        echo \"$n_min\" \u003e \"$min_p\" 2\u003e/dev/null\n        echo \"$n_max\" \u003e \"$max_p\" 2\u003e/dev/null\n    fi\n    chmod 644 \"$min_p\" \"$max_p\" 2\u003e/dev/null\n}\n\nsafe_write \"/dev/cpuset/background/cpus\" \"$user_bg\"\nsafe_write \"/dev/cpuset/system-background/cpus\" \"$sys_bg\"\nsafe_write \"/dev/cpuset/foreground/cpus\" \"$fg\"\nsafe_write \"/dev/cpuset/top-app/cpus\" \"$top\"\n\nif [ -n \"$cores\" ]; then\n    IFS\u003d\u0027,\u0027 read -r c0 c1 c2 c3 c4 c5 c6 c7 \u003c\u003c\u003c \"$cores\"\n    for i in 0 1 2 3 4 5 6 7; do\n        eval \"st\u003d\\$c$i\"\n        safe_write \"/sys/devices/system/cpu/cpu$i/online\" \"$st\"\n    done\n    sleep 0.1\nfi\nEOF\n\n    # 动态执行 CPU 簇写入\n    for i in $policy_list; do\n        cat \u003c\u003c EOF \u003e\u003e \"$FILE_PATH\"\n# CPU 簇 $i\nc${i}_dir\u003d\\$(get_val \"c${i}_dir\")\nc${i}_gov\u003d\\$(get_val \"c${i}_gov\")\nc${i}_min\u003d\\$(get_val \"c${i}_min\")\nc${i}_max\u003d\\$(get_val \"c${i}_max\")\nsafe_write \"\\${c${i}_dir}/scaling_governor\" \"\\$c${i}_gov\"\nsafe_freq_write \"\\${c${i}_dir}/scaling_min_freq\" \"\\${c${i}_dir}/scaling_max_freq\" \"\\$c${i}_min\" \"\\$c${i}_max\"\nEOF\n    done\n\n    # 缝合 GPU 逻辑\n    cat \u003c\u003c \u0027EOF\u0027 \u003e\u003e \"$FILE_PATH\"\n\n# GPU 调度\nif [ -n \"$gpu_dir\" ] \u0026\u0026 [ -n \"$gpu_min\" ]; then\n    safe_freq_write \"$gpu_dir/min_freq\" \"$gpu_dir/max_freq\" \"$gpu_min\" \"$gpu_max\"\nfi\n\nexit 0\nEOF\n\n    chmod +x \"$FILE_PATH\"\n    echo \"✅ 成功生成全新脚本: mode_${m_name}.sh\"\ndone\n\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 5. 生成应用配置文件\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nJSON_FILE\u003d\"$MOD_DIR/appconfig.json\"\n\nif [ -f \"$JSON_FILE\" ]; then\n    echo \"🛡️ 检测到已存在文件，跳过并保留: appconfig.json\"\nelse\n    cat \u003c\u003c \u0027EOF\u0027 \u003e \"$JSON_FILE\"\n{\n  \"默认模式\": \"均衡\",\n  \"模式\": {\n    \"省电\": [],\n    \"均衡\": [],\n    \"性能\": [],\n    \"极速\": []\n  }\n}\nEOF\n    echo \"✅ 成功生成全新配置: appconfig.json\"\nfi\n\necho \"-------------------------------------------------\"\necho \"🎉 运行完毕！\"\n",
+      "customContextDataKey": {
+      },
+      "id": "A-4cdfee96-2888-4361-9c71-f5054726567a"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "通用前台调度",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3a8c512a-e683-4587-b563-2bbd68ec3844"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "rm -rf /storage/emulated/0/ShortX_Custom_Scheduler\n",
+      "customContextDataKey": {
+      },
+      "id": "A-0404b51d-09c5-45f5-be97-262a92ddc03c"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "通用前台调度",
+      "customContextDataKey": {
+      },
+      "id": "A-e7b3ea03-7b9a-4a01-af29-f36ac69f70c4"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-4d14368d-085e-4340-8cf8-ae3331fc2463"
+}
+###------###
+{"type":"rule"}

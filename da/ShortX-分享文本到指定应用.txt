@@ -1,0 +1,22 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "package_name \u003d \"com.aliyun.tongyi\";\ntext \u003d \"这是要分享的文本内容\";\nintent \u003d new android.content.Intent(\"android.intent.action.SEND\");\nintent.setType(\"text/plain\");\nintent.putExtra(android.content.Intent.EXTRA_TEXT, text);\nintent.setPackage(package_name);\nintent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); // 添加这个标志\ncontext.startActivity(intent);",
+    "customContextDataKey": {
+    },
+    "id": "A-837f669a-1a3d-42c3-9d22-9433cc5b9743"
+  }],
+  "id": "SHARED-DA-2854e261-bbe1-44df-bd48-6687e5a82912",
+  "lastUpdateTime": "1746685686382",
+  "createTime": "1746685318210",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "分享文本到指定应用",
+  "versionCode": "1",
+  "directActionSetId": "DS-58ee74a7-5f2e-4b7d-b1e5-730a0efe2a01",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

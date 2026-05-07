@@ -1,0 +1,162 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 8,
+      "minutes": 10
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "FRIDAY", "THURSDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b8eaa0c6-bd2a-4d94-b809-5dc70e6c2499"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "DB_FILE\u003d\"/data/user/0/com.xiaomi.vipaccount/app_webview_com.xiaomi.vipaccount/Default/Cookies\"\nCOOKIE_NAME_1\u003d\"cUserId\"\nCOOKIE_NAME_2\u003d\"miui_vip_ph\"\nCOOKIE_NAME_3\u003d\"miui_vip_slh\"\nCOOKIE_NAME_4\u003d\"miui_vip_serviceToken\"\n\n# 使用sqlite3命令来执行查询，提取特定Cookie的值\nCOOKIE_VALUE_1\u003d$(sqlite3 \"$DB_FILE\" \"SELECT DISTINCT value FROM cookies WHERE name\u003d\u0027$COOKIE_NAME_1\u0027 AND host_key\u003d\u0027.vip.miui.com\u0027;\")\nCOOKIE_VALUE_2\u003d$(sqlite3 \"$DB_FILE\" \"SELECT DISTINCT value FROM cookies WHERE name\u003d\u0027$COOKIE_NAME_2\u0027 AND host_key\u003d\u0027.vip.miui.com\u0027;\")\nCOOKIE_VALUE_3\u003d$(sqlite3 \"$DB_FILE\" \"SELECT DISTINCT value FROM cookies WHERE name\u003d\u0027$COOKIE_NAME_3\u0027 AND host_key\u003d\u0027.vip.miui.com\u0027;\")\nCOOKIE_VALUE_4\u003d$(sqlite3 \"$DB_FILE\" \"SELECT DISTINCT value FROM cookies WHERE name\u003d\u0027$COOKIE_NAME_4\u0027 AND host_key\u003d\u0027.vip.miui.com\u0027;\")\n\n#只判断了cUserId的值\nif [ -n \"$COOKIE_VALUE_1\" ]; then\n  echo \"${COOKIE_NAME_1}\u003d${COOKIE_VALUE_1}; ${COOKIE_NAME_2}\u003d${COOKIE_VALUE_2}; ${COOKIE_NAME_3}\u003d${COOKIE_VALUE_3}; ${COOKIE_NAME_4}\u003d${COOKIE_VALUE_4}\"\nelse\n  echo \"未找到 $COOKIE_NAME_1.\"\nfi",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "cookie"
+      }]
+    },
+    "note": "获取cookie",
+    "id": "A-412e29bd-0638-492a-b648-25ce493ef6ec"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.regex.Matcher; \nimport java.util.regex.Pattern; \nString cook\u003d{cookie};\nPattern pattern \u003d Pattern.compile(\"miui_vip_ph\u003d(.*?);\");\nMatcher matcher \u003d pattern.matcher(cook);\nif (matcher.find()) {\n    String ph \u003d matcher.group(1);\n    return ph;\n} else {\n    return false;\n}",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "vip_ph"
+      }]
+    },
+    "note": "提取cookie中miui_vip_ph",
+    "id": "A-24f00e14-02be-4f60-bce3-ff26ae71b101"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.net.URLEncoder;\nimport java.nio.charset.StandardCharsets;\n\n\nString data \u003d {vip_ph};\nString encodedData \u003d URLEncoder.encode(data, StandardCharsets.UTF_8);\n\nreturn encodedData;\n    \n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "ck"
+      }]
+    },
+    "note": "miui_vip_ph转为URL编码",
+    "id": "A-39353930-a98f-460e-b3fb-bf1b65288a32"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api.vip.miui.com/mtop/planet/vip/user/checkin?ref\u003dvipAccountShortcut\u0026pathname\u003d%2Fmio%2FcheckIn\u0026miui_vip_ph\u003d{vip_ph}",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["status", "code"]
+      },
+      "method": "POST",
+      "headers": [{
+        "key": "Host",
+        "value": "api.vip.miui.com"
+      }, {
+        "key": "User-Agent",
+        "value": "Mozilla/5.0 (Linux; U; Android 11; zh-cn; Redmi K20 Pro Build/RKQ1.200826.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/89.0.4389.116 Mobile Safari/537.36"
+      }, {
+        "key": "Cookie",
+        "value": "{cookie}"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{}"
+      },
+      "customContextDataKey": {
+      },
+      "note": "小米社区签到",
+      "id": "A-3c64f437-9b93-4235-a529-ecc561b9ceeb"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet2}\u003d\u003d\u0027500\u0027||{httpRequestRet1}\u003d\u003d\u0027500\u0027",
+        "customContextDataKey": {
+        },
+        "id": "C-d9105b8a-486d-4b60-9af2-78dcb5be9e4d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "done",
+        "message": "今天已经签到过啦",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-e83d6a0f-9777-4fb2-950d-bdbfee668984"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b3982a64-fc36-4a92-a356-b81e8502f206"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet2}\u003d\u003d\u0027200\u0027||{httpRequestRet1}\u003d\u003d\u0027200\u0027",
+        "customContextDataKey": {
+        },
+        "id": "C-8b421502-62d7-483e-b91b-be95aaec7333"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.vip.miui.com/api/carrot/pull?ref\u003dvipAccountShortcut\u0026pathname\u003d%2Fmio%2Farrive\u0026version\u003ddev.230324\u0026miui_version\u003dV14.0.1.0.SJKCNXM\u0026android_version\u003d12\u0026oaid\u003d33c624de86e49f69\u0026device\u003draphael\u0026restrict_imei\u003d\u0026miui_big_version\u003dV140\u0026model\u003dRedmi%20K20%20Pro\u0026androidVersion\u003d12\u0026miuiBigVersion\u003dV140\u0026miui_vip_ph\u003d{vip_ph}",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "method": "POST",
+        "headers": [{
+          "key": "Cookie",
+          "value": "{cookie}"
+        }, {
+          "key": "Content-Type",
+          "value": "application/x-www-form-urlencoded;charset\u003dutf-8"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyForm",
+          "items": [{
+            "key": "miui_vip_ph",
+            "value": "{vip_ph}"
+          }]
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-dc659c4a-6c42-4c27-b62c-a0067daf35c0"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1691069658575",
+        "message": "{httpRequestRet}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-61e8d756-3318-4390-8bfc-b50a3ca10c1a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-3f9b6eef-d890-4376-aea6-ad736cb0e092"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "签到，拔萝卜",
+    "id": "A-c0cffb52-a8e5-4152-9cc6-2960666717cc"
+  }],
+  "id": "rule-122c5ee8-a07b-4584-960a-13373ec1b7b8",
+  "lastUpdateTime": "1699459677961",
+  "createTime": "1699457977058",
+  "author": {
+    "name": "奋斗的青年"
+  },
+  "title": "小米社区签到",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

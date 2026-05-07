@@ -1,0 +1,147 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-226967df-e5a3-4738-bec9-07243bd811e6"
+  }, {
+    "@type": "type.googleapis.com/ScreenOn",
+    "customContextDataKey": {
+    },
+    "id": "F-89f66c6e-6b5d-494a-8f3d-3a313d35958e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgSets": ["clash"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-0d3bd278-a039-4618-8d81-340703d5035b"
+    }, {
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-ee1af033-d963-422c-97d3-2c0ac09081b2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "layout-grid-fill",
+      "customContextDataKey": {
+      },
+      "id": "A-e1bf8d4e-3620-4b70-b5f5-b169d77611bb"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsRunning",
+        "pkgSets": ["clash"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-5a75a2df-b583-4a2f-a98c-877a22176b61"
+      }, {
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "id": "C-86dcd794-c677-4c07-873b-eafdbb8fba37"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-5ec2cafa-f12f-4768-88d7-ed87b8c1a990"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/AppIsNotRunning",
+          "pkgSets": ["clash"],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-bacd8543-25a5-4a58-8734-4663188727a9"
+        }, {
+          "@type": "type.googleapis.com/ScreenIsOn",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-5954d9bd-f6b3-4f8e-b175-71ac9c069628"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "/data/adb/box/scripts/box.service stop",
+          "customContextDataKey": {
+          },
+          "id": "A-370c3326-c72b-49aa-9e9e-9fa86fa26421"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "🥶暂停代理🥶",
+          "customContextDataKey": {
+          },
+          "id": "A-0df849f4-edc7-460a-9f62-c650c5a9f868"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/ScreenIsOn",
+            "customContextDataKey": {
+            },
+            "id": "C-f032299f-3abb-41c5-95a6-473a18cb560d"
+          }, {
+            "@type": "type.googleapis.com/AppIsNotRunning",
+            "pkgSets": ["clash"],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-b04bda14-4629-4a4d-adf8-3aa3260b1b92"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "/data/adb/box/scripts/box.service start",
+            "customContextDataKey": {
+            },
+            "id": "A-837c0185-cde9-4b8a-aad8-a9d0de2b141c"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "🥳恢复代理🥳",
+            "customContextDataKey": {
+            },
+            "id": "A-00ff54cc-34f8-46aa-b5b3-87eb78eca532"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-62fc3eab-37ba-4446-9cd6-063a4c6922e4"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-55ea47cf-4e46-4ded-8552-820cc236b1e5"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e6dc86c3-3cc3-4826-9583-bcfdb1ed43ba"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8051377f-e766-47d0-8df0-b3e513fb3cd8"
+  }],
+  "id": "rule-8c477b79-77a1-4c35-88ed-247fecf6adc4",
+  "lastUpdateTime": "1695702693947",
+  "createTime": "1695701589674",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "智能开关Box4",
+  "description": "息屏且应用集中应用未在运行，暂停代理\n息屏且应用集中应用在运行，无动作,亮屏无动作\n亮屏自动开启代理",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

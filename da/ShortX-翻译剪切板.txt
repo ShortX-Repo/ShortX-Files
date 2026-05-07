@@ -1,0 +1,99 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "clipboardContent",
+        "second": "globalVarOf$Text"
+      }]
+    },
+    "id": "A-5d9d06c8-6d89-49e5-880e-6326f047e6e3"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "function isChineseOrEnglish(text) {\n  var chinesePattern \u003d /^[\\u4E00-\\u9FFF]+$/; // 匹配中文字符的正则表达式\n  var englishPattern \u003d /^[A-Za-z]+$/; // 匹配英文字符的正则表达式\n\n  var filteredText \u003d text.replace(/[^\\u4E00-\\u9FFFA-Za-z]/g, \u0027\u0027); // 过滤掉非中文和非英文字符\n\n  if (chinesePattern.test(filteredText)) {\n    return 0;\n  } else if (englishPattern.test(filteredText)) {\n    return 1;\n  } else {\n    return 0;\n  }\n}\nvar text1 \u003d globalVarOf$Text;\nisChineseOrEnglish(text1);\n",
+    "customContextDataKey": {
+    },
+    "id": "A-cf63d218-a7b0-4491-8b13-85c563350cea"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://fanyi.so.com/index/search",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data.fanyi"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Cookie",
+      "value": "QiHooGUID\u003d6A22167EC27EFDD962966111A40DE70F.1697164819698; Q_UDID\u003d7855fd68-9422-7018-bce0-b56776f593b6; __guid\u003d144965027.3658042857835989500.1697164780536.6106; count\u003d1"
+    }, {
+      "key": "DNT",
+      "value": "1"
+    }, {
+      "key": "Origin",
+      "value": "https://fanyi.so.com"
+    }, {
+      "key": "Pragma",
+      "value": "no-cache"
+    }, {
+      "key": "Pro",
+      "value": "fanyi"
+    }, {
+      "key": "Referer",
+      "value": "https://fanyi.so.com/"
+    }, {
+      "key": "User-Agent",
+      "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.78"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyForm",
+      "items": [{
+        "key": "eng",
+        "value": "{jsRet}"
+      }, {
+        "key": "query",
+        "value": "{globalVarOf$Text}"
+      }, {
+        "key": "validate"
+      }, {
+        "key": "ignore_trans",
+        "value": "0"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1d8752c0-8f18-4a0d-9dc8-1020730d8eb8"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制译文",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{httpRequestRet1}",
+      "customContextDataKey": {
+      },
+      "id": "A-c68457d2-f2fc-43cb-84bf-fcb5c48ebab5"
+    }],
+    "title": "翻译结果",
+    "message": "原文：{globalVarOf$Text}\n译文：{httpRequestRet1}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 0.96993303
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-8bb0ffb7-4afb-4cbb-a7c8-9be8338b7276"
+  }],
+  "id": "SHARED-DA-729e7aed-2d4a-4422-81e1-3f0edc1d6b90",
+  "lastUpdateTime": "1753660309838",
+  "createTime": "1753659900770",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "翻译剪切板",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

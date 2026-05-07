@@ -1,0 +1,124 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-3065f1b9-1acf-4b34-9ab3-7a8ea76df8e6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "WebDavUser",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3a0f9d9f-1f27-458a-b45f-0345bb5c65d3"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "WebDavUrl",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-8cc376ef-3b05-48ce-b412-40004d54d7a7"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BotKey",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-77d43b3f-7476-4a0d-9a01-b3f6e4984713"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "初始化环境变量",
+    "id": "A-561559bc-94b6-421c-afb3-a6f18bf6ba2b"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-c0f2daaf-5ec4-4c22-9e8c-61702e8d2b41"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "WebDavUser",
+      "valueAsString": "admin:admin",
+      "customContextDataKey": {
+      },
+      "note": "账号:密码",
+      "id": "A-a2c536b2-bb19-4ae6-83d0-95e1d07a9576"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "WebDavUrl",
+      "valueAsString": "http://127.0.0.1:5244/dav/阿里云盘open/ShortX备份/ShortX/",
+      "customContextDataKey": {
+      },
+      "note": "Alist挂载网盘url",
+      "id": "A-03e52f65-9798-49e7-8a3b-9ed5dd430f88"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BotKey",
+      "valueAsString": "08d56858-c6aa-6aa6-8433-dff45aa6fcc9",
+      "customContextDataKey": {
+      },
+      "note": "企业微信机器人Key",
+      "id": "A-fc86fe7f-bb7c-46ca-bf65-653c07a76e3b"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "用户配置信息",
+    "id": "A-a20bd5cc-5955-4450-b3f4-d6a0bbd6f1ce"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 获取匹配指定模式的备份文件名\na\u003d$(ls /storage/emulated/0/Download/ShortX-Backup-*.zip)\n\n# 输出找到的备份文件名\necho \"找到备份文件: $a\"\n\n# 检查是否有备份文件\nif [ -z \"$a\" ]; then\n  echo \"找不到备份文件，退出。\"\n  exit 1\nfi\n\n# 使用curl上传文件\ncurl --insecure -T \"$a\" -u \"localVarOf$WebDavUser\" localVarOf$WebDavUrl\n\n# 检查curl命令是否成功执行\nif [ $? -eq 0 ]; then\n  echo \"文件上传成功\"\nelse\n  echo \"文件上传失败\"\n  exit 1\nfi\n\n# 删除本地上传成功的备份文件\nrm \"$a\"\n\n# 检查删除命令是否成功执行\nif [ $? -eq 0 ]; then\n  echo \"已删除本地备份文件\"\nelse\n  echo \"删除本地备份文件失败\"\nfi\n",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "curl命令文件上传",
+    "id": "A-b021c0c2-84b5-4629-ba35-3f05e4a2dae6"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key\u003dlocalVarOf$BotKey",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Content-Type",
+      "value": "application/json"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n    \t\"msgtype\": \"text\",\n    \t\"text\": {\n        \t\"content\": \"ShortX备份通知\\n\\n{shellOut}\"\n    \t}\n   }"
+    },
+    "customContextDataKey": {
+    },
+    "note": "企业微信群机器人推送",
+    "id": "A-581b2731-e48a-40aa-bc44-25dd49b43d60"
+  }],
+  "id": "DA16d1ae40-d206-4e5b-8a4a-bca38952f48c",
+  "lastUpdateTime": "1703513724340",
+  "createTime": "1703355719160",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "ShortX数据备份",
+  "description": "将ShortX数据备份到Alist阿里云盘",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

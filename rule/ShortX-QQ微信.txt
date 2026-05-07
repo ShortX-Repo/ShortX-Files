@@ -1,0 +1,62 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AudioFocusGain",
+    "apps": [{
+      "pkgName": "com.tencent.mobileqq"
+    }, {
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-065ab860-174c-4405-88c9-c6a9d4e49e7f"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/BatteryPercent",
+    "value": 100,
+    "op": "IntEqualTo",
+    "customContextDataKey": {
+    },
+    "id": "C-80cb41b3-7f95-4b11-a57f-700276a7ff1f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "获得焦点",
+    "customContextDataKey": {
+    },
+    "id": "A-6667ad5a-28f2-4a8d-8834-2b82264fb7f3"
+  }],
+  "id": "rule-f6482e96-f90d-44c5-af26-45974c27c543",
+  "lastUpdateTime": "1712499496844",
+  "createTime": "1712498258479",
+  "author": {
+    "name": "He"
+  },
+  "title": "QQ微信",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AudioFocusLost",
+      "apps": [{
+        "pkgName": "com.tencent.mobileqq"
+      }, {
+        "pkgName": "com.tencent.mm"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-26391a69-5cc5-42ff-aa00-92028b27edd9"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "失去焦点",
+      "customContextDataKey": {
+      },
+      "id": "A-ec532c87-cabe-41f0-8e9b-a6e35beca282"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

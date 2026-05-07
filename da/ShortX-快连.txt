@@ -1,0 +1,65 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/SetDataEnabled",
+    "customContextDataKey": {
+    },
+    "id": "A-ab3b7ccf-540a-4521-bd60-a57a9e889d08"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "pm clear world.letsgo.booster.android.pro\nam start -n world.letsgo.booster.android.pro/world.letsgo.booster.android.pages.home.HomeActivity",
+    "customContextDataKey": {
+    },
+    "id": "A-be9683b7-cd11-4f01-b20b-b036227a64e7"
+  }, {
+    "@type": "type.googleapis.com/SetDataEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-fe248d50-0251-4835-aa39-68256b2bc2a3"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireWifiConnected",
+      "requiredSSID": "*",
+      "customContextDataKey": {
+      },
+      "id": "C-d3a14a54-68cd-48c0-9069-b1bf7401da4a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetWifiEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-98218f1a-8743-44df-b45e-74cfaedf1a3d"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "6000",
+      "customContextDataKey": {
+      },
+      "id": "A-e41e59b7-4622-49d0-95ae-1635e154099b"
+    }, {
+      "@type": "type.googleapis.com/SetWifiEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-dcdfbf09-6b62-4bf8-9926-430bcedb3426"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f7d8f8b0-e92a-4dc6-80c4-411ac908ec39"
+  }],
+  "id": "SHARED-DA-6108f41c-cce6-4390-869e-5236fd858ea6",
+  "lastUpdateTime": "1739238881134",
+  "createTime": "1732977874306",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "快连",
+  "description": "无限使用快连，需搭配hookvip使用",
+  "versionCode": "1",
+  "quit": {
+    "evaluatePolicy": "Quit_EvaluatePolicy_Only_When_Is_Running",
+    "actionAsyncMode": "ActionAsyncMode_Async"
+  }
+}
+###------###
+{"type":"da"}

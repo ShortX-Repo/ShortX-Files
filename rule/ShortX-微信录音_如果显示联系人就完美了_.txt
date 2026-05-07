@@ -1,0 +1,118 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnStartOp",
+    "opCodes": [27, 26],
+    "apps": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-decfc088-6628-48d1-90f4-b4cf4ee36d2a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentActivity",
+      "activities": [{
+        "pkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "className": "com.tencent.mm.plugin.voip.ui.VideoActivity"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "C-0e14bc15-2350-42f3-8476-0700a3be2739"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "微信语音",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-47280e7b-130e-4fd8-a1a9-160097ac978d"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "微信语音",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-5593eee1-f5e6-4bc3-af3e-01016b5f67eb"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-9822d4b8-6edb-423f-a8cb-d46bc1fc3178"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "微信语音",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-1d24d4d9-0f4f-49a9-8e95-ea12b87deae4"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/AudioRecording",
+      "fileNamePrefix": "微信",
+      "customContextDataKey": {
+      },
+      "id": "A-1a727c81-d8da-46e6-ae30-8d8afc646a5f"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-064ea57c-efc3-43c1-bb65-8b13a8c7cd09"
+  }],
+  "id": "rule-360c7c31-957c-4242-b16a-a21b059c69b4",
+  "lastUpdateTime": "1704272768920",
+  "createTime": "1703767690906",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信录音（如果显示联系人就完美了）",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/OnFinishOp",
+      "opCodes": [26, 27],
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-07b30d09-55ff-45bf-94fb-14adb8cdb07c"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/StopAudioRecording",
+      "customContextDataKey": {
+      },
+      "id": "A-ed3370ac-acd8-413c-873c-81b4afbfb4da"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "微信语音",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-71fb12ab-b02d-4b36-add3-d66108aa7d76"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "微信语音",
+      "customContextDataKey": {
+      },
+      "id": "A-9b82dd51-057c-4426-8c00-6baf0c50cb31"
+    }]
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

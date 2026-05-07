@@ -1,0 +1,32 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "logcat -m 1 -e \"OnGetWebViewPageFinish.+https.+\" | grep -oE \"https:\\/\\/webstatic\\.mihoyo\\.com.+\"",
+        "id": "A-6c6fc3b1-c9cd-41ff-a548-f76e12b2d32b"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "id": "A-9f843711-202e-42c4-81ff-1a3626940c8c"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{shellOut}",
+        "id": "A-13058717-2411-432e-b9f3-f99f4f26a18e"
+      }],
+      "label": "点击获取"
+    }],
+    "tag": "2023-08-06 22:40:37",
+    "id": "A-d75b01f3-267f-4953-a29d-6ea26126b838"
+  }],
+  "id": "DAfaf0e267-14f6-434a-9ce5-cc22ceeccd62",
+  "lastUpdateTime": "1691333020196",
+  "createTime": "1691332777736",
+  "author": {
+    "name": "JK L"
+  },
+  "title": "原神抽卡链接",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

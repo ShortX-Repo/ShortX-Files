@@ -1,0 +1,81 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "tileNumber": 4,
+    "customContextDataKey": {
+    },
+    "id": "F-69a576f5-d9ee-4586-bf65-da3066fc3641"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings get global multi_sim_data_call | awk \u0027{print $1-1}\u0027",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "sim"
+      }]
+    },
+    "id": "A-2de7c68e-3e26-4d11-9a3f-0669d1ba4465"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "getprop gsm.network.type",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "network_type"
+      }]
+    },
+    "id": "A-f5ae57f0-54ce-493f-9b2e-c128be783f17"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{network_type}.contains(\u0027NR\u0027)",
+      "customContextDataKey": {
+      },
+      "id": "C-4d1241dc-0854-41fa-9c93-4f7b8bd12abb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# LTE|CDMA|EVDO|GSM|WCDMA\ncmd phone set-allowed-network-types-for-users -s {sim} 01001111101111111111",
+      "customContextDataKey": {
+      },
+      "id": "A-8f27fb37-b7fd-4b2e-a214-397cf6d2749e"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "// NR only : 10000000000000000000\n// NR|LTE : 11000001000000000000\n// LTE only : 01000001000000000000\n\n// NR|LTE|CDMA|EVDO|GSM|WCDMA : 11001111101111111111\n\n// LTE|CDMA|EVDO|GSM|WCDMA : 01001111101111111111",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "首选网络，参数说明",
+      "id": "A-f6b5a27c-c216-418a-9c51-0e800cfd2c2e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# NR only\ncmd phone set-allowed-network-types-for-users -s {sim} 10000000000000000000",
+      "customContextDataKey": {
+      },
+      "id": "A-441a659c-d59f-49b5-8016-7b796cc8e316"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f50cbe1d-d74b-45df-a265-e6fd2b368a52"
+  }],
+  "id": "rule-8b92f0eb-a4be-48ed-811e-1d7886e3391c",
+  "lastUpdateTime": "1701969022995",
+  "createTime": "1701535789386",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "5G开关",
+  "description": "磁贴",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-92b794c3-c8cf-4cc9-9c43-e2791f59c62e"
+}
+###------###
+{"type":"rule"}

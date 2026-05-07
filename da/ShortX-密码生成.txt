@@ -1,0 +1,21 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 生成随机字符串函数\ngenerate_random_string() {\n  # 设置生成字符串的长度\n  length\u003d$1\n\n  # 生成随机字符串\n  characters\u003d\"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\"\n  random_string\u003d$(cat /dev/urandom | LC_ALL\u003dC tr -dc \"$characters\" | head -c $length)\n\n  echo $random_string\n}\n\n# 调用生成随机字符串函数并指定长度为10\nresult\u003d$(generate_random_string 15)\n\necho \"随机字符串: $result\"\n",
+    "id": "A-2416bf53-17d7-471d-9325-2369f6b11c9b"
+  }, {
+    "@type": "type.googleapis.com/WriteClipboard",
+    "text": "{shellOut}",
+    "id": "A-977e041d-9672-41e9-8a0f-69d4d897017b"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "密码已写入剪切板",
+    "id": "A-3083416c-4ea7-4f39-b50b-84f43bd8f18a"
+  }],
+  "id": "DA5b2e4361-9816-41c8-bf4c-1d16f04fc0db",
+  "lastUpdateTime": "1689224244208",
+  "createTime": "1689211758565",
+  "title": "密码生成"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,109 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-ad583c21-57e8-4dd6-a5ca-12e4358d9566"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-a59d0c31-6403-45a7-aa9f-c19f5c8afb9a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "id": "C-8d71cbc8-63f6-432e-84e1-8ecca5273630"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m月%d日)\ntime_time\u003d$(date +%H:%M:%S)\n\nlog\u003d\"/storage/emulated/0/Android/🔋信息/${time_m}.log\"\n\ndc_Sereen\u003d\"☀️亮屏\" #亮屏时字符\n#电量\nDl\u003d$(cat /sys/class/power_supply/battery/capacity)\ndc_Dl\u003d$(echo \"scale\u003d1; ${Dl}\" | bc)\n\n#温度\nC\u003d$(cat /sys/class/power_supply/battery/temp)\ndc_C\u003d$(echo \"scale\u003d1; ${C}/10\" | bc)\n\n#充电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\na\u003d-1\ndc_x\u003d$(echo \"scale\u003d2; ${a}*${dc_I}*${dc_U}/1000000000\" | bc )\n\ndc_P\u003d0$dc_x\n\n#输入参数\nint_Dc\u003d\"$dc_Dl\"\nint_C\u003d\"$dc_C\"\nint_P\u003d\"$dc_P\"\n\necho -e \"[${time_Y}年${time_m} ${time_time}][${dc_Sereen}][充电 ↗]电量:${int_Dc}% 温度:${int_C}°C 功率:${dc_P}W\" \u003e\u003e ${log}\n\nunset time_Y time_m time_d time_time",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-556dfeec-8146-42a3-b79d-3dc30e5c9f68"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m月%d日)\ntime_time\u003d$(date +%H:%M:%S)\n\nlog\u003d\"/storage/emulated/0/Android/🔋信息/${time_m}.log\"\ndc_Sereen\u003d\"🌑息屏\" #息屏时字符\n#电量\nDl\u003d$(cat /sys/class/power_supply/battery/capacity)\ndc_Dl\u003d$(echo \"scale\u003d1; ${Dl}\" | bc)\n\n#温度\nC\u003d$(cat /sys/class/power_supply/battery/temp)\ndc_C\u003d$(echo \"scale\u003d1; ${C}/10\" | bc)\n\n#充电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\na\u003d-1\ndc_x\u003d$(echo \"scale\u003d2; ${a}*${dc_I}*${dc_U}/1000000000\" | bc )\n\ndc_P\u003d0$dc_x\n\n#输入参数\nint_Dc\u003d\"$dc_Dl\"\nint_C\u003d\"$dc_C\"\nint_P\u003d\"$dc_P\"\n\necho -e \"[${time_Y}年${time_m} ${time_time}][${dc_Sereen}][充电 ↗]电量:${int_Dc}% 温度:${int_C}°C 功率:${dc_P}W\" \u003e\u003e ${log}\n\nunset time_Y time_m time_d time_time",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-f1edb1d3-8366-47eb-a690-9b6f20bc4730"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-0e036486-b856-486c-8f72-a794e6685c91"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "id": "C-5e5d7721-593c-41a3-b3d7-0536ec825ae3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m月%d日)\ntime_time\u003d$(date +%H:%M:%S)\n\nlog\u003d\"/storage/emulated/0/Android/🔋信息/${time_m}.log\"\n\ndc_Sereen\u003d\"☀️亮屏\" #亮屏时字符\n#电量\nDl\u003d$(cat /sys/class/power_supply/battery/capacity)\ndc_Dl\u003d$(echo \"scale\u003d1; ${Dl}\" | bc)\n\n#温度\nC\u003d$(cat /sys/class/power_supply/battery/temp)\ndc_C\u003d$(echo \"scale\u003d1; ${C}/10\" | bc)\n\n#放电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\ndc_x\u003d$(echo \"scale\u003d2; ${dc_I}*${dc_U}/1000000000\" | bc )\ndc_P\u003d0$dc_x\n\n#输出参数\nint_Dc\u003d\"$dc_Dl\"\nint_C\u003d\"$dc_C\"\nint_P\u003d\"$dc_P\"\n\n#输出文本\necho -e \"[${time_Y}年${time_m} ${time_time}][${dc_Sereen}][放电 ↙]电量:${int_Dc}% 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}\n\nunset time_Y time_m time_d time_time",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-ee620d4b-3d08-4146-8e5f-0c594565d5e3"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#时间\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m月%d日)\ntime_time\u003d$(date +%H:%M:%S)\n\nlog\u003d\"/storage/emulated/0/Android/🔋信息/${time_m}.log\"\n\ndc_Sereen\u003d\"🌑息屏\" #息屏时字符\n#电量\nDl\u003d$(cat /sys/class/power_supply/battery/capacity)\ndc_Dl\u003d$(echo \"scale\u003d1; ${Dl}\" | bc)\n\n#温度\nC\u003d$(cat /sys/class/power_supply/battery/temp)\ndc_C\u003d$(echo \"scale\u003d1; ${C}/10\" | bc)\n\n#放电功率\ndc_I\u003d$(cat /sys/class/power_supply/battery/voltage_now)\ndc_U\u003d$(cat /sys/class/power_supply/battery/current_now)\ndc_x\u003d$(echo \"scale\u003d2; ${dc_I}*${dc_U}/1000000000\" | bc )\ndc_P\u003d0$dc_x\n\n#输出参数\nint_Dc\u003d\"$dc_Dl\"\nint_C\u003d\"$dc_C\"\nint_P\u003d\"$dc_P\"\n\n#输出文本\necho -e \"[${time_Y}年${time_m} ${time_time}][${dc_Sereen}][放电 ↙]电量:${int_Dc}% 温度:${int_C}°C 功率:${int_P}W\" \u003e\u003e ${log}\n\nunset time_Y time_m time_d time_time",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-87aa1ed9-426c-405e-96f3-91dd7a929277"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-4406fe5b-55e3-4501-a0bd-4e6f692c1b19"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "写入log\n - 放电\n - 充电",
+    "id": "A-ce96a881-1103-44fa-9910-9078ccecd254"
+  }],
+  "id": "rule-17d2af99-5e50-439a-8dc1-2f0e67e8f729",
+  "lastUpdateTime": "1696576398667",
+  "createTime": "1694911923777",
+  "author": {
+    "name": "奋斗的青年"
+  },
+  "title": "电量-温度记录",
+  "description": "记录电量和温度（修改版）（原作者：lanyi233）",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "if [ -d /storage/emulated/0/Android/🔋信息/ ]; then\n    echo \"文件夹已存在\"\nelse\n    mkdir /storage/emulated/0/Android/🔋信息/\n    echo \"文件创建成功\"\nfi\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-e1e6663f-bb10-4f51-b7f6-21e05448e19d"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-526dbfd3-3973-40a9-8be4-01e2141082ad"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-d1685209-8dc8-44fb-993b-dd335ef4816d"
+}
+###------###
+{"type":"rule"}

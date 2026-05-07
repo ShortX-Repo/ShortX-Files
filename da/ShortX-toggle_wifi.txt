@@ -1,0 +1,52 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// Rhino JS 示例：判断 WiFi 是否开启\n// 假设宿主环境已注入 Android 的 Context 对象为 context\n\nvar Context \u003d Packages.android.content.Context;\nvar WifiManager \u003d Packages.android.net.wifi.WifiManager;\n\n// 通过系统服务获取 WifiManager\nvar wifiManager \u003d context.getSystemService(Context.WIFI_SERVICE);\n\nif (wifiManager \u003d\u003d null) {\n    console.log(\"无法获取 WifiManager\");\n    \"off\"; // 返回 off\n} else {\n    var enabled \u003d wifiManager.isWifiEnabled();\n    console.log(\"WiFi 状态: \" + enabled);\n    enabled ? \"on\" : \"off\"; // 返回 on/off\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-28565db6-7155-47c8-a96a-94775b7c07de"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "jsRet",
+      "payload": {
+        "value": "off"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-5789f1bb-40a8-47fe-8e51-bb91ae580253"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetWifiEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-710c23b9-7d3a-41d8-a4c1-c75dab4d2db6"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetWifiEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-c8b63899-6311-45fd-be0c-7c95447bc8ba"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f6149ea0-8623-4a88-a550-fe4d659cbc94"
+  }],
+  "id": "SHARED-DA-1c28abf7-0de0-4185-af19-636eea90afde",
+  "lastUpdateTime": "1759934673775",
+  "createTime": "1759934396483",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "toggle wifi",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

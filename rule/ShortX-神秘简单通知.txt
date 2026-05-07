@@ -1,0 +1,111 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "RightTop",
+    "gesture": "SwipeFromBottom",
+    "customContextDataKey": {
+    },
+    "id": "F-725d72e8-d677-4a36-a62f-c123ddfdc41c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FromDA",
+    "daId": "DA608febd0-c31b-4768-9fd1-f86ffd2ab9e2",
+    "customContextDataKey": {
+    },
+    "id": "A-825211aa-b3c3-4c93-bb9a-f622f1e3e8fe"
+  }, {
+    "@type": "type.googleapis.com/ExpandNotification",
+    "customContextDataKey": {
+    },
+    "id": "A-85b96770-aa7f-488c-b0c1-a4ca8b260036"
+  }],
+  "id": "rule-3bd36d64-e4b1-4206-a61d-3fb07abaae9a",
+  "lastUpdateTime": "1695878163835",
+  "createTime": "1695807871645",
+  "author": {
+    "name": "歌者"
+  },
+  "title": "神秘简单通知",
+  "description": " 边缘滑动触发",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "smgroup",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-cb8c1459-9609-4ddf-be5a-c34972c1b695"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "smproxy",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-925e392c-cd24-48e4-a6c9-b6bb17621c74"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "smgroup",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-107a6bfb-3379-429b-918e-f36bacd06ec8"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "smdelay",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-762c0308-2518-4ac5-9951-266292e7e394"
+      }, {
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "输入你想显示的星盘名",
+        "cancelable": true,
+        "textFields": [{
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-8eb0f4e9-5ba9-4597-9655-39f0e36aa5d9"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "smgroup",
+        "valueAsString": "{textFieldInput1}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-183fcc75-8220-41f8-aad7-d9915e7a2a18"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "通知结构为星盘-传送阵-节点，如不满足此结构，请自行调试",
+        "customContextDataKey": {
+        },
+        "id": "A-807ac28e-ea77-41b7-a053-7347f2ac62aa"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-328d4a13-6372-401e-b681-1f63c536deb8"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

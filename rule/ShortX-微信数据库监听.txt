@@ -1,0 +1,56 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "com.tencent.mm",
+    "className": "com.tencent.wcdb.database.SQLiteDatabase",
+    "methodName": "insertWithOnConflict",
+    "expressions": [{
+      "expressionMVEL": "contentValues \u003d param.args[2]; \ncontentValues.getAsString(\"talker\");",
+      "contextKey": "talker"
+    }, {
+      "expressionMVEL": "contentValues \u003d param.args[2]; \ncontentValues.getAsString(\"content\");",
+      "contextKey": "content"
+    }, {
+      "expressionMVEL": "contentValues \u003d param.args[2]; \ncontentValues.getAsString(\"type\");",
+      "contextKey": "type"
+    }],
+    "lifecycle": "LoadedPackage",
+    "constraint": [{
+      "@type": "type.googleapis.com/MethodHookConstraintParamsCount",
+      "count": 4
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-aeed1656-ccac-4550-96a1-1fd709294b87"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "{type}\u003d\u003d\"1\"",
+    "customContextDataKey": {
+    },
+    "id": "C-11e34f0e-b0df-458c-beaf-3e72a2174977"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{talker}\n{content}",
+    "icon": "remix://bug",
+    "customContextDataKey": {
+    },
+    "id": "A-09313f2e-648b-4a2a-83a6-18d4202b7239"
+  }],
+  "id": "SHARE-rule-8cdb28a4-990b-4e82-a4c3-cbe3007c6e7c",
+  "lastUpdateTime": "1743860733783",
+  "createTime": "1743859787155",
+  "author": {
+    "name": "帕帝天秀"
+  },
+  "title": "微信数据库监听",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

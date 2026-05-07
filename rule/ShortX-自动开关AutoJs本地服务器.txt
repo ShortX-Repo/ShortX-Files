@@ -1,0 +1,136 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStartRunning",
+    "apps": [{
+      "pkgName": "org.autojs.autojspro"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-eec4d8ab-826b-4348-8063-6ea50f37f594"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "org.autojs.autojspro"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-64c2bb9b-3733-4108-879c-d9f92a31c042"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "pgrep -f \"AutoJsPro\"",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-d0a968b9-ec2e-4a77-82f7-43a988550e3c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{shellOut} \u003c \"0\"",
+      "customContextDataKey": {
+      },
+      "id": "C-313ab1d0-aa80-46eb-8429-8e9c08984a58"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "正在运行本地服务器",
+      "icon": "app://org.autojs.autojspro",
+      "customContextDataKey": {
+      },
+      "id": "A-f59c1d11-da76-4a7a-a721-1f7475f0a814"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "cd /data/local/tmp/\nnohup ./AutoJsPro \u0026\u003e/dev/null \u0026",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-a77bc4b8-5500-42c8-8bdd-d16c4ec27ae7"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "kill $(pgrep AutoJsPro)",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-57d56e9b-0825-4736-9d16-63ec31d313b2"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "已停止本地服务器",
+      "icon": "app://org.autojs.autojspro",
+      "customContextDataKey": {
+      },
+      "id": "A-4a646d65-dff0-44e5-9174-fcd7c07f45b6"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-5ccb5383-dd7f-4d3c-84f6-abb081fd2ef0"
+  }],
+  "id": "SHARE-rule-ac0526e9-8a82-42f1-a481-aa91e65e1ac0",
+  "lastUpdateTime": "1745430979324",
+  "createTime": "1745428194539",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "自动开关AutoJs本地服务器",
+  "description": "修改hosts文件添加：127.0.0.1 boys.intcl.top",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "AutoJsPro",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-24558ff2-1d03-4262-83bb-7530cd55b8f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 设置目标路径和文件名\nDEST_DIR\u003d\"/data/local/tmp\"\nFILE_NAME\u003d\"AutoJsPro\"\nFILE_URL\u003d\"https://gitee.com/wululu0922/download/releases/download/kanxueqd/$FILE_NAME\"\nDEST_PATH\u003d\"$DEST_DIR/$FILE_NAME\"\n\n# 创建目标目录（如果不存在）\nmkdir -p \"$DEST_DIR\"\n\n# 使用curl下载（如果没有curl可替换为wget）\ncurl -L -o \"$DEST_PATH\" \"$FILE_URL\"\n\n# 检查下载是否成功\nif [ -f \"$DEST_PATH\" ]; then\n    chmod 777 \"$DEST_PATH\"\n    echo \"下载完成，权限已设置：$DEST_PATH\"\nelse\n    echo \"下载失败\"\nfi",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-82110b27-ddc8-4497-9768-59434ac951eb"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "AutoJsPro",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "AutoJsPro本地服务器环境"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b9ecef70-ab48-4e69-a0f6-f4b4a6e8cdd7"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "AutoJsPro",
+        "valueAsString": "AutoJsPro本地服务器环境已部署",
+        "customContextDataKey": {
+        },
+        "id": "A-a764b0cc-0ea8-4a38-9a4b-5f5786c12e84"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "focus-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-279e156c-7350-4139-bb42-d6713a14a6e7"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-afa23148-4229-4e41-a308-cc2c1c8c9709"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

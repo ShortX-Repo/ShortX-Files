@@ -1,0 +1,1820 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/RandomInPeriod",
+    "start": {
+      "hour": 7
+    },
+    "end": {
+      "hour": 7,
+      "minutes": 30
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-4a7d5d32-130b-48e4-93dd-04357be845b7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "appkey",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-494c1751-ddf9-4935-8a1b-ebe269d15d02"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "uid",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-e393e1e6-d58a-4735-b5ec-ecbe3da29702"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "UA",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-0139d52a-c012-41be-bada-d3cb612cad54"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "uid",
+    "customContextDataKey": {
+    },
+    "note": "设置你的uid",
+    "id": "A-ed17e934-704f-45e4-bfda-5726e84fedcb"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "appkey",
+    "customContextDataKey": {
+    },
+    "note": "设置过验证码平台的key\n过验证码平台官网：https://www.rrocr.com/",
+    "id": "A-45a46077-b5c9-4571-b948-d6e9fe6667cc"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "UA",
+    "customContextDataKey": {
+    },
+    "note": "设置失败ua",
+    "id": "A-37830cdb-dbbf-40db-a6a7-084fab3d6aee"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://bbs-api.miyoushe.com/apihub/wapi/getUserMissionsState?point_sn\u003dmyb",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["retcode", "data.can_get_points", "data.already_received_points", "data.total_points", "data.today_total_points", "data.states"]
+      },
+      "headers": [{
+        "key": "Cookie",
+        "value": "globalVarOf$米游社ck"
+      }, {
+        "key": "User-Agent",
+        "value": "localVarOf$UA"
+      }, {
+        "key": "Origin",
+        "value": "https://webstatic.miyoushe.com"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "note": "获取米游社任务列表",
+      "id": "A-ea7c52e6-2248-47e8-9e5a-7a351c7399fa"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "a\u003d\u0027{httpRequestRet6}\u0027\n# 定义要查找的mission_id数组\nmission_ids\u003d(58 59 60 61)\n# 遍历数组中的每个mission_id\nfor id in \"${mission_ids[@]}\"; do\n  # 使用grep命令在数组a中查找匹配的mission_id\n  if grep -q \"\\\"mission_id\\\":$id\", \u003c\u003c\u003c\"$a\"; then\n    echo \"true\" #存在匹配，返回true\n  else\n    echo \"false\" #不存在匹配，返回false\n  fi\ndone\n",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "任务情况"
+        }]
+      },
+      "id": "A-a4d76575-30f5-4c2d-a01c-f22b045369f0"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} \u003d\u003d 0;",
+        "customContextDataKey": {
+        },
+        "id": "C-a8aa201f-2897-40f0-8bb1-0f44f573488e"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{httpRequestRet2} \u003d\u003d 0;",
+          "customContextDataKey": {
+          },
+          "id": "C-97af9bc3-9111-4af9-8653-fa80ae58f2f7"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\"任务状态：全部完成\\n获取米游币：\"+{httpRequestRet3}+\"/\"+{httpRequestRet5}+\"枚\\n拥有米游币：\"+{httpRequestRet4}+\"枚\"\n",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "任务状态"
+            }]
+          },
+          "id": "A-5e987e52-ed6c-475e-9c42-f8ce17bcc027"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "String a \u003d{任务情况};\nString[] tasks \u003d a.split(\", \");\nboolean[] boolValues \u003d new boolean[tasks.length];\nfor (int i \u003d 0; i \u003c tasks.length; i++) {\n    boolValues[i] \u003d Boolean.parseBoolean(tasks[i]);\n}\nreturn boolValues[0];  // 输出打卡状态\n",
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-a8042907-a686-475a-9757-3a10a7073f65"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "# 定义变量\nn\u003d\"t0qEgfub6cvueAPgR5m9aQWWVciEer7v\"\ni\u003d$(date +%s)\nr\u003d$((RANDOM%90000+100001))\nb\u003d\u0027{\"gids\":\"2\"}\u0027\nq\u003d\"\"\nad\u003d\"\u0026b\u003d${b}\u0026q\u003d${q}\"\n# 拼接字符串\nc\u003d\"salt\u003d${n}\u0026t\u003d${i}\u0026r\u003d${r}${ad}\"\n# 输出时间戳, 随机数和MD5哈希值\necho ${i},${r},$(echo -n \"$c\" | md5sum | awk \u0027{print $1}\u0027)",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "shellOut",
+                "second": "DS2"
+              }, {
+                "first": "shellErr"
+              }, {
+                "first": "shellCode"
+              }]
+            },
+            "note": "社区签到ds拼接md5加密(1000001-2000000)",
+            "id": "A-7f09ade6-5a4c-4400-93d8-ab621303a2f2"
+          }, {
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://bbs-api.miyoushe.com/apihub/app/api/signIn",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+              "expressions": ["retcode"]
+            },
+            "method": "POST",
+            "headers": [{
+              "key": "cookie",
+              "value": "globalVarOf$米游社任务ck"
+            }, {
+              "key": "DS",
+              "value": "{DS2}"
+            }, {
+              "key": "x-rpc-client_type",
+              "value": "2"
+            }, {
+              "key": "x-rpc-app_version",
+              "value": "2.58.2"
+            }, {
+              "key": "x-rpc-device_id",
+              "value": "globalVarOf$device_id"
+            }, {
+              "key": "Referer",
+              "value": "https://app.mihoyo.com"
+            }, {
+              "key": "x-rpc-channel",
+              "value": "miyousheluodi"
+            }],
+            "requestBody": {
+              "@type": "type.googleapis.com/HttpRequestBodyJson",
+              "json": "{\"gids\":\"2\"}"
+            },
+            "customContextDataKey": {
+            },
+            "note": "原神社区签到",
+            "id": "A-37dfb590-e6da-40ad-82b9-bc82944c80d4"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/MatchMVEL",
+              "expression": "{httpRequestRet1} \u003d\u003d 1034;",
+              "customContextDataKey": {
+              },
+              "id": "C-589ee599-6b2d-431a-9cdb-72a2e861030a"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowDanmu",
+              "text": "社区签到触发验证码",
+              "customContextDataKey": {
+              },
+              "id": "A-3a773679-a709-4d89-9b38-a0efff46bff6"
+            }, {
+              "@type": "type.googleapis.com/CreateLocalVar",
+              "localVar": {
+                "name": "challenge",
+                "type": {
+                  "@type": "type.googleapis.com/StringVar"
+                }
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-c178507c-56d3-4992-a028-2b66638530c6"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://bbs-api.miyoushe.com/misc/api/createVerification?is_high\u003dtrue",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["data.challenge", "data.gt"]
+              },
+              "headers": [{
+                "key": "cookie",
+                "value": "globalVarOf$米游社任务ck"
+              }, {
+                "key": "DS",
+                "value": "{DS}"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "2"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.58.2"
+              }, {
+                "key": "x-rpc-channel",
+                "value": "miyousheluodi"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "Referer",
+                "value": "https://app.mihoyo.com"
+              }, {
+                "key": "Host",
+                "value": "bbs-api.mihoyo.com"
+              }, {
+                "key": "User-Agent",
+                "value": "okhttp/4.9.3"
+              }],
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "note": "获取社区签到challenge和gt",
+              "id": "A-2d871f2c-255f-40e2-aa42-19350b0898a1"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "challenge",
+              "valueAsString": "{httpRequestRet1}",
+              "customContextDataKey": {
+              },
+              "id": "A-be0627f8-2c92-422b-bdf1-26a73a4e0e76"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://api.rrocr.com/api/recognize.html?appkey\u003d{appkey}\u0026gt\u003d{httpRequestRet2}\u0026challenge\u003d{httpRequestRet1}\u0026referer\u003dhttps://bbs-api.miyoushe.com/apihub/app/api/signIn",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["data.validate"]
+              },
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "note": "过验证码平台",
+              "id": "A-e4f1c4f0-de81-48e5-9b78-995283ba3382"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://bbs-api.miyoushe.com/misc/api/verifyVerification",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["data.challenge"]
+              },
+              "method": "POST",
+              "headers": [{
+                "key": "cookie",
+                "value": "globalVarOf$米游社任务ck"
+              }, {
+                "key": "DS",
+                "value": "{DS}"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "2"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.58.2"
+              }, {
+                "key": "x-rpc-channel",
+                "value": "miyousheluodi"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "Referer",
+                "value": "https://app.mihoyo.com"
+              }, {
+                "key": "Host",
+                "value": "bbs-api.mihoyo.com"
+              }, {
+                "key": "User-Agent",
+                "value": "okhttp/4.9.3"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\"geetest_challenge\":\"localVarOf$challenge\",\"geetest_seccode\":\"{httpRequestRet1}|jordan\",\"geetest_validate\":\"{httpRequestRet1}\"}"
+              },
+              "customContextDataKey": {
+              },
+              "note": "上传验证码结果",
+              "id": "A-378eeaed-043b-4ded-b99a-5b351d232004"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "# 定义变量\nn\u003d\"t0qEgfub6cvueAPgR5m9aQWWVciEer7v\"\ni\u003d$(date +%s)\nr\u003d$((RANDOM%90000+100001))\nb\u003d\u0027{\"gids\":\"2\"}\u0027\nq\u003d\"\"\nad\u003d\"\u0026b\u003d${b}\u0026q\u003d${q}\"\n# 拼接字符串\nc\u003d\"salt\u003d${n}\u0026t\u003d${i}\u0026r\u003d${r}${ad}\"\n# 输出时间戳, 随机数和MD5哈希值\necho ${i},${r},$(echo -n \"$c\" | md5sum | awk \u0027{print $1}\u0027)",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "shellOut",
+                  "second": "DS2"
+                }, {
+                  "first": "shellErr"
+                }, {
+                  "first": "shellCode"
+                }]
+              },
+              "note": "社区签到ds拼接md5加密(1000001-2000000)",
+              "id": "A-34ecc66a-4abd-443c-b817-5427c0193262"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://bbs-api.miyoushe.com/apihub/app/api/signIn",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["retcode", "message"]
+              },
+              "method": "POST",
+              "headers": [{
+                "key": "cookie",
+                "value": "globalVarOf$米游社任务ck"
+              }, {
+                "key": "DS",
+                "value": "{DS2}"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "2"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.58.2"
+              }, {
+                "key": "x-rpc-channel",
+                "value": "miyousheluodi"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "Referer",
+                "value": "https://app.mihoyo.com"
+              }, {
+                "key": "Host",
+                "value": "bbs-api.mihoyo.com"
+              }, {
+                "key": "User-Agent",
+                "value": "okhttp/4.9.3"
+              }, {
+                "key": "x-rpc-challenge",
+                "value": "{httpRequestRet1}"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\"gids\":\"2\"}"
+              },
+              "customContextDataKey": {
+              },
+              "note": "原神社区签到",
+              "id": "A-31dbd33f-75f9-4325-8405-a318968ec835"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/MatchMVEL",
+                "expression": "{httpRequestRet2} \u003d\u003d \u0027OK\u0027;",
+                "customContextDataKey": {
+                },
+                "id": "C-93c66bf9-0364-45f6-966e-11e7f8141326"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "\"打卡：成功\"",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "打卡任务"
+                  }]
+                },
+                "id": "A-c03a8a19-fd75-417e-8984-001ac408edee"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "\"打卡：失败\"",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "打卡任务"
+                  }]
+                },
+                "id": "A-14405117-4dcf-40ee-99e6-07f6f5376127"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-1af02821-92c9-44e9-ab1c-a49fa1d87658"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/MatchMVEL",
+                "expression": "{httpRequestRet1} \u003d\u003d 0;",
+                "customContextDataKey": {
+                },
+                "id": "C-cc6477f4-96f8-4e39-9236-32d813fbc873"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "\"打卡：成功\"",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "打卡任务"
+                  }]
+                },
+                "id": "A-a52f9291-694a-4032-83a8-6cfa374aa166"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "\"打卡：失败\"",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "打卡任务"
+                  }]
+                },
+                "id": "A-8e61b272-5721-4b0a-b15a-8b990df59406"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-84ab045c-8fb8-4cb0-8ab2-673447d3b480"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-1a8be83a-8046-4b32-91bd-b9486017fec7"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "\"打卡：已打卡\"",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "打卡任务"
+              }]
+            },
+            "id": "A-ce68e110-8255-45d6-a8a9-3fe26dc395ef"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "打卡，占时不可用",
+          "id": "A-409fb324-0787-45ea-aa6e-98b038a3f602"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "500",
+          "customContextDataKey": {
+          },
+          "id": "A-61e6755d-3ca6-4028-b3e4-80eb6ff9f850"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "String a \u003d{任务情况};\nString[] tasks \u003d a.split(\", \");\nboolean[] boolValues \u003d new boolean[tasks.length];\nfor (int i \u003d 0; i \u003c tasks.length; i++) {\n    boolValues[i] \u003d Boolean.parseBoolean(tasks[i]);\n}\nreturn boolValues[1];  // 输出打卡状态\n",
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-aa1098ce-8a4f-4573-90ce-c49cd3a807ba"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WhileLoop",
+            "actions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "# 生成随机字符串函数\ngenerate_random_string() {\n  # 设置生成字符串的长度\n  length\u003d$1\n  # 生成随机字符串\n  characters\u003d\"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\"\n  random_string\u003d$(cat /dev/urandom | LC_ALL\u003dC tr -dc \"$characters\" | head -c $length)\n  echo $random_string\n}\n# 调用生成随机字符串函数并指定长度为6\nresult\u003d$(generate_random_string 6)\n# 获取时间戳\ntimestamp\u003d$(date +%s)\n#米游社的Salt\nn\u003d\"kzTvKGDHumYf6h1Ia5txMjxAJuTtD0ol\"\n#拼接\nmx\u003d\"salt\u003d${n}\u0026t\u003d${timestamp}\u0026r\u003d${result}\"\necho \"$timestamp,$result,$(echo -n $mx | md5sum | awk \u0027{print $1}\u0027)\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "shellOut",
+                  "second": "DS"
+                }, {
+                  "first": "shellErr"
+                }, {
+                  "first": "shellCode"
+                }]
+              },
+              "note": "ds拼接md5加密",
+              "id": "A-3f5d950b-388f-425f-80c4-9a45e5aeca4e"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://bbs-api.miyoushe.com/post/api/getForumPostList?forum_id\u003d26\u0026is_good\u003dfalse\u0026is_hot\u003dfalse\u0026page_size\u003d20\u0026sort_type\u003d1",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["data.list[0].post.post_id"]
+              },
+              "headers": [{
+                "key": "cookie",
+                "value": "globalVarOf$米游社任务ck"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "2"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.58.2"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "Referer",
+                "value": "https://app.mihoyo.com"
+              }, {
+                "key": "Host",
+                "value": "bbs-api.mihoyo.com"
+              }, {
+                "key": "User-Agent",
+                "value": "okhttp/4.9.3"
+              }],
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "note": "帖子列表",
+              "id": "A-5f983ed5-07f7-4144-9486-0174a62e617e"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://bbs-api.miyoushe.com/post/api/getPostFull?post_id\u003d{httpRequestRet1}",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["message"]
+              },
+              "headers": [{
+                "key": "DS",
+                "value": "{DS}"
+              }, {
+                "key": "cookie",
+                "value": "globalVarOf$米游社任务ck"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "2"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.58.2"
+              }, {
+                "key": "x-rpc-channel",
+                "value": "miyousheluodi"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "Referer",
+                "value": "https://app.mihoyo.com"
+              }, {
+                "key": "Host",
+                "value": "bbs-api.mihoyo.com"
+              }, {
+                "key": "User-Agent",
+                "value": "okhttp/4.9.3"
+              }],
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "note": "看帖",
+              "id": "A-9eb56f20-2319-43ac-8884-38f13920c143"
+            }],
+            "delay": 500,
+            "repeatTimes": 4,
+            "customContextDataKey": {
+            },
+            "note": "循环看帖",
+            "id": "A-7cce2bc7-161b-4537-8636-d54a1024cfeb"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/MatchMVEL",
+              "expression": "{httpRequestRet1} \u003d\u003d \u0027OK\u0027;",
+              "customContextDataKey": {
+              },
+              "id": "C-3e46b5b8-8a70-4800-a015-4a3731f6f157"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"      看帖：成功\\n\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "看帖任务"
+                }]
+              },
+              "id": "A-231723f4-8e36-4d4b-9288-5d3bb26e5175"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"      看帖：失败\\n\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "看帖任务"
+                }]
+              },
+              "id": "A-b868ff0a-fae0-4e3a-bc79-945612c3d742"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-6d1e59e0-0cb5-4563-b91d-e897ea709d56"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "\"      看帖：已完成\\n\"",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "看帖任务"
+              }]
+            },
+            "id": "A-418ce56d-d249-4fbf-a36d-09e3587ed214"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "浏览帖子",
+          "id": "A-441a6ea7-a5ae-49ba-acbc-f599f8632ddd"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "String a \u003d{任务情况};\nString[] tasks \u003d a.split(\", \");\nboolean[] boolValues \u003d new boolean[tasks.length];\nfor (int i \u003d 0; i \u003c tasks.length; i++) {\n    boolValues[i] \u003d Boolean.parseBoolean(tasks[i]);\n}\nreturn boolValues[2];  // 输出打卡状态\n",
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-38192e1c-197d-4863-977d-7a167de30ea9"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WhileLoop",
+            "actions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "# 生成随机字符串函数\ngenerate_random_string() {\n  # 设置生成字符串的长度\n  length\u003d$1\n  # 生成随机字符串\n  characters\u003d\"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\"\n  random_string\u003d$(cat /dev/urandom | LC_ALL\u003dC tr -dc \"$characters\" | head -c $length)\n  echo $random_string\n}\n# 调用生成随机字符串函数并指定长度为6\nresult\u003d$(generate_random_string 6)\n# 获取时间戳\ntimestamp\u003d$(date +%s)\n#米游社的Salt\nn\u003d\"kzTvKGDHumYf6h1Ia5txMjxAJuTtD0ol\"\n#拼接\nmx\u003d\"salt\u003d${n}\u0026t\u003d${timestamp}\u0026r\u003d${result}\"\necho \"$timestamp,$result,$(echo -n $mx | md5sum | awk \u0027{print $1}\u0027)\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "shellOut",
+                  "second": "DS"
+                }, {
+                  "first": "shellErr"
+                }, {
+                  "first": "shellCode"
+                }]
+              },
+              "note": "ds拼接md5加密",
+              "id": "A-f28965c2-8e4f-4239-8d29-f5cf9f4810b2"
+            }, {
+              "@type": "type.googleapis.com/CreateLocalVar",
+              "localVar": {
+                "name": "帖子id",
+                "type": {
+                  "@type": "type.googleapis.com/Int64Var"
+                }
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-4a18614b-bd72-4fb6-b508-1f679f8caf6a"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://bbs-api.miyoushe.com/post/api/getForumPostList?forum_id\u003d26\u0026is_good\u003dfalse\u0026is_hot\u003dfalse\u0026page_size\u003d20\u0026sort_type\u003d1",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["data.list[0].post.post_id"]
+              },
+              "headers": [{
+                "key": "cookie",
+                "value": "globalVarOf$米游社任务ck"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "2"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.55.1"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "Referer",
+                "value": "https://app.mihoyo.com"
+              }, {
+                "key": "Host",
+                "value": "bbs-api.mihoyo.com"
+              }, {
+                "key": "User-Agent",
+                "value": "okhttp/4.9.3"
+              }],
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "note": "获取帖子",
+              "id": "A-6385ace1-06e2-4595-ad7a-43c04a4dc719"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "帖子id",
+              "valueAsString": "{httpRequestRet1}",
+              "customContextDataKey": {
+              },
+              "id": "A-8187b459-53a0-486d-b4d2-bbdd061f8226"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://bbs-api.miyoushe.com/apihub/sapi/upvotePost",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestRawAdapter"
+              },
+              "method": "POST",
+              "headers": [{
+                "key": "DS",
+                "value": "{DS}"
+              }, {
+                "key": "cookie",
+                "value": "globalVarOf$米游社任务ck"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "2"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.58.2"
+              }, {
+                "key": "x-rpc-channel",
+                "value": "miyousheluodi"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "Referer",
+                "value": "https://app.mihoyo.com"
+              }, {
+                "key": "Host",
+                "value": "bbs-api.mihoyo.com"
+              }, {
+                "key": "User-Agent",
+                "value": "okhttp/4.9.3"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\"is_cancel\":\"false\",\"post_id\":localVarOf$帖子id}"
+              },
+              "customContextDataKey": {
+              },
+              "note": "点赞",
+              "id": "A-75c8e5f7-17b9-4a3c-a8cb-57d1b2d6c21f"
+            }, {
+              "@type": "type.googleapis.com/Delay",
+              "timeString": "800",
+              "customContextDataKey": {
+              },
+              "id": "A-a1093fe0-0d03-4b11-a201-c5dba0d91838"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://bbs-api.miyoushe.com/apihub/sapi/upvotePost",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["message"]
+              },
+              "method": "POST",
+              "headers": [{
+                "key": "DS",
+                "value": "{DS}"
+              }, {
+                "key": "cookie",
+                "value": "globalVarOf$米游社任务ck"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "2"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.58.2"
+              }, {
+                "key": "x-rpc-channel",
+                "value": "miyousheluodi"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "Referer",
+                "value": "https://app.mihoyo.com"
+              }, {
+                "key": "Host",
+                "value": "bbs-api.mihoyo.com"
+              }, {
+                "key": "User-Agent",
+                "value": "okhttp/4.9.3"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\"is_cancel\":\"true\",\"post_id\":localVarOf$帖子id}"
+              },
+              "customContextDataKey": {
+              },
+              "note": "点赞",
+              "id": "A-a7af66ca-7e90-4a96-a211-70959fc723ee"
+            }],
+            "delay": 1000,
+            "repeatTimes": 6,
+            "customContextDataKey": {
+            },
+            "note": "循环点赞",
+            "id": "A-1041de00-08ef-473c-9f0f-8e5cd5714ae1"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/MatchMVEL",
+              "expression": "{httpRequestRet1} \u003d\u003d \u0027OK\u0027;",
+              "customContextDataKey": {
+              },
+              "id": "C-f296bd9b-7e7e-47c4-92c8-ac303f7df811"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"点赞：成功\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "点赞任务"
+                }]
+              },
+              "id": "A-e3d2f563-bbf7-433b-a5df-4448f1423258"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"点赞：失败\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "点赞任务"
+                }]
+              },
+              "id": "A-ac68ed9b-8de2-4dd8-8051-578bc6133cb7"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-98e94f97-6183-4356-b872-dba21105bcc1"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "\"点赞：已完成\"",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "点赞任务"
+              }]
+            },
+            "id": "A-62eec31c-a734-4f57-bce9-da921d157de4"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "点赞",
+          "id": "A-b4825912-d653-47ba-856a-78759a5fc6f6"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "String a \u003d{任务情况};\nString[] tasks \u003d a.split(\", \");\nboolean[] boolValues \u003d new boolean[tasks.length];\nfor (int i \u003d 0; i \u003c tasks.length; i++) {\n    boolValues[i] \u003d Boolean.parseBoolean(tasks[i]);\n}\nreturn boolValues[3];  // 输出打卡状态\n",
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-e5bc74cc-a050-4e1f-9425-d11dca53becc"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "# 生成随机字符串函数\ngenerate_random_string() {\n  # 设置生成字符串的长度\n  length\u003d$1\n  # 生成随机字符串\n  characters\u003d\"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\"\n  random_string\u003d$(cat /dev/urandom | LC_ALL\u003dC tr -dc \"$characters\" | head -c $length)\n  echo $random_string\n}\n# 调用生成随机字符串函数并指定长度为6\nresult\u003d$(generate_random_string 6)\n# 获取时间戳\ntimestamp\u003d$(date +%s)\n#米游社的Salt\nn\u003d\"kzTvKGDHumYf6h1Ia5txMjxAJuTtD0ol\"\n#拼接\nmx\u003d\"salt\u003d${n}\u0026t\u003d${timestamp}\u0026r\u003d${result}\"\necho \"$timestamp,$result,$(echo -n $mx | md5sum | awk \u0027{print $1}\u0027)\"",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "shellOut",
+                "second": "DS"
+              }, {
+                "first": "shellErr"
+              }, {
+                "first": "shellCode"
+              }]
+            },
+            "note": "ds拼接md5加密",
+            "id": "A-26a8c3ba-5986-4260-9f27-2eb803355ca7"
+          }, {
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://api-takumi.mihoyo.com/post/wapi/export/post?game_id\u003d2\u0026size\u003d6\u0026scene_id\u003d1",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+              "expressions": ["data.list[0].post_info.post_id"]
+            },
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "note": "获取帖子列表",
+            "id": "A-873da959-21db-460d-8281-727aa22aece3"
+          }, {
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://bbs-api.miyoushe.com/apihub/api/getShareConf?entity_id\u003d{httpRequestRet1}\u0026entity_type\u003d1",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+              "expressions": ["message"]
+            },
+            "headers": [{
+              "key": "DS",
+              "value": "{DS}"
+            }, {
+              "key": "cookie",
+              "value": "globalVarOf$米游社任务ck"
+            }, {
+              "key": "x-rpc-client_type",
+              "value": "2"
+            }, {
+              "key": "x-rpc-app_version",
+              "value": "2.58.2"
+            }, {
+              "key": "x-rpc-channel",
+              "value": "miyousheluodi"
+            }, {
+              "key": "x-rpc-device_id",
+              "value": "globalVarOf$device_id"
+            }, {
+              "key": "Referer",
+              "value": "https://app.mihoyo.com"
+            }, {
+              "key": "Host",
+              "value": "bbs-api.mihoyo.com"
+            }, {
+              "key": "User-Agent",
+              "value": "okhttp/4.9.3"
+            }],
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "note": "分享",
+            "id": "A-a2ab849d-b996-443a-b56a-d7049baa2697"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/MatchMVEL",
+              "expression": "{httpRequestRet1} \u003d\u003d \u0027OK\u0027;",
+              "customContextDataKey": {
+              },
+              "id": "C-53809846-1fe7-4d5b-952a-e1d504b31235"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"      分享：成功\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "分享任务"
+                }]
+              },
+              "id": "A-8ef6ff53-5255-470b-8e0d-0aacc6c5ac0f"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "\"      分享：失败\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "mvelRet",
+                  "second": "分享任务"
+                }]
+              },
+              "id": "A-5ecbc5cc-4c57-49b8-bf90-615f8322af89"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-02ea4164-b0bc-4af2-9f0b-cde3ef26aae8"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "\"      分享：已完成\"",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "分享任务"
+              }]
+            },
+            "id": "A-ab45e72f-c774-43bb-9e0a-be6bfc868d63"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "分享",
+          "id": "A-c4cc5ac3-2edf-4db4-8a06-e951304880b6"
+        }, {
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "https://bbs-api.miyoushe.com/apihub/wapi/getUserMissionsState?point_sn\u003dmyb",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["data.already_received_points", "data.total_points", "data.today_total_points"]
+          },
+          "headers": [{
+            "key": "Cookie",
+            "value": "globalVarOf$米游社ck"
+          }, {
+            "key": "User-Agent",
+            "value": "{User-Agent}"
+          }],
+          "requestBody": {},
+          "customContextDataKey": {
+          },
+          "note": "再次查看任务列表，获取任务结果",
+          "id": "A-effe2f96-841f-480e-9b08-01599a8b8c79"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\"任务状态\\n\"+{打卡任务}+{看帖任务}+{点赞任务}+{分享任务}+\"\\n获取米游币：\"+{httpRequestRet1}+\"/\"+{httpRequestRet3}+\"枚\\n拥有米游币：\"+{httpRequestRet2}+\"枚\"\n",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "任务状态"
+            }]
+          },
+          "id": "A-a9a35eab-7131-4c72-9c44-63cfd67ab12a"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "任务是否完成，未完成执行任务",
+        "id": "A-13d940b5-9322-42d3-955d-e6abe63d72a2"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "\"任务Cookie已过期\"",
+        "customContextDataKey": {
+        },
+        "id": "A-35a6921f-64b8-4cd7-bd06-33894bee975d"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "检测ck及后续任务，这里是米游社任务",
+      "id": "A-486e2647-97be-4ecf-9e91-d510e9f1908c"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "米游社任务签到，CK判断等",
+    "id": "A-38029984-8656-4989-8570-e379bd452202"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "list",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-17837a3c-4b3b-4a38-9bb0-ff8f166b7386"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api-takumi.miyoushe.com/event/bbs_sign_reward/home?act_id\u003de202009291139501",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["data.awards"]
+      },
+      "headers": [{
+        "key": "Cookie",
+        "value": "globalVarOf$米游社ck"
+      }, {
+        "key": "Referer",
+        "value": "https://webstatic.mihoyo.com/"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "note": "签到奖励列表",
+      "id": "A-2454c4de-b391-4ceb-9fb5-7987baa321b3"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "list",
+      "valueAsString": "{httpRequestRet1}",
+      "customContextDataKey": {
+      },
+      "id": "A-6c614298-9743-463d-8998-af2f18675c49"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "cs",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-53ced2e2-baf3-41f3-9948-d9905a1c5499"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/info?act_id\u003de202009291139501\u0026region\u003dcn_gf01\u0026uid\u003dlocalVarOf$uid",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["data.is_sign", "data.total_sign_day", "retcode"]
+      },
+      "headers": [{
+        "key": "Cookie",
+        "value": "globalVarOf$米游社ck"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "note": "判断原神签到",
+      "id": "A-f378892d-1dfd-4d99-87d7-71b764e60f09"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "cs",
+      "valueAsString": "{httpRequestRet2}",
+      "customContextDataKey": {
+      },
+      "id": "A-fb1e5e43-f81f-4c83-8499-18364a609b30"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet3} \u003d\u003d -100;",
+        "customContextDataKey": {
+        },
+        "id": "C-53635390-5655-4344-a391-bc6767340345"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "\"米游社Cookie已失效\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "原神签到"
+          }]
+        },
+        "id": "A-086ade19-fcac-4e12-b82c-a471b20f1b3d"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{httpRequestRet1} \u003d\u003d \u0027true\u0027;",
+          "customContextDataKey": {
+          },
+          "id": "C-454727aa-be83-43f4-9615-70b0d5e2af52"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import org.json.JSONArray;\nimport org.json.JSONObject;\n        String sj \u003d localVarOf$list;\n        \n        // 将JSON字符串转化为JSON数组\n        JSONArray jsonArray \u003d new JSONArray(sj);\n        \n        // 遍历JSON数组并打印每个名字\n        for (int i \u003d localVarOf$cs-1; i \u003c jsonArray.length(); i++) {\n            JSONObject jsonObject \u003d jsonArray.getJSONObject(i);\n            String name \u003d jsonObject.getString(\"name\");\n            String cnt \u003d jsonObject.getString(\"cnt\");\n            return name+\"*\"+cnt;\n        }\n   \n",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "奖励"
+            }]
+          },
+          "id": "A-cefb91d7-2417-40dd-9bb3-9d83c461f508"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\"原神签到：你已经签到过了\\n签到奖励：\"+{奖励}",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "原神签到"
+            }]
+          },
+          "id": "A-afe7476d-2704-4d03-8290-9fcb2f63631d"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "验证码",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-44b368b1-b854-49b1-b537-88557c987c33"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "# 生成随机字符串函数\ngenerate_random_string() {\n  # 设置生成字符串的长度\n  length\u003d$1\n  # 生成随机字符串\n  characters\u003d\"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\"\n  random_string\u003d$(cat /dev/urandom | LC_ALL\u003dC tr -dc \"$characters\" | head -c $length)\n  echo $random_string\n}\n# 调用生成随机字符串函数并指定长度为6\nresult\u003d$(generate_random_string 6)\n# 获取时间戳\ntimestamp\u003d$(date +%s)\n#米游社的Salt\nn\u003d\"KTJQGN2a2Trqk0tcQZS6JV3rU7CnV8Q6\"\n#拼接\nmx\u003d\"salt\u003d${n}\u0026t\u003d${timestamp}\u0026r\u003d${result}\"\necho \"$timestamp,$result,$(echo -n $mx | md5sum | awk \u0027{print $1}\u0027)\"",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "shellOut",
+              "second": "DS"
+            }, {
+              "first": "shellErr"
+            }, {
+              "first": "shellCode"
+            }]
+          },
+          "note": "ds拼接md5加密",
+          "id": "A-4ede700d-a2cc-4944-8343-aa33a25c1590"
+        }, {
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "https://api-takumi.miyoushe.com/event/bbs_sign_reward/sign",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["data.risk_code", "data.gt", "data.challenge"]
+          },
+          "method": "POST",
+          "headers": [{
+            "key": "Cookie",
+            "value": "globalVarOf$米游社ck"
+          }, {
+            "key": "Referer",
+            "value": "https://webstatic.mihoyo.com/"
+          }, {
+            "key": "x-rpc-device_id",
+            "value": "globalVarOf$device_id"
+          }, {
+            "key": "User-Agent",
+            "value": "localVarOf$UA"
+          }, {
+            "key": "DS",
+            "value": "{DS}"
+          }, {
+            "key": "Origin",
+            "value": "https://webstatic.mihoyo.com"
+          }, {
+            "key": "X-Requested-With",
+            "value": "com.mihoyo.hyperion"
+          }, {
+            "key": "x-rpc-app_version",
+            "value": "2.58.2"
+          }, {
+            "key": "x-rpc-client_type",
+            "value": "5"
+          }],
+          "requestBody": {
+            "@type": "type.googleapis.com/HttpRequestBodyJson",
+            "json": "{\"act_id\":\"e202009291139501\",\"region\":\"cn_gf01\",\"uid\":\"localVarOf$uid\"}"
+          },
+          "customContextDataKey": {
+          },
+          "note": "签到",
+          "id": "A-9708ae96-548c-4875-b1f9-9dc027e7811c"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "验证码",
+          "valueAsString": "{httpRequestRet3}",
+          "customContextDataKey": {
+          },
+          "id": "A-f3630577-11f9-4ce0-ade1-acf28f85ee83"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "{httpRequestRet1} !\u003d 375;",
+            "customContextDataKey": {
+            },
+            "id": "C-b1412661-5ca8-4d26-8c59-825fc573a27f"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/info?act_id\u003de202009291139501\u0026region\u003dcn_gf01\u0026uid\u003dlocalVarOf$uid",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+              "expressions": ["data.total_sign_day"]
+            },
+            "headers": [{
+              "key": "Cookie",
+              "value": "globalVarOf$米游社ck"
+            }],
+            "requestBody": {},
+            "customContextDataKey": {
+            },
+            "note": "签到奖励列表",
+            "id": "A-07a5cc87-45f0-4518-ba4a-d53dce42839a"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "cs",
+            "valueAsString": "{httpRequestRet1}",
+            "customContextDataKey": {
+            },
+            "id": "A-4c71a231-f9f0-433a-8ccf-66cf71dee355"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import org.json.JSONArray;\nimport org.json.JSONObject;\n        String sj \u003d localVarOf$list;\n        \n        // 将JSON字符串转化为JSON数组\n        JSONArray jsonArray \u003d new JSONArray(sj);\n        \n        // 遍历JSON数组并打印每个名字\n        for (int i \u003d localVarOf$cs-1; i \u003c jsonArray.length(); i++) {\n            JSONObject jsonObject \u003d jsonArray.getJSONObject(i);\n            String name \u003d jsonObject.getString(\"name\");\n            String cnt \u003d jsonObject.getString(\"cnt\");\n            return name+\"*\"+cnt;\n        }\n   \n",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "奖励"
+              }]
+            },
+            "id": "A-766cb5ab-f40e-4e08-8138-8f00eb716b76"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "\"原神签到：OK\\n签到奖励：\"+{奖励}",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "原神签到"
+              }]
+            },
+            "id": "A-8baffbc3-1fae-47d5-a249-7164de4e0b49"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "IfActions": [{
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "http://api.rrocr.com/api/recognize.html?appkey\u003dlocalVarOf$appkey\u0026gt\u003d{httpRequestRet2}\u0026challenge\u003d{httpRequestRet3}\u0026referer\u003dhttps://api-takumi.mihoyo.com/event/bbs_sign_reward/sign",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["data.validate"]
+              },
+              "requestBody": {},
+              "customContextDataKey": {
+              },
+              "note": "过验证码平台",
+              "id": "A-f0d72b6b-68b1-400d-be93-ba235250de6f"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "# 生成随机字符串函数\ngenerate_random_string() {\n  # 设置生成字符串的长度\n  length\u003d$1\n  # 生成随机字符串\n  characters\u003d\"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\"\n  random_string\u003d$(cat /dev/urandom | LC_ALL\u003dC tr -dc \"$characters\" | head -c $length)\n  echo $random_string\n}\n# 调用生成随机字符串函数并指定长度为6\nresult\u003d$(generate_random_string 6)\n# 获取时间戳\ntimestamp\u003d$(date +%s)\n#米游社的Salt\nn\u003d\"KTJQGN2a2Trqk0tcQZS6JV3rU7CnV8Q6\"\n#拼接\nmx\u003d\"salt\u003d${n}\u0026t\u003d${timestamp}\u0026r\u003d${result}\"\necho \"$timestamp,$result,$(echo -n $mx | md5sum | awk \u0027{print $1}\u0027)\"",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "shellOut",
+                  "second": "DS"
+                }, {
+                  "first": "shellErr"
+                }, {
+                  "first": "shellCode"
+                }]
+              },
+              "note": "ds拼接md5加密",
+              "id": "A-8745f5cf-2d95-4b70-90e9-59d26621c0f1"
+            }, {
+              "@type": "type.googleapis.com/HttpRequest",
+              "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/sign",
+              "adapter": {
+                "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                "expressions": ["retcode", "message"]
+              },
+              "method": "POST",
+              "headers": [{
+                "key": "Cookie",
+                "value": "globalVarOf$米游社ck"
+              }, {
+                "key": "Referer",
+                "value": "https://webstatic.mihoyo.com/"
+              }, {
+                "key": "x-rpc-device_id",
+                "value": "globalVarOf$device_id"
+              }, {
+                "key": "User-Agent",
+                "value": "localVarOf$UA"
+              }, {
+                "key": "DS",
+                "value": "{DS}"
+              }, {
+                "key": "Origin",
+                "value": "https://webstatic.mihoyo.com"
+              }, {
+                "key": "X-Requested-With",
+                "value": "com.mihoyo.hyperion"
+              }, {
+                "key": "x-rpc-app_version",
+                "value": "2.58.2"
+              }, {
+                "key": "x-rpc-client_type",
+                "value": "5"
+              }, {
+                "key": "x-rpc-validate",
+                "value": "{httpRequestRet1}"
+              }, {
+                "key": "x-rpc-challenge",
+                "value": "localVarOf$验证码"
+              }, {
+                "key": "x-rpc-seccode",
+                "value": "{httpRequestRet1}jordan"
+              }],
+              "requestBody": {
+                "@type": "type.googleapis.com/HttpRequestBodyJson",
+                "json": "{\"act_id\":\"e202009291139501\",\"region\":\"cn_gf01\",\"uid\":\"localVarOf$uid\"}"
+              },
+              "customContextDataKey": {
+              },
+              "note": "签到",
+              "id": "A-31e60e1b-4d93-4bb2-b719-14dacf9d78e7"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/MatchMVEL",
+                "expression": "{httpRequestRet1} !\u003d 0 \u0026\u0026 {httpRequestRet1} !\u003d -5003;",
+                "customContextDataKey": {
+                },
+                "id": "C-52a5e0de-6c09-472f-b44a-c763adb7893e"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/HttpRequest",
+                "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/info?act_id\u003de202009291139501\u0026region\u003dcn_gf01\u0026uid\u003dlocalVarOf$uid",
+                "adapter": {
+                  "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                  "expressions": ["data.total_sign_day"]
+                },
+                "headers": [{
+                  "key": "Cookie",
+                  "value": "globalVarOf$米游社ck"
+                }],
+                "requestBody": {},
+                "customContextDataKey": {
+                },
+                "note": "签到奖励获取",
+                "id": "A-705e2d2d-15bc-44f1-83d0-674d24ad2993"
+              }, {
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "cs",
+                "valueAsString": "{httpRequestRet1}",
+                "customContextDataKey": {
+                },
+                "id": "A-73911dcf-e437-431c-960b-eddb9ccce41b"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "import org.json.JSONArray;\nimport org.json.JSONObject;\n        String sj \u003d localVarOf$list;\n        \n        // 将JSON字符串转化为JSON数组\n        JSONArray jsonArray \u003d new JSONArray(sj);\n        \n        // 遍历JSON数组并打印每个名字\n        for (int i \u003d localVarOf$cs-1; i \u003c jsonArray.length(); i++) {\n            JSONObject jsonObject \u003d jsonArray.getJSONObject(i);\n            String name \u003d jsonObject.getString(\"name\");\n            String cnt \u003d jsonObject.getString(\"cnt\");\n            return name+\"*\"+cnt;\n        }\n   \n",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "奖励"
+                  }]
+                },
+                "id": "A-9705862e-44b9-4120-b278-26e87455a400"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "\"原神签到：Ok\\n签到奖励：\"+{奖励}",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "原神签到"
+                  }]
+                },
+                "id": "A-98cbabd2-5470-43b8-aa4a-07e000ea149f"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/IfThenElse",
+                "If": [{
+                  "@type": "type.googleapis.com/MatchMVEL",
+                  "expression": "{httpRequestRet1} \u003d\u003d -5003;",
+                  "customContextDataKey": {
+                  },
+                  "id": "C-3e5844d1-d974-4295-b542-15f7f88ceb26"
+                }],
+                "IfActions": [{
+                  "@type": "type.googleapis.com/HttpRequest",
+                  "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/info?act_id\u003de202009291139501\u0026region\u003dcn_gf01\u0026uid\u003dlocalVarOf$uid",
+                  "adapter": {
+                    "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+                    "expressions": ["data.total_sign_day"]
+                  },
+                  "headers": [{
+                    "key": "Cookie",
+                    "value": "globalVarOf$米游社ck"
+                  }],
+                  "requestBody": {},
+                  "customContextDataKey": {
+                  },
+                  "note": "签到奖励获取",
+                  "id": "A-238e55a0-1fe8-4627-a725-524b742302b8"
+                }, {
+                  "@type": "type.googleapis.com/WriteLocalVar",
+                  "varName": "cs",
+                  "valueAsString": "{httpRequestRet1}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-7629dc26-9750-47d0-84d9-ff57e4057f49"
+                }, {
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "import org.json.JSONArray;\nimport org.json.JSONObject;\n        String sj \u003d localVarOf$list;\n        \n        // 将JSON字符串转化为JSON数组\n        JSONArray jsonArray \u003d new JSONArray(sj);\n        \n        // 遍历JSON数组并打印每个名字\n        for (int i \u003d localVarOf$cs-1; i \u003c jsonArray.length(); i++) {\n            JSONObject jsonObject \u003d jsonArray.getJSONObject(i);\n            String name \u003d jsonObject.getString(\"name\");\n            String cnt \u003d jsonObject.getString(\"cnt\");\n            return name+\"*\"+cnt;\n        }\n   \n",
+                  "customContextDataKey": {
+                    "keys": [{
+                      "first": "mvelRet",
+                      "second": "奖励"
+                    }]
+                  },
+                  "id": "A-7f87c9e1-d61d-4e46-a70f-89752be6facc"
+                }, {
+                  "@type": "type.googleapis.com/ExecuteMVEL",
+                  "expression": "\"原神签到：Ok\\n    签到奖励：\"+{奖励}",
+                  "customContextDataKey": {
+                    "keys": [{
+                      "first": "mvelRet",
+                      "second": "原神签到"
+                    }]
+                  },
+                  "id": "A-bde4c989-e942-412a-ba74-63717f5f37b5"
+                }],
+                "ElseActions": [{
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/MatchMVEL",
+                    "expression": "{httpRequestRet1} !\u003d 0;",
+                    "customContextDataKey": {
+                    },
+                    "id": "C-a7e777e5-c857-459f-95c5-1170c0cd8487"
+                  }],
+                  "IfActions": [{
+                    "@type": "type.googleapis.com/ExecuteMVEL",
+                    "expression": "\"原神签到：错误\\n原因：\"+{httpRequestRet2};",
+                    "customContextDataKey": {
+                      "keys": [{
+                        "first": "mvelRet",
+                        "second": "原神签到"
+                      }]
+                    },
+                    "id": "A-d22c0335-0262-402e-aef0-8c612579f1a9"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-ab9e9b37-e937-497f-9ed3-4b1a71dc9996"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-7db9b1b8-c101-4c9e-90bc-c671e7e0a672"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-12620db9-f511-4c62-91fc-7b73b56155e0"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-196f5e12-832f-484e-b5ac-314b89946bc0"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-42261488-5254-42a2-ac5e-df4c2cddbcc7"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-9e2b5e31-7040-4727-bf85-45df9355b3b5"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f6e8bfce-813b-4f45-998d-56d38b706147"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "原神签到，签到判断，签到奖励获取等",
+    "id": "A-7a950ccf-fc12-4a75-8ffd-05371078c566"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api-cloudgame.mihoyo.com/hk4e_cg_cn/wallet/wallet/get",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["retcode", "data.free_time.send_freetime", "data.free_time.free_time", "data.play_card.short_msg", "data.coin.coin_num"]
+      },
+      "headers": [{
+        "key": "Host",
+        "value": "api-cloudgame.mihoyo.com"
+      }, {
+        "key": "Accept",
+        "value": "*/*"
+      }, {
+        "key": "Referer",
+        "value": "https://app.mihoyo.com"
+      }, {
+        "key": "x-rpc-combo_token",
+        "value": "globalVarOf$云原神ck"
+      }, {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate"
+      }, {
+        "key": "User-Agent",
+        "value": "Mozilla/5.0 (Linux; Android 13; RMX3350 Build/TP1A.220905.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.129 Mobile Safari/537.36"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "id": "A-f9fbbdfd-f8ba-4b82-abe5-adee0e686707"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} \u003d\u003d 0;",
+        "customContextDataKey": {
+        },
+        "id": "C-0c35cc16-82c7-4f19-af73-451315bb2802"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{httpRequestRet2} \u003e 0;",
+          "customContextDataKey": {
+          },
+          "id": "C-fbbb524c-7f2c-482f-9e83-15bdc9c3f281"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "int time \u003d httpRequestRet3;\nint hours \u003d time / 60;//小时\nint minutes \u003d time % 60;//分钟\nreturn \"云原神签到：成功\\n获取时长：\"+httpRequestRet2+\"分钟\\n拥有时长：\"+hours+\"小时\"+minutes+\"分钟\\n畅玩卡：\"+{httpRequestRet4}+\"      米游币：\"+{httpRequestRet5}+\"枚\";",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "push"
+            }]
+          },
+          "note": "签到成功返回",
+          "id": "A-721083bd-de14-4346-a9fb-fbc211086fd3"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "int time \u003d httpRequestRet3;\nint hours \u003d time / 60;//小时\nint minutes \u003d time % 60;//分钟\nreturn \"云原神签到：失败，已经签到过了或者超出免费时长上线\\n拥有时长：\"+hours+\"小时\"+minutes+\"分钟\\n畅玩卡：\"+{httpRequestRet4}+\"      米游币：\"+{httpRequestRet5}+\"枚\";",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "push"
+            }]
+          },
+          "id": "A-fab3d7cf-3267-44c4-804b-e6a98b969e9e"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-1ccdca49-7f8c-4111-8336-f2aa6e112e57"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{httpRequestRet1} \u003d\u003d -100;",
+          "customContextDataKey": {
+          },
+          "id": "C-bccd646e-0a48-450c-a801-5a0b748b7ac1"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\"云原神：Cookie失效\"",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "push"
+            }]
+          },
+          "id": "A-4f1986da-84fb-4253-871b-1147d6482bf2"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-82ff75f0-35f6-4745-9f49-4f0191db9358"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a130cacf-5753-457e-835f-e645baf574a2"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "云原神签到新",
+    "id": "A-17bfaad3-4056-4395-911e-1721d9ba0b7e"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1693110383774",
+    "title": "米游社",
+    "message": "{任务状态}\n{原神签到}\n{push}",
+    "smallIcon": "chat-2-line",
+    "customContextDataKey": {
+    },
+    "id": "A-6716b11a-22b0-4c33-81ba-bf53d1786db6"
+  }],
+  "id": "rule-5f6073dd-52ff-4ffe-a2b7-6dcda6053e6c",
+  "lastUpdateTime": "1695082411041",
+  "createTime": "1693055017685",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "米游社签到1.3",
+  "description": "自动完成:米游社，原神，云原神等签到",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "米游社ck",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c4ca8afe-76e2-4e4c-96a7-6fd031b20b1d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "米游社ck",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "isSecret": true
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-eb6fd14a-b756-41d8-8211-e199ac4058d3"
+      }, {
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "米游社ck",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "_MHYUUID\u003dxxxx;到DEVICEFP\u003dxxxx"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-13c85088-81c3-41d9-9aa4-1a0923415a92"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "米游社ck",
+        "valueAsString": "{textFieldInput1}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-2712cee2-a12d-4c34-9dd9-5a3ad3cbf21f"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "设置米游社ck",
+      "id": "A-4aaefad5-a244-4f8b-b1da-74dbe2e1aa57"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "米游社任务ck",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c4ca8afe-76e2-4e4c-96a7-6fd031b20b1d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "米游社任务ck",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "isSecret": true
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-eb6fd14a-b756-41d8-8211-e199ac4058d3"
+      }, {
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "米游社任务ck",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "stuid\u003dxxxx;到mid\u003dxxxx;"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-13c85088-81c3-41d9-9aa4-1a0923415a92"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "米游社任务ck",
+        "valueAsString": "{textFieldInput1}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-2712cee2-a12d-4c34-9dd9-5a3ad3cbf21f"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "设置米游社任务ck",
+      "id": "A-5b815cf3-9e93-4643-90ca-7ddcfb7f93e0"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "云原神ck",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c4ca8afe-76e2-4e4c-96a7-6fd031b20b1d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "云原神ck",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "isSecret": true
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-eb6fd14a-b756-41d8-8211-e199ac4058d3"
+      }, {
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "云原神ck",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "x-rpc-combo_token的全部内容"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-13c85088-81c3-41d9-9aa4-1a0923415a92"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "云原神ck",
+        "valueAsString": "{textFieldInput1}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-2712cee2-a12d-4c34-9dd9-5a3ad3cbf21f"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "设置云原神ck",
+      "id": "A-695e24f4-bf40-4b0d-915a-726bed58115c"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-cb8f75b3-3f7a-4efb-9e4f-a54349089739"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,20 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\n# 替换为你自己的PushPlus Token\nTOKEN\u003d\"token\"\n\n# 替换为你自己的推送标题和内容\nTITLE\u003d\"标题\"\nCONTENT\u003d\"内容\"\n\n# 消息模板\nTEMPLATE\u003d\"html\"\n\n# 群组编码\nTOPIC\u003d\"666666\"\n\n# 发送HTTP请求\ncurl -sS --retry 3 -o /dev/null -d \"token\u003d${TOKEN}\u0026title\u003d${TITLE}\u0026content\u003d${CONTENT}\u0026template\u003d${TEMPLATE}\u0026topic\u003d${TOPIC}\" http://www.pushplus.plus/send",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-f5677507-322b-43f7-bdfb-8edd1ed012f3"
+  }],
+  "id": "DA03333a5e-cb0c-4363-bb1c-6f27bfb8d979",
+  "lastUpdateTime": "1698460994340",
+  "createTime": "1698433662211",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "PushPlus一对多通知",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

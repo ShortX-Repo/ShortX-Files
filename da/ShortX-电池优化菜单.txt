@@ -1,0 +1,103 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "查看白名单列表",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "System\u003d$(dumpsys deviceidle whitelist | awk \u0027$NF ~ /^system/ {print $1}\u0027 | cut -d, -f 2,20)\nUser\u003d$(dumpsys deviceidle whitelist | awk \u0027$NF ~ /^user/ {print $1}\u0027 | cut -d, -f 2,20)\necho \"系统应用白名单\"\necho \"$System\"\necho \"\"\necho \"用户应用白名单\"\necho \"$User\"",
+        "customContextDataKey": {
+        },
+        "id": "A-f73bfa3c-31b2-4e4c-b725-562e97919bee"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "关闭",
+        "title": "白名单列表",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-3c9165fa-954a-4c86-95d0-15ad3ffc2b39"
+      }]
+    }, {
+      "title": "添加白名单",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "添加白名单",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "请输入你需要加入白名单的应用包名："
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-144e0fb6-c86d-483c-848a-3a3a45b8dddb"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys deviceidle whitelist +{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-33f8a1ef-8fcc-413b-9da9-b219541f0a6a"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已添加{textFieldInput1}到白名单",
+        "customContextDataKey": {
+        },
+        "id": "A-e51a9842-88c5-434b-944e-e1760f34ca85"
+      }]
+    }, {
+      "title": "移除白名单",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "移除白名单(无法移除系统应用)",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "请输入你需要移除白名单的应用包名："
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-6d31c7e3-0310-4cab-a105-237e047837e8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys deviceidle whitelist -{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-33f8a1ef-8fcc-413b-9da9-b219541f0a6a"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已将{textFieldInput1}移出白名单",
+        "customContextDataKey": {
+        },
+        "id": "A-a655ce23-049a-48b2-bda1-853f83152837"
+      }]
+    }, {
+      "title": "清理白名单",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "userapp\u003d$(dumpsys deviceidle whitelist | awk \u0027$NF ~ /^user/ {print $1}\u0027 | cut -d, -f 2,20)\narr\u003d($userapp)\nfor element in \"${arr[@]}\"\ndo\n  dumpsys deviceidle whitelist -$element\n  echo $element\n  done ",
+        "customContextDataKey": {
+        },
+        "id": "A-748d6b08-a0af-4dac-87d1-d9c08cc51c7e"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已清理白名单中的用户应用",
+        "customContextDataKey": {
+        },
+        "id": "A-32abafed-03ba-43c3-8874-eb1fddd85316"
+      }]
+    }],
+    "title": "电池优化菜单",
+    "customContextDataKey": {
+    },
+    "id": "A-90782043-f6a1-4de1-9d77-1c6f7d247438"
+  }],
+  "id": "DAf9a17667-1124-43c8-b869-c46e927068c8",
+  "lastUpdateTime": "1719198400374",
+  "createTime": "1719129037833",
+  "author": {
+    "name": " Author：Prslc"
+  },
+  "title": "电池优化菜单",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

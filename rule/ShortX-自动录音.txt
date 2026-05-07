@@ -1,0 +1,268 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "gesture": "KeyMultiplePress",
+    "tag": "开始录音",
+    "customContextDataKey": {
+    },
+    "id": "F-369a07ce-dc3b-441f-b3ba-d1f48cc48517"
+  }, {
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 25,
+    "gesture": "KeyMultiplePress",
+    "tag": "结束录音",
+    "customContextDataKey": {
+    },
+    "id": "F-5f631235-22b0-475b-b9d9-ac1f3281776f"
+  }, {
+    "@type": "type.googleapis.com/UserPresent",
+    "tag": "屏幕解锁",
+    "customContextDataKey": {
+    },
+    "id": "F-673ea6b6-b6d9-411b-a2bf-b0ade0978af2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开始录音",
+      "customContextDataKey": {
+      },
+      "id": "C-2cb29131-3e69-4087-871a-6be1dc83f82a"
+    }, {
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "id": "C-cdf03a62-7fda-481e-b158-e4e47c7a5825"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "录音",
+      "payload": {
+        "value": "0"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-87f60204-46db-4b11-a8d5-48b0314eed40"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/AudioRecording",
+      "fileNamePrefix": "麦克风",
+      "customContextDataKey": {
+      },
+      "id": "A-6aca1511-2539-4931-a8bb-fe38b427c9bd"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "录音",
+      "valueAsString": "1",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-d034ed1d-2128-4206-b4c1-5a0b899805cc"
+    }],
+    "IfActionAsyncMode": "ActionAsyncMode_Async",
+    "customContextDataKey": {
+    },
+    "note": "开始录音",
+    "id": "A-ead23d07-2938-4776-ac52-41c757c9cbca"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "结束录音",
+      "customContextDataKey": {
+      },
+      "id": "C-feb4a5cf-6840-4671-9d86-bde3ed89939b"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "录音",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-9121a7b5-0888-4261-b0e0-686bc3658c2d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopAudioRecording",
+      "customContextDataKey": {
+      },
+      "id": "A-b58445d0-76b2-4b16-b235-9524897bd411"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "录音",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-a14e5826-8841-4c3e-a347-55047011baad"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/KeyguardIsLocked",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-2352fb15-800b-4395-a07c-b56ec70021f1"
+      }],
+      "timeoutStr": "5000",
+      "customContextDataKey": {
+      },
+      "id": "A-321a17f7-1974-40d0-9cad-0cc63cdde429"
+    }, {
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": "按键完成",
+      "icon": "remix://soundcloud-line",
+      "clickAction": [{
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-7731674e-b9f2-48ef-91c9-e300144d58f5"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e4c1128d-29d1-4bbd-afca-9eb94af382c2"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-8581637c-377c-4258-abc7-b758d9d135ba"
+    }, {
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-967351be-edf8-4c4d-941d-730402a62d87"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "按键结束",
+    "id": "A-a039f10b-b73b-4186-a605-e6a1d362162f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "屏幕解锁",
+      "customContextDataKey": {
+      },
+      "id": "C-d58c01ed-31f5-4b13-968c-eb749c977303"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "录音",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-ccc60ec6-2800-416e-8fd7-179cb7fc29ff"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopAudioRecording",
+      "customContextDataKey": {
+      },
+      "id": "A-026d7411-ebec-4c0b-95af-c91e7133254b"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "录音",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-42dce517-66b6-4fc0-8c73-322113a9d359"
+    }, {
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": "解锁完成",
+      "icon": "remix://headphone-sound",
+      "clickAction": [{
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-37b78df4-769c-48b4-81aa-acb15148f4f7"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-e29d083d-010c-4bed-9921-81dd6b3641de"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-cd9504c6-21dd-4599-a5fe-19c0d8bcb83d"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-e88416e8-c184-4de3-ac19-9b1b214c6ffe"
+    }, {
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-b21de405-245c-44f8-9e20-2c64de886a96"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "解锁结束",
+    "id": "A-6b928755-05b8-46cf-ab77-cedecc4183af"
+  }],
+  "id": "SHARE-rule-6401e74c-194f-4f28-9f8d-733a89131a75",
+  "lastUpdateTime": "1748442157886",
+  "createTime": "1747753943787",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动录音",
+  "description": "锁屏音量加减录音",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "录音",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        },
+        "note": "录音开关"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-2ef7ae90-1ed1-4603-b8c8-80661ae3557a"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "50",
+      "customContextDataKey": {
+      },
+      "id": "A-c0e3be7d-cb6a-4a71-92a5-48c2fd77a04e"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "录音",
+      "valueAsString": "0",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-a8f9aaa3-4c4e-4f92-a858-f7eb89316bd8"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "录音",
+      "customContextDataKey": {
+      },
+      "id": "A-4cabc83c-2491-40a4-a1e1-7a7f9b5e179a"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "录音",
+      "customContextDataKey": {
+      },
+      "id": "A-181c2509-3508-43e5-8304-278e61a095c4"
+    }]
+  },
+  "quit": {
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-c455bc0d-b64a-4a53-a4c8-f7353e3c47ea"
+}
+###------###
+{"type":"rule"}

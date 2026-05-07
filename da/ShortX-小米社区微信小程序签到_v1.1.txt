@@ -1,0 +1,2781 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "brightness-auto-fill",
+    "customContextDataKey": {
+    },
+    "note": "用前提醒:请先将小米社区小程序添加至桌面，否则无法使用\n\n如果自动获取shortcut失败，您也可以尝试手动获取:(见下方工具，来自\"https://t.me/shortxmod/790/63050\"，运行后搜索微信并选择，然后选择小米社区，选择shell，命令会复制到你的剪贴板)，然后手动替换备注是shortcut的shell中的内容并禁用备注是\"获取shortcuts\"的 如果...就\n\n\nOCR默认设置仅支持 2400x1080 屏幕，其他分辨率请自行获取屏幕区域(可通过下方工具手动框选得到区域，把得到的结果直接替换\"OCR识别\"动作原来的内容即可)",
+    "id": "A-433da1bb-bda3-466b-8691-361b866d9d9b"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-497f1b0f-e7ce-4a4e-9424-18c0fc2e50b2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/SelectScreenArea",
+          "customContextDataKey": {
+          },
+          "id": "A-08746867-aab0-4c1a-8207-9f3dbacef1ca"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{rectLeft} {rectTop} {rectRight} {rectBottom}",
+          "customContextDataKey": {
+          },
+          "id": "A-60ca56d7-cfc8-4054-9d53-e625377b9967"
+        }],
+        "icon": "selected",
+        "label": "选择屏幕区域",
+        "longClickActions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["选择屏幕区域"],
+          "customContextDataKey": {
+          },
+          "id": "A-2d464051-96ea-4478-be71-89c4b37388b7"
+        }],
+        "id": "BTN-03502af0-a64e-4cbd-892f-9d08479bf5c8"
+      }],
+      "tag": "选择屏幕区域",
+      "maxHeightInDp": 212,
+      "maxWidthInDp": 88,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 64,
+      "enableGlobalDrag": true,
+      "disableAutoEdge": true,
+      "customContextDataKey": {
+      },
+      "note": "选择屏幕区域",
+      "id": "A-420e137f-6f0b-4102-9a84-e7b8cac12343"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-cc85f597-cc70-48fb-b28d-119f85b9ccf1"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "cursor-line",
+        "customContextDataKey": {
+        },
+        "note": "原指令地址\nhttps://t.me/shortxmod/790/63050",
+        "id": "A-e6d66a07-361f-4a72-9760-9fcceffee17a"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/MatchJS",
+            "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d 0; // 用于统计纯数字文件夹的数量\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders++;\n            // 一旦找到超过1个纯数字文件夹，输出true并停止\n            if (numberFolders \u003e 1) {\n                true;\n                break;\n            }\n        }\n    }\n\n    // 如果数量不超过1个，输出false\n    if (numberFolders \u003c\u003d 1) {\n        false;\n    }\n} else {\n    false;\n}",
+            "customContextDataKey": {
+            },
+            "id": "C-70af419d-7970-47ac-ac13-62ef0e0da80c"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d []; // 用于存储纯数字文件夹的列表\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders.push(fileName);\n        }\n    }\n\n    // 拼接所有纯数字文件夹\n    var result \u003d numberFolders.length \u003e 0 ? numberFolders.join(\" , \") : \"没有找到纯数字文件夹\";\n    result;\n} else {\n    \"目录不存在或不是一个有效的目录\";\n}\n",
+            "context": "CoroutineContext_IO",
+            "customContextDataKey": {
+            },
+            "id": "A-3a501361-72b4-4219-8096-48ec1fcfc111"
+          }, {
+            "@type": "type.googleapis.com/ShowListDialog",
+            "title": "选择用户",
+            "data": "{jsRet}",
+            "delimiter": [" , "],
+            "style": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-b0f7cb34-1340-4a9f-9c04-1e789465dcbe"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "inputString \u003d {selectedListItem};\noutputString \u003d inputString.replace(\"[\", \"\").replace(\"]\", \"\");",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "userId"
+              }]
+            },
+            "id": "A-05d2e487-2dfb-4e17-8470-06d8bbf935da"
+          }, {
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(java.io.File);\n\n// 获取包管理器\nvar pm \u003d context.getPackageManager();\n\n// 定义目录路径\nvar dirPath \u003d \"/data/system_ce/\" + userId + \"/shortcut_service/packages/\";\nvar dir \u003d new File(dirPath);\n\n// 获取该目录下的所有文件\nvar files \u003d dir.listFiles();\nvar appMap \u003d {}; // 使用对象存储唯一应用\n\nif (files) {\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        \n        // 去掉后缀名\n        var dotIndex \u003d fileName.lastIndexOf(\u0027.xml\u0027);\n        if (dotIndex \u003e -1) {\n            fileName \u003d fileName.substring(0, dotIndex);\n        }\n        \n        // 使用文件名（包名）获取应用名称\n        try {\n            var appInfo \u003d pm.getApplicationInfo(fileName, PackageManager.GET_META_DATA);\n            var appName \u003d pm.getApplicationLabel(appInfo).toString();\n            \n            // 将应用名称和包名存入对象，避免重复\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d appName;\n            }\n        } catch (e) {\n            // 如果找不到应用，记录“未找到”的信息\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d \"应用未找到\";\n            }\n        }\n    }\n\n    // 拼接输出字符串\n    var appListStr \u003d \"\";\n    for (var key in appMap) {\n        appListStr +\u003d appMap[key] + \"\\n\" + key + \" , \";\n    }\n\n    // 去除最后的逗号和空格\n    if (appListStr.endsWith(\" , \")) {\n        appListStr \u003d appListStr.slice(0, -3);\n    }\n} else {\n    appListStr \u003d \"该目录为空或无法访问\";\n}\n\n// 输出结果\nappListStr;",
+            "customContextDataKey": {
+            },
+            "id": "A-9b99ed20-bf31-45a5-9743-de11ed251790"
+          }],
+          "description": "多用户",
+          "id": "Case-64908d19-27c7-4218-bb6c-59bfc69c4ab2",
+          "isDisabled": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/MatchJS",
+            "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d 0; // 用于统计纯数字文件夹的数量\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders++;\n            // 一旦找到超过1个纯数字文件夹，输出true并停止\n            if (numberFolders \u003e 1) {\n                true;\n                break;\n            }\n        }\n    }\n\n    // 如果数量不超过1个，输出false\n    if (numberFolders \u003c\u003d 1) {\n        false;\n    }\n} else {\n    false;\n}",
+            "isDisabled": true,
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-eedf5825-33aa-4130-8dcc-7c4d982d3054"
+          }, {
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-f0700dbe-0d6f-4220-9c59-e03d91766800"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "0",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "userId"
+              }]
+            },
+            "id": "A-ac15eab2-a4c4-4ac2-b13b-2892e8dde66c"
+          }, {
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(java.io.File);\n\n// 获取包管理器\nvar pm \u003d context.getPackageManager();\n\n// 定义目录路径\nvar dirPath \u003d \"/data/system_ce/0/shortcut_service/packages/\";\nvar dir \u003d new File(dirPath);\n\n// 获取该目录下的所有文件\nvar files \u003d dir.listFiles();\nvar appMap \u003d {}; // 使用对象存储唯一应用\n\nif (files) {\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        \n        // 去掉后缀名\n        var dotIndex \u003d fileName.lastIndexOf(\u0027.xml\u0027);\n        if (dotIndex \u003e -1) {\n            fileName \u003d fileName.substring(0, dotIndex);\n        }\n        \n        // 使用文件名（包名）获取应用名称\n        try {\n            var appInfo \u003d pm.getApplicationInfo(fileName, PackageManager.GET_META_DATA);\n            var appName \u003d pm.getApplicationLabel(appInfo).toString();\n            \n            // 将应用名称和包名存入对象，避免重复\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d appName;\n            }\n        } catch (e) {\n            // 如果找不到应用，记录“未找到”的信息\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d \"应用未找到\";\n            }\n        }\n    }\n\n    // 拼接输出字符串\n    var appListStr \u003d \"\";\n    for (var key in appMap) {\n        appListStr +\u003d appMap[key] + \"\\n\" + key + \" , \";\n    }\n\n    // 去除最后的逗号和空格\n    if (appListStr.endsWith(\" , \")) {\n        appListStr \u003d appListStr.slice(0, -3);\n    }\n} else {\n    appListStr \u003d \"该目录为空或无法访问\";\n}\n\n// 输出结果\nappListStr;",
+            "context": "CoroutineContext_IO",
+            "customContextDataKey": {
+            },
+            "id": "A-698ec623-38ba-4684-add3-ca85e3e61862"
+          }],
+          "description": "单用户",
+          "id": "Case-a7a57373-8d31-4c47-9131-6765bd55446d"
+        }, {
+          "action": [{
+            "@type": "type.googleapis.com/ShowListDialog",
+            "title": "选择应用",
+            "data": "{jsRet}",
+            "delimiter": [" , "],
+            "style": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-77035e85-a928-4381-b01d-ca58b5847d1c"
+          }],
+          "description": "选择应用",
+          "id": "Case-76b1539f-24ce-463d-a552-a8c9884596b8"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "selectedListItem",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-a6854282-4246-43ed-ad92-c91f419ca936"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "inputString \u003d {selectedListItem};\noutputString \u003d inputString.replace(\"[\", \"\").replace(\"]\", \"\");",
+            "customContextDataKey": {
+            },
+            "id": "A-d2403211-0c20-4ab1-bf7d-f769a3db6893"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "{mvelRet}.split(\u0027\\n\u0027)[1]",
+            "customContextDataKey": {
+            },
+            "id": "A-4679c3b5-6d76-4c3a-a20a-e7702cd1705c"
+          }],
+          "description": "提取包名",
+          "id": "Case-28b16e71-0ed9-423d-a321-485d8d8b9b66"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "selectedListItem",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-53a87e3c-972b-483d-9c3a-dd60aeea510c"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-d8517812-aef5-4338-883f-3eafd8b41348"
+          }],
+          "description": "不选择",
+          "id": "Case-8207aeb1-84c1-4dc3-8234-c985edce559b"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003c\u003d 11;",
+            "customContextDataKey": {
+            },
+            "id": "C-dc659ba6-1e29-4b07-87bd-2670d31f1966"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import java.io.File;\nimport java.util.Scanner;\n\nString pkgName \u003d mvelRet;\n\n// 读取文件内容\nnew Scanner(new File(\"/data/system_ce/\" + userId + \"/shortcut_service/packages/\" + pkgName + \".xml\")).useDelimiter(\"\\\\Z\").next()",
+            "context": "CoroutineContext_IO",
+            "customContextDataKey": {
+            },
+            "id": "A-39e72e12-2781-47ef-bc27-ab3ef36b44d2"
+          }],
+          "description": "11以下",
+          "id": "Case-c4299d06-4d7d-4149-8f69-45e2beb8b4ff",
+          "isBreak": true,
+          "isDisabled": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003d\u003d 12 || androidVersion \u003d\u003d 13;",
+            "isDisabled": true,
+            "customContextDataKey": {
+            },
+            "id": "C-62e4a30c-795b-4de8-8489-bf4453897d76"
+          }, {
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-9cf340ba-9a2a-4a2b-8d86-bf68d3c578f8"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import java.nio.charset.StandardCharsets;\nimport org.xmlpull.v1.XmlSerializer;\nimport java.io.StringWriter;\nimport android.util.TypedXmlPullParser;\nimport android.util.Xml;\nimport java.io.*;\n\nString pkgName \u003d mvelRet;\n\n// 设置输入路径\nString inputPath \u003d \"/data/system_ce/\" + userId + \"/shortcut_service/packages/\" + pkgName + \".xml\";\n\n\n// 打开输入流\nInputStream input \u003d new FileInputStream(inputPath);\n\n// 创建序列化器\nXmlSerializer serializer \u003d Xml.newSerializer();\n\n// 使用 StringWriter 作为输出\nStringWriter outputWriter \u003d new StringWriter();\nserializer.setOutput(outputWriter);\nserializer.setFeature(\"http://xmlpull.org/v1/doc/features.html#indent-output\", true);\n\n// 使用 Android Xml 解析器\nTypedXmlPullParser parser \u003d Xml.newBinaryPullParser(); // 确保这个类可用\nparser.setInput(input, StandardCharsets.UTF_8.name());\n\n// 复制 XML 内容到 StringWriter\nXml.copy(parser, serializer);\n\n// 输出结果到屏幕\noutputWriter.toString();",
+            "customContextDataKey": {
+            },
+            "note": "Android 13",
+            "id": "A-faec75cf-a5fb-48f0-9283-42804b5922df"
+          }],
+          "description": "12~13",
+          "id": "Case-79b744fa-cf54-4ecd-85c3-3cd08fde7c6a",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003e\u003d 14;",
+            "customContextDataKey": {
+            },
+            "id": "C-ed93999d-f9e4-4f1f-b2ab-89a3958d91bf"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import java.io.*;\nimport android.util.Xml;\nimport java.nio.charset.StandardCharsets;\nimport com.android.modules.utils.TypedXmlPullParser;\nimport org.xmlpull.v1.XmlSerializer;\n\nString pkgName \u003d mvelRet;\n\ndef openInput() {\n    return new FileInputStream(\"/data/system_ce/\" + userId + \"/shortcut_service/packages/\" + pkgName + \".xml\");\n}\n\nTypedXmlPullParser newPullParser \u003d Xml.newBinaryPullParser();\nXmlSerializer out \u003d Xml.newSerializer();\nStringWriter writer \u003d new StringWriter(); // 用于存储输出结果\n\nInputStream inputStream \u003d openInput();\n\nnewPullParser.setInput(inputStream, StandardCharsets.UTF_8.name());\nout.setOutput(writer); // 设置输出为StringWriter\nout.setFeature(\"http://xmlpull.org/v1/doc/features.html#indent-output\", true);\n\n// 复制并解析XML内容\nXml.copy(newPullParser, out);\nout.flush();\n\n// 输出解析后的XML到屏幕\nwriter.toString();",
+            "customContextDataKey": {
+            },
+            "note": "Android 14",
+            "id": "A-97533239-ce3d-48ee-8b1a-2edf99afbd54"
+          }],
+          "description": "14以上",
+          "id": "Case-43a88f8c-2030-4852-a76d-abd44d4b8401",
+          "isBreak": true,
+          "isDisabled": true
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-ac7eae90-7b51-4409-a40e-48c2086ee6c3"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "function decodeHTMLEntities(str) {\n    const htmlEntities \u003d {\n        \u0027\u0026quot;\u0027: \u0027\"\u0027,\n        \u0027\u0026amp;\u0027: \u0027\u0026\u0027,\n        \u0027\u0026lt;\u0027: \u0027\u003c\u0027,\n        \u0027\u0026gt;\u0027: \u0027\u003e\u0027,\n        \u0027\u0026apos;\u0027: \"\u0027\",\n        // 添加更多 HTML 实体映射\n        \u0027\u0026nbsp;\u0027: \u0027 \u0027, // 不换行空格\n        \u0027\u0026copy;\u0027: \u0027©\u0027,\n        \u0027\u0026reg;\u0027: \u0027®\u0027,\n        // 根据需要继续添加...\n    };\n\n    return str.replace(/\u0026[a-zA-Z0-9#]+;/g, match \u003d\u003e {\n        return htmlEntities[match] || match; // 返回对应的字符或原字符串\n    });\n}\n\nfunction parseXMLWithRegex(xmlString) {\n    // 替换 HTML 实体\n    xmlString \u003d decodeHTMLEntities(xmlString);\n\n    var result \u003d [];\n\n    // 匹配所有 \u003cshortcut\u003e 元素及其内容\n    var shortcutRegex \u003d /\u003cshortcut[^\u003e]*\u003e([\\s\\S]*?)\u003c\\/shortcut\u003e/g;\n    var match;\n\n    while ((match \u003d shortcutRegex.exec(xmlString)) !\u003d\u003d null) {\n        var shortcut \u003d match[0];\n\n        // 提取 title 属性\n        var titleMatch \u003d shortcut.match(/title\u003d\"([^\"]*)\"/);\n        var title \u003d titleMatch ? titleMatch[1] : \"未定义标题\";\n\n        // 提取 intent 属性\n        var intentMatch \u003d shortcut.match(/\u003cintent intent-base\u003d\"([^\"]*)\"/);\n        var intentBase \u003d intentMatch ? intentMatch[1] : \"未定义 intent\";\n\n        // 初始化最终的 intent 字符串\n        var finalIntentString \u003d \"intent:\" + intentBase.replace(/end$/, \"\");\n\n        // 检查是否存在 \u003cextras\u003e 元素\n        var extrasMatch \u003d shortcut.match(/\u003cextras\u003e([\\s\\S]*?)\u003c\\/extras\u003e/);\n        if (extrasMatch) {\n            var extrasContent \u003d extrasMatch[1];\n\n            // 提取 boolean 元素\n            var booleanRegex \u003d /\u003cboolean name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var booleanMatch;\n            while ((booleanMatch \u003d booleanRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";B.\" + booleanMatch[1] + \"\u003d\" + booleanMatch[2];\n            }\n\n            // 提取 int 元素\n            var intRegex \u003d /\u003cint name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var intMatch;\n            while ((intMatch \u003d intRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";i.\" + intMatch[1] + \"\u003d\" + intMatch[2];\n            }\n\n            // 提取 string 元素\n            var stringRegex \u003d /\u003cstring name\u003d\"([^\"]*)\"\u003e([^\u003c]*)\u003c\\/string\u003e/g;\n            var stringMatch;\n            while ((stringMatch \u003d stringRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";S.\" + stringMatch[1] + \"\u003d\" + stringMatch[2];\n            }\n\n            // 提取 long 元素\n            var longRegex \u003d /\u003clong name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var longMatch;\n            while ((longMatch \u003d longRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";l.\" + longMatch[1] + \"\u003d\" + longMatch[2];\n            }\n\n            // 在最后添加 end，避免重复的分号\n            finalIntentString +\u003d \";end\";\n        } else {\n            // 如果没有 \u003cextras\u003e，直接添加 end，避免重复的分号\n            finalIntentString +\u003d \";end\";\n        }\n\n        // 确保最终的意图字符串中只存在一个分号\n        finalIntentString \u003d finalIntentString.replace(/;;/g, \";\");\n\n        // 将结果加入数组\n        result.push((result.length + 1) + \". \" + title + \" : \" + finalIntentString);\n    }\n\n    return result.join(\"\\n , \\n \");\n}\n\n// 使用示例\nvar xmlString \u003d mvelRet; // 请确保 mvelRet 是您要解析的 XML 字符串\nvar result \u003d parseXMLWithRegex(xmlString);\nresult;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "Shortcuts"
+          }]
+        },
+        "id": "A-c01ce24a-9532-4619-a272-4871402cdba5"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var input \u003d Shortcuts;\n\n// 去除换行符和多余空格\ninput \u003d input.replace(/\\s*,\\s*\\n\\s*/g, \" , \");\n\n// 将字符串按 ` , ` 分割\nvar entries \u003d input.split(\" , \");\n\n// 定义一个数组用于存储处理后的结果\nvar result \u003d [];\n\n// 遍历每个条目\nfor (var i \u003d 0; i \u003c entries.length; i++) {\n    // 分割应用名称和 intent 部分\n    var parts \u003d entries[i].split(\" : \");\n    if (parts.length \u003e 1) {\n        // 取应用名称\n        var appName \u003d parts[0];\n        result.push(appName); // 添加到结果数组\n    }\n}\n\n// 将结果数组用 ` , ` 连接成字符串\nvar output \u003d result.join(\" , \");\n\n// 输出结果\noutput; // 返回处理后的字符串",
+        "customContextDataKey": {
+        },
+        "id": "A-f07b6c35-ca1d-4b14-acf2-a01e922d9c9d"
+      }, {
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "Shortcuts 解析结果",
+        "data": "{jsRet}",
+        "isMultipleChoice": true,
+        "delimiter": [" , "],
+        "needConfirmAction": true,
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-232c7131-492d-4c42-9cce-e6bf86cd027d"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "selectedListItem",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-88ab858d-e4bf-43c6-b280-f7c7073f68ac"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var shortcutsInput \u003d Shortcuts;\n\n// 将字符串按逗号分割为多个快捷方式条目\nvar shortcutEntries \u003d shortcutsInput.split(\",\");\n\n// 创建一个字典用于存储快捷方式名称与快捷方式的映射\nvar shortcutMap \u003d {};\n\n// 遍历每个条目，分离出应用名称和快捷方式信息\nfor (var i \u003d 0; i \u003c shortcutEntries.length; i++) {\n    // 分割快捷方式名称和快捷方式信息\n    var parts \u003d shortcutEntries[i].split(\" : \");\n    if (parts.length \u003e 1) {\n        // 将快捷方式名称作为键，快捷方式信息作为值，存入字典\n        var appName \u003d parts[0].trim();\n        var shortcutInfo \u003d parts[1].trim();\n        shortcutMap[appName] \u003d shortcutInfo;\n    }\n}\n\n// 函数：根据输入的应用名称列表（用 [] 包裹）输出对应的快捷方式信息\nfunction getShortcutInfo(appNames) {\n    // 去除输入中的 [ 和 ]，并分割出各个应用名称\n    appNames \u003d appNames.replace(\"[\", \"\").replace(\"]\", \"\").split(\", \");\n    var shortcutList \u003d [];\n    \n    // 遍历每个快捷方式名称，获取其对应的快捷方式信息\n    for (var i \u003d 0; i \u003c appNames.length; i++) {\n        var appName \u003d appNames[i].trim();\n        var shortcut \u003d shortcutMap[appName] || \"快捷方式不存在\";\n        shortcutList.push(shortcut);\n    }\n\n    // 返回所有匹配的快捷方式信息，按行显示\n    return shortcutList.join(\"\\n\\n\");\n}\n\n// 定义 URL 编码中文字符的函数\nfunction encodeChineseChars(str) {\n    return str.replace(/[\\u4e00-\\u9fa5]/g, function(char) {\n        return encodeURIComponent(char);\n    });\n}\n\n// 测试：传入一个包含多个快捷方式名称的字符串，输出对应的快捷方式信息并对中文字符进行 URL 编码\nvar appNamesInput \u003d {selectedListItem};\nvar output \u003d getShortcutInfo(appNamesInput);\nvar encodedOutput \u003d encodeChineseChars(output);\nencodedOutput; // 返回仅对中文字符进行编码后的字符串",
+          "customContextDataKey": {
+          },
+          "id": "A-0f8b3798-c455-4e82-82da-3e265626233f"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "Intent",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-5b688eca-78d3-4cd5-8a1e-5b6d92faeecc"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "userId",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-713f2f94-31f9-4a8c-bbe4-09fac1823dd6"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "userId",
+          "valueAsString": "{userId}",
+          "customContextDataKey": {
+          },
+          "id": "A-dc8229c4-cc64-459a-ac0b-5c8c6a7f4a37"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "Intent",
+          "valueAsString": "{jsRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-5e4b291a-a609-475f-abd4-b9ba009756fb"
+        }, {
+          "@type": "type.googleapis.com/ShowChoiceDialog",
+          "title": "复制类型",
+          "cancelable": true,
+          "choices": [{
+            "label": "Shell命令",
+            "value": "Shell"
+          }, {
+            "label": "Intent Uri",
+            "value": "Intent Uri"
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-98516b4a-8cff-4b8c-bba2-f3fa84f55235"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "Contains",
+            "varName": "choices",
+            "payload": {
+              "value": "Shell"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-c1f12d68-53cb-4d4f-a836-55a56d975c0d"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "function generateAMCommands(intents) {\n    // 按换行符分割字符串并过滤掉空行\n    var intentArray \u003d intents.split(\u0027\\n\u0027).filter(function(intent) {\n        return intent.trim() !\u003d\u003d \u0027\u0027;\n    });\n\n    // 生成命令\n    var commands \u003d intentArray.map(function(intent, index) {\n        // 第一个命令不加延迟，其余的命令前加 `sleep 2 \u0026\u0026`\n        return (index \u003d\u003d\u003d 0 ? \"\" : \"sleep 2 \u0026\u0026 \") + \"am start --user \" + userId + \" \u0027\" + intent + \"\u0027\";\n    });\n\n    return commands.join(\"\\n\");\n}\n\nvar intents \u003d jsRet;\n\ngenerateAMCommands(intents);",
+            "customContextDataKey": {
+            },
+            "id": "A-729b5e7c-0c35-401d-b028-b2347ce23d1e"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-9b502ce8-d7db-4ffa-b96a-bcdde3872da4"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{jsRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-a2afd8fb-24c6-4c37-a502-3e093aec0618"
+        }, {
+          "@type": "type.googleapis.com/ShowOverlayButton",
+          "buttonSettings": [{
+            "actions": [{
+              "@type": "type.googleapis.com/ExecuteJS",
+              "expression": "function generateAMCommands(intents) {\n    // 按换行符分割字符串并过滤掉空行\n    var intentArray \u003d intents.split(\u0027\\n\u0027).filter(function(intent) {\n        return intent.trim() !\u003d\u003d \u0027\u0027;\n    });\n\n    // 生成命令\n    var commands \u003d intentArray.map(function(intent, index) {\n        // 第一个命令不加延迟，其余的命令前加 `sleep 2 \u0026\u0026`\n        return (index \u003d\u003d\u003d 0 ? \"\" : \"sleep 2 \u0026\u0026 \") + \"am start --user \" + localVarOf$userId + \" \u0027\" + intent + \"\u0027\";\n    });\n\n    return commands.join(\"\\n\");\n}\n\nvar intents \u003d localVarOf$Intent;\n\ngenerateAMCommands(intents);",
+              "customContextDataKey": {
+              },
+              "id": "A-729b5e7c-0c35-401d-b028-b2347ce23d1e"
+            }, {
+              "@type": "type.googleapis.com/CreateLocalVar",
+              "localVar": {
+                "name": "true",
+                "type": {
+                  "@type": "type.googleapis.com/StringVar"
+                }
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-50f04a40-8be2-41df-b478-e5b09c25b549"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "{jsRet}",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "id": "A-e84dd798-42ca-43f2-b812-cf3e12864a8c"
+            }],
+            "icon": "preview-open",
+            "label": "打开",
+            "id": "BTN-3383ffa2-f784-4ccc-b104-f0773747ca4f"
+          }],
+          "tag": "open",
+          "maxHeightInDp": 40,
+          "maxWidthInDp": 84,
+          "backgroundAlpha": 0.8,
+          "buttonMinWidth": 68,
+          "enableGlobalDrag": true,
+          "overlayPaddingV": 15,
+          "customContextDataKey": {
+          },
+          "id": "A-48e8e24a-ccae-42ef-8f17-1773d86e0e23"
+        }, {
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "IsExists",
+            "varName": "true",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-65eb0741-324a-4660-8f0f-725549595237"
+          }],
+          "timeout": "5000",
+          "customContextDataKey": {
+          },
+          "id": "A-a132e4ac-2398-48dd-a4d7-b82233b3be31"
+        }, {
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["open"],
+          "customContextDataKey": {
+          },
+          "id": "A-cc3f32c0-d286-4b45-aa94-d78ca07304b9"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-fcc8ce5b-bf88-4156-99c9-a6c7266cf8ab"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "Shortcuts快捷方式",
+      "id": "A-639d68c7-2e8e-424d-901c-691a14ab8aa4"
+    }],
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "你可能会用到的辅助工具",
+    "id": "A-38d2d964-4e84-4aa9-8376-948d95c7fc00"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "状态栏Chip",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-0c1e31a2-425f-46a3-ae97-98e6411a69c4"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "OCR",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-9ecd2e4b-720e-443f-a7cd-2c5c032b52ba"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "状态栏Chip",
+    "valueAsString": "1",
+    "customContextDataKey": {
+    },
+    "note": "是否使用状态栏Chip显示当前执行状态\n1 启用\n0 禁用",
+    "id": "A-c607e1e4-58f6-4c76-bfe6-0ed5dc28eac5"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "OCR",
+    "valueAsString": "1",
+    "customContextDataKey": {
+    },
+    "note": "是否使用OCR辅助识别\n1 启用\n0 禁用",
+    "id": "A-c8a1d89b-efa1-4dde-8d25-3e40d30a111e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-cc85f597-cc70-48fb-b28d-119f85b9ccf1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "cursor-line",
+      "customContextDataKey": {
+      },
+      "note": "原指令地址\nhttps://t.me/shortxmod/790/63050",
+      "id": "A-e6d66a07-361f-4a72-9760-9fcceffee17a"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "状态栏Chip",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "获取shortcut",
+        "icon": "remix://info",
+        "clickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+          "customContextDataKey": {
+          },
+          "id": "A-e91273e4-d3e2-423c-b29f-042b71d4d7a1"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b731ce61-e6cc-4f70-855c-5a38b764c355"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/MatchJS",
+          "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d 0; // 用于统计纯数字文件夹的数量\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders++;\n            // 一旦找到超过1个纯数字文件夹，输出true并停止\n            if (numberFolders \u003e 1) {\n                true;\n                break;\n            }\n        }\n    }\n\n    // 如果数量不超过1个，输出false\n    if (numberFolders \u003c\u003d 1) {\n        false;\n    }\n} else {\n    false;\n}",
+          "customContextDataKey": {
+          },
+          "id": "C-70af419d-7970-47ac-ac13-62ef0e0da80c"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d []; // 用于存储纯数字文件夹的列表\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders.push(fileName);\n        }\n    }\n\n    // 拼接所有纯数字文件夹\n    var result \u003d numberFolders.length \u003e 0 ? numberFolders.join(\" , \") : \"没有找到纯数字文件夹\";\n    result;\n} else {\n    \"目录不存在或不是一个有效的目录\";\n}\n",
+          "context": "CoroutineContext_IO",
+          "customContextDataKey": {
+          },
+          "id": "A-3a501361-72b4-4219-8096-48ec1fcfc111"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择用户",
+          "data": "{jsRet}",
+          "delimiter": [" , "],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-b0f7cb34-1340-4a9f-9c04-1e789465dcbe"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "inputString \u003d {selectedListItem};\noutputString \u003d inputString.replace(\"[\", \"\").replace(\"]\", \"\");",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "userId"
+            }]
+          },
+          "id": "A-05d2e487-2dfb-4e17-8470-06d8bbf935da"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(java.io.File);\n\n// 获取包管理器\nvar pm \u003d context.getPackageManager();\n\n// 定义目录路径\nvar dirPath \u003d \"/data/system_ce/\" + userId + \"/shortcut_service/packages/\";\nvar dir \u003d new File(dirPath);\n\n// 获取该目录下的所有文件\nvar files \u003d dir.listFiles();\nvar appMap \u003d {}; // 使用对象存储唯一应用\n\nif (files) {\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        \n        // 去掉后缀名\n        var dotIndex \u003d fileName.lastIndexOf(\u0027.xml\u0027);\n        if (dotIndex \u003e -1) {\n            fileName \u003d fileName.substring(0, dotIndex);\n        }\n        \n        // 使用文件名（包名）获取应用名称\n        try {\n            var appInfo \u003d pm.getApplicationInfo(fileName, PackageManager.GET_META_DATA);\n            var appName \u003d pm.getApplicationLabel(appInfo).toString();\n            \n            // 将应用名称和包名存入对象，避免重复\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d appName;\n            }\n        } catch (e) {\n            // 如果找不到应用，记录“未找到”的信息\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d \"应用未找到\";\n            }\n        }\n    }\n\n    // 拼接输出字符串\n    var appListStr \u003d \"\";\n    for (var key in appMap) {\n        appListStr +\u003d appMap[key] + \"\\n\" + key + \" , \";\n    }\n\n    // 去除最后的逗号和空格\n    if (appListStr.endsWith(\" , \")) {\n        appListStr \u003d appListStr.slice(0, -3);\n    }\n} else {\n    appListStr \u003d \"该目录为空或无法访问\";\n}\n\n// 输出结果\nappListStr;",
+          "customContextDataKey": {
+          },
+          "id": "A-9b99ed20-bf31-45a5-9743-de11ed251790"
+        }],
+        "description": "多用户",
+        "id": "Case-64908d19-27c7-4218-bb6c-59bfc69c4ab2",
+        "isDisabled": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchJS",
+          "expression": "importPackage(java.io);\n\n// 设置目标目录\nvar dirPath \u003d \"/data/system_ce/\";\nvar dir \u003d new File(dirPath);\n\n// 检查目录是否存在且是一个目录\nif (dir.exists() \u0026\u0026 dir.isDirectory()) {\n    var files \u003d dir.listFiles();\n    var numberFolders \u003d 0; // 用于统计纯数字文件夹的数量\n\n    // 遍历所有文件和文件夹\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        // 检查是否是目录，并且名字是否是纯数字\n        if (files[i].isDirectory() \u0026\u0026 /^\\d+$/.test(fileName)) {\n            numberFolders++;\n            // 一旦找到超过1个纯数字文件夹，输出true并停止\n            if (numberFolders \u003e 1) {\n                true;\n                break;\n            }\n        }\n    }\n\n    // 如果数量不超过1个，输出false\n    if (numberFolders \u003c\u003d 1) {\n        false;\n    }\n} else {\n    false;\n}",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-eedf5825-33aa-4130-8dcc-7c4d982d3054"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "0",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "userId"
+            }]
+          },
+          "id": "A-ac15eab2-a4c4-4ac2-b13b-2892e8dde66c"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(java.io.File);\n\n// 获取包管理器\nvar pm \u003d context.getPackageManager();\n\n// 定义目录路径\nvar dirPath \u003d \"/data/system_ce/0/shortcut_service/packages/\";\nvar dir \u003d new File(dirPath);\n\n// 获取该目录下的所有文件\nvar files \u003d dir.listFiles();\nvar appMap \u003d {}; // 使用对象存储唯一应用\n\nif (files) {\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var fileName \u003d files[i].getName();\n        \n        // 去掉后缀名\n        var dotIndex \u003d fileName.lastIndexOf(\u0027.xml\u0027);\n        if (dotIndex \u003e -1) {\n            fileName \u003d fileName.substring(0, dotIndex);\n        }\n        \n        // 使用文件名（包名）获取应用名称\n        try {\n            var appInfo \u003d pm.getApplicationInfo(fileName, PackageManager.GET_META_DATA);\n            var appName \u003d pm.getApplicationLabel(appInfo).toString();\n            \n            // 将应用名称和包名存入对象，避免重复\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d appName;\n            }\n        } catch (e) {\n            // 如果找不到应用，记录“未找到”的信息\n            if (!appMap[fileName]) {\n                appMap[fileName] \u003d \"应用未找到\";\n            }\n        }\n    }\n\n    // 拼接输出字符串\n    var appListStr \u003d \"\";\n    for (var key in appMap) {\n        appListStr +\u003d appMap[key] + \"\\n\" + key + \" , \";\n    }\n\n    // 去除最后的逗号和空格\n    if (appListStr.endsWith(\" , \")) {\n        appListStr \u003d appListStr.slice(0, -3);\n    }\n} else {\n    appListStr \u003d \"该目录为空或无法访问\";\n}\n\n// 输出结果\nappListStr;",
+          "context": "CoroutineContext_IO",
+          "customContextDataKey": {
+          },
+          "id": "A-698ec623-38ba-4684-add3-ca85e3e61862"
+        }],
+        "description": "单用户",
+        "id": "Case-a7a57373-8d31-4c47-9131-6765bd55446d",
+        "isDisabled": true
+      }, {
+        "action": [{
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择应用",
+          "data": "{jsRet}",
+          "delimiter": [" , "],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-77035e85-a928-4381-b01d-ca58b5847d1c"
+        }],
+        "description": "选择应用",
+        "id": "Case-76b1539f-24ce-463d-a552-a8c9884596b8",
+        "isDisabled": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "selectedListItem",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-a6854282-4246-43ed-ad92-c91f419ca936"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "inputString \u003d {selectedListItem};\noutputString \u003d inputString.replace(\"[\", \"\").replace(\"]\", \"\");",
+          "customContextDataKey": {
+          },
+          "id": "A-d2403211-0c20-4ab1-bf7d-f769a3db6893"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "{mvelRet}.split(\u0027\\n\u0027)[1]",
+          "customContextDataKey": {
+          },
+          "id": "A-4679c3b5-6d76-4c3a-a20a-e7702cd1705c"
+        }],
+        "description": "提取包名",
+        "id": "Case-28b16e71-0ed9-423d-a321-485d8d8b9b66",
+        "isDisabled": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "selectedListItem",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-53a87e3c-972b-483d-9c3a-dd60aeea510c"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-d8517812-aef5-4338-883f-3eafd8b41348"
+        }],
+        "description": "不选择",
+        "id": "Case-8207aeb1-84c1-4dc3-8234-c985edce559b",
+        "isDisabled": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003c\u003d 11;",
+          "customContextDataKey": {
+          },
+          "id": "C-dc659ba6-1e29-4b07-87bd-2670d31f1966"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import java.io.File;\nimport java.util.Scanner;\n\n// 读取文件内容\nnew Scanner(new File(\"/data/system_ce/0/shortcut_service/packages/com.tencent.mm.xml\")).useDelimiter(\"\\\\Z\").next()",
+          "context": "CoroutineContext_IO",
+          "customContextDataKey": {
+          },
+          "id": "A-39e72e12-2781-47ef-bc27-ab3ef36b44d2"
+        }],
+        "description": "11以下",
+        "id": "Case-c4299d06-4d7d-4149-8f69-45e2beb8b4ff",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003d\u003d 12 || androidVersion \u003d\u003d 13;",
+          "customContextDataKey": {
+          },
+          "id": "C-62e4a30c-795b-4de8-8489-bf4453897d76"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import java.nio.charset.StandardCharsets;\nimport org.xmlpull.v1.XmlSerializer;\nimport java.io.StringWriter;\nimport android.util.TypedXmlPullParser;\nimport android.util.Xml;\nimport java.io.*;\n\n// 设置输入路径\nString inputPath \u003d \"/data/system_ce/0/shortcut_service/packages/com.tencent.mm.xml\";\n\n\n// 打开输入流\nInputStream input \u003d new FileInputStream(inputPath);\n\n// 创建序列化器\nXmlSerializer serializer \u003d Xml.newSerializer();\n\n// 使用 StringWriter 作为输出\nStringWriter outputWriter \u003d new StringWriter();\nserializer.setOutput(outputWriter);\nserializer.setFeature(\"http://xmlpull.org/v1/doc/features.html#indent-output\", true);\n\n// 使用 Android Xml 解析器\nTypedXmlPullParser parser \u003d Xml.newBinaryPullParser(); // 确保这个类可用\nparser.setInput(input, StandardCharsets.UTF_8.name());\n\n// 复制 XML 内容到 StringWriter\nXml.copy(parser, serializer);\n\n// 输出结果到屏幕\noutputWriter.toString();",
+          "customContextDataKey": {
+          },
+          "note": "Android 13",
+          "id": "A-faec75cf-a5fb-48f0-9283-42804b5922df"
+        }],
+        "description": "12~13",
+        "id": "Case-79b744fa-cf54-4ecd-85c3-3cd08fde7c6a",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import android.os.Build;\n\n// 输出当前 Android 版本\nString androidVersion \u003d Build.VERSION.RELEASE;\n\nandroidVersion \u003e\u003d 14;",
+          "customContextDataKey": {
+          },
+          "id": "C-ed93999d-f9e4-4f1f-b2ab-89a3958d91bf"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import java.io.*;\nimport android.util.Xml;\nimport java.nio.charset.StandardCharsets;\nimport com.android.modules.utils.TypedXmlPullParser;\nimport org.xmlpull.v1.XmlSerializer;\n\ndef openInput() {\n    return new FileInputStream(\"/data/system_ce/0/shortcut_service/packages/com.tencent.mm.xml\");\n}\n\nTypedXmlPullParser newPullParser \u003d Xml.newBinaryPullParser();\nXmlSerializer out \u003d Xml.newSerializer();\nStringWriter writer \u003d new StringWriter(); // 用于存储输出结果\n\nInputStream inputStream \u003d openInput();\n\nnewPullParser.setInput(inputStream, StandardCharsets.UTF_8.name());\nout.setOutput(writer); // 设置输出为StringWriter\nout.setFeature(\"http://xmlpull.org/v1/doc/features.html#indent-output\", true);\n\n// 复制并解析XML内容\nXml.copy(newPullParser, out);\nout.flush();\n\n// 输出解析后的XML到屏幕\nwriter.toString();",
+          "customContextDataKey": {
+          },
+          "note": "Android 14",
+          "id": "A-97533239-ce3d-48ee-8b1a-2edf99afbd54"
+        }],
+        "description": "14以上",
+        "id": "Case-43a88f8c-2030-4852-a76d-abd44d4b8401",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ac7eae90-7b51-4409-a40e-48c2086ee6c3"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "0",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "userId"
+        }]
+      },
+      "id": "A-a66afb00-fbc3-4265-907d-b7daab05da11"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "function decodeHTMLEntities(str) {\n    const htmlEntities \u003d {\n        \u0027\u0026quot;\u0027: \u0027\"\u0027,\n        \u0027\u0026amp;\u0027: \u0027\u0026\u0027,\n        \u0027\u0026lt;\u0027: \u0027\u003c\u0027,\n        \u0027\u0026gt;\u0027: \u0027\u003e\u0027,\n        \u0027\u0026apos;\u0027: \"\u0027\",\n        // 添加更多 HTML 实体映射\n        \u0027\u0026nbsp;\u0027: \u0027 \u0027, // 不换行空格\n        \u0027\u0026copy;\u0027: \u0027©\u0027,\n        \u0027\u0026reg;\u0027: \u0027®\u0027,\n        // 根据需要继续添加...\n    };\n\n    return str.replace(/\u0026[a-zA-Z0-9#]+;/g, match \u003d\u003e {\n        return htmlEntities[match] || match; // 返回对应的字符或原字符串\n    });\n}\n\nfunction parseXMLWithRegex(xmlString) {\n    // 替换 HTML 实体\n    xmlString \u003d decodeHTMLEntities(xmlString);\n\n    var result \u003d [];\n\n    // 匹配所有 \u003cshortcut\u003e 元素及其内容\n    var shortcutRegex \u003d /\u003cshortcut[^\u003e]*\u003e([\\s\\S]*?)\u003c\\/shortcut\u003e/g;\n    var match;\n\n    while ((match \u003d shortcutRegex.exec(xmlString)) !\u003d\u003d null) {\n        var shortcut \u003d match[0];\n\n        // 提取 title 属性\n        var titleMatch \u003d shortcut.match(/title\u003d\"([^\"]*)\"/);\n        var title \u003d titleMatch ? titleMatch[1] : \"未定义标题\";\n\n        // 提取 intent 属性\n        var intentMatch \u003d shortcut.match(/\u003cintent intent-base\u003d\"([^\"]*)\"/);\n        var intentBase \u003d intentMatch ? intentMatch[1] : \"未定义 intent\";\n\n        // 初始化最终的 intent 字符串\n        var finalIntentString \u003d \"intent:\" + intentBase.replace(/end$/, \"\");\n\n        // 检查是否存在 \u003cextras\u003e 元素\n        var extrasMatch \u003d shortcut.match(/\u003cextras\u003e([\\s\\S]*?)\u003c\\/extras\u003e/);\n        if (extrasMatch) {\n            var extrasContent \u003d extrasMatch[1];\n\n            // 提取 boolean 元素\n            var booleanRegex \u003d /\u003cboolean name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var booleanMatch;\n            while ((booleanMatch \u003d booleanRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";B.\" + booleanMatch[1] + \"\u003d\" + booleanMatch[2];\n            }\n\n            // 提取 int 元素\n            var intRegex \u003d /\u003cint name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var intMatch;\n            while ((intMatch \u003d intRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";i.\" + intMatch[1] + \"\u003d\" + intMatch[2];\n            }\n\n            // 提取 string 元素\n            var stringRegex \u003d /\u003cstring name\u003d\"([^\"]*)\"\u003e([^\u003c]*)\u003c\\/string\u003e/g;\n            var stringMatch;\n            while ((stringMatch \u003d stringRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";S.\" + stringMatch[1] + \"\u003d\" + stringMatch[2];\n            }\n\n            // 提取 long 元素\n            var longRegex \u003d /\u003clong name\u003d\"([^\"]+)\" value\u003d\"([^\"]+)\" \\/\u003e/g;\n            var longMatch;\n            while ((longMatch \u003d longRegex.exec(extrasContent)) !\u003d\u003d null) {\n                finalIntentString +\u003d \";l.\" + longMatch[1] + \"\u003d\" + longMatch[2];\n            }\n\n            // 在最后添加 end，避免重复的分号\n            finalIntentString +\u003d \";end\";\n        } else {\n            // 如果没有 \u003cextras\u003e，直接添加 end，避免重复的分号\n            finalIntentString +\u003d \";end\";\n        }\n\n        // 确保最终的意图字符串中只存在一个分号\n        finalIntentString \u003d finalIntentString.replace(/;;/g, \";\");\n\n        // 将结果加入数组\n        result.push((result.length + 1) + \". \" + title + \" : \" + finalIntentString);\n    }\n\n    return result.join(\"\\n , \\n \");\n}\n\n// 使用示例\nvar xmlString \u003d mvelRet; // 请确保 mvelRet 是您要解析的 XML 字符串\nvar result \u003d parseXMLWithRegex(xmlString);\nresult;",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "Shortcuts"
+        }]
+      },
+      "id": "A-c01ce24a-9532-4619-a272-4871402cdba5"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var input \u003d Shortcuts;\n\n// 去除换行符和多余空格\ninput \u003d input.replace(/\\s*,\\s*\\n\\s*/g, \" , \");\n\n// 将字符串按 ` , ` 分割\nvar entries \u003d input.split(\" , \");\n\n// 定义一个数组用于存储处理后的结果\nvar result \u003d [];\n\n// 遍历每个条目\nfor (var i \u003d 0; i \u003c entries.length; i++) {\n    // 分割应用名称和 intent 部分\n    var parts \u003d entries[i].split(\" : \");\n    if (parts.length \u003e 1) {\n        // 取应用名称\n        var appName \u003d parts[0];\n        result.push(appName); // 添加到结果数组\n    }\n}\n\n// 将结果数组用 ` , ` 连接成字符串\nvar output \u003d result.join(\" , \");\n\n// 输出结果\noutput; // 返回处理后的字符串",
+      "customContextDataKey": {
+      },
+      "id": "A-f07b6c35-ca1d-4b14-acf2-a01e922d9c9d"
+    }, {
+      "@type": "type.googleapis.com/ShowListDialog",
+      "title": "Shortcuts 解析结果",
+      "data": "{jsRet}",
+      "isMultipleChoice": true,
+      "delimiter": [" , "],
+      "needConfirmAction": true,
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-232c7131-492d-4c42-9cce-e6bf86cd027d"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{Shortcuts}",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-6cfd33a4-70ec-422e-8da7-2d8018d28106"
+    }, {
+      "@type": "type.googleapis.com/MatchRegex",
+      "string": "{Shortcuts}",
+      "regex": "\\d+\\.\\s*小米社区",
+      "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+      "customContextDataKey": {
+      },
+      "id": "A-9a547964-ef63-452b-a8e6-aa9499ffa8d2"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "{matchResult}",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-52373e78-4d4a-4b97-9ca5-05237049b813"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "matchResult",
+        "payload": {
+          "value": "小米社区"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-59410851-3255-4e61-b63f-8473151ec41f"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "状态栏Chip",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "获取失败",
+          "icon": "remix://error",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+            "customContextDataKey": {
+            },
+            "id": "A-bf64316b-8af1-4381-b66d-89069379bd79"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-552204db-7f82-4f10-b562-a1c75665a7f1"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "title": "错误",
+        "message": "无法提取到微信小程序小米社区的shortcut\n请确认您已将小米社区小程序添加到桌面",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-556b020c-3bc1-462b-ae59-547e50a3a2b9"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+        "customContextDataKey": {
+        },
+        "id": "A-44c7cc52-bbbc-478a-b101-5847f6182d0c"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-097ac387-34d8-4e59-8ea8-9724d0c1a092"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f60f30ab-e682-4d67-b722-304b77aabb16"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-c258886d-a1ed-49b4-8576-503f9a2dabaf"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "状态栏Chip",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "获取成功",
+          "icon": "remix://info",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+            "customContextDataKey": {
+            },
+            "id": "A-97107df4-df2a-4b4f-9ecf-6e42bae7d927"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4e996506-e1ee-44e8-8307-8b8f5c2949da"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var shortcutsInput \u003d Shortcuts;\n\n// 将字符串按逗号分割为多个快捷方式条目\nvar shortcutEntries \u003d shortcutsInput.split(\",\");\n\n// 创建一个字典用于存储快捷方式名称与快捷方式的映射\nvar shortcutMap \u003d {};\n\n// 遍历每个条目，分离出应用名称和快捷方式信息\nfor (var i \u003d 0; i \u003c shortcutEntries.length; i++) {\n    // 分割快捷方式名称和快捷方式信息\n    var parts \u003d shortcutEntries[i].split(\" : \");\n    if (parts.length \u003e 1) {\n        // 将快捷方式名称作为键，快捷方式信息作为值，存入字典\n        var appName \u003d parts[0].trim();\n        var shortcutInfo \u003d parts[1].trim();\n        shortcutMap[appName] \u003d shortcutInfo;\n    }\n}\n\n// 函数：根据输入的应用名称列表（用 [] 包裹）输出对应的快捷方式信息\nfunction getShortcutInfo(appNames) {\n    // 去除输入中的 [ 和 ]，并分割出各个应用名称\n    appNames \u003d appNames.replace(\"[\", \"\").replace(\"]\", \"\").split(\", \");\n    var shortcutList \u003d [];\n    \n    // 遍历每个快捷方式名称，获取其对应的快捷方式信息\n    for (var i \u003d 0; i \u003c appNames.length; i++) {\n        var appName \u003d appNames[i].trim();\n        var shortcut \u003d shortcutMap[appName] || \"快捷方式不存在\";\n        shortcutList.push(shortcut);\n    }\n\n    // 返回所有匹配的快捷方式信息，按行显示\n    return shortcutList.join(\"\\n\\n\");\n}\n\n// 定义 URL 编码中文字符的函数\nfunction encodeChineseChars(str) {\n    return str.replace(/[\\u4e00-\\u9fa5]/g, function(char) {\n        return encodeURIComponent(char);\n    });\n}\n\n// 测试：传入一个包含多个快捷方式名称的字符串，输出对应的快捷方式信息并对中文字符进行 URL 编码\nvar appNamesInput \u003d {matchResult};\nvar output \u003d getShortcutInfo(appNamesInput);\nvar encodedOutput \u003d encodeChineseChars(output);\nencodedOutput; // 返回仅对中文字符进行编码后的字符串",
+        "customContextDataKey": {
+        },
+        "id": "A-0f8b3798-c455-4e82-82da-3e265626233f"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{jsRet}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-bb567b95-fafb-4ad2-8dc0-71343d556ae1"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "Intent",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-5b688eca-78d3-4cd5-8a1e-5b6d92faeecc"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "userId",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-713f2f94-31f9-4a8c-bbe4-09fac1823dd6"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "userId",
+        "valueAsString": "{userId}",
+        "customContextDataKey": {
+        },
+        "id": "A-dc8229c4-cc64-459a-ac0b-5c8c6a7f4a37"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "Intent",
+        "valueAsString": "{jsRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-5e4b291a-a609-475f-abd4-b9ba009756fb"
+      }, {
+        "@type": "type.googleapis.com/ShowChoiceDialog",
+        "title": "复制类型",
+        "cancelable": true,
+        "choices": [{
+          "label": "Shell命令",
+          "value": "Shell"
+        }, {
+          "label": "Intent Uri",
+          "value": "Intent Uri"
+        }],
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-98516b4a-8cff-4b8c-bba2-f3fa84f55235"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "Contains",
+          "varName": "choices",
+          "payload": {
+            "value": "Shell"
+          },
+          "isDisabled": true,
+          "customContextDataKey": {
+          },
+          "id": "C-c1f12d68-53cb-4d4f-a836-55a56d975c0d"
+        }, {
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-831da8b6-bbe6-4ab1-9729-628aea51b858"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "function generateAMCommands(intents) {\n    // 按换行符分割字符串并过滤掉空行\n    var intentArray \u003d intents.split(\u0027\\n\u0027).filter(function(intent) {\n        return intent.trim() !\u003d\u003d \u0027\u0027;\n    });\n\n    // 生成命令\n    var commands \u003d intentArray.map(function(intent, index) {\n        // 第一个命令不加延迟，其余的命令前加 `sleep 2 \u0026\u0026`\n        return (index \u003d\u003d\u003d 0 ? \"\" : \"sleep 2 \u0026\u0026 \") + \"am start --user \" + userId + \" \u0027\" + intent + \"\u0027\";\n    });\n\n    return commands.join(\"\\n\");\n}\n\nvar intents \u003d jsRet;\n\ngenerateAMCommands(intents);",
+          "customContextDataKey": {
+          },
+          "id": "A-729b5e7c-0c35-401d-b028-b2347ce23d1e"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-9b502ce8-d7db-4ffa-b96a-bcdde3872da4"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{jsRet}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-a2afd8fb-24c6-4c37-a502-3e093aec0618"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "function generateAMCommands(intents) {\n    // 按换行符分割字符串并过滤掉空行\n    var intentArray \u003d intents.split(\u0027\\n\u0027).filter(function(intent) {\n        return intent.trim() !\u003d\u003d \u0027\u0027;\n    });\n\n    // 生成命令\n    var commands \u003d intentArray.map(function(intent, index) {\n        // 第一个命令不加延迟，其余的命令前加 `sleep 2 \u0026\u0026`\n        return (index \u003d\u003d\u003d 0 ? \"\" : \"sleep 2 \u0026\u0026 \") + \"am start --user \" + localVarOf$userId + \" \u0027\" + intent + \"\u0027\";\n    });\n\n    return commands.join(\"\\n\");\n}\n\nvar intents \u003d localVarOf$Intent;\n\ngenerateAMCommands(intents);",
+            "customContextDataKey": {
+            },
+            "id": "A-729b5e7c-0c35-401d-b028-b2347ce23d1e"
+          }, {
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "true",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-50f04a40-8be2-41df-b478-e5b09c25b549"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "{jsRet}",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "id": "A-e84dd798-42ca-43f2-b812-cf3e12864a8c"
+          }],
+          "icon": "preview-open",
+          "label": "打开",
+          "id": "BTN-3383ffa2-f784-4ccc-b104-f0773747ca4f"
+        }],
+        "tag": "open",
+        "maxHeightInDp": 40,
+        "maxWidthInDp": 84,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 68,
+        "enableGlobalDrag": true,
+        "overlayPaddingV": 15,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-48e8e24a-ccae-42ef-8f17-1773d86e0e23"
+      }, {
+        "@type": "type.googleapis.com/WaitUtilConditionMatch",
+        "condition": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsExists",
+          "varName": "true",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-65eb0741-324a-4660-8f0f-725549595237"
+        }],
+        "timeout": "5000",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-a132e4ac-2398-48dd-a4d7-b82233b3be31"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["open"],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-cc3f32c0-d286-4b45-aa94-d78ca07304b9"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-fcc8ce5b-bf88-4156-99c9-a6c7266cf8ab"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "获取Shortcuts",
+    "id": "A-9e4f956e-21e2-4ae6-b938-a76f31af309b"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgs": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-7e130e6f-f85d-4029-9e45-eda2ccc154ac"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/LaunchApp",
+      "appPkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-76370155-41a5-497f-a582-d3d1fb67d3d9"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "状态栏Chip",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "启动微信并等待",
+        "icon": "remix://info",
+        "clickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+          "customContextDataKey": {
+          },
+          "id": "A-442d6003-d33e-484d-a311-5b4a546ec687"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b77ef0fa-ba73-40ed-b800-39debb1a66b6"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-560fbd07-7def-43a5-95a6-68c6906cd1e4"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/LaunchApp",
+      "appPkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-76370155-41a5-497f-a582-d3d1fb67d3d9"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "状态栏Chip",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "启动微信并等待",
+        "icon": "remix://info",
+        "clickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+          "customContextDataKey": {
+          },
+          "id": "A-cce8a9e2-0ad8-40ed-9b42-ab361c87600a"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b77ef0fa-ba73-40ed-b800-39debb1a66b6"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "5000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-560fbd07-7def-43a5-95a6-68c6906cd1e4"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ad67a412-8338-49af-967a-c8e35e081910"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "{jsRet}",
+    "customContextDataKey": {
+    },
+    "note": "shortcut",
+    "id": "A-fc7b5bcc-6a14-4d1f-a375-577f669b5db2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "状态栏Chip",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": "等待进入小程序",
+      "icon": "remix://info",
+      "clickAction": [{
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+        "customContextDataKey": {
+        },
+        "id": "A-a462502d-53fb-4ad8-b860-ee2cc1739702"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-11b11cf4-ec09-4953-a753-818292680bd8"
+  }, {
+    "@type": "type.googleapis.com/WaitForIdle",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-49bd7378-bc96-4d3f-a446-00667a81be23"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-a7639f8e-3e7a-41e8-8530-58f2f40db656"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "是否进入小程序",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-dcabdf27-7ba5-4658-bc96-8af7edc58314"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "次数",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-69508f71-6510-4a8a-bda7-c164dddac6ca"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "退出",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-e3bb82aa-e5bc-4f77-bf56-2dee5c606b04"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "次数",
+    "valueAsString": "0",
+    "customContextDataKey": {
+    },
+    "id": "A-aafeb2fc-f5ec-4b09-8604-036c5f82cde9"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsEmpty",
+      "varName": "是否进入小程序",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-64b1d491-175c-4bb2-bdfe-846db8c34fb1"
+    }, {
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsEmpty",
+      "varName": "退出",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d09a7063-679b-400e-b722-af01412c2890"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "originalValueAsString \u003d localVarOf$次数;\nnumericValue \u003d Integer.parseInt(originalValueAsString);\nnumericValue +\u003d 1;\nnumericValue;",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "次数"
+        }]
+      },
+      "id": "A-43779593-e8e1-4aa4-bd25-509640d69ae3"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "次数",
+      "valueAsString": "{次数}",
+      "customContextDataKey": {
+      },
+      "id": "A-fbfa5d78-d157-4d4f-9f50-c305a4ec106d"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "OCR",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/OcrDetect",
+        "rectSrc": {
+          "@type": "type.googleapis.com/RectSourceRect",
+          "rect": {
+            "left": 771,
+            "top": 2345,
+            "right": 855,
+            "bottom": 2385
+          }
+        },
+        "threads": 4,
+        "separator": " ",
+        "customContextDataKey": {
+        },
+        "id": "A-e3d8515c-a376-47f8-81b9-40d46622b4c2"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "{ocrResult}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "如想查看OCR识别内容，请启用此弹幕",
+        "id": "A-da361f45-a0d0-438d-894b-33884ddbea7d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-00f842a5-2d0d-41be-9748-e2c24b346fb2"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/HasNodeOnScreen",
+        "matchers": [{
+          "@type": "type.googleapis.com/NodeMatcherViewId",
+          "id": "com.tencent.mm:id/a0g"
+        }, {
+          "@type": "type.googleapis.com/NodeMatcherText",
+          "text": "^我的$",
+          "isRegex": true
+        }],
+        "detectTimeout": "5000",
+        "customContextDataKey": {
+        },
+        "id": "C-79afbbb1-e389-43ad-877b-f19f9f9ca789"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "ocrResult",
+        "payload": {
+          "value": "我的"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-fca17aed-31a1-4656-9b49-f8112815796d"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "状态栏Chip",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "已进入小程序",
+          "icon": "remix://info",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+            "customContextDataKey": {
+            },
+            "id": "A-e735151f-9660-458c-bb43-773db5769299"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-878788ec-addf-4742-8d3f-1da8cf053348"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "是否进入小程序",
+        "valueAsString": "1",
+        "customContextDataKey": {
+        },
+        "id": "A-253893fb-892d-44d9-9426-e9c4471e1eee"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "状态栏Chip",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "等待次数: {次数}/40",
+          "icon": "remix://info",
+          "clickAction": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "退出",
+            "valueAsString": "1",
+            "customContextDataKey": {
+            },
+            "id": "A-230161b9-308f-426d-a6c6-4896e2453c96"
+          }, {
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+            "customContextDataKey": {
+            },
+            "id": "A-cfd8d9d9-eefe-4748-a514-8e4aa37b435f"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-11b11cf4-ec09-4953-a753-818292680bd8"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-7fd44471-2a43-4a16-9ab2-a33a42220275"
+    }],
+    "delay": 500,
+    "repeatTimes": 40,
+    "customContextDataKey": {
+    },
+    "id": "A-0dcd4a1d-e703-4eba-bb58-565788e3e1da"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "退出",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-0cdd3478-7c12-47f0-9870-3f05af0f9aea"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已结束指令",
+      "customContextDataKey": {
+      },
+      "id": "A-2b24216c-a53a-4bd4-bf34-89a591724a7f"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-9bf2d9a0-19d3-418c-b323-a4014f39e359"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-86afd1dc-6395-453f-b615-13574e341fe2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "是否进入小程序",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d359d506-292a-4c7c-9d5c-ec0c53d604ec"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "状态栏Chip",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "进入小程序超时",
+        "icon": "remix://error",
+        "clickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-11b11cf4-ec09-4953-a753-818292680bd8"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "确定",
+      "title": "超时",
+      "message": "请检查是否正确进入小程序\n如果已经进入但仍然出现此提示请考虑开启OCR辅助识别",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-df5d86f7-8793-451f-8eec-cfe60545cb57"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-8c450231-6706-40d3-a18b-e75e60c154d9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3d6d437d-f5cf-4b2d-bdc5-4b27c9fad81a"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "状态栏Chip",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": "进入我的界面",
+      "icon": "remix://info",
+      "clickAction": [{
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b8e29d04-9d43-453f-af4d-58a80a71ae14"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "^我的$",
+    "isRegex": true,
+    "timeout": "3000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-327799fe-da1c-46cd-a6b0-d585b303944b"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-00725352-1bf4-41b7-86bb-a3bab865dc1c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "OCR",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/OcrDetect",
+      "rectSrc": {
+        "@type": "type.googleapis.com/RectSourceRect",
+        "rect": {
+          "left": 817,
+          "top": 1170,
+          "right": 950,
+          "bottom": 1220
+        }
+      },
+      "threads": 4,
+      "separator": " ",
+      "customContextDataKey": {
+      },
+      "id": "A-e3d8515c-a376-47f8-81b9-40d46622b4c2"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "{ocrResult}",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "如想查看OCR识别内容，请启用此弹幕",
+      "id": "A-da361f45-a0d0-438d-894b-33884ddbea7d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8ac1a954-7b5c-4822-976c-2b0eb8bdf3c1"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/HasNodeOnScreen",
+      "matchers": [{
+        "@type": "type.googleapis.com/NodeMatcherViewId",
+        "id": "_Xt"
+      }, {
+        "@type": "type.googleapis.com/NodeMatcherViewId",
+        "id": "_Xn"
+      }, {
+        "@type": "type.googleapis.com/NodeMatcherText",
+        "text": "^编辑资料$",
+        "isRegex": true
+      }, {
+        "@type": "type.googleapis.com/NodeMatcherText",
+        "text": "^每日签到$",
+        "isRegex": true
+      }, {
+        "@type": "type.googleapis.com/NodeMatcherText",
+        "text": "^去签到$",
+        "isRegex": true
+      }],
+      "detectTimeout": "5000",
+      "customContextDataKey": {
+      },
+      "id": "C-202058dd-2bd0-4d7f-bd88-560b786b9159"
+    }, {
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "ocrResult",
+      "payload": {
+        "value": "去签到"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-3f3ce8dc-ae13-4857-9295-280631d001f7"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "状态栏Chip",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "已进入我的界面",
+        "icon": "remix://info",
+        "clickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+          "customContextDataKey": {
+          },
+          "id": "A-c7b24627-6e29-48dd-b781-5fc9b1eaf0b2"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-878788ec-addf-4742-8d3f-1da8cf053348"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-28015ea1-ffde-4bdb-93f1-aaf96c664462"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "OCR",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/OcrDetect",
+        "rectSrc": {
+          "@type": "type.googleapis.com/RectSourceRect",
+          "rect": {
+            "left": 817,
+            "top": 1170,
+            "right": 950,
+            "bottom": 1220
+          }
+        },
+        "threads": 4,
+        "separator": " ",
+        "customContextDataKey": {
+        },
+        "id": "A-e3d8515c-a376-47f8-81b9-40d46622b4c2"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "{ocrResult}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "如想查看OCR识别内容，请启用此弹幕",
+        "id": "A-da361f45-a0d0-438d-894b-33884ddbea7d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5d64a8be-1626-4944-9b5f-967e1610d251"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/HasNodeOnScreen",
+        "matchers": [{
+          "@type": "type.googleapis.com/NodeMatcherViewId",
+          "id": "_Xt"
+        }, {
+          "@type": "type.googleapis.com/NodeMatcherViewId",
+          "id": "_Xn"
+        }, {
+          "@type": "type.googleapis.com/NodeMatcherText",
+          "text": "^编辑资料$",
+          "isRegex": true
+        }, {
+          "@type": "type.googleapis.com/NodeMatcherText",
+          "text": "^每日签到$",
+          "isRegex": true
+        }, {
+          "@type": "type.googleapis.com/NodeMatcherText",
+          "text": "^去签到$",
+          "isRegex": true
+        }],
+        "detectTimeout": "5000",
+        "customContextDataKey": {
+        },
+        "id": "C-202058dd-2bd0-4d7f-bd88-560b786b9159"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "ocrResult",
+        "payload": {
+          "value": "去签到"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-3f3ce8dc-ae13-4857-9295-280631d001f7"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "状态栏Chip",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "已进入我的界面",
+          "icon": "remix://info",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+            "customContextDataKey": {
+            },
+            "id": "A-fc9add34-1813-47dc-bb11-34feaf1c48ab"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-878788ec-addf-4742-8d3f-1da8cf053348"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "状态栏Chip",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "重试点击...",
+          "icon": "remix://info",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+            "customContextDataKey": {
+            },
+            "id": "A-2985cfc3-70be-4bde-a850-df1cd02031fa"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-878788ec-addf-4742-8d3f-1da8cf053348"
+      }, {
+        "@type": "type.googleapis.com/FindAndClickViewByText",
+        "text": "^我的$",
+        "isRegex": true,
+        "timeout": "3000",
+        "rect": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-cfbfbe38-1b57-434e-99f0-acf33ac0fdb8"
+      }, {
+        "@type": "type.googleapis.com/FindAndClickViewById",
+        "viewId": "com.tencent.mm:id/a0g",
+        "timeout": "3000",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-b02c1f10-bca0-484a-bbed-9ecd28529fd9"
+      }, {
+        "@type": "type.googleapis.com/InputTap",
+        "xs": "800",
+        "ys": "2300",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-2f875433-76fc-4a4e-b7e5-f7a2501899c2"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-586d1a5f-5196-42d7-908e-6f164e5c25ba"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "OCR",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/OcrDetect",
+          "rectSrc": {
+            "@type": "type.googleapis.com/RectSourceRect",
+            "rect": {
+              "left": 817,
+              "top": 1170,
+              "right": 950,
+              "bottom": 1220
+            }
+          },
+          "threads": 4,
+          "separator": " ",
+          "customContextDataKey": {
+          },
+          "id": "A-e3d8515c-a376-47f8-81b9-40d46622b4c2"
+        }, {
+          "@type": "type.googleapis.com/ShowDanmu",
+          "text": "{ocrResult}",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "如想查看OCR识别内容，请启用此弹幕",
+          "id": "A-da361f45-a0d0-438d-894b-33884ddbea7d"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-ccd69e3e-8cec-4b01-8f5d-2c56fb7556dc"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/HasNodeOnScreen",
+          "matchers": [{
+            "@type": "type.googleapis.com/NodeMatcherViewId",
+            "id": "_Xt"
+          }, {
+            "@type": "type.googleapis.com/NodeMatcherViewId",
+            "id": "_Xn"
+          }, {
+            "@type": "type.googleapis.com/NodeMatcherText",
+            "text": "^编辑资料$",
+            "isRegex": true
+          }, {
+            "@type": "type.googleapis.com/NodeMatcherText",
+            "text": "^每日签到$",
+            "isRegex": true
+          }, {
+            "@type": "type.googleapis.com/NodeMatcherText",
+            "text": "^去签到$",
+            "isRegex": true
+          }],
+          "detectTimeout": "5000",
+          "customContextDataKey": {
+          },
+          "id": "C-202058dd-2bd0-4d7f-bd88-560b786b9159"
+        }, {
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "ocrResult",
+          "payload": {
+            "value": "去签到"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-e9f68ca4-2dae-4496-8455-e096d7d7192c"
+        }],
+        "IfCondOp": "ANY",
+        "IfActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "状态栏Chip",
+            "payload": {
+              "value": "1"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowStatusBarChip",
+            "text": "已进入我的界面",
+            "icon": "remix://info",
+            "clickAction": [{
+              "@type": "type.googleapis.com/HideStatusBarClip",
+              "customContextDataKey": {
+              },
+              "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+            }, {
+              "@type": "type.googleapis.com/StartActivityUrlSchema",
+              "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+              "customContextDataKey": {
+              },
+              "id": "A-1dd7f170-bf21-475a-bec6-b95af2ce2f51"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Root",
+              "customContextDataKey": {
+              },
+              "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-878788ec-addf-4742-8d3f-1da8cf053348"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "状态栏Chip",
+            "payload": {
+              "value": "1"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowStatusBarChip",
+            "text": "无法进入我的界面",
+            "icon": "remix://error",
+            "clickAction": [{
+              "@type": "type.googleapis.com/HideStatusBarClip",
+              "customContextDataKey": {
+              },
+              "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+            }, {
+              "@type": "type.googleapis.com/StartActivityUrlSchema",
+              "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+              "customContextDataKey": {
+              },
+              "id": "A-dae85f21-2f5d-49fb-b9a4-caaa3c77e86e"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Root",
+              "customContextDataKey": {
+              },
+              "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-11b11cf4-ec09-4953-a753-818292680bd8"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "确定",
+          "title": "错误",
+          "message": "请检查是否正确进入\"我的\"界面\n如果已经进入但仍然出现此提示请考虑开启OCR辅助识别",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-df5d86f7-8793-451f-8eec-cfe60545cb57"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+          "customContextDataKey": {
+          },
+          "id": "A-23823e84-9736-4acc-b724-c29251cdf43a"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-81553ebd-1332-4ab1-9fce-b0530f60c8d8"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-7c9ac6c5-8d73-4616-b3f4-a559cce23a80"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-82aafb58-c4d7-43ae-977c-6723a3e37d59"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-26df0ec2-e6a5-438f-a4e2-b09b492e208d"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "状态栏Chip",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": "点击去签到",
+      "icon": "remix://info",
+      "clickAction": [{
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+        "customContextDataKey": {
+        },
+        "id": "A-32196f0d-3c4d-4b15-8209-ef3353e7072d"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-accaeec5-ea6f-4c33-93f1-68d2fbe1aa71"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "^去签到$",
+    "isRegex": true,
+    "timeout": "5000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-01d832c6-b168-4564-b517-894a0dc33085"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-5c3eea8b-2e02-4967-aa02-5f23ff0db40c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "OCR",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/OcrDetect",
+      "rectSrc": {
+        "@type": "type.googleapis.com/RectSourceRect",
+        "rect": {
+          "left": 817,
+          "top": 1170,
+          "right": 950,
+          "bottom": 1220
+        }
+      },
+      "threads": 4,
+      "separator": " ",
+      "customContextDataKey": {
+      },
+      "id": "A-e3d8515c-a376-47f8-81b9-40d46622b4c2"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "{ocrResult}",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "如想查看OCR识别内容，请启用此弹幕",
+      "id": "A-da361f45-a0d0-438d-894b-33884ddbea7d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ea39fbfe-3f14-4a0d-91e5-5e9c1fbe65c9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/HasNodeOnScreen",
+      "matchers": [{
+        "@type": "type.googleapis.com/NodeMatcherText",
+        "text": "已签到"
+      }],
+      "detectTimeout": "5000",
+      "customContextDataKey": {
+      },
+      "id": "C-202058dd-2bd0-4d7f-bd88-560b786b9159"
+    }, {
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "ocrResult",
+      "payload": {
+        "value": "已签到"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-3f3ce8dc-ae13-4857-9295-280631d001f7"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "状态栏Chip",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "签到成功",
+        "icon": "remix://info",
+        "clickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+          "customContextDataKey": {
+          },
+          "id": "A-55cfa5d6-5d1e-4479-b1ab-6c749b3661e4"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-878788ec-addf-4742-8d3f-1da8cf053348"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "结束!签到成功",
+      "customContextDataKey": {
+      },
+      "id": "A-e72ebc83-1844-4009-b100-0f55cd49c134"
+    }, {
+      "@type": "type.googleapis.com/InjectKeyCode",
+      "keyCode": 4,
+      "customContextDataKey": {
+      },
+      "id": "A-2c8b1790-ce96-4903-bcbd-cb8ba540e281"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-ebd246ea-0612-486c-8f0c-f9defb143150"
+    }, {
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-7ea650eb-7cbf-4167-9021-8363542e110c"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "状态栏Chip",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "重试点击...",
+        "icon": "remix://info",
+        "clickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+          "customContextDataKey": {
+          },
+          "id": "A-fe58bea8-e58b-4c4d-a161-9b415e56b4d8"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-878788ec-addf-4742-8d3f-1da8cf053348"
+    }, {
+      "@type": "type.googleapis.com/FindAndClickViewByText",
+      "text": "^去签到$",
+      "isRegex": true,
+      "timeout": "5000",
+      "rect": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1f514182-b210-4587-a15c-55a8d0a349c0"
+    }, {
+      "@type": "type.googleapis.com/FindAndClickViewById",
+      "viewId": "_WK",
+      "timeout": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-93920d44-25d2-4378-8e16-13c9f1fb2d02"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-0120fa2c-f90e-4659-a530-96bdd4115d8b"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "OCR",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/OcrDetect",
+        "rectSrc": {
+          "@type": "type.googleapis.com/RectSourceRect",
+          "rect": {
+            "left": 817,
+            "top": 1170,
+            "right": 950,
+            "bottom": 1220
+          }
+        },
+        "threads": 4,
+        "separator": " ",
+        "customContextDataKey": {
+        },
+        "id": "A-e3d8515c-a376-47f8-81b9-40d46622b4c2"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "{ocrResult}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "如想查看OCR识别内容，请启用此弹幕",
+        "id": "A-da361f45-a0d0-438d-894b-33884ddbea7d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-1d982f79-743e-4b50-8fdd-36e41cff4fa7"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/HasNodeOnScreen",
+        "matchers": [{
+          "@type": "type.googleapis.com/NodeMatcherText",
+          "text": "已签到"
+        }],
+        "detectTimeout": "5000",
+        "customContextDataKey": {
+        },
+        "id": "C-202058dd-2bd0-4d7f-bd88-560b786b9159"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "ocrResult",
+        "payload": {
+          "value": "已签到"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-3f3ce8dc-ae13-4857-9295-280631d001f7"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "状态栏Chip",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "签到成功",
+          "icon": "remix://info",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+            "customContextDataKey": {
+            },
+            "id": "A-201d550e-bed7-4bf2-b7d5-be5416928398"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-878788ec-addf-4742-8d3f-1da8cf053348"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "结束!签到成功",
+        "customContextDataKey": {
+        },
+        "id": "A-e72ebc83-1844-4009-b100-0f55cd49c134"
+      }, {
+        "@type": "type.googleapis.com/InjectKeyCode",
+        "keyCode": 4,
+        "customContextDataKey": {
+        },
+        "id": "A-84029ef8-77d6-4ba4-90fe-c2ebdd5c38e0"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1500",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-ebd246ea-0612-486c-8f0c-f9defb143150"
+      }, {
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-7ea650eb-7cbf-4167-9021-8363542e110c"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "状态栏Chip",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-05e5d839-945d-436e-bd55-312beac8a4f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowStatusBarChip",
+          "text": "签到失败",
+          "icon": "remix://error",
+          "clickAction": [{
+            "@type": "type.googleapis.com/HideStatusBarClip",
+            "customContextDataKey": {
+            },
+            "id": "A-e2d70ff3-d31b-48d4-8e2c-5518c8cc6250"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+            "customContextDataKey": {
+            },
+            "id": "A-b6196fcb-3896-4dc2-a778-a2524f5da27a"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-ae5f97fb-8761-4f04-ba5d-e9556f9edd08"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b7bd514-a4ba-4880-9339-b14fc1e20996"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-11b11cf4-ec09-4953-a753-818292680bd8"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "title": "错误",
+        "message": "签到失败\n请检查是否点击\n如果实际签到成功但仍然出现此提示请考虑开启OCR辅助识别",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-df5d86f7-8793-451f-8eec-cfe60545cb57"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "shortx://trigger?tag\u003d停止小米社区微信小程序签到",
+        "customContextDataKey": {
+        },
+        "id": "A-785c168f-5b38-408c-b864-013b57e601e6"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-997f9611-6a99-4b65-901d-04e391cd12bd"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-56fa5606-00b1-462f-bdff-54bc2aa5fd92"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f4da897a-78d4-44ae-a089-65101b365575"
+  }],
+  "id": "SHARED-DA-1b1fd31d-611d-443b-8a1b-777b521db10c",
+  "lastUpdateTime": "1747037381916",
+  "createTime": "1746975156543",
+  "author": {
+    "name": "璨梦踏月"
+  },
+  "title": "小米社区微信小程序签到 v1.1",
+  "versionCode": "1",
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/DeepLinkCall",
+      "deepLinkTag": "停止小米社区微信小程序签到",
+      "customContextDataKey": {
+      },
+      "id": "F-4d262725-48b3-42c2-b74c-c78fe637ed4e"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已停止",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-f1ef4287-4938-4243-847d-b7b88c39d9ee"
+    }]
+  }
+}
+###------###
+{"type":"da"}

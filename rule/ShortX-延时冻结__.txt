@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-7fe7c400-1dc9-4a8f-849d-0900b2418846"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-4fbe8699-ffec-4a58-b001-cabf1a2fe3e9"
+  }, {
+    "@type": "type.googleapis.com/SetAppEnabled",
+    "pkgSets": ["冻结应用"],
+    "customContextDataKey": {
+    },
+    "id": "A-4c7e1441-b7d5-48d2-a665-ef9b7919e15a"
+  }],
+  "id": "rule-39d8a75a-c79e-4da5-ba01-e8a3099e16d5",
+  "lastUpdateTime": "1707536378817",
+  "createTime": "1700870382944",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "延时冻结  ",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOn",
+      "customContextDataKey": {
+      },
+      "id": "F-c08a1d09-51f0-429c-a84b-edb8e34301cd"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

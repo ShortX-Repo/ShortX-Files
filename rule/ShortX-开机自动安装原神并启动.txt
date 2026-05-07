@@ -1,0 +1,48 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemReady",
+    "customContextDataKey": {
+    },
+    "id": "F-ad40a950-5bce-4ddc-9fa9-67b3b10aca15"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-66b1d8ca-b6a2-41cf-b197-0585898fe667"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [ -z \"$(pm list package | grep com.miHoYo.Yuanshen)\" ]; then\n  wget https://ys-api.mihoyo.com/event/download_porter/link/ys_cn/official/android_default -O /data/local/tmp/ys.apk\n  pm install /data/local/tmp/ys.apk\n  rm /data/local/tmp/ys.apk\nfi ",
+    "customContextDataKey": {
+    },
+    "id": "A-b247025a-ac28-4c11-b5d0-d648853ccbd3"
+  }, {
+    "@type": "type.googleapis.com/LaunchAppByPkg",
+    "pkgAndUsers": [{
+      "first": "com.miHoYo.Yuanshen",
+      "second": "0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-9802d123-32a7-40c4-9015-dd5b772cccb8"
+  }],
+  "id": "rule-e2803697-6a42-446c-afb3-d52ab2d3ce2b",
+  "lastUpdateTime": "1700623884006",
+  "createTime": "1700621719950",
+  "author": {
+    "name": "entr0pia"
+  },
+  "title": "开机自动安装原神并启动",
+  "hook": {
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-c2ab3264-808b-4540-80ca-df61746cc6c9"
+}
+###------###
+{"type":"rule"}

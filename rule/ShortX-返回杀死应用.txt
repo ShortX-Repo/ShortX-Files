@@ -1,0 +1,147 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BackNavDone",
+    "tag": "返回",
+    "customContextDataKey": {
+    },
+    "id": "F-a0c74ec0-1fd6-4350-b4e4-1d7db4481d03"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["返回杀死应用"],
+    "tag": "后台",
+    "customContextDataKey": {
+    },
+    "id": "F-cfac15fe-12dd-4c06-9e63-475ffae9d3f1"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "返回",
+      "customContextDataKey": {
+      },
+      "id": "C-da8d508e-2717-4a18-a7ab-a54b55878a33"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "System.currentTimeMillis()",
+      "customContextDataKey": {
+      },
+      "id": "A-7ad28422-9fb9-4f48-ba74-6052540e66a5"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "backGesture",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-b2ca02ba-0533-4964-9306-1e1cf52035bc"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3c31993f-ac36-48c6-b9a6-ee26a903fea2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "后台",
+      "customContextDataKey": {
+      },
+      "id": "C-2b4698f1-1f75-4d43-9764-90f7ff604189"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "System.currentTimeMillis()",
+      "customContextDataKey": {
+      },
+      "id": "A-7ad28422-9fb9-4f48-ba74-6052540e66a5"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "appBackTime",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-b2ca02ba-0533-4964-9306-1e1cf52035bc"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "globalVarOf$appBackTime - globalVarOf$backGesture \u003c 200",
+      "customContextDataKey": {
+      },
+      "id": "A-a645133f-8b43-44ac-a01f-4262af35af04"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-d57e8a21-297b-4cc9-bb9f-3e72769543ed"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StopAppByPkg",
+        "pkgAndUsers": [{
+          "first": "{pkgName}",
+          "second": "0"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-f0887516-f91e-45cb-9cbf-399c99288fcc"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已停止{appLabel}",
+        "customContextDataKey": {
+        },
+        "id": "A-46d26d68-1ff1-4ac8-8e72-d95c87e30820"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2f3697bd-25c1-4b96-b7e1-5802202c35fb"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8368551e-4438-4711-934f-101037120ad0"
+  }],
+  "id": "SHARE-rule-e6203963-4c6e-4e9e-8bbc-030648fdf247",
+  "lastUpdateTime": "1747138648178",
+  "createTime": "1747137016342",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "返回杀死应用",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "backGesture",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        },
+        "note": "返回手势触发时间"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-5e01c33a-d1e2-4e89-9223-a5ca71c4f2f8"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "appBackTime",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        },
+        "note": "app回到后台时间"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-fde709f1-4665-49f3-ae7c-1cd44f617bf2"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

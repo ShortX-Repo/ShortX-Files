@@ -1,0 +1,53 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\n// 获取系统服务\nvar packageManager \u003d context.getPackageManager();\n\nvar result \u003d new JSONArray();\n\nif (packageManager \u003d\u003d null) {\n    var errorItem \u003d new JSONObject();\n    errorItem.put(\"error\", \"无法获取系统服务\");\n    result.put(errorItem);\n} else {\n    // 获取所有应用包名\n    var packages \u003d packageManager.getInstalledApplications(PackageManager.GET_META_DATA);\n    \n    if (packages \u003d\u003d null || packages.size() \u003d\u003d\u003d 0) {\n        var errorItem \u003d new JSONObject();\n        errorItem.put(\"error\", \"无法获取已安装应用\");\n        result.put(errorItem);\n    } else {\n        for (var i \u003d 0; i \u003c packages.size(); i++) {\n            var appInfo \u003d packages.get(i);\n            var packageName \u003d appInfo.packageName;\n            \n            try {\n                // 获取应用的启用状态\n                var enabledStatus \u003d packageManager.getApplicationEnabledSetting(packageName);\n                \n                // 判断应用是否被冻结（禁用状态）\n                if (enabledStatus \u003d\u003d\u003d PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {\n                    var appName \u003d packageManager.getApplicationLabel(appInfo).toString();\n                    var versionName \u003d packageManager.getPackageInfo(packageName, 0).versionName;\n                    \n                    var item \u003d new JSONObject();\n                    item.put(\"name\", appName);\n                    item.put(\"version\", versionName || \"N/A\");\n                    item.put(\"package\", packageName);\n                    item.put(\"__value\", packageName);\n                    item.put(\"__icon\", \"app://\" + packageName);\n                    \n                    result.put(item);\n                }\n            } catch (e) {\n                // 异常处理：如果无法获取状态，则跳过该应用\n                continue;\n            }\n        }\n    }\n}\n\n// 输出JSON格式结果\nresult.toString(4);",
+    "customContextDataKey": {
+    },
+    "note": "获取冻结应用信息",
+    "id": "A-1930887e-d61a-4c09-8724-081ee5fe478c"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "冻结应用列表",
+    "cancelable": true,
+    "data": "{jsRet}",
+    "delimiter": [","],
+    "dataType": "ShowListDialogDataType_Json",
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-c412e7ae-36bb-420d-b5b3-2b2279ffa78f"
+  }, {
+    "@type": "type.googleapis.com/SetAppEnabledByPkg",
+    "pkgAndUsers": [{
+      "first": "{selectedListItem}",
+      "second": "0"
+    }],
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-090da1e3-7b7e-46b0-8d7f-ad0922c0441a"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.app.ActivityManager);\nimportClass(android.content.Context);\n\nvar pkg \u003d {selectedListItem}.replace(/[\\[\\]]/g, \u0027\u0027);\n\n// 获取 ActivityManager\nvar am \u003d context.getSystemService(Context.ACTIVITY_SERVICE);\n\n// 获取所有最近任务\nvar tasks \u003d am.getRunningTasks(100);\n\nvar found \u003d false;\nfor (var i \u003d 0; i \u003c tasks.size(); i++) {\n    var task \u003d tasks.get(i);\n    if (task.topActivity.getPackageName() \u003d\u003d pkg) {\n        // 直接把已有任务调到前台\n        am.moveTaskToFront(task.id, 0);\n        found \u003d true;\n        break;\n    }\n}\n\nif (!found) {\n    // 如果没有在后台运行，就正常启动\n    importClass(android.content.Intent);\n    var pm \u003d context.getPackageManager();\n    var it \u003d pm.getLaunchIntentForPackage(pkg);\n    if (it !\u003d null) {\n        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n        context.startActivity(it);\n    }\n}\n\n\"已切换到应用：\" + pkg;",
+    "customContextDataKey": {
+    },
+    "id": "A-8baea151-dc83-4d9e-9266-0d5e526d9c70"
+  }],
+  "id": "SHARED-DA-b1935fb0-1561-4c69-83a6-7b159e038796",
+  "lastUpdateTime": "1760349918011",
+  "createTime": "1760348899996",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "ShortX-Frozen_Apps-Launcher",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

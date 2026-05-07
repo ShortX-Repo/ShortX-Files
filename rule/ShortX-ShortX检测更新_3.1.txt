@@ -1,0 +1,369 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-922845fe-0530-4991-b969-571457a35598"
+  }, {
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+      "hour": 7
+    },
+    "end": {
+      "hour": 23
+    },
+    "repeat": {
+      "days": ["SATURDAY", "SUNDAY", "FRIDAY", "MONDAY", "THURSDAY", "TUESDAY", "WEDNESDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "3600000"
+    },
+    "tag": "定时检测",
+    "customContextDataKey": {
+    },
+    "id": "F-90388aeb-000e-47d2-8f05-2ea61b00ecfc"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireWifiConnected",
+    "requiredSSID": "*",
+    "customContextDataKey": {
+    },
+    "id": "C-28cb8d2c-6c68-4356-9982-67802201910d"
+  }, {
+    "@type": "type.googleapis.com/RequireMobileDataEnabled",
+    "slotId": -1,
+    "customContextDataKey": {
+    },
+    "id": "C-d9418ebc-9cff-49f4-84c8-0ec2e9e8d98d"
+  }, {
+    "@type": "type.googleapis.com/TheXXTimeToday",
+    "what": "ShortX检测更新",
+    "time": 10,
+    "op": "IntLessThanOrEQ",
+    "scope": "TodayAM",
+    "customContextDataKey": {
+    },
+    "id": "C-9cb019e7-0696-4dc5-9181-aaf557b9eea7"
+  }, {
+    "@type": "type.googleapis.com/TheXXTimeToday",
+    "what": "ShortX检测更新",
+    "time": 10,
+    "op": "IntLessThanOrEQ",
+    "scope": "TodayPM",
+    "customContextDataKey": {
+    },
+    "id": "C-82274c1f-0a6f-4733-9436-40095beada89"
+  }, {
+    "@type": "type.googleapis.com/RequireFactTag",
+    "tag": "定时检测",
+    "customContextDataKey": {
+    },
+    "id": "C-04551315-d731-4dc7-a160-798223d051be"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api2.coolapk.com",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["status"]
+    },
+    "requestBody": {},
+    "withCookieJar": true,
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "note": "网络连通性",
+    "id": "A-4d234fea-a538-4701-aa2d-ab872f915407"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\ntoken1\u003d\"token://com.coolapk.market/c67ef5943784d09750dcfbb31020f0ab?\"\npackageName\u003d\"com.coolapk.market\"\n\nbase64Encode() {\n  echo -n \"$1\" | base64 -w 0\n}\n\nmd5HexDigest() {\n  echo -n \"$1\" | md5sum | awk \u0027{print $1}\u0027\n}\n\nCoolApkToken() {\n  a1\u003d$((RANDOM % 100000000))\n  deviceId\u003d\"${a1}-0000-0000-0000-000000000000\"\n  timestamp\u003d$(( $(date +%s) + 100 ))\n  timestampMd5\u003d$(echo -n \"$timestamp\" | md5sum | awk \u0027{print $1}\u0027)\n  salt\u003d\"${token1}${timestampMd5}\\$${deviceId}\u0026${packageName}\"\n  saltEncoded\u003d$(base64Encode \"$salt\")\n  saltMd5\u003d$(echo -n \"$saltEncoded\" | md5sum | awk \u0027{print $1}\u0027)\n  echo -n \"${saltMd5}${deviceId}$(printf \u00270x%x\u0027 \"$timestamp\")\"\n}\n\nCoolApkToken",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "token"
+      }]
+    },
+    "note": "X-App-Token",
+    "id": "A-2cec6ca0-af2c-418a-958f-fdd23643b0dc"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api2.coolapk.com/v6/apk/search?q\u003dshortx",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data[0].apkversioncode", "data[0].apksize", "data[0].apkversionname", "data[0].apkRomVersion", "data[0].apkmd5"]
+    },
+    "headers": [{
+      "key": "X-Requested-With",
+      "value": "XMLHttpRequest"
+    }, {
+      "key": "X-App-Id",
+      "value": "com.coolapk.market"
+    }, {
+      "key": "X-App-Token",
+      "value": "{token}"
+    }],
+    "requestBody": {},
+    "withCookieJar": true,
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "note": "酷安最新版本",
+    "id": "A-381ae0e3-314f-4882-8b09-a4de9e71f958"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "globalVarOf$ShortX版本号!\u003d{httpRequestRet1}",
+      "customContextDataKey": {
+      },
+      "id": "C-69d4b079-7dfe-4aa9-a714-50e50ffbb4a1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.content.pm.PackageInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d \"tornaco.apps.shortx\";\nPackageManager packageManager \u003d context.getPackageManager();\nPackageInfo packageInfo \u003d packageManager.getPackageInfo(packageName, 0);\nString appVersion \u003d packageInfo.versionCode;\n// 返回版本号",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "Version"
+        }]
+      },
+      "note": "本地版本",
+      "id": "A-44dbfac9-e419-4eed-9fd4-97cda497bb4e"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "varName": "httpRequestRet1",
+        "payload": {
+          "value": "{Version}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e96724ed-13cb-4071-a8cd-247a2ef8567c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "ShortX",
+        "title": "ShortX更新",
+        "message": "有新版本可用，请更新应用！",
+        "isImportant": true,
+        "smallIcon": "loop-left-line",
+        "vibrate": true,
+        "sound": true,
+        "button": [{
+          "id": "Button-8eb9ccd3-b2e2-4828-888d-5cc536e85893",
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\n# 云端版本号获取\nresponse\u003d$(curl -s GET \u0027https://www.coolapk.com/apk/tornaco.apps.shortx\u0027 -H \u0027ua\u0027)\ntitle_tag\u003d$(echo \"$response\" | grep -o \u0027\u003ctitle\u003e.*\u003c/title\u003e\u0027)\nversion_cloud\u003d$(echo \"$title_tag\" | sed -E \u0027s/.* - (.*) - 应用 - .*/\\1/\u0027)\n\n# 本地版本号获取\npackage_name\u003d\"tornaco.apps.shortx\"\nversion_local\u003d$(dumpsys package \"$package_name\" | grep versionName | cut -d \u0027\u003d\u0027 -f 2)\n\n# 去除分发信息\nversion_cloud\u003d$(echo \"$version_cloud\" | sed -E \u0027s/-main.*//\u0027)\nversion_local\u003d$(echo \"$version_local\" | sed -E \u0027s/-main.*//\u0027)\n\n# 比较版本号\nif [ \"$version_cloud\" !\u003d \"$version_local\" ]; then\n    echo \"有新版本可用，请更新应用！\"\nelse\n    echo \"应用已是最新版本。\"\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "id": "A-3f7709d0-7d45-4478-ad5c-ecca969ee0c7"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "版本号",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-cd85a983-43ff-4484-a914-fb520dfacd46"
+          }],
+          "label": "不再提醒"
+        }, {
+          "id": "Button-c52f1b85-83e4-4d5a-906b-539626aee059",
+          "action": [{
+            "@type": "type.googleapis.com/RemoveNotification",
+            "notification": {
+              "apps": [{
+                "pkgName": "tornaco.apps.shortx"
+              }]
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-1f3b30aa-3f90-4af3-98df-3d710d8429f7"
+          }],
+          "label": "取消"
+        }, {
+          "id": "Button-487a8d96-3b83-421f-8f07-fb0556f422dc",
+          "label": "更新"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "点击按钮有bug,，等作者修复了再说",
+        "id": "A-aea5ec4c-985a-4ea4-837e-8f0767c6b9fa"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "更新",
+        "onPositive": [{
+          "@type": "type.googleapis.com/ShowMenuDialog",
+          "items": [{
+            "title": "Play商店",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityUrlSchema",
+              "urlSchema": "https://play.google.com/store/apps/details?id\u003dtornaco.apps.shortx",
+              "customContextDataKey": {
+              },
+              "id": "A-dcd49120-776f-4da0-a240-43ea45d2386c"
+            }]
+          }, {
+            "title": "酷安App",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityIntentUri",
+              "intentUri": "intent:#Intent;component\u003dcom.coolapk.market/.view.node.DynamicNodePageActivity;S.LOADER_NAME\u003dLOADER_APP;S.APP_UNIQUE_ID\u003dtornaco.apps.shortx;end",
+              "customContextDataKey": {
+              },
+              "id": "A-79d38eeb-dcd9-4389-9e9e-533a62e07953"
+            }]
+          }],
+          "title": "ShortX更新",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-e70c07c2-2bae-4787-a45a-560fd33ee3ae"
+        }],
+        "negative": "取消",
+        "neutral": "不再提醒",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "ShortX版本号",
+          "valueAsString": "{httpRequestRet1}",
+          "customContextDataKey": {
+          },
+          "id": "A-c0d87bc2-7936-44fd-bcf1-a180292eb017"
+        }],
+        "title": "ShortX更新",
+        "message": "有新版本可用，请更新应用！\n版本号:{httpRequestRet1}\n版本名称:\n{httpRequestRet3}\n安装包:{httpRequestRet2}\nMD5:\n{httpRequestRet5}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-f530d723-3935-42e3-bb30-4b310ab61dcc"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-40caddfd-f272-4e91-97c4-438bdfc1c112"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0d308ace-c55f-4807-b91e-9d74fe8319df"
+  }],
+  "id": "rule-b37788e5-e62d-466e-aba7-bf63477f30fd",
+  "lastUpdateTime": "1714327595828",
+  "createTime": "1710941295173",
+  "author": {
+    "name": "He"
+  },
+  "title": "ShortX检测更新(3.1",
+  "description": "ShortX前台检测更新\n定时检测更新\n对比酷安api版本号检测\n指令设置了每天检测上限",
+  "isEnabled": true,
+  "condOp": "MVEL",
+  "condOpPayload": {
+    "expression": "(c1 || c2) \u0026\u0026 (c3 || c4 || c5)"
+  },
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "好的",
+      "negative": "全部日志",
+      "onNegative": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "返回",
+        "onPositive": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "negative": "全部日志",
+          "onNegative": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "title": "更新日志",
+            "message": "3.1版本\n修复一个逻辑错误\n(务必更新\nApp更新显示更多信息\n例如版本号版本名称安装包大小等\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n3.0版本\n重构\n由于酷安网页不再显示ShortX应用，所以采用酷安api检测更新。使用版本号对比检测更新，比之前高明不少\n新增检测更新上限\n新增定时检测更新\n不再依赖termux环境\n使用版本号对比，不会出现误判\n感谢TG@鸿鹄的解惑\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n2.0版本\n改善逻辑\n(以前点不再提醒后，后续所有版本不再提醒。现在只不提醒当前最新版本\n更改变量名。改为版本名称，更准确\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n1.0版本\n新增测试网络连通性的动作\n防止连上wifi,但wifi没网的情况检测更新",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-dda6b5c4-6c9e-4994-ae93-06b8eb0307ea"
+          }],
+          "neutral": "取消",
+          "onNeutral": [{
+            "@type": "type.googleapis.com/SetRuleEnabled",
+            "ruleId": "rule-b37788e5-e62d-466e-aba7-bf63477f30fd",
+            "customContextDataKey": {
+            },
+            "id": "A-cbba2fe7-7abe-4b64-9759-acf903d72d24"
+          }],
+          "title": "更新日志",
+          "message": "3.1版本\n修复一个逻辑错误\n(务必更新\nApp更新显示更多信息\n例如版本号版本名称安装包大小等",
+          "customContextDataKey": {
+          },
+          "id": "A-fbefd5aa-4004-40d8-82ef-09657e8fe418"
+        }],
+        "title": "更新日志",
+        "message": "3.1版本\n修复一个逻辑错误\n(务必更新\nApp更新显示更多信息\n例如版本号版本名称安装包大小等\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n3.0版本\n重构\n由于酷安网页不再显示ShortX应用，所以采用酷安api检测更新。使用版本号对比检测更新，比之前高明不少\n新增检测更新上限\n新增定时检测更新\n不再依赖termux环境\n使用版本号对比，不会出现误判\n感谢TG@鸿鹄的解惑\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n2.0版本\n改善逻辑\n(以前点不再提醒后，后续所有版本不再提醒。现在只不提醒当前最新版本\n更改变量名。改为版本名称，更准确\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n1.0版本\n新增测试网络连通性的动作\n防止连上wifi,但wifi没网的情况检测更新",
+        "customContextDataKey": {
+        },
+        "id": "A-dda6b5c4-6c9e-4994-ae93-06b8eb0307ea"
+      }],
+      "neutral": "取消",
+      "onNeutral": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-b37788e5-e62d-466e-aba7-bf63477f30fd",
+        "customContextDataKey": {
+        },
+        "id": "A-cbba2fe7-7abe-4b64-9759-acf903d72d24"
+      }],
+      "title": "更新日志",
+      "message": "3.1版本\n修复一个逻辑错误\n(务必更新\nApp更新显示更多信息\n例如版本号版本名称安装包大小等",
+      "customContextDataKey": {
+      },
+      "id": "A-fbefd5aa-4004-40d8-82ef-09657e8fe418"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "版本名称",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-cfdffaf9-fc09-465f-94c3-ccba7d0ffe3f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "版本名称",
+        "customContextDataKey": {
+        },
+        "id": "A-1c7dbbb4-c173-4235-8450-03b9c570c89c"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a1c0b810-a738-4d63-aae9-7b544c492830"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "ShortX版本号",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9ccf287c-1d0b-4e33-9fe3-3f327ba7a18c"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "ShortX版本号",
+      "customContextDataKey": {
+      },
+      "id": "A-96ec025a-e0f2-4f30-a867-8d77dc6a8b8f"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

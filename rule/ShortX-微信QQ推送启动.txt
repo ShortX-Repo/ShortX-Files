@@ -1,0 +1,80 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppProcessRemoved",
+    "processName": [{
+      "processName": "com.tencent.mm:push"
+    }, {
+      "userId": 999,
+      "processName": "com.tencent.mm:push"
+    }, {
+      "processName": "com.tencent.mobileqq"
+    }, {
+      "userId": 999,
+      "processName": "com.tencent.mobileqq"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-fd021854-08ca-4806-8b36-1a31fb1d2c3a"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-24b78b4e-035a-41bf-87c2-050e19c65ebe"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "推送被杀",
+    "customContextDataKey": {
+    },
+    "id": "A-fe9eb21f-e674-40e7-906d-40f8f12c59d6"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "0.1",
+    "customContextDataKey": {
+    },
+    "id": "A-af9659cb-7901-466c-a2b0-969c274b2b48"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.tencent.mm",
+      "className": "com.tencent.mm.booter.CoreService"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a5eafbbb-a021-4355-b938-fca6c77bf113"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.tencent.mobileqq",
+      "className": "com.tencent.mobileqq.msf.service.MsfService"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1855362b-4048-4c09-9482-5e4708aa6aa9"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "进程启动",
+    "customContextDataKey": {
+    },
+    "id": "A-98284af8-bab1-4884-8ab4-8def5e952298"
+  }],
+  "id": "SHARE-rule-1c04ded6-eb9b-44f1-983c-0d14cbbd3f8e",
+  "lastUpdateTime": "1768334418066",
+  "createTime": "1764162232479",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信QQ推送启动",
+  "description": "QQ微信后台掉了可以自动启动不打扰前台（只可以主程序不包括分身）",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

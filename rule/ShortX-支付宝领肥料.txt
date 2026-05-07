@@ -1,0 +1,66 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.eg.android.AlipayGphone"
+      },
+      "className": "com.alipay.mobile.nebulax.xriver.activity.XRiverActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-6eded5b3-32bb-45ab-b64d-480f85786e7a"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/HasNodeOnScreen",
+    "matchers": [{
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "浏览"
+    }],
+    "detectTimeout": "5000",
+    "customContextDataKey": {
+    },
+    "id": "C-db1a7b01-e073-4af4-b2e5-18eb51462d1e"
+  }, {
+    "@type": "type.googleapis.com/TextFromScreenNodeMatches",
+    "regex": "浏览",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "C-eeaf4848-7b15-4fe8-bcae-468c82d8766c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/InputSwipe",
+      "startXS": "500",
+      "startYS": "2000",
+      "endXS": "500",
+      "endYS": "1000",
+      "swipeTimeS": "500",
+      "customContextDataKey": {
+      },
+      "id": "A-1b08fe38-1a6b-460c-9267-e73263c2c33d"
+    }],
+    "delay": 2000,
+    "repeatTimes": 5,
+    "customContextDataKey": {
+    },
+    "id": "A-9fbbe266-fd59-45e9-a679-00a0fb6e510a"
+  }],
+  "id": "SHARE-rule-79503f63-4a87-4615-b0aa-5893feed6e47",
+  "lastUpdateTime": "1731893767491",
+  "createTime": "1731890588029",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "支付宝领肥料",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,32 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/WakeupScreen",
+    "id": "A-9e7b3237-b93c-42e0-b1e5-1fad4b1ba8a5"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "time": "100",
+    "id": "A-30af6985-b9c1-4375-ae5e-343e9ee5e30e"
+  }, {
+    "@type": "type.googleapis.com/InputSwipe",
+    "startX": 558,
+    "startY": 1647,
+    "endX": 577,
+    "endY": 378,
+    "swipeTime": "250",
+    "id": "A-822bbad5-08d3-44e4-b98f-54fa8f4952c6"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input text {globalVarOf$锁屏密码}\ninput keyevent 66",
+    "id": "A-b221f0f1-fe7c-42cb-bcb1-746eb51a6a5b"
+  }],
+  "id": "DA679a17f5-e262-4db8-83a3-3c6c5cde900c",
+  "lastUpdateTime": "1689992382856",
+  "createTime": "1689991787362",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "解除屏幕锁",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

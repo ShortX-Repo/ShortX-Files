@@ -1,0 +1,41 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/system/bin/sh\n\n# 在Android上执行Python脚本\noutput\u003d$(/data/user/0/com.termux/files/usr/bin/python \u003c\u003cEOF\nimport requests\nimport json\nimport hashlib\nimport time\nimport re\n\ndef get_categoryid_list(url):\n    headers \u003d {\n        \"Host\": \"floor.huluxia.com\",\n        \"User-Agent\": \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36\",\n        \"Accept\": \"text/html,application/xhtml+xml,application/xml;q\u003d0.9,image/avif,image/webp,*/*;q\u003d0.8\",\n        \"Accept-Language\": \"zh-CN,zh;q\u003d0.8,zh-TW;q\u003d0.7,zh-HK;q\u003d0.5,en-US;q\u003d0.3,en;q\u003d0.2\",\n    }\n    response \u003d requests.get(url, headers\u003dheaders)\n    if response.status_code \u003d\u003d 200:\n        return response.text\n    else:\n        return False\n\ndef send_sign_post(url, post_data):\n    headers \u003d {\n        \"Connection\": \"close\",\n        \"Content-Length\": \"37\",\n        \"Accept-Encoding\": \"gzip\",\n        \"Host\": \"floor.huluxia.com\",\n        \"Content-Type\": \"application/x-www-form-urlencoded\",\n        \"User-Agent\": \"okhttp/3.8.1\"\n    }\n    response \u003d requests.post(url, headers\u003dheaders, data\u003dpost_data.encode(\u0027utf-8\u0027))\n    if response.status_code \u003d\u003d 200:\n        return response.text\n    else:\n        return False\n\ndef process_run(loginkey):\n    url \u003d \"http://floor.huluxia.com/category/list/ANDROID/2.0\"\n    getiddata \u003d get_categoryid_list(url)\n    categoryids \u003d re.findall(\u0027\"categoryID\":(.*?),\u0027,getiddata)\n    titles \u003d re.findall(\u0027\"title\":\"(.*?)\",\u0027,getiddata)\n    print(f\"板块数量:{len(categoryids)}\")\n    sign_counts \u003d 0\n    success_category_ids \u003d []\n    for title, categoryid in zip(titles,categoryids):\n        timestamp \u003d str(int(time.time() * 1000))\n        encode_text \u003d f\"cat_id{categoryid}time{timestamp}fa1c28a5b62e79c3e63d9030b6142e4b\"\n        md5_encode \u003d hashlib.md5(encode_text.encode()).hexdigest()\n        post_data \u003d f\"sign\u003d{md5_encode.upper()}\"\n        sign_url \u003d f\"http://floor.huluxia.com/user/signin/ANDROID/4.1.8?platform\u003d2\u0026gkey\u003d000000\u0026app_version\u003d4.2.1.7\u0026versioncode\u003d371\u0026market_id\u003dtool_huluxia\u0026_key\u003d{loginkey}\u0026phone_brand_type\u003dUN\u0026cat_id\u003d{categoryid}\u0026time\u003d{timestamp}\"\n        signdata \u003d send_sign_post(sign_url, post_data)\n        signjson \u003d json.loads(signdata)\n        signstatus \u003d signjson[\u0027status\u0027]\n        if signstatus \u003d\u003d 1:\n            #print(f\"板块:{title} 状态:签到成功!\")\n            sign_counts +\u003d 1\n            success_category_ids.append(categoryid)\n    errorsign \u003d len(categoryids) - sign_counts\n    text \u003d f\"签到成功：{sign_counts}个板块\"\n    print (f\"{text}\")\n        \nif __name__ \u003d\u003d \"__main__\":\n    loginkey \u003d \"请填自己的key\" #这里填入自己的LoginKey\n    process_run(loginkey)\n\nEOF\n)\n\necho \"$output\"",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "需要python环境",
+    "id": "A-fc59dda1-8872-4505-b261-08ba8b47f8b8"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key\u003d请填自己的key",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Content-Type",
+      "value": "application/json"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n    \t\"msgtype\": \"text\",\n    \t\"text\": {\n        \t\"content\": \"葫芦侠3楼签到\\n\\n{shellOut}\"\n    \t}\n   }"
+    },
+    "customContextDataKey": {
+    },
+    "note": "推送到企业微信群机器人",
+    "id": "A-ca136a56-2278-4153-bf7c-3728147506a1"
+  }],
+  "id": "DAe2c1cc10-41a3-402f-bcbe-f8e79d751eed",
+  "lastUpdateTime": "1698594017787",
+  "createTime": "1698511084882",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "葫芦侠3楼签到",
+  "description": "自己修改对应的key,分别修改shell脚本和请求。",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

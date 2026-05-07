@@ -1,0 +1,78 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://ip-api.com/json",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["lat", "lon"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-838e827b-308f-4010-a57c-72cb34254b10"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "经度",
+    "valueAsString": "{httpRequestRet1}",
+    "customContextDataKey": {
+    },
+    "id": "A-adb52ed1-cb7e-4712-983c-4ff762cae4c0"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "纬度",
+    "valueAsString": "{httpRequestRet2}",
+    "customContextDataKey": {
+    },
+    "id": "A-7ed03eec-160a-47ad-a333-6c647a1080d5"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "纬度",
+      "payload": {
+        "value": "31.8731"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4607addd-5b4c-4c23-b578-c0c43cd51b99"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "经度",
+      "payload": {
+        "value": "120.5425"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-8e26754a-15b5-42c0-a5a5-e018f3dcca5a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "在家",
+      "customContextDataKey": {
+      },
+      "id": "A-a73e8390-8ce7-4bf3-8ef4-7c308733210d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "不在家",
+      "customContextDataKey": {
+      },
+      "id": "A-c4824c38-292e-437c-a2fa-fe3c02dc9cea"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a6489819-f488-4f07-a839-acc6fc64ebab"
+  }],
+  "id": "DA34ba9a3f-12ce-4dac-9d21-43019977edb5",
+  "lastUpdateTime": "1706117659124",
+  "createTime": "1706084825984",
+  "author": {
+    "name": "JK L"
+  },
+  "title": "获取经纬度判断是否在家(修改版)",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

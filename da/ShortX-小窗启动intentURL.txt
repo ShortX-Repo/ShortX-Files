@@ -1,0 +1,21 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\n\nintentUri \u003d \"intent:#Intent;component\u003dcom.tencent.mm/.plugin.fts.ui.FTSMainUI;i.MMActivity.OverrideExitAnimation\u003d2130772094;S.KEY_HOME_PAGE_CLS\u003dcom.tencent.mm.ui.LauncherUI;i.MMActivity.OverrideEnterAnimation\u003d2130772093;i.from_tab_index\u003d0;end\";\nit \u003d Intent.parseUri(intentUri, 0);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nam \u003d context.getSystemService(\"activity\");\ntasks \u003d am !\u003d null ? am.getRunningTasks(1) : null;\nuid \u003d (tasks !\u003d null \u0026\u0026 tasks.size() \u003e 0) ? tasks.get(0).userId : 0;\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? 1200 : 1100;\nh \u003d (int)(w / 0.6);\nl \u003d portrait ? 200 : 150;\nt \u003d portrait ? 400 : 80;\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\nuh \u003d UserHandle.of(uid);\ncontext.startActivityAsUser(it, opt.toBundle(), uh);\n\n\"已尝试以小窗模式启动 intentUri\";",
+    "customContextDataKey": {
+    },
+    "id": "A-4fa7f439-f069-4200-83f2-f47b7756dc3b"
+  }],
+  "id": "SHARED-DA-ee32fdd4-4a04-448b-aba8-ea4235c3d51f",
+  "lastUpdateTime": "1746516887871",
+  "createTime": "1746516772214",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "小窗启动intentURL",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

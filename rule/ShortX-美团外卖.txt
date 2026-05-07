@@ -1,0 +1,35 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.sankuai.meituan.takeoutnew"
+      },
+      "className": "com.sankuai.meituan.takeoutnew.ui.page.boot.SplashAdActivity"
+    }],
+    "id": "F-7b9f2222-751f-4bb6-9e7e-327d55b13247"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-c7722279-a980-4484-ba56-834177653a13"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/StartActivityIntent",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.sankuai.meituan.takeoutnew",
+      "className": "com.sankuai.meituan.takeoutnew.ui.page.boot.WelcomeActivity"
+    },
+    "id": "A-193c1ea2-11fb-4407-8970-82b5e3736fa5"
+  }],
+  "id": "rule-4b34868e-d448-4527-935a-abf1cb03ddc7",
+  "lastUpdateTime": "1687314322610",
+  "createTime": "1687314119089",
+  "title": "美团外卖",
+  "description": "美团外卖跳过启动广告",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

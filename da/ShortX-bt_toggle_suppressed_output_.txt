@@ -1,0 +1,31 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [[ $(settings get global bluetooth_on) \u003d\u003d \"1\" ]]; then\n  svc bluetooth disable \u003e /dev/null\n  echo \"Bluetooth Off\"\nelse\n  svc bluetooth enable \u003e /dev/null\n  echo \"Bluetooth On\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-d13094c1-6da5-4bd4-9c08-deabc7a1a86a"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-da0d18d4-4c37-4b65-bebb-542ca251aa0d"
+  }],
+  "id": "SHARED-DA-95860819-838c-4036-8028-2be733d784a6",
+  "lastUpdateTime": "1760236805883",
+  "createTime": "1760236439762",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "bt toggle suppressed output ",
+  "versionCode": "1",
+  "directActionSetId": "DS-b4dc7d0f-efee-4429-951f-1bafb3ee79e4",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

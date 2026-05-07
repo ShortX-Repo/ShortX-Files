@@ -1,0 +1,25 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://international.v1.hitokoto.cn/",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["hitokoto"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-3d134a3e-d053-4eaa-be13-4f24f66cdd12"
+  }],
+  "id": "DA660b62e4-e573-4a4d-91ca-6a847c4eac35",
+  "lastUpdateTime": "1699280348503",
+  "createTime": "1699280169744",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Hitokoto",
+  "versionCode": "1",
+  "directActionSetId": "DS-1242d340-cc01-4909-b224-518d538dc191"
+}
+###------###
+{"type":"da"}

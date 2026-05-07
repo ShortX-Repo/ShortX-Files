@@ -1,0 +1,36 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.location.ui.RedirectUI"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+    }],
+    "id": "F-68ab3104-572d-40d1-832c-3bfc82de06db"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-32fa584f-1af0-4db5-94de-201ca040a54d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetLocationEnabled",
+    "enable": true,
+    "id": "A-64c5e1fa-3f0f-445d-b00c-9bba019b25fb"
+  }],
+  "id": "rule-4caef283-c765-4893-b44e-515a0d9608a9",
+  "lastUpdateTime": "1687309063285",
+  "createTime": "1687308255386",
+  "title": "微信地图界面自动开启定位",
+  "description": "微信地图界面自动开启定位",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

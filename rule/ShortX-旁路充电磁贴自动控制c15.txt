@@ -1,0 +1,239 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "tag": "充电器插入",
+    "customContextDataKey": {
+    },
+    "id": "F-c26d0104-0ccd-437f-a036-fa7979b3e669"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 40,
+    "tag": "电量达标",
+    "customContextDataKey": {
+    },
+    "id": "F-f5dcc249-aa70-40d8-ba2a-88e34b5cb0a3"
+  }, {
+    "@type": "type.googleapis.com/ScreenOff",
+    "tag": "息屏",
+    "customContextDataKey": {
+    },
+    "id": "F-2a4d55f9-5625-47ba-a477-bfdc20e84a0e"
+  }, {
+    "@type": "type.googleapis.com/UserPresent",
+    "tag": "屏幕解锁",
+    "customContextDataKey": {
+    },
+    "id": "F-87099837-893a-40ed-abf9-f83d30abafbd"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/PlugState",
+    "type": "PlugType_IsCharge",
+    "customContextDataKey": {
+    },
+    "id": "C-71bbc9fc-035d-4224-a7e6-9afae173ccd4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "充电器插入",
+        "customContextDataKey": {
+        },
+        "id": "C-62d096a3-e827-40c5-91fc-a8ca6a67a0d4"
+      }, {
+        "@type": "type.googleapis.com/BatteryPercent",
+        "value": 40,
+        "customContextDataKey": {
+        },
+        "id": "C-a336ba58-5f87-4bdf-b08d-16aba744bb40"
+      }, {
+        "@type": "type.googleapis.com/KeyguardIsLocked",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-f00085c3-68ce-4822-ab87-8575a9d3d596"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "customContextDataKey": {
+        },
+        "id": "A-599b6cf5-5eaa-47da-ba8c-57d83c01c130"
+      }, {
+        "@type": "type.googleapis.com/ClickTile",
+        "tile": {
+          "tileSpec": "custom(com.luckyzyx.luckytool/.service.tiles.BypassPowerModeTile)",
+          "label": "旁路供电"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2ab3dfc9-c65b-4f5f-b61f-e3dba39e27bf"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotificationForPackage",
+        "appPkg": [{
+          "pkgName": "com.oplus.battery"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-d1cfd229-5931-4305-9fee-120cc6e055d2"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "customContextDataKey": {
+        },
+        "id": "A-35006991-5734-441d-aa5d-ee34313e07bc"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "电量达到40%，旁路供电已自动开启！",
+        "customContextDataKey": {
+        },
+        "id": "A-0ff989d5-f342-4be8-9ae1-b7d7c0950dff"
+      }],
+      "description": "充电器插入且电量\u003d40%且屏幕未锁",
+      "id": "Case-e813965c-29cc-4511-bbfb-c7fc8dd5a456"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "屏幕解锁",
+        "customContextDataKey": {
+        },
+        "id": "C-b4c10e1a-e39f-4caf-9de8-138485ae144e"
+      }, {
+        "@type": "type.googleapis.com/BatteryPercent",
+        "value": 40,
+        "customContextDataKey": {
+        },
+        "id": "C-e338ecfa-a9c4-4117-9757-5c382fee33e6"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "customContextDataKey": {
+        },
+        "id": "A-599b6cf5-5eaa-47da-ba8c-57d83c01c130"
+      }, {
+        "@type": "type.googleapis.com/ClickTile",
+        "tile": {
+          "tileSpec": "custom(com.luckyzyx.luckytool/.service.tiles.BypassPowerModeTile)",
+          "label": "旁路供电"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2ab3dfc9-c65b-4f5f-b61f-e3dba39e27bf"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "customContextDataKey": {
+        },
+        "id": "A-35006991-5734-441d-aa5d-ee34313e07bc"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotificationForPackage",
+        "appPkg": [{
+          "pkgName": "com.oplus.battery"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-d1cfd229-5931-4305-9fee-120cc6e055d2"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "电量达到40%，旁路供电已自动开启！",
+        "customContextDataKey": {
+        },
+        "id": "A-0ff989d5-f342-4be8-9ae1-b7d7c0950dff"
+      }],
+      "description": "屏幕解锁且电量\u003d40%",
+      "id": "Case-db526c02-13b2-42c7-84b0-92c1d4b5c9fe"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "电量达标",
+        "customContextDataKey": {
+        },
+        "id": "C-7eb80bb3-c333-46bf-9e22-6668ac18b8e6"
+      }, {
+        "@type": "type.googleapis.com/KeyguardIsLocked",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-7a0a854a-b9b5-46ef-a5fa-63cc968c551d"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "customContextDataKey": {
+        },
+        "id": "A-599b6cf5-5eaa-47da-ba8c-57d83c01c130"
+      }, {
+        "@type": "type.googleapis.com/ClickTile",
+        "tile": {
+          "tileSpec": "custom(com.luckyzyx.luckytool/.service.tiles.BypassPowerModeTile)",
+          "label": "旁路供电"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2ab3dfc9-c65b-4f5f-b61f-e3dba39e27bf"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotificationForPackage",
+        "appPkg": [{
+          "pkgName": "com.oplus.battery"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-d1cfd229-5931-4305-9fee-120cc6e055d2"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "customContextDataKey": {
+        },
+        "id": "A-35006991-5734-441d-aa5d-ee34313e07bc"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "电量达到40%，旁路供电已自动开启！",
+        "customContextDataKey": {
+        },
+        "id": "A-0ff989d5-f342-4be8-9ae1-b7d7c0950dff"
+      }],
+      "description": "电量达标且屏幕未锁",
+      "id": "Case-a723e05a-255e-4210-83e1-3e3ad8d1ea0f"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/KeyguardIsLocked",
+        "customContextDataKey": {
+        },
+        "id": "C-3cabfd3b-e866-4b7b-8b27-1d946239ed23"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ClickTile",
+        "tile": {
+          "tileSpec": "custom(com.luckyzyx.luckytool/.service.tiles.BypassPowerModeTile)",
+          "label": "旁路供电"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2ab3dfc9-c65b-4f5f-b61f-e3dba39e27bf"
+      }],
+      "description": "息屏时关闭旁路供电",
+      "id": "Case-84d2e326-e4e0-4da2-9da8-c38bf07b714d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8707ec0c-598e-4a3c-9730-5839cc7fda96"
+  }],
+  "id": "SHARE-rule-22117e69-789e-43ed-92b1-a782d9268214",
+  "lastUpdateTime": "1773562442315",
+  "createTime": "1768824751123",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "旁路充电磁贴自动控制c15",
+  "description": "充电器插入且电量40%+屏幕未锁、屏幕解锁且电量40%、电量达标40%+屏幕未锁时点击磁贴开启；息屏时点击磁贴关闭。",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

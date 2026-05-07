@@ -1,0 +1,34 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "export CLASSPATH\u003d/storage/emulated/0/Documents/Control.dex;app_process /system/bin screenoff.only.Control off",
+    "customContextDataKey": {
+    },
+    "note": "息屏运行",
+    "id": "A-70738557-37d1-40ab-9289-dd7b187a1573"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "200",
+    "customContextDataKey": {
+    },
+    "id": "A-ff46d39c-3481-419f-ad98-dfff6af906d9"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start-foreground-service com.github.muellerma.coffee/.ForegroundService",
+    "customContextDataKey": {
+    },
+    "note": "屏幕常亮",
+    "id": "A-01cb8b12-9279-477e-a729-4986ec6b6f56"
+  }],
+  "id": "DA2a8d1b36-c778-436d-9fa1-0853a6ee625a",
+  "lastUpdateTime": "1701017102913",
+  "createTime": "1701009848602",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "息屏并屏幕常亮",
+  "versionCode": "1",
+  "directActionSetId": "DS-40563447-43e2-4a25-b069-e770a1296337"
+}
+###------###
+{"type":"da"}

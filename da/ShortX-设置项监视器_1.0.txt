@@ -1,0 +1,99 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.provider.Settings;\nimport android.content.Context;\n\n//延迟总控，报错就增延迟\nint sleep \u003d 3;\n\ncontext \u003d android.app.ActivityThread.currentApplication().getApplicationContext();\ncontentResolver \u003d context.getContentResolver();\n\n// 创建StringBuilder来存储输出\noutputBuffer \u003d new StringBuilder();\n\n// 定义分隔线和标题\nseparator \u003d \"\\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\\n\";\n\n// 处理Settings.Secure\noutputBuffer.append(\"Settings.Secure Settings\").append(separator);\nfields \u003d android.provider.Settings$Secure.getDeclaredFields();\nfor (field : fields) {\n    field.setAccessible(true);\n    if (field.getType().getName().equals(\"java.lang.String\")) {\n        key \u003d field.get(null);\n        value \u003d android.provider.Settings$Secure.getString(contentResolver, key);\n        if (value !\u003d null) {\n            outputBuffer.append(key).append(\": \").append(value).append(\"\\n\");\n        }\n        Thread.sleep(sleep);\n    }\n}\n// 添加分隔线\noutputBuffer.append(separator);\n\n// 处理Settings.Global\noutputBuffer.append(\"Settings.Global Settings\").append(separator);\nfields \u003d android.provider.Settings$Global.getDeclaredFields();\nfor (field : fields) {\n    field.setAccessible(true);\n    if (field.getType().getName().equals(\"java.lang.String\")) {\n        key \u003d field.get(null);\n        value \u003d android.provider.Settings$Global.getString(contentResolver, key);\n        if (value !\u003d null) {\n            outputBuffer.append(key).append(\": \").append(value).append(\"\\n\");\n        }\n        Thread.sleep(sleep);\n    }\n}\n// 添加分隔线\noutputBuffer.append(separator);\n\n// 处理Settings.System\noutputBuffer.append(\"Settings.System Settings\").append(separator);\nfields \u003d android.provider.Settings$System.getDeclaredFields();\nfor (field : fields) {\n    field.setAccessible(true);\n    if (field.getType().getName().equals(\"java.lang.String\")) {\n        key \u003d field.get(null);\n        value \u003d android.provider.Settings$System.getString(contentResolver, key);\n        if (value !\u003d null) {\n            outputBuffer.append(key).append(\": \").append(value).append(\"\\n\");\n        }\n        Thread.sleep(sleep);\n    }\n}\n// 添加最后一条分隔线\noutputBuffer.append(separator);\n\n// 输出最终结果\noutputBuffer.toString();",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "SettingsItem"
+      }]
+    },
+    "note": "输出所有设置项",
+    "id": "A-514155dc-6790-46c6-a52c-e00213a3e057"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "Setting",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-9bf53ddd-2642-4d6d-a933-2985718cf529"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Setting",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "设置项"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-aba7a9bb-9f30-4047-b490-68df9a8f0221"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Setting",
+      "valueAsString": "{SettingsItem}",
+      "customContextDataKey": {
+      },
+      "id": "A-b60930d0-69d3-4a6a-ae0b-3a0b71ed1893"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "运行完毕",
+      "icon": "app://com.android.settings",
+      "customContextDataKey": {
+      },
+      "id": "A-973997da-1e58-430c-9920-80b1d3bd4266"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "function compareTexts(beforeText, afterText) {\n    var beforeLines \u003d beforeText.trim().split(\"\\n\");\n    var afterLines \u003d afterText.trim().split(\"\\n\");\n\n    var result \u003d \u0027\u0027;\n    var seenChanges \u003d {};  // 用于记录已经输出过的变更\n\n    // Get the maximum number of lines to compare\n    var maxLines \u003d Math.max(beforeLines.length, afterLines.length);\n\n    for (var i \u003d 0; i \u003c maxLines; i++) {\n        var beforeLine \u003d beforeLines[i] || \"无此行\";\n        var afterLine \u003d afterLines[i] || \"无此行\";\n\n        if (beforeLine !\u003d\u003d afterLine) {\n            var changeKey \u003d `before: ${beforeLine}, after: ${afterLine}`;\n            \n            // 如果当前变更没有输出过\n            if (!seenChanges[changeKey]) {\n                result +\u003d \u0027变更前: \u0027 + beforeLine + \u0027\\n\u0027;\n                result +\u003d \u0027变更后: \u0027 + afterLine + \u0027\\n\u0027;\n                \n                // 标记为已输出\n                seenChanges[changeKey] \u003d true;\n            }\n        }\n    }\n\n    return result || \"无变化\";\n}\n\n// 示例\nvar before \u003d globalVarOf$Setting;\n\nvar after \u003d SettingsItem;\n\ncompareTexts(before, after);",
+      "customContextDataKey": {
+      },
+      "id": "A-8e4ef953-93f2-4c51-acd9-13da56d13d40"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "好的",
+      "negative": "复制",
+      "onNegative": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{jsRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-3a1dcc3e-d06d-4bc9-b3ea-59cbd088b5a0"
+      }],
+      "title": "设置项监视器",
+      "message": "{jsRet}",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-570cdad8-828e-4dbc-bcce-3d183fd6c35a"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "Setting",
+      "customContextDataKey": {
+      },
+      "id": "A-205edba0-4202-4cde-b017-3aae954d332d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-bfa8d552-82f3-4449-b524-da1d64ee1df6"
+  }],
+  "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
+  "lastUpdateTime": "1728720751613",
+  "createTime": "1728713310475",
+  "author": {
+    "name": "He"
+  },
+  "title": "设置项监视器 1.0",
+  "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

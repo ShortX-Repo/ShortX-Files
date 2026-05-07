@@ -1,0 +1,77 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStartRunning",
+    "pkgSets": ["需要定位"],
+    "tag": "打开定位",
+    "customContextDataKey": {
+    },
+    "id": "F-7ae21efc-78d7-43ba-a320-29cb1cfa8ab9"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["需要定位"],
+    "tag": "关闭定位",
+    "customContextDataKey": {
+    },
+    "id": "F-750af8e9-3521-4589-9d60-663760a5df9e"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-03c6309c-5b82-437e-8eab-9c976aa219ec"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "打开定位",
+      "customContextDataKey": {
+      },
+      "id": "C-0c81aee3-529a-4fea-bded-2f22700be58e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-96609e5e-1222-462f-bc7e-3a8f656578d3"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["需要定位"],
+        "customContextDataKey": {
+        },
+        "id": "C-edde8251-2ee3-41f7-b496-230588b02ad6"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetLocationEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-22558470-a909-4a59-8b42-2bbac42551b6"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-601c6cbc-11fb-451d-97fc-1db7cf622d3f"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c374098d-8f61-4c94-9c53-dd163912eaed"
+  }],
+  "id": "SHARE-rule-778fb24d-249e-4aa6-b3b3-5071992d9427",
+  "lastUpdateTime": "1775928212120",
+  "createTime": "1775904062711",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动打开，关闭定位",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

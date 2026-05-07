@@ -1,0 +1,78 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOn",
+    "id": "F-aeb6f612-eda2-4469-a045-40bbf7bcccba"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "id": "A-9d9303f5-5e5d-40e4-b335-2a758008cfaa"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "id": "C-1381c4b4-4fdb-4d26-bf9f-6ef8f6bb3806"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireBTConnected",
+        "device": "OPPO Watch SE AFFA",
+        "id": "C-1dfe2f65-9f11-4e7f-958d-9a62191a10d3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WhileLoop",
+        "conditions": [{
+          "@type": "type.googleapis.com/KeyguardIsLocked",
+          "id": "C-540d5bd7-1185-4cad-afab-39a3e59e0134"
+        }],
+        "actions": [{
+          "@type": "type.googleapis.com/InputText",
+          "text": "globalVarOf$密码",
+          "id": "A-34a8a5c3-5aae-44e5-97e4-8ab7694b0d55"
+        }],
+        "delay": 500,
+        "id": "A-408a1c85-54ba-4ac7-8ed8-368247cfedf0"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "id": "A-2485ed16-42c4-47d4-9eca-3745a6ef8845"
+      }],
+      "id": "A-c79d646d-f4dd-40fb-a6f2-7cef3af953c6"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "layout-3-fill",
+      "id": "A-b0c9a168-fbab-4036-8a5d-0da5147bdfb4"
+    }],
+    "id": "A-de048933-86fb-4351-b77c-7439db6823bf"
+  }],
+  "id": "rule-c894284f-656c-4ad2-9d6c-b9ac6afb3d52",
+  "lastUpdateTime": "1692363938051",
+  "createTime": "1692359846259",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "蓝牙解锁",
+  "description": "连接到蓝牙自动解锁",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/UserPresent",
+      "id": "F-a0d3005a-23e5-4b2f-bda5-a6b2f2ad3bff"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "isInvert": true,
+      "id": "C-6da0188c-8133-40b2-b3a2-1da9ab9547b1"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,124 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["保存图片视频"],
+    "tag": "显示",
+    "customContextDataKey": {
+    },
+    "id": "F-2e54c4ca-468d-468b-874b-3f04881b0063"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["保存图片视频"],
+    "tag": "隐藏",
+    "customContextDataKey": {
+    },
+    "id": "F-e4504b9e-fa42-4e31-97be-430c0cb2eff5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "显示",
+        "customContextDataKey": {
+        },
+        "id": "C-1e9bdedf-5353-4707-880d-6b70370d4c39"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/ClickTile",
+            "tile": {
+              "tileSpec": "custom(tornaco.apps.shortx/.ui.service.tile.Tile6)",
+              "label": "保留图片视频"
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-4455424e-033b-4d9f-ba45-ee4f70b9ceb2"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/RequireTileState",
+              "state": "QSTileState_Active",
+              "tileSpec": "custom(tornaco.apps.shortx/.ui.service.tile.Tile6)",
+              "customContextDataKey": {
+              },
+              "id": "C-4f96a2d8-26a6-499c-824e-0e8e96dd20ae"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "保存图片/视频关闭",
+              "customContextDataKey": {
+              },
+              "id": "A-1f7869c3-8473-471c-b86b-d4c243d89d8d"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "保存图片/视频开启",
+              "customContextDataKey": {
+              },
+              "id": "A-6daf239d-d1be-4c96-8e9b-e3f30ea62ab9"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-c0177604-2ade-4c06-8a7a-c977d5a4a859"
+          }],
+          "label": "保存globalVarOf$Tile state",
+          "id": "BTN-91cabeec-ceea-42d3-b0e5-28b80a93e3db"
+        }],
+        "tag": "保存图片视频",
+        "maxHeightInDp": 20,
+        "maxWidthInDp": 20,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 20,
+        "enableGlobalDrag": true,
+        "overlayPaddingV": 10,
+        "customContextDataKey": {
+        },
+        "id": "A-abad10a4-cd5f-4014-b488-d3774ac9fdbc"
+      }],
+      "description": "显示",
+      "id": "Case-0059c890-d51f-4f40-a756-a60f81c7b754",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "隐藏",
+        "customContextDataKey": {
+        },
+        "id": "C-44796534-3284-4921-9b06-0176df5c7df6"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["保存图片视频"],
+        "customContextDataKey": {
+        },
+        "id": "A-bed8bff3-8088-4165-ae3e-0759795ab1a6"
+      }],
+      "description": "隐藏",
+      "id": "Case-0eba5ee7-f1fa-4058-a313-aa760a6c4a99",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-906f9805-a4f5-4c5e-bc40-2f93f6cadd82"
+  }],
+  "id": "SHARE-rule-407f1541-95fa-473b-9609-4a803d83f7f5",
+  "lastUpdateTime": "1748762571356",
+  "createTime": "1748758678985",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "保存图片视频浮窗",
+  "description": "特定应用显示保存图片视频浮窗",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-8c3e5fbc-9a04-4b1e-b60e-34004f973fdb"
+}
+###------###
+{"type":"rule"}

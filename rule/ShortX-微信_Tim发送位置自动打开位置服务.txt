@@ -1,0 +1,136 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-f9f6bae4-14e1-4c81-ae12-0cadf2be5d10"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm",
+        "userId": 999
+      },
+      "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-36c7efbf-0a26-4189-8ddd-fb3bc1284c9d"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.tim"
+      },
+      "className": "com.tencent.biz.PoiMapActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-6dc4833a-8300-4564-a46c-2783671729db"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.ui.LauncherUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-a3e2367f-5e8a-48ec-87c5-b60f2da45726"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm",
+        "userId": 999
+      },
+      "className": "com.tencent.mm.ui.LauncherUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-95974be8-c299-4ba3-9b9c-1cf4e75cd30d"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.tim"
+      },
+      "className": "com.tencent.mobileqq.activity.SplashActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-c344ed78-2b74-4f4c-afdd-02a8e9749260"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentActivity",
+      "activities": [{
+        "pkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+      }, {
+        "pkg": {
+          "pkgName": "com.tencent.mm",
+          "userId": 999
+        },
+        "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+      }, {
+        "pkg": {
+          "pkgName": "com.tencent.tim"
+        },
+        "className": "com.tencent.biz.PoiMapActivity"
+      }, {
+        "pkg": {
+          "pkgName": "com.tencent.tim"
+        },
+        "className": "com.tencent.mobileqq.activity.PublicFragmentActivity"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-2747f6f4-ceac-4a96-9d6e-299f764347d8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-27318f33-cbb6-491d-9135-dd52eb09440f"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-ebba861c-632a-45dd-be85-1f1c8f63513e"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-aaac1628-1632-4d64-b596-0113a7f4768b"
+  }],
+  "id": "rule-e3989ab4-024f-4646-8f92-cd6f978c8a60",
+  "lastUpdateTime": "1712584624625",
+  "createTime": "1704604105015",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信、Tim发送位置自动打开位置服务",
+  "description": "微信、Tim发送位置，自动打开位置服务",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-5dfeca74-a7ff-4f06-9d41-b0b9f482a585"
+}
+###------###
+{"type":"rule"}

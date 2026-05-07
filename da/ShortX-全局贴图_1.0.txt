@@ -1,0 +1,62 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/AreaScreenshot",
+    "customContextDataKey": {
+    },
+    "id": "A-a674a077-12d0-4c60-882c-b081262f3199"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchJS",
+      "expression": "// 引入所需的 Java 类\nvar File \u003d Packages.java.io.File;\nvar FileWriter \u003d Packages.java.io.FileWriter;\n\nfunction testWritePermission(directoryPath) {\n    var testFilePath \u003d directoryPath + \"/test_file.tmp\";\n    var testFile \u003d new File(testFilePath);\n    var canWrite \u003d false;\n\n    try {\n        // 尝试创建文件\n        var writer \u003d new FileWriter(testFile);\n        writer.write(\"Test\");\n        writer.close();\n\n        // 检查文件是否存在，确认写入成功\n        canWrite \u003d testFile.exists();\n\n        // 删除测试文件\n        if (canWrite) {\n            testFile.delete();\n        }\n    } catch (e) {\n        // 如果出现异常，写入权限为 false\n        canWrite \u003d false;\n    }\n\n    return canWrite;\n}\n\n// 调用函数测试写入权限\nvar result \u003d testWritePermission(\"/data/media/0\");\nresult;",
+      "customContextDataKey": {
+      },
+      "id": "C-c47f79ed-5c79-4fd3-88ff-1a518d066eb1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "path \u003d {screenshotFilePath};\nnewPath \u003d path.replace(\"/storage/emulated/0/\", \"/data/media/0/\");\nnewPath;",
+      "customContextDataKey": {
+      },
+      "id": "A-5328f9e5-baa1-4768-9ecf-2be0942e493c"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "好的",
+      "title": "SeLinux管理",
+      "message": "你需要将SeLinux调整为宽容模式，强行运行会导致手机重启",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-0042a62d-b853-4f1d-a711-081347004730"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-9bb9ed9b-cf51-4606-beeb-66e6c8f26291"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-462302be-16ff-4541-a1c5-cf2947c10cb0"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// 导入必要的 Android 包\nimportPackage(android.app);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.graphics);\n\n// 设置图片的路径\nvar imagePath \u003d {mvelRet}; // 替换为实际的图片路径\n\n// 创建一个主线程 Handler\nvar handler \u003d new Handler(Looper.getMainLooper());\n\n// 变量声明\nvar imageView;\nvar layoutParams;\nvar scaleGestureDetector;\nvar originalWidth, originalHeight, scaleFactor \u003d 1.0;\nvar MIN_SCALE \u003d 0.5;\nvar MAX_SCALE \u003d 3.0;\nvar lastClickTime \u003d 0;\nvar DOUBLE_CLICK_THRESHOLD \u003d 300;\nvar isMoving \u003d false;\nvar lastX \u003d 0;\nvar lastY \u003d 0;\n\n// 初始化 UI 和手势\nhandler.post(function() {\n    // 创建 ImageView 用于显示指定图片\n    imageView \u003d new ImageView(context);\n    imageView.setBackgroundColor(Color.TRANSPARENT);\n\n    // 加载并设置图片\n    var bitmap \u003d android.graphics.BitmapFactory.decodeFile(imagePath);\n    imageView.setImageBitmap(bitmap);\n\n    // 设置 ImageView 的初始大小\n    originalWidth \u003d bitmap.getWidth();\n    originalHeight \u003d bitmap.getHeight();\n\n    // 初始布局参数\n    layoutParams \u003d new WindowManager.LayoutParams(\n        originalWidth,\n        originalHeight,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | \n        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR |\n        WindowManager.LayoutParams.FLAG_FULLSCREEN,\n        PixelFormat.TRANSLUCENT\n    );\n    layoutParams.gravity \u003d Gravity.TOP | Gravity.LEFT;\n    layoutParams.x \u003d 0;\n    layoutParams.y \u003d 0;\n\n    // 获取 WindowManager\n    var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n    windowManager.addView(imageView, layoutParams);\n\n    // 初始化 ScaleGestureDetector\n    scaleGestureDetector \u003d new ScaleGestureDetector(context, new ScaleGestureDetector.OnScaleGestureListener({\n        onScale: function(detector) {\n            var newScaleFactor \u003d scaleFactor * detector.getScaleFactor();\n            if (newScaleFactor \u003e\u003d MIN_SCALE \u0026\u0026 newScaleFactor \u003c\u003d MAX_SCALE) {\n                scaleFactor \u003d newScaleFactor;\n                layoutParams.width \u003d Math.round(originalWidth * scaleFactor);\n                layoutParams.height \u003d Math.round(originalHeight * scaleFactor);\n                handler.post(function() {\n                    windowManager.updateViewLayout(imageView, layoutParams);\n                });\n            }\n            return true;\n        },\n        onScaleBegin: function(detector) {\n            return true;\n        },\n        onScaleEnd: function(detector) {}\n    }));\n\n    // 触摸监听器，结合缩放、移动和双击检测\n    imageView.setOnTouchListener(new View.OnTouchListener({\n        onTouch: function(view, event) {\n            if (event.getAction() \u003d\u003d\u003d MotionEvent.ACTION_DOWN) {\n                var currentTime \u003d new Date().getTime();\n                if (currentTime - lastClickTime \u003c DOUBLE_CLICK_THRESHOLD) {\n                    handler.post(function() {\n                        windowManager.removeView(imageView);\n                    });\n                    return true;\n                }\n                lastClickTime \u003d currentTime;\n                lastX \u003d event.getRawX();\n                lastY \u003d event.getRawY();\n                isMoving \u003d true;\n            }\n\n            if (event.getAction() \u003d\u003d\u003d MotionEvent.ACTION_MOVE \u0026\u0026 isMoving) {\n                var deltaX \u003d event.getRawX() - lastX;\n                var deltaY \u003d event.getRawY() - lastY;\n                layoutParams.x +\u003d deltaX;\n                layoutParams.y +\u003d deltaY;\n                handler.post(function() {\n                    windowManager.updateViewLayout(imageView, layoutParams);\n                });\n                lastX \u003d event.getRawX();\n                lastY \u003d event.getRawY();\n            }\n\n            if (event.getAction() \u003d\u003d\u003d MotionEvent.ACTION_UP) {\n                isMoving \u003d false;\n            }\n\n            scaleGestureDetector.onTouchEvent(event);\n            return true;\n        }\n    }));\n});",
+    "customContextDataKey": {
+    },
+    "id": "A-e4f8bc48-e6f7-4091-aacc-41ee77c39547"
+  }],
+  "id": "SHARED-DA-cb7a42a7-c032-4536-b622-c7e5b7d90b91",
+  "lastUpdateTime": "1730199892158",
+  "createTime": "1730167632773",
+  "author": {
+    "name": "He"
+  },
+  "title": "全局贴图 1.0",
+  "description": "局域截图并实现贴图",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

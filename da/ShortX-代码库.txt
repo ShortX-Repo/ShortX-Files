@@ -1,0 +1,151 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "code",
+    "customContextDataKey": {
+    },
+    "id": "A-737e8b60-f4d2-499b-b75b-53dc019baeb1"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://gitee.com/AiNianChu/ShortX/raw/master/ShortX.json",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "requestBody": {},
+    "executeInAppProcess": true,
+    "customContextDataKey": {
+    },
+    "id": "A-5f02bbb4-98ff-453d-8dcd-ab514a1b2e94"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "httpRequestRet",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-bbc2ebd9-171f-4ef8-a380-7b1d9c35f527"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "title": "异常",
+        "message": "网络异常或者仓库索引地址已变更",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-afbfe61c-0c22-4a63-afdc-43afb0e94b65"
+      }],
+      "id": "Case-6684ef87-35fd-4608-8824-65f6bcefd6ce",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var data \u003d JSON.parse(httpRequestRet);\ndata[0].version;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "num"
+          }]
+        },
+        "id": "A-44a2dbaf-1bc5-4708-8736-f577caac8ac9"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var data \u003d JSON.parse(httpRequestRet);\n\n// 删除 version 字段并输出\nvar result \u003d data.map(function(item){\nvar newItem \u003d Object.assign({}, item); // 复制对象\ndelete newItem.version; // 删除 version\nreturn newItem;\n});\n\nJSON.stringify(result, null, 2);",
+        "customContextDataKey": {
+        },
+        "id": "A-02650247-dcdf-49ad-9af0-dc2e2f871296"
+      }, {
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "指令库 {num}个",
+        "cancelable": true,
+        "data": "{jsRet}",
+        "delimiter": [","],
+        "needConfirmAction": true,
+        "dataType": "ShowListDialogDataType_Json",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-9802c08d-62ab-482b-b27c-2e701f040281"
+      }],
+      "id": "Case-fc87997d-c674-495c-b273-a2853f64ee65"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "selectedListItem",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-152c2eed-4175-4df9-b37c-5c6c2862da40"
+      }],
+      "id": "Case-f64e8bfa-3141-4d54-b5d2-c31acc583f8a",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "定位消息",
+          "clickActions": [{
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "{selectedListItem}",
+            "customContextDataKey": {
+            },
+            "id": "A-dd4b0d23-1d67-470a-ad75-80ab640ad923"
+          }]
+        }, {
+          "title": "复制链接",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "selectedListItem[0].replace(\"tg:privatepost?channel\u003d\", \"https://t.me/c/\")\n               .replace(\"\u0026post\u003d\", \"/2/\");",
+            "customContextDataKey": {
+            },
+            "id": "A-6b9e95d1-c5fe-48b9-a204-1bb46de45d7f"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-11b9e8f7-89ea-41a7-ba55-1478cd891e75"
+          }]
+        }],
+        "title": "请",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-535e045c-c934-4baa-b2bc-6f95772dec37"
+      }],
+      "id": "Case-745f764e-e882-4d97-b15a-b346af8f4783"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-02cc252a-c65c-4860-979f-ebfe274eeef1"
+  }],
+  "id": "SHARED-DA-d6ffbe3e-2187-441b-ac79-7df3f861022f",
+  "lastUpdateTime": "1764305225373",
+  "createTime": "1764260951497",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "代码库 1.1",
+  "description": "代码库索引，方便查找代码\n每天半夜同步索引数据",
+  "versionCode": "2",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

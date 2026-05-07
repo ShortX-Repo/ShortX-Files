@@ -1,0 +1,55 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "contentText": "(.*运营.*)|(.*资讯.*)|(.*精选.*)|(.*攻略.*)|(.*活动.*)|(.*营销.*)|(.*优惠.*)|(.*福利.*)|(.*推荐.*)|(.*速抢.*)|(.*限时.*)|(.*竟遭.*)|(.*咨询.*)",
+      "pkgSets": ["All"],
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-e2f96b44-ea93-4edf-9461-f9be671a5f19"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/AppHasNotification",
+    "pkgs": [{
+      "pkgName": "com.tencent.mobileqq"
+    }, {
+      "pkgName": "com.tencent.mm"
+    }, {
+      "pkgName": "com.android.mms"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-e27f896b-c2f5-4bac-afd8-c554e1277431"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/RemoveNotification",
+    "notification": {
+      "contentText": "(.*运营.*)|(.*资讯.*)|(.*精选.*)|(.*攻略.*)|(.*活动.*)|(.*营销.*)|(.*优惠.*)|(.*福利.*)|(.*推荐.*)|(.*速抢.*)|(.*限时.*)|(.*竟遭.*)|(.*咨询.*)",
+      "pkgSets": ["All"],
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-7a54976a-3073-42bd-b395-ca3ac4095d45"
+  }],
+  "id": "rule-1af4ae47-5c25-422f-b1b1-98900429d634",
+  "lastUpdateTime": "1710258205492",
+  "createTime": "1710257135660",
+  "author": {
+    "name": "奋斗的青年"
+  },
+  "title": "去TM运营消息",
+  "description": "测试",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-cb8f75b3-3f7a-4efb-9e4f-a54349089739"
+}
+###------###
+{"type":"rule"}

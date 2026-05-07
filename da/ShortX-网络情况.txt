@@ -1,0 +1,37 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "ping -c 1 www.baidu.com \u003e /dev/null \u0026\u0026 echo \"网络连接正常\" || echo \"无法访问网络\"",
+    "customContextDataKey": {
+    },
+    "id": "A-6b782f0f-187c-41dc-8c58-377706bba7a2"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "网络情况",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-7cdaebe4-3fa0-4d66-9223-7a917e3b0d00"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "网络情况",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-c72d9e0b-3962-4942-b852-6ec0571bfa03"
+  }],
+  "id": "DAb449411e-cbeb-4e40-841c-89be3888b617",
+  "lastUpdateTime": "1697733767625",
+  "createTime": "1697733755123",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "网络情况",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

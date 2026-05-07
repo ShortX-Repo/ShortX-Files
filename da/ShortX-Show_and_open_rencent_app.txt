@@ -1,0 +1,110 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "packagelist",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-340ef714-ce93-45ca-86d0-76fccd49e7b8"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys activity recents | grep \u0027A\u003d\u0027 | sed -E \u0027s/.*A\u003d([0-9]+):([^ ]+).*/\\2/\u0027 | sort -u\n",
+    "customContextDataKey": {
+    },
+    "id": "A-d3e9cfff-330e-414c-9ccf-196e22c4232e"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "packagelist",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-0679ac3a-3eb0-4d08-ab62-452c4d4148e7"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "applist",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-28d69ff7-6c19-473f-822f-d2e8390ea1dc"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// 输入包名字符串（多行）\nvar input \u003d localVarOf$packagelist;\n\n// 引用 Java 类\nvar AppGlobals \u003d Packages.android.app.AppGlobals;\nvar pm \u003d AppGlobals.getInitialApplication().getPackageManager();\n\n// 拆分包名\nvar lines \u003d input.split(\"\\n\");\nvar output \u003d \"\";\n\n// 遍历\nfor (var i \u003d 0; i \u003c lines.length; i++) {\n    var pkg \u003d lines[i].trim();\n    try {\n        var appInfo \u003d pm.getApplicationInfo(pkg, 0);\n        var appName \u003d pm.getApplicationLabel(appInfo).toString();\n        output +\u003d pkg + \"\\n\" + appName;\n        if (i \u003c lines.length - 1) {\n            output +\u003d \",\";   // 每组后面加逗号，最后一组不加\n        }\n        console.log(\"Resolved: \" + pkg + \" → \" + appName);\n    } catch (e) {\n        output +\u003d pkg + \"\\n[未安装或无法识别]\";\n        if (i \u003c lines.length - 1) {\n            output +\u003d \",\";\n        }\n        console.log(\"Failed: \" + pkg + \" → \" + e);\n    }\n}\n\n// 返回结果\noutput;",
+    "customContextDataKey": {
+    },
+    "id": "A-54eb7cc1-19dd-4c6f-b927-05bfd77888dc"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "applist",
+    "customContextDataKey": {
+    },
+    "id": "A-8d15ac51-84a9-4c5f-b31b-3dd35494155a"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "selectapp",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-eb0b5464-cf25-4081-ad2c-551538f7911c"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "Recent package ",
+    "cancelable": true,
+    "data": "{jsRet}",
+    "delimiter": [","],
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-65f2aaa8-670e-4e70-93f9-fb080c36f7bf"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "selectapp",
+    "valueAsString": "{selectedListItem}",
+    "customContextDataKey": {
+    },
+    "id": "A-e5e607ae-efa2-4196-bad2-93320cb98041"
+  }, {
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "localVarOf$selectapp",
+    "regex": "^(?!\\s*$).+",
+    "customContextDataKey": {
+    },
+    "id": "A-6cf8f72b-709b-428b-829f-f22468bcaa72"
+  }, {
+    "@type": "type.googleapis.com/LaunchAppByPkg",
+    "pkgAndUsers": [{
+      "first": "{matchResult}",
+      "second": "0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-082a8e57-3611-46b5-80e5-da553b70bca3"
+  }],
+  "id": "SHARED-DA-6e47832e-8a90-4416-b32c-850a8f157a3a",
+  "lastUpdateTime": "1759020206234",
+  "createTime": "1759014989002",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "Show and open rencent app",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

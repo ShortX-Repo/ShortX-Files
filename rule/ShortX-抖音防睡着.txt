@@ -1,0 +1,160 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppGainWindowFocus",
+    "apps": [{
+      "pkgName": "com.ss.android.ugc.aweme.lite"
+    }, {
+      "pkgName": "com.github.eprendre.tingshu"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-ae9893d2-a003-4443-9c44-8c9a51307e33"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-4e618c38-4e84-4c77-9cc9-fd4c24cb3025"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "上次点击屏幕时间",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-25e8c371-2cc1-4129-8c8b-09a6c5c46070"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/AppHasWindowFocus",
+      "pkgs": [{
+        "pkgName": "com.ss.android.ugc.aweme.lite"
+      }, {
+        "pkgName": "com.github.eprendre.tingshu"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-47c6c19a-f91a-43e8-b195-a74cb6706540"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo $(($(dumpsys input | sed -rn \"/RecentQueue:/ n;/.*age\u003d([0-9]*).*/ {s//\\1/p,q}\")/1000))",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut"
+        }, {
+          "first": "shellErr"
+        }, {
+          "first": "shellCode"
+        }]
+      },
+      "id": "A-1e80ccbc-c712-47d6-a178-3e9a3f0ba152"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "上次点击屏幕时间",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-5e9d8511-29c7-433d-8c8f-b59ee56ca8fb"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "varName": "上次点击屏幕时间",
+        "payload": {
+          "value": "590"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2a6f575f-d42c-41c9-86e0-92c6c97be4a6"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "即将息屏，打断请触摸屏幕",
+        "customContextDataKey": {
+        },
+        "id": "A-fa91cde3-af5d-456d-abfd-5ade3ab6ed28"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "超时提示",
+      "id": "A-408dcb83-ec6c-4dc5-b674-820dcb0ec1d9"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "varName": "上次点击屏幕时间",
+        "payload": {
+          "value": "600"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2a6f575f-d42c-41c9-86e0-92c6c97be4a6"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "id": "A-8a0b95a5-5ab2-436a-9f5a-f4ddc815d1e5"
+      }, {
+        "@type": "type.googleapis.com/SleepScreen",
+        "customContextDataKey": {
+        },
+        "id": "A-6370e65a-442b-4b89-80dc-187459ee3ffa"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-b4222c90-1a89-4f8b-9511-18adee3f0517"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "超时动作\n默认 10 分钟",
+      "id": "A-f65bf254-6ff6-4a1c-a45a-520e37e0880a"
+    }],
+    "delay": 10000,
+    "customContextDataKey": {
+    },
+    "note": "循环条件改成自己需要的应用",
+    "id": "A-b72398e2-04b9-4a4f-813e-b935fd3bf26e"
+  }],
+  "id": "rule-ece94269-8400-43b4-a4a6-8a06a9d89692",
+  "lastUpdateTime": "1719314468000",
+  "createTime": "1704335499100",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "抖音防睡着",
+  "description": "距离上次触摸屏幕的时间，超过 10 分钟自动息屏",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppLostWindowFocus",
+      "customContextDataKey": {
+      },
+      "id": "F-8c9129c1-8b69-4ede-b1fd-05e12cb0570c"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-2d366653-3668-41bd-92b7-44f1e50ab882"
+    }]
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-833e3604-c146-4067-852c-f2eaea1aaa32"
+}
+###------###
+{"type":"rule"}

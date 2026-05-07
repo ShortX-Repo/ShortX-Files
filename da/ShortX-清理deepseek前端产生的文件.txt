@@ -1,0 +1,24 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "rm -rf /storage/emulated/0/deepseek",
+    "customContextDataKey": {
+    },
+    "id": "A-879d46a6-f237-4778-b1b1-7076c1f5af9c"
+  }],
+  "id": "SHARED-DA-497c4b10-100a-4d56-9724-957cecb40a69",
+  "lastUpdateTime": "1777425695139",
+  "createTime": "1777425354410",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "清理deepseek前端产生的文件",
+  "versionCode": "1",
+  "directActionSetId": "DS-033acfa7-8e84-4d5f-b0d2-fb36a525651b",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

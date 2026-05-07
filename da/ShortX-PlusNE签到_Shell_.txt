@@ -1,0 +1,57 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -W -S -n com.tencent.mm/.ui.chatting.ChattingUI --es Chat_User gh_42bec729f6c2",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-8105332a-867d-4351-8eb6-551a8fb3925d"
+  }, {
+    "@type": "type.googleapis.com/WaitUtilConditionMatch",
+    "condition": [{
+      "@type": "type.googleapis.com/CurrentActivity",
+      "activities": [{
+        "pkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "className": "com.tencent.mm.ui.chatting.ChattingUI"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "C-548d913b-ff34-430b-b5a4-073d029232a3"
+    }],
+    "timeout": "8000",
+    "customContextDataKey": {
+    },
+    "id": "A-db0ab456-4a35-4ebc-8b6d-c4459bc36ea9"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "我的服务",
+    "timeout": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-39730eae-83a0-42df-a8a0-6b3368498fdf"
+  }, {
+    "@type": "type.googleapis.com/WaitForIdle",
+    "customContextDataKey": {
+    },
+    "id": "A-e2ef2790-37af-450c-b1b6-aba6883bae93"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "PlusNE签到",
+    "timeout": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-ebc72559-0829-4f55-a8c4-3cfd9892a57f"
+  }],
+  "id": "DA7484294a-40fa-4405-883f-a69ad932ebd9",
+  "lastUpdateTime": "1710825644489",
+  "createTime": "1710774404928",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "PlusNE签到(Shell)",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,34 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/StartActivityUrlSchema",
+    "urlSchema": "alipayqr://platformapi/startapp?saId\u003d10000007",
+    "customContextDataKey": {
+    },
+    "note": "支付宝扫一扫",
+    "id": "A-a36304a8-fd28-4925-8a8f-3b33bb9e8aef"
+  }, {
+    "@type": "type.googleapis.com/StartActivityUrlSchema",
+    "urlSchema": "alipays://platformapi/startapp?appId\u003d20000056",
+    "customContextDataKey": {
+    },
+    "note": "支付宝付款码",
+    "id": "A-907e8e47-16da-4567-a0cc-f9d04bb13fb5"
+  }, {
+    "@type": "type.googleapis.com/StartActivityUrlSchema",
+    "urlSchema": "alipays://platformapi/startapp?appId\u003d20000123",
+    "customContextDataKey": {
+    },
+    "note": "支付宝收款码",
+    "id": "A-f78d4dc3-bec7-408b-94a2-1ab2f1469308"
+  }],
+  "id": "DAbff96a10-2622-4214-b9a0-51e9df9415e2",
+  "lastUpdateTime": "1699111166107",
+  "createTime": "1699110985898",
+  "author": {
+    "name": "ZIMK"
+  },
+  "title": "支付宝捷径",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

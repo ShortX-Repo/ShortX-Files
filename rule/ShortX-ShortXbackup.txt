@@ -1,0 +1,136 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "tag": "触发",
+    "customContextDataKey": {
+    },
+    "id": "F-80a3575a-052a-4e9a-8117-e84c1624db6e"
+  }, {
+    "@type": "type.googleapis.com/AppProcessStarted",
+    "processName": [{
+      "processName": "tornaco.apps.shortx"
+    }],
+    "tag": "记录",
+    "customContextDataKey": {
+    },
+    "id": "F-df7a72a3-9404-4846-824c-e8ed89d5b458"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "记录",
+        "customContextDataKey": {
+        },
+        "id": "C-2764021a-cfa2-473d-bbbd-a64b1e9b8759"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "shortxstarttime",
+          "type": {
+            "@type": "type.googleapis.com/Int64Var"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-98f055d2-ea55-402f-a493-23748087bd7f"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "shortxstarttime",
+        "valueAsString": "%CurrentTimeMillis%",
+        "customContextDataKey": {
+        },
+        "id": "A-6b3d6f0c-f3ed-4327-ad00-f56f9f9d5f9b"
+      }],
+      "description": "记录",
+      "id": "Case-66051f8a-1af2-48fe-ad24-d54ac7154254",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "触发",
+        "customContextDataKey": {
+        },
+        "id": "C-c4ae57c5-3ca0-4b25-a861-9c7b9172b9a4"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 导入必要的 Java 包\nimportPackage(java.io);\nimportPackage(java.nio.file);\nimportPackage(java.nio.file.attribute);\n// 定义一个函数，判断多个文件的最后修改时间是否在指定时间戳之后\nfunction findRandomDirWithPrefix(basePath, prefix) {\r\n        var File \u003d java.io.File;\r\n        var dir \u003d new File(basePath);\r\n        if (!dir.exists() || !dir.isDirectory()) {\r\n            return null;\r\n        }\r\n        var list \u003d dir.listFiles();\r\n        if (list \u003d\u003d null) {\r\n            return null;\r\n        }\r\n        var result \u003d null;\r\n        for (var i \u003d 0; i \u003c list.length; i++) {\r\n            var file \u003d list[i];\r\n            if (file.isDirectory() \u0026\u0026 file.getName().startsWith(prefix)) {\r\n                result \u003d file.getName();\r\n                break;\r\n            }\r\n        }\r\n        if (result !\u003d\u003d null) {\r\n            return basePath + result;\r\n        } else {\r\n            throw new Error(\"查找ShortX目录失败\")\r\n        }\r\n    }\r\nvar ShortXPath \u003d findRandomDirWithPrefix(\"/data/system/\", \"shortx\");\nfunction checkFilesModifiedAfter(files, timestamp) {\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var file \u003d new File(ShortXPath+\"/data/u/0/data_store/\"+files[i]);\n        if (file.exists()) {\n            var lastModified \u003d file.lastModified();\n            // 如果某个文件的最后修改时间大于指定时间戳，返回 true\n            if (lastModified \u003e timestamp) {\n                return true;\n            }\n        }\n    }\n    // 如果没有文件符合条件，返回 false\n    return false;\n}\n\n// 示例使用\nvar files \u003d [\n    \u0027das.pb\u0027,\n    \u0027rules.pb\u0027,\n    \u0027toggles.pb\u0027,\n    \u0027pkgsets.pb\u0027\n];\n\nif(checkFilesModifiedAfter(files, globalVarOf$shortxstarttime)){\n\nfunction deleteFolder(folderPath) {\n    var folder \u003d new File(folderPath);\n\n    // 检查文件夹是否存在\n    if (!folder.exists()) {\n        return \"文件夹不存在\";\n    }\n\n    // 如果是目录，删除其中的内容\n    if (folder.isDirectory()) {\n        var files \u003d folder.listFiles();\n        for (var i \u003d 0; i \u003c files.length; i++) {\n            if (files[i].isDirectory()) {\n                // 如果是子文件夹，递归删除\n                deleteFolder(files[i].getAbsolutePath());\n            } else {\n                // 如果是文件，直接删除\n                files[i].delete();\n            }\n        }\n    }\n\n    // 删除空文件夹\n    folder.delete();\n    return \"文件夹及其中的内容已删除\";\n}\n\n\n// 复制文件的函数，支持自定义目标文件名\nfunction copyFileWithCustomName(sourcePath, destDirPath, destFileName) {\n    var sourceFile \u003d new File(sourcePath);\n    var destDir \u003d new File(destDirPath);\n\n    // 检查源文件是否存在\n    if (!sourceFile.exists()) {\n        return \"源文件不存在\";\n    }\n\n    // 如果目标目录不存在，则创建目标目录\n    if (!destDir.exists()) {\n        destDir.mkdirs();\n    }\n\n    // 创建目标文件路径\n    var destFile \u003d new File(destDir, destFileName);\n\n    // 复制文件，若目标文件已存在则覆盖\n    try {\n        Files.copy(Paths.get(sourceFile.getAbsolutePath()), Paths.get(destFile.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);\n        return \"文件已成功复制并覆盖，目标文件路径: \" + destFile.getAbsolutePath();\n    } catch (e) {\n        return \"文件复制失败: \" + e.message;\n    }\n}\n\n\nvar backuplist\u003d[{\"old\":\"das.pb\",\"new\":\"da.pb\"},{\"old\":\"globalVars.pb\",\"new\":\"gvar.pb\"},{\"old\":\"toggles.pb\",\"new\":\"toggle.pb\"},{\"old\":\"pkgsets.pb\",\"new\":\"pkgset.pb\"},{\"old\":\"rules.pb\",\"new\":\"rule.pb\"}];\nfor(var i\u003d0;i\u003cbackuplist.length;i++){\n    copyFileWithCustomName(ShortXPath+\"/data/u/0/data_store/\"+backuplist[i][\"old\"], ShortXPath+\"/backup\", backuplist[i][\"new\"]);\n}\n\nvar ZipOutputStream \u003d java.util.zip.ZipOutputStream;\nfunction zipFolder(folder, basePath, zos) {\n    var File \u003d java.io.File;\nvar FileInputStream \u003d java.io.FileInputStream;\nvar FileOutputStream \u003d java.io.FileOutputStream;\n\nvar ZipEntry \u003d java.util.zip.ZipEntry;\n\nvar buffer \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);\n    var files \u003d folder.listFiles();\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var file \u003d files[i];\n        if (file.isDirectory()) {\n            zipFolder(file, basePath + file.getName() + \"/\", zos);\n        } else {\n            var fis \u003d new FileInputStream(file);\n            var entry \u003d new ZipEntry(basePath + file.getName());\n            zos.putNextEntry(entry);\n            var len;\n            while ((len \u003d fis.read(buffer)) \u003e 0) {\n                zos.write(buffer, 0, len);\n            }\n            fis.close();\n            zos.closeEntry();\n        }\n    }\n}\n\n// 输入路径（你可以从外部传入）\nvar dirPath\u003dShortXPath+\"/backup\";\nvar zipPath \u003d ShortXPath+ \"/ShortX_backup_\"+%CurrentTimeFormated%+\".zip\";\n\nvar root \u003d new File(dirPath);\nvar fos \u003d new FileOutputStream(zipPath);\nvar zos \u003d new ZipOutputStream(fos);\n\nzipFolder(root, \"\", zos);\n\nzos.close();\nfos.close();\ndeleteFolder(ShortXPath+\"/backup\")\nShortXPath+ \"/ShortX_backup_\"+%CurrentTimeFormated%+\".zip\"\n}else{\u0027无需备份\u0027}",
+        "customContextDataKey": {
+        },
+        "id": "A-df3a8492-8624-4661-af20-8f7f8f54a70c"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "jsRet",
+          "payload": {
+            "value": "无需备份"
+          },
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-4a087ef4-0345-43b2-81df-9c441ec00606"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WebDavPut",
+          "profileId": "7001162e-ee9c-4cf7-8765-ab0dbf912d71",
+          "url": "https://dav.jianguoyun.com/dav/shortxbackup/Shortxbackup.zip",
+          "localFilePath": "{jsRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-fe367b67-2f9b-41b5-9f9a-6ddf6b961208"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importPackage(java.io);\n\n// 删除文件函数\nfunction deleteFile(path) {\n    var file \u003d new File(path);\n    if (!file.exists()) {\n        return false;   // 文件不存在\n    }\n    return file.delete();  // true\u003d删除成功，false\u003d失败\n}\n\n// 示例调用\nvar result \u003d deleteFile({jsRet});",
+          "customContextDataKey": {
+          },
+          "id": "A-8f48c269-c02f-4cda-b4c0-a148f5b36a97"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-12092faf-0ac7-4b33-872b-bb04c00e1682"
+      }],
+      "description": "触发",
+      "id": "Case-fff41a93-0820-4aae-8082-144663625fd1",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b4deb954-bb95-4789-88c5-4a7786572055"
+  }],
+  "id": "SHARE-rule-1bacba0b-8466-45e2-887a-b21fb47c3bd5",
+  "lastUpdateTime": "1763143697049",
+  "createTime": "1763129012155",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "shortxbackup",
+  "description": "自动备份shortx",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "确定",
+      "title": "需配置",
+      "message": "配置动作→case→触发→如果就，里的webdav动作的目录和账户配置后使用",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-06b71ac6-ba54-4a7e-ab2b-730e922a8a6c"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

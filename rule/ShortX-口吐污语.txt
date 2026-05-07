@@ -1,0 +1,106 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-02d6c4be-b0da-482e-a606-e17f544ab4b8"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\n\nfrom bs4 import BeautifulSoup\nimport requests\nimport re\n\n# URL和请求头\nurl \u003d \u0027https://www.nihaowua.com/\u0027\nheaders \u003d {\n    \u0027Host\u0027: \u0027www.nihaowua.com\u0027,\n    \u0027user-agent\u0027: \u0027Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1\u0027\n}\n\n# 发送请求并解析内容\nresponse \u003d requests.get(url, headers\u003dheaders)\nsoup \u003d BeautifulSoup(response.content, \u0027html.parser\u0027)\n\n# 定位到特定的section标签，并从中找到第一个div元素\nsection \u003d soup.find(\u0027section\u0027)\nif section:\n    div_text \u003d section.find(\u0027div\u0027).get_text(strip\u003dTrue)\n    print(div_text)\nelse:\n    print(\"未找到指定的部分\")\n    \nEND",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-49e17fb4-2883-4f22-a178-38983c2285d6"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-a5e1cda3-e6f5-4faa-9bcc-9d17d2083d4a"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "*",
+        "title": "口吐污语",
+        "message": "{shellOut}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-e4ab6679-18d1-4d72-9169-72cc9aae6580"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "id": "A-126f64be-b2e2-4890-956f-6caba23766dd"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "apps": [{
+            "pkgName": "tornaco.apps.shortx"
+          }]
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-41e341fb-f5eb-4743-b35f-8ea4fea98719"
+      }],
+      "icon": "user-voice-fill",
+      "id": "BTN-838f8144-2c29-43f5-bb7e-4b7a8da59ed4"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "customContextDataKey": {
+        },
+        "id": "A-d8744cc1-c66d-4d85-a609-9cc5638d58f3"
+      }],
+      "icon": "user-unfollow-fill",
+      "id": "BTN-941029fb-aa8b-42c1-a1f0-88e2358ec0c3"
+    }],
+    "tag": "*^_^*",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 158,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 6,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-5f0f1304-4289-4b83-ac0c-becbd5014903"
+  }],
+  "id": "rule-29e4dd43-f08a-433f-b04d-61e7d8c6df3a",
+  "lastUpdateTime": "1703824604817",
+  "createTime": "1702538797645",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "口吐污语",
+  "description": "说点污语加点情趣\n需要Termux以及安装相关库:\npkg install python3 -y\npip install requests beautifulsoup4",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-c109d809-8e07-49e7-8a12-f8b23eee9533"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["*^_^*"],
+      "customContextDataKey": {
+      },
+      "id": "A-4fb740da-619e-49fa-a649-1d858e6a18db"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ea5e1c9e-4ae5-4b61-8165-5350c2f682fb"
+}
+###------###
+{"type":"rule"}

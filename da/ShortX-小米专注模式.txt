@@ -1,0 +1,31 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "小米专注模式",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "请输入你想要专注的时间（分钟）"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-23460338-c4a9-49a7-b06f-95c15386ab54"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -n com.xiaomi.misettings/com.xiaomi.misettings.usagestats.focusmode.port.FocusModeTimingPortActivity --ei keyFocusModeTimeIndex {textFieldInput1}",
+    "customContextDataKey": {
+    },
+    "id": "A-3969826d-e249-4a35-9cbc-f28db2eee031"
+  }],
+  "id": "SHARED-DA-d788d33b-61c2-4930-8679-82cb1dcf93af",
+  "lastUpdateTime": "1729344461484",
+  "createTime": "1729344227829",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "小米专注模式",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,91 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Logcat",
+    "regex": "EthernetTracker: interfaceLinkStateChanged",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-f3d31a6f-1059-4c36-82da-9c8cb261f69a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{line}",
+    "regex": "^.*iface: (.+), up: (.+)$",
+    "replacement": "$1",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "replaceResult",
+        "second": "dev"
+      }]
+    },
+    "id": "A-224ec928-0791-4ee0-a320-c33e2793e96c"
+  }, {
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{line}",
+    "regex": "^.*iface: (.+), up: (.+)$",
+    "replacement": "$2",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "replaceResult",
+        "second": "status"
+      }]
+    },
+    "id": "A-128c9c5d-31bd-40b8-aa7d-c1c2d8829f29"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{dev} \u003d\u003d \"eth0\"",
+      "customContextDataKey": {
+      },
+      "id": "C-5489ee77-9c62-4d84-bbbd-53b1cb97f729"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{status} \u003d\u003d \"true\"",
+        "customContextDataKey": {
+        },
+        "id": "C-feb31c56-cbf8-41e0-88ef-b98f1c48c7e4"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetStatusBarIcon",
+        "slot": "Eth",
+        "icon": "ethernet-on",
+        "customContextDataKey": {
+        },
+        "id": "A-aa18a204-9227-4a1c-9c86-3880d637902b"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/RemoveStatusBarIcon",
+        "slot": "Eth",
+        "customContextDataKey": {
+        },
+        "id": "A-3b258171-678d-4c57-bfd3-841b4dd326cb"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2425953e-9865-4d7e-ab51-b73995337737"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-216f5db3-925e-46cd-aa69-7e265bd42ede"
+  }],
+  "id": "SHARE-rule-cee362ca-88b1-4541-942a-09c4ead78242",
+  "lastUpdateTime": "1751208781576",
+  "createTime": "1751163547139",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "网卡连接图标",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-e2cab59d-9092-484d-b23d-ea9efb94850f"
+}
+###------###
+{"type":"rule"}

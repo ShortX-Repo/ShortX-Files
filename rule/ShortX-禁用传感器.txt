@@ -1,0 +1,51 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "id": "F-05983b30-3099-473b-b87a-7f06f8f165af"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-38dcd5f9-4947-4ea4-8134-9620fe4b7ac4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["禁用传感器"],
+      "op": "ANY",
+      "id": "C-78c06d6c-cb4f-44c9-a689-0ee5ca5ce9bc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetSensorsOffEnabled",
+      "enable": true,
+      "id": "A-ae68f078-b67a-4512-9c73-5c3d7accec89"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetSensorsOffEnabled",
+      "id": "A-bc390ec8-7187-48b4-8ceb-eaebc24d4409"
+    }],
+    "id": "A-67fa7ae6-089c-4add-a675-5b8d898b07e1"
+  }],
+  "id": "rule-311160ef-e80b-458a-b9e1-21e03bf26fc8",
+  "lastUpdateTime": "1689220382533",
+  "createTime": "1689220059881",
+  "title": "禁用传感器",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "禁用传感器",
+      "id": "A-93b6122c-b375-48a7-ae68-45174d90e418"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/SetSensorsOffEnabled",
+      "id": "A-af7e94b6-9bb1-49a0-8ae3-7304de0c9553"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/SetSensorsOffEnabled",
+      "id": "A-ca798712-2cbf-4347-b93f-d97515916c7b"
+    }]
+  }
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,98 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "BottomCenter",
+    "gesture": "SwipeFromBottom",
+    "customContextDataKey": {
+    },
+    "id": "F-09a7acea-a635-499b-af0d-27058ec083cb"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-036bf001-e60a-40e3-978e-897ca2dd35b0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 启用锁屏左下快捷方式\n// 1. 获取原始 JSON 值\noriginal \u003d android.provider.Settings$Secure.getString(context.contentResolver, \u0027keyguard_shortcut_left\u0027);\n\n// 2. 调整后的正则替换（修复语法错误）\nmodified \u003d original.replaceAll(\n  \u0027\"isAvailable\"\\\\s*:\\\\s*false(?\u003d\\\\s*[,}])\u0027,  // 正向预查确保后面是逗号或右括号\n  \u0027\"isAvailable\": true\u0027\n);\n\n// 3. 写回新值\nandroid.provider.Settings$Secure.putString(context.contentResolver, \u0027keyguard_shortcut_left\u0027, modified);\n\n// 4. 返回对比结果\noriginal + \" → \" + modified",
+    "context": "CoroutineContext_UI",
+    "customContextDataKey": {
+    },
+    "note": "from DeepSeek",
+    "id": "A-5385b9bd-7cf3-460a-bdda-c69126a30f20"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 启用锁屏右下快捷方式\n// 1. 获取原始 JSON 值\noriginal \u003d android.provider.Settings$Secure.getString(context.contentResolver, \u0027keyguard_shortcut_right\u0027);\n\n// 2. 调整后的正则替换（修复语法错误）\nmodified \u003d original.replaceAll(\n  \u0027\"isAvailable\"\\\\s*:\\\\s*false(?\u003d\\\\s*[,}])\u0027,  // 正向预查确保后面是逗号或右括号\n  \u0027\"isAvailable\": true\u0027\n);\n\n// 3. 写回新值\nandroid.provider.Settings$Secure.putString(context.contentResolver, \u0027keyguard_shortcut_right\u0027, modified);\n\n// 4. 返回对比结果\noriginal + \" → \" + modified",
+    "context": "CoroutineContext_UI",
+    "customContextDataKey": {
+    },
+    "note": "from DeepSeek",
+    "id": "A-ef969a7c-582d-4dd0-9114-be0ad0326051"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-b592e678-27c6-400d-a6a8-a791de304110"
+  }],
+  "id": "SHARE-rule-5e10dd77-bde4-4215-a060-45f0ffdaacc3",
+  "lastUpdateTime": "1746051884156",
+  "createTime": "1744478414569",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "动态启用锁屏快捷方式",
+  "description": "by hrsthrt74",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowChoiceDialog",
+      "title": "使用须知：\n\n1、仅支持 HyperOS 2.200 以上的系统，如系统不支持【自定义锁屏快捷方式自定义】，⚠️请关闭此自动指令，以免带来不可预知的问题！！！\n\n2、使用方法：锁屏时从底边上划即可调出锁屏快捷方式，锁屏/解锁后自动隐藏\n\n3、开启此自动指令后，进入编辑快捷方式的页面时左右都会显示“无”，此为已知问题，不影响使用（所以我懒得改了（）\n\n4、核心逻辑由 DeepSeek 编写\n\n5、by hrsthrt74",
+      "cancelable": true,
+      "choices": [{
+        "label": "我知道了"
+      }],
+      "style": {
+        "fontScale": 0.803499
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3255ce38-2408-4a87-9c74-01312c2f4588"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/UserPresent",
+      "customContextDataKey": {
+      },
+      "id": "F-add2b44f-0580-4484-8edb-ce6b9f506030"
+    }, {
+      "@type": "type.googleapis.com/ScreenOff",
+      "customContextDataKey": {
+      },
+      "id": "F-2c9b6201-517c-4d1a-a924-febb62d63647"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "// 禁用锁屏左下快捷方式\n// 1. 获取原始 JSON 值\noriginal \u003d android.provider.Settings$Secure.getString(context.contentResolver, \u0027keyguard_shortcut_left\u0027);\n\n// 2. 调整后的正则替换（修复语法错误）\nmodified \u003d original.replaceAll(\n  \u0027\"isAvailable\"\\\\s*:\\\\s*true(?\u003d\\\\s*[,}])\u0027,  // 正向预查确保后面是逗号或右括号\n  \u0027\"isAvailable\": false\u0027\n);\n\n// 3. 写回新值\nandroid.provider.Settings$Secure.putString(context.contentResolver, \u0027keyguard_shortcut_left\u0027, modified);\n\n// 4. 返回对比结果\noriginal + \" → \" + modified",
+      "context": "CoroutineContext_UI",
+      "customContextDataKey": {
+      },
+      "note": "from DeepSeek",
+      "id": "A-8c8f76a7-6f7f-42b6-8ef4-968f77873e76"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "// 禁用锁屏右下快捷方式\n// 1. 获取原始 JSON 值\noriginal \u003d android.provider.Settings$Secure.getString(context.contentResolver, \u0027keyguard_shortcut_right\u0027);\n\n// 2. 调整后的正则替换（修复语法错误）\nmodified \u003d original.replaceAll(\n  \u0027\"isAvailable\"\\\\s*:\\\\s*true(?\u003d\\\\s*[,}])\u0027,  // 正向预查确保后面是逗号或右括号\n  \u0027\"isAvailable\": false\u0027\n);\n\n// 3. 写回新值\nandroid.provider.Settings$Secure.putString(context.contentResolver, \u0027keyguard_shortcut_right\u0027, modified);\n\n// 4. 返回对比结果\noriginal + \" → \" + modified",
+      "context": "CoroutineContext_UI",
+      "customContextDataKey": {
+      },
+      "note": "from DeepSeek",
+      "id": "A-0c95981c-c66c-429f-9713-6d181338b5e1"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

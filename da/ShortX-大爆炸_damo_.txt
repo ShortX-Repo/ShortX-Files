@@ -1,0 +1,79 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo \"this is a example 这是一个示例\"",
+    "customContextDataKey": {
+    },
+    "id": "A-061aad8a-0ed0-4f08-9001-a334da2b50c2"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// 导入必要的 Android 包\nimportPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\n\n// 获取 WindowManager 服务\nvar windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n// 创建一个 LinearLayout 作为窗口的根布局\nvar layout \u003d new LinearLayout(context);\nlayout.setOrientation(LinearLayout.VERTICAL);\nlayout.setPadding(50, 50, 50, 50);\n\n// 设置背景的圆角\nvar backgroundDrawable \u003d new android.graphics.drawable.GradientDrawable();\nbackgroundDrawable.setColor(Color.WHITE);\nbackgroundDrawable.setCornerRadius(70);\nlayout.setBackground(backgroundDrawable);\n\n// 创建标题 TextView\nvar titleView \u003d new TextView(context);\ntitleView.setText(\"点击选词\");\ntitleView.setTextSize(24);\ntitleView.setTextColor(Color.BLACK);\ntitleView.setPadding(0, 0, 0, 20);\ntitleView.setGravity(Gravity.CENTER);\n\n// 创建输出区域\nvar outputView \u003d new TextView(context);\noutputView.setText(\"选择的文本: \");\noutputView.setTextSize(18);\noutputView.setTextColor(Color.GRAY);\noutputView.setPadding(0, 0, 0, 20);\n\n// 创建确认按钮\nvar confirmButton \u003d new Button(context);\nconfirmButton.setText(\"确定\");\nconfirmButton.setTextColor(Color.parseColor(\"#2D40E9\"));\nconfirmButton.setBackgroundColor(Color.TRANSPARENT);\n\n// 创建取消按钮\nvar cancelButton \u003d new Button(context);\ncancelButton.setText(\"取消\");\ncancelButton.setTextColor(Color.parseColor(\"#FF0000\"));\ncancelButton.setBackgroundColor(Color.TRANSPARENT);\n\n// 创建外层字符容器\nvar wordContainer \u003d new LinearLayout(context);\nwordContainer.setOrientation(LinearLayout.VERTICAL);\nwordContainer.setLayoutParams(new LinearLayout.LayoutParams(\n    LinearLayout.LayoutParams.MATCH_PARENT,\n    LinearLayout.LayoutParams.WRAP_CONTENT\n));\n\n// 输入文本\nconst inputText \u003d {shellOut};\nconst words \u003d inputText.match(/[\\u4e00-\\u9fa5]|[a-zA-Z0-9]+|[.,!?;@#]/g);  // 匹配中文字符、英文单词和符号\n\n// 动态调整单词显示的变量\nconst maxCharsPerRow \u003d 37; // 每行最大可显示字符数（英文字符数）\nvar currentRowChars \u003d 0; // 当前行已使用的字符数\nvar currentRowLayout \u003d new LinearLayout(context);  // 初始化当前行布局\ncurrentRowLayout.setOrientation(LinearLayout.HORIZONTAL);\ncurrentRowLayout.setLayoutParams(new LinearLayout.LayoutParams(\n    LinearLayout.LayoutParams.MATCH_PARENT,\n    LinearLayout.LayoutParams.WRAP_CONTENT\n));\nwordContainer.addView(currentRowLayout); // 添加初始化的行布局\n\n// 使用数组记录已选择的字符索引\nvar selectedIndices \u003d [];\n\n// 计算字符宽度\nfunction getCharWidth(char) {\n    // 如果是中文字符或中文标点，返回2；否则返回1\n    if (/[\\u4e00-\\u9fa5]|[。！？；：]/.test(char)) {\n        return 2; // 中文字符或中文标点\n    }\n    return 1; // 英文字符或英文标点\n}\n\n// 创建每个单词/字符的按钮，并根据行宽动态调整布局\nwords.forEach(function(word, index) {\n    // 计算当前单词的长度\n    const wordLength \u003d Array.from(word).reduce((sum, char) \u003d\u003e sum + getCharWidth(char), 0);\n\n    // 默认间距视为一个字符，计算总长度\n    const totalLength \u003d currentRowChars + wordLength + (currentRowChars \u003e 0 ? 1 : 0); // 行内有内容时加上间距\n\n    // 如果当前行剩余字符数不足以显示此单词/字符，则换行\n    if (totalLength \u003e maxCharsPerRow) {\n        // 重置当前行字符数\n        currentRowChars \u003d 0;\n        \n        // 创建新行\n        currentRowLayout \u003d new LinearLayout(context);\n        currentRowLayout.setOrientation(LinearLayout.HORIZONTAL);\n        currentRowLayout.setLayoutParams(new LinearLayout.LayoutParams(\n            LinearLayout.LayoutParams.MATCH_PARENT,\n            LinearLayout.LayoutParams.WRAP_CONTENT\n        ));\n        wordContainer.addView(currentRowLayout);\n    }\n\n    // 更新当前行已使用字符数\n    currentRowChars +\u003d wordLength + (currentRowChars \u003e 0 ? 1 : 0); // 加上间距\n\n    // 创建单个单词/字符按钮\n    var wordElement \u003d new TextView(context);\n    wordElement.setText(word);\n    wordElement.setTextSize(20);\n    wordElement.setPadding(10, 10, 10, 10);\n    wordElement.setBackgroundColor(Color.parseColor(\"#FAF8FF\"));\n    wordElement.setGravity(Gravity.CENTER);\n    wordElement.setOnClickListener(new android.view.View.OnClickListener({\n        onClick: function(view) {\n            toggleSelection(index, view);\n        }\n    }));\n\n    // 将单词/字符按钮添加到当前行\n    currentRowLayout.addView(wordElement);\n});\n\n// 切换选择状态\nfunction toggleSelection(index, element) {\n    if (selectedIndices.includes(index)) {\n        selectedIndices \u003d selectedIndices.filter(function(i) { return i !\u003d\u003d index; });\n        element.setBackgroundColor(Color.parseColor(\"#FAF8FF\")); // 未选择状态颜色\n    } else {\n        selectedIndices.push(index);\n        element.setBackgroundColor(Color.parseColor(\"#e0e0e0\")); // 选择状态颜色\n    }\n    updateOutput(); // 更新输出\n}\n\n// 更新显示的输出\nfunction updateOutput() {\n    var selectedText \u003d getSelectedText();\n    outputView.setText(\"选择的文本: \" + selectedText); // 显示已选择的文本\n}\n\n// 获取选中的文本\nfunction getSelectedText() {\n    var selectedWords \u003d [];\n\n    words.forEach(function(word, index) {\n        if (selectedIndices.includes(index)) {\n            selectedWords.push(word); // 将选中的单词/字符加入数组\n        }\n    });\n\n    return selectedWords.reduce((result, word, i, arr) \u003d\u003e {\n        // 检查当前字符和下一个字符的类型，并决定是否添加空格\n        const isCurrentChinese \u003d /[\\u4e00-\\u9fa5]|[。！？；：]/.test(word);\n        const isNextChinese \u003d arr[i + 1] \u0026\u0026 /[\\u4e00-\\u9fa5]|[。！？；：]/.test(arr[i + 1]);\n\n        result +\u003d word;\n        // 在英文与中文之间插入空格，避免在两个连续中文字符之间添加空格\n        if (!isCurrentChinese || !isNextChinese) {\n            result +\u003d \" \";\n        }\n        return result;\n    }, \"\").trim(); // 去除尾部多余空格\n}\n\n// 添加视图到布局\nlayout.addView(titleView);\nlayout.addView(wordContainer);\nlayout.addView(outputView);\nlayout.addView(confirmButton);\nlayout.addView(cancelButton); // 添加取消按钮到布局\n\n// 设置取消按钮的点击事件\ncancelButton.setOnClickListener(new android.view.View.OnClickListener({\n    onClick: function(view) {\n        // 立即移除视图\n        try {\n            windowManager.removeView(layout);\n        } catch (e) {\n            console.log(\"移除视图时发生错误：\" + e);\n        }\n    }\n}));\n\nvar layoutParams \u003d new WindowManager.LayoutParams(\n    WindowManager.LayoutParams.MATCH_PARENT,\n    WindowManager.LayoutParams.WRAP_CONTENT,\n    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n    PixelFormat.TRANSLUCENT\n);\nlayoutParams.gravity \u003d Gravity.CENTER;\n\n// 添加视图到 WindowManager\nwindowManager.addView(layout, layoutParams);\n\n// 确认按钮点击事件\nconfirmButton.setOnClickListener(new android.view.View.OnClickListener({\n    onClick: function(view) {\n        var selectedText \u003d getSelectedText();\n\n        // 创建Intent并附带选中的文本\n        var intent \u003d new Intent(\"dbz.nyehueh.SELECTED_TEXT_ACTION\");\n        intent.putExtra(\"selected_text\", selectedText);\n\n        // 发送广播\n        context.sendBroadcast(intent);\n\n        // 立即移除视图\n        try {\n            windowManager.removeView(layout);\n        } catch (e) {\n            console.log(\"移除视图时发生错误：\" + e);\n        }\n    }\n}));",
+    "context": "CoroutineContext_UI",
+    "customContextDataKey": {
+    },
+    "id": "A-6538d1e4-b64d-4c30-b9da-c5a1a49d5271"
+  }, {
+    "@type": "type.googleapis.com/WaitUtilConditionMatch",
+    "condition": [{
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.android.systemui"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-dd7c6206-ac84-495e-962b-7fbb23739a08"
+    }],
+    "timeoutStr": "0",
+    "customContextDataKey": {
+    },
+    "id": "A-cdf02a9d-8ac0-4001-87ff-572c03e85acc"
+  }],
+  "id": "SHARED-DA-f964ebe3-4a0c-4c66-b8dd-d5893964a49e",
+  "lastUpdateTime": "1741678437961",
+  "createTime": "1730728682467",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "大爆炸（damo）",
+  "versionCode": "1",
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/Broadcast",
+      "actions": ["dbz.nyehueh.SELECTED_TEXT_ACTION"],
+      "customContextDataKey": {
+      },
+      "id": "F-01f0e165-b6eb-41bd-8e55-10565322c5cf"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.content.Intent;\nimport android.os.Bundle;\n\n// 假设 intent 是接收到的广播 \n// 初始化结果字符串\nresult \u003d \"\";\n\n// 获取序列化的 extras 数据\nextras \u003d intent.getExtras();\nif (extras !\u003d null) {\n    // 检查并获取“选中内容”值\n    if (extras.containsKey(\"selected_text\")) {\n        result +\u003d extras.getString(\"selected_text\");\n    }\n} else {\n    result +\u003d \"No extras found in this intent.\\n\";\n}\n\n// 返回结果\nreturn result;",
+      "customContextDataKey": {
+      },
+      "id": "A-fc9074c7-bced-45f7-ab17-a492fe627a2f"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "复制",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{mvelRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-51800d3d-5ddc-47bf-8cdc-dbfa4d84dcd9"
+      }],
+      "negative": "取消",
+      "title": "选择文本",
+      "message": "{mvelRet}",
+      "cancelable": true,
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-be7f5e3e-9f9a-4619-8d40-fd6175815124"
+    }]
+  }
+}
+###------###
+{"type":"da"}

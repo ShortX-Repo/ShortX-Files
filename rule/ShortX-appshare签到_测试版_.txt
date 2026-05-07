@@ -1,0 +1,38 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 9,
+      "minutes": 48,
+      "seconds": 3
+    },
+    "repeat": {
+    },
+    "id": "F-f1353c35-43a0-4d27-a4d6-44b4b6484a45"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://61.183.42.89:9003/user/v1/daySign?token\u003d填入自己账号的\u0026oaid\u003d填入自己账号的\u0026sign\u003d填入自己账号的",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "requestBody": {},
+    "id": "A-24db7edc-383c-4b2c-990a-d7514e243560"
+  }],
+  "id": "rule-aa8f221e-842b-41ed-ab8d-490f6c5f180d",
+  "lastUpdateTime": "1690164277603",
+  "createTime": "1690163254971",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "appshare签到（测试版）",
+  "description": "有没有大佬，会写全局变量的。完善一下呗！",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

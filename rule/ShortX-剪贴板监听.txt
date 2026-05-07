@@ -1,0 +1,61 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.clipboard.ClipboardService",
+    "methodName": "clipboardAccessAllowed",
+    "expressions": [{
+      "expressionMVEL": "param.args[1]",
+      "contextKey": "PackageName"
+    }],
+    "lifecycle": "LoadedPackage",
+    "constraint": [{
+      "@type": "type.googleapis.com/MethodHookConstraintParamsCount",
+      "count": 6
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-20d0c3c1-cf0c-470d-97cc-a0e3b7e0c3de"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {PackageName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+    "customContextDataKey": {
+    },
+    "id": "A-b7c19515-065a-458e-9ec8-c7f083c31c71"
+  }, {
+    "@type": "type.googleapis.com/ShowStatusBarChip",
+    "text": "写入剪贴板",
+    "icon": "app://com.muort.cb",
+    "customContextDataKey": {
+    },
+    "id": "A-8d044233-223f-4166-aecc-575d70a4cdb1"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-efd3e7f4-71aa-4526-b2b1-f77fb6534af8"
+  }, {
+    "@type": "type.googleapis.com/HideStatusBarClip",
+    "customContextDataKey": {
+    },
+    "id": "A-b243016e-0cf9-4a91-994a-69634ce2dd5b"
+  }],
+  "id": "SHARE-rule-22faa390-ea83-4c8a-a83b-1f3977da7531",
+  "lastUpdateTime": "1742721372186",
+  "createTime": "1724160623225",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "剪贴板监听",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-de5b5bd8-2d88-4189-94e9-c3283b1c4658"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,555 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "Screenshot",
+    "options": "RegexMatchOptions_ContainsMatchIn",
+    "tag": "触发",
+    "customContextDataKey": {
+    },
+    "id": "F-193230a8-c364-43d8-9a3d-141b6f08d1f8"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "tag": "执行",
+    "customContextDataKey": {
+    },
+    "id": "F-ced8e602-3262-4dca-8423-5ea99a07b4b2"
+  }, {
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "Screenrecorder",
+    "options": "RegexMatchOptions_ContainsMatchIn",
+    "tag": "触发录屏",
+    "customContextDataKey": {
+    },
+    "id": "F-1531d075-e25c-4580-9400-f5cc8fe1c7b8"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "保存",
+      "apps": [{
+        "pkgName": "com.miui.screenrecorder"
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "tag": "录屏结束",
+    "customContextDataKey": {
+    },
+    "id": "F-2493110d-2b34-4e28-bafa-426fdbf03435"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "触发",
+      "customContextDataKey": {
+      },
+      "id": "C-abb136d3-5de5-461f-af4c-807fb2102939"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "长截图？",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-41231eb4-11b3-435c-910c-e8eedf611114"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "mediaFilePath",
+        "payload": {
+          "value": "Record"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-369bb52f-b76c-421e-8960-93fb3536f9f2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WaitUtilConditionMatch",
+        "condition": [{
+          "@type": "type.googleapis.com/AppHasNotification",
+          "pkgs": [{
+            "pkgName": "com.oplus.screenrecorder"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-48932656-5dc1-4b40-9cf4-7aaf2af8e9a8"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-285a55e7-314e-40fd-b34b-68d45d3a3f41"
+      }, {
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "是",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "将在 0:00 删除",
+            "customContextDataKey": {
+            },
+            "id": "A-9c7b6782-2841-49fb-9bbb-8985eaf67378"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "路径",
+            "valueAsString": "{mediaFilePath}",
+            "customContextDataKey": {
+            },
+            "id": "A-81cb3cbb-c3de-4f8b-b9e5-17d8add8ba12"
+          }]
+        }, {
+          "title": "否"
+        }],
+        "title": "临时性录屏",
+        "customContextDataKey": {
+        },
+        "id": "A-60187dc9-dace-4197-b2ce-7d62abda38c9"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "是",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "将在 0:00 删除",
+            "customContextDataKey": {
+            },
+            "id": "A-c47638e6-67ac-43b9-b5d1-4ff2bb620bee"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "var\u003d{mediaFilePath}\nnew_var\u003d$(echo \"$var\" | sed \u0027s/\\.pending-[0-9]*-//\u0027)\necho \"$new_var\"",
+            "customContextDataKey": {
+            },
+            "id": "A-630395c8-6ae7-4748-a60a-ca2dac7e7cf8"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "路径",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-5cfbfe08-cb35-4502-9447-69cf90e44394"
+          }]
+        }, {
+          "title": "否"
+        }, {
+          "title": "我要长截图",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "var\u003d{mediaFilePath}\nnew_var\u003d$(echo \"$var\" | sed \u0027s/\\.pending-[0-9]*-//\u0027)\necho \"$new_var\"",
+            "customContextDataKey": {
+            },
+            "id": "A-ab445726-6568-4ff8-99c3-8e04e28f520d"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "长截图？",
+            "valueAsString": "true",
+            "customContextDataKey": {
+            },
+            "id": "A-f474bc5c-9845-4335-becd-9302bc4639fd"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "路径",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-3bade089-2e60-446f-875d-ca95d27d7db4"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "300",
+            "customContextDataKey": {
+            },
+            "id": "A-07b3672f-df95-4346-b5f1-9d3c16d15f40"
+          }, {
+            "@type": "type.googleapis.com/InjectCombineKeyCode",
+            "keyCode": [25, 26],
+            "customContextDataKey": {
+            },
+            "id": "A-e0463be0-b054-4d32-ac99-be59c195b06c"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "500",
+            "customContextDataKey": {
+            },
+            "id": "A-9a240019-e0c5-4b53-97a0-6d0176d016fb"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "长截图？",
+            "valueAsString": "false",
+            "customContextDataKey": {
+            },
+            "id": "A-c1555f37-f703-4d14-9ed1-af407030754d"
+          }]
+        }],
+        "title": "临时性截图？",
+        "customContextDataKey": {
+        },
+        "id": "A-da747740-faac-44e9-b014-890789e75a5c"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f66ceeee-f65c-45f6-88cb-678a0c084b00"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-93a6680c-fb76-4c14-ac28-ccbeb9f1478e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "触发",
+      "customContextDataKey": {
+      },
+      "id": "C-abb136d3-5de5-461f-af4c-807fb2102939"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "长截图？",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-41231eb4-11b3-435c-910c-e8eedf611114"
+    }, {
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "DoesNotContain",
+      "varName": "mediaFilePath",
+      "payload": {
+        "value": "Record"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-5485e00b-ad6c-4d64-9d49-d3d33756a777"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "var\u003d{mediaFilePath}\nnew_var\u003d$(echo \"$var\" | sed \u0027s/\\.pending-[0-9]*-//\u0027)\necho \"$new_var\"",
+      "customContextDataKey": {
+      },
+      "id": "A-630395c8-6ae7-4748-a60a-ca2dac7e7cf8"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "路径",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-5cfbfe08-cb35-4502-9447-69cf90e44394"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-5bc83349-fe62-45e0-91de-fd79fea78454"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "执行",
+      "customContextDataKey": {
+      },
+      "id": "C-a574fb66-a7ec-4f11-bd8e-45486fafad13"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/bash\nfiles_list\u003d($(echo globalVarOf$路径|sed \u0027s/,/ /g\u0027))\nfor file in \"${files_list[@]}\"; do\n    if [ -f \"$file\" ]; then\n        rm \"$file\"\n    fi\ndone\n",
+      "customContextDataKey": {
+      },
+      "id": "A-56bb117c-69cf-45ec-a136-6b172bb5ac39"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "路径",
+      "op": "WriteGlobalVarOp_Clear",
+      "customContextDataKey": {
+      },
+      "id": "A-c288c79e-c64e-4c2b-b2fd-94c9efe6feea"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/",
+      "customContextDataKey": {
+      },
+      "id": "A-1cc62adb-45bb-484d-a884-59888bafe1ed"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-2724d5d6-5483-4137-895e-cf8ed3c80650"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "触发录屏",
+      "customContextDataKey": {
+      },
+      "id": "C-92303d4f-04be-4d10-a4fd-0bfa92e33a47"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/AppHasNotification",
+        "pkgs": [{
+          "pkgName": "com.miui.screenrecorder"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-8eabc1b0-7a6e-4630-8f31-0be87419c992"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-285a55e7-314e-40fd-b34b-68d45d3a3f41"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "是",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "将在 0:00 删除",
+          "customContextDataKey": {
+          },
+          "id": "A-9c7b6782-2841-49fb-9bbb-8985eaf67378"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "var\u003d{mediaFilePath}\nnew_var\u003d$(echo \"$var\" | sed \u0027s/\\.pending-[0-9]*-\\_\\.//\u0027)\necho \"$new_var\"",
+          "customContextDataKey": {
+          },
+          "id": "A-904d4057-3a02-4545-a335-eceb0a6b0b5b"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "路径",
+          "valueAsString": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-81cb3cbb-c3de-4f8b-b9e5-17d8add8ba12"
+        }]
+      }, {
+        "title": "否"
+      }],
+      "title": "临时性录屏",
+      "customContextDataKey": {
+      },
+      "id": "A-60187dc9-dace-4197-b2ce-7d62abda38c9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-aa284e99-46b8-4765-aa5e-03cf35e7bf1f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "录屏结束",
+      "customContextDataKey": {
+      },
+      "id": "C-3db71d45-13fe-4c01-b544-729a94878096"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/RemoveNotificationForPackage",
+      "appPkg": [{
+        "pkgName": "com.miui.screenrecorder"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-94ef3505-6dbe-4852-acf8-5fb830862983"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b23ee70e-60ad-4b65-9fe3-4d20fb800ed1"
+  }],
+  "id": "rule-e0403bcf-2a99-495a-98b6-bd83262dd5c9",
+  "lastUpdateTime": "1720396904040",
+  "createTime": "1711070705891",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "临时性截图,录屏",
+  "description": "自动清理临时性截图 录屏",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "同意并继续",
+      "onPositive": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "test",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "echo true",
+            "customContextDataKey": {
+            },
+            "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "test",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
+          }],
+          "description": "2",
+          "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "300",
+            "customContextDataKey": {
+            },
+            "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "test",
+              "payload": {
+                "value": "true"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "shell正常",
+              "customContextDataKey": {
+              },
+              "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "确定",
+              "onPositive": [{
+                "@type": "type.googleapis.com/SetRuleEnabled",
+                "ruleId": "rule-e0403bcf-2a99-495a-98b6-bd83262dd5c9",
+                "customContextDataKey": {
+                },
+                "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+              }, {
+                "@type": "type.googleapis.com/BreakActionExecute",
+                "scope": "BreakActionExecuteScope_Root",
+                "customContextDataKey": {
+                },
+                "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+              }],
+              "title": "shell运行异常",
+              "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+              "cancelable": true,
+              "customContextDataKey": {
+              },
+              "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+          }],
+          "description": "1",
+          "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
+      }],
+      "title": "用户协议",
+      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.🧨shortx作用域需要勾选媒体🧨\n（若找不到媒体在右上角隐藏中取消勾选系统应用即可）",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-56c14bda-039c-4f72-98ba-d50d4c36a4fa"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "路径",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2817cd6f-d3f9-469c-9a61-7b582a66dffb"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "路径",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-0e98bd92-d7e6-43da-a9c2-f305f87763d0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f99840e6-4e11-4b38-b217-e81bffb16fd1"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "长截图？",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2817cd6f-d3f9-469c-9a61-7b582a66dffb"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "长截图？",
+          "type": {
+            "@type": "type.googleapis.com/BoolVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-0e98bd92-d7e6-43da-a9c2-f305f87763d0"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "长截图？",
+        "valueAsString": "false",
+        "customContextDataKey": {
+        },
+        "id": "A-2906270d-4626-4e7e-ae8f-bb4584d5bb90"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f581b3f4-0fb8-42fc-8ed9-4424b2b5dd8c"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
+}
+###------###
+{"type":"rule"}

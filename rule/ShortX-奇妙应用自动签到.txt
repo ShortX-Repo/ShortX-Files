@@ -1,0 +1,91 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 4,
+      "minutes": 45
+    },
+    "repeat": {
+      "days": ["SUNDAY", "WEDNESDAY", "THURSDAY", "TUESDAY", "MONDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-888b64fe-8ea1-46ac-8b0b-ed8b9301895c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetDataEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-63bd2ec2-6a69-4017-a7b5-4c951f9588b7"
+  }, {
+    "@type": "type.googleapis.com/FromDA",
+    "daId": "DA227e201c-97fa-47f5-aefe-d7beda5d5c19",
+    "customContextDataKey": {
+    },
+    "id": "A-6885117d-313b-451d-81ea-09ba1147d123"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-baf7b5d2-edd2-48c9-ba97-f668c8ff679c"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.magicalstory.AppStore"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-c98b50f1-ab39-49d6-9a3b-44e500f25c62"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-9994effc-5a97-4ce1-94f1-78399a39dab0"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.magicalstory.AppStore"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7d2fe386-3e9b-4738-94c2-4c4f55d1158c"
+  }, {
+    "@type": "type.googleapis.com/RemoveTasks",
+    "appPkg": [{
+      "pkgName": "com.magicalstory.AppStore"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b27f9cba-d3f9-48ce-a454-c0639e757617"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-7f81d5d8-4d2e-4d15-adea-af2d0ea6ce59"
+  }, {
+    "@type": "type.googleapis.com/SleepScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-0782ac43-a7b5-4761-8f98-daeb5cffc415"
+  }],
+  "id": "rule-39251864-2e1b-45b5-ae94-aa0728f84ce5",
+  "lastUpdateTime": "1693282730436",
+  "createTime": "1692792748192",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "奇妙应用自动签到",
+  "description": "自动签到，需配合hookvip",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,36 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchJS",
+      "expression": "importClass(Packages.tornaco.apps.shortx.core.proto.action.ShellCommand);\n\nvar action \u003d ShellCommand.newBuilder().setCommand(\"echo 11\").build();\n\nvar result \u003d shortx.executeAction(action);\n\nresult.contextData.get(\"shellOut\") !\u003d 1",
+      "customContextDataKey": {
+      },
+      "id": "C-0354b2c8-cacf-4792-ba0a-d3f37da28485"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "成功",
+      "customContextDataKey": {
+      },
+      "id": "A-da35e801-c9a8-4753-800f-a39b031c625e"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-5886507e-c8f9-4047-b06d-4613639c7ee9"
+  }],
+  "id": "SHARED-DA-3afe4311-9cf4-4ff2-92b0-5bebcc3fa8dc",
+  "lastUpdateTime": "1758353573923",
+  "createTime": "1758353519922",
+  "author": {
+    "name": "He"
+  },
+  "title": "Shell条件示例",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

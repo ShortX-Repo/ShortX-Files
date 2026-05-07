@@ -1,0 +1,132 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 12
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-800c949e-11e7-4491-8846-6387f8ee464b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\n# 查找/data/system/目录下符合\"shortx_*\"命名规则的子目录，并赋值给dir变量\ndir\u003d$(find /data/system/ -maxdepth 1 -type d -name \"shortx_*\" -print)\nsource_dir\u003d\"${dir}/data/u/0/data_store\"\ntarget_dir\u003d\"globalVarOf$backup_dir\" \n\n# 获取当前日期时间，格式为\"年-月日-时分秒\"\ndatetime\u003d$(date +\"%Y-%m%d-%H%M%S\")\narchive_name\u003d\"ShortX-Backup-${datetime}.zip\"\n\n# 复制并重命名文件，忽略错误\ncp ${source_dir}/das.pb ${target_dir}/da.pb 2\u003e/dev/null\ncp ${source_dir}/dasets.pb ${target_dir}/daset.pb 2\u003e/dev/null\ncp ${source_dir}/globalVars.pb ${target_dir}/gvar.pb 2\u003e/dev/null\ncp ${source_dir}/pkgsets.pb ${target_dir}/pkgset.pb 2\u003e/dev/null\ncp ${source_dir}/rules.pb ${target_dir}/rule.pb 2\u003e/dev/null\ncp ${source_dir}/rulesets.pb ${target_dir}/ruleset.pb 2\u003e/dev/null\ncp ${source_dir}/toggles.pb ${target_dir}/toggle.pb 2\u003e/dev/null\n\n# 从shortx-init.log中获取包含\"SHORTX\"的最后一行，并提取main之后的部分，去掉首尾空格，保存到backup.meta文件\ngrep \"SHORTX\" /data/system/shortx_*/log/log/shortx-init.log 2\u003e/dev/null | tail -n 1 | awk -F \"main\" \u0027{sub(/^ */, \"\", $2); sub(/ *$/, \"\", $2); print $2}\u0027 \u003e \"${target_dir}/backup.meta\" \n\n# 打包为压缩文件\ntar -cf ${target_dir}/${archive_name} -C ${target_dir} da.pb daset.pb gvar.pb pkgset.pb rule.pb ruleset.pb backup.meta toggle.pb 2\u003e/dev/null\n\n# 删除临时文件，忽略错误\nrm ${target_dir}/da.pb 2\u003e/dev/null\nrm ${target_dir}/daset.pb 2\u003e/dev/null\nrm ${target_dir}/gvar.pb 2\u003e/dev/null\nrm ${target_dir}/pkgset.pb 2\u003e/dev/null\nrm ${target_dir}/rule.pb 2\u003e/dev/null\nrm ${target_dir}/ruleset.pb 2\u003e/dev/null\nrm ${target_dir}/toggle.pb 2\u003e/dev/null\nrm ${target_dir}/backup.meta 2\u003e/dev/null\n\n# 检查备份文件是否成功创建，并输出相应信息\nif [ -f ${target_dir}/${archive_name} ]; then\n  echo \"ShortX备份成功\"\nelse\n  echo \"ShortX备份失败，请检查路径设置\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "shortx_backup"
+      }]
+    },
+    "note": "ShortX备份",
+    "id": "A-d893f720-dc63-4695-b3b9-be243e2e70b6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{shortx_backup}.contains(\u0027ShortX备份成功\u0027)",
+      "customContextDataKey": {
+      },
+      "id": "C-ba2227af-d140-4d86-9261-d321a466e15e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1699270756725",
+      "message": "ShortX备份成功。",
+      "isImportant": true,
+      "smallIcon": "send-backward",
+      "vibrate": true,
+      "sound": true,
+      "customContextDataKey": {
+      },
+      "id": "A-584aee07-0145-4741-9c13-c9aee425073b"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1699270756725",
+      "message": "ShortX备份失败，请检查路径设置。",
+      "isImportant": true,
+      "smallIcon": "send-backward",
+      "vibrate": true,
+      "sound": true,
+      "customContextDataKey": {
+      },
+      "id": "A-9e5f324a-4710-4067-a531-58c2d65c7781"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7b461001-2e02-4969-a0ad-e12db71c0aef"
+  }],
+  "id": "rule-d88d8cf9-a6d9-43c0-b1a4-760d703d3a38",
+  "lastUpdateTime": "1717271575559",
+  "createTime": "1717269916025",
+  "author": {
+    "name": "He"
+  },
+  "title": "ShortX备份",
+  "description": "使用Shell命令备份\n随着软件版本的更新可能随时失效",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "backup_dir",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-a27fe800-db3d-47b6-aa35-d6a05258f17b"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "默认",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "backup_dir",
+        "valueAsString": "/storage/emulated/0/Download/",
+        "customContextDataKey": {
+        },
+        "id": "A-b5c24371-4b60-4acf-9387-9eabfc9582c3"
+      }],
+      "negative": "自定义",
+      "onNegative": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "填写ShortX备份路径",
+        "cancelable": true,
+        "textFields": [{
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-23c8eac7-7306-4d59-a0e2-585f726989c2"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "backup_dir",
+        "valueAsString": "{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-8f124dce-4724-4c9f-88f1-f65c999f8adf"
+      }],
+      "title": "ShortX备份",
+      "message": "ShortX备份路径\n默认在Download目录",
+      "customContextDataKey": {
+      },
+      "id": "A-947bc145-4d82-41de-b8e9-141acfa8a5e0"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "backup_dir",
+      "customContextDataKey": {
+      },
+      "id": "A-5b8332dc-8658-4753-982e-78e29edaf76d"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

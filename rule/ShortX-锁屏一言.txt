@@ -1,0 +1,120 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-1c0a02dc-7b0d-4e4e-b03f-d22292b94663"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://international.v1.hitokoto.cn/?encode\u003dtext",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-4912005d-de6c-44ce-9829-eb33d2961574"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://v1.hitokoto.cn/?c\u003df\u0026encode\u003dtext",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-667a3222-7496-4420-af82-72e609362f12"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "lockscreen_hitokoto",
+    "title": "一言",
+    "message": "{httpRequestRet}",
+    "isImportant": true,
+    "smallIcon": "document-folder",
+    "clickAction": [{
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "tag": "lockscreen_hitokoto"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-2983b296-6c2e-4137-b482-34f58ec7fb3f"
+    }],
+    "onGoing": true,
+    "customContextDataKey": {
+    },
+    "note": "❗记得根据自身实际情况更改通知设置",
+    "id": "A-e3528672-d448-4253-8b7f-22e08c4cbe1b"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "Contains",
+      "varName": "{httpRequestRet}",
+      "payload": {
+        "value": "globalVarOf$yen"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-08d75ac8-7893-440f-9ca9-ec2121be9b45"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "yen",
+      "valueAsString": "{httpRequestRet}",
+      "op": "WriteGlobalVarOp_AppendToFirst",
+      "customContextDataKey": {
+      },
+      "id": "A-5904d9b4-0371-4a55-bcff-ffd9cdeebd2d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a4be9428-e4aa-484c-855a-76e943e8fd6e"
+  }],
+  "id": "SHARE-rule-40f30430-1559-4c76-ad8f-17fda62cdefd",
+  "lastUpdateTime": "1763745913097",
+  "createTime": "1736617863960",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "锁屏一言",
+  "description": "HTTP 请求",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "yen",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-7fb701f0-7140-47ef-9e31-9fdf5f621085"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/UserPresent",
+      "customContextDataKey": {
+      },
+      "id": "F-ead5877e-5fb1-4213-80ea-75b892fb2eb1"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "tag": "lockscreen_hitokoto"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0c642e49-019c-4da9-a3f2-461f6e3b5991"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

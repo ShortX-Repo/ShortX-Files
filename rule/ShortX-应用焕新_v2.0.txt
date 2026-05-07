@@ -1,0 +1,968 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["Update"],
+    "customContextDataKey": {
+    },
+    "id": "F-9a86d608-9378-40e7-baf9-0316b58cdaee"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/EvaluateGlobalVar",
+    "op": "DoesNotContain",
+    "varName": "冷启动",
+    "payload": {
+      "value": "{pkgName}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "C-c144e615-3dca-4cc9-bdf2-21e1ff6451bb"
+  }, {
+    "@type": "type.googleapis.com/RequireWifiConnected",
+    "requiredSSID": "*",
+    "customContextDataKey": {
+    },
+    "id": "C-36aeac96-1823-495f-b768-85981fd6c8bc"
+  }, {
+    "@type": "type.googleapis.com/RequireMobileDataEnabled",
+    "slotId": -1,
+    "customContextDataKey": {
+    },
+    "id": "C-2b658adc-d46e-40eb-a169-45534cae930f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "冷启动",
+    "valueAsString": "{pkgName}",
+    "op": "WriteGlobalVarOp_AppendToLast",
+    "customContextDataKey": {
+    },
+    "id": "A-bfe715bb-b28c-46aa-a194-84c7753450ae"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api2.coolapk.com",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["status"]
+    },
+    "requestBody": {},
+    "withCookieJar": true,
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "note": "网络连通性",
+    "id": "A-26bcb801-e1ac-4788-98a6-a7a71cf8eddc"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/TheXXTimeToday",
+        "what": "Token",
+        "op": "IntEqualTo",
+        "customContextDataKey": {
+        },
+        "id": "C-6457e43c-8fe1-4826-a3f6-9a1fc9e05366"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/bash\n\ntoken1\u003d\"token://com.coolapk.market/c67ef5943784d09750dcfbb31020f0ab?\"\npackageName\u003d\"com.coolapk.market\"\n\nbase64Encode() {\n  echo -n \"$1\" | base64 -w 0\n}\n\nmd5HexDigest() {\n  echo -n \"$1\" | md5sum | awk \u0027{print $1}\u0027\n}\n\nCoolApkToken() {\n  a1\u003d$((RANDOM % 100000000))\n  deviceId\u003d\"${a1}-0000-0000-0000-000000000000\"\n  timestamp\u003d$(( $(date +%s) + 100 ))\n  timestampMd5\u003d$(echo -n \"$timestamp\" | md5sum | awk \u0027{print $1}\u0027)\n  salt\u003d\"${token1}${timestampMd5}\\$${deviceId}\u0026${packageName}\"\n  saltEncoded\u003d$(base64Encode \"$salt\")\n  saltMd5\u003d$(echo -n \"$saltEncoded\" | md5sum | awk \u0027{print $1}\u0027)\n  echo -n \"${saltMd5}${deviceId}$(printf \u00270x%x\u0027 \"$timestamp\")\"\n}\n\nCoolApkToken",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "token"
+          }]
+        },
+        "note": "X-App-Token",
+        "id": "A-2cec6ca0-af2c-418a-958f-fdd23643b0dc"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "CoolApkToken",
+        "valueAsString": "{token}",
+        "customContextDataKey": {
+        },
+        "id": "A-eb4d0f78-b871-4062-abff-7d14987c5af1"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.text.SimpleDateFormat;import java.security.MessageDigest;\nimport java.math.BigInteger;\nimport java.util.Random;\n//生成时间戳\nlong concatenatedSeconds \u003d System.currentTimeMillis() / 1000;\n\nRandom random \u003d new Random();\nString randomNum \u003d \"\";\nfor (int i \u003d 0; i \u003c 10; i++) {\n    randomNum +\u003d random.nextInt(10);\n}\n\n// token拼接\nString token \u003d concatenatedSeconds+randomNum;\n\nMessageDigest md \u003d MessageDigest.getInstance(\"MD5\");\nbyte[] bytes \u003d token.getBytes(\"UTF-8\");\nbyte[] md5HashBytes \u003d md.digest(bytes);\nBigInteger bigInt \u003d new BigInteger(1, md5HashBytes);\nString md5Hash \u003d bigInt.toString(16);\n\n// MD5大写格式化\nString uppercaseString \u003d md5Hash.toUpperCase();\n\nreturn uppercaseString;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "token"
+          }]
+        },
+        "id": "A-6eee6da1-7d51-47a6-84fa-0d89935b6b36"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "AppShareToken",
+        "valueAsString": "{token}",
+        "customContextDataKey": {
+        },
+        "id": "A-177723c4-13ea-4cef-ad08-a74e244ab2d0"
+      }],
+      "description": "生成Token",
+      "id": "Case-5542b6f3-1110-4b0c-bf02-887b6450829b"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-96546daf-fe4a-43d0-bba0-3ca08d4da9d0"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api2.coolapk.com/v6/apk/detail?id\u003d{pkgName}",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["data.version", "data.apkversioncode", "data.changelog", "data.apksize", "data.apkRomVersion", "data.apkmd5", "data.lastupdate"]
+        },
+        "headers": [{
+          "key": "X-Requested-With",
+          "value": "XMLHttpRequest"
+        }, {
+          "key": "X-App-Id",
+          "value": "com.coolapk.market"
+        }, {
+          "key": "X-App-Token",
+          "value": "globalVarOf$CoolApkToken"
+        }],
+        "requestBody": {},
+        "withCookieJar": true,
+        "customContextDataKey": {
+        },
+        "actionOnError": "Break",
+        "note": "酷安最新版本",
+        "id": "A-381ae0e3-314f-4882-8b09-a4de9e71f958"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "httpRequestRet2",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-751832e0-e850-4692-9f8f-e5f301049c21"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\"0\"",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "CoolApk"
+            }]
+          },
+          "id": "A-624ada16-8f47-4d43-8fc4-d6420eb86b99"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "{httpRequestRet2}",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "CoolApk"
+            }]
+          },
+          "id": "A-624ada16-8f47-4d43-8fc4-d6420eb86b99"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "String timestamp \u003d {httpRequestRet7};\ntimestamp \u003d timestamp.replaceAll(\"E\", \"10\").replaceAll(\"\\\\.\", \"\") + \"109\";\n\nparsed_timestamp \u003d Long.parseLong(timestamp);\n\ncurrent_timestamp_seconds \u003d System.currentTimeMillis();\n\ndifference_seconds \u003d current_timestamp_seconds - parsed_timestamp;\n\nabsolute_difference_seconds \u003d Math.abs(difference_seconds);\n\n// 计算天数、小时数、分钟数和秒数\ndifference_days \u003d absolute_difference_seconds / 86400000;\n//小时\nhours \u003d (absolute_difference_seconds % 86400000) / 3600000;\n//分钟\nminutes \u003d ((absolute_difference_seconds % 86400000) % 3600000) / 60000;\n//秒\nseconds \u003d (((absolute_difference_seconds % 86400000) % 3600000) % 60000) / 1000;\n\nString result \u003d \"\";\n\nif (difference_days \u003e\u003d 1) {\n    result \u003d difference_days + \"天 \" + hours + \"时 \" + minutes + \"分 \" + seconds + \"秒\";\n} else if (hours \u003e\u003d 1) {\n    result \u003d hours + \"时 \" + minutes + \"分 \" + seconds + \"秒\";\n} else if (minutes \u003e\u003d 1) {\n    result \u003d minutes + \"分 \" + seconds + \"秒\";\n} else {\n    result \u003d seconds + \"秒\";\n}\n\nresult",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "updata"
+            }]
+          },
+          "note": "更新时间",
+          "id": "A-0af2d3e3-a35d-423b-ab84-d85310cc5352"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\u0027云端：\u0027 + httpRequestRet1 + \u0027(\u0027 + httpRequestRet2 + \u0027)\u0027\n+ \u0027\\n更新时间：\u0027 + updata + \u0027前\u0027\n+ \u0027\\n更新日志：\\n\u0027 + httpRequestRet3\n+ \u0027\\n安装包：\u0027 + httpRequestRet4\n+ \u0027\\n支持ROM：\u0027 + httpRequestRet5\n+ \u0027\\nMD5：\u0027 + httpRequestRet6\n",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "CoolApkName"
+            }]
+          },
+          "id": "A-a78aa3fb-66ac-47ce-a2ba-16a9c35f885b"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-880583e9-9536-4b8e-96fa-befd4666ecf6"
+      }],
+      "description": "CoolApk查询",
+      "id": "Case-5e87290a-a9f5-4fbf-9a66-9ac16f035f84"
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.text.SimpleDateFormat;\nimport java.util.Date;\nimport java.security.MessageDigest;\nimport java.math.BigInteger;\n\n// 时间格式化模板\nString dateFormat \u003d \"yyyyMMddHHmm\";\n// 创建一个日期格式化对象\nSimpleDateFormat dateFormatter \u003d new SimpleDateFormat(dateFormat);\n// 获取当前日期和时间并按照指定格式进行格式化\nString currentDateAndTime \u003d dateFormatter.format(new Date());\n\n// Token的前缀\nString tokenPrefix \u003d globalVarOf$AppShareToken;\n// 应用包名\nString userId \u003d {pkgName};\n// 拼接token，包括前缀、应用包名和当前日期时间\nString token \u003d tokenPrefix + userId + \"1\" + currentDateAndTime;\n\n// 获取MD5消息摘要实例\nMessageDigest md \u003d MessageDigest.getInstance(\"MD5\");\n// 将token字符串转换为UTF-8编码的字节数组\nbyte[] bytes \u003d token.getBytes(\"UTF-8\");\n// 计算MD5哈希值\nbyte[] md5HashBytes \u003d md.digest(bytes);\n// 将字节数组转换为大整数\nBigInteger bigInt \u003d new BigInteger(1, md5HashBytes);\n// 将大整数转换为十六进制字符串表示\nString md5Hash \u003d bigInt.toString(16);\n\n// 将MD5哈希值转换为大写形式\nString uppercaseMD5Hash \u003d md5Hash.toUpperCase();\n\n// 返回MD5哈希值的大写形式\nreturn uppercaseMD5Hash;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "sign"
+          }]
+        },
+        "note": "sign",
+        "id": "A-a1cd22f6-189e-40a2-987b-ad8feceaa6dc"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://app.sharess.cn/search/v1/searchAppPost",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["data[0].id", "data[0].vid"]
+        },
+        "method": "POST",
+        "headers": [{
+          "key": "User-Agent",
+          "value": "okhttp/4.12.0"
+        }, {
+          "key": "Content-Type",
+          "value": "application/json"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyJson",
+          "json": "{\"page\":1,\"key\":\"{pkgName}\",\"sign\":\"{sign}\",\"token\":\"globalVarOf$AppShareToken\",\"oaid\":\"globalVarOf$AppShareToken\"}"
+        },
+        "withCookieJar": true,
+        "customContextDataKey": {
+        },
+        "note": "查询包体",
+        "id": "A-7626bc19-3aae-4a6a-a897-d454413420e2"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "httpRequestRet2",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-751832e0-e850-4692-9f8f-e5f301049c21"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\"0\"",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "AppShare"
+            }]
+          },
+          "id": "A-ce26247d-0eb1-4570-896c-c12cd4ee101f"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "{httpRequestRet1}",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "AppShareAppId"
+            }]
+          },
+          "id": "A-39e4c2ed-ee1f-49a0-bf98-a4f4caaa64d6"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import java.text.SimpleDateFormat;\nimport java.util.Date;\nimport java.security.MessageDigest;\nimport java.math.BigInteger;\n\n// 时间格式化模板\nString dateFormat \u003d \"yyyyMMddHHmm\";\n// 创建一个日期格式化对象\nSimpleDateFormat dateFormatter \u003d new SimpleDateFormat(dateFormat);\n// 获取当前日期和时间并按照指定格式进行格式化\nString currentDateAndTime \u003d dateFormatter.format(new Date());\n\n// Token的前缀\nString tokenPrefix \u003d globalVarOf$AppShareToken;\n// 包体ID\nString userId \u003d {httpRequestRet2};\n// 拼接token，包括前缀、包体ID和当前日期时间\nString token \u003d globalVarOf$AppShareToken + userId + currentDateAndTime;\n\n// 获取MD5消息摘要实例\nMessageDigest md \u003d MessageDigest.getInstance(\"MD5\");\n// 将token字符串转换为UTF-8编码的字节数组\nbyte[] bytes \u003d token.getBytes(\"UTF-8\");\n// 计算MD5哈希值\nbyte[] md5HashBytes \u003d md.digest(bytes);\n// 将字节数组转换为大整数\nBigInteger bigInt \u003d new BigInteger(1, md5HashBytes);\n// 将大整数转换为十六进制字符串表示\nString md5Hash \u003d bigInt.toString(16);\n\n// 将MD5哈希值转换为大写形式\nString uppercaseMD5Hash \u003d md5Hash.toUpperCase();\n\n// 返回MD5哈希值的大写形式\nreturn uppercaseMD5Hash;",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "sign"
+            }]
+          },
+          "id": "A-c7392688-eb24-4b2f-9fa1-b523bf4588d7"
+        }, {
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "https://app.sharess.cn/app/version/selectAppVersionByVid?token\u003dglobalVarOf$AppShareToken\u0026oaid\u003dglobalVarOf$AppShareToken\u0026id\u003d{httpRequestRet2}\u0026sign\u003d{sign}",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["data.versionName", "data.versionCode", "data.updateLog", "data.uploadTime", "data.targetSdk", "data.minSdk", "data.abi", "data.warning", "data.size"]
+          },
+          "requestBody": {},
+          "withCookieJar": true,
+          "customContextDataKey": {
+          },
+          "note": "包体信息",
+          "id": "A-c4c22296-1df6-44f7-ab5e-e4b732f0c087"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "{httpRequestRet2}",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "AppShare"
+            }]
+          },
+          "id": "A-8131d067-6883-40ca-b474-05cd9c251b7d"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "String timestamp \u003d {httpRequestRet4};\ntimestamp \u003d timestamp.replaceAll(\"E\", \"10\").replaceAll(\"\\\\.\", \"\") + \"109\";\n\nparsed_timestamp \u003d Long.parseLong(timestamp);\n\ncurrent_timestamp_seconds \u003d System.currentTimeMillis();\n\ndifference_seconds \u003d current_timestamp_seconds - parsed_timestamp;\n\nabsolute_difference_seconds \u003d Math.abs(difference_seconds);\n\n// 计算天数、小时数、分钟数和秒数\ndifference_days \u003d absolute_difference_seconds / 86400000;\n//小时\nhours \u003d (absolute_difference_seconds % 86400000) / 3600000;\n//分钟\nminutes \u003d ((absolute_difference_seconds % 86400000) % 3600000) / 60000;\n//秒\nseconds \u003d (((absolute_difference_seconds % 86400000) % 3600000) % 60000) / 1000;\n\nString result \u003d \"\";\n\nif (difference_days \u003e\u003d 1) {\n    result \u003d difference_days + \"天 \" + hours + \"时 \" + minutes + \"分 \" + seconds + \"秒\";\n} else if (hours \u003e\u003d 1) {\n    result \u003d hours + \"时 \" + minutes + \"分 \" + seconds + \"秒\";\n} else if (minutes \u003e\u003d 1) {\n    result \u003d minutes + \"分 \" + seconds + \"秒\";\n} else {\n    result \u003d seconds + \"秒\";\n}\n\nresult",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "updata"
+            }]
+          },
+          "note": "更新时间",
+          "id": "A-b4f48782-a21b-4224-8ddc-5e63073db68f"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\u0027云端：\u0027 + httpRequestRet1 + \u0027(\u0027 + httpRequestRet2 + \u0027)\u0027\n+ \u0027\\n更新时间：\u0027 + updata + \u0027前\u0027\n+ \u0027\\n更新日志：\\n\u0027 + httpRequestRet3\n+ \u0027\\n说明：\u0027 + httpRequestRet8\n+ \u0027\\nABI：\u0027 + httpRequestRet7\n+ \u0027\\nTarget : \u0027 + httpRequestRet5 + \u0027，Min : \u0027 + httpRequestRet6\n",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "AppShareName"
+            }]
+          },
+          "id": "A-776a2f06-22c6-47df-93b1-f1a253337bb4"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-530cccd1-823c-4a01-9f7b-338517843c6d"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "int CoolApk \u003d {CoolApk};\nint AppShare \u003d {AppShare};\nString result;\n\nif (CoolApk \u003e 0) {\n    result \u003d CoolApk \u003e AppShare ? \"CoolApk\" : AppShare \u003e CoolApk ? \"AppShare\" : \"CoolApk\";\n} else {\n    result \u003d AppShare \u003e 0 ? \"AppShare\" : \"CoolApk\";\n}\n\nresult;\n\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "Name"
+          }]
+        },
+        "isDisabled": true,
+        "id": "A-20411970-0c80-4820-af00-ac042d17fda4"
+      }],
+      "description": "AppShare查询",
+      "id": "Case-5472efcd-5b70-417a-bcd0-03165fbe925e"
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "int CoolApk \u003d CoolApk !\u003d null ? CoolApk : 0;\nint AppShare \u003d AppShare !\u003d null ? AppShare : 0;\nString result \u003d \"\";\n\nif (CoolApk \u003e 0 || AppShare \u003e 0) {\n    result \u003d CoolApk \u003e AppShare ? \"CoolApk\" : AppShare \u003e CoolApk ? \"AppShare\" : \"CoolApk\";\n} else {\n    result \u003d \"CoolApk\"; // 如果两个都是0或者未赋值，默认为\"CoolApk\"\n}\n\nresult;\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "Name"
+          }]
+        },
+        "id": "A-4618567a-1f14-450a-8eee-301b9f5fe897"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{Name}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-c63e416b-81b6-4490-a698-83e4cf375149"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "int CoolApk \u003d {CoolApk};\nint AppShare \u003d {AppShare};\nString result;\n\nif (CoolApk \u003e 0) {\n    result \u003d CoolApk \u003e AppShare ? CoolApk : AppShare \u003e CoolApk ? AppShare : CoolApk;\n} else {\n    result \u003d AppShare \u003e 0 ? AppShare : CoolApk;\n}\n\nresult;\n\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "Code"
+          }]
+        },
+        "id": "A-583c81a7-85df-4918-a894-8bce26f2efad"
+      }],
+      "description": "选择更新源",
+      "id": "Case-46c52874-c611-414d-b559-ed7ef256b2b0"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "Contains",
+        "varName": "不再提示版本号",
+        "payload": {
+          "value": "{appLabel}_{Code}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-98ac5a02-c982-4e29-8a52-210f49e5b077"
+      }],
+      "description": "不再提示",
+      "id": "Case-7ddb7d04-d140-4e40-88bc-3f6ad0ef8085",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-997dc1d4-af83-4b27-af31-23d408e506df"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.pm.PackageInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {pkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nPackageInfo packageInfo \u003d packageManager.getPackageInfo(packageName, 0);\nString appVersion \u003d packageInfo.versionCode;\n// 返回版本号",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "versionCode"
+          }]
+        },
+        "note": "本地版本号",
+        "id": "A-27dacfe3-8b40-4754-b041-4a6609463d9e"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.pm.PackageInfo;\nimport android.content.pm.PackageManager;\n\n\nString packageName \u003d {pkgName};\n\nPackageManager packageManager \u003d context.getPackageManager();\nPackageInfo packageInfo \u003d packageManager.getPackageInfo(packageName, 0);\nString versionName \u003d packageInfo.versionName;\n// 返回版本名",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "versionName"
+          }]
+        },
+        "note": "本地版本名",
+        "id": "A-5ff9a624-1e24-48d5-a513-c2352e95fb99"
+      }],
+      "description": "本地版本号",
+      "id": "Case-242dd397-a78e-41cf-8fab-936955f8ee6d"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "varName": "Code",
+        "payload": {
+          "value": "{versionCode}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-72385b49-81d6-4484-83dc-d799e69b571b"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "Name",
+        "payload": {
+          "value": "CoolApk"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-319fa15a-e217-4507-98ef-095729a4a207"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "更新",
+        "onPositive": [{
+          "@type": "type.googleapis.com/ShowMenuDialog",
+          "items": [{
+            "title": "酷安App",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityIntent",
+              "intent": {
+                "action": "android.intent.action.VIEW",
+                "pkgName": "com.coolapk.market",
+                "className": "com.coolapk.market.view.node.DynamicNodePageActivity",
+                "extras": [{
+                  "key": "LOADER_NAME",
+                  "value": "LOADER_APP",
+                  "type": "String"
+                }, {
+                  "key": "APP_UNIQUE_ID",
+                  "value": "{pkgName}",
+                  "type": "String"
+                }]
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-c912ca19-2d66-4da8-8f01-0c861ed7d1fa"
+            }]
+          }, {
+            "title": "AppShare",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityIntent",
+              "intent": {
+                "action": "android.intent.action.VIEW",
+                "pkgName": "info.muge.appshare",
+                "className": "info.muge.appshare.view.app.detail.AppDetailActivity",
+                "extras": [{
+                  "key": "appId",
+                  "value": "{AppShareAppId}",
+                  "type": "String"
+                }]
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-c139c665-152b-4f66-abbf-26b0399ddc16"
+            }]
+          }, {
+            "title": "Play商店",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityUrlSchema",
+              "urlSchema": "https://play.google.com/store/apps/details?id\u003d{pkgName}",
+              "customContextDataKey": {
+              },
+              "id": "A-dcd49120-776f-4da0-a240-43ea45d2386c"
+            }]
+          }],
+          "title": "{appLabel}更新",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-e70c07c2-2bae-4787-a45a-560fd33ee3ae"
+        }],
+        "negative": "取消",
+        "neutral": "不再提醒",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "不再提示版本号",
+          "valueAsString": "{appLabel}_{Code}",
+          "op": "WriteGlobalVarOp_AppendToLast",
+          "customContextDataKey": {
+          },
+          "id": "A-c0d87bc2-7936-44fd-bcf1-a180292eb017"
+        }],
+        "title": "{appLabel}更新(酷安)",
+        "message": "本地：{versionName}({versionCode})\n{CoolApkName}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-56492991-3f1a-4148-8a5a-2676af9bcd4d"
+      }],
+      "description": "CoolApk更新",
+      "id": "Case-1dd1c1c0-e2a8-4f2e-b7c1-02d11d2539fa"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "Name",
+        "payload": {
+          "value": "AppShare"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-fc604daa-6d5b-46b0-8d7f-b55d55be009b"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "varName": "Code",
+        "payload": {
+          "value": "{versionCode}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-d149e3c6-deb7-495c-a43d-504fd20b6959"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "更新",
+        "onPositive": [{
+          "@type": "type.googleapis.com/ShowMenuDialog",
+          "items": [{
+            "title": "AppShare",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityIntent",
+              "intent": {
+                "action": "android.intent.action.VIEW",
+                "pkgName": "info.muge.appshare",
+                "className": "info.muge.appshare.view.app.detail.AppDetailActivity",
+                "extras": [{
+                  "key": "appId",
+                  "value": "{AppShareAppId}",
+                  "type": "String"
+                }]
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-c139c665-152b-4f66-abbf-26b0399ddc16"
+            }]
+          }, {
+            "title": "酷安App",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityIntent",
+              "intent": {
+                "action": "android.intent.action.VIEW",
+                "pkgName": "com.coolapk.market",
+                "className": "com.coolapk.market.view.node.DynamicNodePageActivity",
+                "extras": [{
+                  "key": "LOADER_NAME",
+                  "value": "LOADER_APP",
+                  "type": "String"
+                }, {
+                  "key": "APP_UNIQUE_ID",
+                  "value": "{pkgName}",
+                  "type": "String"
+                }]
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-c912ca19-2d66-4da8-8f01-0c861ed7d1fa"
+            }]
+          }, {
+            "title": "Play商店",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityUrlSchema",
+              "urlSchema": "https://play.google.com/store/apps/details?id\u003d{pkgName}",
+              "customContextDataKey": {
+              },
+              "id": "A-dcd49120-776f-4da0-a240-43ea45d2386c"
+            }]
+          }],
+          "title": "{appLabel}更新",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-e70c07c2-2bae-4787-a45a-560fd33ee3ae"
+        }],
+        "negative": "取消",
+        "neutral": "不再提醒",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "不再提示版本号",
+          "valueAsString": "{appLabel}_{Code}",
+          "op": "WriteGlobalVarOp_AppendToLast",
+          "customContextDataKey": {
+          },
+          "id": "A-c0d87bc2-7936-44fd-bcf1-a180292eb017"
+        }],
+        "title": "{appLabel}更新(AppShare)",
+        "message": "本地：{versionName}({versionCode})\n{AppShareName}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-dd628154-e2b2-428d-a95b-9581398fe23e"
+      }],
+      "description": "AppShare更新",
+      "id": "Case-1f7e3564-056e-4d54-90bb-ab95f54ab341"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f65ba310-792f-41c2-8599-88f41f12fd67"
+  }],
+  "id": "rule-84ee192b-430b-4c5c-9007-17e5eb63846b",
+  "lastUpdateTime": "1714719802076",
+  "createTime": "1710941295173",
+  "author": {
+    "name": "He"
+  },
+  "title": "应用焕新 v2.0",
+  "description": "把想检测更新的应用放在应用集\n适合那种在检测源上架，软件没有内置更新并且你追求更新的应用(比如：ShortX\n比较版本号检测\n检测源：\n酷安✅\nAppShare✅",
+  "isEnabled": true,
+  "condOp": "MVEL",
+  "condOpPayload": {
+    "expression": "c1 \u0026\u0026 (c2 || c3)"
+  },
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "好的",
+      "onPositive": [{
+        "@type": "type.googleapis.com/CreatePkgSet",
+        "label": "Update",
+        "customContextDataKey": {
+        },
+        "id": "A-0bf7125c-8f4d-4070-87e6-b2ef6bfe48a0"
+      }],
+      "negative": "日志",
+      "onNegative": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "返回",
+        "onPositive": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "onPositive": [{
+            "@type": "type.googleapis.com/CreatePkgSet",
+            "label": "Update",
+            "customContextDataKey": {
+            },
+            "id": "A-0bf7125c-8f4d-4070-87e6-b2ef6bfe48a0"
+          }],
+          "negative": "日志",
+          "neutral": "取消",
+          "onNeutral": [{
+            "@type": "type.googleapis.com/SetRuleEnabled",
+            "ruleId": "rule-84ee192b-430b-4c5c-9007-17e5eb63846b",
+            "customContextDataKey": {
+            },
+            "id": "A-39ab0c8c-3b97-455b-b5fc-edb2c0768b24"
+          }],
+          "title": "创建检测应用集",
+          "message": "我会创建一个应用集，名字叫Update,进入应用集内的任意应用前台会检测更新",
+          "customContextDataKey": {
+          },
+          "id": "A-b6a544d7-7cd4-40bc-83dc-71fd8a1972c5"
+        }],
+        "title": "指令日志",
+        "message": "2.0大版本更新\n新建AppShare检测源\n移除原有限制触发方法\n更名为应用焕新\n(感谢@叶桐枫\n使用冷启动方案为触发条件\n(感谢@。 。提供的思路\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n1.1版本\n更换酷安API\n新增显示更新日志\n新增显示更新时间\n新增显示支持ROM\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n1.0版本\n由ShortX检测更新指令进化\n使用应用集支持更多应用\nToken改为一天生成一次\n使用Switch case\n暂时删除定时检测",
+        "customContextDataKey": {
+        },
+        "id": "A-fb4fedc4-1396-4ff6-be52-10fb404384a0"
+      }],
+      "neutral": "取消",
+      "onNeutral": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-84ee192b-430b-4c5c-9007-17e5eb63846b",
+        "customContextDataKey": {
+        },
+        "id": "A-39ab0c8c-3b97-455b-b5fc-edb2c0768b24"
+      }],
+      "title": "创建检测应用集",
+      "message": "我会创建一个应用集，名字叫Update,进入应用集内的任意应用前台会检测更新",
+      "customContextDataKey": {
+      },
+      "id": "A-b6a544d7-7cd4-40bc-83dc-71fd8a1972c5"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "不再提示版本号",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-45c3cafd-7e73-4bc0-9037-2833e4553290"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "不再提示版本号",
+            "type": {
+              "@type": "type.googleapis.com/StringListVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-9ccf287c-1d0b-4e33-9fe3-3f327ba7a18c"
+        }],
+        "description": "不再提示版本号",
+        "id": "Case-59f79758-3d95-4c58-b37d-2edf4922751e"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "冷启动",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-e733de74-6ede-4224-8241-e4ea33147cf6"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "冷启动",
+            "type": {
+              "@type": "type.googleapis.com/StringListVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-1a4e5428-f239-4dd0-af04-5f5b8dfeab0a"
+        }],
+        "description": "冷启动",
+        "id": "Case-6c6b477e-eb58-4124-bf02-2492a5682824"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "CoolApkToken",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-f394d1ce-33c9-4393-8c96-fa219fd13162"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "CoolApkToken",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            },
+            "isSecret": true
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-cbf39e31-173b-4fb6-ae65-cd89611b637f"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/bin/bash\n\ntoken1\u003d\"token://com.coolapk.market/c67ef5943784d09750dcfbb31020f0ab?\"\npackageName\u003d\"com.coolapk.market\"\n\nbase64Encode() {\n  echo -n \"$1\" | base64 -w 0\n}\n\nmd5HexDigest() {\n  echo -n \"$1\" | md5sum | awk \u0027{print $1}\u0027\n}\n\nCoolApkToken() {\n  a1\u003d$((RANDOM % 100000000))\n  deviceId\u003d\"${a1}-0000-0000-0000-000000000000\"\n  timestamp\u003d$(( $(date +%s) + 100 ))\n  timestampMd5\u003d$(echo -n \"$timestamp\" | md5sum | awk \u0027{print $1}\u0027)\n  salt\u003d\"${token1}${timestampMd5}\\$${deviceId}\u0026${packageName}\"\n  saltEncoded\u003d$(base64Encode \"$salt\")\n  saltMd5\u003d$(echo -n \"$saltEncoded\" | md5sum | awk \u0027{print $1}\u0027)\n  echo -n \"${saltMd5}${deviceId}$(printf \u00270x%x\u0027 \"$timestamp\")\"\n}\n\nCoolApkToken",
+          "singleShot": true,
+          "customContextDataKey": {
+            "keys": [{
+              "first": "shellOut",
+              "second": "token"
+            }]
+          },
+          "note": "X-App-Token",
+          "id": "A-5008ab2b-5a45-431c-bd2a-3b1ca6ee874f"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "CoolApkToken",
+          "valueAsString": "{token}",
+          "customContextDataKey": {
+          },
+          "id": "A-1535c533-a423-419a-a158-eca2bc144ba3"
+        }],
+        "description": "CoolApkToken",
+        "id": "Case-08e3df55-a599-4b45-9e31-8beb9da6d6ac"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "AppShareToken",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-cca06bf0-67bd-4759-86ff-b767e03da903"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "AppShareToken",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            },
+            "isSecret": true
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-ad36e734-67ce-41d8-9bdd-63d880ffbcff"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import java.text.SimpleDateFormat;import java.security.MessageDigest;\nimport java.math.BigInteger;\nimport java.util.Random;\n//生成时间戳\nlong concatenatedSeconds \u003d System.currentTimeMillis() / 1000;\n\nRandom random \u003d new Random();\nString randomNum \u003d \"\";\nfor (int i \u003d 0; i \u003c 10; i++) {\n    randomNum +\u003d random.nextInt(10);\n}\n\n// token拼接\nString token \u003d concatenatedSeconds+randomNum;\n\nMessageDigest md \u003d MessageDigest.getInstance(\"MD5\");\nbyte[] bytes \u003d token.getBytes(\"UTF-8\");\nbyte[] md5HashBytes \u003d md.digest(bytes);\nBigInteger bigInt \u003d new BigInteger(1, md5HashBytes);\nString md5Hash \u003d bigInt.toString(16);\n\n// MD5大写格式化\nString uppercaseString \u003d md5Hash.toUpperCase();\n\nreturn uppercaseString;",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "token"
+            }]
+          },
+          "id": "A-fe6a926b-a333-4596-a307-c6534840a14c"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "AppShareToken",
+          "valueAsString": "{token}",
+          "customContextDataKey": {
+          },
+          "id": "A-9a6e9131-5898-4a91-8dc9-80aa846497a6"
+        }],
+        "description": "AppShareToken",
+        "id": "Case-11107036-10e0-4d30-a3bb-4d178c211109"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-cb316590-7234-48c9-b79f-54d7f094076f"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "不再提示版本号",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-45c3cafd-7e73-4bc0-9037-2833e4553290"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "不再提示版本号",
+          "customContextDataKey": {
+          },
+          "id": "A-8c344f39-d1ed-46ac-8253-98bfeefc2b78"
+        }],
+        "description": "不再提示版本号",
+        "id": "Case-59f79758-3d95-4c58-b37d-2edf4922751e"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "冷启动",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-e733de74-6ede-4224-8241-e4ea33147cf6"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "冷启动",
+          "customContextDataKey": {
+          },
+          "id": "A-5ce75715-faf9-40b7-addc-4fd316760a15"
+        }],
+        "description": "冷启动",
+        "id": "Case-6c6b477e-eb58-4124-bf02-2492a5682824"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "ShortX版本号",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-f394d1ce-33c9-4393-8c96-fa219fd13162"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "CoolApkToken",
+          "customContextDataKey": {
+          },
+          "id": "A-046db89a-6123-4fc0-b98b-af2639fef1f2"
+        }],
+        "description": "CoolApkToken",
+        "id": "Case-08e3df55-a599-4b45-9e31-8beb9da6d6ac"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "AppShareToken",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-cca06bf0-67bd-4759-86ff-b767e03da903"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "AppShareToken",
+          "customContextDataKey": {
+          },
+          "id": "A-29c0030c-a7c0-4810-920a-b89210bd08e9"
+        }],
+        "description": "AppShareToken",
+        "id": "Case-11107036-10e0-4d30-a3bb-4d178c211109"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-6040f49d-7017-4173-8618-1ee61ba99f73"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "好的",
+      "title": "删除应用集",
+      "message": "记得手动删除Update应用集",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-c763e9b4-79c7-4da6-a6d3-c9d1892a6740"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/TaskRemoved",
+      "pkgSets": ["Update"],
+      "customContextDataKey": {
+      },
+      "id": "F-a311ecfe-1101-43b6-a222-b158840a827b"
+    }, {
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "pkgSets": ["Update"],
+      "customContextDataKey": {
+      },
+      "id": "F-d6c30871-79e8-4825-bb89-a127ed1f1fd2"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "冷启动",
+      "valueAsString": "{pkgName}",
+      "op": "WriteGlobalVarOp_DeleteValue",
+      "customContextDataKey": {
+      },
+      "id": "A-1a455ddb-7bae-4670-81a5-43bfef414691"
+    }]
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-c90ed3d5-1c3c-4762-88ee-c11091fef98c"
+}
+###------###
+{"type":"rule"}

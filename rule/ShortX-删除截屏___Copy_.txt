@@ -1,0 +1,68 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "^/storage/emulated/0/DCIM/Screenshots/.*",
+    "customContextDataKey": {
+    },
+    "id": "F-69d297c7-27c2-4dfb-b2e3-af783e1d8bdb"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1745083671712",
+    "title": "是否删除临时截屏",
+    "message": "长按展开通知",
+    "largeIcon": "error-picture",
+    "smallIcon": "error-picture",
+    "button": [{
+      "id": "Button-944c0ea3-a3d8-4266-8e3c-f8b9de91e54d",
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.ContentResolver;\nimport android.net.Uri;\nimport android.provider.MediaStore;\n\nContentResolver contentResolver \u003d context.getContentResolver();\nUri uri \u003d Uri.parse({mediaUri}); // 替换为你的 URI\n\n    // 删除该文件\n    int rowsDeleted \u003d contentResolver.delete(uri, null, null); ",
+        "customContextDataKey": {
+        },
+        "id": "A-e1a5d420-9832-4746-879c-ef81f6db0189"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "tag": "tag-1745083671712"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-3409c879-1b7b-419e-a086-51ad66d1acfb"
+      }],
+      "label": "删除"
+    }, {
+      "id": "Button-06d64913-d7c3-484d-9444-980612c1db77",
+      "action": [{
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "tag": "tag-1745083671712"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-3409c879-1b7b-419e-a086-51ad66d1acfb"
+      }],
+      "label": "保留"
+    }],
+    "overrideAppName": "截图管理程序",
+    "onGoing": true,
+    "customContextDataKey": {
+    },
+    "id": "A-d9405dc2-c3eb-4f09-ab0e-f02f0142e152"
+  }],
+  "id": "SHARE-rule-68c60266-75c3-49ce-b02e-a17a0966091d",
+  "lastUpdateTime": "1745630062658",
+  "createTime": "1745071349329",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "删除截屏  (Copy)",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

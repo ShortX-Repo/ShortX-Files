@@ -1,0 +1,97 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 25,
+    "gesture": "KeyLongPress",
+    "isInterceptMode": true,
+    "customContextDataKey": {
+    },
+    "id": "F-e5f2591b-c4a5-41b0-bad8-454486fcca06"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-dc7484b8-205b-4016-beff-fa87ca60f047"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "手电筒",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-6b039b55-7d27-4632-9874-7e9f16adcef5"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-6be9b050-7831-4d22-b4a9-af95fed85404"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "手电筒",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-fda9449b-c093-4217-a6ee-e9dc89b37bdf"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-182c2e8b-7b66-458c-96fe-e71b888b3b0d"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "手电筒",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-ade6a309-6ffb-48bd-8343-9a5f00756470"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-90944c4b-0829-4103-85f3-f9815c74c138"
+  }],
+  "id": "rule-cfa69afa-1602-477b-8810-d0932da54ffb",
+  "lastUpdateTime": "1692985922827",
+  "createTime": "1692985602688",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "快捷手电筒",
+  "description": "息屏时长按音量下键快捷开关手电筒",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "手电筒",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-be09d7c4-266a-4926-b2cf-fdfa4f677700"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "手电筒",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-48173ee8-0629-4983-bd01-f565c2f92723"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

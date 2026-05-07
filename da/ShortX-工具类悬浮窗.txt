@@ -1,0 +1,1661 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys activity activities | grep -E \u0027mResumedActivity:\u0027 | cut -d \u0027{\u0027 -f 2 | cut -d \u0027 \u0027 -f 3 | cut -d \u0027/\u0027 -f 1",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "应用包名"
+      }]
+    },
+    "note": "获取当前应用包名",
+    "id": "A-aa4a958a-e6d4-4f93-8149-f34b050f626d"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "应用包名",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-64601bb5-2aa2-4817-8f29-6abd24736656"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "应用包名",
+    "valueAsString": "{应用包名}",
+    "customContextDataKey": {
+    },
+    "id": "A-31d33f46-106e-40c8-a58a-d71e60ac89b4"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {应用包名};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "应用名"
+      }]
+    },
+    "note": "根据应用包名输出应用名",
+    "id": "A-319af02c-c016-434f-a2fe-c0f3f0bb072c"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "应用名",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-b03c9f1e-3587-49c1-bc23-0ace590176d0"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "应用名",
+    "valueAsString": "{应用名}",
+    "customContextDataKey": {
+    },
+    "id": "A-e2e9b6de-88d9-462c-9669-1fc4b2e5d436"
+  }, {
+    "@type": "type.googleapis.com/HideOverlayButton",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-b5d26e4b-ad10-4637-b191-991a4cef1419"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-2b069f2f-3c27-4373-8268-9d3ee14dd1b6"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-1f1de8a8-d6c5-40d1-970c-3329b8393326"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-a1758339-55d4-4c58-ac6d-3a99105ed90b"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-aab82067-d36a-40de-b831-e9159f507782"
+      }],
+      "icon": "edit-circle-line",
+      "label": "关闭悬浮窗",
+      "id": "BTN-e49ad809-8934-46e0-aa99-3eb22b8733ea"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-5b46aa4a-fa30-4378-8522-e954cf3408f0"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-71404fa9-54c6-4fda-b3a2-33254f1b6da1"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-9458a09c-5d5b-4fc0-afe6-495213647787"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-a88850a9-7727-4b35-8bbf-38e048a23a00"
+      }, {
+        "@type": "type.googleapis.com/StopAllActions",
+        "customContextDataKey": {
+        },
+        "id": "A-a9d5f12a-6aa6-4d51-9ce3-5e0ed44f583b"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-d1ffa0ee-7dd0-4110-bb20-7d7fc56ecb8e"
+      }],
+      "icon": "close-circle-line",
+      "label": "停止动作",
+      "id": "BTN-29e0968a-3ef6-4e4d-9b80-da212c20a873"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-355e1ff5-013c-4919-88a9-3fe49743d10b"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-5a44ef8b-8d29-47c8-b68f-9b64d30a8091"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-82c884f4-ce84-410d-9385-be854b167e11"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-4944b52a-c195-4fde-b0b1-d481d7fed674"
+      }, {
+        "@type": "type.googleapis.com/EnableViewIdViewer",
+        "customContextDataKey": {
+        },
+        "id": "A-0354f0d3-7dd5-4341-ba8f-2efc254aed76"
+      }],
+      "icon": "layout-2-fill",
+      "label": "查看View详情",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-861c98c9-6078-4d31-8c43-0063afa4cf9b"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-9abbcb2c-faaf-4265-bd4b-ec9a591a9e1f"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-fbf7090c-6d46-40a5-9afa-3125d190fe37"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-e91faa85-a464-42db-a9f0-d31c50d49872"
+      }],
+      "id": "BTN-24ea075b-d0b8-4595-ad90-59418012558e"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-338d30d3-9eca-42f7-a479-9d6d93fedc9a"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-b8231446-1bf5-4c76-bd65-4fda6c414320"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-86bcefcf-f989-4bbe-bafb-88aa5d0c29d6"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-0ee0f156-9182-40af-8807-5fe8f5163dbc"
+      }, {
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-5278e88a-81ad-4d27-a4d0-50250398a728",
+        "isEnable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-f8d78cb1-ca0f-474b-a771-32ccb4801b68"
+      }],
+      "icon": "shape-line",
+      "label": "手势录制",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-9e9da526-a10a-4904-9a6e-389d223dfabb"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-1065afa6-067f-4d26-aef4-cccf00fedfc0"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-0764a91a-bdb7-4492-99af-f8240794d2b4"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-d00166a5-76e3-47c6-9408-50bb1488f9df"
+      }, {
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-5278e88a-81ad-4d27-a4d0-50250398a728",
+        "customContextDataKey": {
+        },
+        "id": "A-48881360-74f7-48a5-aee5-fdb2c20e4caf"
+      }],
+      "id": "BTN-71e0901f-20f5-4bcd-b46e-13f13e5b104c"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys activity activities | grep -E \u0027mResumedActivity:\u0027 | cut -d \u0027{\u0027 -f 2 | cut -d \u0027 \u0027 -f 3",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "命令获取当前应用activity"
+          }]
+        },
+        "id": "A-3391c890-eee8-4881-9176-39260fc2c1b5"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "命令获取当前应用activity",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-88ec7280-de6a-406e-842a-4a0943da00a0"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "命令获取当前应用activity",
+        "valueAsString": "{命令获取当前应用activity}",
+        "customContextDataKey": {
+        },
+        "id": "A-a084ac09-7e95-4c4c-9e77-aab2406583c0"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-079c229c-b01b-4259-8b5c-cef924a727bf"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-368aee4a-6012-47d1-80f3-8eeec9fba086"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-5ffcbb6d-8894-4cff-9d49-57eb56d1031d"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-9a0c0ad5-4a53-403b-8dba-f9c8218d5bea"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "globalVarOf$命令获取当前应用activity",
+            "customContextDataKey": {
+            },
+            "id": "A-31d8741b-83a8-412d-9548-62d37fd85765"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["命令获取当前应用activity"],
+            "customContextDataKey": {
+            },
+            "id": "A-ddde0fa5-df24-47cb-a1b3-4c46ce4d4351"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "已经复制",
+            "customContextDataKey": {
+            },
+            "id": "A-5432c624-80fd-4582-ba53-7aa07498ad3b"
+          }, {
+            "@type": "type.googleapis.com/DeleteGlobalVar",
+            "varName": "命令获取当前应用activity",
+            "customContextDataKey": {
+            },
+            "id": "A-a944f432-d141-4c4d-94b6-8bf813e86182"
+          }, {
+            "@type": "type.googleapis.com/SetRuleEnabled",
+            "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+            "customContextDataKey": {
+            },
+            "id": "A-2691fcca-f61b-4c0c-9919-3b82a2b4706a"
+          }],
+          "icon": "android-fill",
+          "label": "globalVarOf$命令获取当前应用activity",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/DeleteGlobalVar",
+            "varName": "命令获取当前应用activity",
+            "customContextDataKey": {
+            },
+            "id": "A-157f7b2d-2ea5-47b2-af70-f5a36c731981"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["命令获取当前应用activity"],
+            "customContextDataKey": {
+            },
+            "id": "A-47d12bb2-3a09-4d64-a57e-df450f4e344b"
+          }, {
+            "@type": "type.googleapis.com/SetRuleEnabled",
+            "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+            "customContextDataKey": {
+            },
+            "id": "A-a921c13d-b7b0-4b17-9cbc-fa9ec16abd96"
+          }],
+          "id": "BTN-447c8f6f-eade-483d-9235-fcda5be6b4aa"
+        }],
+        "tag": "命令获取当前应用activity",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 459,
+        "buttonMinWidth": 500,
+        "enableGlobalDrag": true,
+        "overlayPaddingH": 8,
+        "overlayPaddingV": 17,
+        "customContextDataKey": {
+        },
+        "id": "A-3622c511-2f28-439f-b2d1-15854aec0cde"
+      }, {
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+        "isEnable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-b7d9ae6c-1f89-4175-a12f-66456c06bc3e"
+      }],
+      "icon": "layout-top-2-line",
+      "label": "显示当前Activity",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-e06ad9c3-e264-440d-92f1-1b8b79d3ed44"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-9ed9ab98-f16a-42ce-bbc6-75f07792fe0f"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-e2af71fb-9232-40c3-81a4-e6fccffe9660"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-88c82d7b-94c2-4783-b65c-97f03860556d"
+      }, {
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+        "customContextDataKey": {
+        },
+        "id": "A-71792be0-5d78-4710-91a5-1ba042529497"
+      }],
+      "id": "BTN-db894a11-7b5c-4152-8f63-2dee51fcb1f6"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-4f0baa69-e1e2-4d85-a978-e25675b1ffd3"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-07d8ade0-f9df-4486-a9e8-af5c3ec700bb"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-71ce600f-5c57-438f-82f7-f2bc6b421257"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-8470e2bf-bf67-4010-bbc7-7f9f44dd9b66"
+      }, {
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-0d21f077-9884-4017-9cdb-332816b0ce8e",
+        "isEnable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-5ef0c491-6768-4aef-b75b-441735a6e327"
+      }],
+      "icon": "layout-5-line",
+      "label": "带参数Activity",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-da2da443-ffcc-4929-84da-0614c11c9166"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-e65c1cf3-96d8-4b0f-b13a-fac159959c78"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-e76ee911-9da0-4403-9120-53a282c5f584"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-540dc606-3f45-465a-92f2-329a9cc3611d"
+      }, {
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-0d21f077-9884-4017-9cdb-332816b0ce8e",
+        "customContextDataKey": {
+        },
+        "id": "A-b358ba3c-bb4c-434b-b270-bc5e97d587d2"
+      }],
+      "id": "BTN-55eb035b-10f2-4f38-991b-d601b8c44150"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-9edb5871-2c44-4e8c-b624-43e3b5b020ba"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-d60bfaba-4a95-41d7-96ef-3ef955ea019a"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-c89f292d-b8c6-4ba0-8507-b6e731c23ebc"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-dad31923-e013-45da-b87a-4c5de99abd69"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put ${k\u003dsystem pointer_location} $((`settings get $k`?0:1))",
+        "customContextDataKey": {
+        },
+        "id": "A-3fb6c535-a2fa-4ae1-869b-0fb0e3efeb0e"
+      }],
+      "icon": "cursor-line",
+      "label": "显示指针位置",
+      "id": "BTN-c0ea11b1-0629-4b75-b62c-edfb126f1a3f"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-9736615f-1da9-481c-b835-82011b46b82f"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-c8aeb061-e4c1-41b3-beb8-8cbdd6519038"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-2b87c3f7-fc6b-49de-bb1a-32cf50fd145d"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-da6bb91d-e96a-47b3-84d2-4add86ab6927"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "视图文本",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "视图文本"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2680463f-278f-4a0d-ab3d-c2d0c54485eb"
+      }, {
+        "@type": "type.googleapis.com/GetTextFromScreenNode",
+        "customContextDataKey": {
+        },
+        "id": "A-e7e4947e-bbf2-4e19-8dc6-8bcfaa09551f"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "视图文本",
+        "valueAsString": "{textOfTheView}",
+        "customContextDataKey": {
+        },
+        "id": "A-d24a2e88-1ea0-482c-a0e2-18194ede2d2e"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "globalVarOf$视图文本",
+          "customContextDataKey": {
+          },
+          "id": "A-29cad8f2-6f31-4bf5-b757-ecdfd714be73"
+        }],
+        "negative": "关闭",
+        "onNegative": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "close-fill",
+          "customContextDataKey": {
+          },
+          "id": "A-7fff1747-a55f-4165-8a30-49282d3e3f41"
+        }],
+        "title": "视图文本",
+        "message": "globalVarOf$视图文本",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-3d3403e8-4ddf-44ed-bc2a-cabd471f720b"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "视图文本",
+        "customContextDataKey": {
+        },
+        "id": "A-f651296b-d8a4-4b7f-81e2-90778b88cc77"
+      }],
+      "icon": "t-box-line",
+      "label": "显示视图文本",
+      "id": "BTN-c7b254fc-59c7-4453-947c-d865d04f815d"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-7fcf771d-7243-487a-87f2-5a85a9bd722c"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-04477ed2-b49b-4862-86c5-3354ae9ef70b"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-a51770f7-dbdd-4b90-9b3e-36a3e8c6ce18"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-9b06aaac-bfa8-4bf8-adc3-d13a680acd51"
+      }, {
+        "@type": "type.googleapis.com/FromDA",
+        "daId": "DA1e7b45d8-3306-443b-829a-83f2c4c8fca2",
+        "customContextDataKey": {
+        },
+        "id": "A-01a725e2-76b1-4fb6-88fb-d5bbdf9b6c87"
+      }],
+      "icon": "pulse-fill",
+      "label": "帧率显示",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-65b36dfd-e728-408f-9302-46ea3ca8cc08"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-b73c5542-1e64-41db-9e1a-210bcb7e543e"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-c4db1e3b-5be6-404c-a5a2-d01a27364dbd"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-3ec633a8-f514-4981-b1ba-4bbe93f10e61"
+      }, {
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.xiaomi.misettings/com.xiaomi.misettings.display.RefreshRate.RefreshRateActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-1a95be19-fa8e-423b-9748-899ab2ad5d66"
+      }],
+      "id": "BTN-ea53c8c4-113d-470c-a852-b5b7c93a9bd6"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys activity activities | grep -E \u0027mResumedActivity:\u0027 | cut -d \u0027{\u0027 -f 2 | cut -d \u0027 \u0027 -f 3 | cut -d \u0027/\u0027 -f 1",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "应用包名"
+          }]
+        },
+        "isDisabled": true,
+        "note": "获取当前应用包名",
+        "id": "A-07311009-f853-4ea4-a5ca-d0fd572d7988"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "应用包名",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-21ead304-ded7-4e77-9739-58e97621e862"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "应用包名",
+        "valueAsString": "{应用包名}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-57f3d5fa-296f-45ac-a332-8decd82d40e9"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {应用包名};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "应用名"
+          }]
+        },
+        "isDisabled": true,
+        "note": "根据应用包名输出应用名",
+        "id": "A-1c027e92-1a82-4c4a-b65e-3916793e1565"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "应用名",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-0a36d700-da80-4b98-8e27-0baad883d556"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "应用名",
+        "valueAsString": "{应用名}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-6672e7f7-4caf-480d-9c9a-d4d0c0c6f786"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-2b5995b6-bde1-4027-83b4-6cfeb573446e"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-8b1b7f97-4e78-4744-a36f-2bb69668af97"
+      }, {
+        "@type": "type.googleapis.com/SetAppEnabledByPkg",
+        "pkgAndUsers": [{
+          "first": "globalVarOf$应用包名",
+          "second": "0"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-df7b8a8c-65d5-41e9-a785-3b9d30b39e3c"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-644fd4b5-cf32-4ebe-aa08-b9b37f4e806d"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-db2aacaa-7abe-4d45-b79a-62e11f7bee5f"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "冻结",
+        "onPositive": [{
+          "@type": "type.googleapis.com/SetAppEnabledByPkg",
+          "pkgAndUsers": [{
+            "first": "globalVarOf$应用包名",
+            "second": "0"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-91208067-dbb0-4e71-a88a-c4a0ff3fd862"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "应用包名",
+          "customContextDataKey": {
+          },
+          "id": "A-43377209-2e02-4b65-ae4f-1bed36b61943"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "应用名",
+          "customContextDataKey": {
+          },
+          "id": "A-f723b62d-29d6-44e0-95aa-f10f0b3937e6"
+        }],
+        "negative": "取消",
+        "onNegative": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "应用名",
+          "customContextDataKey": {
+          },
+          "id": "A-52206cd9-796c-4dfa-b713-5a482555ccad"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "应用包名",
+          "customContextDataKey": {
+          },
+          "id": "A-df353525-eea8-49bc-b26e-97bb23fca479"
+        }],
+        "title": "冻结globalVarOf$应用名",
+        "message": "确认冻结globalVarOf$应用名？",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-ed351bd7-0936-428b-8628-7511dcc2f186"
+      }],
+      "icon": "layout-top-2-line",
+      "label": "冻结globalVarOf$应用名",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-4e038739-18f4-4fa1-802c-3c9e60f340fd"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-25aed38c-ace6-4639-9900-166139191e55"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-d009da22-72e8-4639-be70-2982a1f9abcc"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-d4df2baf-33f5-4a5d-ba26-5a0f32443c44"
+      }],
+      "id": "BTN-d16097e4-4de4-4aeb-b4ec-67aada8d0f7a"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-c6587a78-f372-4781-8da4-2c645262430d"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-e48235a7-b584-4922-a003-eda19977b5d0"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-42c81d33-ba1b-46ed-9591-e2e13cd285bd"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-d6a60219-eaef-43c0-b1bd-4544ae09816b"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsNotExists",
+          "varName": "屏幕常亮",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-c4accedf-3adc-4556-b265-f01390e24332"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/FromDA",
+          "daId": "DAf4665e0f-ae04-4665-99c5-36ad429ac443",
+          "customContextDataKey": {
+          },
+          "id": "A-831d0aaf-b9b6-4c9e-ba40-660f395993ef"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/FromDA",
+          "daId": "DAbc664c2a-741b-410e-aeae-9777f1d3b43a",
+          "customContextDataKey": {
+          },
+          "id": "A-9c6ecce8-8c51-4f1e-b32a-9d01abdf639a"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-59e05709-2c58-4527-b2ac-93a0214f12ac"
+      }],
+      "icon": "contrast-2-fill",
+      "label": "屏幕常亮",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-b70ca20c-4403-4647-ad5c-ddba94be55e4"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-cb3acf77-bc9e-492f-935b-fe473dcae5c1"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-1a2d4882-6471-40c3-be12-c52e243eabb7"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-98d3722a-ea16-45f3-b5a7-2577e75a5152"
+      }, {
+        "@type": "type.googleapis.com/FromDA",
+        "daId": "DAbc664c2a-741b-410e-aeae-9777f1d3b43a",
+        "customContextDataKey": {
+        },
+        "id": "A-454db243-8060-4895-86f2-c2fcef2e3754"
+      }],
+      "id": "BTN-8a56a274-0240-4b00-af22-e6de92de4ed1"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-965cf20d-e235-4be7-8d68-8225ea067984"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-dd8f6f43-770e-4f29-9d2f-d2c696eaa14e"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-7c921034-1ab9-4734-9764-540f457e3d86"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-43a0db47-17f6-4d97-8d88-d46fdb804e18"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-9e8e5d98-99cf-4ceb-92b4-2a8983616ee5"
+          }, {
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA37a8b4f9-9c44-414e-99f4-23bb1bd3ad10",
+            "customContextDataKey": {
+            },
+            "id": "A-f8cb41c7-e624-4550-9285-0e802b12073d"
+          }],
+          "icon": "anticlockwise-2-line",
+          "label": "返回工具类悬浮窗",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-a12179a1-59dc-423e-bdd5-ad37283af4fe"
+          }],
+          "id": "BTN-9b893055-436b-4ff3-ba49-84795fbf8a1d"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sh /data/adb/modules/uperf/script/powercfg_main.sh auto",
+            "customContextDataKey": {
+            },
+            "id": "A-dd32d69f-7f7c-4840-9039-d38e6c7c9b51"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-a79960dd-b155-4a97-895b-37d7ec1aba04"
+          }],
+          "icon": "cpu-fill",
+          "label": "自动",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-f589e269-de00-4a98-a430-26a96c52d835"
+          }],
+          "id": "BTN-f1c4053e-6c14-4387-a801-e8aac7d6912c"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sh /data/adb/modules/uperf/script/powercfg_main.sh balance",
+            "customContextDataKey": {
+            },
+            "id": "A-b3da7983-757b-4898-a827-b49dd8c4390a"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-37745399-14e1-4d57-9613-9640327c36fa"
+          }],
+          "icon": "cpu-fill",
+          "label": "均衡",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-815cc7c6-ecf8-4beb-9649-7fe31af31313"
+          }],
+          "id": "BTN-4108bb71-3834-43f1-9814-40b764a40481"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sh /data/adb/modules/uperf/script/powercfg_main.sh powersave",
+            "customContextDataKey": {
+            },
+            "id": "A-d85777a5-ec9e-4071-b332-af85d4d1a7f0"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-a103a2b9-15fe-4656-9b45-4be01a290f5f"
+          }],
+          "icon": "cpu-fill",
+          "label": "省电",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-ac67dec2-b9ca-4a17-a9bd-d5f910bdfc8b"
+          }],
+          "id": "BTN-dfde28b1-4e7c-411a-a672-d3e6edbbdf39"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sh /data/adb/modules/uperf/script/powercfg_main.sh performance",
+            "customContextDataKey": {
+            },
+            "id": "A-d0163205-dcac-4fc5-8e0c-7a96613612e4"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-712520ab-0f71-4639-80a2-55baae0e5d61"
+          }],
+          "icon": "cpu-fill",
+          "label": "费电",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-0f8f8e2d-dd9c-4df2-be8a-8bf913bd31f0"
+          }],
+          "id": "BTN-818b3a44-7cb7-4ca4-a32b-c2ad5f3eea8b"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sh /data/adb/modules/uperf/script/powercfg_main.sh fast",
+            "customContextDataKey": {
+            },
+            "id": "A-5c5ff1b0-a55b-4f59-98c4-2ea7caf0cb00"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-5235e3c2-6a1b-4a23-a6a8-2fd1b8a6b1a0"
+          }],
+          "icon": "cpu-fill",
+          "label": "性能",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["uperf模式"],
+            "customContextDataKey": {
+            },
+            "id": "A-0d6f574c-76ee-41ff-9ca7-63be3c7bebe0"
+          }],
+          "id": "BTN-518e1340-2ccd-4f16-8c9c-8c632ce9d9ff"
+        }],
+        "tag": "uperf模式",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 227,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 28,
+        "overlayPaddingV": 18,
+        "customContextDataKey": {
+        },
+        "id": "A-b020b498-d663-4469-8197-3e2d74ea4892"
+      }],
+      "icon": "cpu-line",
+      "label": "uperf模式",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-14e6666b-6659-40c0-aa20-7b50c9e9f0ff"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-06308662-391e-4b33-bc98-906e87439897"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-9de60b74-d267-4ebb-b984-19670cea5cbc"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-11f66a1f-f0b0-49e0-a8d6-6722bd1a9ecf"
+      }, {
+        "@type": "type.googleapis.com/StartActivityIntentUri",
+        "intentUri": "content://com.mixplorer.silver.file/505!/yc",
+        "customContextDataKey": {
+        },
+        "id": "A-ae1347bb-254a-4053-879a-604facb5bd97"
+      }],
+      "id": "BTN-0256fe3a-2520-4d61-be53-a72cd0004775"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-018b1372-1d18-41ca-9dc2-09229f8a879c"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-27d8429f-f23e-40e6-92bb-26d98e3d201f"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-696ceb73-f7be-48d0-82f2-9780a9132d14"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-4cd3da48-536a-40a5-a120-72427d921318"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/FromDA",
+            "daId": "DA37a8b4f9-9c44-414e-99f4-23bb1bd3ad10",
+            "customContextDataKey": {
+            },
+            "id": "A-17be1880-3ecb-47f7-aa52-fdfea37f4d30"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-12d70c06-9eb8-4400-9cff-65594ad5f8eb"
+          }],
+          "icon": "anticlockwise-2-line",
+          "label": "返回工具类悬浮窗",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-3a93727c-afe4-471f-8397-821b0a3d1ca0"
+          }],
+          "id": "BTN-21a5e2df-2ef3-4cba-a2bf-b3b1d583b4a2"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-d13fd7bd-f88b-4511-b127-7f95b979160c"
+          }, {
+            "@type": "type.googleapis.com/StartActivity",
+            "componentNameAsString": "com.android.settings/com.android.settings.Settings$UsageAccessSettingsActivity",
+            "customContextDataKey": {
+            },
+            "id": "A-e08fe1c9-7ee0-4b82-95bc-d3f1b5c4efde"
+          }],
+          "icon": "settings-4-line",
+          "label": "有权查看使用情况的应用",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-d5975b7e-070d-422d-a8f3-a9d22add9523"
+          }],
+          "id": "BTN-b517f1e3-8068-4353-bf47-aff1d8b6512a"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/StartActivity",
+            "componentNameAsString": "com.android.settings/com.android.settings.Settings$HighPowerApplicationsActivity",
+            "customContextDataKey": {
+            },
+            "id": "A-1e6b9c30-669b-4614-9126-9d1bb8aaf08d"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-63aeb63b-2a03-4702-a726-e7eb522bc52f"
+          }],
+          "icon": "settings-4-line",
+          "label": "电池优化",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-250a7e70-da80-4142-95ca-4184fd655931"
+          }],
+          "id": "BTN-5edb0cd4-e140-43a2-ada1-43ff08a946f8"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/StartActivity",
+            "componentNameAsString": "com.android.settings/com.android.settings.Settings$NotificationAccessSettingsActivity",
+            "customContextDataKey": {
+            },
+            "id": "A-dd67fb03-a113-490d-8993-85d5114f9ec2"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-70751258-2bf6-4a6c-9956-5f27a18c862e"
+          }],
+          "icon": "settings-4-line",
+          "label": "设备和应用通知",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-2812226e-7250-4ab7-a7e5-40dc528a6288"
+          }],
+          "id": "BTN-db07cb47-b3ca-4c0d-a7cc-39c689e71033"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/StartActivity",
+            "componentNameAsString": "com.android.settings/com.android.settings.Settings$OverlaySettingsActivity",
+            "customContextDataKey": {
+            },
+            "id": "A-173c8d25-e570-4350-86d2-7b331ec9a75b"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-b9b257a0-f5e6-499a-8d17-0e71940bf2b2"
+          }],
+          "icon": "settings-4-line",
+          "label": "显示在其他应用的上层",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-8af231e3-2ece-4eb0-bac8-eed28389e738"
+          }],
+          "id": "BTN-cd9bf4fa-53a0-47d3-9d3d-da65581ef612"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-570b332e-4525-4107-a9f0-fa334a00623c"
+          }, {
+            "@type": "type.googleapis.com/StartActivity",
+            "componentNameAsString": "com.android.settings/com.android.settings.Settings$NotificationStationActivity",
+            "customContextDataKey": {
+            },
+            "id": "A-2f002cbe-5b29-43b6-a1a3-c11ca754f50a"
+          }],
+          "icon": "settings-4-line",
+          "label": "通知日志",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-797f507c-98ab-4bf2-a7e7-03fae7ca5ab7"
+          }],
+          "id": "BTN-a9fb6920-4bf0-4004-a17b-4a57615a953b"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/StartActivity",
+            "componentNameAsString": "com.android.settings/com.android.settings.Settings$ManageExternalStorageActivity",
+            "customContextDataKey": {
+            },
+            "id": "A-518ef6da-0c70-4c54-9faf-4e0da6c68774"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-adb9800e-670d-4a4a-8d6d-7409e90f42d7"
+          }],
+          "icon": "settings-4-line",
+          "label": "所有文件访问权限",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-417030d4-edd5-4b8d-a2bb-989f9b4e8f6e"
+          }],
+          "id": "BTN-3532f426-8498-4cb6-b2e8-23de0e0e6598"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-e15afa96-ea93-47e7-9b8d-adf82149ed7f"
+          }, {
+            "@type": "type.googleapis.com/StartActivity",
+            "componentNameAsString": "com.miui.powerkeeper/com.miui.powerkeeper.ui.powertools.module.batterylife.BatteryStatusActivity",
+            "customContextDataKey": {
+            },
+            "id": "A-f94acb0f-69d0-4ca2-8261-3b8d92e82ce6"
+          }],
+          "icon": "settings-4-line",
+          "label": "电池续航",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-86f5caf3-331c-4bdb-ba28-d56bb0000b16"
+          }],
+          "id": "BTN-a7f14e57-b081-42ea-aabe-a5fcbd82297d"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/StartActivityIntentUri",
+            "intentUri": "Intent { act\u003dandroid.intent.action.MAIN flg\u003d0x10000000 cmp\u003dcom.android.settings/.Settings$TestingSettingsActivity }",
+            "customContextDataKey": {
+            },
+            "id": "A-bfb357dd-ff7a-465b-8ad8-df4ce261d3bf"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-40f00442-fa9a-4e0a-86b5-a4d1b5be3709"
+          }],
+          "icon": "settings-4-line",
+          "label": "手机信息",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-2d08f824-1e14-4958-8d5b-c18b186c23dc"
+          }],
+          "id": "BTN-256d0549-431f-4cf3-880e-bad1f0547639"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/StartActivity",
+            "componentNameAsString": "com.android.settings/com.android.settings.Settings$ZenAccessSettingsActivity",
+            "customContextDataKey": {
+            },
+            "id": "A-70c05139-a543-4c88-a90e-af0a3cd8db65"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-72589d66-0809-4767-b606-de81b448f210"
+          }],
+          "icon": "settings-4-line",
+          "label": "“勿扰”权限",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["系统设置"],
+            "customContextDataKey": {
+            },
+            "id": "A-6b988021-7e83-484d-a271-878504219f7c"
+          }],
+          "id": "BTN-b404015b-2b98-49d1-a838-8827132b66b3"
+        }],
+        "tag": "系统设置",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 500,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 64,
+        "customContextDataKey": {
+        },
+        "id": "A-bff9502a-b5c4-4768-8562-704aa575e04a"
+      }],
+      "icon": "settings-5-fill",
+      "label": "系统设置",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-b1fd5e3b-8a66-41a7-bf53-8780f510d441"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-cce7a500-9a11-4a72-a7b6-6191b6e6d5ed"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-1d6cbbda-06fa-4ba6-a74e-7e0c525c8f7d"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-554a217d-9b70-4745-bbc8-3b2ecb7d4e93"
+      }],
+      "id": "BTN-e73fc845-b92e-47e1-9572-7069f04a7bc7"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-82ff222d-ca82-445a-88c6-28360ff4fd4a"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-dd58f37b-a27b-447f-bb1c-98ed8f52eb9e"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-525bfc5d-0b21-4c0b-8adc-7ed98a89ae9e"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-8bd9b4fc-0c18-4d76-bacc-a181f736449a"
+      }, {
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.miui.securitycenter/com.miui.powercenter.PowerMainActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-0c3cc7ba-d520-4d97-96db-940904249b18"
+      }],
+      "icon": "battery-saver-line",
+      "label": "省电与电池",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-53744efd-0237-442f-9859-5faa0353f090"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-eb9144eb-49ea-41b0-b5ed-363bcc6eb96f"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-9ea55b68-3064-4509-bc3e-4424faea86e6"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-20454c2e-55af-4ec6-8624-09917bba5b56"
+      }],
+      "id": "BTN-6907d1f0-48de-4e6b-b78a-b666b237aa38"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-2817bdc3-d536-4177-a8bf-6603b174ef71"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-cf3099e5-e966-4e00-8b44-59d1d1debdb9"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-f21565e8-6081-4094-801c-721ac6a90579"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-66234134-f952-4d40-b691-b50cb96a1ffb"
+      }, {
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "github.tornaco.android.thanos/now.fortuitous.thanos.process.v2.ProcessManageActivityV2",
+        "customContextDataKey": {
+        },
+        "id": "A-38923b35-923c-4629-b51c-f616154f6fb6"
+      }],
+      "icon": "cpu-line",
+      "label": "正在运行",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-b8aa0560-5ccc-4df0-a493-f6ace081156a"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-d4ca70ca-5e5c-4af1-af61-be1dd91bef34"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-4900fde7-4742-48a7-8570-2a7316091819"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-d68c14f4-2497-4772-bcfe-bc5d96b2ffa7"
+      }],
+      "id": "BTN-3c023327-86ec-43e7-9b77-9d00afeb015f"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-6c7ab464-84a1-4777-8d2d-8a46cba77aac"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-3c372b15-7841-439c-9c63-57a5bc25abdd"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-6eed104b-d0ea-45b1-b407-743f7612b317"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-298fe4cf-d1de-43bd-b241-d87478745c67"
+      }, {
+        "@type": "type.googleapis.com/FromDA",
+        "daId": "DA9122b14f-a902-48f5-8dcb-f2b98881519d",
+        "customContextDataKey": {
+        },
+        "id": "A-bea8d1da-2ca1-4337-86dd-4adecd898665"
+      }],
+      "icon": "road-map-line",
+      "label": "显示IP地址",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "工具类悬浮窗",
+        "customContextDataKey": {
+        },
+        "id": "A-cd78fa92-e1b0-4e27-8a05-3710efa370d8"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["工具类悬浮窗"],
+        "customContextDataKey": {
+        },
+        "id": "A-bf2dad6e-c07d-4a35-b9b0-ddbffcc59089"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-15faa799-3085-4443-9252-91c1627c317c"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "应用包名",
+        "customContextDataKey": {
+        },
+        "id": "A-2d4e5af9-bf91-4f94-af35-aa6e425c4200"
+      }],
+      "id": "BTN-18e9bd41-042d-421e-884f-9f925924b35a"
+    }],
+    "tag": "工具类悬浮窗",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 307,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 50,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 21,
+    "customContextDataKey": {
+    },
+    "id": "A-12c60135-6c6a-4d89-86e6-7f13066cc255"
+  }],
+  "id": "DA37a8b4f9-9c44-414e-99f4-23bb1bd3ad10",
+  "lastUpdateTime": "1723453740134",
+  "createTime": "1713396859228",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "工具类悬浮窗",
+  "versionCode": "1",
+  "directActionSetId": "DS-51ed86be-d714-4552-9220-bf8d95aa4d60"
+}
+###------###
+{"type":"da"}

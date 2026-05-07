@@ -1,0 +1,109 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-1e2c7b7f-85e0-410f-b170-6b98ca6e63bc"
+  }, {
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "tag": "重启",
+    "customContextDataKey": {
+    },
+    "id": "F-4be4ff15-9bf0-494e-95ed-3c0251057e68"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ChargeState",
+    "requireIsCharge": true,
+    "customContextDataKey": {
+    },
+    "id": "C-0c69d9b6-de98-45f0-8c7e-4ab4eabc4060"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/BatteryPercent",
+      "value": 100,
+      "op": "IntLessThan",
+      "customContextDataKey": {
+      },
+      "id": "C-aab2ab13-459e-4a84-9c5d-d170d5e5eb46"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/BatteryPercent",
+        "value": 100,
+        "op": "IntEqualTo",
+        "customContextDataKey": {
+        },
+        "id": "C-e8cf6daa-6e44-42fc-9e28-2ad095b6b4a7"
+      }],
+      "timeoutStr": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-2745325d-fee3-4ec5-b705-447a076bdfb0"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-114514",
+      "title": "充电统计",
+      "message": "电量已充至100%",
+      "isImportant": true,
+      "largeIcon": "battery-working-one",
+      "smallIcon": "battery-working-one",
+      "customContextDataKey": {
+      },
+      "note": "发送充满通知",
+      "id": "A-8ddc4398-33d0-4461-8956-5f6b0121b876"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-01ca95a0-3290-4769-958d-082a480717db"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "count\u003d0\nwhile (($count!\u003d10));do\n  dc_I\u003d$(\u003c /sys/class/power_supply/battery/current_now)\n  if (($dc_I\u003d\u003d0)); then\n    let \"count++\"\n  else\n    count\u003d0\n  fi\n  sleep 1\ndone \n",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "shellOut2"
+      }]
+    },
+    "id": "A-017a99de-24af-45ff-9527-615a66be6e66"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-114514",
+    "title": "充电统计",
+    "message": "涓流完成",
+    "isImportant": true,
+    "largeIcon": "battery-full",
+    "smallIcon": "battery-full",
+    "customContextDataKey": {
+    },
+    "id": "A-49a9100c-e160-4555-9c0a-8ef03956cd4a"
+  }],
+  "id": "SHARE-rule-762c8146-b133-4341-8727-d14536abd149",
+  "lastUpdateTime": "1749073592784",
+  "createTime": "1741134377647",
+  "author": {
+    "name": "Rarlya"
+  },
+  "title": "满电提醒",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ChargerUnplug",
+      "customContextDataKey": {
+      },
+      "id": "F-29bc071b-c8aa-4aa8-8024-827e34f6edfa"
+    }],
+    "isEnabled": true,
+    "evaluatePolicy": "Quit_EvaluatePolicy_Only_When_Is_Running"
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-77b36271-1f74-4e4e-a940-965092d8a9a0"
+}
+###------###
+{"type":"rule"}

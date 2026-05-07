@@ -1,153 +1,419 @@
 {
   "actions": [{
     "@type": "type.googleapis.com/NoAction",
-    "icon": "focus-3-fill",
+    "icon": "click-tap-two",
     "customContextDataKey": {
     },
-    "id": "A-fe6afa31-8be7-4f64-b9ba-41e922cadd82"
+    "id": "A-d1472a3f-0ad9-4e6d-b111-2afdcd34a18d"
   }, {
-    "@type": "type.googleapis.com/CreateLocalVar",
-    "localVar": {
-      "name": "coordinate",
-      "type": {
-        "@type": "type.googleapis.com/StringVar"
-      }
-    },
-    "customContextDataKey": {
-    },
-    "id": "A-016b940d-44c1-495b-a2ea-c0b1bd90e1a0"
-  }, {
-    "@type": "type.googleapis.com/ShowOverlayButton",
-    "buttonSettings": [{
-      "actions": [{
-        "@type": "type.googleapis.com/ExecuteJS",
-        "expression": "// 导入必要的 Android 包\nimportPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\n\n// 获取 WindowManager 服务\nvar windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n// 创建一个透明的全屏视图\nvar layout \u003d new LinearLayout(context);\nlayout.setBackgroundColor(Color.TRANSPARENT);\nlayout.setOrientation(LinearLayout.VERTICAL); // 设置方向，避免布局异常\n\n// 根据系统版本选择窗口类型\nvar type \u003d Build.VERSION.SDK_INT \u003e\u003d 26\n    ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY\n    : WindowManager.LayoutParams.TYPE_PHONE;\n\n// 配置 WindowManager.LayoutParams\nvar layoutParams \u003d new WindowManager.LayoutParams(\n    WindowManager.LayoutParams.MATCH_PARENT,\n    WindowManager.LayoutParams.MATCH_PARENT,\n    type,\n    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE\n    | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON\n    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN\n    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS\n    | WindowManager.LayoutParams.FLAG_FULLSCREEN,\n    PixelFormat.TRANSLUCENT\n);\n\n// 设置悬浮窗口的位置和重力\nlayoutParams.gravity \u003d Gravity.TOP | Gravity.LEFT;\n\n// 显示透明全屏视图\nwindowManager.addView(layout, layoutParams);\n\n// 设置点击事件监听\nlayout.setOnTouchListener(new android.view.View.OnTouchListener({\n    onTouch: function(view, motionEvent) {\n        if (motionEvent.getAction() \u003d\u003d\u003d MotionEvent.ACTION_DOWN) {\n            var x \u003d Math.floor(motionEvent.getRawX());\n            var y \u003d Math.floor(motionEvent.getRawY());\n            try {\n                var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                    .setVarName(\"coordinate\")\n                    .setValueAsString(\"input tap \"+x+\" \"+y)\n                    .build();\n                shortx.executeAction(writeLocalVar);\n            } catch (e) {}\n\n            layout.post(function() {\n                try {\n                    windowManager.removeView(layout);\n                } catch (e) {}\n            });\n            return true;\n        }\n        return false;\n    }\n}));",
-        "context": "CoroutineContext_UI",
-        "customContextDataKey": {
-        },
-        "id": "A-d38ea97f-5213-4888-9b02-03119b61e37d"
-      }],
-      "icon": "focus-3-fill",
-      "label": "点击/滑动",
-      "longClickActions": [{
-        "@type": "type.googleapis.com/ExecuteJS",
-        "expression": "// 导入必要的 Android 包\nimportPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportPackage(java.lang);\n\n// 获取 WindowManager 服务\nvar windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n// 创建一个透明的全屏视图\nvar layout \u003d new LinearLayout(context);\nlayout.setBackgroundColor(Color.TRANSPARENT);\nlayout.setOrientation(LinearLayout.VERTICAL);\n\n// 根据系统版本选择窗口类型\nvar type \u003d Build.VERSION.SDK_INT \u003e\u003d 26\n    ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY\n    : WindowManager.LayoutParams.TYPE_PHONE;\n\n// 配置 WindowManager.LayoutParams\nvar layoutParams \u003d new WindowManager.LayoutParams(\n    WindowManager.LayoutParams.MATCH_PARENT,\n    WindowManager.LayoutParams.MATCH_PARENT,\n    type,\n    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE\n    | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON\n    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN\n    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS\n    | WindowManager.LayoutParams.FLAG_FULLSCREEN,\n    PixelFormat.TRANSLUCENT\n);\n\n// 设置悬浮窗口的位置和重力\nlayoutParams.gravity \u003d Gravity.TOP | Gravity.LEFT;\n\n// 显示透明全屏视图\nwindowManager.addView(layout, layoutParams);\n\n// 变量来保存起始位置\nvar startX \u003d 0;\nvar startY \u003d 0;\nvar isSwiping \u003d false;\nvar starttime \u003d 0;\nvar endtime \u003d 0;\n\n// 设置触摸事件监听\nlayout.setOnTouchListener(new android.view.View.OnTouchListener({\n    onTouch: function(view, motionEvent) {\n        switch (motionEvent.getAction()) {\n            case MotionEvent.ACTION_DOWN:\n                starttime \u003d System.currentTimeMillis();\n                startX \u003d Math.floor(motionEvent.getRawX());\n                startY \u003d Math.floor(motionEvent.getRawY());\n                isSwiping \u003d true;\n                return true;\n\n            case MotionEvent.ACTION_MOVE:\n                return false;\n\n            case MotionEvent.ACTION_UP:\n                if (isSwiping) {\n                    endtime \u003d System.currentTimeMillis();\n                    var endX \u003d Math.floor(motionEvent.getRawX());\n                    var endY \u003d Math.floor(motionEvent.getRawY());\n\n                    try {\n                        var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                            .setVarName(\"coordinate\")\n                            .setValueAsString(\"input swipe \"+startX+\" \"+startY+\" \"+endX+\" \"+endY+\" \"+\" \"+(endtime-starttime))\n                            .build();\n                        shortx.executeAction(writeLocalVar);\n                    } catch (e) {}\n\n                    layout.post(function() {\n                        try {\n                            windowManager.removeView(layout);\n                        } catch (e) {}\n                    });\n\n                    isSwiping \u003d false;\n                }\n                return true;\n\n            default:\n                return false;\n        }\n    }\n}));",
-        "context": "CoroutineContext_UI",
-        "customContextDataKey": {
-        },
-        "id": "A-683c51f9-6b44-4204-84c2-7389b30fb52e"
-      }],
-      "id": "BTN-c4da36dd-8932-4621-ae24-99de67d5367d"
-    }],
-    "tag": "extract",
-    "maxHeightInDp": 154,
-    "maxWidthInDp": 20,
-    "backgroundAlpha": 0.8,
-    "buttonMinWidth": 65,
-    "enableGlobalDrag": true,
-    "overlayPaddingH": 1,
-    "overlayPaddingV": 19,
-    "disableAutoEdge": true,
-    "closeOnAction": true,
-    "customContextDataKey": {
-    },
-    "id": "A-f41a3005-3238-4c45-a5aa-73a99c65fdc5"
-  }, {
-    "@type": "type.googleapis.com/WaitUtilConditionMatch",
-    "condition": [{
-      "@type": "type.googleapis.com/EvaluateLocalVar",
-      "op": "IsNotEmpty",
-      "varName": "coordinate",
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "xlist",
       "payload": {
       },
       "customContextDataKey": {
       },
-      "id": "C-6417382a-aa18-424c-a34c-05b8ab3bac3d"
+      "id": "C-f134a8b4-3d64-4f4d-8a83-01fa2805e56e"
     }],
-    "quitCondition": [{
-      "@type": "type.googleapis.com/True",
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "xlist",
+        "type": {
+          "@type": "type.googleapis.com/Int64ListVar"
+        }
+      },
       "customContextDataKey": {
       },
-      "id": "C-26b396a7-3657-4315-a9f5-6c528d8de360"
+      "id": "A-cd347cc1-e8c5-4ce5-98e1-9cf993a7bb85"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "ylist",
+        "type": {
+          "@type": "type.googleapis.com/Int64ListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-a7b00a27-e8a4-472b-9ec6-0879c2b692e6"
     }],
-    "timeoutStr": "0",
     "customContextDataKey": {
     },
-    "id": "A-b68b3e9c-913c-4e70-bc8b-20543320c73e"
-  }, {
-    "@type": "type.googleapis.com/CreateLocalVar",
-    "localVar": {
-      "name": "stop",
-      "type": {
-        "@type": "type.googleapis.com/BoolVar"
-      }
-    },
-    "customContextDataKey": {
-    },
-    "id": "A-62baca6d-7c96-4ebc-a3f2-060ea86405fb"
+    "id": "A-387ffd55-5669-475a-b39b-31d47610295d"
   }, {
     "@type": "type.googleapis.com/ShowOverlayButton",
     "buttonSettings": [{
       "actions": [{
-        "@type": "type.googleapis.com/WriteLocalVar",
-        "varName": "stop",
-        "valueAsString": "true",
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "isclicking",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
         "customContextDataKey": {
         },
-        "id": "A-da95992b-8624-4baa-8a62-43bd84c445cc"
+        "id": "A-4b10c569-ecb8-41e7-b0bc-9a8f7751c4c6"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "点击已开始，点击停止按钮停止点击",
+        "customContextDataKey": {
+        },
+        "id": "A-6f93d7b0-2419-4742-a93f-3ba186ccd6c0"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["面板"],
+        "customContextDataKey": {
+        },
+        "id": "A-dfe763cc-8bcc-450d-a5f1-0fab7d2e5a14"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/DeleteGlobalVar",
+            "varName": "isclicking",
+            "customContextDataKey": {
+            },
+            "id": "A-0db9f580-5f20-469f-9d2c-da7a68e45370"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["停止按钮"],
+            "customContextDataKey": {
+            },
+            "id": "A-8655748c-5b01-4e9a-8381-5ac2304cdb03"
+          }],
+          "icon": "stop-mini-fill",
+          "label": "停止",
+          "id": "BTN-14a6825d-2664-4433-a75d-fdfbc2ea64f3"
+        }],
+        "tag": "停止按钮",
+        "maxHeightInDp": 20,
+        "maxWidthInDp": 20,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 20,
+        "enableGlobalDrag": true,
+        "disableAutoEdge": true,
+        "closeOnAction": true,
+        "customContextDataKey": {
+        },
+        "id": "A-c19f7d30-c57e-4e6f-9089-2c651ac49d2f"
+      }, {
+        "@type": "type.googleapis.com/WhileLoop",
+        "conditions": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "isclicking",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-59946efa-a6bd-4d52-b15d-28fd2ceff746"
+        }],
+        "actions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "globalVarOf$xlist",
+          "delimiter": [","],
+          "actions": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "index",
+              "type": {
+                "@type": "type.googleapis.com/Int64Var"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-fc7de4cf-31c6-47bd-90b5-5ffbf472f343"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "index",
+            "valueAsString": "{foreachIndex}",
+            "customContextDataKey": {
+            },
+            "id": "A-1b43ae32-216a-409d-8edb-f8f93439509e"
+          }, {
+            "@type": "type.googleapis.com/InputTap",
+            "xs": "globalVarOf$xlist[localVarOf$index]",
+            "ys": "globalVarOf$ylist[localVarOf$index]",
+            "customContextDataKey": {
+            },
+            "id": "A-5c067fad-b6a4-4720-98ca-52c196cbfa78"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-a2d5feb3-891c-428c-9d1d-eac04b5cb1f4"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-94a9e09e-0f39-4741-9da0-d10bb66acfef"
+      }, {
+        "@type": "type.googleapis.com/FromDA",
+        "daId": "DA-b43bb9a3-be34-41cf-9809-aa80b9e8111e",
+        "customContextDataKey": {
+        },
+        "id": "A-9cab505a-277d-417f-b003-9563fa650fb6"
       }],
-      "icon": "stop-mini-fill",
-      "label": "停止",
-      "id": "BTN-3673de2b-49f2-4912-91d5-f88c9a196673"
+      "icon": "play-fill",
+      "label": "启动",
+      "id": "BTN-86c8a2f5-f545-4851-83e4-e6f8c39213ec"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "actionlist",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-cf3399a1-9b9a-4c42-8f06-74d399b8188c"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "actionlist",
+        "customContextDataKey": {
+        },
+        "id": "A-b4a2fed7-f814-4756-8c02-69ceaf19bed8"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsEmpty",
+          "varName": "xlist",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-58bd545c-e823-406c-9ff9-f844c72439b9"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "当前没有点击点",
+          "customContextDataKey": {
+          },
+          "id": "A-13539bbb-114f-4a08-8b14-83a504d771b3"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "globalVarOf$xlist",
+          "delimiter": [","],
+          "actions": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "index",
+              "type": {
+                "@type": "type.googleapis.com/Int64Var"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-fc7de4cf-31c6-47bd-90b5-5ffbf472f343"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "index",
+            "valueAsString": "{foreachIndex}",
+            "customContextDataKey": {
+            },
+            "id": "A-1b43ae32-216a-409d-8edb-f8f93439509e"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "IsEmpty",
+              "varName": "actionlist",
+              "payload": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-2403015c-b469-4f76-a744-1b299ee62309"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "actionlist",
+              "valueAsString": "globalVarOf$xlist[localVarOf$index],globalVarOf$ylist[localVarOf$index]",
+              "customContextDataKey": {
+              },
+              "id": "A-c991adcc-337e-445a-819f-a4bb9b92d730"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "actionlist",
+              "valueAsString": "localVarOf$actionlist;globalVarOf$xlist[localVarOf$index],globalVarOf$ylist[localVarOf$index]",
+              "customContextDataKey": {
+              },
+              "id": "A-c991adcc-337e-445a-819f-a4bb9b92d730"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-e5b0a1f7-9ecf-448f-bc8c-14968b96a2ae"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-256e0207-b59f-48e7-a8d6-7458659f50de"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "当前点击点",
+          "cancelable": true,
+          "data": "localVarOf$actionlist",
+          "delimiter": [";"],
+          "needConfirmAction": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-db065d29-4c9f-448e-ac08-0a249c762849"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b5e8dd2-f69a-4815-a2b7-c5fdcf966293"
+      }],
+      "icon": "list-add",
+      "label": "查看",
+      "id": "BTN-b9835d8f-49f0-4629-888e-df374c8d9dbd"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["面板"],
+        "customContextDataKey": {
+        },
+        "id": "A-06735282-7d54-4173-8038-8f061f786497"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "请从需要点击的点开始往右下角滑动并确认",
+        "customContextDataKey": {
+        },
+        "id": "A-c3dd3e33-605a-4b64-8f3e-8555ffc8fe68"
+      }, {
+        "@type": "type.googleapis.com/SelectScreenArea",
+        "customContextDataKey": {
+        },
+        "id": "A-94cac0b4-a110-4dfd-9730-070e42f40c19"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "点击点{rectLeft}，{rectTop}已创建",
+        "customContextDataKey": {
+        },
+        "id": "A-4fd4e1bc-993a-4a15-bada-3d8ba4e1e922"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "xlist",
+        "valueAsString": "{rectLeft}",
+        "op": "WriteGlobalVarOp_AppendToLast",
+        "customContextDataKey": {
+        },
+        "id": "A-380188d7-c4a8-419f-b5e2-dc942bc91d82"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "ylist",
+        "valueAsString": "{rectTop}",
+        "op": "WriteGlobalVarOp_AppendToLast",
+        "customContextDataKey": {
+        },
+        "id": "A-2067bd04-b795-4dfe-8dab-e9357aff194a"
+      }, {
+        "@type": "type.googleapis.com/FromDA",
+        "daId": "DA-b43bb9a3-be34-41cf-9809-aa80b9e8111e",
+        "customContextDataKey": {
+        },
+        "id": "A-eacce2f3-d569-4813-9e86-994b7967cb25"
+      }],
+      "icon": "add-line",
+      "label": "添加",
+      "id": "BTN-97908350-7aa4-4387-b962-c7deeff95654"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "xlist",
+        "op": "WriteGlobalVarOp_DeleteLast",
+        "customContextDataKey": {
+        },
+        "id": "A-f13d421e-4e5a-4fb9-a241-0b84553fbfb5"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "ylist",
+        "op": "WriteGlobalVarOp_DeleteLast",
+        "customContextDataKey": {
+        },
+        "id": "A-85250c9a-2ea4-4c81-ac7b-d89883b96056"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "最后一个点击点已删除",
+        "customContextDataKey": {
+        },
+        "id": "A-c9c3739a-a3d1-448d-b718-5dd7dacaed93"
+      }],
+      "icon": "delete-bin-2-fill",
+      "label": "删除",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "xlist",
+        "op": "WriteGlobalVarOp_Clear",
+        "customContextDataKey": {
+        },
+        "id": "A-3c4424a4-baa9-4728-b248-cf50755e75aa"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "ylist",
+        "op": "WriteGlobalVarOp_Clear",
+        "customContextDataKey": {
+        },
+        "id": "A-cc3ed9b0-e73e-4d2b-b110-fdd5e863f416"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "点击点已清空",
+        "customContextDataKey": {
+        },
+        "id": "A-a734478e-b0f6-4ad4-aad2-3605226ddf27"
+      }],
+      "id": "BTN-2ddd9a20-37c0-4950-8b93-336ace721591"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["面板"],
+        "customContextDataKey": {
+        },
+        "id": "A-590bda0b-3d4e-4f4b-8cc8-1a20fae3b766"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "xlist",
+        "customContextDataKey": {
+        },
+        "id": "A-06ecb792-8153-41ae-a88b-87b1268c7138"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "ylist",
+        "customContextDataKey": {
+        },
+        "id": "A-c07727da-26cd-43fb-b9d4-a2bb2b0b1f4c"
+      }],
+      "icon": "handle-x",
+      "label": "关闭",
+      "id": "BTN-d14a7013-ffa9-4191-af70-b01700e15ed9"
     }],
-    "tag": "stop",
-    "maxHeightInDp": 20,
-    "maxWidthInDp": 20,
-    "backgroundAlpha": 0.8,
+    "tag": "面板",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 28,
+    "backgroundAlpha": 1.0,
     "buttonMinWidth": 20,
     "enableGlobalDrag": true,
     "disableAutoEdge": true,
-    "closeOnAction": true,
     "customContextDataKey": {
     },
-    "id": "A-f92e55fc-c522-410e-b2da-f7414f9038aa"
-  }, {
-    "@type": "type.googleapis.com/WhileLoop",
-    "conditions": [{
-      "@type": "type.googleapis.com/EvaluateLocalVar",
-      "op": "EqualTo",
-      "varName": "stop",
-      "payload": {
-        "value": "true"
-      },
-      "customContextDataKey": {
-      },
-      "isInvert": true,
-      "id": "C-0ec730f5-fb3d-4ae2-b6f6-c2f82db9843a"
-    }],
-    "actions": [{
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "localVarOf$coordinate",
-      "singleShot": true,
-      "customContextDataKey": {
-      },
-      "id": "A-40f63955-e3a3-40ae-801e-4379c3cc7f5f"
-    }],
-    "delay": 100,
-    "customContextDataKey": {
-    },
-    "id": "A-6c94b091-f863-4440-a03b-f65032465f3e"
+    "id": "A-c04eb3c7-101d-452d-829e-f70593d0d6f2"
   }],
-  "id": "SHARED-DA-61176e1e-63ad-44ef-8835-f57045684afd",
-  "lastUpdateTime": "1749469719616",
-  "createTime": "1730190522317",
+  "id": "SHARED-DA-ef66b4ca-78d2-4d92-81cf-6728439c5ded",
+  "lastUpdateTime": "1761797281107",
+  "createTime": "1761794210229",
   "author": {
     "name": "nyehueh"
   },
   "title": "屏幕点击器",
-  "description": "持续点击或滑动屏幕",
+  "description": "连点设置的多个标记点",
   "versionCode": "1",
-  "directActionSetId": "DS-d7b0c8a9-5a94-42a5-8dee-6301d1af1e19",
   "hook": {
   },
   "quit": {

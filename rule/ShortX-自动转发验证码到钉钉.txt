@@ -1,0 +1,38 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "contentText": "验证码",
+      "apps": [{
+        "pkgName": "com.android.mms"
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn",
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-da9942c4-4b33-48c7-a7a6-40fccec813da"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "function forwardSmsToDingtalk(userId, pkgName, title, contentText, notificationTag) {\r\n    try {\r\n        console.log(\"开始转发短信至钉钉,转发上下文内容:[contentText - \" + contentText + \"],\"\r\n            + \"转发标签内容:[notificationTag - \" + notificationTag + \"],\"\r\n            + \"转发用户ID:[userId - \" + userId + \"],\"\r\n            + \"转发应用包名:[pkgName - \" + pkgName + \"],\"\r\n            + \"转发标题:[title - \" + title + \"]\");\r\n        // 核心变量校验：内容为空时直接返回，避免无效流程\r\n        if (!contentText) {\r\n            console.log(\"转发短信内容为空，请检查短信内容！\");\r\n            return false;\r\n        }\r\n\r\n        var timestamp \u003d new Date().getTime();\r\n        var accessToken \u003d \u0027fe7944c37cba93843317b55e4ff4072e2c6845d9b7a37edbad\u0027;\r\n        var secret \u003d \u0027SEC88bbceed745d4097ec0720adf9fcf2ca264f209ae64d725\u0027;\r\n        var baseUrl \u003d \u0027https://oapi.dingtalk.com/robot/send\u0027;\r\n\r\n        // 【复用工具函数】字符串转UTF-8字节数组（兼容空值、提升复用性）\r\n        function stringToJavaUTF8Bytes(str) {\r\n            if (!str) return java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 0);\r\n            var bytes \u003d [];\r\n            for (var i \u003d 0; i \u003c str.length; i++) {\r\n                var charCode \u003d str.charCodeAt(i);\r\n                // UTF-8编码规则分情况处理，减少冗余计算\r\n                if (charCode \u003c 0x80) {\r\n                    bytes.push(charCode);\r\n                } else if (charCode \u003c 0x800) {\r\n                    bytes.push(0xc0 | (charCode \u003e\u003e 6), 0x80 | (charCode \u0026 0x3f));\r\n                } else if (charCode \u003c 0x10000) {\r\n                    bytes.push(0xe0 | (charCode \u003e\u003e 12), 0x80 | ((charCode \u003e\u003e 6) \u0026 0x3f), 0x80 | (charCode \u0026 0x3f));\r\n                } else {\r\n                    bytes.push(0xf0 | (charCode \u003e\u003e 18), 0x80 | ((charCode \u003e\u003e 12) \u0026 0x3f), 0x80 | ((charCode \u003e\u003e 6) \u0026 0x3f), 0x80 | (charCode \u0026 0x3f));\r\n                }\r\n            }\r\n            var javaByteArr \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, bytes.length);\r\n            for (var i \u003d 0; i \u003c bytes.length; i++) {\r\n                javaByteArr[i] \u003d bytes[i];\r\n            }\r\n            return javaByteArr;\r\n        }\r\n\r\n        // 【提前计算】签名（复用工具函数，避免重复逻辑）\r\n        var stringToSign \u003d timestamp + \u0027\\n\u0027 + secret;\r\n        var secretBytes \u003d stringToJavaUTF8Bytes(secret);\r\n        var dataBytes \u003d stringToJavaUTF8Bytes(stringToSign);\r\n        var SecretKeySpec \u003d Packages.javax.crypto.spec.SecretKeySpec;\r\n        var Mac \u003d Packages.javax.crypto.Mac;\r\n        var Base64 \u003d Packages.java.util.Base64;\r\n        var signingKey \u003d new SecretKeySpec(secretBytes, \u0027HmacSHA256\u0027);\r\n        var mac \u003d Mac.getInstance(\u0027HmacSHA256\u0027);\r\n        mac.init(signingKey);\r\n        var rawHmac \u003d mac.doFinal(dataBytes);\r\n        var signature \u003d Base64.getEncoder().encodeToString(rawHmac);\r\n        var encodedSignature \u003d encodeURIComponent(signature);\r\n\r\n        // 【核心调整】单行格式展示字段，不换行，用粗体突出标题\r\n        var markdownParts \u003d [\r\n            \"### 📱 通知转发详情\",\r\n            \"---\",\r\n            \"**用户ID**：\" + (userId || \"（未获取到用户ID）\") + \"\\n\",\r\n            \"**应用包名**：\" + (pkgName || \"（未获取到应用包名）\") + \"\\n\",\r\n            \"**通知标题**：\" + (title || \"（无通知标题）\") + \"\\n\",\r\n            \"**通知内容**：\",\r\n            \"```text\",\r\n            contentText,\r\n            \"```\"\r\n        ];\r\n        // 可选字段：仅存在时展示\r\n        if (notificationTag) {\r\n            markdownParts.push(\"**通知标签**：\" + notificationTag);\r\n        }\r\n        markdownParts.push(\"---\", \"\u003e 自动化通知机器人发送\");\r\n        var markdownContent \u003d markdownParts.join(\u0027\\n\u0027);\r\n\r\n        // 构建请求体\r\n        var requestBody \u003d JSON.stringify({\r\n            msgtype: \"markdown\",\r\n            markdown: {\r\n                title: \"新通知提醒\",\r\n                text: markdownContent\r\n            }\r\n        });\r\n\r\n        // 【网络请求优化】缩短超时时间，提升响应效率\r\n        var URL \u003d Packages.java.net.URL;\r\n        var HttpURLConnection \u003d Packages.java.net.HttpURLConnection;\r\n        var url \u003d new URL(baseUrl + \"?access_token\u003d\" + accessToken + \"\u0026timestamp\u003d\" + timestamp + \"\u0026sign\u003d\" + encodedSignature);\r\n        var conn \u003d url.openConnection();\r\n        conn.setRequestMethod(\"POST\");\r\n        conn.setDoOutput(true);\r\n        conn.setRequestProperty(\"Content-Type\", \"application/json\");\r\n        conn.setConnectTimeout(3000); // 连接超时缩短为3秒\r\n        conn.setReadTimeout(5000);\r\n\r\n        // 发送请求体\r\n        var writer \u003d new Packages.java.io.OutputStreamWriter(conn.getOutputStream(), \"UTF-8\");\r\n        writer.write(requestBody);\r\n        writer.flush();\r\n        writer.close();\r\n\r\n        // 读取响应\r\n        var reader \u003d new Packages.java.io.BufferedReader(new Packages.java.io.InputStreamReader(conn.getInputStream(), \"UTF-8\"));\r\n        var line, response \u003d \"\";\r\n        while ((line \u003d reader.readLine()) !\u003d\u003d null) response +\u003d line;\r\n        reader.close();\r\n        conn.disconnect();\r\n        console.log(\"钉钉通知发送结果:[\" + response + \"]\");\r\n\r\n        return JSON.parse(response).errcode \u003d\u003d\u003d 0;\r\n    } catch (error) {\r\n        console.error(\"通知转发失败: \" + (error.message || error.toString()));\r\n        return false;\r\n    }\r\n}\r\n\r\n// 调用示例（替换为实际变量，如从环境中获取{userId}等）\r\nforwardSmsToDingtalk({userId}, {pkgName}, {title}, {contentText}, {notificationTag});",
+    "customContextDataKey": {
+    },
+    "id": "A-e9d2eda4-4399-45c4-b13b-5a9ed51d9957"
+  }],
+  "id": "SHARE-rule-23e10ca3-7c90-4499-9dce-aa3e1869c3bc",
+  "lastUpdateTime": "1757056698074",
+  "createTime": "1757035615721",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动转发验证码到钉钉",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

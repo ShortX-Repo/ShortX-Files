@@ -1,0 +1,324 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 5
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "THURSDAY", "FRIDAY", "WEDNESDAY", "TUESDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-9ce29252-00bd-43f6-80ca-4bb2f0aa8a42"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Cookie",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-45de4230-62d1-4060-887b-fccb436a5935"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "User-Agent",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a7458790-b744-4287-ad35-e2a02083264e"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "x-rpc-device_id",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-e3d01c24-63c5-421c-8ccf-de5d0897b4d9"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "UID",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-9200be89-8f5e-4b97-8a22-c9e84566fb71"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "awards",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-0d50e02d-76cb-416d-82f5-613988856fd3"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "cnt",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-d6e9f960-b326-492b-a3e6-eab06a4a843f"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Cookie",
+    "customContextDataKey": {
+    },
+    "note": "签到账号的CK",
+    "id": "A-ead538ad-fd21-47c9-b080-60a1d9d28e1f"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "User-Agent",
+    "customContextDataKey": {
+    },
+    "note": "签到设备的ua",
+    "id": "A-6d8f5693-03b2-4d95-a679-734ecc387c34"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "x-rpc-device_id",
+    "customContextDataKey": {
+    },
+    "note": "签到设备的device-id",
+    "id": "A-c81703d6-11d7-4bef-a5ea-5a131d110279"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "UID",
+    "customContextDataKey": {
+    },
+    "id": "A-84e11c6b-6466-4a8d-874f-1cbc032566a8"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/info?act_id\u003de202009291139501\u0026region\u003dcn_gf01\u0026uid\u003dlocalVarOf$UID",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data.is_sign", "data.total_sign_day"]
+    },
+    "headers": [{
+      "key": "Cookie",
+      "value": "localVarOf$Cookie"
+    }, {
+      "key": "User-Agent",
+      "value": "localVarOf$User-Agent"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "note": "官服米游社签到信息, 判断签到, 获取签到天数",
+    "id": "A-d1c9ec47-a366-4f4e-8bc2-80e3850411f6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1} \u003d\u003d \u0027true\u0027;",
+      "customContextDataKey": {
+      },
+      "id": "C-be258c04-f3ed-458e-b9b8-da534bf17b8a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/home?act_id\u003de202009291139501",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["data.awards[{httpRequestRet2}-1].name", "data.awards[{httpRequestRet2}-1].cnt"]
+      },
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "note": "签到物品昵称",
+      "id": "A-54fdb7bc-2a93-4022-95fd-4d7caee1e699"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "awards",
+      "valueAsString": "{httpRequestRet1}",
+      "customContextDataKey": {
+      },
+      "id": "A-a9b174eb-46dd-46ea-87f7-70f4bf211072"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "cnt",
+      "valueAsString": "{httpRequestRet2}",
+      "customContextDataKey": {
+      },
+      "id": "A-4d858446-211d-4eb2-be3d-053da7b71e4c"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz\u003dhk4e_cn",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["data.list[0].nickname", "data.list[0].level"]
+      },
+      "headers": [{
+        "key": "Cookie",
+        "value": "localVarOf$Cookie"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "note": "游戏信息UID等级昵称",
+      "id": "A-3de63a3d-c58c-404e-8534-ac9ed3d2c03e"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "米游社",
+      "title": "米游社签到",
+      "message": "昵称：{httpRequestRet1}\n等级：{httpRequestRet2}\n签到状态：已签到\n签到奖励：localVarOf$awards X localVarOf$cnt",
+      "smallIcon": "chat-2-line",
+      "customContextDataKey": {
+      },
+      "note": "当天已签到",
+      "id": "A-4419c565-59b3-42d6-b0ec-cd271d3e4aeb"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/sign?act_id\u003de202009291139501\u0026region\u003dcn_gf01\u0026uid\u003dlocalVarOf$UID",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "POST",
+      "headers": [{
+        "key": "Cookie",
+        "value": "localVarOf$Cookie"
+      }, {
+        "key": "User-Agent",
+        "value": "localVarOf$User-Agent"
+      }, {
+        "key": "Accept",
+        "value": "application/json, text/plain, */*"
+      }, {
+        "key": "x-rpc-channel",
+        "value": "miyousheluodi"
+      }, {
+        "key": "Origin",
+        "value": "https://webstatic.mihoyo.com"
+      }, {
+        "key": "x-rpc-app_version",
+        "value": "2.55.1"
+      }, {
+        "key": "x-rpc-client_type",
+        "value": "5"
+      }, {
+        "key": "Referer",
+        "value": "https://webstatic.mihoyo.com/bbs/event/signin-ys/index.html?bbs_auth_required\u003dtrue\u0026act_id\u003de202009291139501\u0026utm_source\u003dbbs\u0026utm_medium\u003dmys\u0026utm_campaign\u003dicon"
+      }, {
+        "key": "Accept-Encoding",
+        "value": "gzip, deflate"
+      }, {
+        "key": "Accept-Language",
+        "value": "zh-CN,en-US;q\u003d0.8"
+      }, {
+        "key": "X-Requested-With",
+        "value": "com.mihoyo.hyperion"
+      }, {
+        "key": "x-rpc-device_id",
+        "value": "localVarOf$x-rpc-device_id"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{act_id\u003de202009291139501}"
+      },
+      "customContextDataKey": {
+      },
+      "note": "签到",
+      "id": "A-866242d1-a55e-413e-bb87-f3350d905285"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://api-takumi.mihoyo.com/event/bbs_sign_reward/info?act_id\u003de202009291139501\u0026region\u003dcn_gf01\u0026uid\u003dlocalVarOf$UID",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["data.is_sign"]
+      },
+      "headers": [{
+        "key": "Cookie",
+        "value": "localVarOf$Cookie"
+      }, {
+        "key": "User-Agent",
+        "value": "localVarOf$User-Agent"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "note": "官服米游社签到信息, 判断签到, 获取签到天数",
+      "id": "A-feaa7587-bc4b-458e-905a-fab187bc5950"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} \u003d\u003d \u0027true\u0027;",
+        "customContextDataKey": {
+        },
+        "id": "C-17ef21b1-e958-4538-9b4e-90f1dcd0e698"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz\u003dhk4e_cn",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["data.list[0].nickname", "data.list[0].level"]
+        },
+        "headers": [{
+          "key": "Cookie",
+          "value": "localVarOf$Cookie"
+        }],
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "note": "游戏信息UID等级昵称",
+        "id": "A-5efab702-49bb-4896-8ee2-f68a525bbaa0"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "米游社",
+        "title": "米游社签到",
+        "message": "昵称：{httpRequestRet1}\n等级：{httpRequestRet2}\n签到状态：OK\n签到奖励：localVarOf$awards X localVarOf$cnt",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-e86aa177-27d6-463f-8511-875baba68b1d"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "签到失败",
+        "customContextDataKey": {
+        },
+        "id": "A-2efd4eb4-1e5e-4303-9790-3ef33c10d5ed"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f18af087-5d8d-44de-a8ba-4694a9da6598"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-41ac5db0-192f-451a-8148-ce6e912532f1"
+  }],
+  "id": "rule-05173b28-0773-4501-a993-2e68b5428eed",
+  "lastUpdateTime": "1692540647268",
+  "createTime": "1691493326764",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "米游戏签到",
+  "description": "原神签到(签到部分有问题)",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

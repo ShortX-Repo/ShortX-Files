@@ -1,0 +1,163 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppGainWindowFocus",
+    "pkgSets": ["防睡着应用"],
+    "customContextDataKey": {
+    },
+    "id": "F-0ff37760-a855-4070-a424-f82048dfd99e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "timeOut",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1f51c82d-81db-4f3b-9f43-817b59469960"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "timeOut",
+    "valueAsString": "600",
+    "customContextDataKey": {
+    },
+    "note": "多久时间关闭屏幕，单位(秒)，不能低于10秒。默认10分钟后息屏",
+    "id": "A-a6b24350-c673-4e35-b76d-7f66a7f3739d"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "启动防睡着检测",
+    "icon": "remix://crown-two",
+    "customContextDataKey": {
+    },
+    "id": "A-86925fb5-343f-400b-8428-78e1f210c3be"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "tipsTime\u003d$((localVarOf$timeOut - 10))\ntimeout $tipsTime getevent -c 1 | grep 000",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-7102f3f8-bb97-4591-9018-82e9c45bf1c6"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "IsEmpty",
+        "varName": "shellOut",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-77d03482-a46a-4ce3-b6c8-48490d389405"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "10秒后息屏，不想息屏请触摸屏幕",
+        "icon": "remix://oval-love-two",
+        "customContextDataKey": {
+        },
+        "id": "A-19614468-f721-4581-88ea-f2adc40577c8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "timeout 10 getevent -c 1 | grep 000",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "shellOut2"
+          }]
+        },
+        "id": "A-7102f3f8-bb97-4591-9018-82e9c45bf1c6"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut2",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-7af93637-70cf-49b5-b6c1-af51d5debe16"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/SleepScreen",
+          "customContextDataKey": {
+          },
+          "id": "A-e1f76e4e-93bf-426d-bc4f-f345dab01d86"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-58a600bc-0b68-44c7-adba-06df224b34a4"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-b1ab7f20-745a-4f02-887b-f2e1862e61cd"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2df9c5ce-02ba-4e7b-b204-dd15086f195a"
+    }],
+    "delay": 1000,
+    "customContextDataKey": {
+    },
+    "id": "A-5adff5af-d7bb-4759-bfc1-0bf9b58b6887"
+  }],
+  "id": "SHARE-rule-3702062f-d5ec-48e0-bfe7-88099e2dab6b",
+  "lastUpdateTime": "1731839744938",
+  "createTime": "1731766458191",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "短视频防睡着2.0",
+  "description": "长时间未操作手机自动息屏，防止刷短视频的时候睡着",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppLostWindowFocus",
+      "pkgSets": ["防睡着应用"],
+      "customContextDataKey": {
+      },
+      "id": "F-08d68642-c519-4ccb-821d-13bbc7cbfefa"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "id": "C-0425ab89-1e05-4ef4-a13d-a11d5f896331"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "停止防睡着检测",
+        "icon": "remix://crown-two",
+        "customContextDataKey": {
+        },
+        "id": "A-fbc2fc87-c4b7-474a-9345-ba0f5558cb15"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d0666233-84b1-4042-91c0-d89292a84733"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-3b115ca7-5d26-418f-a9f8-7374e07c847d"
+    }]
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-db8f7ae7-c42e-42f9-9b63-4cc1df35c569"
+}
+###------###
+{"type":"rule"}

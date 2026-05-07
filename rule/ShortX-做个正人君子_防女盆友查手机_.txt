@@ -1,0 +1,286 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "customContextDataKey": {
+    },
+    "id": "F-5c6697de-2474-434f-a7d0-851ca66d46ab"
+  }, {
+    "@type": "type.googleapis.com/ShakeDevice",
+    "customContextDataKey": {
+    },
+    "id": "F-2c653343-53cf-47e5-95b2-2f1b69a51144"
+  }, {
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "/storage/emulated/0/DCIM/Camera",
+    "options": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-e91142c1-2d7f-4c7f-812c-470769fb4e3f",
+    "isDisabled": true
+  }, {
+    "@type": "type.googleapis.com/CombineKeyEvent",
+    "keyCode1": 26,
+    "keyCode2": 24,
+    "customContextDataKey": {
+    },
+    "id": "F-8f6c871d-3dea-4dac-bd43-a423929c6f9e",
+    "isDisabled": true
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "set -e\n\n# 核心配置\nTARGET_DIR\u003d\"/data/application/encrypt\"\nBINARY_NAME\u003d\"encrypt-android-arm64\"\nDOWNLOAD_URL\u003d\"https://github.com/Alien-Et/encrypt/releases/download/v1.0.0/$BINARY_NAME\"\nBINARY_PATH\u003d\"$TARGET_DIR/$BINARY_NAME\"\n\n# 检测文件存在则静默终止（无任何输出）\n[ -f \"$BINARY_PATH\" ] \u0026\u0026 exit 0\n\n# 目录检测与创建（仅创建失败时输出错误）\n[ -d \"$TARGET_DIR\" ] || {\n    mkdir -p \"$TARGET_DIR\" || { echo \"[!] 目录创建失败，请检查权限\"; exit 1; }\n}\n\n# 静默下载（仅失败时输出错误）\ncurl -L -o \"$BINARY_PATH\" \"$DOWNLOAD_URL\" --silent --show-error || {\n    echo \"[!] 下载失败，请检查网络\"; rm -f \"$BINARY_PATH\"; exit 1;\n}\n\nchmod +x \"$BINARY_PATH\"\necho -e \"[✓] 安装完成\"\necho -e \"[→] 文件路径：$BINARY_PATH\"\n",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "下载二进制",
+    "id": "A-e3f6034f-e50f-4e2f-89de-ac331f4d7451"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "shellOut",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-cfd32e0f-57e1-41eb-93de-10d7f217613e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowFloatWindow",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "set -e\n\n# 二进制文件路径（与安装脚本保持一致）\nENCRYPT_BIN\u003d\"/data/application/encrypt/encrypt-android-arm64\"\n\n# 检测二进制文件是否存在\n[ -f \"$ENCRYPT_BIN\" ] || { echo \"[!] 未找到加密工具，请先执行安装脚本\"; exit 1; }\n\n# 执行加密命令（如需传递参数，可在末尾添加，例如：\"$ENCRYPT_BIN\" -encrypt 目标文件）\necho \"[→] 正在执行加密操作...\"\n\"$ENCRYPT_BIN\" -encrypt",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "单击加密",
+          "id": "A-d947f459-17de-4510-a749-502647352535"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "title": "⚠️加密日志",
+          "message": "{shellOut}",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "note": "为了隐私，你可以禁用对话框",
+          "id": "A-dff9f7b2-9cc1-46e4-b285-e2e13701283c"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/  # 扫描整个SD卡媒体文件\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "媒体刷新",
+          "id": "A-44852578-8fd9-4cbd-9b3d-4446dd114c75"
+        }],
+        "icon": "lock",
+        "longClickActions": [{
+          "@type": "type.googleapis.com/HideFloatWindow",
+          "customContextDataKey": {
+          },
+          "id": "A-2f67d0e7-48e3-4dfa-8c7f-9e23ccc5327c"
+        }],
+        "id": "BTN-b052ab3a-384d-4c84-88f4-d00670fed6cb"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "set -e\n\n# 二进制文件路径（与安装脚本保持一致）\nENCRYPT_BIN\u003d\"/data/application/encrypt/encrypt-android-arm64\"\n\n# 检测二进制文件是否存在\n[ -f \"$ENCRYPT_BIN\" ] || { echo \"[!] 未找到加密工具，请先执行安装脚本\"; exit 1; }\n\n# 执行解密命令（如需传递参数，可在末尾添加，例如：\"$ENCRYPT_BIN\" -decrypt 加密文件）\necho \"[→] 正在执行解密操作...\"\n\"$ENCRYPT_BIN\" -decrypt\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "单击解密",
+          "id": "A-8bbd5c2f-a069-4644-bc98-2c12ebdb17cf"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "title": "⚠️解密日志",
+          "message": "{shellOut}",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "note": "为了隐私，你可以禁用对话框",
+          "id": "A-94b80f4a-f920-4d13-9dc4-d9a16d9cbe4b"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/  # 扫描整个SD卡媒体文件\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "媒体刷新",
+          "id": "A-077440f8-21be-4b6e-8593-cd4cf006d273"
+        }],
+        "icon": "unlock",
+        "longClickActions": [{
+          "@type": "type.googleapis.com/HideFloatWindow",
+          "customContextDataKey": {
+          },
+          "id": "A-4ecb97c3-7b6d-4951-be8c-b79da0d78356"
+        }],
+        "id": "BTN-09b2ebb2-8899-4cf9-8e3f-d802078853c2"
+      }],
+      "tag": "ShortX",
+      "panelRadiusScale": 1.0,
+      "customContextDataKey": {
+      },
+      "id": "A-e6417124-a57f-4b57-a6cf-323556604472"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "⚠️加密目录/文件设置",
+      "textFields": [{
+        "placeholder": "请输入你的加密密码"
+      }, {
+        "placeholder": "请输入你的加密目录/文件1",
+        "value": "/storage/emulated/0/测试目录1"
+      }, {
+        "placeholder": "请输入你的加密目录/文件2",
+        "value": "/storage/emulated/0/测试目录2"
+      }, {
+        "placeholder": "请输入你的加密目录/文件3",
+        "value": "/storage/emulated/0/测试目录3"
+      }, {
+        "placeholder": "如果需要更多请自行去shell添加",
+        "value": "/storage/emulated/0/测试目录4"
+      }],
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b695de1c-5261-4617-aa56-b24d64e1cc79"
+    }, {
+      "@type": "type.googleapis.com/ShowChoiceDialog",
+      "title": "⚠️加密引擎",
+      "choices": [{
+        "label": "AES-256（安全优先）",
+        "value": "aes"
+      }, {
+        "label": "Blowfish（中规中矩）",
+        "value": "blowfish"
+      }, {
+        "label": "XOR（速度优先）",
+        "value": "xor"
+      }],
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9238c9b6-64da-424a-93be-2cd3919407f7"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "set -e\n\n# 配置文件路径\nCONFIG_PATH\u003d\"/data/application/encrypt/encrypt_config.yaml\"\n\n# 创建父目录（若不存在）\nmkdir -p \"$(dirname \"$CONFIG_PATH\")\"\n\n# 写入配置内容\ncat \u003e \"$CONFIG_PATH\" \u003c\u003c EOF\npassword: {textFieldInput1}\nencrypt_type: {choices}\ntarget_paths:\n  - \"{textFieldInput2}\"\n  - \"{textFieldInput3}\"\n  - \"{textFieldInput4}\"\n  - \"{textFieldInput5}\"\nobfuscate_suffix: .dat\nobfuscate_name_length: 12\nmap_filename: .app_encrypt\nlock_filename: .encrypt.lock\nmap_storage_path: /data/application/encrypt/tmp\nEOF\n\n# 输出结果\necho \"[✓] 配置文件已生成\"\necho \"[→] 路径：$CONFIG_PATH\"",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-ecf12dcb-b32b-44f7-bd1b-8ec50e299139"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-18140163-7406-4339-b593-bae3166ee8d3"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "set -e\n\n# 二进制文件路径（与安装脚本保持一致）\nENCRYPT_BIN\u003d\"/data/application/encrypt/encrypt-android-arm64\"\n\n# 检测二进制文件是否存在\n[ -f \"$ENCRYPT_BIN\" ] || { echo \"[!] 未找到加密工具，请先执行安装脚本\"; exit 1; }\n\n# 执行加密命令（如需传递参数，可在末尾添加，例如：\"$ENCRYPT_BIN\" -encrypt 目标文件）\necho \"[→] 正在执行加密操作...\"\n\"$ENCRYPT_BIN\" -encrypt",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "加密脚本，如果你想使用触发器执行，那就启用此脚本",
+    "id": "A-495491d3-0ccb-4f6a-8ef4-3da8f621c09c"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "title": "⚠️加密日志",
+    "message": "{shellOut}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "为了隐私，你可以禁用对话框，如果你想使用触发器执行，那就启用此脚本",
+    "id": "A-e142bb7e-32cb-4f8c-93c9-89223b57eae4"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/  # 扫描整个SD卡媒体文件\n",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "媒体刷新，如果你想使用触发器执行，那就启用此脚本",
+    "id": "A-573f27f6-49bb-4925-be00-c086cb594bfc"
+  }],
+  "id": "SHARE-rule-310b04ba-6267-40c5-9c88-52d7509722a3",
+  "lastUpdateTime": "1764803748679",
+  "createTime": "1763036329917",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "做个正人君子(防女盆友查手机)",
+  "description": "👉🏻无需依赖termux👈🏻\n开箱即用！\n功能介绍：\n😃加密解密指定路径的文件夹/文件！\n😁防止女朋友偷窥手机文件！\n👿防止被坏人半路查手机！\n😌自动去重同级目录文件！\n🤔支持多种加密方式，\n● AES-256(安全优先)\n● Blowfish(中规中矩)\n● XOR(速度优先)\n🤐详情请看:https://github.com/Alien-Et/encrypt\n\n请勿拿来干坏事！\n切勿把路径设置为/storage/emulated/0/DCIM/Camera玩偷拍。\n\n啊！今天好兴致，那就吟诗一首👇🏻\n\n👉🏻文件照片一键掀👈🏻\n👉🏻只留清白在人间👈🏻\n👉🏻堂堂正正走天下👈🏻\n👉🏻走到哪里都不怕👈🏻\n\n\nPs:设置好后，没啥事别动里面代码和设置路径，除非你很确定文件已经是解密状态，否则！！你一不小心重设密码，把先前密码搞丢了解不了密，可不能怪我哈！！\n\n请勿手贱删除映射表/data/application/encrypt/tmp/.app_encrypt，除非你很确定文件已经是解密状态，否则神仙都难拯救你的文件。\n\n你记得密码也没用，混淆的文件名每次加密都是随机记录到映射表。",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "rm -rf /data/application/encrypt",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-a766e12c-8267-4c42-bcc4-1c5170b12ba4"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/CombineKeyEvent",
+      "keyCode1": 25,
+      "keyCode2": 24,
+      "customContextDataKey": {
+      },
+      "id": "F-94934195-cf8c-4c1d-a452-7d5d08d969f5",
+      "isDisabled": true
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "set -e\n\n# 二进制文件路径（与安装脚本保持一致）\nENCRYPT_BIN\u003d\"/data/application/encrypt/encrypt-android-arm64\"\n\n# 检测二进制文件是否存在\n[ -f \"$ENCRYPT_BIN\" ] || { echo \"[!] 未找到加密工具，请先执行安装脚本\"; exit 1; }\n\n# 执行解密命令（如需传递参数，可在末尾添加，例如：\"$ENCRYPT_BIN\" -decrypt 加密文件）\necho \"[→] 正在执行解密操作...\"\n\"$ENCRYPT_BIN\" -decrypt\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "解密脚本，如果你想使用触发器执行，那就启用此脚本",
+      "id": "A-2a7b6f75-3bb6-46b1-af2d-5d31040dc209"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "title": "⚠️解密日志",
+      "message": "{shellOut}",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "为了隐私，你可以禁用对话框，如果你想使用触发器执行，那就启用此脚本",
+      "id": "A-483ac39a-29b8-4659-a36e-0108caaf2c21"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/  # 扫描整个SD卡媒体文件\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "媒体刷新指令",
+      "id": "A-270060b3-058e-4a29-8850-cf286083c5f7"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

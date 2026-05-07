@@ -1,0 +1,47 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemReady",
+    "customContextDataKey": {
+    },
+    "id": "F-78220b30-dded-49c0-817f-9dff230d8b17"
+  }, {
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "customContextDataKey": {
+    },
+    "id": "F-7be4caf3-cda0-4a52-9c97-d6d0c6671d72"
+  }, {
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "apps": [{
+        "pkgName": "me.piebridge.brevent"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-8c0b1a94-295f-4c25-adef-fe14dc722f4d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys deviceidle whitelist -com.tencent.mm\ndumpsys deviceidle whitelist -com.coolapk.market\ndumpsys deviceidle whitelist -com.jingdong.app.mall\ndumpsys deviceidle whitelist -com.pingan.paces.ccms\ndumpsys deviceidle whitelist -com.xunmeng.pinduoduo\ndumpsys deviceidle whitelist -cn.xuexi.android\ndumpsys deviceidle whitelist -com.tmri.app.main\ndumpsys deviceidle whitelist -app.eleven.com.fastfiletransfer\ndumpsys deviceidle whitelist -com.pmm.remember\ndumpsys deviceidle whitelist -net.sarasarasa.lifeup\ndumpsys deviceidle whitelist -com.eg.android.AlipayGphone\ndumpsys deviceidle whitelist -com.tencent.mobileqq\ndumpsys deviceidle whitelist -com.baidu.BaiduMap\ndumpsys deviceidle whitelist -com.drakeet.purewriter\ndumpsys deviceidle whitelist -moe.shizuku.redirectstorage\ndumpsys deviceidle whitelist -com.alibaba.android.rimet\ndumpsys deviceidle whitelist -cn.gov.tax.its\ndumpsys deviceidle whitelist -com.haixia\ndumpsys deviceidle whitelist -com.coderstory.toolkit\ndumpsys deviceidle whitelist -com.hupu.games\ndumpsys deviceidle whitelist -com.heytap.headset\ndumpsys deviceidle whitelist -com.ccb.longjiLife\ndumpsys deviceidle whitelist -com.bankcomm.Bankcomm\ndumpsys deviceidle whitelist -cn.gov.pbc.dcep\ndumpsys deviceidle whitelist -cn.gov.pbc.dcep\ndumpsys deviceidle whitelist -com.taobao.taobao\ndumpsys deviceidle whitelist -com.wangc.bill\ndumpsys deviceidle whitelist -com.netease.cloudmusic\ndumpsys deviceidle whitelist -com.yjllq.internet\ndumpsys deviceidle whitelist -com.unionpay\ndumpsys deviceidle whitelist -com.chinamworld.main\ndumpsys deviceidle whitelist -com.sinovatech.unicom.ui\ndumpsys deviceidle whitelist -com.android.bankabc\ndumpsys deviceidle whitelist -com.chinamworld.bocmbci\ndumpsys deviceidle whitelist -com.digitalchina.mobile.dfhfz1\ndumpsys deviceidle whitelist -me.weishu.kernelsu\ndumpsys deviceidle whitelist -com.zoehoo.lowrgb\ndumpsys deviceidle whitelist -bin.mt.plus\ndumpsys deviceidle whitelist -org.swiftapps.swiftbackup\ndumpsys deviceidle whitelist -org.telegram.messenger\ndumpsys deviceidle whitelist -com.pavelrekun.tilla.premium\ndumpsys deviceidle whitelist -com.v2ray.ang\ndumpsys deviceidle whitelist -tv.danmaku.bili\ndumpsys deviceidle whitelist -org.fcitx.fcitx5.android.updater\ndumpsys deviceidle whitelist -com.woapp.hebei\ndumpsys deviceidle whitelist -com.ktls.fileinfo\n",
+    "customContextDataKey": {
+    },
+    "id": "A-e51c1d2a-02b7-4064-a3bb-5ebac331ce6c"
+  }],
+  "id": "SHARE-rule-778ba248-35f8-4272-86d5-9fd5dea272ec",
+  "lastUpdateTime": "1746660523580",
+  "createTime": "1745741186430",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "开机移除优化名单",
+  "description": "自行添加需要移除的app包名",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-5d1cabe8-a5f4-4077-8aa4-0ddfc8e00760"
+}
+###------###
+{"type":"rule"}

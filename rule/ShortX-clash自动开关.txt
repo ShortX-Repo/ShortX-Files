@@ -1,0 +1,564 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/TaskRemoved",
+    "pkgSets": ["clash"],
+    "customContextDataKey": {
+    },
+    "id": "F-19f7f4f4-4f9d-4719-97e2-7eec2c239d94"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["clash"],
+    "customContextDataKey": {
+    },
+    "id": "F-4ac76aea-22f1-4382-b993-373eac9a9047"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ServiceIsRunning",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.github.kr328.clash"
+        },
+        "className": "com.github.kr328.clash.service.TunService"
+      }, {
+        "pkg": {
+          "pkgName": "com.github.kr328.clash.foss"
+        },
+        "className": "com.github.kr328.clash.service.TunService"
+      }, {
+        "pkg": {
+          "pkgName": "app.hiddify.com"
+        },
+        "className": "com.hiddify.hiddify.bg.VPNService"
+      }, {
+        "pkg": {
+          "pkgName": "com.github.metacubex.clash.meta"
+        },
+        "className": "com.github.kr328.clash.service.TunService"
+      }, {
+        "pkg": {
+          "pkgName": "io.nekohasekai.sfa"
+        },
+        "className": "io.nekohasekai.sfa.bg.VPNService"
+      }, {
+        "pkg": {
+          "pkgName": "app.hiddify.com"
+        },
+        "className": "com.hiddify.hiddify.bg.TileService"
+      }],
+      "op": "ANY",
+      "isDisabled": true,
+      "customContextDataKey": {
+      },
+      "id": "C-77b47239-edb4-470c-a07b-d8c3626f2f26"
+    }, {
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["clash"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-adbecea3-547d-4810-85b4-8e09d6953e62"
+    }, {
+      "@type": "type.googleapis.com/AppHasTask",
+      "pkgSets": ["clash"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-06df6a68-3a24-4ed7-a85f-06bfa42ae1ff"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsRunning",
+        "pkgSets": ["clash"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-d9046e65-34ee-4adf-9341-77b7ef10d9a5"
+      }, {
+        "@type": "type.googleapis.com/ServiceIsRunning",
+        "services": [{
+          "pkg": {
+            "pkgName": "com.github.kr328.clash"
+          },
+          "className": "com.github.kr328.clash.service.TunService"
+        }, {
+          "pkg": {
+            "pkgName": "com.github.kr328.clash.foss"
+          },
+          "className": "com.github.kr328.clash.service.TunService"
+        }, {
+          "pkg": {
+            "pkgName": "app.hiddify.com"
+          },
+          "className": "com.hiddify.hiddify.bg.VPNService"
+        }, {
+          "pkg": {
+            "pkgName": "com.github.metacubex.clash.meta"
+          },
+          "className": "com.github.kr328.clash.service.TunService"
+        }, {
+          "pkg": {
+            "pkgName": "io.nekohasekai.sfa"
+          },
+          "className": "io.nekohasekai.sfa.bg.VPNService"
+        }, {
+          "pkg": {
+            "pkgName": "app.hiddify.com"
+          },
+          "className": "com.hiddify.hiddify.bg.TileService"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-9c7b0778-6d4d-4363-8316-10a43a11c6b3"
+      }, {
+        "@type": "type.googleapis.com/AppHasTask",
+        "pkgSets": ["clash"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-d5e35598-3ac7-433d-bbc4-f3f6efb3029a"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "focus-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-c8572a76-8f08-4d4d-9514-902578849c0d"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "神秘Clash",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-5831d16d-3f3e-4f91-ba6e-4666d020a721"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start-foreground-service -n com.github.kr328.clash.foss/com.github.kr328.clash.service.TunService || am start-foreground-service -n com.github.kr328.clash/com.github.kr328.clash.service.TunService||am start-foreground-service app.hiddify.com/com.hiddify.hiddify.bg.VPNService",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-31cb8d3f-59ad-4b79-9764-5d1dfa4483a9"
+        }, {
+          "@type": "type.googleapis.com/WhileLoop",
+          "conditions": [{
+            "@type": "type.googleapis.com/VPNIsConnected",
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-3ae6c0d6-8685-49bc-9675-7042927b045f"
+          }],
+          "actions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "am start-foreground-service -n com.github.kr328.clash.foss/com.github.kr328.clash.service.TunService || am start-foreground-service -n com.github.kr328.clash/com.github.kr328.clash.service.TunService||am start-foreground-service app.hiddify.com/com.hiddify.hiddify.bg.VPNService",
+            "customContextDataKey": {
+            },
+            "id": "A-31cb8d3f-59ad-4b79-9764-5d1dfa4483a9"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "神秘Clash",
+            "customContextDataKey": {
+            },
+            "id": "A-5831d16d-3f3e-4f91-ba6e-4666d020a721"
+          }],
+          "delay": 1000,
+          "customContextDataKey": {
+          },
+          "id": "A-74ccebbf-08a3-4bcd-a5d8-c2024a4eff6a"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "神秘Clash",
+          "customContextDataKey": {
+          },
+          "id": "A-5831d16d-3f3e-4f91-ba6e-4666d020a721"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "focus-fill",
+          "customContextDataKey": {
+          },
+          "id": "A-30130687-d656-494c-988e-8bb68da06cf0"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-3e0948cb-395c-4586-a078-26f4d2707f9b"
+      }, {
+        "@type": "type.googleapis.com/SetAppEnabled",
+        "appPkg": [{
+          "pkgName": "com.google.android.gms"
+        }],
+        "enable": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-42389438-3e80-4141-bb33-649eec1cbfe8"
+      }, {
+        "@type": "type.googleapis.com/LaunchApp",
+        "appPkg": {
+          "pkgName": "com.google.android.gms"
+        },
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-516cdca9-dde4-45f8-b37e-5631f81c5732"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service -n com.github.metacubex.clash.meta/com.github.kr328.clash.service.TunService",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-f0b77625-a370-4d16-9592-822a40942da7"
+      }, {
+        "@type": "type.googleapis.com/ClickTile",
+        "tile": {
+          "tileSpec": "custom(app.hiddify.com/com.hiddify.hiddify.bg.TileService)",
+          "label": "Hiddify Next"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-d80fb812-1d55-43df-9860-bd1bcea0abd3"
+      }, {
+        "@type": "type.googleapis.com/WhileLoop",
+        "conditions": [{
+          "@type": "type.googleapis.com/VPNIsConnected",
+          "customContextDataKey": {
+          },
+          "id": "C-3ae6c0d6-8685-49bc-9675-7042927b045f"
+        }],
+        "actions": [{
+          "@type": "type.googleapis.com/ClickTile",
+          "tile": {
+            "tileSpec": "custom(app.hiddify.com/com.hiddify.hiddify.bg.TileService)",
+            "label": "Hiddify Next"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-8c24f729-a538-4d96-8b73-4c979b5f14d1"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start-foreground-service -n com.github.kr328.clash.foss/com.github.kr328.clash.service.TunService || am start-foreground-service -n com.github.kr 328.clash/com.github.kr328.clash.service.TunService || am start-foreground-service app.hiddify.com/com.hiddify.hiddify.bg.VPNService || am start-foreground-service -n io.nekohasekai.sfa/io.nekohasekai.sfa.bg.VPNService",
+          "customContextDataKey": {
+          },
+          "id": "A-31cb8d3f-59ad-4b79-9764-5d1dfa4483a9"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "service call vpn_management 15 i32 0 s16 \"com.github.metacubex.clash.meta\" i32 0",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-2b5edfe7-06d1-4053-bc06-76444ce9cad0"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start-foreground-service -n com.github.metacubex.clash.meta/com.github.kr328.clash.service.TunService",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-f0b77625-a370-4d16-9592-822a40942da7"
+        }],
+        "delay": 1000,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-4179883d-7e82-4998-93e1-73759c1d4d80"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "神秘Clash",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-8dec45ed-607f-4370-b855-f1c16c08d97d"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-a12566ea-1227-42c1-9bcd-e8cde8afdaf7"
+    }, {
+      "@type": "type.googleapis.com/WhileLoop",
+      "conditions": [{
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-3ae6c0d6-8685-49bc-9675-7042927b045f"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/ClickTile",
+        "tile": {
+          "tileSpec": "custom(app.hiddify.com/com.hiddify.hiddify.bg.TileService)",
+          "label": "Hiddify Next"
+        },
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-8c24f729-a538-4d96-8b73-4c979b5f14d1"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service -n com.github.kr328.clash.foss/com.github.kr328.clash.service.TunService || am start-foreground-service -n com.github.kr 328.clash/com.github.kr328.clash.service.TunService || am start-foreground-service app.hiddify.com/com.hiddify.hiddify.bg.VPNService || am start-foreground-service -n io.nekohasekai.sfa/io.nekohasekai.sfa.bg.VPNService",
+        "customContextDataKey": {
+        },
+        "id": "A-31cb8d3f-59ad-4b79-9764-5d1dfa4483a9"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "service call vpn_management 15 i32 0 s16 \"com.github.metacubex.clash.meta\" i32 0",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-2b5edfe7-06d1-4053-bc06-76444ce9cad0"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service -n com.github.metacubex.clash.meta/com.github.kr328.clash.service.TunService",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-f0b77625-a370-4d16-9592-822a40942da7"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "神秘Clash",
+        "customContextDataKey": {
+        },
+        "id": "A-e36d8217-47f6-4ccd-8b40-54753d228d3f"
+      }],
+      "delay": 1000,
+      "customContextDataKey": {
+      },
+      "id": "A-4179883d-7e82-4998-93e1-73759c1d4d80"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["clash"],
+        "customContextDataKey": {
+        },
+        "id": "C-fc3b9dbc-3b83-4c71-9275-3e11d148d801"
+      }, {
+        "@type": "type.googleapis.com/ServiceIsRunning",
+        "services": [{
+          "pkg": {
+            "pkgName": "com.github.kr328.clash"
+          },
+          "className": "com.github.kr328.clash.service.TunService"
+        }, {
+          "pkg": {
+            "pkgName": "com.github.kr328.clash.foss"
+          },
+          "className": "com.github.kr328.clash.service.TunService"
+        }, {
+          "pkg": {
+            "pkgName": "app.hiddify.com"
+          },
+          "className": "com.hiddify.hiddify.bg.VPNService"
+        }, {
+          "pkg": {
+            "pkgName": "com.github.metacubex.clash.meta"
+          },
+          "className": "com.github.kr328.clash.service.TunService"
+        }, {
+          "pkg": {
+            "pkgName": "io.nekohasekai.sfa"
+          },
+          "className": "io.nekohasekai.sfa.bg.VPNService"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-db9456a4-ef65-4a22-8e27-2989a9a41b2c"
+      }, {
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "id": "C-8dbfbc78-33c2-4fa3-ba41-e1c35b98aadb"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am force-stop com.github.kr328.clash.foss || am force-stop com.github.kr328.clash||am force-stoa app.hiddify.com\n",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-4afc9f3b-7a89-45ad-9959-5b01a19f1f23"
+      }, {
+        "@type": "type.googleapis.com/StopApp",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-28843775-7e19-4297-aad0-8ba12cba2ff9"
+      }, {
+        "@type": "type.googleapis.com/WhileLoop",
+        "conditions": [{
+          "@type": "type.googleapis.com/VPNIsConnected",
+          "customContextDataKey": {
+          },
+          "id": "C-2140bd29-7109-412e-a581-af060104bf12"
+        }],
+        "actions": [{
+          "@type": "type.googleapis.com/StopApp",
+          "appPkg": [{
+            "pkgName": "app.hiddify.com"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-57ece676-1134-4e70-bc81-d849f5adf120"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "关闭Clsh",
+          "customContextDataKey": {
+          },
+          "id": "A-25571a89-ce83-4221-ad61-4cee157239bb"
+        }],
+        "delay": 1000,
+        "customContextDataKey": {
+        },
+        "id": "A-7bdbf57c-051c-4448-b536-be0468840d13"
+      }, {
+        "@type": "type.googleapis.com/ClickTile",
+        "tile": {
+          "tileSpec": "custom(app.hiddify.com/com.hiddify.hiddify.bg.TileService)",
+          "label": "Hiddify Next"
+        },
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-f5004bfb-e62b-4dac-a08c-e79444d97de6"
+      }, {
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "app.hiddify.com"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-f4ff9b70-0363-48be-996e-d076ebe04071"
+      }, {
+        "@type": "type.googleapis.com/SetAppEnabled",
+        "appPkg": [{
+          "pkgName": "com.google.android.gms"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-0848a114-8224-40f6-a993-08353e5a8f09"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "停止clash",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-ba186487-7229-4adc-a704-fc56289f3de5"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-84ed0451-74c8-4796-bdaa-6859d450b98e"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-36874d40-9a47-4b59-b211-3561393ce55f"
+  }],
+  "id": "rule-e8bc228e-6404-4c0c-bd4d-01ce811bba88",
+  "lastUpdateTime": "1708486852800",
+  "createTime": "1695368971596",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "clash自动开关",
+  "description": "Clash智能开启",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "clash",
+      "customContextDataKey": {
+      },
+      "id": "A-c3044078-bc82-45e5-9dc8-1a4e2355ce01"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/TaskRemoved",
+      "pkgSets": ["clash"],
+      "customContextDataKey": {
+      },
+      "id": "F-47ab4db5-c72a-4f69-9418-eb2eb338e7e1"
+    }, {
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "pkgSets": ["clash"],
+      "customContextDataKey": {
+      },
+      "id": "F-09ec30bc-84a9-43a2-bcd0-5e3793cd1afe"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsRunning",
+        "pkgSets": ["clash"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-4d1b2f63-be5c-4903-92db-4ffb527ebf54"
+      }, {
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "id": "C-e031a1b1-7388-484f-91c0-b0275e91d68e"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "focus-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-e30e4be2-65f3-4e8a-a3d8-36e25aa04a71"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "app.hiddify.com"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-bd1bd76a-2f4f-43ca-9b18-eb1eda2fbea0"
+      }, {
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "com.github.metacubex.clash.meta"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-6cc6e4c2-7098-439b-917a-e925e4c595a4"
+      }, {
+        "@type": "type.googleapis.com/StopApp",
+        "customContextDataKey": {
+        },
+        "id": "A-6018be6b-e3d1-4e5c-86f8-fa54f8f340ba"
+      }, {
+        "@type": "type.googleapis.com/SetAppEnabled",
+        "appPkg": [{
+          "pkgName": "com.google.android.gms"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-1f075533-f862-42fc-991a-5cfa5c7a03f8"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "关闭Clash",
+        "customContextDataKey": {
+        },
+        "id": "A-68310a48-e63a-4fe9-82e1-333652d6b84c"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5bdb167d-e015-41d2-b141-4d7638376db5"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-635254c1-99de-4bbe-bac7-9ee1aba5d6ff"
+}
+###------###
+{"type":"rule"}

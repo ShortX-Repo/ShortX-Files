@@ -1,0 +1,44 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings get global bluetooth_on",
+    "customContextDataKey": {
+    },
+    "id": "A-34e7a531-651f-44f6-b723-0799c74d1048"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{shellOut} \u003d\u003d 1 ;",
+      "customContextDataKey": {
+      },
+      "id": "C-39111971-523e-4742-9a66-a1450f604742"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetBTEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-4949db04-f152-40f3-bdf4-a542d1cd5def"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetBTEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-959c50f4-16aa-424d-be15-aafd3cb7d297"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-64114c2a-3103-4f57-90b0-d78b113b3f34"
+  }],
+  "id": "DA9bac8f1e-1a80-4764-a363-6ec2eb574b99",
+  "lastUpdateTime": "1699100983024",
+  "createTime": "1699100834700",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "蓝牙开关",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

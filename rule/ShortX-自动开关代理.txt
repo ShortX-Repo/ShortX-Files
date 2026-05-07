@@ -1,0 +1,72 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/TaskRemoved",
+    "pkgSets": ["proxy"],
+    "id": "F-184cabff-85a5-4644-b89f-618cd067b0e7"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["proxy"],
+    "id": "F-67bef1c6-0e06-463b-af59-f2a3471152f9"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-82445186-6a22-42d3-bda0-42908883f486"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ServiceIsRunning",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.getsurfboard"
+        },
+        "className": "com.getsurfboard.ui.service.SurfboardVpn"
+      }],
+      "isInvert": true,
+      "id": "C-a8757dc1-dac3-48a8-ae7d-78798e1ea631"
+    }, {
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["proxy"],
+      "id": "C-3ff80ff8-156e-4bec-947f-dfa4576bdc4b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "surfboard:///start",
+      "id": "A-6394120f-4383-438f-ad2d-47a5ce57b423"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ServiceIsRunning",
+        "services": [{
+          "pkg": {
+            "pkgName": "com.getsurfboard"
+          },
+          "className": "com.getsurfboard.ui.service.SurfboardVpn"
+        }],
+        "id": "C-3d659567-7561-4e84-ab32-b5f6a011cd92"
+      }, {
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["proxy"],
+        "id": "C-1e7f00a0-2087-43a4-a5ff-d3616e4575d3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "surfboard:///stop",
+        "id": "A-065d85c8-6150-420c-a897-0b96fd6b71fe"
+      }],
+      "id": "A-75e525be-2d13-4903-8937-de681cd74264"
+    }],
+    "id": "A-ee066070-8492-4f62-bda9-2b8b58854582"
+  }],
+  "id": "rule-228ca8dd-298e-4755-b025-6dda04e94e82",
+  "lastUpdateTime": "1687240817925",
+  "createTime": "1687238394751",
+  "title": "自动开关代理",
+  "description": "自动开关surfboard",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

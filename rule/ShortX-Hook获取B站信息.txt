@@ -1,0 +1,54 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "tv.danmaku.bili",
+    "className": "tv.danmaku.bili.ui.main2.mine.HomeUserCenterFragment",
+    "methodName": "Pr",
+    "expressions": [{
+      "expressionMVEL": "param.args[0].following",
+      "contextKey": "关注数"
+    }, {
+      "expressionMVEL": "param.args[0].follower",
+      "contextKey": "粉丝数"
+    }],
+    "lifecycle": "LoadedPackage",
+    "constraint": [{
+      "@type": "type.googleapis.com/MethodHookConstraintParamsCount",
+      "count": 2
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-54fef8a5-7d8f-4d67-9f38-b3216b7ee06e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "关注数\n{关注数}",
+    "icon": "remix://bilibili-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-b19cbd4a-7fd5-4485-b713-6badd36e58bb"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "粉丝数\n{粉丝数}",
+    "icon": "remix://bilibili-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-29fff052-c93c-4249-bc47-1c9cfd76907b"
+  }],
+  "id": "SHARE-rule-cf934514-17af-43f7-af3f-7847f456274e",
+  "lastUpdateTime": "1743662362439",
+  "createTime": "1743660119849",
+  "author": {
+    "name": "帕帝天秀"
+  },
+  "title": "Hook获取B站信息",
+  "description": "启动B站打开我的页面就能显示信息了\n方法名Pr为混淆方法，改一下就能用了\n打开mt管理器\n搜索类名tv.danmaku.bili.ui.main2.mine.HomeUserCenterFragment\n然后搜索\n(Ltv/danmaku/bili/ui/main2/api/AccountMine;Z)\n定位混淆的方法名就行了\n",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

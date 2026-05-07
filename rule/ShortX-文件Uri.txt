@@ -1,0 +1,42 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "bin.mt.plus",
+    "className": "android.app.Activity",
+    "methodName": "setResult",
+    "expressions": [{
+      "expressionMVEL": "param.args[1].getData()",
+      "contextKey": "Uri"
+    }],
+    "lifecycle": "LoadedPackage",
+    "constraint": [{
+      "@type": "type.googleapis.com/MethodHookConstraintParamsCount",
+      "count": 2
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-12550729-9712-40e6-a766-69127f75e7c8"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{Uri}",
+    "customContextDataKey": {
+    },
+    "id": "A-ac522db1-2a3e-405e-8052-492beec15246"
+  }],
+  "id": "SHARE-rule-d77e4787-be2c-443f-b760-aabf056dd322",
+  "lastUpdateTime": "1766017421926",
+  "createTime": "1766017353559",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "文件Uri",
+  "description": "文件管理器选择文件后的路径(URI)",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

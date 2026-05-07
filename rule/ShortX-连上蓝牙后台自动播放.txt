@@ -1,0 +1,46 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BTConnectedTo",
+    "device": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-609d4e7a-02fe-46d9-87d0-6bddf87ab0ee"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.salt.music",
+      "className": "com.salt.music.service.MusicService"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-5de887b2-a27e-4dc6-8189-d9325b0bf4ea"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-f8ef58a8-15f9-4c49-994f-c93c50a8d912"
+  }, {
+    "@type": "type.googleapis.com/MediaPlayback",
+    "customContextDataKey": {
+    },
+    "id": "A-222d0758-8800-4b46-92bf-e1ade3850362"
+  }],
+  "id": "rule-cc3f9845-37c2-46cd-9cf4-79154be6571d",
+  "lastUpdateTime": "1713196482015",
+  "createTime": "1713196225155",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "连上蓝牙后台自动播放",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

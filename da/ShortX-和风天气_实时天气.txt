@@ -1,0 +1,53 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://devapi.qweather.com/v7/weather/now?location\u003d你的地区编码\u0026key\u003d你的key",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["now.obsTime", "now.temp", "now.feelsLike", "now.text", "now.wind360", "now.windDir", "now.windScale", "now.windSpeed", "now.humidity", "now.precip", "now.pressure", "now.vis", "now.cloud", "now.dew"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-3b8e4aeb-0a04-4df9-85db-b9822810bd69"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1702992715248",
+    "title": "实时天气预报",
+    "message": "数据观测时间:{httpRequestRet1}\n温度:{httpRequestRet2}摄氏度\n体感温度:{httpRequestRet3}摄氏度\n今天:{httpRequestRet4}\n风向角度:{httpRequestRet5}\n风向:{httpRequestRet6}\n风力等级:{httpRequestRet7}\n风速:{httpRequestRet8}公里/小时\n相对湿度:{httpRequestRet9}%\n当前小时累计降水量:{httpRequestRet10}毫米\n大气压强:{httpRequestRet11}百帕\n能见度:{httpRequestRet12}公里\n云量:{httpRequestRet}13%\n露点温度:{httpRequestRet14}",
+    "isImportant": true,
+    "smallIcon": "drop-line",
+    "customContextDataKey": {
+    },
+    "id": "A-13b01591-38eb-45c5-b617-67615bf0b5fd"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "好",
+    "negative": "复制",
+    "onNegative": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "数据观测时间:{httpRequestRet1}\n温度:{httpRequestRet2}摄氏度\n体感温度:{httpRequestRet3}摄氏度\n今天:{httpRequestRet4}\n风向角度:{httpRequestRet5}\n风向:{httpRequestRet6}\n风力等级:{httpRequestRet7}\n风速:{httpRequestRet8}公里/小时\n相对湿度:{httpRequestRet9}%\n当前小时累计降水量:{httpRequestRet10}毫米\n大气压强:{httpRequestRet11}百帕\n能见度:{httpRequestRet12}公里\n云量:{httpRequestRet13}%\n露点温度:{httpRequestRet14}",
+      "customContextDataKey": {
+      },
+      "id": "A-2ebe6b77-1462-4228-8310-f467adeed1ce"
+    }],
+    "title": "实时天气",
+    "message": "数据观测时间:{httpRequestRet1}\n温度:{httpRequestRet2}摄氏度\n体感温度:{httpRequestRet3}摄氏度\n今天:{httpRequestRet4}\n风向角度:{httpRequestRet5}\n风向:{httpRequestRet6}\n风力等级:{httpRequestRet7}\n风速:{httpRequestRet8}公里/小时\n相对湿度:{httpRequestRet9}%\n当前小时累计降水量:{httpRequestRet10}毫米\n大气压强:{httpRequestRet11}百帕\n能见度:{httpRequestRet12}公里\n云量:{httpRequestRet}13%\n露点温度:{httpRequestRet14}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-dbaf339d-7261-4f5e-b914-cd88b6c8e1f7"
+  }],
+  "id": "DA5794a33f-96e6-4213-bb29-4bdb830bfbf6",
+  "lastUpdateTime": "1703660974911",
+  "createTime": "1702990825022",
+  "author": {
+    "name": "顾林小童鞋"
+  },
+  "title": "和风天气 实时天气",
+  "description": "实时天气 获取你的key 在Location地方替换你的所在地 所在地代码在另一个文件   https://dev.qweather.com",
+  "versionCode": "1",
+  "directActionSetId": "DS-94cad120-5f13-4f09-a80f-602a1649f575"
+}
+###------###
+{"type":"da"}

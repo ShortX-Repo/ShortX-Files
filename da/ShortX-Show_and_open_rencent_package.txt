@@ -1,0 +1,44 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys activity recents | grep \u0027A\u003d\u0027 | sed -E \u0027s/.*A\u003d([0-9]+):([^ ]+).*/\\2/\u0027 | sort -u\n",
+    "customContextDataKey": {
+    },
+    "id": "A-d3e9cfff-330e-414c-9ccf-196e22c4232e"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "Recent package ",
+    "cancelable": true,
+    "data": "{shellOut}",
+    "delimiter": ["\n"],
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-65f2aaa8-670e-4e70-93f9-fb080c36f7bf"
+  }, {
+    "@type": "type.googleapis.com/LaunchAppByPkg",
+    "pkgAndUsers": [{
+      "first": "{selectedListItem}",
+      "second": "0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-082a8e57-3611-46b5-80e5-da553b70bca3"
+  }],
+  "id": "SHARED-DA-470e2ebe-11f7-498c-88fe-397c6b1e3c8b",
+  "lastUpdateTime": "1759017223045",
+  "createTime": "1759014989002",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "Show and open rencent package",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

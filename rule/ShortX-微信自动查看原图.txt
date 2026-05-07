@@ -1,0 +1,38 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.ui.chatting.gallery.ImageGalleryUI"
+    }],
+    "id": "F-365ce470-2bd0-4373-b33a-a6446116af5c"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireWifiConnected",
+    "requiredSSID": "*",
+    "id": "C-ebf5fca1-ab23-4275-a7f6-4917fa042c69"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "查看原图",
+    "id": "A-9828c731-6f62-4feb-b509-5a0f1e787b41"
+  }],
+  "id": "rule-7fe56973-1777-4089-b47a-9506383c4f48",
+  "lastUpdateTime": "1692116435853",
+  "createTime": "1691719893458",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信自动查看原图",
+  "description": "WIFI打开状态下执行 By_TwenTwen",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

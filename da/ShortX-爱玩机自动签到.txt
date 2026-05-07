@@ -1,0 +1,54 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.byyoung.setting"
+    },
+    "id": "A-ce142bc1-f356-4047-9fb9-bc933cfd6536"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "4000",
+    "id": "A-646aca46-583a-4446-8c2c-aa535922afdf"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "如果您已尽力授权",
+    "id": "A-a387fb21-d631-4a00-bfe7-85fcbaea2b9b"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "id": "A-c811b428-4d41-4647-88a0-93ef47eb0505"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "待会更新",
+    "isRegex": true,
+    "id": "A-aeffbd5f-64e2-47a8-b5d2-1ef5b29231de"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "id": "A-497a47d7-93b3-49db-9d44-84a26fa58e48"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "用户",
+    "isRegex": true,
+    "id": "A-78d514ef-4c70-4267-bbc6-a08088994468"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "id": "A-774dbe1d-98cd-4a5a-ab1f-b3626f737217"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "签到",
+    "isRegex": true,
+    "id": "A-c0a57667-54ae-4b8b-9857-39086e11f094"
+  }],
+  "id": "DA531993fa-c7c1-42ed-8ad8-4f98ee9ea735",
+  "lastUpdateTime": "1691591366252",
+  "createTime": "1691590945224",
+  "author": {
+    "name": "ZhiQing"
+  },
+  "title": "爱玩机自动签到",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

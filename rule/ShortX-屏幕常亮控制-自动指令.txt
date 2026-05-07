@@ -1,0 +1,143 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/GlobalVarChanged",
+    "gvId": "screenAlwaysOn",
+    "customContextDataKey": {
+    },
+    "id": "F-07ae8362-1e1a-4038-8708-3dd0c9a465f1"
+  }, {
+    "@type": "type.googleapis.com/ScreenOff",
+    "tag": "关闭常亮",
+    "customContextDataKey": {
+    },
+    "id": "F-187b0a8b-6c60-4b02-80d5-774c952be3c6"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "关闭常亮",
+      "customContextDataKey": {
+      },
+      "id": "C-d8bb26c8-c410-40b2-9859-f710b7bcb4b3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "screenAlwaysOn",
+      "valueAsString": "false",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-9a5d6544-9957-4dcf-9324-7fc8ae59b466"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "熄屏时修改常亮变量为关",
+    "id": "A-aa1025c8-3a37-4c77-9047-3b0a6cfe602c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "screenAlwaysOn",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d659208e-d3f1-4947-9577-fe36a206c4c7"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StayAwake",
+      "customContextDataKey": {
+      },
+      "id": "A-8d691df7-1ef5-4599-a4bd-cf83a678035b"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "屏幕常亮已开",
+      "customContextDataKey": {
+      },
+      "id": "A-4a961d9a-8caf-4cfd-8260-658f60706568"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/StayAwake",
+      "isStay": "OnOffToggle_Off",
+      "customContextDataKey": {
+      },
+      "id": "A-886bda68-dbe6-4b8f-957c-5647bc30c376"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "屏幕常亮已关",
+      "customContextDataKey": {
+      },
+      "id": "A-da9e9bbc-f707-49b7-8a6e-e04c67339e3b"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "开关屏幕常亮",
+    "id": "A-15d2b803-7667-4ef2-b712-968704e42bb8"
+  }],
+  "id": "SHARE-rule-f1a0b067-25a7-434f-9abc-d166596ee9d6",
+  "lastUpdateTime": "1777480314591",
+  "createTime": "1777479776578",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "屏幕常亮控制",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "screenAlwaysOn",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-675b9e75-f954-4526-aeb2-fa396a819af6"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "screenAlwaysOn",
+          "type": {
+            "@type": "type.googleapis.com/BoolVar"
+          },
+          "note": "用于控制屏幕常亮状态"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-97b2fcd1-e7e2-4357-80fb-e2dc40b9abd8"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "屏幕常亮：已创建所需全局变量",
+        "customContextDataKey": {
+        },
+        "id": "A-bb34d119-5f6a-44b7-a2b1-1f1757489b41"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ed0cd744-1968-4f74-82cb-743cfe4cef8a"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "screenAlwaysOn",
+      "customContextDataKey": {
+      },
+      "id": "A-eff5613d-d8ea-46ef-82dc-8150b04e32df"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "屏幕常亮：已删除全局变量",
+      "customContextDataKey": {
+      },
+      "id": "A-a51a2589-3006-4da8-b6e9-2b181adeb79a"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

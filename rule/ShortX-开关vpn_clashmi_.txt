@@ -1,0 +1,68 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["VPN应用"],
+    "customContextDataKey": {
+    },
+    "id": "F-d7de047a-33cf-472c-885f-84fbee89d07f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.nebula.clashmi",
+      "className": "io.nebula.vpn_service.ClashVpnServiceImpl"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a010536e-16a3-45cd-a8ab-55187d1c23dc"
+  }],
+  "id": "SHARE-rule-1cd979e6-6dc3-44e1-87da-6ab34d475a26",
+  "lastUpdateTime": "1750668723384",
+  "createTime": "1750668591585",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "开关vpn（clashmi）",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "VPN应用",
+      "customContextDataKey": {
+      },
+      "id": "A-190b4497-3a0c-4e3d-be90-f797deb39c91"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "pkgSets": ["VPN应用"],
+      "customContextDataKey": {
+      },
+      "id": "F-5458d43f-d83e-4379-ae78-f85752822bd0"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgSets": ["VPN应用"],
+      "customContextDataKey": {
+      },
+      "id": "C-3818d8a7-715e-462a-8c22-47f0adee3060"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.nebula.clashmi"
+        },
+        "className": "io.nebula.vpn_service.ClashVpnServiceImpl"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-979964b2-6ca2-44bb-958c-6af62a1fd8fc"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

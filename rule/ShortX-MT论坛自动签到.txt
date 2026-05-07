@@ -1,0 +1,123 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 4,
+      "minutes": 40
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-3dcb9730-d7e7-4340-94e8-49cefd0d37e4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetDataEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-e121cc3c-a937-4f5c-b686-afde80816c6e"
+  }, {
+    "@type": "type.googleapis.com/FromDA",
+    "daId": "DA227e201c-97fa-47f5-aefe-d7beda5d5c19",
+    "customContextDataKey": {
+    },
+    "id": "A-3dd60a99-04c6-498e-82dd-6ccb65ebeca8"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-09aee072-2c14-4733-b45f-029f528af6cb"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start \"intent:#Intent;component\u003dcom.JFH.bbs.binmt.cc.lite.open_source/net.fusion64j.core.FusionActivity;S.project_key\u003d%2Fdata%2Fuser%2F0%2Fcom.JFH.bbs.binmt.cc.lite.open_source%2Fapp_fusion;S.page_name_key\u003dSignIn;end\"",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "id": "A-8734d179-a5c3-4cc1-a3f8-5872f275a850"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-d210849d-b564-4862-b3a3-03692834d6b5"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 767,
+    "y": 1092,
+    "customContextDataKey": {
+    },
+    "id": "A-e152a418-c085-494a-a9df-17e678205e06"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 767,
+    "y": 1092,
+    "customContextDataKey": {
+    },
+    "id": "A-e728083d-3cb5-46a1-828a-a44ee7fd0a21"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 767,
+    "y": 1092,
+    "customContextDataKey": {
+    },
+    "id": "A-03c28d52-6da5-4aed-ad90-b071057b122b"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-cb8861b3-1b70-42f9-b95c-91addc95f2f8"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.JFH.bbs.binmt.cc.lite.open_source"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-30bad70b-148f-4126-8f6c-738b5f5faf42"
+  }, {
+    "@type": "type.googleapis.com/RemoveTasks",
+    "appPkg": [{
+      "pkgName": "com.JFH.bbs.binmt.cc.lite.open_source"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-003c0bd1-c855-43cb-b450-50077a8b271c"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-e3fdcacb-b95d-4019-a3a5-276098055749"
+  }, {
+    "@type": "type.googleapis.com/SleepScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-d89f5d9f-f9e6-4da2-8c16-c876eea23379"
+  }],
+  "id": "rule-8afd78ba-2d5a-4b2b-93a4-0ed6e6d8020d",
+  "lastUpdateTime": "1693307487399",
+  "createTime": "1692792860131",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "MT论坛自动签到",
+  "description": "需配合Mt论坛Lite\n下载链接：https://wwuj.lanzoul.com/iiWLb16u7bij\n密码：29vc",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

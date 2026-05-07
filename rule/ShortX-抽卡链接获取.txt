@@ -1,0 +1,488 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Logcat",
+    "regex": "ContentCatcher_catcher: WebViewController : getUrl()-",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-b59cb066-c583-47ab-957a-d0d24a3c4a00"
+  }, {
+    "@type": "type.googleapis.com/Logcat",
+    "regex": "ContentCatcher_catcher: WebViewController : newUrl:",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-5e290ccb-ed72-4380-8e07-211ac37839f8"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys window displays | grep \"mFocusedApp\" | grep -v \"AppWindowToken\" | awk \u0027{print $(NF-1)}\u0027 | awk -F \"/\" \u0027{print $1}\u0027",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "baomin"
+      }]
+    },
+    "id": "A-ea44ef45-aa43-4f19-9d40-02cee192ad53"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {baomin};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+    "customContextDataKey": {
+    },
+    "id": "A-91586ee8-49c2-4412-8cec-fdef054b4992"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "原神"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-44685c01-bc3c-44f2-bbe3-8b8ce7fa6ac1"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "Genshin"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c36f758c-2314-4637-88b3-acf08775b974"
+      }],
+      "caseCondOp": "ANY",
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "var\u003d\"{line}\"\necho \"$var\" | sed \u0027s/http/\\n\u0026/g\u0027",
+        "customContextDataKey": {
+        },
+        "id": "A-b93bf284-bf2d-4048-bfba-6cfc10ebd01f"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{shellOut}",
+        "regex": "\\n",
+        "replacement": ",",
+        "customContextDataKey": {
+        },
+        "id": "A-353d2e74-59c7-44ef-8525-aad1893e25d8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "filtered_var\u003d$(echo \"{replaceResult}\" | awk -F \u0027,\u0027 \u0027{for(i\u003d1;i\u003c\u003dNF;i++) if($i ~ /^(http:\\/\\/|https:\\/\\/)/) printf(\"%s%s\", $i, (i\u003d\u003dNF)?ORS:OFS)}\u0027)\necho \"$filtered_var\"",
+        "customContextDataKey": {
+        },
+        "id": "A-607c8960-3a5c-484a-b844-7b2a40c3fb12"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制链接",
+        "onPositive": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "防重复",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-88fe6047-42fe-49fb-9628-154c0707fbc7"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-5d3bad29-b247-4e33-bcd0-bdebcff74f6f"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-661636b4-72bc-4d90-82b8-af5640665cf1"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "防重复",
+          "customContextDataKey": {
+          },
+          "id": "A-3982a782-2d87-4436-a190-7f18dccf5871"
+        }],
+        "neutral": "复制并打开提瓦特小助手",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "防重复",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-88fe6047-42fe-49fb-9628-154c0707fbc7"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-5d3bad29-b247-4e33-bcd0-bdebcff74f6f"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;S.ext_info\u003dshortcut_5ac2b4c291c3a63431c2a6c398c3a90660c2ac264fc3adc28ac3bf4b;S.digest\u003d8dd024f65f77a3a3578391c46530ca3a;S.id\u003dshortcut_4ac2a4c3bcc2b16038c3b7c39ec2b90760c3bf7318c2b9c3b9c3bf03c3af;i.type\u003d1;S.token\u003d4aa4f4d56734d84be220b68057a71e3e;i.ext_info_1\u003d0;end\"",
+          "customContextDataKey": {
+          },
+          "id": "A-fd471e9b-cbde-4608-ba90-2713d7c1ded0"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-661636b4-72bc-4d90-82b8-af5640665cf1"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "防重复",
+          "customContextDataKey": {
+          },
+          "id": "A-3982a782-2d87-4436-a190-7f18dccf5871"
+        }],
+        "title": "抽卡链接",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-4ff245c1-e9e9-421a-b185-446a52c16d9c"
+      }],
+      "description": "原",
+      "id": "Case-3d273b7e-67a1-4f46-89ac-0d1992d68e59",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "崩坏：星穹铁道"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-020dc8b2-a930-4b4e-aa30-36325ef1fcdb"
+      }, {
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "Star Rail"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-5f671a78-ac56-49d9-8aa7-a093f4763d3d"
+      }],
+      "caseCondOp": "ANY",
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "var\u003d\"{line}\"\necho \"$var\" | sed \u0027s/http/\\n\u0026/g\u0027",
+        "customContextDataKey": {
+        },
+        "id": "A-b93bf284-bf2d-4048-bfba-6cfc10ebd01f"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{shellOut}",
+        "regex": "\\n",
+        "replacement": ",",
+        "customContextDataKey": {
+        },
+        "id": "A-353d2e74-59c7-44ef-8525-aad1893e25d8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "filtered_var\u003d$(echo \"{replaceResult}\" | awk -F \u0027,\u0027 \u0027{for(i\u003d1;i\u003c\u003dNF;i++) if($i ~ /^(http:\\/\\/|https:\\/\\/)/) printf(\"%s%s\", $i, (i\u003d\u003dNF)?ORS:OFS)}\u0027)\necho \"$filtered_var\"",
+        "customContextDataKey": {
+        },
+        "id": "A-607c8960-3a5c-484a-b844-7b2a40c3fb12"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制链接",
+        "onPositive": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "防重复",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-88fe6047-42fe-49fb-9628-154c0707fbc7"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-5d3bad29-b247-4e33-bcd0-bdebcff74f6f"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-661636b4-72bc-4d90-82b8-af5640665cf1"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "防重复",
+          "customContextDataKey": {
+          },
+          "id": "A-3982a782-2d87-4436-a190-7f18dccf5871"
+        }],
+        "negative": "复制并打开星铁小助手",
+        "onNegative": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "防重复",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-e4b15e01-62ed-471d-949b-27f8acc7e6eb"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-77c3160f-e857-4172-a8b2-423d16f9495d"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;S.ext_info\u003dshortcut_5ac2b4c29bc3a36f3fc3b0c39ac3a90333c2ae251ec2bac28dc2aa40;S.digest\u003d8adb9e57f5545749a60a29350a7eae3d;S.id\u003dshortcut_4ac2a4c3bcc3a6613cc3b5c39ac2bf5465c2a82648c3acc3b9c3bf03c3af;i.type\u003d1;S.token\u003db4fb474a514d7e108f547c2c27c5d5f0;i.ext_info_1\u003d0;end\"",
+          "customContextDataKey": {
+          },
+          "id": "A-b4d2695e-9261-4610-a490-d701f20d7773"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-3f682e18-45ec-4df4-97cb-ca02593bfe49"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "防重复",
+          "customContextDataKey": {
+          },
+          "id": "A-d963312b-6d98-4bec-a868-09c27fb3858a"
+        }],
+        "neutral": "复制并打开星穹工坊",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "防重复",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-88fe6047-42fe-49fb-9628-154c0707fbc7"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-5d3bad29-b247-4e33-bcd0-bdebcff74f6f"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;S.ext_info\u003dshortcut_5ac2b4c29ac2b16138c2a3c28dc3aa0365c2ad734fc2bac288c3bc11;S.digest\u003d121b4b6c83ff6e228bac4fe7c9cb333e;S.id\u003dshortcut_4ac2a4c3bcc2b1646ec3b6c28cc2ba5162c2af234bc2b7c3b9c3bf03c3af;i.type\u003d1;S.token\u003dbdcf8660f4dd5a87f150bbf8c3aae4ab;i.ext_info_1\u003d0;end\"",
+          "customContextDataKey": {
+          },
+          "id": "A-d83a4488-e05c-484d-9a39-c098e33fa0e1"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-661636b4-72bc-4d90-82b8-af5640665cf1"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "防重复",
+          "customContextDataKey": {
+          },
+          "id": "A-3982a782-2d87-4436-a190-7f18dccf5871"
+        }],
+        "title": "抽卡链接",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-4ff245c1-e9e9-421a-b185-446a52c16d9c"
+      }],
+      "description": "崩",
+      "id": "Case-923c0671-0f20-47df-a0b2-d1bcfd09c444",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "鸣潮"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-aa8dc5df-7f41-4cf9-9e7f-cf19cdfe621e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "var\u003d\"{line}\"\necho \"$var\" | sed \u0027s/http/\\n\u0026/g\u0027",
+        "customContextDataKey": {
+        },
+        "id": "A-b93bf284-bf2d-4048-bfba-6cfc10ebd01f"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{shellOut}",
+        "regex": "\\n",
+        "replacement": ",",
+        "customContextDataKey": {
+        },
+        "id": "A-353d2e74-59c7-44ef-8525-aad1893e25d8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "filtered_var\u003d$(echo \"{replaceResult}\" | awk -F \u0027,\u0027 \u0027{for(i\u003d1;i\u003c\u003dNF;i++) if($i ~ /^(http:\\/\\/|https:\\/\\/)/) printf(\"%s%s\", $i, (i\u003d\u003dNF)?ORS:OFS)}\u0027)\necho \"$filtered_var\"",
+        "customContextDataKey": {
+        },
+        "id": "A-607c8960-3a5c-484a-b844-7b2a40c3fb12"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制链接",
+        "onPositive": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "防重复",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-88fe6047-42fe-49fb-9628-154c0707fbc7"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-5d3bad29-b247-4e33-bcd0-bdebcff74f6f"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-661636b4-72bc-4d90-82b8-af5640665cf1"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "防重复",
+          "customContextDataKey": {
+          },
+          "id": "A-3982a782-2d87-4436-a190-7f18dccf5871"
+        }],
+        "negative": "复制并打开秧秧小助手",
+        "onNegative": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "防重复",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-e4b15e01-62ed-471d-949b-27f8acc7e6eb"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-77c3160f-e857-4172-a8b2-423d16f9495d"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;S.ext_info\u003dshortcut_5ac2b4c296c2b2646ac2a7c288c3a80762c2ae2f19c3abc288c2a74b;S.digest\u003da2622c306934fc48cb5a3383ba448a16;S.id\u003dshortcut_4ac2a4c3bcc3a4346bc2a7c399c2b50663c2ab7545c2bac3b9c3bf03c3af;i.type\u003d1;S.token\u003d5baa2ecbfbeb5397c9f5c841d618ad78;i.ext_info_1\u003d0;end\"",
+          "customContextDataKey": {
+          },
+          "id": "A-b4d2695e-9261-4610-a490-d701f20d7773"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-3f682e18-45ec-4df4-97cb-ca02593bfe49"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "防重复",
+          "customContextDataKey": {
+          },
+          "id": "A-d963312b-6d98-4bec-a868-09c27fb3858a"
+        }],
+        "neutral": "复制并打开游创工坊",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "防重复",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-e4b15e01-62ed-471d-949b-27f8acc7e6eb"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-37b90050-7e59-49d0-aa1a-a6375a33603b"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;S.ext_info\u003dshortcut_5ac2b4c29ac3a6363fc3bac39ac2ba0267c2af2f1ac2bec39dc2ab17;S.digest\u003dc8669c1c620c6e6dfb92b5eb65415c7c;S.id\u003dshortcut_4ac2a4c3bcc2b3363cc3b5c288c3a90730c2ae7148c3a8c3b9c3bf03c3af;i.type\u003d1;S.token\u003d133142f4b0f17e60cc42a143338f8fc6;i.ext_info_1\u003d0;end\"",
+          "customContextDataKey": {
+          },
+          "id": "A-b4d2695e-9261-4610-a490-d701f20d7773"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3000",
+          "customContextDataKey": {
+          },
+          "id": "A-3f682e18-45ec-4df4-97cb-ca02593bfe49"
+        }, {
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "防重复",
+          "customContextDataKey": {
+          },
+          "id": "A-d963312b-6d98-4bec-a868-09c27fb3858a"
+        }],
+        "title": "抽卡链接",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-4ff245c1-e9e9-421a-b185-446a52c16d9c"
+      }],
+      "description": "鸣",
+      "id": "Case-cd5410a9-7643-4594-afe0-e27ad02b6809",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-60c50c15-bc4b-4985-92ed-23d529032ce3"
+  }],
+  "id": "rule-5459b505-5bc6-42cc-b683-38220373c5d6",
+  "lastUpdateTime": "1717665388763",
+  "createTime": "1714718627800",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "抽卡链接获取",
+  "description": "打开原神，崩铁抽卡记录自动获取抽卡链接",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

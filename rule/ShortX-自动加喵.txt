@@ -1,0 +1,52 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "BottomRight",
+    "gesture": "LongTap",
+    "customContextDataKey": {
+    },
+    "id": "F-5e98cc76-8ac0-4ca3-9f57-c43aeaa4d95d"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenOrientationIsPort",
+    "customContextDataKey": {
+    },
+    "id": "C-d0112661-1316-479d-8187-794fefb0ee87"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/InjectKeyCode",
+    "keyCode": 123,
+    "customContextDataKey": {
+    },
+    "id": "A-94b37ff1-b48a-47b5-9aec-2d6ee348471e"
+  }, {
+    "@type": "type.googleapis.com/InputText",
+    "text": "喵",
+    "customContextDataKey": {
+    },
+    "id": "A-f2b43167-9ee1-4e12-a8dc-3cbed54ea90f"
+  }, {
+    "@type": "type.googleapis.com/InjectKeyCode",
+    "keyCode": 66,
+    "customContextDataKey": {
+    },
+    "id": "A-1d772868-bdc3-45e5-8a10-86f01a8664af"
+  }],
+  "id": "rule-17c93036-b664-45c3-ac0a-859276b1b004",
+  "lastUpdateTime": "1696352946949",
+  "createTime": "1696052251573",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动加喵",
+  "description": "长按右下角自动加喵并发送(任何支持回车发送的应用均支持使用)",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-a27d713a-b228-4973-9412-89a7b210b6d0"
+}
+###------###
+{"type":"rule"}

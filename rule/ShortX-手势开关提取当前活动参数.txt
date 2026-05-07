@@ -1,0 +1,60 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopLeft",
+    "gesture": "SingleTap",
+    "customContextDataKey": {
+    },
+    "id": "F-bb6662c7-ae59-4b88-b53e-87f61e17281d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-52edec94-6817-47f8-b256-22f546581af6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/IsRuleEnabled",
+      "ruleId": "rule-0d21f077-9884-4017-9cdb-332816b0ce8e",
+      "customContextDataKey": {
+      },
+      "id": "C-3d34f429-1079-46cb-a592-e9f1d1afca88"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetRuleEnabled",
+      "ruleId": "rule-0d21f077-9884-4017-9cdb-332816b0ce8e",
+      "customContextDataKey": {
+      },
+      "id": "A-22f2db0c-dd30-49c7-a404-bc6988bb4ffa"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetRuleEnabled",
+      "ruleId": "rule-0d21f077-9884-4017-9cdb-332816b0ce8e",
+      "isEnable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-cdf33f29-8677-472d-8169-30cee8c39e9b"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ad0811fb-4d1f-406f-b60f-0a98ce7abdb1"
+  }],
+  "id": "rule-7ddfdcd4-9283-49f9-a268-edd88dd235d6",
+  "lastUpdateTime": "1698593187091",
+  "createTime": "1698591053656",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "手势开关提取当前活动参数",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-de5b5bd8-2d88-4189-94e9-c3283b1c4658"
+}
+###------###
+{"type":"rule"}

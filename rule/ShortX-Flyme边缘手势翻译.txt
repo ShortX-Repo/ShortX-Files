@@ -1,0 +1,45 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopCenter",
+    "gesture": "SingleTap",
+    "customContextDataKey": {
+    },
+    "id": "F-39a193de-f99a-4bcf-8207-64222e27cff6"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-086bf0a6-9967-42ac-9ce5-d660f9a786d8"
+  }, {
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-17b0f1c5-5e38-4fa5-bc59-9ca2d3823293"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\noriginal_text\u003d\"{clipboardContent}\"\n\n# 将下划线替换为其他字符（例如空格或其他字符）\nprocessed_text\u003d\"${original_text//_/ }\"\n\n# 将点号前后加上空格\nprocessed_text\u003d\"${processed_text//./  }\"\n\nencoded_text\u003d$(/data/user/0/com.termux/files/usr/bin/python -c \"import urllib.parse; print(urllib.parse.quote(\u0027\u0027\u0027$processed_text\u0027\u0027\u0027))\")\n\nam start \"intent:#Intent;action\u003dandroid.intent.action.PROCESS_TEXT;type\u003dtext/plain;launchFlags\u003d0x800000;component\u003dcom.meizu.flyme.sdkstage/.activity.TranslationActivity;S.android.intent.extra.PROCESS_TEXT\u003d$encoded_text;B.android.intent.extra.PROCESS_TEXT_READONLY\u003dtrue;end\"\n",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-f7fac491-1a93-4932-ab3e-fcee3a4a057c"
+  }],
+  "id": "rule-586c8289-350b-46d9-8dfe-40dd87eb4e14",
+  "lastUpdateTime": "1697986076299",
+  "createTime": "1697821759376",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "边缘手势翻译",
+  "description": "Flyme9：调用Aicy识屏翻译，使用Python的urllib.parse模块进行URL编码。",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

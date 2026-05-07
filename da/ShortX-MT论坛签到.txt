@@ -1,0 +1,26 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/system/bin/sh\n\n# 在Android上执行Python脚本\noutput\u003d$(/data/user/0/com.termux/files/usr/bin/python \u003c\u003cEOF\nimport requests\nimport re\n\n# 设置ua\nua \u003d \u0027Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36\u0027\nsession \u003d requests.session()\n\n# 签到函数\ndef main(username, password):\n    headers \u003d {\u0027User-Agent\u0027: ua}\n\n    session.get(\u0027https://bbs.binmt.cc/member.php?mod\u003dlogging\u0026action\u003dlogin\u0026infloat\u003dyes\u0026handlekey\u003dlogin\u0026inajax\u003d1\u0026ajaxtarget\u003dfwin_content_login\u0027, headers\u003dheaders)\n    chusihua \u003d session.get(\u0027https://bbs.binmt.cc/member.php?mod\u003dlogging\u0026action\u003dlogin\u0026infloat\u003dyes\u0026handlekey\u003dlogin\u0026inajax\u003d1\u0026ajaxtarget\u003dfwin_content_login\u0027, headers\u003dheaders)\n\n    loginhash \u003d re.findall(\u0027loginhash\u003d(.*?)\"\u003e\u0027, chusihua.text)[0]\n    formhash \u003d re.findall(\u0027formhash\" value\u003d\"(.*?)\".*? /\u003e\u0027, chusihua.text)[0]\n    denurl \u003d f\u0027https://bbs.binmt.cc/member.php?mod\u003dlogging\u0026action\u003dlogin\u0026loginsubmit\u003dyes\u0026handlekey\u003dlogin\u0026loginhash\u003d{loginhash}\u0026inajax\u003d1\u0027\n    \n    data \u003d {\n        \u0027formhash\u0027: formhash,\n        \u0027referer\u0027: \u0027https://bbs.binmt.cc/forum.php\u0027,\n        \u0027loginfield\u0027: \u0027username\u0027,\n        \u0027username\u0027: username,\n        \u0027password\u0027: password,\n        \u0027questionid\u0027: \u00270\u0027,\n        \u0027answer\u0027: \u0027\u0027,\n    }\n\n    denlu \u003d session.post(headers\u003dheaders, url\u003ddenurl, data\u003ddata).text\n    if \u0027欢迎您回来\u0027 in denlu:\n        fzmz \u003d re.findall(\u0027欢迎您回来，(.*?)，现在\u0027, denlu)[0]\n        print(f\u0027{fzmz}：登录成功\u0027)\n        \n        zbqd \u003d session.get(\u0027https://bbs.binmt.cc/k_misign-sign.html\u0027, headers\u003dheaders).text\n        formhash \u003d re.findall(\u0027formhash\" value\u003d\"(.*?)\".*? /\u003e\u0027, zbqd)[0]\n        \n        qdurl \u003d f\u0027https://bbs.binmt.cc/plugin.php?id\u003dk_misign:sign\u0026operation\u003dqiandao\u0026format\u003dtext\u0026formhash\u003d{formhash}\u0027\n        qd \u003d session.get(url\u003dqdurl, headers\u003dheaders).text\n        qdyz \u003d re.findall(\u0027\u003croot\u003e\u003c(.*?)\u003c/root\u003e\u0027, qd)\n        #print(qdyz)\n        \n        login_info \u003d re.findall(\u0027欢迎您回来，(.*?)，现在\u0027, denlu)[0].strip()\n        sign_info \u003d re.findall(\u0027\u003croot\u003e\u003c(.*?)\u003c/root\u003e\u0027, qd)[0].strip()\n  \n        return (username, login_info, sign_info)\n    \n    return None\n\n# 替换成你的账号和密码\nusername \u003d \u0027账号\u0027\npassword \u003d \u0027密码\u0027\n\n#print(f\"开始签到账号：{username}\")\nsigned \u003d main(username, password)\nif signed:\n    success_count \u003d 1\n    result \u003d [signed]\n    # 构造签到详情\n    sign_details \u003d []\n    for username, login_info, sign_info in result:\n        detail \u003d f\"账号：{login_info}，\\n签到信息：{sign_info}\"\n        sign_details.append(detail)\n    output \u003d f\"账号：{username}，签到信息：{sign_info}\"\nelse:\n    output \u003d \"失败！\"\n\nprint(output)\nEOF\n)\n\necho \"$output\"\n",
+    "customContextDataKey": {
+    },
+    "id": "A-3ba044e8-ef2b-40f7-8335-760bbb86031a"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-8fa7d797-b8f6-48d4-a30f-963ee276011f"
+  }],
+  "id": "DAaddcccba-679b-4c1a-941c-0ce5fcf2ce57",
+  "lastUpdateTime": "1698061008759",
+  "createTime": "1697895093212",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "MT论坛签到",
+  "description": "自己把账号密码填入shell脚本中。",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

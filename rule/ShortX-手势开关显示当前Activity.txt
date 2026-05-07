@@ -1,0 +1,60 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopRight",
+    "gesture": "SingleTap",
+    "customContextDataKey": {
+    },
+    "id": "F-40325a8d-4a6c-4edf-92c9-f0d061cb5504"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-1a201482-5e6e-46ff-8071-e31dac62c52e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/IsRuleEnabled",
+      "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+      "customContextDataKey": {
+      },
+      "id": "C-fe40593a-ecda-4e7c-89b8-5a9d8080c89f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetRuleEnabled",
+      "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+      "customContextDataKey": {
+      },
+      "id": "A-39ad51d6-db35-4f0d-9d41-722c92f402c6"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetRuleEnabled",
+      "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+      "isEnable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-a342d4bf-3834-4b63-8d17-a17b912d4a5b"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-5cf57b0e-2be4-4d3c-a13f-b9f6b328aac4"
+  }],
+  "id": "rule-cfae200d-707f-4bd0-bf98-801f93d166f9",
+  "lastUpdateTime": "1698593209607",
+  "createTime": "1698592423993",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "手势开关显示当前Activity",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-de5b5bd8-2d88-4189-94e9-c3283b1c4658"
+}
+###------###
+{"type":"rule"}

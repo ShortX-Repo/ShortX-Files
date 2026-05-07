@@ -1,0 +1,43 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/WakeupScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-9e7b3237-b93c-42e0-b1e5-1fad4b1ba8a5"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "100",
+    "customContextDataKey": {
+    },
+    "id": "A-30af6985-b9c1-4375-ae5e-343e9ee5e30e"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input keyevent 66",
+    "customContextDataKey": {
+    },
+    "id": "A-dc22d76f-5eb2-4273-8e56-e54279daec4e"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "100",
+    "customContextDataKey": {
+    },
+    "id": "A-7abe7d18-a8f8-40f4-a2c4-bd8f8685746d"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input text {globalVarOf$锁屏密码}",
+    "customContextDataKey": {
+    },
+    "id": "A-b221f0f1-fe7c-42cb-bcb1-746eb51a6a5b"
+  }],
+  "id": "DA679a17f5-e262-4db8-83a3-3c6c5cde900c",
+  "lastUpdateTime": "1700537869284",
+  "createTime": "1689991787362",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "解锁",
+  "description": "全局变量锁屏密码",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

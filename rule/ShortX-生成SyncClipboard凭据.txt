@@ -1,0 +1,117 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/DeepLinkCall",
+    "deepLinkTag": "SyncClipboardPingju",
+    "customContextDataKey": {
+    },
+    "id": "F-a7e6a993-9141-4193-a68a-ff276a37169a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "获取用户凭证",
+    "onPositive": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "CanshuYonghuming",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-56300424-a83e-472b-8ad1-e7c6dddc613d"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "填写用户名",
+      "textFields": [{
+      }],
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d5a8924c-9877-4836-afd4-dc52a9d1ded7"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "CanshuYonghuming",
+      "valueAsString": "{textFieldInput1}",
+      "customContextDataKey": {
+      },
+      "id": "A-d0a361f9-152a-4e65-80db-934daa4c58ca"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "Canshumima",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-7b55f5a4-8a25-4431-8d2a-051e05e6c970"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "填写密码",
+      "textFields": [{
+      }],
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-69e5b780-f2c8-4b6a-bf78-b4db7b3fa568"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "Canshumima",
+      "valueAsString": "{textFieldInput1}",
+      "customContextDataKey": {
+      },
+      "id": "A-290d73be-9487-40f7-84c8-f02fced4be18"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo -n \"localVarOf$CanshuYonghuming:localVarOf$Canshumima\" | base64\n",
+      "customContextDataKey": {
+      },
+      "id": "A-1a1c3a00-4ee7-4a40-8698-c92e3b06a19c"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-95b737c1-7037-421d-86d1-06f11c37f169"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "title": "用户凭证已复制到剪贴板。\n\n用户凭证：",
+      "message": "{shellOut}",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ee9d2988-6b80-4643-b387-efa895419711"
+    }],
+    "title": "注意！",
+    "message": "必须正确填写全部指令参数才能使用！\n\n如果需要获取凭证，请点击获取用户凭证。",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-3eec4252-de86-4afb-b785-f9f11f2bf125"
+  }],
+  "id": "SHARE-rule-e3dc98a7-c9e5-4014-8d35-ac34e2904b48",
+  "lastUpdateTime": "1751293378757",
+  "createTime": "1751293317680",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "生成SyncClipboard凭据",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-13ee1a40-e6f5-4e5b-9840-14c06ef17a18"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,80 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 7,
+      "minutes": 25
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b3e2d526-2c28-4ed4-99bd-af0a54400632"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FromDA",
+    "daId": "DA227e201c-97fa-47f5-aefe-d7beda5d5c19",
+    "customContextDataKey": {
+    },
+    "id": "A-1a71118b-786f-4b18-8b81-fa1b8e1e3ba9"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-fe25b77a-501c-4004-9805-b51e2908f038"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.alibaba.android.rimet"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-cbd7cdad-c5cb-452a-b1f8-58a85bd1be5a"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-338ca87f-4ccd-4440-b5ee-732e4c810586"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "xs": "143",
+    "ys": "516",
+    "customContextDataKey": {
+    },
+    "id": "A-b772ac97-3996-4d0b-898f-d4ee7584bd3d"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-5859cc73-0f55-428d-a762-6da1c5fdf884"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "xs": "700",
+    "ys": "1880",
+    "customContextDataKey": {
+    },
+    "id": "A-4d68d07d-5b41-4a77-ab05-f25595eb7c8f"
+  }],
+  "id": "SHARE-rule-72313d26-4a5f-47af-8d42-29fda26d76c5",
+  "lastUpdateTime": "1756356778115",
+  "createTime": "1756339170056",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "上班",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

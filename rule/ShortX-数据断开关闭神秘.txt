@@ -1,0 +1,122 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MobileDataStatusChanged",
+    "ooa": "Off",
+    "customContextDataKey": {
+    },
+    "id": "F-4745d58d-eea7-4901-b7ac-cdd8c3dd0178"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-2591f0d3-6945-4983-add6-e5cb0230b5ea"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "status",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-127a9804-57b0-4635-9be3-5bd32c970bca"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://localhost:23333/api/kernel",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["status"]
+      },
+      "headers": [{
+        "key": "authorization",
+        "value": "globalVarOf$authorizationKey"
+      }, {
+        "key": "Content-Type",
+        "value": "application/json"
+      }],
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "note": "请求神秘状态",
+      "id": "A-bcaa8184-f097-4f26-ae1e-0cd81096c22e"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "status",
+      "valueAsString": "{httpRequestRet1}",
+      "customContextDataKey": {
+      },
+      "id": "A-7fee943c-0cd5-4066-946c-354e85bc330c"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "status",
+        "payload": {
+          "value": "working"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-f6cd7cbc-c542-44f2-b0f6-68d887fc85ed"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "http://localhost:23333/api/kernel",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "method": "POST",
+        "headers": [{
+          "key": "authorization",
+          "value": "globalVarOf$authorizationKey"
+        }, {
+          "key": "Content-Type",
+          "value": "application/json"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyJson",
+          "json": "{\"method\":\"stop\"}"
+        },
+        "customContextDataKey": {
+        },
+        "note": "关闭神秘",
+        "id": "A-09792e0b-250a-45cf-98b9-9971e084b370"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "核心已关闭 喵",
+        "customContextDataKey": {
+        },
+        "id": "A-f19d4876-2da9-47ac-ad35-f62ef8b63e32"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "如果神秘启动则关闭神秘",
+      "id": "A-4a75fce5-0e36-43e5-8d22-f590cb72b576"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "关闭神秘",
+    "id": "A-5d2f43ea-898f-415b-80e8-5d6f9244de97"
+  }],
+  "id": "rule-5e9be0d8-ee6e-4a0c-a040-976440896897",
+  "lastUpdateTime": "1702751435387",
+  "createTime": "1697130626344",
+  "author": {
+    "name": "我无聊了"
+  },
+  "title": "数据断开关闭神秘",
+  "description": "自动关闭神秘",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-b374a802-542a-415d-9dc3-3e0e3c94e9eb"
+}
+###------###
+{"type":"rule"}

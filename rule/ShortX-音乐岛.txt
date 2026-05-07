@@ -1,0 +1,176 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.luna.music"
+    }, {
+      "pkgName": "com.miui.player"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-aca9183f-9a91-4e4d-90a1-c2b7a89945d2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var File \u003d java.io.File;\nvar FileWriter \u003d java.io.FileWriter;\nvar BufferedWriter \u003d java.io.BufferedWriter;\nvar IOException \u003d java.io.IOException;\nfunction readFileContent(filePath) {\n    var file \u003d new java.io.File(filePath);\n    if (!file.exists()) {\n        throw \"文件不存在: \" + filePath;\n    }\n\n    var scanner \u003d new java.util.Scanner(file, \"UTF-8\").useDelimiter(\"\\\\Z\");\n    var content \u003d scanner.hasNext() ? scanner.next() : \"\";\n    scanner.close();\n    return content;\n}\n\nfunction writeToFile(filePath, content) {\n    try {\n        var file \u003d new File(filePath);\n        if (!file.exists()) {\n            file.getParentFile().mkdirs(); // 创建上级目录（如有必要）\n            file.createNewFile(); // 创建新文件\n        }\n        var writer \u003d new BufferedWriter(new FileWriter(file));\n        writer.write(content);\n        writer.close();\n        true; // 写入成功\n    } catch (e) {\n        if (e instanceof IOException) {\n            false; // 写入失败\n        } else {\n            throw e; // 其他异常继续抛出\n        }\n    }\n}\nfunction dp(v) {\n    return Math.floor(v * context.getResources().getDisplayMetrics().density);\n}\n\nfunction getMediaInfo() {\n    importClass(android.media.session.MediaSessionManager);\n    importClass(android.media.MediaMetadata);\n    importClass(android.media.session.PlaybackState);\n\n    var pm \u003d context.getPackageManager();\n    var mediaSessionManager \u003d context.getSystemService(context.MEDIA_SESSION_SERVICE);\n    var result \u003d {\n        title: \"未知歌曲\",\n        artist: \"\",\n        isPlaying: false,\n        albumArt: null,\n        packageName: null,\n        iconDrawable: context.getResources().getDrawable(android.R.drawable.sym_def_app_icon)\n    };\n\n    try {\n        var sessions \u003d mediaSessionManager.getActiveSessions(null);\n        if (sessions.size() \u003e 0) {\n            var controller \u003d new android.media.session.MediaController(context, sessions.get(0).getSessionToken());\n            var metadata \u003d controller.getMetadata();\n            var playbackState \u003d controller.getPlaybackState();\n            result.packageName \u003d controller.getPackageName();\n\n            if (metadata !\u003d null) {\n                result.title \u003d metadata.getString(MediaMetadata.METADATA_KEY_TITLE) || result.title;\n                result.artist \u003d metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) || \"\";\n                result.albumArt \u003d metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)\n                    || metadata.getBitmap(MediaMetadata.METADATA_KEY_ART);\n            }\n\n            if (playbackState !\u003d null) {\n                result.isPlaying \u003d playbackState.getState() \u003d\u003d PlaybackState.STATE_PLAYING;\n            }\n\n            try {\n                result.iconDrawable \u003d pm.getApplicationIcon(result.packageName);\n            } catch (e) {}\n        }\n    } catch (e) {}\n\n    return result;\n}\n\nfunction openApp(packageName) {\n    try {\n        var intent \u003d context.getPackageManager().getLaunchIntentForPackage(packageName);\n        if (intent) {\n            context.startActivity(intent);\n        }\n    } catch (e) {}\n}\n\nfunction showToast(msg) {\n    android.widget.Toast.makeText(context, String(msg), android.widget.Toast.LENGTH_SHORT).show();\n}\n\nfunction showMediaBubble() {\n    importPackage(android.view);\n    importPackage(android.widget);\n    importPackage(android.content);\n    importPackage(android.graphics);\n    importClass(android.graphics.drawable.GradientDrawable);\n    importClass(android.view.WindowManager);\n    importClass(android.view.Gravity);\n    importClass(android.view.MotionEvent);\n    importClass(android.os.Handler);\n    importClass(android.os.Looper);\n    importClass(android.media.session.PlaybackState);\n    importClass(android.text.TextUtils);\n\n    var wm \u003d context.getSystemService(Context.WINDOW_SERVICE);\n    var size \u003d new android.graphics.Point();\n    wm.getDefaultDisplay().getRealSize(size);\n    var screenWidth \u003d size.x;\n\n    var handler \u003d new Handler(Looper.getMainLooper());\n    var failCount \u003d 0;\n    var maxFail \u003d 5;\n\n    function checkAndExitIfFail() {\n        if (failCount \u003e\u003d maxFail) {\n            try { wm.removeView(panelView); } catch (e) {}\n            try { wm.removeView(bubbleView); } catch (e) {}\n            try { wm.removeView(overlayMask); } catch (e) {}\n            handler.removeCallbacks(refreshRunnable);\n            writeToFile(globalVarOf$shortxpath+\"/log/music.log\", \"off\");\n            return true;\n        }\n        return false;\n    }\n\n    var media \u003d getMediaInfo();\n    if (!media.packageName) {\n        failCount++;\n        if (checkAndExitIfFail()) return;\n        handler.postDelayed(function() { showMediaBubble(); }, 500);\n        return;\n    }\n\n    var bubbleView \u003d new LinearLayout(context);\n    bubbleView.setOrientation(LinearLayout.HORIZONTAL);\n    bubbleView.setGravity(Gravity.CENTER_VERTICAL);\n    bubbleView.setPadding(dp(6), 0, dp(16), 0);\n    bubbleView.setClickable(true);\n    bubbleView.setMinimumHeight(dp(35));\n    var bubbleBg \u003d new GradientDrawable();\n    bubbleBg.setColor(android.graphics.Color.BLACK);\n    bubbleBg.setCornerRadius(dp(25));\n    bubbleView.setBackgroundDrawable(bubbleBg);\n\n    var coverContainer \u003d new FrameLayout(context);\n    var coverContainerParams \u003d new LinearLayout.LayoutParams(dp(36), dp(36));\n    coverContainerParams.setMargins(0, 0, dp(argOf$图与律动条的间距), 0);\n    coverContainer.setLayoutParams(coverContainerParams);\n\n    var coverView \u003d new ImageView(context);\n    var coverParams \u003d new FrameLayout.LayoutParams(dp(32), dp(32));\n    coverParams.gravity \u003d Gravity.CENTER;\n    coverView.setLayoutParams(coverParams);\n    coverView.setScaleType(ImageView.ScaleType.CENTER_CROP);\n    coverView.setImageBitmap(media.albumArt || null);\n    var coverBg \u003d new GradientDrawable();\n    coverBg.setCornerRadius(dp(16));\n    coverBg.setColor(android.graphics.Color.DKGRAY);\n    coverView.setBackgroundDrawable(coverBg);\n    coverView.setClipToOutline(true);\n    coverContainer.addView(coverView);\n    bubbleView.addView(coverContainer);\n\n    var rhythmLayout \u003d new LinearLayout(context);\n    rhythmLayout.setOrientation(LinearLayout.HORIZONTAL);\n    rhythmLayout.setLayoutParams(new LinearLayout.LayoutParams(dp(30), dp(36)));\n    rhythmLayout.setGravity(Gravity.CENTER);\n    var heights \u003d [dp(8), dp(18), dp(12), dp(22), dp(10), dp(14)];\n    for (var i \u003d 0; i \u003c 6; i++) {\n        var bar \u003d new View(context);\n        var barParams \u003d new LinearLayout.LayoutParams(dp(2), heights[i]);\n        if (i \u003e 0) barParams.setMargins(dp(2), 0, 0, 0);\n        bar.setLayoutParams(barParams);\n        bar.setBackgroundColor(android.graphics.Color.WHITE);\n        rhythmLayout.addView(bar);\n    }\n    bubbleView.addView(rhythmLayout);\n\n    var bubbleParams \u003d new WindowManager.LayoutParams(\n        WindowManager.LayoutParams.WRAP_CONTENT,\n        WindowManager.LayoutParams.WRAP_CONTENT,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |\n        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS |\n        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        android.graphics.PixelFormat.TRANSLUCENT\n    );\n    bubbleParams.gravity \u003d Gravity.TOP | Gravity.CENTER_HORIZONTAL;\n    bubbleParams.y \u003d dp(argOf$y轴偏移);\n\n    var panelParams \u003d new WindowManager.LayoutParams(\n        Math.floor(screenWidth * 0.9),\n        WindowManager.LayoutParams.WRAP_CONTENT,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |\n        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS |\n        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        android.graphics.PixelFormat.TRANSLUCENT\n    );\n    panelParams.gravity \u003d Gravity.TOP | Gravity.CENTER_HORIZONTAL;\n    panelParams.y \u003d dp(20);\n\n    var overlayMask \u003d new View(context);\n    overlayMask.setBackgroundColor(android.graphics.Color.parseColor(\"#00000000\"));\n    overlayMask.setOnTouchListener(new View.OnTouchListener({\n        onTouch: function(v, e) {\n            if (e.getAction() \u003d\u003d MotionEvent.ACTION_DOWN \u0026\u0026 isExpanded) {\n                isExpanded \u003d false;\n                try { wm.removeView(panelView); } catch (e) {}\n                try { wm.removeView(overlayMask); } catch (e) {}\n                try { wm.addView(bubbleView, bubbleParams); } catch (e) {}\n                return true;\n            }\n            return false;\n        }\n    }));\n\n    var overlayParams \u003d new WindowManager.LayoutParams(\n        WindowManager.LayoutParams.MATCH_PARENT,\n        WindowManager.LayoutParams.MATCH_PARENT,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |\n        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,\n        android.graphics.PixelFormat.TRANSLUCENT\n    );\n\n    var panelView \u003d new LinearLayout(context);\n    panelView.setOrientation(LinearLayout.VERTICAL);\n    panelView.setPadding(dp(24), dp(24), dp(24), dp(24));\n    var panelBg \u003d new GradientDrawable();\n    panelBg.setColor(android.graphics.Color.parseColor(\"#CC000000\"));\n    panelBg.setCornerRadius(dp(20));\n    panelView.setBackgroundDrawable(panelBg);\n\n    var panelCoverView \u003d new ImageView(context);\n    var panelCoverParams \u003d new LinearLayout.LayoutParams(dp(50), dp(50));\n    panelCoverParams.setMargins(0, 0, dp(10), 0);\n    panelCoverView.setLayoutParams(panelCoverParams);\n    panelCoverView.setScaleType(ImageView.ScaleType.CENTER_CROP);\n    panelCoverView.setImageBitmap(media.albumArt || null);\n    var panelCoverBg \u003d new GradientDrawable();\n    panelCoverBg.setCornerRadius(dp(12));\n    panelCoverBg.setColor(android.graphics.Color.DKGRAY);\n    panelCoverView.setBackgroundDrawable(panelCoverBg);\n\n    var textLayout \u003d new LinearLayout(context);\n    textLayout.setOrientation(LinearLayout.VERTICAL);\n    textLayout.setLayoutParams(new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.MATCH_PARENT,\n        LinearLayout.LayoutParams.WRAP_CONTENT\n    ));\n\n    var titleView \u003d new TextView(context);\n    titleView.setText(media.title);\n    titleView.setTextSize(20);\n    titleView.setTextColor(android.graphics.Color.WHITE);\n    titleView.setPadding(0, 0, 0, dp(4));\n    titleView.setSingleLine(true);\n    titleView.setEllipsize(TextUtils.TruncateAt.END);\n    titleView.setOnLongClickListener(new View.OnLongClickListener({\n        onLongClick: function(v) {\n            showToast(media.title);\n            return true;\n        }\n    }));\n\n    var artistView \u003d new TextView(context);\n    artistView.setText(media.artist);\n    artistView.setTextSize(16);\n    artistView.setTextColor(android.graphics.Color.LTGRAY);\n    artistView.setSingleLine(true);\n    artistView.setEllipsize(TextUtils.TruncateAt.END);\n\n    textLayout.addView(titleView);\n    textLayout.addView(artistView);\n\n    var infoLayout \u003d new LinearLayout(context);\n    infoLayout.setOrientation(LinearLayout.HORIZONTAL);\n    infoLayout.setGravity(Gravity.CENTER_VERTICAL);\n    infoLayout.addView(panelCoverView);\n    infoLayout.addView(textLayout);\n\n    panelView.addView(infoLayout);\n\n    // \u003d\u003d\u003d 时间信息 \u003d\u003d\u003d\n    var timeLayout \u003d new LinearLayout(context);\n    timeLayout.setOrientation(LinearLayout.HORIZONTAL);\n    var timeLayoutParams \u003d new LinearLayout.LayoutParams(\n    LinearLayout.LayoutParams.MATCH_PARENT,\n    LinearLayout.LayoutParams.WRAP_CONTENT\n);\ntimeLayoutParams.setMargins(0, dp(-10), 0, 0); // 或者 dp(2) 之类的小值\ntimeLayout.setLayoutParams(timeLayoutParams);\n\n    var currentTimeView \u003d new TextView(context);\n    currentTimeView.setText(\"00:00\");\n    currentTimeView.setTextSize(12);\n    currentTimeView.setTextColor(android.graphics.Color.LTGRAY);\n    var lp1 \u003d new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);\nlp1.setMargins(dp(10), 0, dp(8), 0); // 左边多留一些空隙\ncurrentTimeView.setLayoutParams(lp1);\n\n    var totalTimeView \u003d new TextView(context);\n    totalTimeView.setText(\"00:00\");\n    totalTimeView.setTextSize(12);\n    totalTimeView.setTextColor(android.graphics.Color.LTGRAY);\n    totalTimeView.setGravity(Gravity.END);\n    var lp2 \u003d new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);\nlp2.setMargins(dp(8), 0, dp(10), 0); // 右边多留一些空隙\ntotalTimeView.setLayoutParams(lp2);\n\n    timeLayout.addView(currentTimeView);\n    timeLayout.addView(totalTimeView);\n    \n\n    // \u003d\u003d\u003d 进度条 \u003d\u003d\u003d\n    var seekBar \u003d new SeekBar(context);\n    seekBar.setMax(100);\n    seekBar.setProgress(0);\n    var seekParams \u003d new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.MATCH_PARENT,\n        LinearLayout.LayoutParams.WRAP_CONTENT\n    );\n    seekParams.setMargins(0, dp(4), 0, dp(8));\n    seekBar.setLayoutParams(seekParams);\n    panelView.addView(seekBar);\n    panelView.addView(timeLayout);\n\n    var btnLayout \u003d new LinearLayout(context);\n    btnLayout.setOrientation(LinearLayout.HORIZONTAL);\n    btnLayout.setGravity(Gravity.CENTER);\n\n    function makeBtn(resId) {\n        var btn \u003d new ImageView(context);\n        var p \u003d new LinearLayout.LayoutParams(dp(50), dp(50));\n        p.setMargins(dp(16), 0, dp(16), 0);\n        btn.setLayoutParams(p);\n        btn.setImageResource(resId);\n        return btn;\n    }\n\n    var prevBtn \u003d makeBtn(android.R.drawable.ic_media_previous);\n    var playBtn \u003d makeBtn(media.isPlaying ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play);\n    var nextBtn \u003d makeBtn(android.R.drawable.ic_media_next);\n    btnLayout.addView(prevBtn);\n    btnLayout.addView(playBtn);\n    btnLayout.addView(nextBtn);\n    panelView.addView(btnLayout);\n\n    var isExpanded \u003d false;\n\n    var mediaController \u003d null;\n    try {\n        var sessions \u003d context.getSystemService(Context.MEDIA_SESSION_SERVICE).getActiveSessions(null);\n        if (sessions.size() \u003e 0) {\n            mediaController \u003d new android.media.session.MediaController(context, sessions.get(0).getSessionToken());\n        }\n    } catch (e) {}\n\n    if (mediaController) {\n        var transportControls \u003d mediaController.getTransportControls();\n\n        prevBtn.setOnClickListener(new View.OnClickListener({ onClick: function() { transportControls.skipToPrevious(); } }));\n        playBtn.setOnClickListener(new View.OnClickListener({\n            onClick: function() {\n                if (media.isPlaying) {\n                    transportControls.pause();\n                    playBtn.setImageResource(android.R.drawable.ic_media_play);\n                    media.isPlaying \u003d false;\n                } else {\n                    transportControls.play();\n                    playBtn.setImageResource(android.R.drawable.ic_media_pause);\n                    media.isPlaying \u003d true;\n                }\n            }\n        }));\n        nextBtn.setOnClickListener(new View.OnClickListener({ onClick: function() { transportControls.skipToNext(); } }));\n\n        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener({\n            onProgressChanged: function() {},\n            onStartTrackingTouch: function() {},\n            onStopTrackingTouch: function(sb) {\n                try {\n                    var metadata \u003d mediaController.getMetadata();\n                    if (metadata) {\n                        var duration \u003d metadata.getLong(android.media.MediaMetadata.METADATA_KEY_DURATION);\n                        var seekTo \u003d Math.floor((sb.getProgress() / 100) * duration);\n                        transportControls.seekTo(seekTo);\n                    }\n                } catch (e) {}\n            }\n        }));\n    }\n\n    function formatTime(ms) {\n        var totalSeconds \u003d Math.floor(ms / 1000);\n        var minutes \u003d Math.floor(totalSeconds / 60);\n        var seconds \u003d totalSeconds % 60;\n        return (minutes \u003c 10 ? \"0\" : \"\") + minutes + \":\" + (seconds \u003c 10 ? \"0\" : \"\") + seconds;\n    }\n\n    function refreshMediaInfo() {\n        var latest \u003d getMediaInfo();\n        if (!latest.packageName) {\n            failCount++;\n            if (checkAndExitIfFail()) return;\n        } else {\n            failCount \u003d 0;\n            media \u003d latest;\n            try {\n                coverView.setImageBitmap(media.albumArt || null);\n                panelCoverView.setImageBitmap(media.albumArt || null);\n                titleView.setText(media.title);\n                artistView.setText(media.artist);\n                playBtn.setImageResource(media.isPlaying\n                    ? android.R.drawable.ic_media_pause\n                    : android.R.drawable.ic_media_play\n                );\n\n                if (mediaController) {\n                    var metadata \u003d mediaController.getMetadata();\n                    var playbackState \u003d mediaController.getPlaybackState();\n                    if (metadata \u0026\u0026 playbackState) {\n                        var duration \u003d metadata.getLong(android.media.MediaMetadata.METADATA_KEY_DURATION);\n                        var position \u003d playbackState.getPosition();\n                        if (duration \u003e 0) {\n                            var progress \u003d Math.floor((position / duration) * 100);\n                            seekBar.setProgress(progress);\n                            currentTimeView.setText(formatTime(position));\n                            totalTimeView.setText(formatTime(duration));\n                        }\n                    }\n                }\n            } catch (e) {}\n        }\n        handler.postDelayed(refreshRunnable, 1000);\n    }\n\n    var refreshRunnable \u003d new java.lang.Runnable({ run: function() { refreshMediaInfo(); } });\n\n    // 长按关闭全部\n    var longPressTimeout \u003d 600;\n    var longPressHandler \u003d new Handler(Looper.getMainLooper());\n    var longPressRunnable \u003d new java.lang.Runnable({\n        run: function() {\n            try { wm.removeView(bubbleView); } catch (e) {}\n            try { wm.removeView(panelView); } catch (e) {}\n            try { wm.removeView(overlayMask); } catch (e) {}\n            handler.removeCallbacks(refreshRunnable);\n            writeToFile(globalVarOf$shortxpath+\"/log/music.log\", \"off\");\n        }\n    });\n    bubbleView.setOnTouchListener(new View.OnTouchListener({\n        onTouch: function(v, event) {\n            switch (event.getAction()) {\n                case MotionEvent.ACTION_DOWN:\n                    longPressHandler.postDelayed(longPressRunnable, longPressTimeout);\n                    break;\n                case MotionEvent.ACTION_UP:\n                case MotionEvent.ACTION_CANCEL:\n                    longPressHandler.removeCallbacks(longPressRunnable);\n                    break;\n            }\n            return false;\n        }\n    }));\n\n    panelView.setOnClickListener(new View.OnClickListener({\n        onClick: function() { openApp(media.packageName); }\n    }));\n\n    bubbleView.setOnClickListener(new View.OnClickListener({\n        onClick: function() {\n            if (isExpanded) return;\n            isExpanded \u003d true;\n            try { wm.removeView(bubbleView); } catch (e) {}\n            try {\n                wm.addView(overlayMask, overlayParams);\n                wm.addView(panelView, panelParams);\n                panelView.setScaleX(0.8);\n                panelView.setScaleY(0.8);\n                panelView.animate().scaleX(1).scaleY(1).setDuration(200).start();\n            } catch (e) {}\n        }\n    }));\n\n    try { wm.addView(bubbleView, bubbleParams); } catch (e) {}\n\n    handler.post(refreshRunnable);\n}\n\nif(readFileContent(globalVarOf$shortxpath+\"/log/music.log\")!\u003d\"on\"){\nwriteToFile(globalVarOf$shortxpath+\"/log/music.log\", \"on\");\nshowMediaBubble();}",
+    "context": "CoroutineContext_UI",
+    "customContextDataKey": {
+    },
+    "id": "A-c0842726-7288-44b3-ace9-9c57344376ae"
+  }],
+  "id": "SHARE-rule-23a92aa9-0d88-40d5-b5a7-ef99b37faa65",
+  "lastUpdateTime": "1751666253130",
+  "createTime": "1751647208782",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "音乐岛",
+  "description": "显示音乐岛",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "importPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportPackage(android.util);\nimportPackage(java.lang);\nimportPackage(android.content.pm);\n\nvar uiClosed \u003d false;\nvar versionName \u003d \"\";\n\nfunction runOnUiThread(fn) {\n    new Handler(Looper.getMainLooper()).post(new Runnable({ run: fn }));\n}\n\n// 获取 shortx 的版本名\ntry {\n    var packageName \u003d \"tornaco.apps.shortx\";\n    var packageManager \u003d context.getPackageManager();\n    var packageInfo \u003d packageManager.getPackageInfo(packageName, 0);\n    versionName \u003d packageInfo.versionName;\n} catch (e) {\n    versionName \u003d \"unknown\";\n}\n\nrunOnUiThread(function () {\n    var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n    var metrics \u003d new DisplayMetrics();\n    windowManager.getDefaultDisplay().getMetrics(metrics);\n    var screenWidth \u003d metrics.widthPixels;\n    var screenHeight \u003d metrics.heightPixels;\n\n    var layout \u003d new LinearLayout(context);\n    layout.setOrientation(LinearLayout.VERTICAL);\n    layout.setBackgroundColor(Color.TRANSPARENT);\n\n    var backgroundDrawable \u003d new android.graphics.drawable.GradientDrawable();\n    backgroundDrawable.setColor(Color.WHITE);\n    backgroundDrawable.setCornerRadius(50);\n    layout.setBackground(backgroundDrawable);\n    layout.setPadding(40, 40, 40, 40);\n\n    var layoutParams \u003d new WindowManager.LayoutParams(\n        parseInt(screenWidth * 0.9),\n        parseInt(screenHeight * 0.8),\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        PixelFormat.TRANSLUCENT\n    );\n    layoutParams.gravity \u003d Gravity.CENTER;\n\n    var titleView \u003d new TextView(context);\n    titleView.setText(\"使用说明\");\n    titleView.setTextSize(22);\n    titleView.setTextColor(Color.BLACK);\n    titleView.setGravity(Gravity.CENTER);\n    titleView.setPadding(0, 0, 0, 20);\n    layout.addView(titleView);\n\n    var scrollView \u003d new ScrollView(context);\n    var scrollParams \u003d new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.MATCH_PARENT,\n        0,\n        1\n    );\n    scrollView.setLayoutParams(scrollParams);\n\n    var textView \u003d new TextView(context);\n    textView.setText(\"1.使用前需将触发器选择好音乐app\\n2.部分系统状态栏部分的视图点击无效，请修改指令参数处的y轴偏移以确保视图露出状态栏一部分以方便点击\\n3.常态状态下长按视图可关闭，重新进入音乐app即可重新显示\\n该版本为测试版，使用期间可能会遇到卡死，软重启等问题\\n该版本为测试版，使用期间可能会遇到卡死，软重启等问题\\n该版本为测试版，使用期间可能会遇到卡死，软重启等问题\");\n    textView.setTextSize(18);\n    textView.setTextColor(Color.DKGRAY);\n    textView.setGravity(Gravity.LEFT);\n    scrollView.addView(textView);\n    layout.addView(scrollView);\n\n    var buttonLayout \u003d new LinearLayout(context);\n    buttonLayout.setOrientation(LinearLayout.HORIZONTAL);\n    buttonLayout.setGravity(Gravity.CENTER);\n    buttonLayout.setPadding(0, 30, 0, 0);\n    layout.addView(buttonLayout);\n\n    var closeButton \u003d new Button(context);\n    closeButton.setText(\"下一步 (5)\");\n    closeButton.setTextColor(Color.WHITE);\n    closeButton.setEnabled(false);\n\n    function createRoundedDrawable(color) {\n        var drawable \u003d new android.graphics.drawable.GradientDrawable();\n        drawable.setColor(color);\n        drawable.setCornerRadius(30);\n        return drawable;\n    }\n    closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#BDBDBD\")));\n    buttonLayout.addView(closeButton);\n\n    var secondsRemaining \u003d 5;\n    var handler \u003d new Handler();\n    var countdownRunnable \u003d new Runnable({\n        run: function () {\n            secondsRemaining--;\n            if (secondsRemaining \u003e 0) {\n                closeButton.setText(\"下一步 (\" + secondsRemaining + \")\");\n                handler.postDelayed(this, 1000);\n            } else {\n                closeButton.setEnabled(true);\n                closeButton.setText(\"下一步\");\n                closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#08C661\")));\n            }\n        }\n    });\n    handler.postDelayed(countdownRunnable, 1000);\n\n    closeButton.setOnClickListener(new View.OnClickListener({\n        onClick: function () {\n            if (!closeButton.isEnabled()) return;\n\n            var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                .setVarName(\"next\")\n                .setValueAsString(\"true\")\n                .build();\n            shortx.executeAction(writeLocalVar);\n\n            try {\n                windowManager.removeView(layout);\n            } catch (e) {}\n            uiClosed \u003d true;\n        }\n    }));\n\n    try {\n        windowManager.addView(layout, layoutParams);\n    } catch (e) {\n        console.log(\"添加视图失败：\" + e);\n        uiClosed \u003d true;\n    }\n});\n\n// 主线程等待 UI 被关闭\nwhile (!uiClosed) {\n    Thread.sleep(200);\n}\nvar File \u003d java.io.File;\nvar FileWriter \u003d java.io.FileWriter;\nvar BufferedWriter \u003d java.io.BufferedWriter;\nvar IOException \u003d java.io.IOException;\n\nfunction writeToFile(filePath, content) {\n    try {\n        var file \u003d new File(filePath);\n        if (!file.exists()) {\n            file.getParentFile().mkdirs(); // 创建上级目录（如有必要）\n            file.createNewFile(); // 创建新文件\n        }\n        var writer \u003d new BufferedWriter(new FileWriter(file));\n        writer.write(content);\n        writer.close();\n        true; // 写入成功\n    } catch (e) {\n        if (e instanceof IOException) {\n            false; // 写入失败\n        } else {\n            throw e; // 其他异常继续抛出\n        }\n    }\n}\nwriteToFile(globalVarOf$shortxpath+\"/log/music.log\", \"off\");\n// 返回 shortx 版本名\nvar match \u003d /rc(\\d+)/.exec(versionName);\nvar rcNumber \u003d match ? match[1] : null;\nrcNumber\u003e\u003d6; ",
+      "context": "CoroutineContext_UI",
+      "customContextDataKey": {
+      },
+      "note": "倒计时对话框（使用说明）",
+      "id": "A-0feb5e8c-96b5-4f32-a35b-ed94ae93745d"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "shortxpath",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e582f75d-a9c8-48f1-ac71-2a5e3e317429"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ls /data/system/",
+        "customContextDataKey": {
+        },
+        "id": "A-801c4fa6-eba2-4e51-afa8-00191d700d69"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "shortxpath",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-373cb3e0-d030-4784-98de-cd9a4632e460"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-c179c93c-34d4-450e-b832-ab5d869180ed"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "shell异常自动获取shortx目录失败，请手动填写/data/system/目录下的shortx开头的目录名",
+          "cancelable": true,
+          "textFields": [{
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-addd959f-370e-48bb-bb7b-b3db30758a37"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shortxpath",
+          "valueAsString": "/data/system/{textFieldInput1}",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-5316575c-0810-4b20-85f6-a27e15b61187"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{shellOut}",
+          "delimiter": ["\n"],
+          "actions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "Contains",
+              "varName": "foreachData",
+              "payload": {
+                "value": "shortx_"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-6c199b1c-6d08-4a4c-85ea-5615d2f8f726"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shortxpath",
+              "valueAsString": "/data/system/{foreachData}",
+              "op": "WriteGlobalVarOp_Override",
+              "customContextDataKey": {
+              },
+              "id": "A-aaa8e53c-aa10-49ac-b87c-5035be6aa2d9"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Parent",
+              "customContextDataKey": {
+              },
+              "id": "A-42d5e9ca-0990-4a8f-9a45-fe2de0f430c0"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-6fde485b-40d1-46f5-9933-d9e6447a25db"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-b635e834-78aa-4842-b588-0d6cb00ce008"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4538b55f-3e02-4bab-879a-df01428e3bc0"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "查询shortx目录",
+      "id": "A-bbe2562b-89ae-4799-b29e-c40fb9d9d5b2"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+      "customContextDataKey": {
+      },
+      "id": "F-906c7141-8317-457c-b823-a49bc298ab23"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var File \u003d java.io.File;\nvar FileWriter \u003d java.io.FileWriter;\nvar BufferedWriter \u003d java.io.BufferedWriter;\nvar IOException \u003d java.io.IOException;\n\nfunction writeToFile(filePath, content) {\n    try {\n        var file \u003d new File(filePath);\n        if (!file.exists()) {\n            file.getParentFile().mkdirs(); // 创建上级目录（如有必要）\n            file.createNewFile(); // 创建新文件\n        }\n        var writer \u003d new BufferedWriter(new FileWriter(file));\n        writer.write(content);\n        writer.close();\n        return true; // 写入成功\n    } catch (e) {\n        if (e instanceof IOException) {\n            return false; // 写入失败\n        } else {\n            throw e; // 其他异常继续抛出\n        }\n    }\n}\nwriteToFile(globalVarOf$shortxpath+\"/log/music.log\", \"off\");",
+      "customContextDataKey": {
+      },
+      "id": "A-eab690fd-99bd-44c6-802c-2e5422c958e4"
+    }]
+  },
+  "versionCode": "1",
+  "parameters": [{
+    "name": "图与律动条的间距",
+    "defaultValue": "24"
+  }, {
+    "name": "y轴偏移",
+    "defaultValue": "20"
+  }]
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,124 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "robot",
+    "customContextDataKey": {
+    },
+    "id": "A-c737720a-00ec-4e07-9d28-58c7edb5574a"
+  }, {
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "DeepSeek",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "给“DeepSeek”发送消息"
+    }],
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-4eb01d76-aab9-4210-8456-1a07b18da426"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "const originString \u003d JSON.stringify(textFieldInput1);\nconst output \u003d originString.slice(1, -1);\noutput",
+    "customContextDataKey": {
+    },
+    "id": "A-e0b9eda4-3364-4375-9118-b9a6b7b4dfe7"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.deepseek.com/chat/completions",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["choices[0].message.content", "error.message"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Authorization",
+      "value": "Bearer \u003c这里填写你的Key\u003e"
+    }, {
+      "key": "application/json",
+      "value": "Content-Type"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n    \"model\": \"deepseek-chat\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"{jsRet}\"\n        }\n    ],\n    \"stream\": false\n}"
+    },
+    "executeInAppProcess": true,
+    "customContextDataKey": {
+    },
+    "id": "A-48e0d1e5-26b3-4578-8956-6d97f66a09df"
+  }, {
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{httpRequestRet1}",
+    "regex": "\\*|#|-|`",
+    "customContextDataKey": {
+    },
+    "id": "A-6e9eec2c-b3ba-476e-8af7-360bae00ab57"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "IsNotEmpty",
+      "varName": "httpRequestRet1",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-20267e53-369a-4f76-bee8-2d5217aace80"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "复制回复",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-3e613542-de73-4c85-aa0f-15b4881898c4"
+      }],
+      "negative": "关闭对话",
+      "title": "DeepSeek-Chat",
+      "message": "Q：{textFieldInput1}\nA：{replaceResult}",
+      "cancelable": true,
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-4bf67cc2-4b10-426f-b5b7-0e3ee4dcbede"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "复制错误信息",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{httpRequestRet2}",
+        "customContextDataKey": {
+        },
+        "id": "A-3e613542-de73-4c85-aa0f-15b4881898c4"
+      }],
+      "negative": "关闭",
+      "title": "DeepSeek-Chat",
+      "message": "请求发生了错误！\n错误信息：{httpRequestRet2}",
+      "cancelable": true,
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-4bf67cc2-4b10-426f-b5b7-0e3ee4dcbede"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f2866ad3-e250-4071-994f-ddcc6af84e57"
+  }],
+  "id": "SHARED-DA-ca07ebd6-ac08-45e0-b498-d0fc0c9a0abe",
+  "lastUpdateTime": "1738486942547",
+  "createTime": "1729445312923",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "DeepSeek Chat",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

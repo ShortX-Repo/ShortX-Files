@@ -1,0 +1,38 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-cd91379c-b734-4766-87fa-21db0c269aeb"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-87abffd2-1ebf-400d-b3a4-90c48672cc65"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "batteryValue",
+    "valueAsString": "{batteryLevel}",
+    "customContextDataKey": {
+    },
+    "id": "A-9e1d18f4-50d6-4853-8d6e-740fa547d0d4"
+  }],
+  "id": "SHARE-rule-26b33464-32ac-4185-aeef-45d7d61b6c5e",
+  "lastUpdateTime": "1731426523098",
+  "createTime": "1731426346251",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "更新全局变量「电量」",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-0741c126-d501-4f9f-b834-50bed6129f52"
+}
+###------###
+{"type":"rule"}

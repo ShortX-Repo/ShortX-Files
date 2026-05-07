@@ -1,0 +1,56 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "小米ROM地址转换",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "请输入你的ROM地址"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f219d84e-aae4-4f2a-82ab-80436d5262da"
+  }, {
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{textFieldInput1}",
+    "regex": "https://[^/]+/",
+    "replacement": "https://bkt-sgp-miui-ota-update-alisgp.oss-ap-southeast-1.aliyuncs.com/",
+    "customContextDataKey": {
+    },
+    "id": "A-a3da40f1-950d-4e4f-83e8-d47dc309a2e0"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "关闭",
+    "negative": "复制",
+    "onNegative": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-10f4f251-f35f-4f4b-9c0a-b91dafdd8f52"
+    }],
+    "neutral": "跳转到浏览器下载",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-2cf96255-f11f-4664-b581-420599fdfe3d"
+    }],
+    "title": "转换后的地址",
+    "message": "{replaceResult}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-296a9a8c-3259-4335-896b-a03f497639e7"
+  }],
+  "id": "DA10ee24de-86a9-4d98-9bde-ecb155cde58c",
+  "lastUpdateTime": "1717973324289",
+  "createTime": "1717968297898",
+  "author": {
+    "name": " author：Prslc"
+  },
+  "title": "小米ROM地址转换",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

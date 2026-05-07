@@ -1,0 +1,147 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 8
+    },
+    "repeat": {
+      "days": ["SATURDAY", "FRIDAY", "THURSDAY", "WEDNESDAY", "TUESDAY", "MONDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-8995dd73-5082-42b0-beef-0c7d18260135"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 12
+    },
+    "repeat": {
+      "days": ["SATURDAY", "FRIDAY", "THURSDAY", "WEDNESDAY", "TUESDAY", "MONDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-39734d04-0718-4b58-b71f-d448b67b4404"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 17
+    },
+    "repeat": {
+      "days": ["SATURDAY", "FRIDAY", "THURSDAY", "WEDNESDAY", "TUESDAY", "MONDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-20c7246f-8944-425b-995e-bac8f5b62c1c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://t.weather.itboy.net/api/weather/city/globalVarOf$citycode",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["cityInfo.city", "data.forecast[0].type", "data.forecast[0].high", "data.forecast[0].low", "data.shidu", "data.wendu", "data.quality", "data.pm10", "data.pm25", "data.forecast[0].fx", "data.forecast[0].fl", "data.ganmao", "data.forecast[0].notice", "cityInfo.parent"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-64912c37-c52f-44a0-823a-6a136714e133"
+  }, {
+    "@type": "type.googleapis.com/TTS",
+    "text": "天气预报\n城市：{httpRequestRet14} {httpRequestRet1}\n天气：{httpRequestRet2}\n当前温度：{httpRequestRet6}℃\n今日温度：{httpRequestRet3}  {httpRequestRet4}\n湿度：{httpRequestRet5}\n空气质量：{httpRequestRet7}\nPM2.5：{httpRequestRet9}\nPM10：{httpRequestRet8}\n风力风向：{httpRequestRet10} {httpRequestRet11}\n感冒指数：{httpRequestRet12}\n温馨提示：{httpRequestRet13}",
+    "customContextDataKey": {
+    },
+    "id": "A-cbcd1cd0-0785-4677-a7c1-fd06272b6e57"
+  }],
+  "id": "rule-9f5f22c2-3dde-487a-b22a-a333ce2e2878",
+  "lastUpdateTime": "1704198877241",
+  "createTime": "1695238531057",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "天气播报",
+  "description": "获取城市id需要termux的python环境支持",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "citycode",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-3e959b73-0dca-471b-8ab8-56e1e9faa808"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "获取城市ID",
+        "textFields": [{
+          "placeholder": "输入城市名"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0d7e9443-e2f2-4c2a-9515-80d54f51fe22"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "citycode",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "天气：城市ID"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-db86a9f9-6735-48f5-b43b-7d10a31e4a96"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://fastly.jsdelivr.net/gh/Oreomeow/checkinpanel@master/city.json",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-59e71c65-d3ca-4221-977a-761cf3488b7b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "/data/data/com.termux/files/usr/bin/python - \u003c\u003cEND\nimport requests\nimport json\n\nurl \u003d \"https://fastly.jsdelivr.net/gh/Oreomeow/checkinpanel@master/city.json\"\n\ntry:\n    response \u003d requests.get(url)\n    response.raise_for_status()  # 检查请求是否成功\n\n    city_data \u003d response.json()\n\n    # 提取城市的ID\n    yiwu_id \u003d city_data.get(\"{textFieldInput1}\")\n\n    if yiwu_id:\n        print(f\"{yiwu_id}\")\n    else:\n        print(\"在数据中找不到{textFieldInput1}。\")\n\nexcept requests.exceptions.RequestException as e:\n    print(f\"发生请求错误：{e}\")\nexcept json.JSONDecodeError as e:\n    print(f\"JSON解码错误：{e}\")\nEND",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-da841690-3581-4fbb-b6cd-d5c156fd3dd4"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "citycode",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-56f8bde5-5777-4a07-841c-f7aa1646c0ec"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-47102481-ba29-4745-8ad1-d43f89b9214a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-abba69c1-175c-44db-8fd3-c0cdeb5c4768"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "citycode",
+      "customContextDataKey": {
+      },
+      "id": "A-b852ec8a-d777-4e87-983c-264859b361a4"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

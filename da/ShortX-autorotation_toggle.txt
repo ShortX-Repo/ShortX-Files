@@ -1,0 +1,32 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "rotate\u003d$(settings get system accelerometer_rotation)\nif [ $rotate \u003d\u003d \"0\" ]; then\n  settings put system accelerometer_rotation 1 \u0026\u0026 echo \"Autorotation On\"\n  else\n  settings put system accelerometer_rotation 0 \u0026\u0026 echo \"Autorotation Off\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-0a11df3f-eab7-42cb-be1a-b35b056f30a4"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-ed815f90-4a9d-4245-b1a0-f557940d840e"
+  }],
+  "id": "SHARED-DA-3ffce580-a67b-40a6-86ab-0e7c99540e46",
+  "lastUpdateTime": "1760187136787",
+  "createTime": "1760185681287",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "autorotation toggle",
+  "description": "uses echo to determine contents of toast ",
+  "versionCode": "1",
+  "directActionSetId": "DS-36b50348-74aa-4c25-87ee-ae3cfb536475",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

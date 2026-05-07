@@ -1,0 +1,275 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "RightTop",
+    "gesture": "SwipeFromRight",
+    "customContextDataKey": {
+    },
+    "id": "F-af3f7fa4-88bb-4ada-af07-363a0c200bf7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "toolbox_menu_rsyes",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-603b5380-355f-4e1e-9870-08be0227d680"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-13f65d22-9bbc-4b11-86ca-76c5eadf81c7"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["toolbox_menu"],
+          "customContextDataKey": {
+          },
+          "id": "A-f15ce933-41b5-4da9-9fb2-1319a67e490c"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "150",
+          "customContextDataKey": {
+          },
+          "id": "A-b8e6e3d8-a1e8-4d64-8720-3d0a9fe5b864"
+        }, {
+          "@type": "type.googleapis.com/TakeScreenshot",
+          "customContextDataKey": {
+          },
+          "id": "A-90e2c2e2-4dd8-4dc2-9044-cfe627811537"
+        }],
+        "icon": "screenshot-line",
+        "label": "截屏",
+        "id": "BTN-14772a96-394e-4b27-be15-68e68f441c83"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["toolbox_menu"],
+          "customContextDataKey": {
+          },
+          "id": "A-3753bebe-3d26-4d0a-8d79-c37f03268e94"
+        }, {
+          "@type": "type.googleapis.com/EnableUniversalCopy",
+          "customContextDataKey": {
+          },
+          "id": "A-8efbe74a-bad7-479a-bdb6-6a7f601ee608"
+        }],
+        "icon": "file-copy-line",
+        "label": "全局复制",
+        "id": "BTN-309eb20a-dd51-4879-a181-596f2179719f"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["toolbox_menu"],
+          "customContextDataKey": {
+          },
+          "id": "A-0685a105-f7c2-48d8-8c97-0c9e34476756"
+        }, {
+          "@type": "type.googleapis.com/EnableViewIdViewer",
+          "customContextDataKey": {
+          },
+          "id": "A-46c6208f-8053-4cef-9e1b-03eaf2bab925"
+        }],
+        "icon": "find-replace-fill",
+        "label": "View详细",
+        "id": "BTN-e9c26979-440e-40c2-8130-db21ca0f4447"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["toolbox_menu"],
+          "customContextDataKey": {
+          },
+          "id": "A-c6c4228a-8205-4649-b279-8cf9f812e8c5"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "EqualTo",
+            "varName": "toolbox_menu_rsyes",
+            "payload": {
+              "value": "true"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-d55d7912-6d0f-4fc5-afe7-99bbe0ed50da"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/NoAction",
+            "icon": "focus-fill",
+            "customContextDataKey": {
+            },
+            "id": "A-9eff8077-dea0-4176-a326-04bb78c1c626"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["toolbox_menu"],
+            "customContextDataKey": {
+            },
+            "id": "A-46fa4781-b8e4-4ed8-ac55-9914e89cdad4"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateGlobalVar",
+              "op": "IsExists",
+              "varName": "toolbox_menu_rsyes",
+              "payload": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-66859a65-1148-476d-84d5-f05fb6174d6c"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/DeleteGlobalVar",
+              "varName": "toolbox_menu_rsyes",
+              "customContextDataKey": {
+              },
+              "id": "A-eace1140-e761-4d6d-94a7-2858ba95666e"
+            }, {
+              "@type": "type.googleapis.com/ShowDanmu",
+              "text": "已取消\"关闭菜单\"操作",
+              "customContextDataKey": {
+              },
+              "id": "A-ddb41076-5157-4523-81b3-fbe46b0080b9"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-abaca4b5-0356-418f-afd9-c7215e5e4a87"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-09c7206b-85c9-482f-910d-6c670adfd115"
+        }],
+        "icon": "terminal-window-fill",
+        "label": "关闭",
+        "longClickActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "IsExists",
+            "varName": "toolbox_menu_rsyes",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-ee970dd6-530a-46a3-9359-282e6f8700c2"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "toolbox_menu_rsyes",
+            "valueAsString": "true",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-71fdb376-2291-4e92-a99d-448961b7db22"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["toolbox_menu"],
+            "customContextDataKey": {
+            },
+            "id": "A-af544373-3484-47e8-b815-80bd0f29e53f"
+          }, {
+            "@type": "type.googleapis.com/ShowDanmu",
+            "text": "已关闭工具箱菜单，重启命令以恢复",
+            "customContextDataKey": {
+            },
+            "id": "A-e4eb53b0-58c9-441c-bda6-2be9dcbbb0e7"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/CreateGlobalVar",
+            "globalVar": {
+              "name": "toolbox_menu_rsyes",
+              "type": {
+                "@type": "type.googleapis.com/BoolVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-24fc5aa2-bed5-499b-bf78-50c1382ad8c7"
+          }, {
+            "@type": "type.googleapis.com/ShowDanmu",
+            "text": "再次长按\"关闭\"按钮以关闭工具箱菜单\n（重新启动命令以恢复，单击\"关闭\"以取消）",
+            "customContextDataKey": {
+            },
+            "id": "A-25fff5fc-32d8-48e8-95ad-b8462720df71"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-ca13bba0-0c39-4c3b-bbca-f3d51a598ccd"
+        }],
+        "id": "BTN-f2e5b665-d1c4-451f-91c2-758075b5556d"
+      }],
+      "tag": "toolbox_menu",
+      "maxHeightInDp": 500,
+      "maxWidthInDp": 140,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 20,
+      "enableGlobalDrag": true,
+      "overlayPaddingH": 5,
+      "overlayPaddingV": 10,
+      "customContextDataKey": {
+      },
+      "id": "A-628589af-dc60-427b-afc7-68850ed8d329"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f0d7891a-2dc0-4b20-badc-349dac17b8b4"
+  }],
+  "id": "rule-d8d94169-c8f8-4b3a-ac08-73b1f1e7ddfc",
+  "lastUpdateTime": "1696422237805",
+  "createTime": "1694768192209",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "全局工具箱",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "toolbox_menu_rsyes",
+      "customContextDataKey": {
+      },
+      "id": "A-b075b287-e795-4935-b51f-fcbbd7ed5cda"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "toolbox_menu_rsyes",
+      "customContextDataKey": {
+      },
+      "id": "A-17eed152-20fa-46df-b699-10bf180da5a8"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/GlobalVarChanged",
+      "gvId": "toolbox_menu_rsyes",
+      "customContextDataKey": {
+      },
+      "id": "F-df161a46-77b3-4592-9268-c5eb728de4cb"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "toolbox_menu_rsyes",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-841fd390-8a8c-4134-90c8-66eb3fecb664"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-d1685209-8dc8-44fb-993b-dd335ef4816d"
+}
+###------###
+{"type":"rule"}

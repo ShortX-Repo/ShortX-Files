@@ -1,0 +1,169 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "tileNumber": 1,
+    "customContextDataKey": {
+    },
+    "id": "F-e87839cb-fb03-46da-8536-2495e245af26"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-ca363153-5787-440f-aa99-90f907e29eb0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "authorizationKey\u003d$(awk \u0027/authorizationKey/{print $2}\u0027 /data/adb/sfm/src/config.yaml)\n[ -z ${authorizationKey} ] \u0026\u0026 echo \"node\" || echo ${authorizationKey}",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "id": "A-145069ae-f94f-4075-8147-3acf044fbb71"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "authorizationKey",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-236d202d-50e1-4c13-b964-d2a77b63cdef"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "authorizationKey",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-e5f6fd7f-510d-4d2c-be67-23b37b45570b"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "status",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-91333e23-52f4-4800-8e32-f9e277b973be"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://localhost:23333/api/kernel",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["status"]
+    },
+    "headers": [{
+      "key": "authorization",
+      "value": "localVarOf$authorizationKey"
+    }, {
+      "key": "Content-Type",
+      "value": "application/json"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-35b52291-50bf-45b9-93b6-5933abe7c713"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "status",
+    "valueAsString": "{httpRequestRet1}",
+    "customContextDataKey": {
+    },
+    "id": "A-d346e4a4-4bc1-4c5e-80bd-9ff0010900d4"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "status",
+      "payload": {
+        "value": "stopped"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f6cd7cbc-c542-44f2-b0f6-68d887fc85ed"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://localhost:23333/api/kernel",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "POST",
+      "headers": [{
+        "key": "authorization",
+        "value": "localVarOf$authorizationKey"
+      }, {
+        "key": "Content-Type",
+        "value": "application/json"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\"method\":\"start\"}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "核心正在工作 喵 喵",
+      "customContextDataKey": {
+      },
+      "id": "A-d41c2e85-1bff-4e4a-b0cf-8cd3ba5f7d6e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://localhost:23333/api/kernel",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "POST",
+      "headers": [{
+        "key": "authorization",
+        "value": "localVarOf$authorizationKey"
+      }, {
+        "key": "Content-Type",
+        "value": "application/json"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\"method\":\"stop\"}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-5147aeb8-44c5-4a12-a4aa-a7e4fe93754d"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "核心已关闭 喵",
+      "customContextDataKey": {
+      },
+      "id": "A-f19d4876-2da9-47ac-ad35-f62ef8b63e32"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-185ba53e-e516-493b-93c1-f6737aa06a25"
+  }],
+  "id": "rule-dd74e009-fa86-45a9-9cc2-905500a5f22d",
+  "lastUpdateTime": "1721043110683",
+  "createTime": "1697130626344",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "神秘",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

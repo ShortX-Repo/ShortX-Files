@@ -1,0 +1,68 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemSettingsChanged",
+    "urlAndExpectedValueRegex": {
+      "first": "content://settings/system/screen_brightness",
+      "second": "\\d"
+    },
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-e03750f0-7fc3-4ade-8ed7-f4d1f424c19f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "isseted",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-90d52d63-4333-49d1-8189-82266c5a9124"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "android.provider.Settings$System.putString(context.contentResolver, \"screen_brightness\", (int)settingsValue+10);",
+      "customContextDataKey": {
+      },
+      "id": "A-ff082b36-267a-4846-8634-9b1887786637"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "isseted",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0935d6e6-9b5a-4bfb-95e2-962a1f9ed0fe"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "isseted",
+      "customContextDataKey": {
+      },
+      "id": "A-b0cb62ce-619d-47d3-85d8-e81241a8a31e"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-28a0e96c-0313-4dd7-bc3c-323b1d068ec0"
+  }],
+  "id": "SHARE-rule-61ce407d-2103-4461-8164-e8c521ade0dd",
+  "lastUpdateTime": "1764681807618",
+  "createTime": "1764680909372",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "调整亮度后自动+10",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

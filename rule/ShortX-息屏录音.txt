@@ -1,0 +1,73 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 25,
+    "customContextDataKey": {
+    },
+    "id": "F-8c83eb38-565e-4b92-b01c-498947f93f65"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-c52c67bf-d51e-4c15-b5dd-879556c3d0fe"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "id": "C-342f4f4d-0a18-479e-8223-a3f91ad7fe5c"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Vibrate",
+      "vib1": 100,
+      "customContextDataKey": {
+      },
+      "id": "A-7b59adef-8b02-437a-8462-8b9dd56122b3"
+    }, {
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.coloros.soundrecorder"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-06bdeec8-a24e-440a-a58f-5478147ccf92"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/Vibrate",
+      "vib1": 145,
+      "vib2": 116,
+      "customContextDataKey": {
+      },
+      "id": "A-b720666a-097a-4e5c-a2b3-6d76697c2b58"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start -n com.coloros.soundrecorder/.TransparentActivity",
+      "customContextDataKey": {
+      },
+      "id": "A-5db04d79-0961-4cb1-8723-0ab5045f95ff"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-06517903-19fc-45de-80ed-66c2f051f84e"
+  }],
+  "id": "SHARE-rule-f00d744c-eaf1-458a-8bbe-a78e0445d2b6",
+  "lastUpdateTime": "1752794061336",
+  "createTime": "1694682091806",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "息屏录音",
+  "description": "息屏单击音量-开始录音，亮屏单击-停止录音（适用于ColorOS录音）",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-2677a032-b889-4b79-82c0-d15f5620b585"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,42 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppProcessStarted",
+    "processName": [{
+      "processName": "org.autojs.autojs"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-3a0216af-13ca-47cd-852a-884ad37e6ce4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings get secure enabled_accessibility_services",
+    "customContextDataKey": {
+    },
+    "note": "获取已开启的无障碍服务",
+    "id": "A-01b68770-a2cc-49c9-a947-cb1bb198d915"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put secure enabled_accessibility_services {shellOut}:org.autojs.autojs/com.stardust.autojs.core.accessibility.AccessibilityService",
+    "customContextDataKey": {
+    },
+    "note": "开启Auto.js无障碍",
+    "id": "A-11e90a8f-a947-4122-8556-f3b95538b840"
+  }],
+  "id": "rule-1426eab4-bfb7-4b1a-b555-a3fa1456413f",
+  "lastUpdateTime": "1697604412557",
+  "createTime": "1697603499558",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Auto.js无障碍",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-75e0c3f8-49a1-41d6-9725-12d67b37b6d8"
+}
+###------###
+{"type":"rule"}

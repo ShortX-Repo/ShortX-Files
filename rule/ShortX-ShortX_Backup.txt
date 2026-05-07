@@ -1,0 +1,138 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "tag": "触发",
+    "customContextDataKey": {
+    },
+    "id": "F-80a3575a-052a-4e9a-8117-e84c1624db6e"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "tag": "记录",
+    "customContextDataKey": {
+    },
+    "id": "F-09270d1f-000b-415b-b73f-84878653be7c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "//请在此处配置webdav\nvar config \u003d {\n    //坚果云设置，第三方应用管理中的服务器地址加上文件夹名/，文件夹需事先创建\n    webdavUrl: \"https://dav.jianguoyun.com/dav/shortxbackup/\",\n    //坚果云设置，第三方应用管理中的账号\n    username: \"\",\n    //坚果云设置，第三方应用管理中的应用密码，没有就创建一个填到这\n    password: \"\"\n};\n//是否保留每次修改的记录（保留：true，不保留直接覆盖：false）\nvar SaveAllBackups\u003dtrue;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nif(factTag!\u003d\"触发\")throw 1\n\nimportClass(Packages.tornaco.apps.shortx.core.proto.action.ShowToast);\nimportPackage(java.io);\nimportPackage(java.nio.file);\nimportPackage(java.nio.file.attribute);\n\nfunction deleteFile(path) {\n    var file \u003d new File(path);\n    if (!file.exists()) {\n        return false;   \n    }\n    return file.delete(); \n}\n\nfunction showToast(text) {\n    action \u003d ShowToast.newBuilder().setMessage(text).build();\n    shortx.executeAction(action);\n}\nfunction getFormattedDateTime() {\n    var date \u003d new Date();\n    var year \u003d date.getFullYear();\n    var month \u003d date.getMonth() + 1;\n    var day \u003d date.getDate();\n    var hours \u003d date.getHours();\n    var minutes \u003d date.getMinutes();\n    function padZero(num) {\n        return num \u003c 10 ? \u00270\u0027 + num : num;\n    }\n    return year + \u0027-\u0027 + padZero(month) + \u0027-\u0027 + padZero(day) + \u0027-\u0027 \n           + padZero(hours) + \u0027-\u0027 + padZero(minutes);\n}\nfunction uploadToWebDAV(webdavUrl, localFilePath, username, password, remoteName) {\n    var URL \u003d java.net.URL;\n    var HttpURLConnection \u003d java.net.HttpURLConnection;\n    var FileInputStream \u003d java.io.FileInputStream;\n    var BufferedInputStream \u003d java.io.BufferedInputStream;\n    var Base64 \u003d java.util.Base64;\n    var File \u003d java.io.File;\n    var result \u003d {\n        success: false,\n        statusCode: 0,\n        message: \"\"\n    };\n    \n    var connection \u003d null;\n    var fileInputStream \u003d null;\n    var bufferedInputStream \u003d null;\n    var outputStream \u003d null;\n    \n    try {\n        // 检查本地文件是否存在\n        var localFile \u003d new File(localFilePath);\n        if (!localFile.exists()) {\n            result.message \u003d \"本地文件不存在: \" + localFilePath;\n            return result;\n        }\n        \n        // 构建远程URL\n        var fileName \u003d remoteName || localFile.getName();\n        var targetUrl \u003d webdavUrl;\n        if (!targetUrl.endsWith(\"/\")) {\n            targetUrl +\u003d \"/\";\n        }\n        targetUrl +\u003d encodeURIComponent(fileName);\n        \n        \n        \n        // 创建连接\n        var url \u003d new URL(targetUrl);\n        connection \u003d url.openConnection();\n        connection.setRequestMethod(\"PUT\");\n        connection.setDoOutput(true);\n        connection.setDoInput(true);\n        \n        // 设置基本认证\n        var authString \u003d username + \":\" + password;\n        var authBytes \u003d new java.lang.String(authString).getBytes(\"UTF-8\");\n        var encodedAuth \u003d Base64.getEncoder().encodeToString(authBytes);\n        connection.setRequestProperty(\"Authorization\", \"Basic \" + encodedAuth);\n        \n        // 设置请求头\n        connection.setRequestProperty(\"Content-Type\", \"application/octet-stream\");\n        connection.setRequestProperty(\"Content-Length\", String(localFile.length()));\n        \n        // 写入文件内容\n        outputStream \u003d connection.getOutputStream();\n        fileInputStream \u003d new FileInputStream(localFile);\n        bufferedInputStream \u003d new BufferedInputStream(fileInputStream);\n        \n        var buffer \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 8192);\n        var bytesRead;\n        var totalWritten \u003d 0;\n        \n        while ((bytesRead \u003d bufferedInputStream.read(buffer)) !\u003d -1) {\n            outputStream.write(buffer, 0, bytesRead);\n            totalWritten +\u003d bytesRead;\n        }\n        \n        outputStream.flush();\n        \n        // 获取响应\n        result.statusCode \u003d connection.getResponseCode();\n        result.message \u003d connection.getResponseMessage();\n        \n        if (result.statusCode \u003e\u003d 200 \u0026\u0026 result.statusCode \u003c 300) {\n            result.success \u003d true;\n        } \n        \n    } catch (e) {\n        result.message \u003d \"上传异常: \" + e.toString();\n        if (e.javaException) {\n            e.javaException.printStackTrace();\n        }\n    } finally {\n        try { if (bufferedInputStream) bufferedInputStream.close(); } catch(e) {}\n        try { if (fileInputStream) fileInputStream.close(); } catch(e) {}\n        try { if (outputStream) outputStream.close(); } catch(e) {}\n        try { if (connection) connection.disconnect(); } catch(e) {}\n    }\n    \n    return result;\n}\nfunction findRandomDirWithPrefix(basePath, prefix) {\r\n        var File \u003d java.io.File;\r\n        var dir \u003d new File(basePath);\r\n        if (!dir.exists() || !dir.isDirectory()) {\r\n            return null;\r\n        }\r\n        var list \u003d dir.listFiles();\r\n        if (list \u003d\u003d null) {\r\n            return null;\r\n        }\r\n        var result \u003d null;\r\n        for (var i \u003d 0; i \u003c list.length; i++) {\r\n            var file \u003d list[i];\r\n            if (file.isDirectory() \u0026\u0026 file.getName().startsWith(prefix)) {\r\n                result \u003d file.getName();\r\n                break;\r\n            }\r\n        }\r\n        if (result !\u003d\u003d null) {\r\n            return basePath + result;\r\n        } else {\r\n            throw new Error(\"查找ShortX目录失败\")\r\n        }\r\n    }\r\nvar ShortXPath \u003d findRandomDirWithPrefix(\"/data/system/\", \"shortx\");\nfunction checkFilesModifiedAfter(files, timestamp) {\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var file \u003d new File(ShortXPath+\"/data/u/0/data_store/\"+files[i]);\n        if (file.exists()) {\n            var lastModified \u003d file.lastModified();\n            if (lastModified \u003e timestamp) {\n                return true;\n            }\n        }\n    }\n    return false;\n}\n\nvar files \u003d [\n    \u0027das.pb\u0027,\n    \u0027rules.pb\u0027,\n    \u0027toggles.pb\u0027,\n    \u0027pkgsets.pb\u0027\n];\n\nif(checkFilesModifiedAfter(files, globalVarOf$shortxstarttime)){\n\nfunction deleteFolder(folderPath) {\n    var folder \u003d new File(folderPath);\n\n    // 检查文件夹是否存在\n    if (!folder.exists()) {\n        return \"文件夹不存在\";\n    }\n\n    // 如果是目录，删除其中的内容\n    if (folder.isDirectory()) {\n        var files \u003d folder.listFiles();\n        for (var i \u003d 0; i \u003c files.length; i++) {\n            if (files[i].isDirectory()) {\n                // 如果是子文件夹，递归删除\n                deleteFolder(files[i].getAbsolutePath());\n            } else {\n                // 如果是文件，直接删除\n                files[i].delete();\n            }\n        }\n    }\n\n    // 删除空文件夹\n    folder.delete();\n    return \"文件夹及其中的内容已删除\";\n}\n\n\nfunction copyFileWithCustomName(sourcePath, destDirPath, destFileName) {\n    var sourceFile \u003d new File(sourcePath);\n    var destDir \u003d new File(destDirPath);\n    if (!sourceFile.exists()) {\n        return \"源文件不存在\";\n    }\n    if (!destDir.exists()) {\n        destDir.mkdirs();\n    }\n    var destFile \u003d new File(destDir, destFileName);\n    try {\n        Files.copy(Paths.get(sourceFile.getAbsolutePath()), Paths.get(destFile.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);\n        return \"文件已成功复制并覆盖，目标文件路径: \" + destFile.getAbsolutePath();\n    } catch (e) {\n        return \"文件复制失败: \" + e.message;\n    }\n}\n\n\nvar backuplist\u003d[{\"old\":\"das.pb\",\"new\":\"da.pb\"},{\"old\":\"globalVars.pb\",\"new\":\"gvar.pb\"},{\"old\":\"toggles.pb\",\"new\":\"toggle.pb\"},{\"old\":\"pkgsets.pb\",\"new\":\"pkgset.pb\"},{\"old\":\"rules.pb\",\"new\":\"rule.pb\"}];\nfor(var i\u003d0;i\u003cbackuplist.length;i++){\n    copyFileWithCustomName(ShortXPath+\"/data/u/0/data_store/\"+backuplist[i][\"old\"], ShortXPath+\"/backup\", backuplist[i][\"new\"]);\n}\n\nvar ZipOutputStream \u003d java.util.zip.ZipOutputStream;\nfunction zipFolder(folder, basePath, zos) {\n    var File \u003d java.io.File;\nvar FileInputStream \u003d java.io.FileInputStream;\nvar FileOutputStream \u003d java.io.FileOutputStream;\n\nvar ZipEntry \u003d java.util.zip.ZipEntry;\n\nvar buffer \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);\n    var files \u003d folder.listFiles();\n    for (var i \u003d 0; i \u003c files.length; i++) {\n        var file \u003d files[i];\n        if (file.isDirectory()) {\n            zipFolder(file, basePath + file.getName() + \"/\", zos);\n        } else {\n            var fis \u003d new FileInputStream(file);\n            var entry \u003d new ZipEntry(basePath + file.getName());\n            zos.putNextEntry(entry);\n            var len;\n            while ((len \u003d fis.read(buffer)) \u003e 0) {\n                zos.write(buffer, 0, len);\n            }\n            fis.close();\n            zos.closeEntry();\n        }\n    }\n}\nvar dirPath\u003dShortXPath+\"/backup\";\nif(SaveAllBackups){\n    var zipPath \u003d ShortXPath+ \"/ShortX_Backup_\"+getFormattedDateTime()+\".zip\";\n}else{\n    var zipPath \u003d ShortXPath+ \"/ShortX_Backup.zip\";\n}\nvar root \u003d new File(dirPath);\nvar fos \u003d new FileOutputStream(zipPath);\nvar zos \u003d new ZipOutputStream(fos);\n\nzipFolder(root, \"\", zos);\n\nzos.close();\nfos.close();\ndeleteFolder(ShortXPath+\"/backup\")\nconfig[\"localFile\"] \u003d zipPath;\nvar result \u003d uploadToWebDAV(\n    config.webdavUrl,\n    config.localFile,\n    config.username,\n    config.password\n);\ndeleteFile(zipPath);\nif(result.success){showToast(\"ShortX云备份成功\")}else{showToast(\"ShortX云备份失败，状态码：\"+result.statusCode)}\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-39fdd490-ec89-4b14-87ad-28ff7db2d27d"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "记录",
+        "customContextDataKey": {
+        },
+        "id": "C-2764021a-cfa2-473d-bbbd-a64b1e9b8759"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "shortxstarttime",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-65e8092d-6527-4c6d-beb6-fa86598d3ec4"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "shortxstarttime",
+          "type": {
+            "@type": "type.googleapis.com/Int64Var"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-98f055d2-ea55-402f-a493-23748087bd7f"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "shortxstarttime",
+        "valueAsString": "%CurrentTimeMillis%",
+        "customContextDataKey": {
+        },
+        "id": "A-6b3d6f0c-f3ed-4327-ad00-f56f9f9d5f9b"
+      }],
+      "description": "记录",
+      "id": "Case-66051f8a-1af2-48fe-ad24-d54ac7154254",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "触发",
+        "customContextDataKey": {
+        },
+        "id": "C-c4ae57c5-3ca0-4b25-a861-9c7b9172b9a4"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "shortxstarttime",
+        "customContextDataKey": {
+        },
+        "id": "A-fd68bdc3-3113-407b-8853-3330f1dca310"
+      }],
+      "description": "触发",
+      "id": "Case-fff41a93-0820-4aae-8082-144663625fd1",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b4deb954-bb95-4789-88c5-4a7786572055"
+  }],
+  "id": "SHARE-rule-4b986469-6d33-4d0d-979c-3342d059ca4c",
+  "lastUpdateTime": "1764078221051",
+  "createTime": "1763129012155",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "ShortX_Backup",
+  "description": "自动备份shortx至webdav",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "确定",
+      "title": "需配置",
+      "message": "配置动作→js里的webdav参数",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-06b71ac6-ba54-4a7e-ab2b-730e922a8a6c"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "shortxstarttime",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-98f055d2-ea55-402f-a493-23748087bd7f"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "shortxstarttime",
+      "valueAsString": "%CurrentTimeMillis%",
+      "customContextDataKey": {
+      },
+      "id": "A-6b3d6f0c-f3ed-4327-ad00-f56f9f9d5f9b"
+    }]
+  },
+  "quit": {
+    "isEnabled": true
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

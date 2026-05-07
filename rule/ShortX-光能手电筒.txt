@@ -1,0 +1,59 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemSettingsChanged",
+    "urlAndExpectedValueRegex": {
+      "first": "content://settings/system/screen_brightness",
+      "second": ".*"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-96b87486-6e7e-4fc3-9214-b9321b79d0bc"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetFlashLightEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-a50c0c7b-2722-47c9-8fbc-f2e6587c7568"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{settingsValue} \u003c\u003d 40",
+      "customContextDataKey": {
+      },
+      "id": "C-ebdf11f4-078b-487f-ba9a-b67f2876a961"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-9d4deaf7-9978-48f5-b65c-bd8adfa71192"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-e5549f96-a9bf-448e-aafd-ea2091d46580"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3f1b5dd0-d410-4a42-a151-8ee99d44c939"
+  }],
+  "id": "rule-8c087284-3c1b-436e-a45f-34a79718da77",
+  "lastUpdateTime": "1700209758912",
+  "createTime": "1700208853891",
+  "author": {
+    "name": "entr0pia"
+  },
+  "title": "光能手电筒",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

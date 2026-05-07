@@ -1,0 +1,105 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "tv.danmaku.bili"
+    }, {
+      "pkgName": "com.attempt.afusekt"
+    }, {
+      "pkgName": "com.feifeiduck.capyplayer"
+    }, {
+      "pkgName": "work.aliz.femor"
+    }, {
+      "pkgName": "com.mountains.hills"
+    }, {
+      "pkgName": "com.brouken.player"
+    }, {
+      "pkgName": "com.mxtech.videoplayer.ad"
+    }, {
+      "pkgName": "com.pikcloud.pikpak"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-d0294269-89af-410e-93c6-45a8decc00eb"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "tv.danmaku.bili"
+    }, {
+      "pkgName": "com.attempt.afusekt"
+    }, {
+      "pkgName": "com.feifeiduck.capyplayer"
+    }, {
+      "pkgName": "work.aliz.femor"
+    }, {
+      "pkgName": "com.mountains.hills"
+    }, {
+      "pkgName": "com.brouken.player"
+    }, {
+      "pkgName": "com.mxtech.videoplayer.ad"
+    }, {
+      "pkgName": "com.pikcloud.pikpak"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-3305416e-136c-4185-b4e9-6396c855a669"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "tv.danmaku.bili"
+      }, {
+        "pkgName": "com.attempt.afusekt"
+      }, {
+        "pkgName": "com.feifeiduck.capyplayer"
+      }, {
+        "pkgName": "work.aliz.femor"
+      }, {
+        "pkgName": "com.mountains.hills"
+      }, {
+        "pkgName": "com.brouken.player"
+      }, {
+        "pkgName": "com.mxtech.videoplayer.ad"
+      }, {
+        "pkgName": "com.pikcloud.pikpak"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-c3080f3c-782a-42ea-b7c7-e209162eb21c"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetScreenRotate",
+      "degree": "ScreenRotateDegree_Any",
+      "customContextDataKey": {
+      },
+      "id": "A-f59403a7-745f-434e-86d2-b56fb91819af"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetScreenRotate",
+      "customContextDataKey": {
+      },
+      "id": "A-357a8b16-f83d-4566-a130-761a6c3926c5"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f5d0ddde-4d10-43b9-a1a0-29ac98d41213"
+  }],
+  "id": "SHARE-rule-d2e1a7b4-07a8-4091-84e3-e65ab1fe7216",
+  "lastUpdateTime": "1777473460819",
+  "createTime": "1777472243797",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "屏幕方向锁定自动解除",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

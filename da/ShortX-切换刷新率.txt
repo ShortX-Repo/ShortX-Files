@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "请输入要切换的刷新率",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "不要带单位，纯数字"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-07719bcc-6c40-40f6-ba71-a708a05cd17f"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put secure user_refresh_rate {textFieldInput1}\n\ncurrent_rate\u003d$(settings get secure user_refresh_rate)\necho \"屏幕刷新率已设置为: ${current_rate}Hz\"",
+    "customContextDataKey": {
+    },
+    "id": "A-7c7dbb6c-c497-466a-b77d-50b244dda618"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-d02f9394-2db7-4480-a6cf-860813d01ba2"
+  }],
+  "id": "DA1648493a-8a58-498d-bfe9-b6449182acce",
+  "lastUpdateTime": "1722082747469",
+  "createTime": "1722082558112",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "切换刷新率",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

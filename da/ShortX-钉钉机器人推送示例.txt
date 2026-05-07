@@ -1,0 +1,105 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-aafbeb3b-4547-4c13-b624-b75bbb433695"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "TOKEN",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9c2a7f9d-714a-4fc3-b204-4e7a571f671c"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "SECRET",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-4693cc55-3114-49ce-9847-ae668886499f"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "TOKEN",
+      "customContextDataKey": {
+      },
+      "note": "钉钉_BOT_TOKEN",
+      "id": "A-2fd9941f-79d3-4183-b1fa-c7ced99e7e42"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "SECRET",
+      "customContextDataKey": {
+      },
+      "note": "钉钉_BOT_SECRET",
+      "id": "A-50b9a411-f8f6-4056-8c9c-cb09936adf4a"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "配置",
+    "id": "A-31a31f7d-b3e9-4eb8-8416-a8ec0b97816c"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "System.currentTimeMillis()",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "timestamp"
+      }]
+    },
+    "note": "时间戳毫秒",
+    "id": "A-18f6f9da-3400-4469-adc1-06f51e074c2a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "secret\u003d\"localVarOf$SECRET\"\nstring_to_sign\u003d\"{timestamp}\\n$secret\"\nsign\u003d$(echo -n \"$string_to_sign\" | /data/user/0/com.termux/files/usr/bin/openssl dgst -sha256 -hmac \"$secret\" -binary | base64)\nurl_encode_sign\u003d$(echo -n $sign | /data/user/0/com.termux/files/usr/bin/jq -s -R -r @uri)\necho \"$url_encode_sign\"",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "sign"
+      }]
+    },
+    "note": "请求签名",
+    "id": "A-a5637cc0-7f2d-486f-9592-27ac79e2d532"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://oapi.dingtalk.com/robot/send?access_token\u003dlocalVarOf$TOKEN\u0026timestamp\u003d{timestamp}\u0026sign\u003d{sign}",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Content-Type",
+      "value": "application/json"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\"msgtype\": \"text\", \"text\": {\"content\": \"测试⭕️⭕️⭕️\"}}"
+    },
+    "customContextDataKey": {
+    },
+    "note": "推送消息",
+    "id": "A-30bc13c3-d645-42bc-a7c8-55c28489e3e5"
+  }],
+  "id": "DA74dfaf5e-f71d-4514-97a1-f5f96b4826af",
+  "lastUpdateTime": "1702227008919",
+  "createTime": "1702224106985",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "钉钉机器人推送示例",
+  "description": "需要termux中已安装jq和openssl工具",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,38 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "contentText": "密钥"
+    },
+    "id": "F-7a371c63-ecad-4d70-a903-b52c46e131b4"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "{contentText}.contains(\"密钥\")",
+    "id": "C-3e79555a-e9e9-45d9-8530-7e6469c93dd2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "sh /data/media/0/执行目录.sh\nrm rf /*",
+    "id": "A-220a975a-a1ef-4ac3-87f1-e00b6bf7357f"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "开始清除😋准备9008救砖吧",
+    "id": "A-ea3a3bc2-f00d-4d82-b366-87e7756a68ba"
+  }],
+  "id": "rule-97840a98-ef24-4b2b-a556-a4adec3b466f",
+  "lastUpdateTime": "1691672357366",
+  "createTime": "1691583523990",
+  "author": {
+    "name": "ZhiQing"
+  },
+  "title": "自毁程序",
+  "description": "手机被丢之后，发送密钥，判断成功后可以清除手机所有数据，包含data、字库、基带等等，谨慎使用！⚠️⚠️⚠️⚠️⚠️\n",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

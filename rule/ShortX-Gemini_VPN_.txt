@@ -1,0 +1,145 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.google.android.googlequicksearchbox"
+      },
+      "className": "com.google.android.apps.search.assistant.surfaces.voice.robin.ui.floaty.activity.FloatyActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-58440408-29d7-4b2e-91d7-714084db56d5"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/VPNIsConnected",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-02229879-9705-4fe6-b9b4-bc993f14737f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -a com.github.metacubex.clash.meta.action.START_CLASH -n com.github.metacubex.clash.meta/com.github.kr328.clash.ExternalControlActivity",
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-0fdd1e77-7f0b-4563-bbca-7e9376abd3c5"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireRingerMode",
+      "customContextDataKey": {
+      },
+      "id": "C-8fe99512-ede6-4f3c-9212-7d40137dc21d"
+    }, {
+      "@type": "type.googleapis.com/RequireRingerMode",
+      "mode": "vibrate",
+      "customContextDataKey": {
+      },
+      "id": "C-0ae0fc6a-5f59-4bc2-a146-3f350d3c1dfc"
+    }],
+    "IfCondOp": "ANY",
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetVolume",
+      "type": 3,
+      "index": 10,
+      "customContextDataKey": {
+      },
+      "id": "A-9729b349-d713-4f70-b105-476f0d450309"
+    }],
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-cae85240-bff2-4126-bd57-6de55a5ac672"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1729324371021",
+    "title": "临时VPN",
+    "message": "如果不移除此通知，VPN会在以下情况时关闭\n• 屏幕关闭",
+    "smallIcon": "stopwatch",
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-8a1d221e-0bb3-4ecf-b74f-efc514118a4b"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "vib2": 100,
+    "vib3": 100,
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-6e50dcfa-4b37-4cc8-a76b-e1c8fb2ddb45"
+  }, {
+    "@type": "type.googleapis.com/WaitUtilConditionMatch",
+    "condition": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-0c3ff27a-6d6b-480b-922e-14375b14daeb"
+    }, {
+      "@type": "type.googleapis.com/RequireDelay",
+      "timeString": "300000",
+      "customContextDataKey": {
+      },
+      "id": "C-d5ab3a43-fe3c-42b4-90ee-6d8d718ec1bb"
+    }],
+    "conditionOp": "ANY",
+    "quitFacts": [{
+      "@type": "type.googleapis.com/NotificationRemoved",
+      "record": {
+        "tag": "tag-1729324371021"
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-8e94d5d0-5dc7-4cca-9fbb-29493fd08676"
+    }],
+    "quitEnabled": true,
+    "customContextDataKey": {
+    },
+    "id": "A-30e81d70-0dff-4f69-ba73-335565012e1a"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.github.metacubex.clash.meta"
+    }],
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-00c9f5a5-9faa-4968-8375-5e837f645ad7"
+  }, {
+    "@type": "type.googleapis.com/SetVolume",
+    "type": 3,
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-eec9dfe0-3d9c-455a-a78e-ba0637a859db"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotification",
+    "notification": {
+      "tag": "tag-1729324371021"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-b224aee2-2619-4dee-a9dd-d7f4d3d85d24"
+  }],
+  "id": "SHARE-rule-8aaa6cbf-1585-4650-a31e-9438dd7b5390",
+  "lastUpdateTime": "1729476517351",
+  "createTime": "1729323882538",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Gemini VPN ",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,147 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 6,
+      "minutes": 45
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "SATURDAY", "FRIDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-cae18374-7251-47f8-a1a4-0a834cdfffd5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-5c465423-47fc-463b-9646-6608d9f10b92"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WakeupScreen",
+      "customContextDataKey": {
+      },
+      "id": "A-543643e7-e2f9-4ad2-b778-cae236b6e4b5"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "600",
+      "customContextDataKey": {
+      },
+      "id": "A-244b4f8f-aa6b-49bd-b6ae-6755675d1dd3"
+    }, {
+      "@type": "type.googleapis.com/InputSwipe",
+      "startX": 650,
+      "startY": 2850,
+      "endX": 650,
+      "endY": 1550,
+      "swipeTime": "500",
+      "customContextDataKey": {
+      },
+      "id": "A-a819521b-0999-415b-8283-1d790d27348f"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-a935cdb7-726a-4674-965a-50d9f8a410f2"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "input text 锁屏密码",
+      "customContextDataKey": {
+      },
+      "id": "A-a04d3a50-8c42-4049-a46a-2d883e291040"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-495015b9-4806-479d-ac87-df20a87e9da1"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start -a android.intent.action.SENDTO -d sms:10001 --es sms_body \"1081\" --ez exit_on_sent true\n",
+      "customContextDataKey": {
+      },
+      "id": "A-be005bf4-c45c-4f0d-9fc0-3e5628ff0353"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "600",
+      "customContextDataKey": {
+      },
+      "id": "A-ea51557a-2747-4e77-a7c5-68c685abaa5f"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 1300,
+      "y": 1930,
+      "customContextDataKey": {
+      },
+      "id": "A-69da5051-ecb5-4dd3-8e6c-a62337442870"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-d1c5573c-81d5-4155-921e-a9bdfc4894aa"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "查询成功",
+      "customContextDataKey": {
+      },
+      "id": "A-d8fe5726-e721-404b-b658-f3cbff52f3e1"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start -a android.intent.action.SENDTO -d sms:10001 --es sms_body \"1081\" --ez exit_on_sent true\n",
+      "customContextDataKey": {
+      },
+      "id": "A-86689c91-ba7e-48ed-a762-57e3b21d15f5"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "600",
+      "customContextDataKey": {
+      },
+      "id": "A-23a78aa8-2c1d-4214-8f87-c40ede92db1a"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 1300,
+      "y": 1930,
+      "customContextDataKey": {
+      },
+      "id": "A-7f680a65-af2f-4f9f-9219-85550a6b859e"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-3164b66a-9ca3-4a75-8422-7f3828123cdf"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "查询成功",
+      "customContextDataKey": {
+      },
+      "id": "A-8d21a33d-ef0a-4699-9dfe-327524c1a78a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fd3d3e35-408a-4503-a49f-1fb0b982f973"
+  }],
+  "id": "rule-521a71ea-1f0a-45ee-92a5-0b0d594f46bb",
+  "lastUpdateTime": "1696558250861",
+  "createTime": "1696557309189",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "流量查询",
+  "description": "适用于电信",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

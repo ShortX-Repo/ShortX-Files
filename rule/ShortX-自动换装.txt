@@ -1,0 +1,98 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "customContextDataKey": {
+    },
+    "id": "F-ed16f5ca-2ddd-4eca-b57e-64b2e5fbdc23"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "com.tencent.tmgp.sgame"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-fb97bee7-1f0f-463a-ac19-7e3ce077f081"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "input tap 245 620\nsleep 0.2s\ninput tap 1125 1250\nsleep 0.2s\ninput tap 2700 1150\nsleep 0.2s\ninput tap 2760 120\nsleep 0.2s\ninput tap 440 590",
+        "customContextDataKey": {
+        },
+        "id": "A-8992c83e-95cb-45be-a240-5f46afc806f1"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["换装"],
+        "customContextDataKey": {
+        },
+        "id": "A-63758702-acd9-406f-a02c-a362b249c7bc"
+      }],
+      "icon": "number-1",
+      "label": "第1格子",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["换装"],
+        "customContextDataKey": {
+        },
+        "id": "A-3a3bf3cb-92a7-4263-bd65-64e49e838aca"
+      }],
+      "id": "BTN-e930cf1b-3bbd-4b78-a979-2c4e511542c1"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "input tap 245 620\nsleep 0.2s\ninput tap 2150 1250\nsleep 0.2s\ninput tap 2700 1150\nsleep 0.2s\ninput tap 2760 120\nsleep 0.2s\ninput tap 440 590",
+        "customContextDataKey": {
+        },
+        "id": "A-e5a51bd6-c6d8-405c-af8c-66a315c73c1e"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["换装"],
+        "customContextDataKey": {
+        },
+        "id": "A-6ad7323a-10c4-4d58-985a-9deee89bb0a4"
+      }],
+      "icon": "number-6",
+      "label": "第6个格子",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["换装"],
+        "customContextDataKey": {
+        },
+        "id": "A-f380a470-7101-4155-ae63-823648f95811"
+      }],
+      "id": "BTN-fbbf6827-dfcf-4002-92fc-7cf5edccfb35"
+    }],
+    "tag": "换装",
+    "maxHeightInDp": 150,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 5,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-9e027ee2-02e0-4b1b-aa43-c520f873a170"
+  }],
+  "id": "rule-8045047f-b1b6-4543-b8b6-e0b0a70c5f99",
+  "lastUpdateTime": "1696925386106",
+  "createTime": "1695870599128",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动换装",
+  "description": "一键换装",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [[ $(settings get secure location_mode) \u003d\u003d \"0\" ]]; then\n  settings put secure location_mode 2\n  echo \"GPS is now ON.\"\nelse\n  settings put secure location_mode 0\n  echo \"GPS is now OFF.\"\nfi",
+    "customContextDataKey": {
+    },
+    "id": "A-5ea89856-90f9-441b-acc6-92dcf949271f"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-5eaee03d-e6a7-445a-b79f-072e5be762b9"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "Location Mode Toggle\n   🙏 ૐ નમઃ શિવાય 🙏",
+    "customContextDataKey": {
+    },
+    "id": "A-1bc2334c-acf6-4164-b22c-9d2ad93b8275"
+  }],
+  "id": "SHARED-DA-d009c168-8227-48ac-aa38-8387ada97d0a",
+  "lastUpdateTime": "1759398077957",
+  "createTime": "1758277663409",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Location Mode Toggle",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

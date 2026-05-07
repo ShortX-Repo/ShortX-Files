@@ -1,0 +1,73 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.miui.home"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-32f0bab3-6ec8-4e01-997b-600fcf396202"
+  }, {
+    "@type": "type.googleapis.com/VPNDisconnected",
+    "customContextDataKey": {
+    },
+    "id": "F-a42500fa-b95b-40be-8a8c-9d981b9d30d8"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-5a9177e6-7828-417d-8208-80577ea5f5a8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "su\nsettings put global private_dns_mode off",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-3561579b-993a-4aac-aae2-e9ab9e943f5d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "su\nsettings put global private_dns_mode hostname",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-0f55993b-f59c-48b7-bebc-7155654e0d80"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e3df59c4-8a1d-4e4b-aa13-3f262336fd45"
+  }],
+  "id": "SHARE-rule-994763b3-b163-415f-a079-fcd1c96e3032",
+  "lastUpdateTime": "1762778900766",
+  "createTime": "1736347701575",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "去广告DNS",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/VPNConnected",
+      "customContextDataKey": {
+      },
+      "id": "F-079b7e2d-6888-4af8-b739-26e18e547d2e"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "su\nsettings put global private_dns_mode off",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-16381242-05bb-4e04-99cc-eca4bcc8141c"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

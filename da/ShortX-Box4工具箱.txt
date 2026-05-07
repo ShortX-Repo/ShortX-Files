@@ -1,0 +1,667 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-5f91cf0f-7671-4038-b2ec-664cc2218577"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "bin_name",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-cfc2b2b5-259c-4695-98d2-7c0dc9df70b8"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/sh\n\n# 设置环境变量确保正确调用busybox\nexport PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 配置文件路径\nCONFIG_FILE\u003d\"/data/adb/box/scripts/box.config\"\n\nsource $CONFIG_FILE\nbusybox echo $bin_name",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-d604d293-4399-4699-9c2d-b9eb1b095491"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "bin_name",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-b6f2f174-d1f1-41db-b677-dc7772d5911b"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "localVarOf$bin_name",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-e33a5fac-4606-4359-930b-4015c7df1f5a"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "pid",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ea2d56eb-f8d5-459e-833a-97490b8c3aac"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nbusybox pidof \"localVarOf$bin_name\"",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-0d2b9ed6-276e-41a0-947b-4e8ab2c76fda"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "pid",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-4bfe447b-7e18-43d3-a3b7-1b4127284f11"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "localVarOf$pid",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-17669a50-cbba-48a0-869e-70eface6ab4e"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "versions",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "存储当前已安装的内核版本",
+      "id": "A-6ed2f47b-c5f7-496b-a382-c68c161460e5"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "latest-versions",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-fae0847b-464f-4968-b5ef-e63cbf554328"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\nexport PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\ncore_PATH\u003d\"/data/adb/box/bin\"\ncore_name\u003d\"localVarOf$bin_name\"\ncore_bin\u003d\"$core_PATH/$core_name\"\n\n# 检测核心文件是否存在\nif [ ! -f \"$core_bin\" ]; then\n    echo \"not found\"\nelse\n    # 根据核心类型输出版本\n    if [ \"$core_name\" \u003d \"sing-box\" ]; then\n        version\u003d$(\"$core_bin\" version 2\u003e/dev/null | busybox grep \u0027sing-box version\u0027 | busybox awk \u0027{print $3}\u0027)\n        echo \"$version\"\n    elif [ \"$core_name\" \u003d \"mihomo\" ]; then\n        version\u003d$(\"$core_bin\" -v 2\u003e/dev/null | busybox head -n1 | busybox awk \u0027{print $3}\u0027)\n        echo \"$version\"\n    fi\nfi\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "检测已安装内核版本",
+      "id": "A-c53470fb-fc81-4d61-9b7a-39f565a02991"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "versions",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-c0ab8299-1810-4ec6-b950-d904fb1555ee"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "localVarOf$versions",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-d16bc326-86ba-4b7e-9387-d8670a4d5357"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "arch",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "存储设备架构",
+      "id": "A-723c273a-918d-449b-8835-7684d8697750"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/sh\n\nexport PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nbin_name\u003d\"localVarOf$arch\"\n\n# 错误处理函数\nhandle_error() {\n    busybox echo \"Error: $1\" \u003e\u00262\n}\n\n# 架构检测函数\ndetect_arch() {\n    case \"$(uname -m)\" in\n        aarch64) \n            [ \"$bin_name\" \u003d \"mihomo\" ] \u0026\u0026 echo \"arm64\" || echo \"arm64\" \n            ;;\n        armv7l|armv8l) \n            [ \"$bin_name\" \u003d \"mihomo\" ] \u0026\u0026 echo \"armv7\" || echo \"arm\" \n            ;;\n        x86_64) \n            echo \"amd64\"\n            ;;\n        i686|i386|386)\n            [ \"$bin_name\" \u003d \"mihomo\" ] \u0026\u0026 echo \"386\" || echo \"386\"\n            ;;\n        *) \n            handle_error \"Unsupported architecture: $(uname -m)\"\n            ;;\n    esac\n}\n\n# 主程序\ndetect_arch\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "获取设备架构",
+      "id": "A-218a1fad-746c-46bd-833f-021eadd3995b"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "arch",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-c26e0ca2-3ef9-4075-8305-306b4bd92196"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "localVarOf$arch",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-dc5dd40c-3067-433a-abcb-4eed2bbefa5f"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-0fa491be-f861-47fe-8f7f-a50e64448155"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "text-run",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "note": "核心已运行\n核心未运行",
+        "id": "A-32bfe0a9-3647-47ea-a5bf-31a5c48721dd"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotEmpty",
+          "varName": "pid",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-e2fe9238-c735-41b6-8669-5757a5265462"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "text-run",
+          "valueAsString": "核心已运行",
+          "customContextDataKey": {
+          },
+          "id": "A-2381be7d-97b4-4972-9efe-a24cc75f89cc"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "text-run",
+          "valueAsString": "核心未运行",
+          "customContextDataKey": {
+          },
+          "id": "A-5791f161-475c-4d17-b10e-a981783e9556"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-1c18778c-91ad-4e4c-999c-0e2ae699c2fc"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "localVarOf$text-run",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-0bdfe0de-da8e-44f7-a7b4-d51dc07672cc"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "一些文本",
+      "id": "A-df6eaec9-22f1-499b-90d4-a12f11d2d49c"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "变量初始化",
+    "id": "A-d1d0c51f-94d0-41a4-a1ea-5a7a69796f71"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-44d45499-f453-4f7c-aad9-874df0e8fede"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "sub",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-cd0c5f83-a5b2-44ef-925a-7a8029c185e9"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "sub",
+      "valueAsString": "。。。",
+      "customContextDataKey": {
+      },
+      "note": "🌝填入订阅链接/sub-store链接",
+      "id": "A-e29b17f0-ce64-45bd-ae29-595ee6dbe9e1"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "board_url",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b3851ad5-a4d2-4a4f-905c-1fedaa0dfcf5"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "board_url",
+      "valueAsString": "http://127.0.0.1:9090/ui",
+      "customContextDataKey": {
+      },
+      "note": "🌝填入面板链接",
+      "id": "A-53d8f518-bced-4cb5-9066-f9282fb070bc"
+    }, {
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "crown-two",
+      "customContextDataKey": {
+      },
+      "note": "🌝还有个应用集得设置",
+      "id": "A-1c5e9fff-47d7-4a39-b7bf-68574507681f"
+    }],
+    "customContextDataKey": {
+    },
+    "note": " 🌝🌝🌝🌝🌝🌝🌝🌝\n🌝面向使用者的修改🌝\n 🌝🌝🌝🌝🌝🌝🌝🌝",
+    "id": "A-e36b57d7-18bd-4cc7-be2f-c67c9e8577c6"
+  }, {
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "启动(重启)",
+      "clickActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotEmpty",
+          "varName": "pid",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-57233163-16a0-49a7-b297-fdeea1b75a86"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "su -c /data/adb/box/scripts/box.tproxy disable \u0026\u0026 su -c /data/adb/box/scripts/box.service stop",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-4bc8a005-c882-42b1-b724-f76b0338e1c8"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "✅已尝试停止Box4",
+          "customContextDataKey": {
+          },
+          "id": "A-d4ffca7e-ac1c-4b35-8513-d0b290407bea"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "继续",
+          "title": "ShellOut:",
+          "message": "{shellOut}",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-6e6ad3cb-eba6-4b58-9f7d-e4b1c454bd5f"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "su -c /data/adb/box/scripts/box.service start \u0026\u0026 su -c /data/adb/box/scripts/box.tproxy enable",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-084e92fd-53c3-46d3-b290-d16f4acb5a17"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "✅已尝试启动Box4",
+          "customContextDataKey": {
+          },
+          "id": "A-c36c9637-0ba6-47c4-8bf2-cd66ac02fb13"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "关闭",
+          "title": "ShellOut:",
+          "message": "{shellOut}",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-9eb6ea12-0c11-4f5d-9c46-b4befc255615"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "su -c /data/adb/box/scripts/box.service start \u0026\u0026 su -c /data/adb/box/scripts/box.tproxy enable",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-084e92fd-53c3-46d3-b290-d16f4acb5a17"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "✅已尝试启动Box4",
+          "customContextDataKey": {
+          },
+          "id": "A-9d30e748-29bc-4850-a7c0-e9273dbcb7eb"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "关闭",
+          "title": "ShellOut:",
+          "message": "{shellOut}",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-77c503d4-f8cb-4de2-b486-6387d1a430ac"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b052a43-8d71-49ae-a475-95c5d8fd4152"
+      }]
+    }, {
+      "title": "停止",
+      "clickActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotEmpty",
+          "varName": "pid",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-57233163-16a0-49a7-b297-fdeea1b75a86"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "su -c /data/adb/box/scripts/box.tproxy disable \u0026\u0026 su -c /data/adb/box/scripts/box.service stop",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-084e92fd-53c3-46d3-b290-d16f4acb5a17"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "✅已停止Box4",
+          "customContextDataKey": {
+          },
+          "id": "A-39d1ba97-4b22-47b7-a02b-41ba7f0e99dc"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "关闭",
+          "title": "ShellOut:",
+          "message": "{shellOut}",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-77c503d4-f8cb-4de2-b486-6387d1a430ac"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "❎Box4可能未运行",
+          "customContextDataKey": {
+          },
+          "id": "A-00d82638-b514-45fe-aa0a-80f4c9d94a2d"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b052a43-8d71-49ae-a475-95c5d8fd4152"
+      }]
+    }, {
+      "title": "更新核心",
+      "clickActions": [{
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "bin_name",
+            "payload": {
+              "value": "sing-box"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-14de1683-8fcc-4ce1-8e99-258e7a747f4e"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "#!/bin/sh\n\nexport PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 错误处理函数\nhandle_error() {\n    busybox echo \"Error: $1\" \u003e\u00262\n}\n\n# 获取最新版本\nlatest_version\u003d$(curl -s \"https://api.github.com/repos/SagerNet/sing-box/releases\" | \n    busybox grep -m 1 tag_name | \n    busybox awk -F: \u0027{print $2}\u0027 | \n    busybox sed \u0027s/[\", v]//g\u0027)\n\nif [ -n \"$latest_version\" ]; then\n    busybox echo \"$latest_version\"\nelse\n    handle_error \"Failed to get sing-box version\"\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "获取最新sing-box版本",
+            "id": "A-530bfca8-e045-495c-9d4a-c57de1c78e43"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "latest-versions",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-10b7190a-bea8-4be7-9c7d-2de43c2b686a"
+          }, {
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "确定",
+            "onPositive": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "#!/bin/sh\n\nexport PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 配置变量\ninstall_dir\u003d\"/data/adb/box/bin/\"\ncore_name\u003d\"sing-box\"\narch\u003d\"localVarOf$arch\"\n\n# 错误处理函数\nhandle_error() {\n    busybox echo \"Error: $1\" \u003e\u00262\n    error_occurred\u003d1\n}\n\n# 安装函数\ninstall_core() {\n    tmp_dir\u003d$(busybox mktemp -d) || return 1\n    busybox echo \"\u003d\u003d\u003e Temporary directory: $tmp_dir\"\n    trap \u0027rm -rf \"$tmp_dir\"\u0027 EXIT\n    \n    cd \"$tmp_dir\" || return 1\n\n    # 获取版本\n    version\u003d\"localVarOf$latest-versions\"\n    [ -z \"$version\" ] \u0026\u0026 return 1\n    \n    package_name\u003d\"sing-box-${version}-android-${arch}.tar.gz\"\n    package_url\u003d\"https://github.com/SagerNet/sing-box/releases/download/v${version}/${package_name}\"\n    \n    busybox echo \"\u003d\u003d\u003e Downloading: $package_url\"\n    curl -fLo \"$package_name\" \"$package_url\" || return 1\n\n    # 解压安装\n    extracted_dir\u003d$(busybox tar -tf \"$package_name\" | busybox head -n 1 | busybox cut -f1 -d\"/\")\n    busybox tar -xzf \"$package_name\" || return 1\n    install_path\u003d\"${install_dir}${core_name}\"\n    mv -f \"${extracted_dir}/sing-box\" \"$install_path\" \u0026\u0026 \n    chmod +x \"$install_path\"\n}\n\n# 主程序\nerror_occurred\u003d0\nmkdir -p \"$install_dir\" || handle_error \"Failed to create directory\"\n\ninstall_core || error_occurred\u003d1\n\nif [ $error_occurred -eq 0 ]; then\n    busybox echo \"\u003d\u003d\u003e Installed: $install_path\"\n    $install_path version\nelse\n    busybox echo \"\u003d\u003d\u003e Installation failed\"\nfi\n",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "id": "A-9f7e06a3-5750-4b21-9980-084f413891cf"
+            }, {
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "✅已更新sing-box",
+              "customContextDataKey": {
+              },
+              "id": "A-addaba34-b538-4d0b-97fe-655920c353ab"
+            }, {
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "关闭",
+              "title": "ShellOut:",
+              "message": "{shellOut}",
+              "cancelable": true,
+              "style": {
+                "fontScale": 1.0
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-77c503d4-f8cb-4de2-b486-6387d1a430ac"
+            }],
+            "negative": "取消",
+            "title": "确定更新吗",
+            "message": "当前版本:localVarOf$versions\n最新版本:localVarOf$latest-versions",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-2c225bc1-48c9-4d08-91a0-1ff9e84ec232"
+          }],
+          "description": "sing-box",
+          "id": "Case-75556338-170e-4eaa-829e-06977ec5acd7",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "bin_name",
+            "payload": {
+              "value": "mihomo"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-f92f7170-6d8c-4b0a-a016-3491ebf48fd4"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "好吧~",
+            "title": "emm...",
+            "message": "mihomo可以在面板里更新的\n(才不是我懒的写(⁠.⁠ ⁠❛⁠ ⁠ᴗ⁠ ⁠❛⁠.⁠)",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-2c225bc1-48c9-4d08-91a0-1ff9e84ec232"
+          }],
+          "description": "mihomo",
+          "id": "Case-d96491d2-be21-4e88-8758-78eea9c18c03",
+          "isBreak": true
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-fea15b27-e95a-407b-99a4-ded09153d618"
+      }]
+    }, {
+      "title": "Renew Tproxy",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "su -c /data/adb/box/scripts/box.tproxy renew",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-9f7e06a3-5750-4b21-9980-084f413891cf"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "✅已刷新Tproxy",
+        "customContextDataKey": {
+        },
+        "id": "A-addaba34-b538-4d0b-97fe-655920c353ab"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "关闭",
+        "title": "ShellOut:",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-77c503d4-f8cb-4de2-b486-6387d1a430ac"
+      }]
+    }, {
+      "title": "拉取订阅",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/sh\n\nexport PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nWORK_DIR\u003d\"/data/adb/box\"\nsub\u003d\"localVarOf$sub\"\nbin_name\u003d\"localVarOf$bin_name\"\noutput_filename\u003d\"config.json\"\noutput_path\u003d\"${WORK_DIR}/${bin_name}/${output_filename}\"\n\necho \"正在从 \u0027${sub}\u0027 下载配置文件到 \u0027${output_path}\u0027...\"\n\ncurl -sSLf -o \"${output_path}\" \"${sub}\"\n\nif [ $? -eq 0 ]; then\n    echo \"配置文件下载成功！文件位于：${output_path}\"\nelse\n    echo \"错误：配置文件下载失败！请检查订阅链接或网络连接。\"\nfi",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-63530807-7b63-48f6-9e27-a3a07e31fcec"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "✅正在尝试拉取订阅",
+        "customContextDataKey": {
+        },
+        "id": "A-6d542043-f018-4741-a663-eb665223707c"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "关闭",
+        "title": "ShellOut:",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-914a666a-d7b9-488a-98d8-e053bf0caee7"
+      }]
+    }, {
+      "title": "添加应用集至Box4名单",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/sh\n\n# 设置环境变量确保正确调用busybox\nexport PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nconfigFile\u003d\"/data/adb/box/scripts/box.config\"\n\nnewLine\u003d\"user_packages_list\u003d()\"\n\nbusybox sed -i \"s#^user_packages_list\u003d.*#$newLine#\" \"$configFile\"",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "清空user_packages_list",
+        "id": "A-f3b8cb77-4d78-41b7-ba74-e5f849846550"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "✅user_packages_list已清空,即将添加新内容",
+        "customContextDataKey": {
+        },
+        "id": "A-f15a856a-7cf9-4719-97ac-e084a15d1842"
+      }, {
+        "@type": "type.googleapis.com/ForEachPkgSet",
+        "pkgSet": "Box4App名单",
+        "action": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/bin/sh\n\n# 设置环境变量确保正确调用busybox\nexport PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nuser_id\u003d{loopAppUserId}\npkg_name\u003d{loopAppPkgName}\n\nconfigFile\u003d\"/data/adb/box/scripts/box.config\"\nnewEntry\u003d\"\\\"${user_id}:${pkg_name}\\\"\"\n\nline\u003d$(busybox grep \u0027^user_packages_list\u003d\u0027 \"$configFile\")\n\ncontent\u003d$(echo \"$line\" | busybox sed -n \u0027s/^user_packages_list\u003d(\\(.*\\))$/\\1/p\u0027)\n\nif [ -z \"$content\" ]; then\n  newContent\u003d\"$newEntry\"\nelse\n  newContent\u003d\"$content $newEntry\"\nfi\n\nnewLine\u003d\"user_packages_list\u003d($newContent)\"\n\nbusybox sed -i \"s#^user_packages_list\u003d.*#$newLine#\" \"$configFile\"",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-638009e3-2e3e-43e9-a504-1df99cb0ece3"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "👋👋👋👋👋👋\n点我设置应用集\n👋👋👋👋👋👋",
+        "id": "A-4067a9d5-94d0-448e-ac0d-e7a5b4ce77d2"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "✅user_packages_list添加完成",
+        "customContextDataKey": {
+        },
+        "id": "A-9b2c45a8-c48b-433e-b74b-d9aa5bfe878b"
+      }]
+    }, {
+      "title": "打开面板",
+      "clickActions": [{
+        "@type": "type.googleapis.com/StartActivityIntent",
+        "intent": {
+          "action": "android.intent.action.VIEW",
+          "data": "localVarOf$board_url"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-68550ed4-89a7-477d-84a3-50f6cd017839"
+      }]
+    }, {
+      "title": "退出"
+    }],
+    "title": "localVarOf$text-run\nlocalVarOf$versions",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-3e1374b7-b181-4148-8956-17c017353823"
+  }],
+  "id": "SHARED-DA-a665f003-1a52-4eb1-9dce-c7e4b31c9632",
+  "lastUpdateTime": "1752942666754",
+  "createTime": "1752817931335",
+  "author": {
+    "name": "Sorubedo"
+  },
+  "title": "Box4工具箱",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

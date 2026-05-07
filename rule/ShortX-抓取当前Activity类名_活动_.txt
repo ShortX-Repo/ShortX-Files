@@ -1,0 +1,66 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "LeftCenter",
+    "gesture": "LongTap",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-f2edba17-14f3-4643-bee9-5cda4ce8bf35"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgSets": ["屏幕"],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-6af39a20-434a-42f6-8b86-bb626c5a241e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/IsRuleEnabled",
+      "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+      "customContextDataKey": {
+      },
+      "id": "C-e71639a6-74be-4e59-975d-6cc93d24808d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "抓Activity已开启",
+      "customContextDataKey": {
+      },
+      "id": "A-29edf636-250e-4eea-9710-3d89258777f0"
+    }, {
+      "@type": "type.googleapis.com/SetRuleEnabled",
+      "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+      "isEnable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-f4a99158-a77f-4e4c-a118-936674f841f9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b67d711c-24eb-4a48-a2c5-f57cde767311"
+  }],
+  "id": "SHARE-rule-a070fa7e-fcda-48cc-9ab3-11d9bc28f60f",
+  "lastUpdateTime": "1752363364190",
+  "createTime": "1740325449387",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "抓取当前Activity类名(活动)",
+  "description": "左 中间 长按",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-84893512-8560-4ce3-9b0d-d30960b7e0d5"
+}
+###------###
+{"type":"rule"}

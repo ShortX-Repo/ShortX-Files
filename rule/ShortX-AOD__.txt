@@ -1,0 +1,63 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "B_O",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-886ec56d-907e-41f7-9cb3-d444cb244299"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "B_O",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-1c291acd-14b1-42b3-a532-71f7681868ab"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure doze_always_on 0",
+      "customContextDataKey": {
+      },
+      "id": "A-f105c250-cd08-4859-b495-ebd21e4cb323"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "B_O",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-71c9fe18-d0a5-47d8-b433-6a37af28279c"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure doze_always_on 1",
+      "customContextDataKey": {
+      },
+      "id": "A-a15a5834-1e31-4212-8987-6241a4caaab0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-bea30ae5-aef6-41ca-b409-7f9df413bfbc"
+  }],
+  "id": "SHARE-rule-37adfc82-06ef-4310-a3a3-0b02a45f8415",
+  "lastUpdateTime": "1766089688120",
+  "createTime": "1754652717905",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "AOD 📱",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-2a6a11a5-0831-475d-a364-38c0ebe8ad6e"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,98 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BTConnectedTo",
+    "device": ["vivo TWS Air Pro"],
+    "customContextDataKey": {
+    },
+    "id": "F-8b2a2101-f3db-48ef-941f-64ad26cf0dbe"
+  }, {
+    "@type": "type.googleapis.com/BTConnectedTo",
+    "device": ["OPPO Enco Air2"],
+    "customContextDataKey": {
+    },
+    "id": "F-c49c57ee-6abb-43b6-abfb-8074060abd81"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-80c669e3-5db9-46db-a0bb-fedd7d9e15d3"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WakeupScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-da735e83-ba10-4f34-8ec5-71bdfa635fb8"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-e3338d4f-55ad-4c39-b135-e2ac4ca06b63"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "音乐启动",
+    "customContextDataKey": {
+    },
+    "id": "A-4489b2c5-ca7b-405a-a05d-fc9a2fc22721"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.salt.music"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-4fa7b0cc-7d78-4d2b-a9ad-916330f5b909"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3000",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-e83213a3-6b23-4e4b-a7de-5bfac650287d"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireBTConnected",
+      "device": "vivo TWS Air Pro",
+      "customContextDataKey": {
+      },
+      "id": "C-957b8c3e-f9e5-4ddf-9922-5bf13d490a2f"
+    }, {
+      "@type": "type.googleapis.com/RequireBTConnected",
+      "device": "OPPO Enco Air2",
+      "customContextDataKey": {
+      },
+      "id": "C-ad27503d-8a9d-446a-a0ad-b0710eeee5bc"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "cmd media_session volume --stream 3 --set 40\ninput keyevent KEYCODE_MEDIA_PLAY",
+      "customContextDataKey": {
+      },
+      "id": "A-e6a8d61d-78fd-4269-96ac-79de873d88f2"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-88bb1ff5-96c5-4c70-92f0-ce30bd8dc3e7"
+  }],
+  "id": "rule-64bb785d-711f-4ba2-92a0-ae12866acd74",
+  "lastUpdateTime": "1695904342821",
+  "createTime": "1691408506811",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "息屏连上耳机播放音乐",
+  "description": "熄屏连接特定蓝牙耳机启动椒盐音乐并播放",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-391f1ef4-809d-43de-815a-c83ecbde6dc0"
+}
+###------###
+{"type":"rule"}

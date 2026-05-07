@@ -1,0 +1,157 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/RandomInPeriod",
+    "start": {
+      "hour": 6
+    },
+    "end": {
+      "hour": 8
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-a887555b-244b-4f7b-a246-fc2520d67e71"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-480830cc-5263-49f0-8bb6-cbfbcba0dd9f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "cd /data/local/tmp/\n\nchmod 777 \"mtltqd\"\n\n./mtltqd",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "执行签到命令",
+    "id": "A-b8574d51-4c49-47eb-ba94-fdf0630e86e0"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-mtltqd",
+    "title": "MT论坛签到",
+    "message": "{shellOut}",
+    "isImportant": true,
+    "smallIcon": "chat-2-line",
+    "vibrate": true,
+    "sound": true,
+    "customContextDataKey": {
+    },
+    "id": "A-52814d0f-3276-49a8-ac3c-aba01435c5cb"
+  }],
+  "id": "SHARE-rule-3fd47c9c-d180-4d93-afc4-891f1f6edca4",
+  "lastUpdateTime": "1736086510976",
+  "createTime": "1720205424736",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "MT论坛签到 v1.1",
+  "description": "使用账号和密码进行签到，支持多账号。",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "MTLTQD",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-24558ff2-1d03-4262-83bb-7530cd55b8f3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "MT论坛账号和密码",
+        "textFields": [{
+          "placeholder": "账号"
+        }, {
+          "placeholder": "密码"
+        }],
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-4ea7392d-1034-4179-be0d-003c74ac4017"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/bash\n\n# 设置文件路径\nfile_path\u003d\"/data/local/tmp/mtluntan.txt\"\n\n# 新建文件并设置权限\ntouch \"$file_path\"\nchmod 777 \"$file_path\"\n\n# 设置账号和密码\naccount\u003d\"{textFieldInput1}\"\npassword\u003d\"{textFieldInput2}\"\n\n# 将账号和密码写入文件\necho \"$account\u0026$password\" \u003e \"$file_path\"\n\n# 提示完成\necho \"账号和密码已写入到 $file_path\"",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-9ca8971f-5ba7-49ce-b46d-ee2bb4cc790c"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确认下载",
+        "onPositive": [{
+          "@type": "type.googleapis.com/DownloadFile",
+          "subject": {
+            "title": "MT论坛可执行文件",
+            "url": "https://gitee.com/wululu0922/download/releases/download/kanxueqd/mtltqd",
+            "fileName": "mtltqd"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-c68fcd88-10c3-49de-89c9-a7a297729169"
+        }],
+        "negative": "取消下载",
+        "title": "下载签到可执行文件",
+        "message": "必须下载",
+        "cancelable": true,
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-a7b575e3-12d6-43db-b731-0a7863b5165d"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "\n# 源文件路径\nsrc_file\u003d\"/storage/emulated/0/Download/mtltqd\"\n\n# 目标目录路径\ndest_dir\u003d\"/data/local/tmp/\"\n\n# 预期的MD5值\nexpected_md5\u003d\"d4c4f01fc4a829b21868b79a783fb138\"\n\n# 检查文件MD5值是否匹配\nwhile true; do\n    if [ -f \"$src_file\" ]; then\n        actual_md5\u003d$(md5sum \"$src_file\" | awk \u0027{ print $1 }\u0027)\n        \n        if [ \"$actual_md5\" \u003d\u003d \"$expected_md5\" ]; then\n            # 移动文件\n            mv \"$src_file\" \"$dest_dir\"\n            \n            # 检查文件是否成功移动\n            if [ -f \"${dest_dir}mtltqd\" ]; then\n                # 设置文件权限\n                chmod 777 \"${dest_dir}mtltqd\"\n                echo \"文件已成功移动并设置权限为777。\"\n                \n                # 删除源文件\n                rm \"$src_file\"\n                echo \"源文件已删除。\"\n            else\n                echo \"文件移动失败。\"\n            fi\n            break\n        else\n            echo \"MD5值不匹配，继续检查...\"\n        fi\n    else\n        echo \"源文件不存在。\"\n    fi\n    sleep 1\ndone",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-82110b27-ddc8-4497-9768-59434ac951eb"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "MTLTQD",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "MT论坛签到环境变量"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b9ecef70-ab48-4e69-a0f6-f4b4a6e8cdd7"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "MTLTQD",
+        "valueAsString": "签到环境已部署",
+        "customContextDataKey": {
+        },
+        "id": "A-a764b0cc-0ea8-4a38-9a4b-5f5786c12e84"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "focus-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-279e156c-7350-4139-bb42-d6713a14a6e7"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-afa23148-4229-4e41-a308-cc2c1c8c9709"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

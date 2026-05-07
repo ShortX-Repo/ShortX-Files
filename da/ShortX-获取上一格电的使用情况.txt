@@ -1,0 +1,27 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 函数定义\nAll\u003d$(dumpsys batterystats)\ndoze\u003d$(echo \"$All\" | grep \"Screen doze discharge\" | awk \u0027{print $4,$NF}\u0027)\ndoze_light\u003d$(echo \"$All\" | grep \"Device light doze discharge\" | awk \u0027{print $5,$NF}\u0027)\ndoze_deep\u003d$(echo \"$All\" | grep \"Device deep doze discharge\" | awk \u0027{print $5,$NF}\u0027)\nON\u003d$(echo \"$All\" | grep \"Screen on discharge\" | awk \u0027{print $4,$NF}\u0027)\nOFF\u003d$(echo \"$All\" | grep \"Screen off discharge\" | awk \u0027{print $4,$NF}\u0027)\n\nPower\u003d$(echo \"$All\" | grep \"#1:\" | head -n \"1\")\nbattery\u003d$(echo \"$Power\" | awk \u0027{print $4}\u0027)\nbattery_now\u003d$((battery - 1))\nbattery_time\u003d$(echo \"$Power\" | awk \u0027{print $2}\u0027)\nminutes\u003d$(echo \"$battery_time\" | awk -F \u0027m|s\u0027 \u0027{sub(/^\\+/,\"\",$1); print $1}\u0027)\nseconds\u003d$(echo \"$battery_time\" | awk -F \u0027m|s\u0027 \u0027{print $2}\u0027)\n\nstatus\u003d$(echo \"$Power\" | awk \u0027{print $5,$6,$7}\u0027 | sed \u0027s/[(),]//g\u0027)\nstatus1\u003d$(echo \"$status\" | awk \u0027{print $1}\u0027)\nstatus2\u003d$(echo \"$status\" | awk \u0027{print $2}\u0027)\nstatus3\u003d$(echo \"$status\" | awk \u0027{print $3}\u0027)\n\nBATTERY_LEVEL\u003d$(dumpsys battery | grep level | awk \u0027{print $2}\u0027)\n\n# 翻译函数\nstatus() {\n    if [ \"$status1\" \u003d\u003d \"screen-on\" ]; then\n        status1\u003d\"亮屏\"\n    else\n        status1\u003d\"息屏\"\n    fi\n\n    if [ \"$status2\" \u003d\u003d \"power-save-on\" ]; then\n        status2\u003d\"省电模式已开启\"\n    else\n        status2\u003d\"省电模式未开启\"\n    fi\n\n    if [ \"$status3\" \u003d\u003d \"device-idle-on\" ]; then\n        status3\u003d\"正处于Doze状态\"\n    else\n        status3\u003d\"不处于Doze状态\"\n    fi\n}\n\n# 输出函数\noutput() {\n    echo \"亮屏电流：$ON\"\n    echo \"息屏电流：$OFF\"\n    echo \"Doze状态电流：$doze\"\n    echo \"轻度Doze电流：$doze_light\"\n    echo \"深度Doze电流：$doze_deep\"\n    echo \"上一次电量：$battery%\"\n    echo \"现在电量：$battery_now%\"\n    echo \"总耗时：$minutes分$seconds秒\"\n    echo \"电量从$battery到$battery_now的状态⬇️\"\n    echo \"$status1 $status2 $status3\"\n}\n\n# 主函数\nmain() {\n    if [ \"$BATTERY_LEVEL\" \u003d\u003d \"$battery_now\" ]; then\n        status\n        output\n    else\n        echo \"电量不符合，请拔掉充电器，掉一格电后再运行\"\n        echo $BATTERY_LEVEL $battery_now\n    fi\n}\nmain",
+    "customContextDataKey": {
+    },
+    "id": "A-27798729-0cd9-479d-abb7-42d84d23e6be"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "title": "电池",
+    "message": "{shellOut}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-e8fc5448-881d-4d19-b428-7077cb04902c"
+  }],
+  "id": "DA6a7e3cd1-1325-415e-b18c-76c936174879",
+  "lastUpdateTime": "1717702632358",
+  "createTime": "1717279877779",
+  "author": {
+    "name": " author：Prslc"
+  },
+  "title": "获取上一格电的使用情况",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

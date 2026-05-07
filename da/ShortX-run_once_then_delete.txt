@@ -1,0 +1,36 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "sync",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-062ea943-f893-48b2-b841-789617769865"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "sync",
+    "valueAsString": "off",
+    "customContextDataKey": {
+    },
+    "id": "A-83c5b3c0-c882-49cc-b124-81d4972e3687"
+  }],
+  "id": "SHARED-DA-62f781c2-2683-4da2-aea9-975566864d70",
+  "lastUpdateTime": "1763152086905",
+  "createTime": "1763151776827",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "run once then delete",
+  "versionCode": "1",
+  "directActionSetId": "DS-b4dc7d0f-efee-4429-951f-1bafb3ee79e4",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

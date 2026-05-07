@@ -1,0 +1,402 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "tag": "写入全局剪贴板",
+    "customContextDataKey": {
+    },
+    "note": "写入全局剪贴板",
+    "id": "F-26b4a3d8-a05d-4a42-978d-fd4fee172a0d"
+  }, {
+    "@type": "type.googleapis.com/OnMenuActionTrigger",
+    "menuNumber": 1,
+    "customContextDataKey": {
+    },
+    "id": "F-d985a217-836b-4d0b-b563-300f32fb0e5f"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "tag": "重新生成目录",
+    "customContextDataKey": {
+    },
+    "id": "F-99b83312-b99a-4f33-b545-ed32195f177e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "//获取前台应用的中文名称\n//获取ActivityManager服务 \nactivityManager \u003d context.getSystemService(\"activity\"); \n \n// 获取最近的任务 \ntasks \u003d activityManager.getRunningTasks(1); \n \n// 获取当前前台应用的包名 \npackageName \u003d tasks.get(0).topActivity.getPackageName();",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "Foreground Package Name"
+      }]
+    },
+    "note": "获取前台应用包名",
+    "id": "A-4f7acfce-16ee-4e7b-a409-d21cc334ae85"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {Foreground Package Name};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "Foreground application name"
+      }]
+    },
+    "note": "根据上文包名获取名称",
+    "id": "A-b1adffd0-f573-4983-8ffc-1208fa763eef"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "NextDay",
+        "payload": {
+          "value": "false"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2cfe2ade-e9a1-4a22-a417-96760c00811d"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 创建文件夹（带中括号）\nFile \u003d java.io.File;\nfolderPath \u003d globalVarOf$shortxpath + \"/ShortX/全局剪贴板/\" + new java.text.SimpleDateFormat(\"yyyy年MM月dd日\").format(new java.util.Date()) + \"\";\n\nfolder \u003d new File(folderPath);\nif (!folder.exists()) {\n    folder.mkdirs();\n    \"文件夹创建成功\";\n} else {\n    \"文件夹已存在\";\n}\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "CreateDir"
+          }]
+        },
+        "id": "A-c0f56e10-b9a8-4622-a4d3-127c8a4f7b97"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "Contains",
+          "varName": "CreateDir",
+          "payload": {
+            "value": "存在"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-87fe2dea-8068-45a6-afdc-8549f31be022"
+        }, {
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "Contains",
+          "varName": "CreateDir",
+          "payload": {
+            "value": "成功"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-69dca2a1-14e5-4c6f-8484-9c65bb5f31c3"
+        }],
+        "IfCondOp": "ANY",
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "NextDay",
+          "valueAsString": "true",
+          "customContextDataKey": {
+          },
+          "id": "A-7ef5a490-d885-45be-99e1-58d02272ac6b"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "文件夹创建有问题",
+          "customContextDataKey": {
+          },
+          "id": "A-853cab6c-bcb5-40ed-8f1c-d75c1bec1c56"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-e3169d1f-ab08-4062-b01c-494017bb7713"
+      }],
+      "description": "创建目录",
+      "id": "Case-eed89048-cdd2-4112-a7d8-08be756f4f75"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "NextDay",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-d1aebad5-76de-49ed-9e0b-6b8831322e74"
+      }, {
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "重新生成目录",
+        "customContextDataKey": {
+        },
+        "id": "C-ca8da0b5-9b75-4acc-a418-aea01fa3f2f5"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "NextDay",
+        "valueAsString": "false",
+        "customContextDataKey": {
+        },
+        "id": "A-d21505b8-8375-404e-bf18-d9cd41d8c9c2"
+      }],
+      "description": "重新生成目录",
+      "id": "Case-4a646149-3f03-41f2-8987-13da8152ce3d"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "NextDay",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-fd15d373-b385-4a28-842c-e9b16361cc73"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ReadClipboard",
+        "customContextDataKey": {
+        },
+        "note": "读取剪贴板内容",
+        "id": "A-8399c96f-85d7-4512-9fcb-6643b6a01387"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "clipboardContentDir",
+        "valueAsString": "{clipboardContent}",
+        "customContextDataKey": {
+        },
+        "id": "A-6adc156a-d725-4219-b987-be01eab8aa97"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "year \u003d new Date().getFullYear();\nmonth \u003d new Date().getMonth() + 1;\nday \u003d new Date().getDate();\nhours \u003d new Date().getHours();\nminutes \u003d new Date().getMinutes();\nseconds \u003d new Date().getSeconds();\n\n// 补零函数\nfunction padZero(num) {\n    return num \u003c 10 ? \"0\" + num : num;\n}\n\n// 直接输出格式化后的日期时间字符串（带中括号）\n year + \"年\" + padZero(month) + \"月\" + padZero(day) + \"日\";\n\n// 示例输出: \"[2023-05-15 14:30:45]\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "date"
+          }]
+        },
+        "note": "日期",
+        "id": "A-499c7893-d1d6-4308-8987-88b27443afc0"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "year \u003d new Date().getFullYear();\nmonth \u003d new Date().getMonth() + 1;\nday \u003d new Date().getDate();\nhours \u003d new Date().getHours();\nminutes \u003d new Date().getMinutes();\nseconds \u003d new Date().getSeconds();\n\n// 补零函数\nfunction padZero(num) {\n    return num \u003c 10 ? \"0\" + num : num;\n}\n\n// 直接输出格式化后的日期时间字符串（带中括号）\n\"[\" + year + \"-\" + padZero(month) + \"-\" + padZero(day) + \" \" + \npadZero(hours) + \":\" + padZero(minutes) + \":\" + padZero(seconds) + \"]\";\n\n// 示例输出: \"[2023-05-15 14:30:45]\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "Time"
+          }]
+        },
+        "note": "生成时间",
+        "id": "A-0c1ade44-065f-4aab-8492-0d3ef431feda"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "function checkCodeType(code) {\n    // Shell特征检测\n    shellPatterns \u003d [\n        /#!\\/bin\\/(bash|sh)\\s*$/, // Shebang声明\n        /\\$(PATH|HOME|USER|\\{?[A-Z_]+\\}?)/, // 环境变量\n        /(^|\\s)(echo|ls|grep|sed|awk|if|then|fi|for|do|done|while)\\s/, // 常用命令\n        /(\\|\\||\u0026\u0026|\u003e\u003e?|2\u003e\u003e?)/, // 管道和重定向符\n        /`[^`]+`/, // 反引号命令替换\n        /\\$\\([^)]+\\)/, // $()命令替换\n        /(^\\s*|;\\s*)export\\s+[A-Z_]+\u003d/, // 变量导出\n        /\\[\\[?\\s+.*\\s+\\]\\]?/ // 条件判断符号\n    ];\n\n    // Java特征检测（保持原有）\n    javaPatterns \u003d [\n        /java\\.(io|text|util)\\.\\w+/,\n        /new\\s+(SimpleDateFormat|FileWriter|BufferedWriter)\\s*\\(/,\n        /\\.(mkdirs|createNewFile|close)\\s*\\(/,\n        /(File|IOException)\\s*\u003d/,\n        /try\\s*\\{[^}]*\\}\\s*catch\\s*\\(/,\n        /finally\\s*\\{/\n    ];\n\n    // JavaScript特征检测（保持原有）\n    jsPatterns \u003d [\n        /(let|const|var)\\s+\\w+/,\n        /console\\.(log|warn|error)\\(/,\n        /\u003d\u003e\\s*(\\(.*\\))?\\s*\\{?/,\n        /`\\$\\{/\n    ];\n\n    // 计算匹配数\n    shellMatch \u003d shellPatterns.filter(function(regex) {\n        return regex.test(code);\n    }).length;\n    javaMatch \u003d javaPatterns.filter(function(regex) {\n        return regex.test(code);\n    }).length;\n    jsMatch \u003d jsPatterns.filter(function(regex) {\n        return regex.test(code);\n    }).length;\n\n    // 优先检测Shell（因Shebang通常在文件头）\n    if (shellMatch \u003e\u003d 3) {\n        return \"Shell脚本\";\n    }\n    // Java强特征检测\n    if (javaMatch \u003e\u003d 4) {\n        return \"Java代码\";\n    }\n    // JavaScript特征检测\n    if (jsMatch \u003e\u003d 3) {\n        return \"JavaScript代码\";\n    }\n    // 二次验证Shell特征\n    if (shellMatch \u003e\u003d 2 \u0026\u0026 /(\\$globalVarOf\\$clipboardContentDir|[\\s;\u0026|]sh\\s)/.test(code)) {\n        return \"Shell脚本\";\n    }\n    // 混合特征处理\n    if (javaMatch \u003e jsMatch \u0026\u0026 javaMatch \u003e shellMatch) {\n        return \"可能为Java代码\";\n    }\n    if (jsMatch \u003e javaMatch \u0026\u0026 jsMatch \u003e shellMatch) {\n        return \"可能为JavaScript代码\";\n    }\n    if (shellMatch \u003e javaMatch \u0026\u0026 shellMatch \u003e jsMatch) {\n        return \"可能为Shell脚本\";\n    }\n    return \"无法确定类型\";\n}\n// 测试用例\nconst Code \u003d globalVarOf$clipboardContentDir\n;\n\ncheckCodeType(Code); // 返回\"Java代码\"",
+        "customContextDataKey": {
+        },
+        "note": "代码检测，准确度差",
+        "id": "A-9f639872-8121-467b-8868-eafd24c2ed5d"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "Contains",
+          "varName": "CheckCode",
+          "payload": {
+            "value": "无法确定类型"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-0f54fc3d-80a9-4418-90ad-b944f1aa37bc"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "// 文件操作相关类\nFile \u003d java.io.File;\nFileWriter \u003d java.io.FileWriter;\nBufferedWriter \u003d java.io.BufferedWriter;\nIOException \u003d java.io.IOException;\nSimpleDateFormat \u003d java.text.SimpleDateFormat;\nDate \u003d java.util.Date;\n\n// 获取当前日期并格式化\ncurrentDate \u003d new Date();\ndateFolderFormat \u003d new SimpleDateFormat(\"yyyy年MM月dd日\");\ndateFileFormat \u003d new SimpleDateFormat(\"yyyyMMdd\");\n\n// 构建完整路径\nfolderPath \u003d globalVarOf$shortxpath + \"/ShortX/全局剪贴板/\" + dateFolderFormat.format(currentDate);\nfileName \u003d \"记录器_\" + dateFileFormat.format(currentDate) + \".md\";\nfullPath \u003d folderPath + \"/\" + fileName;\n\n// 构建内容字符串\nappName \u003d {Foreground application name} || \"未知应用\";\ncontent \u003d {Time}+\"\u003d\u003d\u003d\u003d\u003d\u003d\u003d来自:\" + appName + \"\u003d\u003d\u003d\u003d\u003d\u003d\u003d\\n\" +\"```\\n\" +globalVarOf$clipboardContentDir +\"\\n```\"+ \"\\n\";\n\n// 创建目录并写入文件\nfile \u003d new File(fullPath);\nif (!file.exists()) {\n    file.getParentFile().mkdirs();\n    file.createNewFile();\n}\n\n// 写入文件\nwriter \u003d new BufferedWriter(new FileWriter(file, true));\ntry {\n    writer.write(content);\n    writer.newLine();\n    \"文件写入成功: \" + fullPath;\n} catch (e) {\n    \"文件写入失败: \" + e.message;\n} finally {\n    writer.close();\n}\n",
+          "customContextDataKey": {
+          },
+          "id": "A-60d3b5ba-f373-4ae9-aad4-8935e31047a3"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-b0e39840-c60c-4879-a0a5-e71bb4d79e8c"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 文件操作相关类\nFile \u003d java.io.File;\nFileWriter \u003d java.io.FileWriter;\nBufferedWriter \u003d java.io.BufferedWriter;\nIOException \u003d java.io.IOException;\nSimpleDateFormat \u003d java.text.SimpleDateFormat;\nDate \u003d java.util.Date;\n\n// 获取当前日期并格式化\ncurrentDate \u003d new Date();\ndateFolderFormat \u003d new SimpleDateFormat(\"yyyy年MM月dd日\");\ndateFileFormat \u003d new SimpleDateFormat(\"yyyyMMdd\");\n\n// 构建完整路径\nfolderPath \u003d globalVarOf$shortxpath + \"/ShortX/全局剪贴板/\" + dateFolderFormat.format(currentDate);\nfileName \u003d \"剪贴板_\" + dateFileFormat.format(currentDate) + \".md\";\nfullPath \u003d folderPath + \"/\" + fileName;\n\n// 构建内容字符串\nappName \u003d {Foreground application name} || \"未知应用\";\ncontent \u003d {Time}+\"\u003d\u003d\u003d\u003d\u003d\u003d\u003d来自:\" + appName + \"\u003d\u003d\u003d\u003d\u003d\u003d\u003d\\n\" + globalVarOf$clipboardContentDir + \"\\n\";\n\n// 创建目录并写入文件\nfile \u003d new File(fullPath);\nif (!file.exists()) {\n    file.getParentFile().mkdirs();\n    file.createNewFile();\n}\n\n// 写入文件\nwriter \u003d new BufferedWriter(new FileWriter(file, true));\ntry {\n    writer.write(content);\n    writer.newLine();\n    \"文件写入成功: \" + fullPath;\n} catch (e) {\n    \"文件写入失败: \" + e.message;\n} finally {\n    writer.close();\n}\n",
+        "customContextDataKey": {
+        },
+        "id": "A-60d3b5ba-f373-4ae9-aad4-8935e31047a3"
+      }],
+      "description": "剪贴板内容写入",
+      "id": "Case-c3dbd5d6-3710-4cdb-905c-e4abfe8ed95b"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "查看全局剪贴板",
+        "customContextDataKey": {
+        },
+        "id": "C-a0a837ef-0023-410b-b74a-29f8e7dea493"
+      }],
+      "description": "查看全局剪贴板内容",
+      "id": "Case-dd318dbb-43cc-4ee0-8aa1-57f965f28782"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-20535494-b389-47dc-b18b-2448f47448af"
+  }],
+  "id": "SHARE-rule-030eecb1-0c39-46b3-ac5b-ebdaa9bdd1f1",
+  "lastUpdateTime": "1748161874300",
+  "createTime": "1747804953276",
+  "author": {
+    "name": "墨上千里"
+  },
+  "title": "全局剪贴板_v0.0.1 \n\n记录复制过的内容至/data/system/shortx_xxxxxx/ShortX/以文件明文记录\nBy酷安墨上千里",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "clipboardContentDir",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-60328724-ba5a-49af-8bd5-33223e60464d"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "NextDay",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-fa8a59d1-6a83-4276-b4b9-e9558469703a"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "NextDay",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "id": "A-155df103-1d2c-44fd-a2c8-d19f68c3fc86"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "shortxpath",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e582f75d-a9c8-48f1-ac71-2a5e3e317429"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ls /data/system/",
+        "customContextDataKey": {
+        },
+        "id": "A-801c4fa6-eba2-4e51-afa8-00191d700d69"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "shortxpath",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-373cb3e0-d030-4784-98de-cd9a4632e460"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-c179c93c-34d4-450e-b832-ab5d869180ed"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "shell异常自动获取shortx目录失败，请手动填写/data/system/目录下的shortx开头的目录名",
+          "cancelable": true,
+          "textFields": [{
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-addd959f-370e-48bb-bb7b-b3db30758a37"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shortxpath",
+          "valueAsString": "/data/system/{textFieldInput1}",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-5316575c-0810-4b20-85f6-a27e15b61187"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{shellOut}",
+          "delimiter": ["\n"],
+          "actions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "Contains",
+              "varName": "foreachData",
+              "payload": {
+                "value": "shortx_"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-6c199b1c-6d08-4a4c-85ea-5615d2f8f726"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shortxpath",
+              "valueAsString": "/data/system/{foreachData}",
+              "op": "WriteGlobalVarOp_Override",
+              "customContextDataKey": {
+              },
+              "id": "A-aaa8e53c-aa10-49ac-b87c-5035be6aa2d9"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Parent",
+              "customContextDataKey": {
+              },
+              "id": "A-42d5e9ca-0990-4a8f-9a45-fe2de0f430c0"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-6fde485b-40d1-46f5-9933-d9e6447a25db"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-b635e834-78aa-4842-b588-0d6cb00ce008"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4538b55f-3e02-4bab-879a-df01428e3bc0"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "查询shortx目录",
+      "id": "A-9da69757-c382-4ffc-b312-c9c9717383e4"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ae373b52-9a2d-42f4-ad9c-725beb773f93"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,98 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-1724fe92-f569-4a32-8d76-e87a41d8e5c9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "customContextDataKey": {
+        },
+        "id": "A-116a0085-8601-48f7-9aa7-02eca734c69e"
+      }],
+      "label": "全选",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["keyboardTool"],
+        "customContextDataKey": {
+        },
+        "id": "A-3694b1f0-e9a7-4b19-9367-439c5e638eb9"
+      }],
+      "id": "BTN-fa6bdf25-82ef-4865-b262-74290dfa89f4"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Copy",
+        "customContextDataKey": {
+        },
+        "id": "A-75f3100c-78f0-4016-90a3-9b1dadbf23dc"
+      }],
+      "label": "复制",
+      "id": "BTN-5e0a29c7-6056-4de7-b79a-54cb8c61178d"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Cut",
+        "customContextDataKey": {
+        },
+        "id": "A-2241ca78-3927-41dd-801a-2ea8235d1046"
+      }],
+      "label": "剪切",
+      "id": "BTN-534a8b2c-2e13-40f0-bd01-984116487f4f"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Paste",
+        "customContextDataKey": {
+        },
+        "id": "A-3d8b649e-98c1-42bd-99a7-b07d69c1e72b"
+      }],
+      "label": "粘贴",
+      "id": "BTN-5b492c08-fe2a-43b0-9fc5-f09deddcc1b3"
+    }],
+    "autoCollapse": true,
+    "tag": "keyboardTool",
+    "maxHeightInDp": 149,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 27,
+    "overlayPaddingV": 8,
+    "customContextDataKey": {
+    },
+    "id": "A-7f078b1a-769c-4c43-96aa-c5d20120de39"
+  }],
+  "id": "rule-489a5d14-70c3-452b-8120-52659b1289d7",
+  "lastUpdateTime": "1702349092521",
+  "createTime": "1702229535224",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "gboard工具栏",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-ebdb6deb-3ff0-437a-8370-df44253c284d"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["keyboardTool"],
+      "customContextDataKey": {
+      },
+      "id": "A-fd6bde0e-3a2c-4d72-87ba-21c0e29eb84a"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

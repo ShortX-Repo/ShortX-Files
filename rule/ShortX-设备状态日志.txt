@@ -1,0 +1,1344 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["All"],
+    "tag": "后台",
+    "customContextDataKey": {
+    },
+    "id": "F-f7488025-2a97-4fb4-b667-b6584ffe6d58"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["All"],
+    "tag": "前台",
+    "customContextDataKey": {
+    },
+    "id": "F-9b7d5e62-0a2b-4a93-9483-192a8f5c3239"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "tag": "停止",
+    "customContextDataKey": {
+    },
+    "id": "F-aacfd854-902c-4f8b-a642-13f90c68cdec"
+  }, {
+    "@type": "type.googleapis.com/Broadcast",
+    "actions": ["android.intent.action.ACTION_SHUTDOWN"],
+    "tag": "关机",
+    "customContextDataKey": {
+    },
+    "id": "F-316b45a0-8883-41e4-b556-7c8f66980abc"
+  }, {
+    "@type": "type.googleapis.com/SystemReady",
+    "tag": "开机",
+    "customContextDataKey": {
+    },
+    "id": "F-1e09b2c7-5fc7-4d65-a9bb-a544a0c3c27b"
+  }, {
+    "@type": "type.googleapis.com/AppAdded",
+    "tag": "应用安装",
+    "customContextDataKey": {
+    },
+    "id": "F-2f640150-7414-4cc0-a3f8-65c5b76992cc"
+  }, {
+    "@type": "type.googleapis.com/AppUpdated",
+    "pkgSets": ["All"],
+    "tag": "应用更新",
+    "customContextDataKey": {
+    },
+    "id": "F-83560591-d726-4e01-84da-5e01ea9519af"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "tag": "电量变化",
+    "customContextDataKey": {
+    },
+    "id": "F-1e304768-175b-4eb1-8af1-ea0277af00b3"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "pkgSets": ["All"]
+    },
+    "tag": "通知",
+    "customContextDataKey": {
+    },
+    "id": "F-4a9efc35-7954-4abf-ac60-7ff8ecb72f17"
+  }, {
+    "@type": "type.googleapis.com/WifiConnectedTo",
+    "ssidList": ["*"],
+    "tag": "Wi-Fi连接",
+    "customContextDataKey": {
+    },
+    "id": "F-59d273c3-43bd-4e53-87d8-796ab95a3c6f"
+  }, {
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "tag": "Wi-Fi断开",
+    "customContextDataKey": {
+    },
+    "id": "F-b6737626-5d21-412d-87ed-ee2b10abb98b"
+  }, {
+    "@type": "type.googleapis.com/BTConnectedTo",
+    "device": ["*"],
+    "tag": "蓝牙连接",
+    "customContextDataKey": {
+    },
+    "id": "F-b1f2bf8e-a4b7-41e9-9597-062466ee91c8"
+  }, {
+    "@type": "type.googleapis.com/BTDisconnectedFrom",
+    "device": ["*"],
+    "tag": "蓝牙断开",
+    "customContextDataKey": {
+    },
+    "id": "F-6d8700a0-9064-49c7-8fd4-28b508b64cca"
+  }, {
+    "@type": "type.googleapis.com/WifiStatusChanged",
+    "tag": "Wi-Fi开启",
+    "customContextDataKey": {
+    },
+    "id": "F-766db17b-9dc3-4399-bc97-312c10cd5990"
+  }, {
+    "@type": "type.googleapis.com/WifiStatusChanged",
+    "ooa": "Off",
+    "tag": "Wi-Fi关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-1f588e6e-4217-492e-a3f7-91dba789d7b9"
+  }, {
+    "@type": "type.googleapis.com/BTStatusChanged",
+    "tag": "蓝牙开启",
+    "customContextDataKey": {
+    },
+    "id": "F-41cd1e19-6fa3-4ea1-9b73-a3e7984fe830"
+  }, {
+    "@type": "type.googleapis.com/BTStatusChanged",
+    "ooa": "Off",
+    "tag": "蓝牙关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-236f2564-cb0d-4e71-ba06-5cb8182ae292"
+  }, {
+    "@type": "type.googleapis.com/MobileDataStatusChanged",
+    "tag": "数据开启",
+    "customContextDataKey": {
+    },
+    "id": "F-69f26aeb-b061-4059-a581-c00f7dbea794"
+  }, {
+    "@type": "type.googleapis.com/MobileDataStatusChanged",
+    "ooa": "Off",
+    "tag": "数据关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-69159061-985d-425b-9952-a3204a659eae"
+  }, {
+    "@type": "type.googleapis.com/LocationStatusChanged",
+    "tag": "定位开启",
+    "customContextDataKey": {
+    },
+    "id": "F-9ab60523-7f30-4fdc-82a5-57fd68d962b9"
+  }, {
+    "@type": "type.googleapis.com/LocationStatusChanged",
+    "ooa": "Off",
+    "tag": "定位关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-9f479094-821c-447b-938a-aa2c898e2fb6"
+  }, {
+    "@type": "type.googleapis.com/NFCStatusChanged",
+    "tag": "NFC开启",
+    "customContextDataKey": {
+    },
+    "id": "F-a5488e34-0c9a-43ab-8b07-742b118bda9f"
+  }, {
+    "@type": "type.googleapis.com/NFCStatusChanged",
+    "ooa": "Off",
+    "tag": "NFC关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-2c5eb91f-ac2c-4f11-b9a6-2b2ba1e24979"
+  }, {
+    "@type": "type.googleapis.com/DNDStatusChanged",
+    "tag": "免打扰开启",
+    "customContextDataKey": {
+    },
+    "id": "F-1503bc51-007b-4149-980b-2048bcfdaa70"
+  }, {
+    "@type": "type.googleapis.com/DNDStatusChanged",
+    "ooa": "Off",
+    "tag": "免打扰关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-a86f2dd4-9119-4cc0-be04-7fc08092b662"
+  }, {
+    "@type": "type.googleapis.com/HotSpotStatusChanged",
+    "tag": "热点开启",
+    "customContextDataKey": {
+    },
+    "id": "F-59ccb6fb-87fb-4c2d-a4dc-dcffe21966cb"
+  }, {
+    "@type": "type.googleapis.com/HotSpotStatusChanged",
+    "ooa": "Off",
+    "tag": "热点关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-3095bfbd-c9f7-41aa-9eba-570d95802f94"
+  }, {
+    "@type": "type.googleapis.com/ChargerPlug",
+    "tag": "充电器已连接",
+    "customContextDataKey": {
+    },
+    "id": "F-26a305cb-9a34-4615-ae02-99f349909e70"
+  }, {
+    "@type": "type.googleapis.com/ChargerUnplug",
+    "tag": "充电器已断开",
+    "customContextDataKey": {
+    },
+    "id": "F-b7144ea6-d2ac-4906-b98c-81ba13110627"
+  }, {
+    "@type": "type.googleapis.com/VPNConnected",
+    "tag": "VPN连接",
+    "customContextDataKey": {
+    },
+    "id": "F-aca38a7e-560b-4c2f-b34b-84c887926c84"
+  }, {
+    "@type": "type.googleapis.com/VPNDisconnected",
+    "tag": "VPN断开",
+    "customContextDataKey": {
+    },
+    "id": "F-f1b3aa80-6afc-461a-8da2-f2c66cd1aade"
+  }, {
+    "@type": "type.googleapis.com/OnStartOp",
+    "opCodes": [2],
+    "pkgSets": ["All"],
+    "tag": "使用定位",
+    "customContextDataKey": {
+    },
+    "id": "F-647fbee6-7401-4418-94e3-ec4293c3e887"
+  }, {
+    "@type": "type.googleapis.com/OnStartOp",
+    "opCodes": [26],
+    "pkgSets": ["All"],
+    "tag": "使用相机",
+    "customContextDataKey": {
+    },
+    "id": "F-eafe96e5-cb0d-476a-b6ca-cb6187c358bf"
+  }, {
+    "@type": "type.googleapis.com/OnStartOp",
+    "opCodes": [27],
+    "pkgSets": ["All"],
+    "tag": "使用麦克风",
+    "customContextDataKey": {
+    },
+    "id": "F-fed92e09-e0f5-42a1-871a-370822faabcc"
+  }, {
+    "@type": "type.googleapis.com/OnFinishOp",
+    "opCodes": [2],
+    "pkgSets": ["All"],
+    "tag": "停止定位",
+    "customContextDataKey": {
+    },
+    "id": "F-5cd05ee9-526b-4f6a-a20b-943d0124a03a"
+  }, {
+    "@type": "type.googleapis.com/OnFinishOp",
+    "opCodes": [26],
+    "pkgSets": ["All"],
+    "tag": "停止相机",
+    "customContextDataKey": {
+    },
+    "id": "F-4d81206b-a8b0-47c9-9849-5ccf5c717b90"
+  }, {
+    "@type": "type.googleapis.com/OnFinishOp",
+    "opCodes": [27],
+    "pkgSets": ["All"],
+    "tag": "停止麦克风",
+    "customContextDataKey": {
+    },
+    "id": "F-ad852ff7-f402-4738-b7ff-4d2e8027e67b"
+  }, {
+    "@type": "type.googleapis.com/CallStateChanged",
+    "callState": "CallStateRinging",
+    "tag": "响铃",
+    "customContextDataKey": {
+    },
+    "id": "F-6a9684bf-2692-4146-9c69-6f06c64af255"
+  }, {
+    "@type": "type.googleapis.com/CallStateChanged",
+    "callState": "CallStateOffHook",
+    "tag": "接听",
+    "customContextDataKey": {
+    },
+    "id": "F-7c61dd5a-cf22-48fd-9a16-78cbc210d1c6"
+  }, {
+    "@type": "type.googleapis.com/CallStateChanged",
+    "tag": "挂断",
+    "customContextDataKey": {
+    },
+    "id": "F-b021bde4-b51a-44f9-ae22-0616e388e539"
+  }, {
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "tag": "剪切板",
+    "customContextDataKey": {
+    },
+    "id": "F-8dacf01a-088a-4f98-a9c8-ce6ca18fd7b2"
+  }, {
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "*",
+    "tag": "媒体文件",
+    "customContextDataKey": {
+    },
+    "id": "F-db211fad-f247-4db4-80fc-d754e0ee53ea"
+  }, {
+    "@type": "type.googleapis.com/Logcat",
+    "regex": "http",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "tag": "链接",
+    "customContextDataKey": {
+    },
+    "id": "F-2e349753-2519-4c4f-84f0-9eecab2a9676"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {pkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+    "customContextDataKey": {
+    },
+    "id": "A-202a148c-b0bb-461e-8e60-28183ac5b4a1"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "date +%Y年%m月%d日%H:%M:%S\n",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "time"
+      }]
+    },
+    "id": "A-2a75d9d7-f826-4e3e-9570-a45d30725584"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "date +%Y年%m月%d日\n",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "date"
+      }]
+    },
+    "id": "A-d888be9d-6422-41ff-a7cc-27bcba62fab2"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "后台",
+        "customContextDataKey": {
+        },
+        "id": "C-883a62c1-967c-491c-8b3c-ec7a9ae42d4e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "DoesNotContain",
+          "varName": "后台应用",
+          "payload": {
+            "value": "{pkgName}"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-b308df06-31a1-4925-9631-7d73bf0f43f3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "后台应用",
+          "valueAsString": "{pkgName}",
+          "op": "WriteGlobalVarOp_AppendToLast",
+          "customContextDataKey": {
+          },
+          "id": "A-bd883397-32f9-45e7-a698-bba9f2de6125"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-9e1ec922-92f6-4491-bfec-69bd4e12a1d3"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet} 回到后台\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "后台",
+      "id": "Case-f7631ae3-5f0a-4852-a44c-0e2a6da430c8",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "前台",
+        "customContextDataKey": {
+        },
+        "id": "C-711b17ba-6476-446c-a1e7-74d45a545981"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "DoesNotContain",
+          "varName": "后台应用",
+          "payload": {
+            "value": "{pkgName}"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-e86ec418-8255-4e8d-8a0f-84727d0a0d66"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo \"{time} {mvelRet}启动\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo \"{time} {mvelRet}进入前台\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-fd668f44-3da5-4933-814c-ef4ce510805b"
+      }],
+      "description": "前台",
+      "id": "Case-ba2b065f-43af-4a4e-b65e-f9c0d621690a",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "停止",
+        "customContextDataKey": {
+        },
+        "id": "C-b63fc2e2-ff0b-4243-8370-7345e764cd37"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/AppHasTaskByPkg",
+          "pkgAndUsers": [{
+            "first": "{pkgName}",
+            "second": "{userId}"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-fe3b187b-994e-47bf-9fd5-9d54f6b7a5a5"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo \"{time} {mvelRet}已停止运行\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "Contains",
+            "varName": "后台应用",
+            "payload": {
+              "value": "{pkgName}"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-b911e146-a9ee-4d43-a03e-709f33a18287"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "echo \"{time} {mvelRet}被主动划卡，已停止运行\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "echo \"{time} {mvelRet}已停止运行\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-707262ef-7c36-41a0-bf07-096dee65d24c"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-be07f582-b808-4bd2-b83a-bbcc0176c5c2"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "后台应用",
+        "valueAsString": "{pkgName}",
+        "op": "WriteGlobalVarOp_DeleteValue",
+        "customContextDataKey": {
+        },
+        "id": "A-f410f5e0-b307-4d2b-8a00-11fe7ceec796"
+      }],
+      "description": "停止",
+      "id": "Case-bdc7c249-08d5-4ac1-90e0-839d729e7e41",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "关机",
+        "customContextDataKey": {
+        },
+        "id": "C-da093bc6-4335-494c-aed7-af5d0ece5117"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "后台应用",
+        "op": "WriteGlobalVarOp_Clear",
+        "customContextDataKey": {
+        },
+        "id": "A-c53e247d-a682-437e-86aa-26fdaa626ce8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 设备关机\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-21f01a3d-55e0-4f4d-8b1d-37d356214626"
+      }],
+      "description": "关机",
+      "id": "Case-ddbc7705-7bd0-4b46-b112-cde67aa4ceb5",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "开机",
+        "customContextDataKey": {
+        },
+        "id": "C-4a41b9d2-04ef-4a43-b4db-75f320804251"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 设备启动\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "开机",
+      "id": "Case-bb919301-baab-45b6-8104-ad03663bcccc",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "应用安装",
+        "customContextDataKey": {
+        },
+        "id": "C-7e736caa-15a1-4289-9a5a-0aed15e0ec8c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}已安装\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "安装",
+      "id": "Case-639f8f95-ceb8-4998-adf9-14b44f4091c3",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "应用更新",
+        "customContextDataKey": {
+        },
+        "id": "C-00cd7b5a-1e14-4b15-8e1e-d96b4abec450"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}从{fromVersionCode}更新到{toVersionCode}\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "更新",
+      "id": "Case-fc7a2ad8-c4d3-4287-8f6e-83c129666e88",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "电量变化",
+        "customContextDataKey": {
+        },
+        "id": "C-05ae8724-7c1e-4d60-be8f-82c1d2d8a153"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 电量剩余{batteryLevel}\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "电量变化",
+      "id": "Case-5d43be05-77f2-4b41-99f6-c816ab5abc3d"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "通知",
+        "customContextDataKey": {
+        },
+        "id": "C-a3f5fece-6e69-4737-b0c8-4bd040844f3e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}收到通知（标题：{title} 内容：{contentText}\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "通知",
+      "id": "Case-c693b4df-d340-42ee-865c-394857f66d4b",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "Wi-Fi连接",
+        "customContextDataKey": {
+        },
+        "id": "C-c069cf09-a0fb-4ede-8445-9841ec43b949"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 连接到Wi-Fi：{ssid}\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "Wi-Fi连接",
+      "id": "Case-ffb926b5-11ca-4fb7-91ba-7bf1ef0e6629",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "Wi-Fi断开",
+        "customContextDataKey": {
+        },
+        "id": "C-bd90f067-13af-489c-a66d-84fc2d3d11a8"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} Wi-Fi {ssid} 已断开连接\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "Wi-Fi断开",
+      "id": "Case-7ae2e612-dd0c-49c5-85e6-434803104564",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "蓝牙连接",
+        "customContextDataKey": {
+        },
+        "id": "C-ce41a88a-526b-4883-9914-b73da906e779"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 蓝牙连接至{btDeviceAlias}\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "蓝牙连接",
+      "id": "Case-613f2690-1867-49c9-8e66-48296cb3e94e"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "蓝牙断开",
+        "customContextDataKey": {
+        },
+        "id": "C-0295db38-a261-4ba1-8810-cf69f9caa4ad"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 蓝牙设备 {btDeviceAlias} 已断开连接\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "蓝牙断开",
+      "id": "Case-a2bd5411-d51c-49f9-8387-4f2390903b0e",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "Wi-Fi开启",
+        "customContextDataKey": {
+        },
+        "id": "C-e69782ef-00d5-4e52-a469-8c8700694d08"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} Wi-Fi已开启\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "Wi-Fi开启",
+      "id": "Case-8a1fa853-3b4d-4ab1-acef-a033d0ca7ce3",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "Wi-Fi关闭",
+        "customContextDataKey": {
+        },
+        "id": "C-d7b0974b-05d6-4a72-935f-9b6948c30d66"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} Wi-Fi已关闭\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "Wi-Fi关闭",
+      "id": "Case-fc5b3ecc-b512-4757-9cf1-619772c721f2",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "蓝牙开启",
+        "customContextDataKey": {
+        },
+        "id": "C-b7626eae-fe6c-4ab4-9ebf-13f13a587978"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 蓝牙已开启\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "蓝牙开启",
+      "id": "Case-e7623e87-c30e-44a4-9172-9459c9205c5d"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "蓝牙关闭",
+        "customContextDataKey": {
+        },
+        "id": "C-47daf77e-4d78-427d-9167-d522c15f2034"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 蓝牙已关闭\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "蓝牙关闭",
+      "id": "Case-37611b32-0bf5-48e7-8a40-961d5b3931a1",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "数据开启",
+        "customContextDataKey": {
+        },
+        "id": "C-8642c594-9237-4434-b198-6b60e67b0edc"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 数据开启\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "数据开启",
+      "id": "Case-0e6bd09a-84ba-4b96-8ddf-61b2b7c7ae3b",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "数据关闭",
+        "customContextDataKey": {
+        },
+        "id": "C-6387a612-6be4-43a5-a0a3-82edb2e2608a"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 数据关闭\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "数据关闭",
+      "id": "Case-2e42a22e-ae5d-4d74-9914-2228e06f8e16",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "定位开启",
+        "customContextDataKey": {
+        },
+        "id": "C-4780ab85-cf06-43df-9146-9ac2c7ec3c38"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 定位开启\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "定位开启",
+      "id": "Case-0f8d9b8b-9aca-44f5-95d9-89291df21070",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "定位关闭",
+        "customContextDataKey": {
+        },
+        "id": "C-35642723-e7ec-4aaf-aaf5-0bbd976f30e2"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 定位关闭\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "定位关闭",
+      "id": "Case-1dfc7ce3-6a03-4c2c-9a6a-10a798cf9fad",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "NFC开启",
+        "customContextDataKey": {
+        },
+        "id": "C-43122532-5835-410a-ad38-e64f1debec12"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} NFC开启\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "NFC开启",
+      "id": "Case-0decc7cb-f0b8-4cee-a45b-70f0d4a51487",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "NFC关闭",
+        "customContextDataKey": {
+        },
+        "id": "C-0260ac26-c98f-4f0a-8a9d-aa6ef2f988a7"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} NFC关闭\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "NFC关闭",
+      "id": "Case-37986134-ca1e-46eb-bb89-00378566f837",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "免打扰开启",
+        "customContextDataKey": {
+        },
+        "id": "C-7cb74a7f-b659-450e-ad64-a8e2fa3a6d3f"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 免打扰开启\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "免打扰开启",
+      "id": "Case-b27c81c5-2755-4829-a87b-27f3914be10b"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "免打扰关闭",
+        "customContextDataKey": {
+        },
+        "id": "C-b5414b31-b5d0-44c4-9900-b4bf8d744ecc"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 免打扰关闭\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "免打扰关闭",
+      "id": "Case-9a64ee08-9c69-4b8b-945b-db0341aad464"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "热点开启",
+        "customContextDataKey": {
+        },
+        "id": "C-1ae49ba3-c2bc-439a-9302-c97e612f2386"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 热点开启\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "热点开启",
+      "id": "Case-a2eb7c6e-499b-4694-86bc-22a5ef75fc35",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "热点关闭",
+        "customContextDataKey": {
+        },
+        "id": "C-f35d013a-6d82-46be-8b83-dc62971a542f"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 热点关闭\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "热点关闭",
+      "id": "Case-e2dea7e8-5556-403e-9ffc-e929c59fe671",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "充电器已断开",
+        "customContextDataKey": {
+        },
+        "id": "C-1c66cf74-db83-4dce-b629-61c7bfd7021f"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 充电器已断开\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "充电器已断开",
+      "id": "Case-6db85dbb-8007-4540-a978-f4af36d78306",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "充电器已连接",
+        "customContextDataKey": {
+        },
+        "id": "C-1508a84d-7043-4ca7-a57b-383a13fea948"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 充电器已连接\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "充电器已连接",
+      "id": "Case-05401baf-3cb3-4c45-b5fd-672bb80042a8",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "VPN连接",
+        "customContextDataKey": {
+        },
+        "id": "C-23a90560-4ec7-4b35-8505-e7bd7df4386b"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} VPN已连接\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "VPN连接",
+      "id": "Case-77eeb9f6-7bf9-4366-8264-2ee4961fcf7c",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "VPN断开",
+        "customContextDataKey": {
+        },
+        "id": "C-9eebb6d2-c7fe-4737-b503-8032ef6bc212"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} VPN已断开\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "VPN断开",
+      "id": "Case-e947256a-d894-48ef-b262-0a6d3bece55e"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "使用定位",
+        "customContextDataKey": {
+        },
+        "id": "C-99c64896-d77d-45d3-a104-dd7780916ada"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {opAppPkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-1a106915-09db-4a1e-95e3-56b258aa5b2b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}正在使用定位\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "使用定位",
+      "id": "Case-251ccd35-0d7f-4704-a642-5644d15ca0f1",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "使用相机",
+        "customContextDataKey": {
+        },
+        "id": "C-9eaf32f7-a991-4b93-aea4-767e391d6c6b"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {opAppPkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-1a106915-09db-4a1e-95e3-56b258aa5b2b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}正在使用相机\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "使用相机",
+      "id": "Case-3af8bafe-676a-438d-b673-53d63290cbaa",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "使用麦克风",
+        "customContextDataKey": {
+        },
+        "id": "C-6812a605-a59a-4740-9bfd-ebb144f960e8"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {opAppPkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-1a106915-09db-4a1e-95e3-56b258aa5b2b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}正在使用麦克风\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "使用麦克风",
+      "id": "Case-b90b47f3-c744-4071-b90e-d5371682eee8",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "停止定位",
+        "customContextDataKey": {
+        },
+        "id": "C-ea2ec35c-8b93-4a43-8b05-04e142b907b0"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {opAppPkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-1a106915-09db-4a1e-95e3-56b258aa5b2b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}停止使用定位\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "停止定位",
+      "id": "Case-2f340ac9-eccb-4886-979b-1eb1825e0d04",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "停止相机",
+        "customContextDataKey": {
+        },
+        "id": "C-635fefa2-5285-463d-b380-87d48a4fd2dc"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {opAppPkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-1a106915-09db-4a1e-95e3-56b258aa5b2b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}停止使用相机\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "停止相机",
+      "id": "Case-86939a96-bcfa-4a5d-af4d-0fd577a51580",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "停止麦克风",
+        "customContextDataKey": {
+        },
+        "id": "C-a5edc45b-2466-40fb-b529-49a4cd2ef4fe"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {opAppPkgName};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+        "customContextDataKey": {
+        },
+        "id": "A-1a106915-09db-4a1e-95e3-56b258aa5b2b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} {mvelRet}停止使用麦克风\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "停止麦克风",
+      "id": "Case-5cc8656b-2790-4092-9c18-9f46b71170fa",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "响铃",
+        "customContextDataKey": {
+        },
+        "id": "C-947de91c-def4-4a18-ac90-8cd71a8ee74a"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 来自{incomingNumber}的电话正在响铃\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "响铃",
+      "id": "Case-babf204d-490a-4120-9abb-618f6fc4a940"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "接听",
+        "customContextDataKey": {
+        },
+        "id": "C-596efed4-a9c3-4812-b0f0-f8d814f8b83e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 已接听来自{incomingNumber}的电话\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "接听",
+      "id": "Case-ded3f0e6-9a67-40c9-b7a5-2cb47a483daf",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "挂断",
+        "customContextDataKey": {
+        },
+        "id": "C-1d95f15c-4614-4847-8cdc-72a6e73e414f"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 来自{incomingNumber}的电话已挂断\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "挂断",
+      "id": "Case-a181e7b1-b214-4bbf-9f56-3e88c900327e",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "剪切板",
+        "customContextDataKey": {
+        },
+        "id": "C-62631128-85e9-4ce5-aa90-253321109f74"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 复制内容： {clipboardContent}\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "剪切板",
+      "id": "Case-b55e6577-455b-4f6f-a3bf-6c35602c8ce2",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "媒体文件",
+        "customContextDataKey": {
+        },
+        "id": "C-6ffbd15e-433d-46fe-a57e-b57a02aa1a54"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 有新媒体文件被创建位于{mediaFilePath}\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "媒体文件",
+      "id": "Case-93308092-a0aa-4486-b5a7-c1144532ba8a",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "链接",
+        "customContextDataKey": {
+        },
+        "id": "C-bcdf3958-d3e7-4289-ad49-22bada3b0876"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "var\u003d\"{line}\"\necho \"$var\" | sed \u0027s/http/\\n\u0026/g\u0027",
+        "customContextDataKey": {
+        },
+        "id": "A-b93bf284-bf2d-4048-bfba-6cfc10ebd01f"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "{shellOut}",
+        "regex": "\\n",
+        "replacement": ",",
+        "customContextDataKey": {
+        },
+        "id": "A-353d2e74-59c7-44ef-8525-aad1893e25d8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "filtered_var\u003d$(echo \"{replaceResult}\" | awk -F \u0027,\u0027 \u0027{for(i\u003d1;i\u003c\u003dNF;i++) if($i ~ /^(http:\\/\\/|https:\\/\\/)/) printf(\"%s%s\", $i, (i\u003d\u003dNF)?ORS:OFS)}\u0027)\necho \"$filtered_var\"",
+        "customContextDataKey": {
+        },
+        "id": "A-607c8960-3a5c-484a-b844-7b2a40c3fb12"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"{time} 访问链接 {shellOut}\"\u003e\u003e /sdcard/Android/设备运行日志/{date}.txt ",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8f16cccf-60d1-4cf9-ad5e-6ee41a858d55"
+      }],
+      "description": "链接",
+      "id": "Case-f6120ac3-9c74-41ec-a88d-1c8c0c90f150"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0560b94a-b52b-4e61-9326-86ca4cafb9e3"
+  }],
+  "id": "rule-80249783-e0af-4409-aa60-4cd5e304efd6",
+  "lastUpdateTime": "1714991899828",
+  "createTime": "1714658677784",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "设备状态日志",
+  "description": "超级详细的设备运行日志",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "后台应用",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-8a96ecde-d33a-4b30-aec0-9cec3a687b71"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "mkdir /sdcard/Android/设备运行日志",
+      "customContextDataKey": {
+      },
+      "id": "A-86e92e21-8edc-43d2-b590-bbd2fe186206"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

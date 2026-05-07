@@ -1,0 +1,37 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/HasFoundNodeOnScreen",
+    "packageName": "com.netease.cloudmusic",
+    "componentName": "com.netease.cloudmusic/com.netease.cloudmusic.activity.MainActivity",
+    "matchers": [{
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "skipBtn"
+    }],
+    "detectTimeout": "5000",
+    "customContextDataKey": {
+    },
+    "id": "F-fb1c05f5-56ea-40f6-bbce-54fefc6bc96f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FindAndClickMatchedView",
+    "customContextDataKey": {
+    },
+    "id": "A-329dbd4f-7cd5-4603-b5cb-b75967cf6e83"
+  }],
+  "id": "rule-f1ab71f0-ccbe-4aee-a359-a23d5cf1160b",
+  "lastUpdateTime": "1723446591154",
+  "createTime": "1723446026598",
+  "author": {
+    "name": "dreamy05"
+  },
+  "title": "网易云点击跳过",
+  "description": "9.1.40(9001040)",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

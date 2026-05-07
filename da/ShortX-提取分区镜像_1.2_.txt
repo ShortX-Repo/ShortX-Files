@@ -1,0 +1,220 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "boot",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "AB_check\u003d$(getprop ro.build.ab_update)\nPartition_location\u003d$(getprop ro.boot.slot_suffix)\nif [ \"$AB_check\" \u003d\u003d \"true\" ]; then\n        if [ \"$Partition_location\" \u003d\u003d \"_a\" ]; then\n            Current\u003d\"_a\"\n        elif [ \"$Partition_location\" \u003d\u003d \"_b\" ]; then\n            Current\u003d\"_b\"\n        fi\n    else\n        Current\u003d\"\"\n    fi\n    echo \"$Current\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "current"
+          }]
+        },
+        "id": "A-1a69fd5d-eba8-47bc-b16c-ef0903c3e604"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "position\u003d$(ls -l /dev/block/bootdevice/by-name/boot{current} | awk \u0027{print $NF}\u0027)\nextract\u003d$(dd if\u003d\"$position\" of\u003d\"/sdcard/Download/boot.img\" \u003e /dev/null 2\u003e\u00261)\necho \"你目前处于{current}分区\"\necho \"已将boot提取到/sdcard/Download/boot.img\"",
+        "customContextDataKey": {
+        },
+        "id": "A-125e71a7-b567-4c15-b01b-7d56a0b56d78"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-20cf7f3c-0ffb-415b-baec-142e1823b274"
+      }]
+    }, {
+      "title": "dtob",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "AB_check\u003d$(getprop ro.build.ab_update)\nPartition_location\u003d$(getprop ro.boot.slot_suffix)\nif [ \"$AB_check\" \u003d\u003d \"true\" ]; then\n        if [ \"$Partition_location\" \u003d\u003d \"_a\" ]; then\n            Current\u003d\"_a\"\n        elif [ \"$Partition_location\" \u003d\u003d \"_b\" ]; then\n            Current\u003d\"_b\"\n        fi\n    else\n        Current\u003d\"\"\n    fi\n    echo \"$Current\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "current"
+          }]
+        },
+        "id": "A-1a69fd5d-eba8-47bc-b16c-ef0903c3e604"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "position\u003d$(ls -l /dev/block/bootdevice/by-name/dtbo{current} | awk \u0027{print $NF}\u0027)\nextract\u003d$(dd if\u003d\"$position\" of\u003d\"/sdcard/Download/dtbo.img\" \u003e /dev/null 2\u003e\u00261)\necho \"你目前处于{current}分区\"\necho \"已将dtbo提取到/sdcard/Download/dtbo.img\"",
+        "customContextDataKey": {
+        },
+        "id": "A-125e71a7-b567-4c15-b01b-7d56a0b56d78"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-20cf7f3c-0ffb-415b-baec-142e1823b274"
+      }]
+    }, {
+      "title": "vbmeta",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "AB_check\u003d$(getprop ro.build.ab_update)\nPartition_location\u003d$(getprop ro.boot.slot_suffix)\nif [ \"$AB_check\" \u003d\u003d \"true\" ]; then\n        if [ \"$Partition_location\" \u003d\u003d \"_a\" ]; then\n            Current\u003d\"_a\"\n        elif [ \"$Partition_location\" \u003d\u003d \"_b\" ]; then\n            Current\u003d\"_b\"\n        fi\n    else\n        Current\u003d\"\"\n    fi\n    echo \"$Current\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "current"
+          }]
+        },
+        "id": "A-1a69fd5d-eba8-47bc-b16c-ef0903c3e604"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "position\u003d$(ls -l /dev/block/bootdevice/by-name/vbmeta{current} | awk \u0027{print $NF}\u0027)\nextract\u003d$(dd if\u003d\"$position\" of\u003d\"/sdcard/Download/vbmeta.img\" \u003e /dev/null 2\u003e\u00261)\necho \"你目前处于{current}分区\"\necho \"已将vbmeta提取到/sdcard/Download/vbmeta.img\"",
+        "customContextDataKey": {
+        },
+        "id": "A-125e71a7-b567-4c15-b01b-7d56a0b56d78"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-20cf7f3c-0ffb-415b-baec-142e1823b274"
+      }]
+    }, {
+      "title": "vendor_boot",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "AB_check\u003d$(getprop ro.build.ab_update)\nPartition_location\u003d$(getprop ro.boot.slot_suffix)\nif [ \"$AB_check\" \u003d\u003d \"true\" ]; then\n        if [ \"$Partition_location\" \u003d\u003d \"_a\" ]; then\n            Current\u003d\"_a\"\n        elif [ \"$Partition_location\" \u003d\u003d \"_b\" ]; then\n            Current\u003d\"_b\"\n        fi\n    else\n        Current\u003d\"\"\n    fi\n    echo \"$Current\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "current"
+          }]
+        },
+        "id": "A-1a69fd5d-eba8-47bc-b16c-ef0903c3e604"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "position\u003d$(ls -l /dev/block/bootdevice/by-name/vendor_boot{current} | awk \u0027{print $NF}\u0027)\nextract\u003d$(dd if\u003d\"$position\" of\u003d\"/sdcard/Download/vendor_boot.img\" \u003e /dev/null 2\u003e\u00261)\necho \"你目前处于{current}分区\"\necho \"已将vendor_boot提取到/sdcard/Download/vendor_boot.img\"",
+        "customContextDataKey": {
+        },
+        "id": "A-125e71a7-b567-4c15-b01b-7d56a0b56d78"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-20cf7f3c-0ffb-415b-baec-142e1823b274"
+      }]
+    }, {
+      "title": "手动输入",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "AB_check\u003d$(getprop ro.build.ab_update)\nPartition_location\u003d$(getprop ro.boot.slot_suffix)\nsubzone\u003d$(ls /dev/block/bootdevice/by-name)\nif [ \"$AB_check\" \u003d\u003d \"true\" ]; then\n        echo \"你的手机是AB分区设备\"\n        if [ \"$Partition_location\" \u003d\u003d \"_a\" ]; then\n            echo \"你目前处于A分区\"\n            Current\u003d\"a\"\n        elif [ \"$Partition_location\" \u003d\u003d \"_b\" ]; then\n            echo \"你目前处于B分区\"\n            Current\u003d\"b\"\n        fi\n    else\n        echo \"你的手机不是AB分区设备\"\n    fi",
+        "customContextDataKey": {
+        },
+        "id": "A-051fc71e-7a8f-4971-8528-023860a3ed66"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "注意：AB分区设备有些分区可能要带上_a/b\n例子：boot_a",
+        "customContextDataKey": {
+        },
+        "id": "A-c51dd0d5-985c-4c7b-b92f-b1cddd232eb7"
+      }, {
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "{shellOut}",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "请输入你想提取的分区"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-9422b636-aac0-44c8-a3a1-5df5001873e6"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsNotEmpty",
+          "varName": "textFieldInput1",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-40ac75b7-5b07-4625-a1d9-c50cbdbaf8fa"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "你选择提取{textFieldInput1}, 正在查询是否存在此分区",
+          "customContextDataKey": {
+          },
+          "id": "A-5070f998-04ea-4102-84a9-e6ab1c6dd5e1"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "subzone\u003d$(ls /dev/block/bootdevice/by-name)\nif echo \"$subzone\" | grep -qw \"{textFieldInput1}\"; then\necho \"确认存在此分区，正在提取\"\nelse\n echo \"未找到该分区，程序终止\"\nfi",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "shellOut",
+              "second": "tq"
+            }]
+          },
+          "id": "A-41abfa19-d727-4bcd-91b8-9aac3affdb15"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{tq}",
+          "customContextDataKey": {
+          },
+          "id": "A-881b7a16-11d2-4878-bb49-8654380c2da5"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "tq",
+            "payload": {
+              "value": "确认存在此分区，正在提取"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-75aa6d5d-c258-4ad9-b9a2-81e82591d71b"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "position\u003d$(ls -l /dev/block/bootdevice/by-name/{textFieldInput1} | awk \u0027{print $NF}\u0027)\nextract\u003d$(dd if\u003d\"$position\" of\u003d\"/sdcard/Download/{textFieldInput1}.img\")",
+            "customContextDataKey": {
+            },
+            "id": "A-62bd6c2e-5e87-49f7-bb68-45f3ebf6d173"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "已成功提取{textFieldInput1}到/sdcard/Download/{textFieldInput1}",
+            "customContextDataKey": {
+            },
+            "id": "A-8fd1c3a2-b606-4d60-8581-5c274d53b7bf"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-50460c6b-c829-479d-a22d-5832107aae51"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "你没有输入分区名",
+          "customContextDataKey": {
+          },
+          "id": "A-b9c94641-e5ec-4721-8ca5-7445463a4cd5"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-3f30368c-41f7-4d09-821d-224e21b5a2df"
+      }]
+    }],
+    "title": "分区提取",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-f3db0340-6d35-4ec7-972a-b74a6fd1cca9"
+  }],
+  "id": "SHARED-DA-f8c57c22-284e-45d0-89a5-c070160f7981",
+  "lastUpdateTime": "1727447589380",
+  "createTime": "1725508736735",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "提取分区镜像（1.2）",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

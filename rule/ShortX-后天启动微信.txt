@@ -1,0 +1,41 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-690b3d5c-2531-41b2-bd9c-3df2e38981cf"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "172,800,000",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-1aa401d0-c764-4dad-8562-e2acaee6f3ed"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.tencent.mm"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-3fc42d66-dc19-45bd-b32b-2c5a85abd925"
+  }],
+  "id": "rule-b0a06459-fef7-4b85-b7d7-522128c385c2",
+  "lastUpdateTime": "1700795253474",
+  "createTime": "1700795116888",
+  "author": {
+    "name": "ZIMK"
+  },
+  "title": "后天启动微信",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

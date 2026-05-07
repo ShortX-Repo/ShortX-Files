@@ -1,0 +1,82 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 19,
+      "minutes": 35
+    },
+    "repeat": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-3be7e5b9-d0f1-426c-94f0-ad10b67f82df"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys window policy |grep \u0027showing\u003dture\u0027",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "lock"
+      }]
+    },
+    "id": "A-b8716d6e-2636-4e23-b32e-23d7574ff65d"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "NotSet",
+      "varName": "{lock}",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-ef83db6e-7c2e-4646-a5d6-2d5c1e6c192b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "pin",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-95e72462-bc7d-4e8c-b788-52179fa8827a"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "pin",
+      "valueAsString": "1236",
+      "customContextDataKey": {
+      },
+      "note": "此处填密码",
+      "id": "A-ea4a1b2e-8ff3-47e0-b086-b0f035c227f3"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "locksettings set-pin --old localVarOf$pin localVarOf$pin\ninput keyevent 224\ninput keyevent 223\ninput keyevent 224\ninput text localVarOf$pin\nlocksettings set-pattern --old localVarOf$pin localVarOf$pin",
+      "customContextDataKey": {
+      },
+      "id": "A-1b31863b-01e9-4dae-9a35-875882e26079"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-83d9ae4d-a04f-4aa1-b101-21735c10ef37"
+  }],
+  "id": "rule-cee78629-1d6f-4695-a755-3c17f1070eb7",
+  "lastUpdateTime": "1721995692920",
+  "createTime": "1721992723585",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "图案解锁",
+  "description": "搬运至酷安@叫我先森",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

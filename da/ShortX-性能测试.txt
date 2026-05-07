@@ -1,0 +1,128 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "dashboard-3-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-f96ccd15-18f3-4cb7-9bad-5e2d71558897"
+  }, {
+    "@type": "type.googleapis.com/CreatePkgSet",
+    "label": "测试",
+    "customContextDataKey": {
+    },
+    "note": "请你把要测试的应用加入这个集合",
+    "id": "A-e7be89e8-4529-4fef-ad2b-31406b9b2071"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "startTime",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-549ed413-dd68-45b2-bff0-d4a7ecacb3e9"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "System.currentTimeMillis()",
+    "customContextDataKey": {
+    },
+    "id": "A-2fdce4f5-da48-4c5f-ab4c-c33fb9378d8b"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "startTime",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-f33c6dfd-3a51-43f9-962b-c1deafc6f8b0"
+  }, {
+    "@type": "type.googleapis.com/ForEachPkgSet",
+    "pkgSet": "测试",
+    "action": [{
+      "@type": "type.googleapis.com/InjectKeyCode",
+      "keyCode": 3,
+      "customContextDataKey": {
+      },
+      "id": "A-6a089002-9876-4877-ae08-916c70330987"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "300",
+      "customContextDataKey": {
+      },
+      "id": "A-69f6f974-df4c-4dc1-b344-87025f969cfc"
+    }, {
+      "@type": "type.googleapis.com/StopAppByPkg",
+      "pkgAndUsers": [{
+        "first": "{loopAppPkgName}",
+        "second": "{loopAppUserId}"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2cee59a4-e167-45a3-acfc-29bf90c03e0f"
+    }, {
+      "@type": "type.googleapis.com/SetAppEnabledByPkg",
+      "pkgAndUsers": [{
+        "first": "{loopAppPkgName}",
+        "second": "{loopAppUserId}"
+      }],
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-87d74c1f-6c8d-404c-a6f3-ec5d6cfbf57e"
+    }, {
+      "@type": "type.googleapis.com/LaunchAppByPkg",
+      "pkgAndUsers": [{
+        "first": "{loopAppPkgName}",
+        "second": "{loopAppUserId}"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e68b415b-c6d1-4ceb-843f-d8479be4f65f"
+    }, {
+      "@type": "type.googleapis.com/WaitForIdle",
+      "customContextDataKey": {
+      },
+      "note": "页面没有变化了就意味着启动完成✅ 需要你关闭其他无关的提示工具",
+      "id": "A-76549909-a863-46e0-bcbf-c5bc84c43377"
+    }, {
+      "@type": "type.googleapis.com/InjectKeyCode",
+      "keyCode": 3,
+      "customContextDataKey": {
+      },
+      "id": "A-f10d05cf-2720-41e0-943c-d12e57acd986"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-9ad04506-5dbe-4a4a-967a-992a260d422b"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "long current\u003dSystem.currentTimeMillis();\nlong start\u003dLong.parseLong(localVarOf$startTime);\nlong tak\u003dcurrent-start;\n \n  sdf\u003dnew java.text.SimpleDateFormat(\"mm:ss\");\n\nString x\u003dsdf.format(new java.util.Date(tak));\n\nreturn x;\n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "timeUsed"
+      }]
+    },
+    "id": "A-80ab6309-5e4e-48cc-bb1f-be4fc76f7397"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "打开应用共消耗时间 {timeUsed} 🤖",
+    "customContextDataKey": {
+    },
+    "id": "A-89fe78ea-02ae-47f7-883c-2e7a3e747ecb"
+  }],
+  "id": "DAd612d5a1-2b71-45b1-947e-4d3ae72e1970",
+  "lastUpdateTime": "1702024912148",
+  "createTime": "1701992475491",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "性能测试",
+  "description": "打开测试应用集中的应用，看需要多久",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "directActionSetId": "DS-1242d340-cc01-4909-b224-518d538dc191"
+}
+###------###
+{"type":"da"}

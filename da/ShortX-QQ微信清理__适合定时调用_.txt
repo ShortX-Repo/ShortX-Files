@@ -1,0 +1,198 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "wechat-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-fc2f63ef-b1db-4f44-9293-46db0f76b500"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.tencent.mobileqq"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0bf2e192-bd37-4750-9c74-9c3c265ddd51"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ee11ceed-52ab-4b0f-97f5-614da40d8d0e"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "qq_paths\u003d\"\n/data/data/com.tencent.mobileqq\n/sdcard/Android/data/com.tencent.mobileqq\n/sdcard/Tencent\"\nqq_total_size\u003d0\nfor path in $qq_paths; do\n  if [ -d $path ]; then\n    qq_total_size\u003d$((qq_total_size + $(du -s $path | awk \u0027{print $1}\u0027)))\n  fi\ndone\necho \"scale\u003d2; $qq_total_size/1024\" | bc",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "QQ"
+      }]
+    },
+    "note": "QQ占用",
+    "id": "A-d47ab050-2772-4214-a448-d4a5ced91f88"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "wx_paths\u003d\"\n/data/data/com.tencent.mm\n/sdcard/Android/data/com.tencent.mm\n/sdcard/Tencent\"\nwx_total_size\u003d0\nfor path in $wx_paths; do\n  if [ -d $path ]; then\n    wx_total_size\u003d$((wx_total_size + $(du -s $path | awk \u0027{print $1}\u0027)))\n  fi\ndone\necho \"scale\u003d2; $wx_total_size/1024\" | bc",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "WX"
+      }]
+    },
+    "note": "微信占用",
+    "id": "A-da63a0f3-07ff-4cc5-8ed8-244ff5ac786a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#F**k zxl\n#以下脚本来自于 酷安@孤Lrkc 的清理脚本\n#未做改动\nrm -rf /sdcard/Tencent/cache\nrm -rf /sdcard/Tencent/MobileQQ/diskcache/\nrm -rf /sdcard/Tencent/MobileQQ/Scribble/\nrm -rf /sdcard/Tencent/MobileQQ/ScribbleCache/\necho \"缓存...\"\n#其他\nrm -rf /sdcard/Tencent/MobileQQ/qav/\nrm -rf /sdcard/Tencent/MobileQQ/qqmusic/\nrm -rf /sdcard/Tencent/MobileQQ/pddata/\nrm -rf /storage/emulated/0/tencent/QQGallery/log/\n#图片缓存\nrm -rf /sdcard/Tencent/MobileQQ/photo/\nrm -rf /sdcard/Tencent/MobileQQ/chatpic/\nrm -rf /sdcard/Tencent/MobileQQ/thumb/\nrm -rf /sdcard/Tencent/MobileQQ/QQ_Images/\nrm -rf /sdcard/Tencent/MobileQQ/QQEditPic/\nrm -rf /sdcard/Tencent/MobileQQ/hotpic/\necho \"图片缓存....\"\n#短视频\nrm -rf /sdcard/Tencent/MobileQQ/shortvideo/\necho \"短视频缓存...\"\n#广告\nrm -rf /sdcard/Tencent/MobileQQ/qbosssplahAD/\nrm -rf /sdcard/Tencent/MobileQQ/pddata/\necho \"广告缓存...\"\n#diy名片\nrm -rf /sdcard/Tencent/MobileQQ/.apollo/\nrm -rf /sdcard/Tencent/MobileQQ/vas\nrm -rf /sdcard/Tencent/MobileQQ/lottie/\necho \"个性名片清理...\"\n#Tencent目录下\n#小程序\nrm -rf /sdcard/Tencent/mini\nrm -rf /sdcard/Tencent/TMAssistantSDK\necho \"小程序缓存...\"\n#字体\nrm -rf /sdcard/Tencent/.font_info\nrm -rf /sdcard/Tencent/.hiboom_font\necho \"字体缓存....\"\n#礼物\nrm -rf /sdcard/Tencent/.gift\necho \"礼物缓存...\"\n#进场特效\nrm -rf /sdcard/Tencent/.trooprm/enter_effects\necho \"进场特效....\"\n#头像\nrm -rf /sdcard/Tencent/tbs\necho \"tbs插件...\"\n#挂件\nrm -rf /sdcard/Tencent/.pendant\necho \"挂件和背景....\"\n#背景\nrm -rf /sdcard/Tencent/.profilecard\n#表情推荐\necho \"表情推荐缓存...\"\nrm -rf /sdcard/Tencent/.sticker_recommended_pics\nrm -rf /sdcard/Tencent/pe\n#聊天表情缓存\nrm -rf /sdcard/Tencent/.emotionsm\nrm -rf /sdcard/Tencent/msflogs/\necho \"聊天缓存...\"\n#戳一戳\nrm -rf /sdcard/Tencent/.vaspoke\nrm -rf /sdcard/Tencent/newpoke\nrm -rf /sdcard/Tencent/poke\necho \"其它缓存...(斗图、视频通话背景、图标)\"\n#vip图标\nrm -rf /sdcard/Tencent/.vipicon\n#斗图\nrm -rf /sdcard/Tencent/DoutuRes\n#视频通话背景\nrm -rf /sdcard/Tencent/funcall\n#接收的文件缓存\necho \"接受的文件缓存...(非文件本身)\"\nrm -rf /sdcard/Tencent/QQfile_recv/.trooptmp\nrm -rf /sdcard/Tencent/QQfile_recv/.tmp\nrm -rf /sdcard/Tencent/QQfile_recv/.thumbnails\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/diskcache\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/Scribble\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/ScribbleCache\necho \"其它垃圾文件清理....(主要日志).\"\nrm -rf /storage/emulated/0/tencent/QQSecure/Athena/\nrm -rf /storage/emulated/0/tencent/tmp/*.log\nrm -rf /storage/emulated/0/tencent/MobileQQ/log/\n#其他\necho \"-----------------------\"\necho \"公共部分清理完毕！\"\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/qav\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/qqmusic\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/pddata\necho \"-----------------------\"\necho \"开始深度清理私有目录(Android11极其以上系统无root将无法处理)\"\necho \"处理/Android/data/目录....\"\n#缓存\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/cache\n#图片缓存\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/photo\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/chatpic\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/thumb\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/QQ_Images\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/QQEditPic\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/hotpic\n#QQ空间相关\necho \"QQ空间缓存清理....\"\n#压缩文件缓存\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/qzone/zip_cache/\n#空间视频缓存\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/qzone/video_cache/\n#空间垃圾图片\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/qzone/imageV2/\n#空间直播\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/qzlive/\n#短视频\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/shortvideo\n#广告\necho \"日志广告小视频...\"\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/qbosssplahAD\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/pddata\n#diy名片\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/.apollo\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/vasrm\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/lottie\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQ_Images/QQEditPic/\necho \"编辑缓存和日志\"\n#Tencent目录下\n#小程序\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/mini\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/TMAssistantSDK\n#字体\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/.font_info\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/.hiboom_font\n#礼物\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ/.gift\n#进场特效\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/.trooprm/enter_effects\n#头像\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/head\n#挂件\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/.pendant\n#背景\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/.profilecard\n#表情推荐\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/.sticker_recommended_pics\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/pe\n#tab日志 \nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/files/tbslog/\n#聊天表情缓存\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/.emotionsm\n#戳一戳\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/.vaspoke\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/newpoke\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/poke\n#vip图标\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/.vipicon\n#斗图\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/DoutuRes\n#视频通话背景\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/funcall\n#接收的文件缓存\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv/.trooptmp\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv/.tmp\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv/.thumbnails\n#未知垃圾下载\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/qcircle/\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/files/.info/\n#日志\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/files/onelog/\n#厘米秀\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/files/ae/playshow/\n#msf日志\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/files/tencent/msflogs/\nrm -rf /storage/emulated/0/tencent/msflogs/\nrm -rf /storage/emulated/0/tencent/wns/Logs/\necho \"小米合作有关广告日志\"\nrm -rf /storage/emulated/0/tencent/wtlogin/\necho \"邮箱日志\"\nrm -rf /storage/emulated/0/tencent/QQmail/log/\nrm -rf /storage/emulated/0/tencent/QQmail/qmlog/\necho \"PT日志\"\nrm -rf /storage/emulated/0/tencent/qqimsecure/pt/\necho \"OCR识别缓存\"\nrm -rf /storage/emulated/0/tencent/MobileQQ/ocr/cache/\nrm -rf /sdcard/Android/data/com.tencent.mobileqq/files/.info/\nrm -rf /sdcard/Android/data/com.tencent.mobileqq/files/ae/camera/capture/\necho \"QQ相机捕获的照片\"\nrm -rf /sdcard/Android/data/com.tencent.mobileqq/files/tbslog/*txt\necho \"tabLog\"\nrm -rf /sdcard/Android/data/com.tencent.mobileqq/files/tencent/tbs_live_log/\necho \"tab_log\"\nrm -rf /sdcard/Android/data/com.tencent.mobileqq/files/tencent/tbs_common_log/\necho \"tab_命令日志\"\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv/.tmp/edit_video/\necho \"在QQ编辑的临时图\"\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/TMAssistantSDK/Download/com.tencent.mobileqq/\necho \"TM助理SDK\"\nrm -rf /storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/mini/files/\nrm -rf /storage/emulated/0/Tencent/blob/mqq/\necho \"ams缓存\"\nrm -rf /storage/emulated/0/Tencent/ams/cache/\necho \"eup日志文件\"\nrm -rf /storage/emulated/0/Tencent/com.tencent.weread/euplog.txt\necho \"IMSDK缓存\"\nrm -rf /storage/emulated/0/Tencent/imsdkvideocache/\necho \"Midas迈达斯有限元分析日志\"\nrm -rf /storage/emulated/0/Tencent/Midas/Log/\necho \"节日祝福相关资源缓存\"\nrm -rf /storage/emulated/0/Tencent/MobileQQ/bless/\n#/dada目录下\necho \"群组标记临时文件\"\nrm -rf /data/data/com.tencent.mobileqq/files/group_catalog_temp/\necho \"hippy框架代码缓存(QQ浏览器相关)\"\nrm -rf /data/data/com.tencent.mobileqq/files/hippy/codecache/\necho \"hippy框架(包含QQ游戏中心相关)\"\nrm -rf /data/data/com.tencent.mobileqq/files/hippy/bundle/\necho \"小程序相关资源\"\nrm -rf /data/data/com.tencent.mobileqq/files/mini/",
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "note": "QQ Clean",
+    "id": "A-6d879434-c484-48ba-b339-05696b7dea37"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#F**k zxl\n#以下命令来自于 酷安@孤Lrkc 的清理脚本\n#删除了chattr命令\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/files/onelog/\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/files/tbslog/\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/MicroMsg/xlog/\nrm -rf /data/data/com.tencent.mm/files/xlog/\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/MicroMsg/wxacache/\nrm -rf /data/data/com.tencent.mm/files/live_log/\nrm -rf /data/data/com.tencent.mm/files/com.tencent.mm:tools/logging_cache/\nrm -rf /data/data/com.tencent.mm/files/webnet/cacheinfo/\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/files/backup\nrm -rf /data/data/com.tencent.mm/app_appcache/\necho \"TBS备份\"\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/files/VideoCache\necho \"视频缓存\"\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/cache\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/MicroMsg/.tmp/\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/MicroMsg/Cache\nrm -rf /storage/emulated/0/Android/data/com.tencent.mm/MicroMsg/wxacache/\nrm -rf /data/data/com.tencent.mm/cache/\necho \"主缓存\"\n#rm -rf /data/data/com.tencent.mm/MicroMsg/webview_tmpl/tmpls/\nrm -rf /data/data/com.tencent.mm/cache/\necho \"无用重复组网插件\"\nrm -rf /data/data/com.tencent.mm/MicroMsg/webservice/codecache/\nrm -rf /data/data/com.tencent.mm/MicroMsg/mmslot/webcached/\necho \"web缓存\"\nrm -rf /data/data/com.tencent.mm/MicroMsg/CronetCache/\necho \"Cronet 缓存\"\nrm -rf /data/data/com.tencent.mm/app_x5webview/Cache/\nrm -rf /data/data/com.tencent.mm/app_x5webview/GPUCache/\nrm -rf /data/data/com.tencent.mm/app_x5webview/Service Worker/CacheStorage/\necho \"X5内核缓存\"\necho \"腾讯地图SDK日志\"\nrm -rf /data/data/com.tencent.mm/files/tencentMapSdk/logos/\necho \"host\"\necho \"正则匹配信息\"\nrm -rf /data/data/com.tencent.mm/app_xwalk_[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]/\nrm -rf /data/data/com.tencent.mm/app_xwalkplugin/\n##rm -rf /data/data/com.tencent.mm/files/host/\necho \"TBS插件\"\nrm -rf /data/data/com.tencent.mm/app_tbs/\nrm -rf /data/data/com.tencent.mm/app_tbs_64/\necho \"小程序\"\nrm -rf /data/data/com.tencent.mm/files/liteapp/\necho \"直播\"\nrm -rf /data/data/com.tencent.mm/files/public/live/\nrm -rf /data/data/com.tencent.mm/files/public/fts/\nrm -rf /data/data/com.tencent.mm/files/public/OCR\nrm -rf /data/data/com.tencent.mm/files/public/cityService/\nrm -rf /data/data/com.tencent.mm/files/public/tagsearch/\nrm -rf /data/data/com.tencent.mm/files/public/box/\nrm -rf /data/data/com.tencent.mm/files/public/CheckResUpdate/\nrm -rf /data/data/com.tencent.mm/files/public/websearch/\necho \"tab_live日志\"\nrm -rf /sdcard/Android/data/com.tencent.mm/files/Tencent/tbs_live_log/\nrm -rf /sdcard/Tencent/tbs_common_log/\necho \"检查的资源更新\"\nrm -rf /sdcard/Android/data/com.tencent.mm/MicroMsg/CheckResUpdate/\necho \"恢复日志\"\nrm -rf /data/data/com.tencent.mm/MicroMsg/recovery/recovery_log/\necho \"临时文件\"\nrm -rf /data/data/com.tencent.mm/MicroMsg/tmp/\necho \"未知web相关文件(占用特别大)\"\nrm -rf /data/data/com.tencent.mm/MicroMsg/webview_tmpl/tmpls/\necho \"广告js\"\nrm -rf /data/data/com.tencent.mm/MicroMsg/webcompt/wxAd/\necho \"appBrandJs缓存\"\nrm -rf /data/data/com.tencent.mm/MicroMsg/appbrand/jscache/",
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "note": "WX Clean",
+    "id": "A-9be5f860-db70-47f7-af2c-20a96ac018e9"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "qq_paths\u003d\"\n/data/data/com.tencent.mobileqq\n/sdcard/Android/data/com.tencent.mobileqq\n/sdcard/Tencent\"\nqq_total_size\u003d0\nfor path in $qq_paths; do\n  if [ -d $path ]; then\n    qq_total_size\u003d$((qq_total_size + $(du -s $path | awk \u0027{print $1}\u0027)))\n  fi\ndone\necho \"scale\u003d2; $qq_total_size/1024\" | bc",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "QQclean"
+      }]
+    },
+    "note": "QQ占用",
+    "id": "A-0762a9b7-93bc-4336-9f3d-47de1e211487"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "wx_paths\u003d\"\n/data/data/com.tencent.mm\n/sdcard/Android/data/com.tencent.mm\n/sdcard/Tencent\"\nwx_total_size\u003d0\nfor path in $wx_paths; do\n  if [ -d $path ]; then\n    wx_total_size\u003d$((wx_total_size + $(du -s $path | awk \u0027{print $1}\u0027)))\n  fi\ndone\necho \"scale\u003d2; $wx_total_size/1024\" | bc",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "WXclean"
+      }]
+    },
+    "note": "微信占用",
+    "id": "A-0265a8b1-a958-4149-914a-32f339e742bd"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "num1\u003d{QQ}\nnum2\u003d{QQclean}\nresult\u003d$(echo \"$num1 - $num2\" | bc)\necho \"$result\"",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "qqout"
+      }]
+    },
+    "id": "A-73f46939-fda7-46b4-8832-c5ebfd7543b3"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "num1\u003d{WX}\nnum2\u003d{WXclean}\nresult\u003d$(echo \"$num1 - $num2\" | bc)\necho \"$result\"",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "wxout"
+      }]
+    },
+    "id": "A-e729b42d-b621-463f-9f2c-ca9ed8ef8a90"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://v1.hitokoto.cn/?encode\u003dtext",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-56c96c43-7497-4ef1-8cb1-227eb0395b4b"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1700624426926",
+    "title": "\"{httpRequestRet}\"",
+    "message": "- 当前QQ占用大小:{QQ}M\n- 当前微信占用大小:{WX}M\n- QQ已清理:{qqout}M\n- WX已清理:{wxout}M",
+    "smallIcon": "wechat-fill",
+    "button": [{
+      "id": "Button-0f678bb9-674c-4caf-b4e6-7e21a6552f61",
+      "action": [{
+        "@type": "type.googleapis.com/LaunchApp",
+        "appPkg": {
+          "pkgName": "com.tencent.mobileqq"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-337b26e9-ee08-4475-9830-89f4fbd7b3ed"
+      }],
+      "label": "QQ"
+    }, {
+      "id": "Button-f9818af7-06cf-4840-b722-04e583df3c4b",
+      "action": [{
+        "@type": "type.googleapis.com/LaunchApp",
+        "appPkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-78838f5a-4a1a-4d35-bcf5-4a32e9dce86b"
+      }],
+      "label": "微信"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-bab3a98a-184f-4c53-90d8-2663252278b3"
+  }, {
+    "@type": "type.googleapis.com/StartAppProcess",
+    "appPkg": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-df200811-3989-4ef7-af89-c1d05b1c83b3"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.tencent.mm",
+      "className": "com.tencent.mm.booter.CoreService"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-8e1ef180-ca85-44da-a17c-0cd50729963e"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.tencent.mm",
+      "className": "com.tencent.mm.service.ProcessService$MMProcessService"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-597285c2-0601-4ea6-ae57-bdf0782a78b5"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.tencent.mm",
+      "className": "com.tencent.mm.ipcinvoker.wx_extension.service.PushProcessIPCService"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-b643de3c-6798-4b27-a94d-859884c68503"
+  }],
+  "id": "DA241287a3-a7bf-4b6d-bc7f-fecfc226c32f",
+  "lastUpdateTime": "1700629847420",
+  "createTime": "1700615951941",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "QQ微信清理 (适合定时调用)",
+  "description": "支持微信后台启动",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

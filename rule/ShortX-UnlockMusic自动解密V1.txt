@@ -1,0 +1,313 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStartRunning",
+    "apps": [{
+      "pkgName": "com.kugou.android.lite"
+    }],
+    "tag": "启动",
+    "customContextDataKey": {
+    },
+    "id": "F-e4a9df89-32d6-4abf-ba2e-7832d5bbdc6b"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "com.kugou.android.lite"
+    }],
+    "tag": "停止",
+    "customContextDataKey": {
+    },
+    "id": "F-f8a0a610-33d1-4cfa-b5c5-d6093ab4e8ec"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "启动",
+        "customContextDataKey": {
+        },
+        "id": "C-dbf54cec-56e6-4b76-aeaa-584990ab3d7a"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "UMPID",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-04d95cb5-c594-4714-9873-5c10623cdca2"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "cache_dir\u003d\"/data/user/0/tornaco.apps.shortx/cache/run/um\"\ndownload_dir\u003d\"/storage/emulated/0/Download\"\nfilename\u003d\"um-linux-arm64.tar.gz\"\n\n[[ -d \"${cache_dir%/*}\" ]] \u0026\u0026 mkdir -p \"$cache_dir\"\n\nfor f in \"$download_dir/um-linux-arm64\"*.tar.gz; do\n    [[ -f \"$f\" ]] \u0026\u0026 mv \"$f\" \"$cache_dir/$filename\" \u0026\u0026 break\ndone\n\n[[ -f \"$cache_dir/$filename\" ]] \u0026\u0026 echo true || echo false",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "checkbin"
+          }]
+        },
+        "id": "A-8e05d009-d854-4b6e-9dd8-4d4833f00bae"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "{checkbin} \u003d\u003d \"false\"",
+            "customContextDataKey": {
+            },
+            "id": "C-5ea24fe4-1793-413f-87b6-2292ccb287d6"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "缺失BIN，跳转下载\n下载至 /storage/emulated/0/Download 后重新开关即可",
+            "customContextDataKey": {
+            },
+            "id": "A-2ea8133f-7cbe-4c05-a38e-8251694cc6c2"
+          }, {
+            "@type": "type.googleapis.com/StartActivityIntent",
+            "intent": {
+              "action": "android.intent.action.VIEW",
+              "data": "https://git.unlock-music.dev/um/cli/releases/download/latest/um-linux-arm64.tar.gz"
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-5f65fc0e-b5a3-4632-9c63-02401cd083ae"
+          }, {
+            "@type": "type.googleapis.com/SetRuleEnabled",
+            "ruleId": "SHARE-rule-7f46e474-084b-447e-818c-61bd90aa9b27",
+            "customContextDataKey": {
+            },
+            "id": "A-4c5a4648-409e-4ce8-8d3a-4fddad2504c1"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-c1ea840c-aa0e-4bd7-af5d-cfbc6d919282"
+          }],
+          "description": "下载BIN",
+          "id": "Case-a99cf932-ab59-4ddf-b3b5-b4debff82949",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "{checkbin} \u003d\u003d \"true\"",
+            "customContextDataKey": {
+            },
+            "id": "C-04a46b3a-81fd-4ba8-a8f8-5cc6f9e9553d"
+          }],
+          "description": "存在BIN",
+          "id": "Case-dc3e06a3-d23a-4c84-8763-a319ea33cb01"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-1430e129-7ca3-419a-980c-3b3eafc5cf83"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "DBIN\u003d\"/data/user/0/tornaco.apps.shortx/cache/run/um/um-linux-arm64.tar.gz\"\nBINPATH\u003d\"argOf$BINPATH\"\nDownloadDIR\u003d\"argOf$DownloadDIR\"\nDecodeDIR\u003d\"argOf$DecodeDIR\"\npkgName\u003d\"{pkgName}\"\nuid\u003d\"{userId}\"\n\nset -- ${FLAG}\n\n[[ -f \"$DBIN\" ]] || exit 1\n[[ -d \"$DownloadDIR\" ]] || mkdir -p \"$DownloadDIR\"\n[[ -d \"$DecodeDIR\" ]] || mkdir -p \"$DecodeDIR\"\n\ncp \"$DBIN\" \"$BINPATH\"\ncd \"$BINPATH\"\n\ntar xf \"./um-linux-arm64.tar.gz\" \u0026\u0026 rm \"./um-linux-arm64.tar.gz\"\n\nchmod +x \"./um-linux-arm64\"\n\nmv \"./um-linux-arm64\" \"./um-linux-arm64_${uid}_${pkgName}\"\n\n[[ -f \"./um.log\" ]] \u0026\u0026 mv um.log um.log.old\n\"./um-linux-arm64_${uid}_${pkgName}\" --watch --update-metadata -i \"${DownloadDIR}\" -o \"${DecodeDIR}\" \u003e\u003e um.log \u0026\n\nPID\u003d\"$!\"\n\necho \"$PID\"",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-bdd677ea-2f5a-43b5-b20a-dbc1f3661967"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "UMPID",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-6824ac5b-678f-4f1a-b42c-68ed823cf8ef"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "UM",
+        "title": "Unlock Music Service (globalVarOf$UMPID)",
+        "message": "从 argOf$DownloadDIR\n到 argOf$DecodeDIR",
+        "isImportant": true,
+        "smallIcon": "file-music-one",
+        "overrideAppName": "Unlock Music",
+        "customContextDataKey": {
+        },
+        "id": "A-5f6b2228-3c79-45a8-a0a4-514c51d98fa3"
+      }],
+      "description": "启动",
+      "id": "Case-09612d59-5d48-4347-ba7f-bd370eb621e8"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "停止",
+        "customContextDataKey": {
+        },
+        "id": "C-387b03c8-d531-4a2d-bbce-5854ba3fbb7e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "PID\u003d\"globalVarOf$UMPID\"\n\nif [ -f \"/proc/$PID/exe\" ]; then\n    BINPATH\u003d$(readlink -f \"/proc/$PID/exe\")\nelse\n    BINPATH\u003d\"\"\nfi\n\nif kill \"$PID\" 2\u003e/dev/null; then\n    sleep 1\n    if [ -f \"$BINPATH\" ] \u0026\u0026 echo \"$BINPATH\" | grep -q \"um-linux-arm64\"; then\n        rm -f \"$BINPATH\"\n    fi\n    echo \"$PID:$BINPATH\"\nelse\n    echo \"无法终止进程: $PID\"\n    exit 1\nfi",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-d1d7b00e-b02f-4967-ac95-0f83f0484e2a"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-edea6bc1-f600-4551-abdf-2e217bc0ac14"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "tag": "UM"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-0498e1f4-27f7-4d51-a2f0-29d7d1a4ac44"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-2e4a4e15-d0a8-4f09-b3a6-9bbf16a4266c"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "UMPID",
+        "customContextDataKey": {
+        },
+        "id": "A-b4e047f3-04f0-43aa-8660-406a3a73ee20"
+      }],
+      "description": "停止",
+      "id": "Case-cd8c4fc2-46d7-46b9-b07c-fa160d5cf832"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c82233ef-2306-4bfb-953e-d46e9e18112f"
+  }],
+  "id": "SHARE-rule-27c05f89-6375-43f1-ba0d-a168091aed43",
+  "lastUpdateTime": "1755753508997",
+  "createTime": "1755682818333",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "UnlockMusic自动解密",
+  "description": "音乐软件开启时自运行um，需在指令参数指定下载位置和解密位置",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "cache_dir\u003d\"/data/user/0/tornaco.apps.shortx/cache/run/um\"\ndownload_dir\u003d\"/storage/emulated/0/Download\"\nfilename\u003d\"um-linux-arm64.tar.gz\"\n\n[[ -d \"${cache_dir%/*}\" ]] \u0026\u0026 mkdir -p \"$cache_dir\"\n\nfor f in \"$download_dir/um-linux-arm64\"*.tar.gz; do\n    [[ -f \"$f\" ]] \u0026\u0026 mv \"$f\" \"$cache_dir/$filename\" \u0026\u0026 break\ndone\n\n[[ -f \"$cache_dir/$filename\" ]] \u0026\u0026 echo true || echo false",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "checkbin"
+        }]
+      },
+      "id": "A-69afc2e5-ce5f-4373-a996-7834d041cceb"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{checkbin} \u003d\u003d \"false\"",
+          "customContextDataKey": {
+          },
+          "id": "C-5ea24fe4-1793-413f-87b6-2292ccb287d6"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "缺失BIN，跳转下载\n下载至 /storage/emulated/0/Download 后重新开关即可",
+          "customContextDataKey": {
+          },
+          "id": "A-2ea8133f-7cbe-4c05-a38e-8251694cc6c2"
+        }, {
+          "@type": "type.googleapis.com/StartActivityIntent",
+          "intent": {
+            "action": "android.intent.action.VIEW",
+            "data": "https://git.unlock-music.dev/um/cli/releases/download/latest/um-linux-arm64.tar.gz"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-5f65fc0e-b5a3-4632-9c63-02401cd083ae"
+        }, {
+          "@type": "type.googleapis.com/SetRuleEnabled",
+          "ruleId": "SHARE-rule-7f46e474-084b-447e-818c-61bd90aa9b27",
+          "customContextDataKey": {
+          },
+          "id": "A-4c5a4648-409e-4ce8-8d3a-4fddad2504c1"
+        }],
+        "description": "下载BIN",
+        "id": "Case-a99cf932-ab59-4ddf-b3b5-b4debff82949",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{checkbin} \u003d\u003d \"true\"",
+          "customContextDataKey": {
+          },
+          "id": "C-04a46b3a-81fd-4ba8-a8f8-5cc6f9e9553d"
+        }],
+        "description": "存在BIN",
+        "id": "Case-dc3e06a3-d23a-4c84-8763-a319ea33cb01",
+        "isBreak": true
+      }, {
+        "action": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{checkbin}",
+          "customContextDataKey": {
+          },
+          "id": "A-370189f2-9a6c-4dd4-9c36-988e2c30960a"
+        }],
+        "description": "其他状态",
+        "id": "Case-6d1abc13-2e77-41f2-b6fd-4f20a01a448a",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-08ef04c6-aefe-4270-ae1d-8471722201d0"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "rm /data/local/tmp/um-linux-arm64*",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-71254bb4-6776-42d3-bf44-47798b924ff2"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "DIR\u003d\"/data/user/0/tornaco.apps.shortx/cache/run/um\"\n[[ -d \"$DIR\" ]] \u0026\u0026 rm -r $DIR/\n\nrm /data/local/tmp/um-linux-arm64*\nrm /data/local/tmp/um.log*",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-fccd747a-fc78-47ee-b014-1f3ea7da3dfb"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-e2cab59d-9092-484d-b23d-ea9efb94850f",
+  "parameters": [{
+    "name": "BINPATH",
+    "defaultValue": "/data/local/tmp",
+    "isRequired": true,
+    "comments": "unlock music 二进制存放路径（正常情况无需变动）"
+  }, {
+    "name": "DownloadDIR",
+    "defaultValue": "/storage/emulated/0/kgmusic/download/kgmusic",
+    "isRequired": true,
+    "comments": "源下载目录"
+  }, {
+    "name": "DecodeDIR",
+    "defaultValue": "/storage/emulated/0/Music/KuGou",
+    "isRequired": true,
+    "comments": "解码后目录"
+  }]
+}
+###------###
+{"type":"rule"}

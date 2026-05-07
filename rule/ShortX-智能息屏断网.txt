@@ -1,0 +1,159 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-3e279167-2ea8-4b2e-9ebf-15913152e130"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "600000",
+    "customContextDataKey": {
+    },
+    "note": "息屏等待10分钟",
+    "id": "A-bf810fe8-791b-4750-81f9-f3b084f5d41e"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "息屏10分钟",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      },
+      "isSecret": true
+    },
+    "customContextDataKey": {
+    },
+    "note": "用于判断是否触发断网",
+    "id": "A-f78bad78-8877-4e51-b66b-095b5db548f8"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "id": "C-a4f532ca-958b-4c5c-b4fc-a6ad7a3f5682"
+    }, {
+      "@type": "type.googleapis.com/RequireWifiConnected",
+      "requiredSSID": "*",
+      "customContextDataKey": {
+      },
+      "id": "C-ccf12878-8df8-4788-ae54-0f914b6d39b7"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-4e58ab1b-5067-4210-8fcb-224115cdd345"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "屏幕已锁: 判断是否为息屏挂机\nWIFI连接: 防止无WIFI时断网影响消息接受",
+    "id": "A-e497eda3-578e-43ba-a7ec-c78c2c709745"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppHasAudioFocus",
+      "pkgSets": ["User"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-5297dce5-a11e-42c7-8e9c-3e2e3caebb23"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireBTDisconnected",
+        "customContextDataKey": {
+        },
+        "id": "C-a0e78c61-1c84-4e0b-81d2-d2e95e239ccf"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetBTEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-6f547659-2d4f-495e-8ac0-af38bc72f14f"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "如果未连接蓝牙耳机/音箱，则关闭蓝牙",
+      "id": "A-ce583069-3610-4287-b836-b0ad404670d3"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetBTEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-2293c4bf-329b-41a1-a56e-a58331ea6044"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "如果未在播放音乐/视频，则关闭蓝牙",
+    "id": "A-4e119e0f-5138-42c0-9003-7c47bbca1dae"
+  }, {
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "edit-line",
+    "customContextDataKey": {
+    },
+    "note": "息屏延迟时间参考\n30分钟: 1800000\n15分钟: 900000\n10分钟: 600000\n5分钟: 300000",
+    "id": "A-1169d9e7-d98a-4b49-94d2-ab165c833a1a"
+  }],
+  "id": "rule-9dd1a76b-dccb-4d1f-a019-82cb7fc3327c",
+  "lastUpdateTime": "1696358629045",
+  "createTime": "1696069211589",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "智能息屏断网",
+  "description": "息屏10分钟后智能关闭移动数据和蓝牙，适用于待机时移动数据和蓝牙耗电较高的设备",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOn",
+      "customContextDataKey": {
+      },
+      "id": "F-5f8f2b69-1f61-416e-8171-eed84b6976b6"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "息屏10分钟",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b2184cb4-e0ea-4b8a-9dbe-6b57548d0c4a"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetDataEnabled",
+        "enable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-12eacebf-cba3-46bd-9020-e7f49ce27b44"
+      }, {
+        "@type": "type.googleapis.com/SetBTEnabled",
+        "enable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-72980cea-6a13-48fc-86a8-107d3d8cfccb"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "息屏10分钟",
+        "customContextDataKey": {
+        },
+        "id": "A-e8e635f0-817b-4cce-b3f1-a5df60753bf7"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "如果未触发息屏断网，则不操作",
+      "id": "A-b2b68a2d-c729-47de-9b8e-2f69d3e72d66"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-a27d713a-b228-4973-9412-89a7b210b6d0"
+}
+###------###
+{"type":"rule"}

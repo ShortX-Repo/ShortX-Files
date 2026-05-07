@@ -1,0 +1,50 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-af26ee73-7c47-4e38-be4e-b891bcb7df7a"
+  }, {
+    "@type": "type.googleapis.com/AppUpdated",
+    "pkgSets": ["All"],
+    "customContextDataKey": {
+    },
+    "id": "F-ec17bfce-822b-4023-b925-06181ea8abbb"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{notificationTag}",
+    "customContextDataKey": {
+    },
+    "id": "A-0b15b7bd-9502-485f-8c22-95b38cc1bc88"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{contentText}",
+    "customContextDataKey": {
+    },
+    "id": "A-a102a654-35fe-4354-afe6-be0558cd3587"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{title}",
+    "customContextDataKey": {
+    },
+    "id": "A-73dea2fa-9238-4869-a40c-031dd5c30462"
+  }],
+  "id": "rule-6e9a9f43-a560-4128-8eea-2df3c76d3ded",
+  "lastUpdateTime": "1710041776059",
+  "createTime": "1710041507780",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "测试通知",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

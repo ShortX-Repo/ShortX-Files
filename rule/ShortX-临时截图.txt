@@ -1,0 +1,148 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "Screenshot",
+    "options": "RegexMatchOptions_ContainsMatchIn",
+    "tag": "截屏",
+    "customContextDataKey": {
+    },
+    "id": "F-c2da7244-c75a-4a2a-a1eb-02ce62962e2c"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "tag": "清理",
+    "customContextDataKey": {
+    },
+    "id": "F-88784d34-343b-4f81-baad-5d5bbfd2e8f1"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "截屏",
+      "customContextDataKey": {
+      },
+      "id": "C-b5c80057-a340-40c1-8e05-de42b3f30566"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "path",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-bbe1595b-998f-4705-bf35-40d85464697c"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "path",
+      "valueAsString": "{mediaFilePath}",
+      "customContextDataKey": {
+      },
+      "id": "A-f680d91b-b7ad-4c5c-854e-522518835c72"
+    }, {
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": "临时？",
+      "clickAction": [{
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-5bebbb95-dc99-4e2f-8a73-0a6759d5e125"
+      }],
+      "longClickAction": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "mv globalVarOf$ppath /storage/emulated/0/Pictures/temporary_picture/",
+        "customContextDataKey": {
+        },
+        "id": "A-659611f4-cc6e-47b5-9fcd-b55d8576fa54"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-1cc62adb-45bb-484d-a884-59888bafe1ed"
+      }, {
+        "@type": "type.googleapis.com/ReplaceRegex",
+        "string": "localVarOf$path",
+        "regex": ".pending-\\d+-",
+        "customContextDataKey": {
+        },
+        "id": "A-9fdd1f1d-9a25-4daf-859c-fb8857e4bbf0"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{replaceResult}",
+        "customContextDataKey": {
+        },
+        "id": "A-8352fdf0-6c2b-473f-aacb-d97af98bf7df"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "ppath",
+        "valueAsString": "{replaceResult}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-c829bf91-c5ec-475c-beaf-440b348954bb"
+      }, {
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-0990ff44-4236-461f-90d5-e23b20a501d9"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5c690e31-a099-4547-8e4a-9d03a869e933"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a4c8b46e-7e5d-44f1-aae6-50243e854ca0"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "清理",
+      "customContextDataKey": {
+      },
+      "id": "C-fe2eece0-55b7-4ab6-b032-4ec629f9e29a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "rm  /storage/emulated/0/Pictures/temporary_picture/*",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-034deb5a-3def-4b08-964e-7be07052aa0f"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-1cc62adb-45bb-484d-a884-59888bafe1ed"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8b7fa3f9-6d21-44cf-8e86-45b0019dd550"
+  }],
+  "id": "SHARE-rule-f1c3540e-873f-4b41-9b17-1f1eeeb72410",
+  "lastUpdateTime": "1764294594110",
+  "createTime": "1764287227965",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "临时截图",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

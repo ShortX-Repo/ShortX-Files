@@ -1,0 +1,200 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "customContextDataKey": {
+    },
+    "id": "F-b11f10d7-836a-42ef-8446-83672fe623bf"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "translation",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-38d1db35-c87c-4de7-9858-4fbf1f15bc28"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["translation"],
+      "customContextDataKey": {
+      },
+      "id": "A-1a4ec631-1801-429e-b825-557397df8fd2"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "translation",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c7b72c77-a4ed-4bb0-a7b1-b2dd0f53a845"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "translation",
+      "valueAsString": "0",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-2283ac12-5d11-469f-a6e9-ed648873c75a"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/ReadClipboard",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "clipboardContent",
+              "second": "text"
+            }]
+          },
+          "id": "A-7a9cf0ac-4637-4fc6-8a39-c98b834db14c"
+        }, {
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "https://v.api.aa1.cn/api/api-fanyi-yd/index.php?msg\u003d{text}\u0026type\u003d3",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["text"]
+          },
+          "requestBody": {},
+          "customContextDataKey": {
+          },
+          "id": "A-13bb7563-31b9-4b3f-a284-eeb56b8b978d"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "{httpRequestRet1} !\u003d \u0027\u0027;",
+            "customContextDataKey": {
+            },
+            "id": "C-fe0209ef-9e58-4f79-9ff5-0cbf8c3c2334"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "复制译文",
+            "onPositive": [{
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "{httpRequestRet1}",
+              "customContextDataKey": {
+              },
+              "id": "A-c68457d2-f2fc-43cb-84bf-fcb5c48ebab5"
+            }],
+            "negative": "关闭",
+            "title": "自动翻译结果",
+            "message": "原文：{text}\n译文：{httpRequestRet1}",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-fe4212c9-2b52-4f47-afb7-f247fa0c4d2c"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "复制译文",
+            "onPositive": [{
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "{httpRequestRet1}",
+              "customContextDataKey": {
+              },
+              "id": "A-c68457d2-f2fc-43cb-84bf-fcb5c48ebab5"
+            }],
+            "negative": "关闭",
+            "title": "自动翻译结果",
+            "message": "原文：{text}\n译文：无",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-fe4212c9-2b52-4f47-afb7-f247fa0c4d2c"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-f7ab7644-0ce6-4794-a3c3-34c1540d10cc"
+        }],
+        "label": "翻译",
+        "id": "BTN-5ea56e49-6e8b-4f3e-a41f-8bd7e7414748"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["translation"],
+          "customContextDataKey": {
+          },
+          "id": "A-1a4ec631-1801-429e-b825-557397df8fd2"
+        }, {
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "translation",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-c7b72c77-a4ed-4bb0-a7b1-b2dd0f53a845"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "translation",
+          "valueAsString": "0",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-2283ac12-5d11-469f-a6e9-ed648873c75a"
+        }],
+        "label": "关闭",
+        "id": "BTN-51c2e9aa-2cbd-4b84-b377-ce3f787af4f0"
+      }],
+      "tag": "translation",
+      "maxHeightInDp": 20,
+      "maxWidthInDp": 20,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 50,
+      "customContextDataKey": {
+      },
+      "id": "A-0da90b52-3be8-41ab-8c51-9b01c1146182"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "translation",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c7b72c77-a4ed-4bb0-a7b1-b2dd0f53a845"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "translation",
+      "valueAsString": "1",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-2283ac12-5d11-469f-a6e9-ed648873c75a"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "by 我无聊了\n使用方法：通知中心添加ShortX+磁贴即可\n说明：读取剪切板内容通过有道翻译自动翻译为中文/英文",
+    "id": "A-e4cfa6ac-cc6f-4ab4-8308-20765575cc78"
+  }],
+  "id": "rule-6b3a48d8-41da-467a-a0d6-22adb4e98ac8",
+  "lastUpdateTime": "1698030448878",
+  "createTime": "1697124052082",
+  "author": {
+    "name": "我无聊了"
+  },
+  "title": "有道翻译\nversion：202310231104",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

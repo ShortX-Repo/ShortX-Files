@@ -1,0 +1,95 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BTConnectedTo",
+    "device": ["Xiaomi Buds 4 Pro"],
+    "id": "F-365951e1-36cb-476a-ae78-45336598c0ac"
+  }, {
+    "@type": "type.googleapis.com/BTConnectedTo",
+    "device": ["Boltune Elite"],
+    "id": "F-3441dd68-3f45-441c-82ce-6429c04150a2"
+  }, {
+    "@type": "type.googleapis.com/BTDisconnectedFrom",
+    "device": ["Xiaomi Buds 4 Pro"],
+    "id": "F-97922388-868c-460e-834d-29de4499ec9d"
+  }, {
+    "@type": "type.googleapis.com/BTDisconnectedFrom",
+    "device": ["Boltune Elite"],
+    "id": "F-c273d20a-87f8-450d-80ec-3f266c4e28ae"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-ccdf2d9c-5f9c-4075-a6d0-20c651ab9d39"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireBTConnected",
+      "device": "Xiaomi Buds 4 Pro",
+      "id": "C-a0b300f4-ceef-47bf-b530-397014fccbf4"
+    }, {
+      "@type": "type.googleapis.com/RequireBTConnected",
+      "device": "Boltune Elite",
+      "id": "C-cd2e72f6-9828-46f6-9264-77592d639cec"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["music"],
+        "id": "C-446c9670-f4d1-4500-be24-310fd637d74c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/LaunchApp",
+            "appPkg": {
+              "pkgName": "com.apple.android.music"
+            },
+            "id": "A-cd888ef5-8700-4118-94f2-bfe97c61ff64"
+          }],
+          "icon": "music-2-line",
+          "label": "音乐"
+        }],
+        "tag": "am",
+        "orientation": "Land",
+        "id": "A-f548b70a-121f-4684-b504-702cad006668"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "time": "5000",
+        "id": "A-a3ed76a6-c023-468d-b04a-d5f374dc6417"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["am"],
+        "id": "A-34bed45c-9c2d-407b-95d2-af6d021b3f21"
+      }],
+      "id": "A-e7ba7eba-2576-415d-9a59-dcd1a2731b63"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsRunning",
+        "pkgSets": ["music"],
+        "op": "ANY",
+        "id": "C-9b591091-6701-4dd2-ba6a-9a7bd9fa62f6"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StopApp",
+        "pkgSets": ["music"],
+        "id": "A-fd99b200-beab-4eb7-b86d-46ad5c659bc4"
+      }],
+      "id": "A-52efe964-6601-4b43-a45d-ac50c15d1073"
+    }],
+    "id": "A-a5d744e6-d2bb-41a9-9a96-e4727c6da32f"
+  }],
+  "id": "rule-98247eef-84f1-4189-8c09-d4f46c2fbd8c",
+  "lastUpdateTime": "1689138181879",
+  "createTime": "1689123084360",
+  "title": "链接耳机一键打开am",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

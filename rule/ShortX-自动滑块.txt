@@ -1,0 +1,69 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "网络异常",
+      "apps": [{
+        "pkgName": "com.eg.android.AlipayGphone"
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn",
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-ee18dfbc-83f1-44da-8305-a8d55b97c86e"
+  }, {
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "title": "网络异常",
+      "apps": [{
+        "pkgName": "com.eg.android.AlipayGphone"
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn",
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-1aac0fef-24b6-4d0a-8ec1-35b0c4648cc5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/StartActivity",
+    "componentNameAsString": "com.eg.android.AlipayGphone/com.eg.android.AlipayGphone.AlipayLogin",
+    "customContextDataKey": {
+    },
+    "id": "A-b5758113-6d1c-4037-aaf4-cc6bff66e0a1"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "note": "自己修改时间",
+    "id": "A-aade66b5-f412-49a0-8e70-36cfe7422878"
+  }, {
+    "@type": "type.googleapis.com/InputSwipe",
+    "startXS": "160",
+    "startYS": "1640",
+    "endXS": "1180",
+    "endYS": "1640",
+    "swipeTimeS": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-e1e4ab24-ff88-4811-b11e-cdc2a97e5784"
+  }],
+  "id": "SHARE-rule-70b5e7c2-28be-4014-b214-d6c68fa83343",
+  "lastUpdateTime": "1766404385961",
+  "createTime": "1766203903995",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动滑块",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

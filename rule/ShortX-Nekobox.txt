@@ -1,0 +1,95 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["VPN"],
+    "customContextDataKey": {
+    },
+    "id": "F-1945bc28-ba2d-44d1-94d3-7dd2cfe926ed"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/VPNIsConnected",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-072f7f5f-393c-48b6-8d90-2b13d6b8eef7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys deviceidle whitelist moe.nb4a\n",
+    "customContextDataKey": {
+    },
+    "id": "A-c9dc38ba-b1a6-4199-b225-bed6469772e3"
+  }, {
+    "@type": "type.googleapis.com/StartAppProcess",
+    "appPkg": [{
+      "pkgName": "moe.nb4a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-80fbd012-5767-4717-8c34-32a3b14b0fbc"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-9d07c7aa-011d-42e6-8138-b92ecca75bf0"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start-service -n moe.nb4a/io.nekohasekai.sagernet.bg.VpnService",
+    "customContextDataKey": {
+    },
+    "id": "A-d8750374-1d57-456e-9393-63c3af6a4e91"
+  }],
+  "id": "rule-52cf248b-0746-4d9f-8cad-189a7eb9d8c8",
+  "lastUpdateTime": "1705327671226",
+  "createTime": "1705327245698",
+  "author": {
+    "name": "cong"
+  },
+  "title": "Nekobox",
+  "description": "应用集 VPN",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "VPN",
+      "customContextDataKey": {
+      },
+      "id": "A-a12290ea-c702-499f-b59b-504d01e94305"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "pkgSets": ["VPN"],
+      "customContextDataKey": {
+      },
+      "id": "F-69c013e3-1031-45f2-b83e-cb98d8842b3d"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-6dbb1092-480a-4e27-9c2d-c8e1b246ed2f"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-a848e2fa-f246-4052-8515-c63b281b4638"
+    }, {
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "moe.nb4a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-c3c99586-1948-4cd4-9e36-e43718ebcdbf"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,41 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "id": "F-004e807d-cbd6-4ff9-b1ad-1ebc82611a60"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["gps"],
+      "op": "ANY",
+      "id": "C-f21f98bb-446c-42ef-8f13-b1c7f75451de"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "id": "A-32259ae7-e8fe-499c-945e-02ee366355bb"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "id": "A-08c75de7-f677-47d2-b263-8a7b5765e787"
+    }],
+    "id": "A-51c4dc8b-6f81-4f9f-9214-f686af63d6bc"
+  }],
+  "id": "rule-c24f8bc7-cc0b-43a1-8891-f9c984589357",
+  "lastUpdateTime": "1689710793512",
+  "createTime": "1689684995340",
+  "title": "Auto GPS",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "gps",
+      "id": "A-91c0ffba-ecc9-4106-a578-86b0f1ad71eb"
+    }]
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}

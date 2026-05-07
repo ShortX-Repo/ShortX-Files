@@ -1,0 +1,104 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-af99816f-10ce-42e1-8bac-fbedf59ce256"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "dc_Dl",
+    "valueAsString": "{batteryLevel}",
+    "customContextDataKey": {
+    },
+    "id": "A-2210b494-1964-4778-94a1-5d8950feda32"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "dc_C",
+    "valueAsString": "{batteryTemperature}",
+    "customContextDataKey": {
+    },
+    "id": "A-19c78df1-d84f-4333-98b4-f7cc752be2d5"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-a59d0c31-6403-45a7-aa9f-c19f5c8afb9a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "time_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n\n#int_Dc\u003d\"{batteryLevel}\"\n#int_C\u003d\"{batteryTemperature}\"\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\n\necho -e \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][充电 ↗]电量:${int_Dc} 温度:${int_C}\" \u003e\u003e /storage/emulated/0/Android/电池电量.log\n\nunset time_Y time_m time_d time_time",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-923eb015-b5f0-47d6-8e6f-6e0bc7f39f84"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "time_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n\n#int_Dc\u003d\"{batteryLevel}\"\n#int_C\u003d\"{batteryTemperature}\"\nint_Dc\u003d\"globalVarOf$dc_Dl\"\nint_C\u003d\"globalVarOf$dc_C\"\n\necho \"[${time_Y}年${time_m}月${time_d}日 ${time_time}][放电 ↘]电量:${int_Dc} 温度:${int_C}\" \u003e\u003e /storage/emulated/0/Android/电池电量.log\n\nunset time_Y time_m time_d time_time",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-f983b479-c528-47a8-b6df-69eb9b38414d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3ad0416c-872c-490f-ad05-57339e050a1c"
+  }],
+  "id": "rule-33dc6137-264f-448f-8a40-824c03030b31",
+  "lastUpdateTime": "1696348158381",
+  "createTime": "1694911923777",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "电量记录",
+  "description": "记录电量和温度（温度懒得弄awa",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "dc_Dl",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-a37b7146-1f40-4bdb-9a1b-8248f0c9699e"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "dc_C",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-184cba88-9519-4c41-9515-869abe174e13"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_Dl",
+      "customContextDataKey": {
+      },
+      "id": "A-950105bb-b708-4f02-9977-73678a90e52f"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dc_C",
+      "customContextDataKey": {
+      },
+      "id": "A-b491e0b0-2f06-4b2b-a68e-354c7d8a5dda"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-d1685209-8dc8-44fb-993b-dd335ef4816d"
+}
+###------###
+{"type":"rule"}

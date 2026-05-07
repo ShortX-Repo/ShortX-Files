@@ -1,0 +1,75 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiConnectedTo",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-eb389bb8-7e61-4c06-8e99-51e2dc6f5f25"
+  }, {
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-1e85c121-5ba9-4537-9f81-77f188896279"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireDelay",
+    "timeString": "1500",
+    "customContextDataKey": {
+    },
+    "id": "C-87bdddaf-8b95-4f87-96cf-04825c812451"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireWifiConnected",
+      "requiredSSID": "*",
+      "customContextDataKey": {
+      },
+      "id": "C-08cfbcfc-9508-42ac-9441-dbde3f0e396e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-9bbb3820-358b-4f68-925d-3bfa43594263"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-75ba406e-c2c0-4379-905d-2f8abd2ad677"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireWifiDisconnected",
+      "customContextDataKey": {
+      },
+      "id": "C-e35f19f2-3eaa-4045-a587-2870f4288787"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-91a6e4ea-c665-4066-91f3-6bbb6aec4cd6"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-356151d9-7e92-450d-9f10-a8a0e411f23f"
+  }],
+  "id": "rule-553a6176-b607-4a75-ab09-2cb58cb49f64",
+  "lastUpdateTime": "1706262505736",
+  "createTime": "1706262162738",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动切换网络",
+  "description": "关闭WiFi打开数据，相反打开WiFi关闭数据",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

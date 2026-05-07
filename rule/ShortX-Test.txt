@@ -1,0 +1,95 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/KeyEvent",
+    "keyCode": 24,
+    "id": "F-e51a4aaa-830d-4dd0-82b2-68b514a06e13"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-202b2622-0310-4755-880e-91db3309b47b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "List.1",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-0a07ef6e-0414-4bae-aecc-d31aa8601d29"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "List.2",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-27e2bc1b-0fc8-45f7-ae51-e31911930a8e"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings list global",
+        "id": "A-5720471b-d3d9-4cad-8091-8782e821a458"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "List.1",
+        "valueAsString": "shellOut",
+        "id": "A-7b0be06d-49ca-42b3-98d4-192950ceff2f"
+      }],
+      "icon": "edit-circle-line",
+      "label": "开"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings list global",
+        "id": "A-e5dd0a52-5935-488d-b4f0-fb5d62b019da"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "List.2",
+        "valueAsString": "{shellOut}",
+        "id": "A-86063e52-712a-42d9-aaa5-0da9dfb3bff4"
+      }],
+      "icon": "edit-circle-line",
+      "label": "关"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/sh\n\nvar1\u003dlocalVarOf$List.1\nvar2\u003dlocalVarOf$List.2\n\necho \"$var1\" \u003e /sdcard/var1.txt\necho \"$var2\" \u003e /sdcard/var2.txt\n\ndiff /sdcard/var1.txt /sdcard/var2.txt\n\nrm /sdcard/var1.txt /sdcard/var2.txt\n",
+        "id": "A-030db550-76ae-4992-be32-9d71439b77d5"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{mvelRet}",
+        "id": "A-03fd274a-ad47-4188-bbbc-feb1ec99e65c"
+      }],
+      "icon": "contrast-line",
+      "label": "对比"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["Settings_Items"],
+        "id": "A-9bd9bf60-6c64-45ef-b05c-d442e303abfe"
+      }],
+      "icon": "blur-off-fill",
+      "label": "关闭"
+    }],
+    "tag": "Settings_Items",
+    "id": "A-6037bf37-1a32-4969-ad50-2d80f17974e2"
+  }],
+  "id": "rule-29692c57-e483-47c2-9d4c-7f7c3e943fbf",
+  "lastUpdateTime": "1692254146429",
+  "createTime": "1692244922714",
+  "author": {
+    "name": "MrMoxing"
+  },
+  "title": "Test",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

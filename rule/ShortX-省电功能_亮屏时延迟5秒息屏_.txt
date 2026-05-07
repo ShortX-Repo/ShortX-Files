@@ -1,0 +1,40 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOn",
+    "customContextDataKey": {
+    },
+    "id": "F-e16b20bc-c053-4ee6-81ea-180f1ffdb57a"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-9261d2b2-b898-47f3-bd26-4af57fcc33ab"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-ab561c07-d2ee-4e65-bd9f-d3c79de99b92"
+  }, {
+    "@type": "type.googleapis.com/SleepScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-59f0b851-6e1c-486f-91e7-d2c8a509534b"
+  }],
+  "id": "rule-cf8a43aa-80ce-4617-8fc1-d8c6dd91415c",
+  "lastUpdateTime": "1700209873597",
+  "createTime": "1700209599378",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "省电功能☞亮屏时延迟5秒息屏 ",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

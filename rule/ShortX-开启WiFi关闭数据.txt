@@ -1,0 +1,150 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiStatusChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-e433edc5-ddb8-4ba7-a818-a100b59f3a27"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10000",
+    "customContextDataKey": {
+    },
+    "id": "A-59aa40fb-2c2c-405b-92d2-1668116648dd"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireWifiConnected",
+      "requiredSSID": "*",
+      "customContextDataKey": {
+      },
+      "id": "C-f93d1f07-595b-48c3-bc7c-198048a1e496"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireMobileDataEnabled",
+        "slotId": -1,
+        "customContextDataKey": {
+        },
+        "id": "C-4ea4b47e-6ea0-43f0-94f2-9be2bfa764e9"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetDataEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-ddcd33ca-ff09-4bc9-95b9-5fcd2f25724b"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5b0d3d21-7d62-4263-834e-3295dd8227d3"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "10000",
+      "customContextDataKey": {
+      },
+      "id": "A-ae8dc1ad-ddaa-48ec-a53e-27d22e74e8b6"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireWifiConnected",
+        "requiredSSID": "*",
+        "customContextDataKey": {
+        },
+        "id": "C-f93d1f07-595b-48c3-bc7c-198048a1e496"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/RequireMobileDataEnabled",
+          "slotId": -1,
+          "customContextDataKey": {
+          },
+          "id": "C-4ea4b47e-6ea0-43f0-94f2-9be2bfa764e9"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/SetDataEnabled",
+          "customContextDataKey": {
+          },
+          "id": "A-ddcd33ca-ff09-4bc9-95b9-5fcd2f25724b"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5b0d3d21-7d62-4263-834e-3295dd8227d3"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "10000",
+        "customContextDataKey": {
+        },
+        "id": "A-ae8dc1ad-ddaa-48ec-a53e-27d22e74e8b6"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/RequireWifiConnected",
+          "requiredSSID": "*",
+          "customContextDataKey": {
+          },
+          "id": "C-f93d1f07-595b-48c3-bc7c-198048a1e496"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/RequireMobileDataEnabled",
+            "slotId": -1,
+            "customContextDataKey": {
+            },
+            "id": "C-4ea4b47e-6ea0-43f0-94f2-9be2bfa764e9"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/SetDataEnabled",
+            "customContextDataKey": {
+            },
+            "id": "A-ddcd33ca-ff09-4bc9-95b9-5fcd2f25724b"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5b0d3d21-7d62-4263-834e-3295dd8227d3"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/SetWifiEnabled",
+          "customContextDataKey": {
+          },
+          "id": "A-aab4588c-f07c-4a02-8f2c-f30b0d8a3605"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "30秒未连接到WiFi，已关闭WiFi",
+          "customContextDataKey": {
+          },
+          "id": "A-60b7e6ad-c44b-4286-94ea-4ab3da1e7201"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-c433c152-40d6-438f-a915-a4807d1769cb"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-c433c152-40d6-438f-a915-a4807d1769cb"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c433c152-40d6-438f-a915-a4807d1769cb"
+  }],
+  "id": "rule-6c98870c-6cb1-4ee5-8549-b3d4da1a5556",
+  "lastUpdateTime": "1702751401177",
+  "createTime": "1697130626344",
+  "author": {
+    "name": "我无聊了"
+  },
+  "title": "开启WiFi关闭数据",
+  "description": "自动关闭数据",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-b374a802-542a-415d-9dc3-3e0e3c94e9eb"
+}
+###------###
+{"type":"rule"}

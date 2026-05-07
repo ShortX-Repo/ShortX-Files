@@ -1,0 +1,117 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopCenter",
+    "id": "F-91fe9fd1-d289-4fa0-bf3d-adce737f10e2"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-f98ea89c-1348-4d6b-970c-84eb59c215c3"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "access_token",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-315509b4-7ce1-44b4-a7fc-d3761204f533"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Message",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-60d39ffe-b2d5-4449-81dc-49b88b40430b"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "access_token",
+    "note": "这里填入你的",
+    "id": "A-f969573d-3511-4ff3-8fc8-0be3a697a323"
+  }, {
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "请输入内容",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "你要提问的内容"
+    }],
+    "id": "A-055ea46e-21da-440c-a139-a56013011c8b"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "if ({textFieldInput1} \u003d\u003d null || {textFieldInput1}.length() \u003c 2) {\n    return true;\n} else  {\n    return false;\n}",
+    "note": "判断内容是否为空或过短",
+    "id": "A-0ffb8816-0b54-4df4-908e-3da3d6ad40a6"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "Is_NullOrShort",
+    "valueAsString": "{mvelRet}",
+    "id": "A-e7b1980b-e2a2-4d39-8fe0-861ca8118b58"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "Is_NullOrShort",
+      "payload": {
+        "value": "false"
+      },
+      "id": "C-2d625f7b-11cb-46be-9c8a-ce83c85a00e3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "Message",
+      "valueAsString": "{textFieldInput1}",
+      "id": "A-57cf9d5c-41b0-4789-a8c2-6bc2e5bbe753"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions?access_token\u003dlocalVarOf$access_token",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["result"]
+      },
+      "method": "POST",
+      "headers": [{
+        "key": "Content-Type",
+        "value": "application/json"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"\\\"localVarOf$Message\\\"\"\n        }\n    ]\n}"
+      },
+      "id": "A-a701d22e-2487-432c-91e8-2c19c08842bf"
+    }, {
+      "@type": "type.googleapis.com/TTS",
+      "text": "{httpRequestRet1}",
+      "id": "A-cb8f388b-8ecd-4f57-bc0a-1a166a5534d7"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "{httpRequestRet1}",
+      "id": "A-42c08a03-ed0e-4b50-ad92-8c8efbf3c765"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "blur-off-fill",
+      "id": "A-f1ac61ab-7bc1-4e7a-bf4c-e202b2d71d89"
+    }],
+    "id": "A-eac13e5e-0b82-45fa-bf9a-92b49289b378"
+  }],
+  "id": "rule-4dceedef-3a4c-48d3-8c39-24d4c894c902",
+  "lastUpdateTime": "1690897872928",
+  "createTime": "1690772151541",
+  "author": {
+    "name": "MrMoxing"
+  },
+  "title": "文心一言",
+  "description": "快捷呼出",
+  "hook": {
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

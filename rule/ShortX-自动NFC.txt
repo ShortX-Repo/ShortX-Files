@@ -1,0 +1,65 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 26,
+    "gesture": "KeyMultiplePress",
+    "customContextDataKey": {
+    },
+    "id": "F-bd51fa86-6b05-459a-9d37-d044db402e37"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetNFCEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-48e2e386-193f-429d-a004-b10ec8bc87d9"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "420",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-a4210907-7f02-4425-af47-a9095fb0f0a4"
+  }, {
+    "@type": "type.googleapis.com/StartActivity",
+    "componentNameAsString": "com.miui.tsmclient/com.miui.tsmclient.ui.quick.DoubleClickActivity",
+    "customContextDataKey": {
+    },
+    "id": "A-bb0d1cb5-0015-4cf5-ad49-80ee7fd9aa1c"
+  }],
+  "id": "SHARE-rule-b6c5e237-85c3-4df0-89d0-2d771f8b64de",
+  "lastUpdateTime": "1737948384781",
+  "createTime": "1718857500955",
+  "author": {
+    "name": "Hidarihitomi"
+  },
+  "title": "自动NFC",
+  "description": "进入/退出刷卡界面自动开关NFC",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ActivityDestroyed",
+      "components": [{
+        "pkg": {
+          "pkgName": "com.miui.tsmclient"
+        },
+        "className": "com.miui.tsmclient.ui.quick.DoubleClickActivity"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-5fe6ee9b-07dd-4fd2-a822-39d3a141586d"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/SetNFCEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-ceeb8a61-e13c-42fa-b046-ca361ff6b29e"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,27 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "su\na\u003d$(find /sys/devices/ -iname \"battery\" -type d | head -n 1)\nb\u003d$(find /sys/class/ -iname \"qcom-battery\" -type d | head -n 1)\nc\u003d$(cat ${a}/charge_full_design)\nd\u003d$((${c}/1000))\ne\u003d$(cat ${a}/charge_full)\nf\u003d$((${e}/1000))\ng\u003d$(cat ${a}/cycle_count)\nh\u003d$(printf \"%d\" $((${e}*100/${c})))\nif [ -n \"${b}\" ]; then\ni\u003d$(cat ${b}/soh)\necho \"售后检测容量为：${i}%，\"\nfi\necho \"设计容量为：${d}mAh，当前容量为：${f}mAh，循环次数为：${g}次，健康度为：${h}%，${j}数据来源于内核节点，仅供参考！\"",
+    "customContextDataKey": {
+    },
+    "id": "A-beba3aca-836f-4eda-90bd-4b5d49b05528"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "title": "电池健康度",
+    "message": "{shellOut}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-128ba2c1-2058-4617-b4af-4b6bd407bd8d"
+  }],
+  "id": "DA2948988f-ca6e-48e2-94c2-129e28f98cba",
+  "lastUpdateTime": "1715617626375",
+  "createTime": "1715617117149",
+  "author": {
+    "name": "Crystal"
+  },
+  "title": "查询电池健康度",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

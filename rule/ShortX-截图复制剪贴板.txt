@@ -1,0 +1,37 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "/storage/emulated/0/DCIM/Screenshots/.*",
+    "customContextDataKey": {
+    },
+    "id": "F-031317b3-2604-4094-afe9-51469d048a37"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-3f4c9aab-d5fa-4fc7-8520-28b4eea7832c"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "{mediaFilePath}",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-ae6f6b11-728c-428b-b646-473cb34535b4"
+  }],
+  "id": "SHARE-rule-5949293c-ae07-49a3-97c8-f91887819672",
+  "lastUpdateTime": "1744788724384",
+  "createTime": "1739068640379",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "截图复制剪贴板",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,113 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["vpn"],
+    "customContextDataKey": {
+    },
+    "id": "F-c261b558-fcbe-4b6c-9f8c-eb31a614a097"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-22f6361e-4f42-46cc-a4b3-78eca1dd5840"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "drop-line",
+      "customContextDataKey": {
+      },
+      "id": "A-5121c92c-b8a7-40ac-9002-27751058f96d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "service call vpn_management 15 i32 0 s16 \"com.github.metacubex.clash.meta\" i32 0",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-2b5edfe7-06d1-4053-bc06-76444ce9cad0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4cadfd7b-ba90-47c2-b4f5-73ad885711c3"
+  }],
+  "id": "rule-f6bf6176-ca24-4eb5-a0f0-d40880516173",
+  "lastUpdateTime": "1706487882307",
+  "createTime": "1703655396911",
+  "author": {
+    "name": "Jeff_CF"
+  },
+  "title": "开关vpn",
+  "description": "指定应用开启/关闭时自动开关vpn",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/TaskRemoved",
+      "pkgSets": ["vpn"],
+      "customContextDataKey": {
+      },
+      "id": "F-f403f7c6-2880-4dcd-9d71-cac1a53eb6f0"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/RemoveTasksByPkg",
+      "pkgAndUsers": [{
+        "first": "{pkgName}",
+        "second": "0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-14d9bcb0-810e-484e-957e-a0588544676b"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-b4613a2f-ff83-4c0b-85e3-629eb9e33a30"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsRunning",
+        "pkgSets": ["vpn"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-7b457486-d509-45cb-b190-007ac280e017"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "drop-line",
+        "customContextDataKey": {
+        },
+        "id": "A-f17bc7b6-b342-4ee0-9123-98af660a9871"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "service call vpn_management 15 i32 0",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-a602c715-2ee3-4134-a8e5-46a7e4b4b6ac"
+      }, {
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "com.github.metacubex.clash.meta"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-781961a0-6665-4f6e-bba4-6e44edeffc47"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-cce3b60f-e1e9-4839-8159-3411416682d3"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

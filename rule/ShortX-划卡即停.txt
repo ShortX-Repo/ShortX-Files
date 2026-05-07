@@ -1,0 +1,42 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/TaskRemoved",
+    "customContextDataKey": {
+    },
+    "id": "F-7195fc29-0a70-4c4c-aef2-9fa7c42fdd3a"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "\u0027com.tencent.mm|com.tencent.mobileqq\u0027.contains({pkgName})",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-f0e3ea5a-eab7-4db4-b993-e2011fe51c03"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/StopAppByPkg",
+    "pkgAndUsers": [{
+      "first": "{pkgName}",
+      "second": "0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-83905b71-3177-41ef-b526-0666a483ae76"
+  }],
+  "id": "rule-c55940a8-ab7a-4a8d-9625-6e094e4f8ac2",
+  "lastUpdateTime": "1699616936641",
+  "createTime": "1699615712291",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "划卡即停",
+  "description": "条件添加删除应用包名",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

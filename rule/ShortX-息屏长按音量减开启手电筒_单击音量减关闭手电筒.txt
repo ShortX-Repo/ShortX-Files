@@ -1,0 +1,73 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 25,
+    "gesture": "KeyLongPress",
+    "customContextDataKey": {
+    },
+    "id": "F-8bc66555-20f2-4cab-b188-6bf57f885761"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-90695c24-018c-4dcf-a51e-e1a19abf9aaf"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-5072cc27-5d09-434b-ade2-38c7ec412878"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Vibrate",
+      "vib1": 30,
+      "customContextDataKey": {
+      },
+      "id": "A-8ed3d2cd-8d50-47a9-86cc-9c36c1ac07d7"
+    }, {
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-9560f6ce-1691-490d-bdd5-f4be35b533cf"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-af0dbd33-4ee7-419c-ac66-d5b019fbb990"
+  }],
+  "id": "rule-e22ef047-ca7c-427e-ad29-a976c47fdb6d",
+  "lastUpdateTime": "1724415957712",
+  "createTime": "1699716505078",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "息屏长按音量减开启手电筒 单击音量减关闭手电筒",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AdvancedKeyEvent",
+      "keyCode": 25,
+      "customContextDataKey": {
+      },
+      "id": "F-91eee78f-90a9-40f7-9374-a5be574f1ae7"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-66f89d4b-2f03-41b1-8dd2-293bb4f436e1"
+    }]
+  },
+  "asyncMode": "AsyncMode_Sync_InRule",
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,60 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Logcat",
+    "regex": " KUROSDK : KrImp  openWebView：title: url:",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-08861af7-a991-414b-88af-81ef046b5b78"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "{line}",
+    "regex": "url:(https?:\\/\\/[^\\s]+)",
+    "customContextDataKey": {
+    },
+    "id": "A-9164ce7b-7179-4121-8e49-b3b9e83ad7e5"
+  }, {
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{matchResult}",
+    "regex": "url:",
+    "customContextDataKey": {
+    },
+    "id": "A-7df437cd-e6f9-4542-b82b-ea8af4f06ff7"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-6e291877-2895-42f7-919d-ac334abdaab6"
+    }],
+    "title": "抽卡链接",
+    "message": "{replaceResult}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-51925c57-6e43-4a87-bf44-f5ba638dc243"
+  }],
+  "id": "SHARE-rule-543d8c26-d399-4ad6-8a23-2e7d2dfea54c",
+  "lastUpdateTime": "1743186099960",
+  "createTime": "1743184931941",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "鸣潮抽卡链接获取",
+  "description": "打开抽卡记录获取自动链接",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

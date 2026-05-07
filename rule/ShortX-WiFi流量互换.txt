@@ -1,0 +1,44 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiConnectedTo",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-e3e67514-dbf3-49de-b5bf-2a1c634e6c9f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetDataEnabled",
+    "customContextDataKey": {
+    },
+    "id": "A-2e0f0c2c-b1f2-43a2-b30d-4e73d0a9a38b"
+  }],
+  "id": "SHARE-rule-96a641d7-5808-4f01-8ef7-3e0251db0cf7",
+  "lastUpdateTime": "1756467666983",
+  "createTime": "1756467610447",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "WiFi流量互换",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/WifiDisconnectedFrom",
+      "ssidList": ["*"],
+      "customContextDataKey": {
+      },
+      "id": "F-a8dce6f6-7f84-4220-aafd-79581d1f0658"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-e23f6763-409f-49d1-8105-4d4ee7a3d130"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

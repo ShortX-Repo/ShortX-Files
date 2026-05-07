@@ -1,0 +1,72 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "miui_time_floating_window_status",
+      "payload": {
+      },
+      "id": "C-99638de4-f4b7-4f6f-a882-c90f53d45fe6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "miui_time_floating_window_status",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-3a477863-2fab-4a9a-950a-fb3ac7792721"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "miui_time_floating_window_status",
+      "valueAsString": "0",
+      "id": "A-c71e450c-73c6-4953-b0dc-eb9f68b6f844"
+    }],
+    "id": "A-534846fb-624b-4602-9733-c220cfae8284"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "miui_time_floating_window_status",
+      "payload": {
+        "value": "0"
+      },
+      "id": "C-2230aaba-28d1-40aa-a7b9-493c0f405aab"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system miui_time_floating_window 1",
+      "id": "A-e90ee79e-38a1-48ea-b04f-8363cb9f0513"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "miui_time_floating_window_status",
+      "valueAsString": "1",
+      "id": "A-e9abdf71-a4db-42bf-974b-6548a0f024c9"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system miui_time_floating_window 0",
+      "id": "A-3f10ca36-1600-4258-a92b-e96fd3f38976"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "miui_time_floating_window_status",
+      "valueAsString": "0",
+      "id": "A-a2996e7c-126f-4b60-9064-46b0f1b6ac80"
+    }],
+    "id": "A-9dde6dc7-2f67-4023-bf2b-bf2c4c62a1c6"
+  }],
+  "id": "DA7b19ef61-f020-4bad-af1f-c39988e94375",
+  "lastUpdateTime": "1691741322492",
+  "createTime": "1691740141000",
+  "author": {
+    "name": "V我50"
+  },
+  "title": "时间悬浮窗",
+  "description": "开关MIUI的时间悬浮窗",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

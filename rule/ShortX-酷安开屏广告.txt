@@ -1,0 +1,79 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/HasFoundNodeOnScreen",
+    "packageName": "com.coolapk.market",
+    "matchers": [{
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.byted.pangle.m:id/tt_splash_skip_btn"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.byted.pangle.m:id/tt_splash_skip_btn"
+    }],
+    "detectTimeout": "5000",
+    "customContextDataKey": {
+    },
+    "id": "F-511397f1-4ae7-4e17-aed8-e743d191a826"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FindAndClickMatchedView",
+    "customContextDataKey": {
+    },
+    "id": "A-54bfb863-4b27-48bd-8160-64d45e8b14a0"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "a \u003d globalVarOf$计数;\nb \u003d (a \u003d a * 1 + 1) + 10;\nreturn a;",
+    "customContextDataKey": {
+    },
+    "id": "A-8ce6b9fb-64cb-470d-8014-1e57941d8c5a"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "已为您跳过{mvelRet}次",
+    "customContextDataKey": {
+    },
+    "id": "A-27d92b37-cf83-466e-9617-2e40d5a951b8"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "计数",
+    "valueAsString": "{mvelRet}",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-86d7fb77-a03e-49d1-94bc-4dc89dcfb78b"
+  }],
+  "id": "rule-4bc64f81-3713-4756-bc73-fcb853ae3047",
+  "lastUpdateTime": "1693581296511",
+  "createTime": "1693548689184",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "酷安开屏广告",
+  "description": "跳过开屏",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "计数",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3f92dce2-156c-4dd5-96fd-3da8bd6255ed"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "计数",
+      "valueAsString": "0",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-0381f484-5557-46fa-90bf-9f21789f254d"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

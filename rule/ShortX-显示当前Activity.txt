@@ -1,0 +1,239 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "customContextDataKey": {
+    },
+    "id": "F-28832cf3-a5e5-41a7-953e-e0d6d2f2f12a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "currentActivity",
+    "valueAsString": "{componentName}",
+    "customContextDataKey": {
+    },
+    "id": "A-9f56309b-ab70-4a54-973b-b887b22c3ef5"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "pkgName",
+    "valueAsString": "{pkgName}",
+    "customContextDataKey": {
+    },
+    "id": "A-126f3be6-9092-4b2b-936e-2570943fc490"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys package {pkgName} | grep userId\u003d | cat | awk \u0027{ gsub(/    userId\u003d/, \"\"); print }\u0027",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-e9feca1e-9496-4dae-a133-492cd7288b30"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "userId",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-c5a410b5-cd0d-41fc-b5aa-3f65237d6221"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "globalVarOf$currentActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-31d8741b-83a8-412d-9548-62d37fd85765"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已经复制 globalVarOf$currentActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-5432c624-80fd-4582-ba53-7aa07498ad3b"
+      }],
+      "icon": "android-fill",
+      "label": "globalVarOf$currentActivity",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+        "customContextDataKey": {
+        },
+        "id": "A-abbbbca5-9756-41fd-a757-90ea377ff500"
+      }],
+      "id": "BTN-447c8f6f-eade-483d-9235-fcda5be6b4aa"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "globalVarOf$pkgName",
+        "customContextDataKey": {
+        },
+        "id": "A-8940e9e9-d932-46bc-b136-5e353f1ecfa3"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已经复制 globalVarOf$pkgName",
+        "customContextDataKey": {
+        },
+        "id": "A-f9a49207-df14-4120-8b3c-9c1f344fb556"
+      }],
+      "icon": "android",
+      "label": "globalVarOf$pkgName",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+        "customContextDataKey": {
+        },
+        "id": "A-abbbbca5-9756-41fd-a757-90ea377ff500"
+      }],
+      "id": "BTN-51093225-8701-4ca7-b661-3bca332e793f"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制UID",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "globalVarOf$userId",
+          "customContextDataKey": {
+          },
+          "id": "A-8940e9e9-d932-46bc-b136-5e353f1ecfa3"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "已经复制 globalVarOf$userId",
+          "customContextDataKey": {
+          },
+          "id": "A-f9a49207-df14-4120-8b3c-9c1f344fb556"
+        }],
+        "negative": "授权Root",
+        "onNegative": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "授权Root",
+          "cancelable": true,
+          "textFields": [{
+            "placeholder": "UID (globalVarOf$pkgName)",
+            "value": "globalVarOf$userId"
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-df59fca9-62d4-472a-aab0-b4a1445cbfe1"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "(su {textFieldInput1} -c su)\u0026\u0026 echo \"授权成功\"",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-fb251b0d-4719-4af4-98fa-803d477dee9a"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "授权Root (UID: {textFieldInput1})\n{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-f2421fc6-3953-4e87-bcb4-71d586e54d72"
+        }],
+        "neutral": "取消",
+        "title": "选择操作",
+        "message": "currentActivity: globalVarOf$currentActivity\n---\npkgName: globalVarOf$pkgName\n---\nuserId: globalVarOf$userId\n---",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-77faf523-09cc-40e9-b76e-c6dd2b21c865"
+      }],
+      "icon": "user-line",
+      "label": "globalVarOf$userId",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-147ceb76-5e50-4b4a-9b96-59d84f84eb26",
+        "customContextDataKey": {
+        },
+        "id": "A-abbbbca5-9756-41fd-a757-90ea377ff500"
+      }],
+      "id": "BTN-6b2a82f6-2708-4f77-a2b6-40ea3d5c421a"
+    }],
+    "tag": "activityOverlay",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 111,
+    "buttonMinWidth": 211,
+    "enableGlobalDrag": true,
+    "overlayPaddingH": 10,
+    "overlayPaddingV": 16,
+    "customContextDataKey": {
+    },
+    "id": "A-1d8c6f6c-d0b2-4277-bd4d-0bf97da95c67"
+  }],
+  "id": "SHARE-rule-e1cb47be-a057-4bcb-a711-28086d9efb9e",
+  "lastUpdateTime": "1743171486910",
+  "createTime": "1686443557117",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "显示当前Activity",
+  "description": "Acticity切换时显示悬浮窗，点击可复制组件名称",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "currentActivity",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b85957a9-8d03-4b4e-ae1a-2e9a79c6f2c4"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "pkgName",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-229ec3f7-45a5-436e-9577-3eea250174a6"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "userId",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9c9662ed-3f22-4151-b522-6a1ee75c5675"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["activityOverlay"],
+      "customContextDataKey": {
+      },
+      "id": "A-accb8e9f-29ea-47d7-bd6a-f49529709594"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "currentActivity",
+      "customContextDataKey": {
+      },
+      "id": "A-2b8c58a1-cf84-4741-aa45-07a512995abc"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "pkgName",
+      "customContextDataKey": {
+      },
+      "id": "A-6c286d21-3f1f-43a0-95d3-96ba08199520"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "userId",
+      "customContextDataKey": {
+      },
+      "id": "A-ceb2a908-c1d8-40c0-b9f6-cc4710876e14"
+    }]
+  },
+  "quit": {
+  },
+  "ruleSetId": "RS-7fe17f4b-8bef-424e-8328-3cd52b246d26"
+}
+###------###
+{"type":"rule"}

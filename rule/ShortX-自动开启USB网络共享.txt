@@ -1,0 +1,49 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-fa6c13fc-72a1-44b6-bc2b-7a071dd96f69"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import android.content.Context;\nimport android.content.Intent;\nimport android.content.IntentFilter;\nimport android.os.BatteryManager;\n\n// 获取BatteryManager实例\nBatteryManager batteryManager \u003d (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);\n\n// 获取电池状态信息\nIntentFilter filter \u003d new IntentFilter(Intent.ACTION_BATTERY_CHANGED);\nIntent batteryStatus \u003d context.registerReceiver(null, filter);\n\nif (batteryStatus !\u003d null) {\n    // 获取充电状态\n    int status \u003d batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);\n    int chargePlug \u003d batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);\n\n    // 检查是否充电中，并且是否通过USB充电\n    boolean isCharging \u003d status \u003d\u003d BatteryManager.BATTERY_STATUS_CHARGING || status \u003d\u003d BatteryManager.BATTERY_STATUS_FULL;\n    boolean isUsbCharge \u003d chargePlug \u003d\u003d BatteryManager.BATTERY_PLUGGED_USB;\n\n    return isCharging \u0026\u0026 isUsbCharge;\n}\n\nreturn false;",
+    "customContextDataKey": {
+    },
+    "id": "C-b3fcf28f-4901-468e-8536-e3fc4c21071c"
+  }, {
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import java.lang.reflect.Method;\nimport android.content.Context;\nimport android.net.ConnectivityManager;\n\nConnectivityManager connectivityManager \u003d (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);\n\n// 通过反射调用 getTetheredIfaces 方法来获取当前的共享状态\nMethod getTetheredIfacesMethod \u003d connectivityManager.getClass().getDeclaredMethod(\"getTetheredIfaces\");\ngetTetheredIfacesMethod.setAccessible(true);\nString[] tetheredIfaces \u003d (String[]) getTetheredIfacesMethod.invoke(connectivityManager);\n\n// 检查是否包含 \"rndis\"（通常代表 USB 共享网络）\nboolean isUsbTetheringEnabled \u003d true;\nfor (iface : tetheredIfaces) {\n    if (iface.startsWith(\"rndis\")) { \n        isUsbTetheringEnabled \u003d false; \n    }\n}\n\n// 输出结果\nisUsbTetheringEnabled",
+    "customContextDataKey": {
+    },
+    "id": "C-618a251b-888e-4a6d-9af4-f8a3b2b1854b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.lang.reflect.Method;\nimport android.content.Context;\nimport android.net.ConnectivityManager;\n\nConnectivityManager connectivityManager \u003d (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);\n\nMethod setUsbTetheringMethod \u003d connectivityManager.getClass().getDeclaredMethod(\"setUsbTethering\", boolean);\nsetUsbTetheringMethod.setAccessible(true);\nsetUsbTetheringMethod.invoke(connectivityManager, true);",
+    "customContextDataKey": {
+    },
+    "id": "A-29264570-116b-4137-8263-3ba3be70097e"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "已连接到电脑，自动开启USB共享网络",
+    "customContextDataKey": {
+    },
+    "id": "A-9aef9809-4b74-4580-a9df-1ba341ebf3c4"
+  }],
+  "id": "SHARE-rule-502e006a-285f-4890-906b-279d1c70e0bc",
+  "lastUpdateTime": "1726154490064",
+  "createTime": "1726150952165",
+  "author": {
+    "name": "He"
+  },
+  "title": "自动开启USB网络共享",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,598 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 10,
+      "minutes": 8
+    },
+    "repeat": {
+      "days": ["SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b95089d5-38f4-4dac-893f-c4eeee43f5d9"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 14,
+      "minutes": 8
+    },
+    "repeat": {
+      "days": ["SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-4669aaf0-649e-4248-988b-d6aa054d0dec"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 22,
+      "minutes": 8
+    },
+    "repeat": {
+      "days": ["SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-71e3a312-964d-4c12-afde-ef82eb3708cf"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 7,
+      "minutes": 8
+    },
+    "repeat": {
+      "days": ["SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-d9e971c1-cfb4-43a6-adaf-87ac494c5145"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 13,
+      "minutes": 8
+    },
+    "repeat": {
+      "days": ["SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-50acbfdf-4bb7-4d32-9f67-7e8d234ac2aa"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 19,
+      "minutes": 8
+    },
+    "repeat": {
+      "days": ["SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-8a92792b-753b-43be-957d-959fb76451b8"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import java.time.LocalDate;\nLocalDate.now().getDayOfMonth() \u003c\u003d 15;",
+    "customContextDataKey": {
+    },
+    "id": "C-78b0ee6d-27e6-4efc-b763-0643bda915ee"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "drop-line",
+    "customContextDataKey": {
+    },
+    "note": "● 每月1-15日：周六、周日  \n● 周六：10:08 14:08 22:08\n● 周日：07:08 13:08 19:08\n\n● 每月16-月末：周五、周日  \n● 周五：11:08 17:08 23:08\n● 周日：07:08 13:08 19:08\n\n注：每天三个时间段，其中两个时间段有红石，08分降落，持续52分钟。",
+    "id": "A-18fa08d7-90eb-491c-9880-a54daaa0a3ce"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://live-queue-sky-merge.game.163.com/queue?type\u003djson",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["ret", "pos", "wait_time"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-8882812c-4a58-40fe-9285-78e336a0abe4"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1} \u003d\u003d 0",
+      "customContextDataKey": {
+      },
+      "id": "C-54ba6333-c4fd-436b-9069-c8cc59f112b8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "红石降落，当前未炸服~\n快上线拿红蜡烛！",
+      "icon": "app://com.netease.sky.vivo",
+      "customContextDataKey": {
+      },
+      "id": "A-916831c4-c9dc-4ffd-add3-a5fe6cbff868"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-342a5d64-6443-4c1f-8a5a-cdaf7ddd239c"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-红石",
+      "title": "未炸服~",
+      "message": "● 每月1-15日：周六、周日  \n● 周六：10:08 14:08 22:08\n● 周日：07:08 13:08 19:08\n 点击查看红石降落位置",
+      "isImportant": true,
+      "smallIcon": "gamepad-fill",
+      "vibrate": true,
+      "sound": true,
+      "clickAction": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.t1qq.com/api/sky/gytq?key\u003dlHV6bOsaNrsNv2hmegRRVMxOUp",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["data.img2"]
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-ffbb87c8-580f-4e9c-9af0-18f323016a55"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-665e6d53-8f86-4943-80fc-db5c141838b6"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-90be1334-c455-49b9-be01-accdc3b37078"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-49234a7b-ae23-4911-a33b-04b28491ae95"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c048f6a1-cdac-4531-9aa3-05fd85abada6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1} \u003d\u003d 1",
+      "customContextDataKey": {
+      },
+      "id": "C-54ba6333-c4fd-436b-9069-c8cc59f112b8"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet3} !\u003d \"\"",
+      "customContextDataKey": {
+      },
+      "id": "C-752e0bb1-1372-4326-a99f-355ffc7a7d19"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/bash\n\ntimestamp\u003d{httpRequestRet3}\n\nif [[ $timestamp -gt 86400 ]]; then\n  days\u003d$(( (timestamp +43200) / 86400))\n  formatted_time\u003d$(printf \"%01d天\" $days)\nelif [[ $timestamp -gt 59 ]]; then\n  minutes\u003d$(( (timestamp + 30) / 60 ))\n  formatted_time\u003d$(printf \"%01d分\" $minutes)\nelse\n  seconds\u003d$((timestamp % 60))\n  formatted_time\u003d$(printf \"%01d秒\" $seconds)\nfi\n\necho $formatted_time",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-4624ce5a-51c3-474d-add1-dc3fc3023971"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "红石降落，光遇炸服力~\n排队:「{httpRequestRet2}人」\n时间:「{shellOut}」",
+      "icon": "app://com.netease.sky.vivo",
+      "customContextDataKey": {
+      },
+      "id": "A-a7d0d713-3c0b-49f7-93be-2311b680d9f2"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-4ac47164-7299-47c6-8aa8-36f6e8c558c6"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-红石",
+      "title": "炸服力~",
+      "message": "当前排队人数:「{httpRequestRet2}」\n预计所需时间:「{shellOut}」\n● 每月1-15日：周六、周日  \n● 周六：10:08 14:08 22:08\n● 周日：07:08 13:08 19:08\n 点击查看红石降落位置",
+      "isImportant": true,
+      "smallIcon": "gamepad-fill",
+      "vibrate": true,
+      "sound": true,
+      "clickAction": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.t1qq.com/api/sky/gytq?key\u003dlHV6bOsaNrsNv2hmegRRVMxOUp",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["data.img2"]
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-ffbb87c8-580f-4e9c-9af0-18f323016a55"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-665e6d53-8f86-4943-80fc-db5c141838b6"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a6de39f0-5360-4fad-817a-54c38c162a8c"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-05f49af6-f34f-4716-94b0-aafa4bccbc7c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-87ece56e-d991-4a20-b768-2cf1eb479a7e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1} \u003d\u003d ",
+      "customContextDataKey": {
+      },
+      "id": "C-54ba6333-c4fd-436b-9069-c8cc59f112b8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "红石降落，查询失败，\n光遇服务器异常~",
+      "icon": "app://com.netease.sky.vivo",
+      "customContextDataKey": {
+      },
+      "id": "A-b51f037c-1d3e-4105-9f83-8ae5c0d6e722"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-b213d78c-b132-4f94-ba7a-660e1616b2d6"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-红石",
+      "title": "查询失败，光遇服务器异常",
+      "message": "● 每月1-15日：周六、周日  \n● 周六：10:08 14:08 22:08\n● 周日：07:08 13:08 19:08\n 点击查看红石降落位置",
+      "isImportant": true,
+      "smallIcon": "gamepad-fill",
+      "vibrate": true,
+      "sound": true,
+      "clickAction": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.t1qq.com/api/sky/gytq?key\u003dlHV6bOsaNrsNv2hmegRRVMxOUp",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["data.img2"]
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-ffbb87c8-580f-4e9c-9af0-18f323016a55"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-665e6d53-8f86-4943-80fc-db5c141838b6"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-62a302bf-524e-4c18-8d03-3e87e569aad3"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-2e3b152b-0722-4bb6-810f-e1b61b522cf8"
+  }],
+  "id": "rule-86ebfe73-c036-40c2-a0ff-32fd43a7c2c0",
+  "lastUpdateTime": "1699862457497",
+  "createTime": "1692343272697",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "光遇红石",
+  "description": "红石降落推送通知并判断有没有炸服，点击通知查看降落位置",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/Alarm",
+      "triggerAt": {
+        "hour": 11,
+        "minutes": 8
+      },
+      "repeat": {
+        "days": ["FRIDAY"]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-8188c255-6016-450f-997e-deb8cec69908"
+    }, {
+      "@type": "type.googleapis.com/Alarm",
+      "triggerAt": {
+        "hour": 17,
+        "minutes": 8
+      },
+      "repeat": {
+        "days": ["FRIDAY"]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-0990445c-3507-4709-a42c-1930591137be"
+    }, {
+      "@type": "type.googleapis.com/Alarm",
+      "triggerAt": {
+        "hour": 23,
+        "minutes": 8
+      },
+      "repeat": {
+        "days": ["FRIDAY"]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-3dd051ea-da30-4ce1-b450-aaaab4b23c22"
+    }, {
+      "@type": "type.googleapis.com/Alarm",
+      "triggerAt": {
+        "hour": 7,
+        "minutes": 8
+      },
+      "repeat": {
+        "days": ["SUNDAY"]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-3a1680df-c0a7-4e07-b4ac-4fa9eedfcd92"
+    }, {
+      "@type": "type.googleapis.com/Alarm",
+      "triggerAt": {
+        "hour": 13,
+        "minutes": 8
+      },
+      "repeat": {
+        "days": ["SUNDAY"]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-94f6661d-7f60-488c-af06-866056f03f5d"
+    }, {
+      "@type": "type.googleapis.com/Alarm",
+      "triggerAt": {
+        "hour": 19,
+        "minutes": 8
+      },
+      "repeat": {
+        "days": ["SUNDAY"]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-48b72fe6-3b2b-49f9-ac4c-deeb1e9480be"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "import java.time.LocalDate;\nLocalDate.now().getDayOfMonth() \u003e 15;",
+      "customContextDataKey": {
+      },
+      "id": "C-0aa19d68-db59-4350-9cc7-ffba5245afc5"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://live-queue-sky-merge.game.163.com/queue?type\u003djson",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["ret", "pos", "wait_time"]
+      },
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "id": "A-f60b9c0b-74a1-4018-8247-2302c35c4951"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} \u003d\u003d 0",
+        "customContextDataKey": {
+        },
+        "id": "C-54ba6333-c4fd-436b-9069-c8cc59f112b8"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "红石降落，当前未炸服~\n快上线拿红蜡烛！",
+        "icon": "app://com.netease.sky.vivo",
+        "customContextDataKey": {
+        },
+        "id": "A-916831c4-c9dc-4ffd-add3-a5fe6cbff868"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "200",
+        "customContextDataKey": {
+        },
+        "id": "A-342a5d64-6443-4c1f-8a5a-cdaf7ddd239c"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-红石",
+        "title": "未炸服~",
+        "message": "● 每月16-月末：周五、周日  \n● 周五：11:08 17:08 23:08\n● 周日：07:08 13:08 19:08\n 点击查看红石降落位置",
+        "isImportant": true,
+        "smallIcon": "gamepad-fill",
+        "vibrate": true,
+        "sound": true,
+        "clickAction": [{
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "https://api.t1qq.com/api/sky/gytq?key\u003dlHV6bOsaNrsNv2hmegRRVMxOUp",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["data.img2"]
+          },
+          "requestBody": {},
+          "customContextDataKey": {
+          },
+          "id": "A-ffbb87c8-580f-4e9c-9af0-18f323016a55"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "{httpRequestRet1}",
+          "customContextDataKey": {
+          },
+          "id": "A-665e6d53-8f86-4943-80fc-db5c141838b6"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-90be1334-c455-49b9-be01-accdc3b37078"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-1eae931a-e3e5-4750-98b8-78212c375e1f"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a76de799-b959-4a9d-b0e1-5a7bcde03170"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} \u003d\u003d 1",
+        "customContextDataKey": {
+        },
+        "id": "C-54ba6333-c4fd-436b-9069-c8cc59f112b8"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet3} !\u003d \"\"",
+        "customContextDataKey": {
+        },
+        "id": "C-ba741c8b-acb5-4aca-ae86-66affa4aff95"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/bash\n\ntimestamp\u003d{httpRequestRet3}\n\nif [[ $timestamp -gt 86400 ]]; then\n  days\u003d$(( (timestamp +43200) / 86400))\n  formatted_time\u003d$(printf \"%01d天\" $days)\nelif [[ $timestamp -gt 59 ]]; then\n  minutes\u003d$(( (timestamp + 30) / 60 ))\n  formatted_time\u003d$(printf \"%01d分\" $minutes)\nelse\n  seconds\u003d$((timestamp % 60))\n  formatted_time\u003d$(printf \"%01d秒\" $seconds)\nfi\n\necho \"$formatted_time\"",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-7812db3b-fba4-438e-9b07-6b17dc821d18"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "红石降落，光遇炸服力~\n排队:「{httpRequestRet2}人」\n时间:「{shellOut}」",
+        "icon": "app://com.netease.sky.vivo",
+        "customContextDataKey": {
+        },
+        "id": "A-a7d0d713-3c0b-49f7-93be-2311b680d9f2"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "200",
+        "customContextDataKey": {
+        },
+        "id": "A-4ac47164-7299-47c6-8aa8-36f6e8c558c6"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-红石",
+        "title": "炸服力~",
+        "message": "当前排队人数:「{httpRequestRet2}」\n预计所需时间:「{shellOut}」\n● 每月16-月末：周五、周日  \n● 周五：11:08 17:08 23:08\n● 周日：07:08 13:08 19:08\n 点击查看红石降落位置",
+        "isImportant": true,
+        "smallIcon": "gamepad-fill",
+        "vibrate": true,
+        "sound": true,
+        "clickAction": [{
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "https://api.t1qq.com/api/sky/gytq?key\u003dlHV6bOsaNrsNv2hmegRRVMxOUp",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["data.img2"]
+          },
+          "requestBody": {},
+          "customContextDataKey": {
+          },
+          "id": "A-ffbb87c8-580f-4e9c-9af0-18f323016a55"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "{httpRequestRet1}",
+          "customContextDataKey": {
+          },
+          "id": "A-665e6d53-8f86-4943-80fc-db5c141838b6"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-a6de39f0-5360-4fad-817a-54c38c162a8c"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-15c8dfcc-1d83-433a-9982-6e238901953a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2dd5ef48-6b4f-4d7e-bbd5-2c7c95c1be5c"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} \u003d\u003d ",
+        "customContextDataKey": {
+        },
+        "id": "C-54ba6333-c4fd-436b-9069-c8cc59f112b8"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "红石降落，查询失败，\n光遇服务器异常~",
+        "icon": "app://com.netease.sky.vivo",
+        "customContextDataKey": {
+        },
+        "id": "A-b51f037c-1d3e-4105-9f83-8ae5c0d6e722"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "200",
+        "customContextDataKey": {
+        },
+        "id": "A-b213d78c-b132-4f94-ba7a-660e1616b2d6"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-红石",
+        "title": "查询失败，服务器异常",
+        "message": "● 每月16-月末：周五、周日  \n● 周五：11:08 17:08 23:08\n● 周日：07:08 13:08 19:08\n 点击查看红石降落位置",
+        "isImportant": true,
+        "smallIcon": "gamepad-fill",
+        "vibrate": true,
+        "sound": true,
+        "clickAction": [{
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "https://api.t1qq.com/api/sky/gytq?key\u003dlHV6bOsaNrsNv2hmegRRVMxOUp",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+            "expressions": ["data.img2"]
+          },
+          "requestBody": {},
+          "customContextDataKey": {
+          },
+          "id": "A-ffbb87c8-580f-4e9c-9af0-18f323016a55"
+        }, {
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "{httpRequestRet1}",
+          "customContextDataKey": {
+          },
+          "id": "A-665e6d53-8f86-4943-80fc-db5c141838b6"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-62a302bf-524e-4c18-8d03-3e87e569aad3"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-660212e4-53e3-48c2-8c9c-8ecc3b034196"
+    }]
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "ruleSetId": "RS-f72e2f6e-01d0-40b1-b130-c3e911920824"
+}
+###------###
+{"type":"rule"}

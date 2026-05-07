@@ -1,0 +1,94 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["User"],
+    "customContextDataKey": {
+    },
+    "id": "F-c01108ee-8d30-48ff-9bba-f8cddb3495b3"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["User"],
+    "customContextDataKey": {
+    },
+    "id": "F-7611975e-c77c-45ea-8906-18a516ff5979"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["禁用传感器"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-83e32569-fd2d-46a4-9c32-9613b8dc507d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireSensorOff",
+        "customContextDataKey": {
+        },
+        "id": "C-80333a87-aa3c-4790-b5bc-b0b15ab7ff66"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "关闭传感器",
+        "customContextDataKey": {
+        },
+        "id": "A-4751bf4c-0511-4705-8cc0-128c67d1fab0"
+      }, {
+        "@type": "type.googleapis.com/SetSensorsOffEnabled",
+        "enable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-60c025ef-e61d-4f21-b453-27950bb7c15b"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-6e910c16-7526-46d8-b34a-eb8aca39b380"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireSensorOff",
+        "isRequireOn": true,
+        "customContextDataKey": {
+        },
+        "id": "C-80333a87-aa3c-4790-b5bc-b0b15ab7ff66"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetSensorsOffEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-e2bdf906-d6f9-4956-a46b-1fb6ac35f457"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "恢复传感器",
+        "customContextDataKey": {
+        },
+        "id": "A-fbec8da7-68c8-44b0-90b8-52db81810335"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-6e910c16-7526-46d8-b34a-eb8aca39b380"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-6392561c-b55d-48fa-a99d-8b9f86078bc7"
+  }],
+  "id": "rule-1cf0b588-db83-474e-a359-e72de47fe231",
+  "lastUpdateTime": "1699589386515",
+  "createTime": "1699093967666",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动关闭传感器",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

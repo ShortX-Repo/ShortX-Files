@@ -1,0 +1,39 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://www.magicalapp.cn/user/api/signDays",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "headers": [{
+      "key": "Token",
+      "value": "填自己的token"
+    }, {
+      "key": "Host",
+      "value": "www.magicalapp.cn"
+    }, {
+      "key": "Connection",
+      "value": "Keep-Alive"
+    }, {
+      "key": "Accept-Encoding",
+      "value": "gzip"
+    }, {
+      "key": "User-Agent",
+      "value": "okhttp/4.9.3"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-420bd34e-0ed7-4bb2-abec-da5c2652de6f"
+  }],
+  "id": "DA465d0055-cc63-49eb-98a4-fad73612aab8",
+  "lastUpdateTime": "1698823098973",
+  "createTime": "1698822413595",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "奇妙应用签到",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

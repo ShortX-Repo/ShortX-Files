@@ -1,0 +1,127 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start-foreground-service com.github.metacubex.clash.meta/com.github.kr328.clash.service.TunService",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-37cf2b8a-a389-4e33-98b1-c7bb14761a76"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-a53f70f3-cfdb-4b72-8dc3-5b3ccad1a487"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireTileState",
+      "state": "QSTileState_InActive",
+      "tileSpec": "custom(com.github.metacubex.clash.meta/com.github.kr328.clash.TileService)",
+      "customContextDataKey": {
+      },
+      "id": "C-d225865d-d00a-4e34-92d0-245866128d14"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ClickTile",
+      "tile": {
+        "tileSpec": "custom(com.github.metacubex.clash.meta/com.github.kr328.clash.TileService)",
+        "label": "Clash Meta"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0498df74-be43-4006-ba22-b73a0363b5ba"
+    }],
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-581b4cac-a578-47c2-b9f2-e346dc4807f3"
+  }, {
+    "@type": "type.googleapis.com/StartAppProcess",
+    "appPkg": [{
+      "pkgName": "moe.nb4a"
+    }],
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-8c9dd7ac-6eef-4360-96a1-bb36f11d58c2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "moe.nb4a"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-8839f57c-6329-4409-b9af-31a9a6d0ba1d"
+    }, {
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-00d4f324-20c8-41da-84c0-c54e4795924a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start -n moe.nb4a/io.nekohasekai.sagernet.QuickToggleShortcut",
+      "customContextDataKey": {
+      },
+      "id": "A-cf53b7f7-60b3-4685-b142-9820ef26f2f3"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-9d08f27a-72c7-4d1c-9dec-b9a4bcddf6ed"
+      }, {
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgs": [{
+          "pkgName": "moe.nb4a"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-2bc41ca6-ceb8-464c-b555-f0c847735166"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StartAppProcess",
+        "appPkg": [{
+          "pkgName": "moe.nb4a"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-daec2b6f-913a-43b1-9858-ce35a19079c9"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start -n moe.nb4a/io.nekohasekai.sagernet.ui.VpnRequestActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-a5753062-d24c-40b2-a0cc-1594257620fa"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-57fe5531-4941-4112-ac31-51acfc8aa183"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8c11d3c2-4287-489a-896a-877cd16179a8"
+  }],
+  "id": "SHARED-DA-fed42c51-a277-4bee-a1e4-792acbcd8745",
+  "lastUpdateTime": "1744429808924",
+  "createTime": "1743485066342",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "nekobox开",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

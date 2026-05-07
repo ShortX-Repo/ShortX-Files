@@ -1,0 +1,66 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["All"],
+    "customContextDataKey": {
+    },
+    "id": "F-60b1ba11-4ea8-4f03-8b20-4ae98c49cac5"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["All"],
+    "customContextDataKey": {
+    },
+    "id": "F-516eadf1-f645-4b1d-9113-580df99b91b0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["增加屏幕超时"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-b574a8c3-14c3-49a3-a492-f756393d50ea"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "android.provider.Settings.System.putInt(context.contentResolver, \"screen_off_timeout\", 600000)",
+      "customContextDataKey": {
+      },
+      "id": "A-ab911bec-f33d-4dc1-8f70-41e88fd4ce54"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "android.provider.Settings.System.putInt(context.contentResolver, \"screen_off_timeout\", 15000)",
+      "customContextDataKey": {
+      },
+      "id": "A-ca5f7a9b-0c88-4c55-9f48-e6011d5aa84c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-34713dbd-0910-449e-b526-e9326bd268b6"
+  }],
+  "id": "rule-f20584b4-e1f8-4146-a956-f92d4bac7ce9",
+  "lastUpdateTime": "1701251191552",
+  "createTime": "1701250672572",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动增加屏幕超时",
+  "description": "应用集中的应用前台时自动增加屏幕超时时间",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "增加屏幕超时",
+      "customContextDataKey": {
+      },
+      "id": "A-b272521c-559a-4751-b51f-9d79946e1fd6"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

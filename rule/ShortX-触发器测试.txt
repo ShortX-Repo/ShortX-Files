@@ -1,0 +1,64 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/KeyEvent",
+    "keyCode": 24,
+    "tag": "+",
+    "customContextDataKey": {
+    },
+    "id": "F-c48900d0-b5d9-4fbb-a4a0-bcbb32e8dd36"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-89053a2f-3cf0-4ac6-a2bb-ea964b3cd051"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{factTag}",
+    "customContextDataKey": {
+    },
+    "id": "A-6ec6607f-1af6-4d3a-8082-aa2fcc767819"
+  }],
+  "id": "rule-c3c580a5-365b-4a64-aad8-8ae83212c873",
+  "lastUpdateTime": "1712502362469",
+  "createTime": "1712501992390",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "触发器测试",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/KeyEvent",
+      "keyCode": 25,
+      "tag": "-",
+      "customContextDataKey": {
+      },
+      "id": "F-efb65130-78d2-4624-a50d-917713036641"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "tornaco.apps.shortx"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-247a7610-8f0f-4986-991c-552599156b7a"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "{factTag}",
+      "customContextDataKey": {
+      },
+      "id": "A-7fd93d14-d528-473c-b624-69ada0f37c7b"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

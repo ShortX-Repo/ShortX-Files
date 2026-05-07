@@ -1,0 +1,93 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.android.mms"
+      }, {
+        "pkgName": "com.tencent.mm"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-6737dbdf-6f38-45c7-973d-ce70ab6bc9d0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "bot_key",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-d2cfaa03-2a12-45f8-b93c-15edbbf833c2"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "type",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-bb4df75e-fe58-4547-9703-2b5dcad06e08"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "bot_key",
+    "customContextDataKey": {
+    },
+    "note": "企业微信群机器人key",
+    "id": "A-265dc0be-a892-4f10-b951-720670c0b1f2"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "date \u0027+%g-%m-%d %H:%M:%S\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-2f73e804-bced-4ffe-856f-9e83b2931b31"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "type",
+    "valueAsString": "通知时间：{shellOut}\\n\\n来源：{pkgName}\\n标题：{title}\\n内容：{contentText}",
+    "customContextDataKey": {
+    },
+    "note": "通知格式",
+    "id": "A-bbc29ed5-a829-4a85-b72d-bd01180fc03f"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key\u003dlocalVarOf$bot_key",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Content-Type",
+      "value": "application/json"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n    \t\"msgtype\": \"text\",\n    \t\"text\": {\n        \t\"content\": \"localVarOf$type\"\n    \t}\n   }"
+    },
+    "customContextDataKey": {
+    },
+    "note": "推送到企业微信群机器人",
+    "id": "A-ca136a56-2278-4153-bf7c-3728147506a1"
+  }],
+  "id": "rule-d951ee3a-a0d2-4cea-8a16-80986eef85c0",
+  "lastUpdateTime": "1700839204941",
+  "createTime": "1700836242142",
+  "author": {
+    "name": "我无聊了"
+  },
+  "title": "通知转发",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

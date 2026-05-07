@@ -1,0 +1,327 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppGainWindowFocus",
+    "pkgSets": ["User"],
+    "tag": "焦点应用变化",
+    "customContextDataKey": {
+    },
+    "id": "F-24a94b0b-3c8f-431f-80b7-899c6d541ce7"
+  }, {
+    "@type": "type.googleapis.com/AppGainWindowFocus",
+    "apps": [{
+      "pkgName": "com.android.launcher"
+    }, {
+      "pkgName": "com.oplus.camera"
+    }],
+    "tag": "焦点应用变化",
+    "customContextDataKey": {
+    },
+    "id": "F-779173df-5213-41fd-aedf-4f89c07885f7"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "tag": "电量变化",
+    "customContextDataKey": {
+    },
+    "id": "F-fc8a86ac-8b04-407b-a237-075e8362552a"
+  }, {
+    "@type": "type.googleapis.com/ScreenOff",
+    "tag": "息屏",
+    "customContextDataKey": {
+    },
+    "id": "F-8eef1de6-4b2c-451f-9e7a-6c47cd8d8c53"
+  }, {
+    "@type": "type.googleapis.com/ScreenOn",
+    "tag": "亮屏",
+    "customContextDataKey": {
+    },
+    "id": "F-7b3d1a2f-f486-4b09-be9d-95e6b20eddf8"
+  }, {
+    "@type": "type.googleapis.com/ChargerPlug",
+    "tag": "开始充电",
+    "customContextDataKey": {
+    },
+    "id": "F-e4bae549-e935-40dc-9861-78671dff6a0f"
+  }, {
+    "@type": "type.googleapis.com/ChargerUnplug",
+    "tag": "结束充电",
+    "customContextDataKey": {
+    },
+    "id": "F-a1dda09a-945f-44a0-bfb7-bcff64b90d03"
+  }, {
+    "@type": "type.googleapis.com/SystemReady",
+    "tag": "开机",
+    "customContextDataKey": {
+    },
+    "id": "F-f5958936-c1a1-45a0-a94e-f010feba4941"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-b5d27195-d394-494c-9e34-77e9ed283a3a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "焦点应用变化",
+      "customContextDataKey": {
+      },
+      "id": "C-1caf7d38-e0ce-4cc0-a9a1-a6dc4860bb23"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-7fac5577-1d37-4190-a886-1546f6cfd0a3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\nLOG_FILE\u003d\"/storage/emulated/0/shortx_log/power_log.txt\"\nNOW_TIME\u003d$(date +%s)\n\n# 1. 抓当前焦点\nCURRENT_PKG\u003d$(dumpsys window | grep -E \u0027mCurrentFocus\u0027 | sed \u0027s/.* //; s/\\}//; s/\\/.*//\u0027)\n\n# 2. 抓取去重后的所有近期任务 (焦点包名排第一)\nALL_PKGS\u003d$( (echo \"$CURRENT_PKG\"; dumpsys activity recents | grep \u0027cmp\u003d\u0027 | sed -E \u0027s/.*cmp\u003d([^/]+).*/\\1/\u0027) | awk \u0027!a[$0]++\u0027 )\n\n# 3. 把换行替换成空格，并去掉末尾多余空格\nPKG_LINE\u003d$(echo \"$ALL_PKGS\" | tr \u0027\\n\u0027 \u0027 \u0027 | sed \u0027s/ $//\u0027)\n\n# 4. 【写入日志】按你的纯净格式落盘\necho \"[RECENT $PKG_LINE] $NOW_TIME\" \u003e\u003e \"$LOG_FILE\"\n",
+      "customContextDataKey": {
+      },
+      "id": "A-74cc8075-f7d1-4e52-9a65-8958a4d18742"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0782f5fa-e784-45aa-8bfd-7d5ae3a9be0a"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "电量变化",
+      "customContextDataKey": {
+      },
+      "id": "C-485db418-af1e-4ac9-883b-9033919b5fa2"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-4c5e13b1-5384-4d2f-acd3-22cbe4a8fedf"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 获取当前时间戳和电量\nNOW_TIME\u003d$(date +%s)\nBAT_LEVEL\u003d$(cat /sys/class/power_supply/battery/capacity)\n\n# 往同一个日志文件里强行插一个“电量断点”\necho \"[BATTERY: $BAT_LEVEL] $NOW_TIME\" \u003e\u003e /storage/emulated/0/shortx_log/power_log.txt\n",
+      "customContextDataKey": {
+      },
+      "id": "A-b9007220-dedc-49c5-acd7-8cefe1a88ef3"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-09fe9aff-7426-4b31-84fc-7a8de445199c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "息屏",
+      "customContextDataKey": {
+      },
+      "id": "C-25244315-687f-441a-bfe3-af82b6a3e735"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-1b08fde1-0a2d-4a94-b00f-433305caeec8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 1. 记录插桩标记：纯机器时间戳\necho \"[EVENT: SCREEN_OFF] $(date +%s)\" \u003e\u003e /storage/emulated/0/shortx_log/power_log.txt\n\n# 2. 强制停止功耗记录进程，杜绝息屏耗电\nkillall power_bin 2\u003e/dev/null\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-2f7a3fa9-4570-4a12-bdbd-a64df940e493"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a55a71ef-71f6-4d40-8c9d-87bd8035ac42"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "亮屏",
+      "customContextDataKey": {
+      },
+      "id": "C-36a462df-4847-4fcf-991a-01efc57cb7b4"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-82efc47c-e7fd-4a20-857e-05f6bb2b9d7a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 1. 记录插桩标记：纯机器时间戳\necho \"[EVENT: SCREEN_ON] $(date +%s)\" \u003e\u003e /storage/emulated/0/shortx_log/power_log.txt\n\n# 2. 重新启动底层 C 进程（必须加 \u0026 符号让它在后台跑）\n/data/local/tmp/power_bin \u0026\n",
+      "customContextDataKey": {
+      },
+      "id": "A-db862b8b-fa97-48ac-95c7-a41206a48820"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e664db1b-5706-45f4-a9bb-e96822604f22"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开始充电",
+      "customContextDataKey": {
+      },
+      "id": "C-74466558-43e7-4018-a23c-6e503d9f6b99"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\n# 1. 停掉抽水机\nkillall power_bin 2\u003e/dev/null\n\n# 2. 加上最后的时间戳标记 (用于结算最后一秒)\nNOW_TS\u003d$(date +%s)\necho \"[EVENT: CHARGING] $NOW_TS\" \u003e\u003e /storage/emulated/0/shortx_log/power_log.txt\n\n# 3. 准备归档文件名\narchive_name\u003d\"history_$(date +%Y%m%d_%H%M%S).txt\"\nhistory_file\u003d\"/storage/emulated/0/shortx_log/$archive_name\"\n\n# 4. 【提取本次放电周期的纯净原始日志】\ntac /storage/emulated/0/shortx_log/power_log.txt | sed -n \u00271,/\\[EVENT: UNPLUGGED\\]/p\u0027 | tac \u003e /data/local/tmp/clean_session.txt\n\n# 5. 【核心算力：最终修正版 AWK】\nJSON_DATA\u003d$(awk -v now_ts\u003d\"$NOW_TS\" \u0027\nBEGIN {\n    total_p \u003d 0; count \u003d 0; chart \u003d \"[\"; timeline \u003d \"[\";\n    batt_wh \u003d 23.7; \n    curr_focus \u003d \"System\"; curr_full \u003d \"System\";\n    st \u003d 0; et \u003d 0; started \u003d 0; last_t \u003d 0;\n    last_timeline_t \u003d -1; # 用于同一秒去重\n}\n\n# 匹配拔电起点\n/\\[EVENT: UNPLUGGED\\]/ { \n    st \u003d $3; last_t \u003d st; curr_focus \u003d \"System\"; started \u003d 1;\n    timeline \u003d timeline \"{\\\"t\\\":0, \\\"pkg\\\":\\\"System\\\"},\";\n}\n\n# 匹配应用切换环境快照\n/^\\[RECENT/ { \n    curr_t \u003d $NF; \n    if (!started) { st \u003d curr_t; last_t \u003d curr_t; started \u003d 1; }\n    \n    # ⚠️ 焦点记账：时长结算给第一个包名\n    if (last_t \u003e 0) { app_t[curr_focus] +\u003d (curr_t - last_t); }\n    last_t \u003d curr_t;\n    \n    # 提取完整全家桶包名串 (用于画图标塔)\n    full_str \u003d \"\";\n    for (j \u003d 2; j \u003c NF; j++) { full_str \u003d (full_str \u003d\u003d \"\" ? $j : full_str \" \" $j); }\n    gsub(/\\]/, \"\", full_str);\n    \n    # 提取新的焦点\n    split(full_str, parts, \" \");\n    new_focus \u003d parts[1];\n\n    # ⚠️ 修复：同一秒内不重复打点，防止图标塔重叠成马赛克\n    rel_t \u003d curr_t - st;\n    if (full_str !\u003d curr_full \u0026\u0026 rel_t !\u003d last_timeline_t) {\n        timeline \u003d timeline \"{\\\"t\\\":\" rel_t \", \\\"pkg\\\":\\\"\" full_str \"\\\"},\";\n        curr_full \u003d full_str;\n        last_timeline_t \u003d rel_t;\n    }\n    curr_focus \u003d new_focus;\n}\n\n# 屏幕状态切换\n/\\[EVENT: SCREEN_OFF\\]/ {\n    if (started) {\n        if (last_t \u003e 0) { app_t[curr_focus] +\u003d ($3 - last_t); }\n        last_t \u003d $3; curr_focus \u003d \"ScreenOff\";\n        timeline \u003d timeline \"{\\\"t\\\":\" ($3 - st) \", \\\"pkg\\\":\\\"ScreenOff\\\"},\";\n    }\n}\n\n/\\[EVENT: SCREEN_ON\\]/ {\n    if (started) {\n        last_t \u003d $3; curr_focus \u003d \"System\";\n        timeline \u003d timeline \"{\\\"t\\\":\" ($3 - st) \", \\\"pkg\\\":\\\"System\\\"},\";\n    }\n}\n\n# 电量打点 (折线图)\n/\\[BATTERY:/ {\n    if (started) {\n        bat_val \u003d $2; sub(/\\]/, \"\", bat_val); b_time \u003d $3;\n        chart \u003d chart \"{\\\"t\\\":\" (b_time - st) \", \\\"bat\\\":\" bat_val \"},\";\n    }\n}\n\n# 功耗数值处理\n/^[0-9]+\\.[0-9]+/ {\n    if (started) {\n        p \u003d $1; total_p +\u003d p; count++;\n        app_p[curr_focus] +\u003d p; app_c[curr_focus]++;\n        if (p \u003e app_max[curr_focus]) { app_max[curr_focus] \u003d p; }\n    }\n}\n\n# 充电终点标记\n/\\[EVENT: CHARGING\\]/ {\n    if (started) {\n        et \u003d $3; \n        if (last_t \u003e 0) { app_t[curr_focus] +\u003d (et - last_t); }\n    }\n}\n\nEND {\n    if (!started) {\n        print \"\u003d\u003d\u003dJSON_START\u003d\u003d\u003d{\\\"status\\\": \\\"no_valid_session\\\"}\u003d\u003d\u003dJSON_END\u003d\u003d\u003d\";\n        exit;\n    }\n    \n    # 确定终点时间\n    if (et \u003d\u003d 0) et \u003d (last_t \u003e 0 ? last_t : now_ts);\n    \n    # 基础统计结算\n    avg_p \u003d (count \u003e 0) ? total_p / count : 0;\n    dur \u003d et - st; if (dur \u003c\u003d 0) dur \u003d 1;\n    te \u003d (avg_p \u003e 0) ? batt_wh / avg_p : 0;\n    \n    sub(/,$/, \"\", chart); chart \u003d chart \"]\";\n    sub(/,$/, \"\", timeline); timeline \u003d timeline \"]\";\n    \n    # 输出 JSON\n    printf \"\u003d\u003d\u003dJSON_START\u003d\u003d\u003d{\";\n    printf \"\\\"session_info\\\": {\\\"start_time\\\": %d, \\\"end_time\\\": %d, \\\"total_duration_sec\\\": %d, \\\"avg_power_w\\\": %.2f, \\\"theoretical_endurance_hrs\\\": %.2f}, \", st, et, dur, avg_p, te;\n    printf \"\\\"app_stats\\\": [\";\n    i \u003d 0;\n    # ⚠️ 修复：遍历 app_t (时长) 确保不漏掉 0W 应用\n    for (a in app_t) {\n        if (app_t[a] \u003c\u003d 0) continue;\n        if (i \u003e 0) printf \",\";\n        a_avg \u003d (app_c[a] \u003e 0) ? app_p[a] / app_c[a] : 0;\n        a_energy \u003d (a_avg * app_t[a]) / 3600;\n        printf \"{\\\"pkg\\\": \\\"%s\\\", \\\"duration_sec\\\": %d, \\\"avg_power_w\\\": %.2f, \\\"max_power_w\\\": %.2f, \\\"energy_consumed_wh\\\": %.4f}\", a, app_t[a], a_avg, app_max[a], a_energy;\n        i++;\n    }\n    printf \"], \\\"chart_data\\\": %s, \\\"app_timeline\\\": %s}\u003d\u003d\u003dJSON_END\u003d\u003d\u003d\", chart, timeline;\n}\u0027 /data/local/tmp/clean_session.txt)\n\n# 6. 【拼装最终历史文件：原始日志 + JSON】\n# 先存原始日志\ntac /data/local/tmp/clean_session.txt \u003e \"$history_file\"\n# 间隔空行后存入结算好的 JSON (前端会读取文件的最后一行 JSON)\necho -e \"\\n\\n$JSON_DATA\" \u003e\u003e \"$history_file\"\n\n# 7. 【扫尾清理】\n\u003e /storage/emulated/0/shortx_log/power_log.txt\nrm -f /data/local/tmp/clean_session.txt\n\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-f0d6fd9c-76df-4b3a-9c8e-100ce0d3ab77"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-577de42e-a771-45e2-8c39-4ffb71ae7348"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "结束充电",
+      "customContextDataKey": {
+      },
+      "id": "C-aa4ee21f-c389-44be-9c1d-842ef303992d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 1. 记录插桩标记：[EVENT: UNPLUGGED] 代表新的一轮放电统计开始\necho \"[EVENT: UNPLUGGED] $(date +%s)\" \u003e\u003e /storage/emulated/0/shortx_log/power_log.txt\n\n# 2. 重新启动底层 C 进程开始记录（记得加 \u0026 放在后台）\n/data/local/tmp/power_bin \u0026\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-7979784a-c4cd-40f4-b3ff-54b10b338c4a"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 获取当前时间戳和电量\nNOW_TIME\u003d$(date +%s)\nBAT_LEVEL\u003d$(cat /sys/class/power_supply/battery/capacity)\n\n# 往同一个日志文件里强行插一个“电量断点”\necho \"[BATTERY: $BAT_LEVEL] $NOW_TIME\" \u003e\u003e /storage/emulated/0/shortx_log/power_log.txt\n",
+      "customContextDataKey": {
+      },
+      "id": "A-b9007220-dedc-49c5-acd7-8cefe1a88ef3"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-12efaf7e-c6f7-4e2b-9b98-fb402cbfd991"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开机",
+      "customContextDataKey": {
+      },
+      "id": "C-a065af51-e6b3-4f9c-8530-9cb905b8990d"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-3ed579bd-c218-4502-983e-b68569461cb4"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\nnohup /data/local/tmp/power_bin \u003e /dev/null 2\u003e\u00261 \u0026\n",
+      "customContextDataKey": {
+      },
+      "id": "A-57cc7f1d-d36a-4a55-8e95-25bc0ae36518"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-38262e74-ce96-4334-a047-26652114e18a"
+  }],
+  "id": "SHARE-rule-cfba84ac-0a3f-4c02-9816-ee7ca2804679",
+  "lastUpdateTime": "1776924245550",
+  "createTime": "1776816901587",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "总日志",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\n# 1. 创建文件夹（-p 参数保证如果文件夹已经存在也不会报错）\nmkdir -p /storage/emulated/0/shortx_log\n\n# 2. 创建或清空日志文件（如果文件不存在会新建，如果已存在则会完全清空里面的内容）\n\u003e /storage/emulated/0/shortx_log/power_log.txt\n# 1. 强制杀掉 power_bin 进程（屏蔽错误输出）\nkillall -9 power_bin 2\u003e/dev/null\n\n# 2. 删除该二进制文件（-f 参数强制删除，文件不存在也不会报错）\nrm -f /data/local/tmp/power_bin\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-fc473fee-4046-4727-a8a8-96423ff99258"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\nCUR_PATH\u003d\"/sys/class/power_supply/battery/current_now\"\nVOL_PATH\u003d\"/sys/class/power_supply/battery/voltage_now\"\n\nif [ ! -r \"$CUR_PATH\" ] || [ ! -r \"$VOL_PATH\" ]; then\n    exit 1\nfi\n\n# 收集 5 次采样数据，每次间隔 0.2 秒\ndata\u003d\"\"\nfor i in 1 2 3 4 5; do\n    raw_cur\u003d$(cat \"$CUR_PATH\")\n    raw_vol\u003d$(cat \"$VOL_PATH\")\n    data\u003d\"$data $raw_cur $raw_vol\"\n    sleep 0.2\ndone\n\n# 将收集到的 10 个数据（5组电流+电压）一次性丢给 awk 计算\necho \"$data\" | awk \u0027\n{\n    total_power \u003d 0;\n    \n    # 遍历 5 组数据\n    for(i\u003d1; i\u003c\u003dNF; i+\u003d2) {\n        c \u003d $i;\n        v \u003d $(i+1);\n        \n        # 取绝对值\n        if (c \u003c 0) c \u003d -c;\n        \n        # 强行按 mA 算法计算当前功耗\n        power \u003d (c / 1000.0) * (v / 1000000.0);\n        total_power +\u003d power;\n    }\n    \n    # 取平均值\n    avg_power \u003d total_power / 5.0;\n    \n    # 暴力判断 (阈值提高到 500W)\n    if (avg_power \u003e 500.0) {\n        # 均值大于 500W，数据离谱，判定为 µA 节点\n        print 1;\n    } else {\n        # 均值合理，判定为 mA 节点\n        print 0;\n    }\n}\u0027\n",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "算法"
+        }]
+      },
+      "id": "A-d1c127e8-ef71-475a-a1df-34c5509e3956"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "算法",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-a3603597-e204-436a-9536-c53222a9bb0f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 1. 定义目标位置（直接放在 /data/local/tmp 下）\nTARGET_DIR\u003d\"/data/local/tmp\"\nTARGET_FILE\u003d\"$TARGET_DIR/power_bin\"\n\n# 2. 如果目录不存在则创建（虽然安卓系统通常自带此目录，但加上判断最稳妥）\nif [ ! -d \"$TARGET_DIR\" ]; then\n    mkdir -p \"$TARGET_DIR\"\n    chmod 777 \"$TARGET_DIR\"\nfi\n\n# 3. 释放 Base64 数据并还原为二进制文件\n# 注意：这里依然保留了 tr -d \u0027\\n\u0027 确保数据完整还原\necho \"f0VMRgIBAQAAAAAAAAAAAAMAtwABAAAA+AgAAAAAAABAAAAAAAAAAFAWAAAAAAAAAAAAAEAAOAAK\nAEAAGQAXAAYAAAAEAAAAQAAAAAAAAABAAAAAAAAAAEAAAAAAAAAAMAIAAAAAAAAwAgAAAAAAAAgA\nAAAAAAAAAwAAAAQAAABwAgAAAAAAAHACAAAAAAAAcAIAAAAAAAAVAAAAAAAAABUAAAAAAAAAAQAA\nAAAAAAABAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAMAAAAAAAAkAwAAAAAAAAAQAAA\nAAAAAAEAAAAGAAAAkAwAAAAAAACQTAAAAAAAAJBMAAAAAAAAAAIAAAAAAABwAwAAAAAAAABAAAAA\nAAAAAQAAAAYAAACQDgAAAAAAAJCOAAAAAAAAkI4AAAAAAAAYAAAAAAAAACAAAAAAAAAAAEAAAAAA\nAAACAAAABgAAAJAMAAAAAAAAkEwAAAAAAACQTAAAAAAAAHABAAAAAAAAcAEAAAAAAAAIAAAAAAAA\nAFLldGQEAAAAkAwAAAAAAACQTAAAAAAAAJBMAAAAAAAAAAIAAAAAAABwAwAAAAAAAAEAAAAAAAAA\nUOV0ZAQAAADsBwAAAAAAAOwHAAAAAAAA7AcAAAAAAAA8AAAAAAAAADwAAAAAAAAABAAAAAAAAABR\n5XRkBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA\nAAAEAAAAiAIAAAAAAACIAgAAAAAAAIgCAAAAAAAAmAAAAAAAAACYAAAAAAAAAAQAAAAAAAAAL3N5\nc3RlbS9iaW4vbGlua2VyNjQAAAAACAAAAIQAAAABAAAAQW5kcm9pZAAYAAAAcjI5AAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADE0MjA2\nODY1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAANAAAAEgAA\nAAAAAAAAAAAAAAAAAAAAAAAaAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAEgAAAAAAAAAAAAAA\nAAAAAAAAAAAxAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAEgAAAAAAAAAAAAAAAAAAAAAAAAA+\nAAAAEgAAAAAAAAAAAAAAAAAAAAAAAABDAAAAEgAAAAAAAAAAAAAAAAAAAAAAAABJAAAAEgAAAAAA\nAAAAAAAAAAAAAAAAAABPAAAAEgAAAAAAAAAAAAAAAAAAAAAAAABXAAAAEgAAAAAAAAAAAAAAAAAA\nAAAAAABeAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAAA\nAQABAGQAAAAQAAAAAAAAAGMNBQAAAAIAbAAAAAAAAAAAAAAAAQAAAA0AAAABAAAAGgAAAAAAAAAA\nAAAAAAAAAABfX2xpYmNfaW5pdABfX2N4YV9hdGV4aXQAX19yZWdpc3Rlcl9hdGZvcmsAb3BlbgBw\ncmludGYAbHNlZWsAcmVhZABhdG9sbABmb3BlbgBmcHJpbnRmAGZjbG9zZQBzbGVlcABsaWJjLnNv\nAExJQkMAL2RhdGEvZGF0YS9jb20udGVybXV4L2ZpbGVzL3Vzci9iaW4vLi4vLi4vdXNyL2xpYgBs\naWJkbC5zbwAATgAAAAAAAAMEAAAAAAAAAAAAAAAAAAAITgAAAAAAAAMEAAAAAAAAAAAAAAAAAAAQ\nTgAAAAAAAAMEAAAAAAAA+AkAAAAAAACYjgAAAAAAAAMEAAAAAAAApAkAAAAAAAAwTgAAAAAAAAIE\nAAABAAAAAAAAAAAAAAA4TgAAAAAAAAIEAAACAAAAAAAAAAAAAABATgAAAAAAAAIEAAADAAAAAAAA\nAAAAAABITgAAAAAAAAIEAAAEAAAAAAAAAAAAAABQTgAAAAAAAAIEAAAFAAAAAAAAAAAAAABYTgAA\nAAAAAAIEAAAGAAAAAAAAAAAAAABgTgAAAAAAAAIEAAAHAAAAAAAAAAAAAABoTgAAAAAAAAIEAAAI\nAAAAAAAAAAAAAABwTgAAAAAAAAIEAAAJAAAAAAAAAAAAAAB4TgAAAAAAAAIEAAAKAAAAAAAAAAAA\nAACATgAAAAAAAAIEAAALAAAAAAAAAAAAAACITgAAAAAAAAIEAAAMAAAAAAAAAAAAAADwn5qAIOaX\noOaDheWKn+iAl+aKveawtOacuiBEYWVtb24g5bey5ZCv5YqoLi4uCgAvc3lzL2NsYXNzL3Bvd2Vy\nX3N1cHBseS9iYXR0ZXJ5L2N1cnJlbnRfbm93AC9zdG9yYWdlL2VtdWxhdGVkLzAvc2hvcnR4X2xv\nZy9wb3dlcl9sb2cudHh0AGEAL3N5cy9jbGFzcy9wb3dlcl9zdXBwbHkvYmF0dGVyeS92b2x0YWdl\nX25vdwAlLjNmCgDml6Xlv5flhpnlhaXot6/lvoQ6ICVzCgDinYwg5om+5LiN5Yiw55S15rGg6IqC\n54K577yM6K+35qOA5p+lIFJvb3Qg5p2D6ZmQ77yBCgAAARsDOzgAAAAGAAAAIAEAAFAAAAB4AQAA\ncAAAAIwBAACEAAAAqAEAAJgAAAC4AQAArAAAAAwCAADcAAAAEAAAAAAAAAABelIAAXweARsMHwAc\nAAAAGAAAAMgAAABYAAAAAC1IDkBIDB0QngKdBAAAABAAAAA4AAAAAAEAABQAAAAAAAAAEAAAAEwA\nAAAAAQAAHAAAAAAAAAAQAAAAYAAAAAgBAAAQAAAAAAAAACwAAAB0AAAABAEAAFQAAAAALUgOIEgM\nHSCTApQEngadCHQMHyBIDgAtRNPU3t0AACgAAACkAAAAKAEAALABAAAARA6wAUgMHRCeAp0ECgJY\nDB+wAUgOAN7dRAsAAAAAAJ8kA9UdAIDSHgCA0uADAJEBAAAUPyMD1f8DAdH9ewOp/cMAkSgAAJAp\nAACQAOQAbwgBR/kpBUf5KAEIyx8FAPHggwCt4AOAPYsAAFQfIAPVSCoEEOgLAPkiAACQ4wMAkeED\nH6pCCEf5nAAAlF8kA9VgAAC08AMAqgACH9bAA1/WXyQD1eEDAKofIAPVAP//EB8gA9XiKAQQlAAA\nFF8kA9UfIAPVYygEEJQAABQ/IwPV/Xu+qfRPAan9AwCRMwAAkCgAAJBzAkf5CAVH+QgBE+sAAQBU\nCP1Dk2kOCIsUBQDRKYFf+CABP9boAxSqdP//tfRPQan9e8KovyMD1cADX9b/wwLR/XsKqf2DApHh\nAx8q4ScAub/DH7gfIAPV4Of/EHoAAJThJ0C5oIMfuAAAAJAArB2RdQAAlKBDH7iog1+4qAD4NwEA\nABSoQ1+4KAH4NgEAABQAAACQANQekW8AAJQgAIBS/XtKqf/DApHAA1/WAAAAkACAG5FoAACUAAAA\nkAB0HpEBAACQIfAckWMAAJQBAAAUoINfuOEDH6rhAwD54gMfKuIPALlgAACUoINfuKEzAdHhDwD5\n4geA0uILAPleAACU6AMAquAPQPnoUwC56VOAuegDAKoIAQmLHwEAOVoAAJThA0D54g9AuQgAAPEI\nxIDaAAFinuAnAP2gQ1+4SgAAlOILQPnhD0D5oENfuEoAAJToAwCq4A9A+ehHALnpR4C56AMAqggB\nCYsfAQA5RgAAlAAAYp4IkNDSyCXo8gEBZ54AGGEe4B8A/eAnQP0AGGEe4R9A/QAIYR7gGwD9AAAA\nkADwHJEBAACQIaQdkToAAJTgFwD56BdA+UgBALQBAAAU4BdA+eAbQP0BAACQIVwekTUAAJTgF0D5\nNwAAlAEAABQgAIBSOAAAlLr//xcAAAAAAAAAAPB7v6kwAACQERZH+RCiOJEgAh/WHyAD1R8gA9Uf\nIAPVMAAAkBEaR/kQwjiRIAIf1jAAAJARHkf5EOI4kSACH9YwAACQESJH+RACOZEgAh/WMAAAkBEm\nR/kQIjmRIAIf1jAAAJARKkf5EEI5kSACH9YwAACQES5H+RBiOZEgAh/WMAAAkBEyR/kQgjmRIAIf\n1jAAAJARNkf5EKI5kSACH9YwAACQETpH+RDCOZEgAh/WMAAAkBE+R/kQ4jmRIAIf1jAAAJARQkf5\nEAI6kSACH9YwAACQEUZH+RAiOpEgAh/WHQAAAAAAAABxAAAAAAAAAAEAAAAAAAAAowAAAAAAAAAB\nAAAAAAAAAGQAAAAAAAAAHgAAAAAAAAAIAAAAAAAAAPv//28AAAAAAQAACAAAAAAVAAAAAAAAAAAA\nAAAAAAAABwAAAAAAAABgBQAAAAAAAAgAAAAAAAAAYAAAAAAAAAAJAAAAAAAAABgAAAAAAAAA+f//\nbwAAAAAEAAAAAAAAABcAAAAAAAAAwAUAAAAAAAACAAAAAAAAACABAAAAAAAAAwAAAAAAAAAYTgAA\nAAAAABQAAAAAAAAABwAAAAAAAAAGAAAAAAAAACADAAAAAAAACwAAAAAAAAAYAAAAAAAAAAUAAAAA\nAAAAtAQAAAAAAAAKAAAAAAAAAKwAAAAAAAAA9f7/bwAAAACYBAAAAAAAAPD//28AAAAAWAQAAAAA\nAAD+//9vAAAAAHQEAAAAAAAA////bwAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwCwAAAAAAALALAAAAAAAA\nsAsAAAAAAACwCwAAAAAAALALAAAAAAAAsAsAAAAAAACwCwAAAAAAALALAAAAAAAAsAsAAAAAAACw\nCwAAAAAAALALAAAAAAAAsAsAAAAAAAD//////////wAAAAAAAAAAAAAAAAAAAABBbmRyb2lkICgx\nMzk4OTg4OCwgK3BnbywgK2JvbHQsICtsdG8sICttbGdvLCBiYXNlZCBvbiByNTYzODgwYykgY2xh\nbmcgdmVyc2lvbiAyMS4wLjAgKGh0dHBzOi8vYW5kcm9pZC5nb29nbGVzb3VyY2UuY29tL3Rvb2xj\naGFpbi9sbHZtLXByb2plY3QgNWU5NjY2OWYwNjA3NzA5OWFhNDEyOTBjZGI0YzVlNmZhMGY1OTM0\nOSkAAExpbmtlcjogTExEIDIxLjEuOABjbGFuZyB2ZXJzaW9uIDIxLjEuOAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAQA8f8AAAAAAAAAAAAAAAAAAAAADAAAAAAADQD4CAAAAAAA\nAAAAAAAAAAAADwAAAAIADQAMCQAAAAAAAFgAAAAAAAAAGwAAAAEAEwCQjgAAAAAAABgAAAAAAAAA\nNQAAAAIADQCkCQAAAAAAAFQAAAAAAAAARQAAAAAAEwCQjgAAAAAAAAAAAAAAAAAASAAAAAAAFACo\njgAAAAAAAAAAAAAAAAAASwAAAAAAFQC4AAAAAAAAAAAAAAAAAAAATgAAAAAADAAoCAAAAAAAAAAA\nAAAAAAAAUQAAAAEAAgCIAgAAAAAAAJgAAAAAAAAAZAAAAAAAAgCIAgAAAAAAAAAAAAAAAAAAZwAA\nAAAAAgCcAgAAAAAAAAAAAAAAAAAAcQAAAAAAAgCUAgAAAAAAAAAAAAAAAAAAewAAAAAAAgAgAwAA\nAAAAAAAAAAAAAAAAhAAAAAAAAgCgAgAAAAAAAAAAAAAAAAAAkAAAAAAAAgDgAgAAAAAAAAAAAAAA\nAAAAAgEAAAICDQBkCQAAAAAAABQAAAAAAAAAGwEAAAICDQB4CQAAAAAAABwAAAAAAAAAIgEAAAEC\nFACojgAAAAAAAAgAAAAAAAAAPAEAAAICDQCUCQAAAAAAABAAAAAAAAAAoQAAAAQA8f8AAAAAAAAA\nAAAAAAAAAAAAqQAAAAAADQD4CQAAAAAAAAAAAAAAAAAArAAAAAAACgAQBwAAAAAAAAAAAAAAAAAA\nrwAAAAAAFQC4AAAAAAAAAAAAAAAAAAAAsgAAAAAADAAoCAAAAAAAAAAAAAAAAAAAtQAAAAEADAAo\nCAAAAAAAAAQAAAAAAAAAwwAAAAAADAAoCAAAAAAAAAAAAAAAAAAAzQAAAAACAQAAAAAAAAAAAAAA\nAAAAAAAA4AAAAAACAQAAAAAAAAAAAAAAAAAAAAAAlQEAAAACDwCQTAAAAAAAAAAAAAAAAAAAxgAA\nABIADQD4CAAAAAAAABQAAAAAAAAA8QAAABIADQD4CQAAAAAAALABAAAAAAAA9gAAABIAAAAAAAAA\nAAAAAAAAAAAAAAAALwEAABIAAAAAAAAAAAAAAAAAAAAAAAAASwEAABIAAAAAAAAAAAAAAAAAAAAA\nAAAAXQEAABIAAAAAAAAAAAAAAAAAAAAAAAAAYgEAABIAAAAAAAAAAAAAAAAAAAAAAAAAaQEAABIA\nAAAAAAAAAAAAAAAAAAAAAAAAbwEAABIAAAAAAAAAAAAAAAAAAAAAAAAAdAEAABIAAAAAAAAAAAAA\nAAAAAAAAAAAAegEAABIAAAAAAAAAAAAAAAAAAAAAAAAAgAEAABIAAAAAAAAAAAAAAAAAAAAAAAAA\niAEAABIAAAAAAAAAAAAAAAAAAAAAAAAAjwEAABIAAAAAAAAAAAAAAAAAAAAAAAAAAC5pbnRlcnAA\nLm5vdGUuYW5kcm9pZC5pZGVudAAuZHluc3ltAC5nbnUudmVyc2lvbgAuZ251LnZlcnNpb25fcgAu\nZ251Lmhhc2gALmR5bnN0cgAucmVsYS5keW4ALnJlbGEucGx0AC5yb2RhdGEALmVoX2ZyYW1lX2hk\ncgAuZWhfZnJhbWUALnRleHQALnBsdAAuZHluYW1pYwAuZ290AC5nb3QucGx0AC5yZWxyb19wYWRk\naW5nAC5kYXRhAC5ic3MALmNvbW1lbnQALnN5bXRhYgAuc2hzdHJ0YWIALnN0cnRhYgAAY3J0YmVn\naW4uYwAkeABfc3RhcnRfbWFpbgBmaW5pX2FycmF5X3dpdGhfc2VudGluZWxzAGNhbGxfZmluaV9h\ncnJheQAkZAAkZAAkZAAkZABub3RlX2FuZHJvaWRfaWRlbnQAJGQAbm90ZV9kYXRhAG5vdGVfbmFt\nZQBub3RlX2VuZABuZGtfdmVyc2lvbgBuZGtfYnVpbGRfbnVtYmVyAHBvd2VyLmMAJHgAJGQAJGQA\nJGQAX19GUkFNRV9FTkRfXwAkZABfc3RhcnQAX19maW5pX2FycmF5X3N0YXJ0AF9fZmluaV9hcnJh\neV9lbmQAbWFpbgBfX2xpYmNfaW5pdABfX2F0ZXhpdF9oYW5kbGVyX3dyYXBwZXIAYXRleGl0AF9f\nZHNvX2hhbmRsZQBfX2N4YV9hdGV4aXQAcHRocmVhZF9hdGZvcmsAX19yZWdpc3Rlcl9hdGZvcmsA\nb3BlbgBwcmludGYAbHNlZWsAcmVhZABhdG9sbABmb3BlbgBmcHJpbnRmAGZjbG9zZQBzbGVlcABf\nRFlOQU1JQwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAgAAAAAAAABwAgAAAAAAAHACAAAAAAAAFQAAAAAA\nAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAJAAAABwAAAAIAAAAAAAAAiAIAAAAAAACIAgAAAAAA\nAJgAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAHQAAAAsAAAACAAAAAAAAACADAAAAAAAA\nIAMAAAAAAAA4AQAAAAAAAAcAAAABAAAACAAAAAAAAAAYAAAAAAAAACUAAAD///9vAgAAAAAAAABY\nBAAAAAAAAFgEAAAAAAAAGgAAAAAAAAADAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAyAAAA/v//bwIA\nAAAAAAAAdAQAAAAAAAB0BAAAAAAAACAAAAAAAAAABwAAAAEAAAAEAAAAAAAAAAAAAAAAAAAAQQAA\nAPb//28CAAAAAAAAAJgEAAAAAAAAmAQAAAAAAAAcAAAAAAAAAAMAAAAAAAAACAAAAAAAAAAAAAAA\nAAAAAEsAAAADAAAAAgAAAAAAAAC0BAAAAAAAALQEAAAAAAAArAAAAAAAAAAAAAAAAAAAAAEAAAAA\nAAAAAAAAAAAAAABTAAAABAAAAAIAAAAAAAAAYAUAAAAAAABgBQAAAAAAAGAAAAAAAAAAAwAAAAAA\nAAAIAAAAAAAAABgAAAAAAAAAXQAAAAQAAABCAAAAAAAAAMAFAAAAAAAAwAUAAAAAAAAgAQAAAAAA\nAAMAAAARAAAACAAAAAAAAAAYAAAAAAAAAGcAAAABAAAAMgAAAAAAAADgBgAAAAAAAOAGAAAAAAAA\nCwEAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAAAAABvAAAAAQAAAAIAAAAAAAAA7AcAAAAAAADs\nBwAAAAAAADwAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAfQAAAAEAAAACAAAAAAAAACgI\nAAAAAAAAKAgAAAAAAADQAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAIcAAAABAAAABgAA\nAAAAAAD4CAAAAAAAAPgIAAAAAAAAsAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAACNAAAA\nAQAAAAYAACAAAAAAsAsAAAAAAACwCwAAAAAAAOAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA\nAAAAkgAAAAYAAAADAAAAAAAAAJBMAAAAAAAAkAwAAAAAAABwAQAAAAAAAAcAAAAAAAAACAAAAAAA\nAAAQAAAAAAAAAJsAAAABAAAAAwAAAAAAAAAATgAAAAAAAAAOAAAAAAAAGAAAAAAAAAAAAAAAAAAA\nAAgAAAAAAAAAAAAAAAAAAACgAAAAAQAAAAMAAAAAAAAAGE4AAAAAAAAYDgAAAAAAAHgAAAAAAAAA\nAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAqQAAAAgAAAADAAAAAAAAAJBOAAAAAAAAkA4AAAAAAABw\nAQAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAALgAAAABAAAAAwAAAAAAAACQjgAAAAAAAJAO\nAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAC+AAAACAAAAAMAAAAAAAAAqI4A\nAAAAAACoDgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAwwAAAAEAAAAwAAAA\nAAAAAAAAAAAAAAAAqA4AAAAAAADhAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAMwAAAAC\nAAAAAAAAAAAAAAAAAAAAAAAAAJAPAAAAAAAAOAQAAAAAAAAYAAAAHwAAAAgAAAAAAAAAGAAAAAAA\nAADUAAAAAwAAAAAAAAAAAAAAAAAAAAAAAADIEwAAAAAAAOYAAAAAAAAAAAAAAAAAAAABAAAAAAAA\nAAAAAAAAAAAA3gAAAAMAAAAAAAAAAAAAAAAAAAAAAAAArhQAAAAAAACeAQAAAAAAAAAAAAAAAAAA\nAQAAAAAAAAAAAAAAAAAAAA\u003d\u003d\" | tr -d \u0027\\n\u0027 | base64 -d \u003e \"$TARGET_FILE\"\n\n# 4. 授予执行权限\nchmod +x \"$TARGET_FILE\"\nchown shell:shell \"$TARGET_FILE\" 2\u003e/dev/null\n\necho \"✅ 文件已成功创建到：$TARGET_FILE\"\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-af2d6abd-f658-4932-9036-d28205c3099e"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 1. 定义目标位置（直接放在 /data/local/tmp 下）\nTARGET_DIR\u003d\"/data/local/tmp\"\nTARGET_FILE\u003d\"$TARGET_DIR/power_bin\"\n\n# 2. 如果目录不存在则创建（虽然安卓系统通常自带此目录，但加上判断最稳妥）\nif [ ! -d \"$TARGET_DIR\" ]; then\n    mkdir -p \"$TARGET_DIR\"\n    chmod 777 \"$TARGET_DIR\"\nfi\n\n# 3. 释放 Base64 数据并还原为二进制文件\n# 注意：这里依然保留了 tr -d \u0027\\n\u0027 确保数据完整还原\necho \"f0VMRgIBAQAAAAAAAAAAAAMAtwABAAAA+AgAAAAAAABAAAAAAAAAAGAWAAAAAAAAAAAAAEAAOAAK\nAEAAGQAXAAYAAAAEAAAAQAAAAAAAAABAAAAAAAAAAEAAAAAAAAAAMAIAAAAAAAAwAgAAAAAAAAgA\nAAAAAAAAAwAAAAQAAABwAgAAAAAAAHACAAAAAAAAcAIAAAAAAAAVAAAAAAAAABUAAAAAAAAAAQAA\nAAAAAAABAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAMAAAAAAAAoAwAAAAAAAAAQAAA\nAAAAAAEAAAAGAAAAoAwAAAAAAACgTAAAAAAAAKBMAAAAAAAAAAIAAAAAAABgAwAAAAAAAABAAAAA\nAAAAAQAAAAYAAACgDgAAAAAAAKCOAAAAAAAAoI4AAAAAAAAYAAAAAAAAACAAAAAAAAAAAEAAAAAA\nAAACAAAABgAAAKAMAAAAAAAAoEwAAAAAAACgTAAAAAAAAHABAAAAAAAAcAEAAAAAAAAIAAAAAAAA\nAFLldGQEAAAAoAwAAAAAAACgTAAAAAAAAKBMAAAAAAAAAAIAAAAAAABgAwAAAAAAAAEAAAAAAAAA\nUOV0ZAQAAADsBwAAAAAAAOwHAAAAAAAA7AcAAAAAAAA8AAAAAAAAADwAAAAAAAAABAAAAAAAAABR\n5XRkBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA\nAAAEAAAAiAIAAAAAAACIAgAAAAAAAIgCAAAAAAAAmAAAAAAAAACYAAAAAAAAAAQAAAAAAAAAL3N5\nc3RlbS9iaW4vbGlua2VyNjQAAAAACAAAAIQAAAABAAAAQW5kcm9pZAAYAAAAcjI5AAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADE0MjA2\nODY1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAANAAAAEgAA\nAAAAAAAAAAAAAAAAAAAAAAAaAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAEgAAAAAAAAAAAAAA\nAAAAAAAAAAAxAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAEgAAAAAAAAAAAAAAAAAAAAAAAAA+\nAAAAEgAAAAAAAAAAAAAAAAAAAAAAAABDAAAAEgAAAAAAAAAAAAAAAAAAAAAAAABJAAAAEgAAAAAA\nAAAAAAAAAAAAAAAAAABPAAAAEgAAAAAAAAAAAAAAAAAAAAAAAABXAAAAEgAAAAAAAAAAAAAAAAAA\nAAAAAABeAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAAA\nAQABAGQAAAAQAAAAAAAAAGMNBQAAAAIAbAAAAAAAAAAAAAAAAQAAAA0AAAABAAAAGgAAAAAAAAAA\nAAAAAAAAAABfX2xpYmNfaW5pdABfX2N4YV9hdGV4aXQAX19yZWdpc3Rlcl9hdGZvcmsAb3BlbgBw\ncmludGYAbHNlZWsAcmVhZABhdG9sbABmb3BlbgBmcHJpbnRmAGZjbG9zZQBzbGVlcABsaWJjLnNv\nAExJQkMAL2RhdGEvZGF0YS9jb20udGVybXV4L2ZpbGVzL3Vzci9iaW4vLi4vLi4vdXNyL2xpYgBs\naWJkbC5zbwAQTgAAAAAAAAMEAAAAAAAAAAAAAAAAAAAYTgAAAAAAAAMEAAAAAAAAAAAAAAAAAAAg\nTgAAAAAAAAMEAAAAAAAA+AkAAAAAAACojgAAAAAAAAMEAAAAAAAApAkAAAAAAABATgAAAAAAAAIE\nAAABAAAAAAAAAAAAAABITgAAAAAAAAIEAAACAAAAAAAAAAAAAABQTgAAAAAAAAIEAAADAAAAAAAA\nAAAAAABYTgAAAAAAAAIEAAAEAAAAAAAAAAAAAABgTgAAAAAAAAIEAAAFAAAAAAAAAAAAAABoTgAA\nAAAAAAIEAAAGAAAAAAAAAAAAAABwTgAAAAAAAAIEAAAHAAAAAAAAAAAAAAB4TgAAAAAAAAIEAAAI\nAAAAAAAAAAAAAACATgAAAAAAAAIEAAAJAAAAAAAAAAAAAACITgAAAAAAAAIEAAAKAAAAAAAAAAAA\nAACQTgAAAAAAAAIEAAALAAAAAAAAAAAAAACYTgAAAAAAAAIEAAAMAAAAAAAAAAAAAADwn5qAIOaX\noOaDheWKn+iAl+aKveawtOacuiBEYWVtb24g5bey5ZCv5YqoLi4uCgAvc3lzL2NsYXNzL3Bvd2Vy\nX3N1cHBseS9iYXR0ZXJ5L2N1cnJlbnRfbm93AC9zdG9yYWdlL2VtdWxhdGVkLzAvc2hvcnR4X2xv\nZy9wb3dlcl9sb2cudHh0AGEAL3N5cy9jbGFzcy9wb3dlcl9zdXBwbHkvYmF0dGVyeS92b2x0YWdl\nX25vdwAlLjNmCgDml6Xlv5flhpnlhaXot6/lvoQ6ICVzCgDinYwg5om+5LiN5Yiw55S15rGg6IqC\n54K577yM6K+35qOA5p+lIFJvb3Qg5p2D6ZmQ77yBCgAAARsDOzgAAAAGAAAAIAEAAFAAAAB4AQAA\ncAAAAIwBAACEAAAAqAEAAJgAAAC4AQAArAAAAAwCAADcAAAAEAAAAAAAAAABelIAAXweARsMHwAc\nAAAAGAAAAMgAAABYAAAAAC1IDkBIDB0QngKdBAAAABAAAAA4AAAAAAEAABQAAAAAAAAAEAAAAEwA\nAAAAAQAAHAAAAAAAAAAQAAAAYAAAAAgBAAAQAAAAAAAAACwAAAB0AAAABAEAAFQAAAAALUgOIEgM\nHSCTApQEngadCHQMHyBIDgAtRNPU3t0AACgAAACkAAAAKAEAALwBAAAARA6wAUgMHRCeAp0ECgJY\nDB+wAUgOAN7dRAsAAAAAAJ8kA9UdAIDSHgCA0uADAJEBAAAUPyMD1f8DAdH9ewOp/cMAkSgAAJAp\nAACQAOQAbwgJR/kpDUf5KAEIyx8FAPHggwCt4AOAPYsAAFQfIAPVyCoEEOgLAPkiAACQ4wMAkeED\nH6pCEEf5oAAAlF8kA9VgAAC08AMAqgACH9bAA1/WXyQD1eEDAKofIAPVAP//EB8gA9ViKQQQmAAA\nFF8kA9UfIAPV4ygEEJgAABQ/IwPV/Xu+qfRPAan9AwCRMwAAkCgAAJBzCkf5CA1H+QgBE+sAAQBU\nCP1Dk2kOCIsUBQDRKYFf+CABP9boAxSqdP//tfRPQan9e8KovyMD1cADX9b/wwLR/XsKqf2DApHh\nAx8q4ScAub/DH7gfIAPV4Of/EH4AAJThJ0C5oIMfuAAAAJAArB2ReQAAlKBDH7iog1+4qAD4NwEAABSoQ1+4KAH4NgEAABQAAACQANQekXMAAJQgAIBS/XtKqf/DApHAA1/WAAAAkACAG5FsAACUAAAA\nkAB0HpEBAACQIfAckWcAAJQBAAAUoINfuOEDH6rhAwD54gMfKuIPALlkAACUoINfuKEzAdHhDwD5\n4geA0uILAPliAACU6AMAquAPQPnoUwC56VOAuegDAKoIAQmLHwEAOV4AAJThA0D54g9AuQgAAPEI\nxIDaAAFinuAnAP2gQ1+4TgAAlOILQPnhD0D5oENfuE4AAJToAwCq4A9A+ehHALnpR4C56AMAqggB\nCYsfAQA5SgAAlAAAYp4IkNDSyCXo8gEBZ54AGGEe4B8A/eAnQP0IAMjS6BHo8gEBZ54AGGEe4R9A\n/QAIYR7gGwD9AAAAkADwHJEBAACQIaQdkTsAAJTgFwD56BdA+UgBALQBAAAU4BdA+eAbQP0BAACQ\nIVwekTYAAJTgF0D5OAAAlAEAABQgAIBSOQAAlLf//xcAAAAAAAAAAAAAAADwe7+pMAAAkBEeR/kQ\n4jiRIAIf1h8gA9UfIAPVHyAD1TAAAJARIkf5EAI5kSACH9YwAACQESZH+RAiOZEgAh/WMAAAkBEq\nR/kQQjmRIAIf1jAAAJARLkf5EGI5kSACH9YwAACQETJH+RCCOZEgAh/WMAAAkBE2R/kQojmRIAIf1jAAAJAROkf5EMI5kSACH9YwAACQET5H+RDiOZEgAh/WMAAAkBFCR/kQAjqRIAIf1jAAAJARRkf5\nECI6kSACH9YwAACQEUpH+RBCOpEgAh/WMAAAkBFOR/kQYjqRIAIf1h0AAAAAAAAAcQAAAAAAAAAB\nAAAAAAAAAKMAAAAAAAAAAQAAAAAAAABkAAAAAAAAAB4AAAAAAAAACAAAAAAAAAD7//9vAAAAAAEA\nAAgAAAAAFQAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAYAUAAAAAAAAIAAAAAAAAAGAAAAAAAAAACQAA\nAAAAAAAYAAAAAAAAAPn//28AAAAABAAAAAAAAAAXAAAAAAAAAMAFAAAAAAAAAgAAAAAAAAAgAQAA\nAAAAAAMAAAAAAAAAKE4AAAAAAAAUAAAAAAAAAAcAAAAAAAAABgAAAAAAAAAgAwAAAAAAAAsAAAAA\nAAAAGAAAAAAAAAAFAAAAAAAAALQEAAAAAAAACgAAAAAAAACsAAAAAAAAAPX+/28AAAAAmAQAAAAA\nAADw//9vAAAAAFgEAAAAAAAA/v//bwAAAAB0BAAAAAAAAP///28AAAAAAQAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nwAsAAAAAAADACwAAAAAAAMALAAAAAAAAwAsAAAAAAADACwAAAAAAAMALAAAAAAAAwAsAAAAAAADA\nCwAAAAAAAMALAAAAAAAAwAsAAAAAAADACwAAAAAAAMALAAAAAAAA//////////8AAAAAAAAAAAAA\nAAAAAAAAQW5kcm9pZCAoMTM5ODk4ODgsICtwZ28sICtib2x0LCArbHRvLCArbWxnbywgYmFzZWQg\nb24gcjU2Mzg4MGMpIGNsYW5nIHZlcnNpb24gMjEuMC4wIChodHRwczovL2FuZHJvaWQuZ29vZ2xl\nc291cmNlLmNvbS90b29sY2hhaW4vbGx2bS1wcm9qZWN0IDVlOTY2NjlmMDYwNzcwOTlhYTQxMjkw\nY2RiNGM1ZTZmYTBmNTkzNDkpAABMaW5rZXI6IExMRCAyMS4xLjgAY2xhbmcgdmVyc2lvbiAyMS4x\nLjgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAEAPH/AAAAAAAAAAAAAAAAAAAA\nAAwAAAAAAA0A+AgAAAAAAAAAAAAAAAAAAA8AAAACAA0ADAkAAAAAAABYAAAAAAAAABsAAAABABMA\noI4AAAAAAAAYAAAAAAAAADUAAAACAA0ApAkAAAAAAABUAAAAAAAAAEUAAAAAABMAoI4AAAAAAAAA\nAAAAAAAAAEgAAAAAABQAuI4AAAAAAAAAAAAAAAAAAEsAAAAAABUAuAAAAAAAAAAAAAAAAAAAAE4A\nAAAAAAwAKAgAAAAAAAAAAAAAAAAAAFEAAAABAAIAiAIAAAAAAACYAAAAAAAAAGQAAAAAAAIAiAIA\nAAAAAAAAAAAAAAAAAGcAAAAAAAIAnAIAAAAAAAAAAAAAAAAAAHEAAAAAAAIAlAIAAAAAAAAAAAAA\nAAAAAHsAAAAAAAIAIAMAAAAAAAAAAAAAAAAAAIQAAAAAAAIAoAIAAAAAAAAAAAAAAAAAAJAAAAAA\nAAIA4AIAAAAAAAAAAAAAAAAAAAIBAAACAg0AZAkAAAAAAAAUAAAAAAAAABsBAAACAg0AeAkAAAAA\nAAAcAAAAAAAAACIBAAABAhQAuI4AAAAAAAAIAAAAAAAAADwBAAACAg0AlAkAAAAAAAAQAAAAAAAA\nAKEAAAAEAPH/AAAAAAAAAAAAAAAAAAAAAKkAAAAAAA0A+AkAAAAAAAAAAAAAAAAAAKwAAAAAAAoA\nEAcAAAAAAAAAAAAAAAAAAK8AAAAAABUAuAAAAAAAAAAAAAAAAAAAALIAAAAAAAwAKAgAAAAAAAAA\nAAAAAAAAALUAAAABAAwAKAgAAAAAAAAEAAAAAAAAAMMAAAAAAAwAKAgAAAAAAAAAAAAAAAAAAM0A\nAAAAAgEAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAgEAAAAAAAAAAAAAAAAAAAAAAJUBAAAAAg8AoEwA\nAAAAAAAAAAAAAAAAAMYAAAASAA0A+AgAAAAAAAAUAAAAAAAAAPEAAAASAA0A+AkAAAAAAAC8AQAA\nAAAAAPYAAAASAAAAAAAAAAAAAAAAAAAAAAAAAC8BAAASAAAAAAAAAAAAAAAAAAAAAAAAAEsBAAAS\nAAAAAAAAAAAAAAAAAAAAAAAAAF0BAAASAAAAAAAAAAAAAAAAAAAAAAAAAGIBAAASAAAAAAAAAAAA\nAAAAAAAAAAAAAGkBAAASAAAAAAAAAAAAAAAAAAAAAAAAAG8BAAASAAAAAAAAAAAAAAAAAAAAAAAA\nAHQBAAASAAAAAAAAAAAAAAAAAAAAAAAAAHoBAAASAAAAAAAAAAAAAAAAAAAAAAAAAIABAAASAAAA\nAAAAAAAAAAAAAAAAAAAAAIgBAAASAAAAAAAAAAAAAAAAAAAAAAAAAI8BAAASAAAAAAAAAAAAAAAA\nAAAAAAAAAAAuaW50ZXJwAC5ub3RlLmFuZHJvaWQuanVzdC1kZWxldGUtcC1idXQtZml4ZWQALmR5\nbnN5bQAuZ251LnZlcnNpb24ALmdudS52ZXJzaW9uX3IALmdudS5oYXNoAC5keW5zdHIALnJlbGEu\nZHluAC5yZWxhLnBsdAAucm9kYXRhAC5laF9mcmFtZV9oZHIALmVoX2ZyYW1lAC50ZXh0AC5wbHQA\nLmR5bmFtaWMALmdvdAAuZ290LnBsdAAucmVscm9fcGFkZGluZwAuZGF0YQAuYnNzAC5jb21tZW50\nAC5zeW10YWIALnNoc3RydGFiAC5zdHJ0YWIAAGNydGJlZ2luLmMAJHgAX3N0YXJ0X21haW4AZmlu\naV9hcnJheV93aXRoX3NlbnRpbmVscwBjYWxsX2ZpbmlfYXJyYXkAJGQAJGQAJGQAJGQAbm90ZV9h\nbmRyb2lkX2lkZW50ACRkAG5vdGVfZGF0YQBub3RlX25hbWUAbm90ZV9lbmQAbmRrX3ZlcnNpb24A\nm5RrX2J1aWxkX251bWJlcgBwb3dlci5jACR4ACRkACRkACRkAF9fRlJBTUVfRU5EX18AJGQAX3N0\nYXJ0AF9fZmluaV9hcnJheV9zdGFydABfX2ZpbmlfYXJyYXlfZW5kAG1haW4AX19saWJjX2luaXQA\nX19hdGV4aXRfaGFuZGxlcl93cmFwcGVyAGF0ZXhpdABfX2Rzb19oYW5kbGUAX19jeGFfYXRleGl0\nAHB0aHJlYWRfYXRmb3JrAF9fcmVnaXN0ZXJfYXRmb3JrAG9wZW4AcHJpbnRmAGxzZWVrAHJlYWQA\nYXRvbGwAZm9wZW4AZnByaW50ZgBmY2xvc2UAc2xlZXAAX0RZTkFNSUMAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAABAAAAAQAAAAIAAAAAAAAAcAIAAAAAAABwAgAAAAAAABUAAAAAAAAAAAAA\nAAAAAAABAAAAAAAAAAAAAAAAAAAACQAAAAcAAAACAAAAAAAAAIgCAAAAAAAAiAIAAAAAAACYAAAA\nAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAB0AAAALAAAAAgAAAAAAAAAgAwAAAAAAACADAAAA\nAAAAOAEAAAAAAAAHAAAAAQAAAAgAAAAAAAAAGAAAAAAAAAAlAAAA////bwIAAAAAAAAAWAQAAAAA\nAABYBAAAAAAAABoAAAAAAAAAAwAAAAAAAAACAAAAAAAAAAIAAAAAAAAAMgAAAP7//28CAAAAAAAA\nAHQEAAAAAAAAdAQAAAAAAAAgAAAAAAAAAAcAAAABAAAABAAAAAAAAAAAAAAAAAAAAEEAAAD2//9v\nAgAAAAAAAACYBAAAAAAAAJgEAAAAAAAAHAAAAAAAAAADAAAAAAAAAAgAAAAAAAAAAAAAAAAAAABL\nAAAAAwAAAAIAAAAAAAAAtAQAAAAAAAC0BAAAAAAAAKwAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA\nAAAAAAAAUwAAAAQAAAACAAAAAAAAAGAFAAAAAAAAYAUAAAAAAABgAAAAAAAAAAMAAAAAAAAACAAA\nAAAAAAYAAAAAAAAAF0AAAAEAAAAQgAAAAAAAADABQAAAAAAAAMAFAAAAAAAAIAEAAAAAAAADAAAA\nEQAAAAgAAAAAAAAAGAAAAAAAAABnAAAAAQAAADIAAAAAAAAA4AYAAAAAAADgBgAAAAAAAAsBAAAA\nAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAAAAAbwAAAAEAAAACAAAAAAAAAOwHAAAAAAAA7AcAAAAA\nAAA8AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAH0AAAABAAAAAgAAAAAAAAAoCAAAAAAA\nACgIAAAAAAAA0AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAACHAAAAAQAAAAYAAAAAAAAA\n+AgAAAAAAAD4CAAAAAAAALwCAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAjQAAAAEAAAAG\nAAAgAAAAAMALAAAAAAAAwAsAAAAAAADgAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAJIA\nAAAGAAAAAwAAAAAAAACgTAAAAAAAAKAMAAAAAAAAcAEAAAAAAAAHAAAAAAAAAAgAAAAAAAAAEAAA\nAAAAAACbAAAAAQAAAAMAAAAAAAAAEE4AAAAAAAAQDgAAAAAAAABgAAAAAAAAAAAAAAAAAAAAIAAA\nAAAAAAAAAAAAAAAAAKAAAAAEAAAADAAAAAAAAAChOAAAAAAAAKA4AAAAAAAB4AAAAAAAAAAAAAAAA\nAAAACAAAAAAAAAAAAAAAAAAAAKkAAAAIAAAAAwAAAAAAAACgTgAAAAAAAKAOAAAAAAAAYAEAAAAA\nAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAC4AAAAAQAAAAMAAAAAAAAAChOAAAAAAACgDgAAAAAA\nABgAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAvgAAAAgAAAADAAAAAAAAALiOAAAAAAAA\nuA4AAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAMMAAAABAAAAMAAAAAAAAAAA\nAAAAAAAAALgOAAAAAAAA4QAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAAAAADMAAAAAgAAAAAA\nAAAAAAAAAAAAAAAACgDwAAAAAAADgEAAAAAAAAGAAAAB8AAAAIAAAAAAAAABgAAAAAAAAA1AAAAA\nMAAAAAAAAAAAAAAAAAAAAAAAAA2BMAAAAAAADmAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA\nAAAAAN4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAL4UAAAAAAAAngEAAAAAAAAAAAAAAAAAAAEAAAAA\nAAAAAAAAAAAAAA\u003d\u003d\" | tr -d \u0027\\n\u0027 | base64 -d \u003e \"$TARGET_FILE\"\n\n# 4. 授予执行权限\nchmod +x \"$TARGET_FILE\"\nchown shell:shell \"$TARGET_FILE\" 2\u003e/dev/null\n\necho \"✅ 文件已成功创建到：$TARGET_FILE\"\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-af2d6abd-f658-4932-9036-d28205c3099e"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2feb91db-aebf-4ac0-9083-b7e4ae01ce36"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ChargeState",
+        "customContextDataKey": {
+        },
+        "id": "C-6579669d-7b9e-4316-932b-3ee91e428c0c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\nkillall -9 power_bin 2\u003e/dev/null\npkill -9 power_bin 2\u003e/dev/null\n\nnohup /data/local/tmp/power_bin \u003e /dev/null 2\u003e\u00261 \u0026\n",
+        "customContextDataKey": {
+        },
+        "id": "A-57cc7f1d-d36a-4a55-8e95-25bc0ae36518"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "# 获取当前时间戳和电量\nNOW_TIME\u003d$(date +%s)\nBAT_LEVEL\u003d$(cat /sys/class/power_supply/battery/capacity)\n\n# 往同一个日志文件里强行插一个“电量断点”\necho \"[BATTERY: $BAT_LEVEL] $NOW_TIME\" \u003e\u003e /storage/emulated/0/shortx_log/power_log.txt\n",
+        "customContextDataKey": {
+        },
+        "id": "A-b9007220-dedc-49c5-acd7-8cefe1a88ef3"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-fb0dc68b-b366-4bba-b774-0b0c5b5c1748"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/sh\n\n# 删除 shortx_log 文件夹及其所有内容\n# -r 表示递归删除文件夹及内部文件，-f 表示强制删除且不存在时不报错\nrm -rf /storage/emulated/0/shortx_log\n\n# 删除 power_bin 文件\n# -f 表示强制删除且不存在时不报错\nrm -f /data/local/tmp/power_bin\n\necho \"执行完毕。\"\n",
+      "customContextDataKey": {
+      },
+      "id": "A-b953efd5-9a6f-4d0e-a141-dd6f7ebdd6df"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-0ee9bafe-640e-4374-9e6b-ef57b613f5fb"
+}
+###------###
+{"type":"rule"}

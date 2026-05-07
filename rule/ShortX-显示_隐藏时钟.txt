@@ -1,0 +1,62 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AudioFocusGain",
+    "apps": [{
+      "pkgName": "cn.aqzscn.stream_music"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-545fdf7c-74a2-4016-ae11-f7abbdce9e9a"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-cd3c3926-eb8c-488e-a853-8279bfe26cc2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "//隐藏状态栏时钟图标\nandroid.provider.Settings$Secure.putString(context.contentResolver, \"icon_blacklist\", \u0027rotate,clock\u0027)",
+    "customContextDataKey": {
+    },
+    "id": "A-0826964c-b394-413d-a434-1d8a823b1f2f"
+  }],
+  "id": "SHARE-rule-d9607353-ce73-4def-9120-b24696a64e1b",
+  "lastUpdateTime": "1728286688281",
+  "createTime": "1728283900666",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "显示/隐藏时钟",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "apps": [{
+        "pkgName": "cn.aqzscn.stream_music"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-45195639-56af-4379-83a5-b76e7f118dfc"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-cd5e7f97-d88e-496a-b7c4-57d5150b7947"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "//显示状态栏时钟图标\nandroid.provider.Settings$Secure.putString(context.contentResolver, \"icon_blacklist\", \u0027rotate\u0027)",
+      "customContextDataKey": {
+      },
+      "id": "A-1e3260d3-d2c8-4a62-8fcf-42a9cb43e2b1"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

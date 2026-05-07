@@ -1,0 +1,74 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "gesture": "KeyLongPress",
+    "customContextDataKey": {
+    },
+    "id": "F-791438aa-e40b-4072-8c9b-b8be57c3e67b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppHasNotification",
+      "pkgs": [{
+        "pkgName": "com.coloros.soundrecorder"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-ff6e569e-2b9e-4fe1-841c-5232ee8e9213"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start -a com.oplus.soundrecorder.open_quick_recording \\\n  -f 0x10000000 \\\n  -n com.coloros.soundrecorder/oplus.multimedia.soundrecorder.slidebar.TransparentActivity",
+      "customContextDataKey": {
+      },
+      "id": "A-ad33413f-96bf-422c-aefa-33d31e76414e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppHasNotification",
+        "pkgs": [{
+          "pkgName": "com.coloros.soundrecorder"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-b405d9ae-3836-4ac3-99e3-2ee69805e77e"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am force-stop com.coloros.soundrecorder\n\ncmd audio set-ringer-mode NORMAL",
+        "customContextDataKey": {
+        },
+        "id": "A-a2f07c5e-5344-41e4-a316-0d056d59e5de"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d2017ee5-738f-4a23-8cf8-259ad651616f"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-81f4c33a-9b89-4f8a-85e8-053810e3532d"
+  }],
+  "id": "SHARE-rule-434a9756-28d5-4f3e-acb6-0c7751071660",
+  "lastUpdateTime": "1777821394931",
+  "createTime": "1777820617990",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "一加录音",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

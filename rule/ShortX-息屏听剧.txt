@@ -1,0 +1,123 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-05ae3cd2-44a1-4231-aa29-da876f24b42b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "currentPkg",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-9ebde258-d943-42a3-b151-5010ca44c222"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "com.ss.android.ugc.aweme"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-6bf45c17-933a-4f18-bb50-e69e469eff0d"
+      }, {
+        "@type": "type.googleapis.com/AppHasAudioFocus",
+        "pkgs": [{
+          "pkgName": "com.ss.android.ugc.aweme"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-fb896ff1-4bce-4b27-be78-9e39289ac71e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "currentPkg",
+        "valueAsString": "com.ss.android.ugc.aweme",
+        "customContextDataKey": {
+        },
+        "id": "A-87ca5840-7f78-4993-92db-4477a3dcd7c2"
+      }],
+      "description": "抖音",
+      "id": "Case-113bbf14-addc-42ea-b6b4-be23cf85955c",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "com.smile.gifmaker"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-eba2f925-88a2-4832-97ac-1687bbf0e849"
+      }, {
+        "@type": "type.googleapis.com/AppHasAudioFocus",
+        "pkgs": [{
+          "pkgName": "com.smile.gifmaker"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-cf7ef36f-5c29-4d19-8879-f62e29649086"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "currentPkg",
+        "valueAsString": "com.smile.gifmaker",
+        "customContextDataKey": {
+        },
+        "id": "A-87ca5840-7f78-4993-92db-4477a3dcd7c2"
+      }],
+      "description": "快手",
+      "id": "Case-312e3d79-116b-4d30-a781-c454648159b2",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-b2c9f719-c514-4905-8d13-021c3b3b5185"
+      }],
+      "description": "默认",
+      "id": "Case-f09466ef-cc64-4315-8a3a-caafcd28e9c7",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-87dd911b-bd59-4ff0-87d2-a3c5fb2c5af3"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.os.Parcel;\n\nParcel data \u003d Parcel.obtain();\nParcel reply \u003d Parcel.obtain();\ndata.writeInterfaceToken(\"android.app.IActivityManager\");\ndata.writeString(localVarOf$currentPkg);\nint transactIdSetPackageHoldOn \u003d Integer.valueOf(android.os.MiuiBinderTransaction$IActivityManager.TRANSACT_ID_SET_PACKAGE_HOLD_ON);\nandroid.app.ActivityManager.getService().asBinder().transact(transactIdSetPackageHoldOn, data, reply, 0);\nreply.recycle();\ndata.recycle();",
+    "customContextDataKey": {
+    },
+    "note": "息屏听剧",
+    "id": "A-802281db-4778-4744-a7c5-401fee5b7ad7"
+  }],
+  "id": "rule-647b2ac3-72e6-4184-9681-7bdd589b0d67",
+  "lastUpdateTime": "1715816678209",
+  "createTime": "1711467323949",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "息屏听剧",
+  "description": "抖音、快手息屏播放",
+  "hook": {
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync_InRule",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

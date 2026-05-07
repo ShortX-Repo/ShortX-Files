@@ -1,0 +1,92 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "content": ".*/{2}.*|.*/{1}.*",
+    "id": "F-17213100-2ce5-42c1-b7e0-254840ca8431"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-8d77c7ff-c4b3-47e8-8e28-5584e274cb8f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Directly_open",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-811db243-4268-4314-87b9-013216e57423"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Directly_open",
+    "valueAsString": "想",
+    "note": "是否直接打开链接，填：想/不想",
+    "id": "A-ea09f9cb-1f55-440d-b669-54df3d5593bc"
+  }, {
+    "@type": "type.googleapis.com/ReadClipboard",
+    "id": "A-35d2d528-49b2-4b5c-b38e-00447e4f1b11"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "String input \u003d {clipboardContent};\nString pattern \u003d \"[\\\\u4E00-\\\\u9FFF]\";\nString output \u003d input.replaceAll(pattern, \"\");\n",
+    "id": "A-c58eed82-b39d-4574-9808-b669361c1fff"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{mvelRet}",
+    "id": "A-90b40cf1-01ba-4463-8959-ed316ebb47ed"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "Directly_open",
+      "payload": {
+        "value": "想"
+      },
+      "id": "C-004654d4-1f76-4918-aed8-1996fc65992f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "{mvelRet}",
+      "id": "A-5112f421-8f73-4415-ae68-d4f1862fc90e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "打开链接?",
+        "clickActions": [{
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "{mvelRet}",
+          "id": "A-a63cd69a-9c46-4ac2-b94e-96a66ed2a7f5"
+        }]
+      }, {
+        "title": "取消",
+        "clickActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "edit-circle-line",
+          "id": "A-2d7df899-92f0-4751-9858-56a1eeb5ed6f"
+        }]
+      }],
+      "title": "你想",
+      "cancelable": true,
+      "id": "A-2d67ff73-f401-4987-b865-622ca3454f18"
+    }],
+    "id": "A-9a1a9373-3c72-4f0a-8356-8e310e2f5b2b"
+  }],
+  "id": "rule-33ba1642-879c-4db6-94c0-aef280e40365",
+  "lastUpdateTime": "1691680510405",
+  "createTime": "1691672299826",
+  "author": {
+    "name": "MrMoxing"
+  },
+  "title": "自动删字",
+  "description": "填入变量来自定义",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

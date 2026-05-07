@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "context.getSystemService(\"accessibility\").installedAccessibilityServiceList",
+    "customContextDataKey": {
+    },
+    "id": "A-3e104a75-4d19-451d-ae36-9c507b8b0441"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-eaaf56df-2c37-433b-86e1-29f6cc603aa0"
+    }],
+    "title": "测试结果",
+    "message": "{mvelRet}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-561c80e7-aa46-41a0-b8d5-64de2cdc2173"
+  }],
+  "id": "DA4984ff50-7708-4c2e-8fc1-f0947662e425",
+  "lastUpdateTime": "1702780988566",
+  "createTime": "1702780754649",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Test get acc",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,770 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["Proxy"],
+    "customContextDataKey": {
+    },
+    "id": "F-9391b636-4a90-4395-80ef-dec01ee6f373"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/VPNIsConnected",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-117dba55-54aa-4ba7-b041-b80d2aa39645"
+  }, {
+    "@type": "type.googleapis.com/RequireMobileDataEnabled",
+    "slotId": -1,
+    "customContextDataKey": {
+    },
+    "id": "C-fa3171bf-f7bc-44f9-8d5d-b9fdcf1576a7"
+  }, {
+    "@type": "type.googleapis.com/RequireWifiConnected",
+    "requiredSSID": "*",
+    "customContextDataKey": {
+    },
+    "id": "C-d1321c41-b866-4bab-bd22-63a8cff6ef2e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "Hiddify"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-facc6282-d19f-4022-8524-01c065e787f6"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service app.hiddify.com/com.hiddify.hiddify.bg.VPNService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }],
+      "description": "Hiddify",
+      "id": "Case-634a860d-8786-4c6f-b365-7172c8c49c83",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "Surfboard"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-7541849a-f2c6-4e55-9aec-721343c8e0ff"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "surfboard:///start",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-6394120f-4383-438f-ad2d-47a5ce57b423"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service com.getsurfboard/com.getsurfboard.ui.service.SurfboardVpn",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-55fd8723-7325-43c0-8b2a-cf583287c1e8"
+      }],
+      "description": "Surfboard",
+      "id": "Case-635c030c-a9f7-4288-a9b7-1d9dc208af2b",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "NekoBox"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-cfabd827-c9b5-45d4-923c-b46f19bea897"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service moe.nb4a/io.nekohasekai.sagernet.bg.VpnService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }, {
+        "@type": "type.googleapis.com/StartService",
+        "intent": {
+          "action": "android.intent.action.VIEW",
+          "pkgName": "moe.nb4a",
+          "className": "io.nekohasekai.sagernet.bg.VpnService"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-9271d2b3-f983-4bd8-9bd5-b713b5b2170c"
+      }],
+      "description": "NekoBox",
+      "id": "Case-bc85abb5-2adb-4891-b4d6-6a3e18cba9dd",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "sing-box"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-31312da9-d833-4fef-ab61-fc08eae2c449"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service io.nekohasekai.sfa/io.nekohasekai.sfa.bg.VPNService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }],
+      "description": "sing-box",
+      "id": "Case-8586743d-ba93-4eaf-9286-4f787cd73d91",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "v2rayNG"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-81680cbb-8fb7-489d-93e3-445f3ff7df34"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/StartService",
+        "intent": {
+          "action": "android.intent.action.VIEW",
+          "pkgName": "com.v2ray.ang",
+          "className": "com.v2ray.ang.service.V2RayVpnService"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-6f0d7d2f-d94f-4d70-9a1f-1faa31ae43bd"
+      }],
+      "description": "v2rayNG",
+      "id": "Case-6d65c048-4a6d-4f6f-b448-1c76054dc5d8",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "Clash"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-f4a4b13e-eb12-4a35-b4e6-435ad3ff9ea2"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service com.github.kr328.clash/com.github.kr328.clash.service.TunService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }],
+      "description": "Clash",
+      "id": "Case-6fd9af34-c65e-46d5-a38b-01f5aba55e53",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "Clash(Foss)"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-36ede049-9ad1-4c1b-b740-89b067c1b19e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service com.github.kr328.clash.foss/com.github.kr328.clash.service.TunService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }],
+      "description": "Clash(Foss)",
+      "id": "Case-761ba3dc-473a-4ccc-972a-fce274aee141",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "Clash You"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-aa338e5e-bc9a-4037-af97-62070f88914e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service yos.clash.material/yos.clash.material.service.TunService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }],
+      "description": "Clash You",
+      "id": "Case-85a5121f-ba95-4a98-9bf8-46404253b672",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "Clash Meta"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2bc32714-2a90-49bf-99ba-70c9b3a9c808"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service com.github.metacubex.clash.meta/com.github.kr328.clash.service.TunService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }],
+      "description": "Clash Meta",
+      "id": "Case-ccf98545-9ba8-4bd0-b9e0-70170d8650ca",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "虎兕"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-eeb84ef2-0546-4fc1-a0ad-beb171a73743"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service fr.husi/io.nekohasekai.sagernet.bg.VpnService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }],
+      "description": "虎兕",
+      "id": "Case-68c0e952-bf1d-4102-bc32-564e4325db3c",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "Shadowsocks"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-0d775346-a93d-45a9-ac4e-8d28b62fe23c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start-foreground-service com.github.shadowsocks/com.github.shadowsocks.bg.VpnService",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+      }],
+      "description": "Shadowsocks",
+      "id": "Case-10ce3610-7db6-4bf1-b37c-1d0a01df814c",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "代理工具",
+        "payload": {
+          "value": "Flclash"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-9674fa1e-3b2a-4bf4-a0c7-5b938d653a5c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/StartAppProcess",
+        "appPkg": [{
+          "pkgName": "com.follow.clash"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-242a9312-f25f-44e5-9844-8ce2ccf9c98c"
+      }, {
+        "@type": "type.googleapis.com/WhileLoop",
+        "conditions": [{
+          "@type": "type.googleapis.com/VPNIsConnected",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-4ab5533a-6223-4d48-8130-bad37d872f29"
+        }],
+        "actions": [{
+          "@type": "type.googleapis.com/StartService",
+          "intent": {
+            "action": "android.intent.action.VIEW",
+            "pkgName": "com.follow.clash",
+            "className": "com.follow.clash.services.FlClashVpnService"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-2e3c3b57-5cee-4504-b998-ebfedb8729db"
+        }],
+        "delay": 100,
+        "customContextDataKey": {
+        },
+        "id": "A-1ee0d810-9fff-4621-8561-d8aaa07a2d83"
+      }],
+      "description": "Flclash",
+      "id": "Case-a2a48a91-399f-4689-8830-5c49bc6306ad",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a1ffda56-32d7-4584-a0ce-e87af7696f93"
+  }],
+  "id": "rule-0f068c06-1842-4990-8506-5eb0494a1482",
+  "lastUpdateTime": "1724123565224",
+  "createTime": "1687238394751",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "代理Boss(1.4",
+  "description": "自动开关代理\n涵盖多个主流代理工具",
+  "isEnabled": true,
+  "condOp": "MVEL",
+  "condOpPayload": {
+    "expression": "c1 \u0026\u0026 (c2 || c3)"
+  },
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "代理工具",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ed5fd5f8-2354-484a-b854-0463a83870fd"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "Hiddify",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Hiddify",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Surfboard",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Surfboard",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "NekoBox",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "NekoBox",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "sing-box",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "sing-box",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "v2rayNG",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "v2rayNG",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Clash",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Clash",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Clash(Foss)",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Clash(Foss)",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Clash You",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Clash You",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Clash Meta",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Clash Meta",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "虎兕(husi)",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "虎兕",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Shadowsocks",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Shadowsocks",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Flclash",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Flclash",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "没有我使用的代理工具",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "title": "反馈",
+          "message": "请告诉指令制作者",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-26c3e3eb-dbfa-4de4-8357-c08e0f64bb6e"
+        }, {
+          "@type": "type.googleapis.com/SetRuleEnabled",
+          "ruleId": "rule-1daacd50-2fc6-42c6-b765-d1c0a92e94bb",
+          "customContextDataKey": {
+          },
+          "id": "A-05f36a3e-00f1-4e9f-87ba-260c5c9fd85a"
+        }]
+      }],
+      "title": "选择你使用的代理工具",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-32fb0ce3-8419-46fb-b665-9a62db9b8a38"
+    }, {
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "Proxy",
+      "customContextDataKey": {
+      },
+      "id": "A-b65545bb-bec3-4318-ae19-7c7c90be53e1"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "把你需要代理的软件添加在里面"
+      }, {
+        "title": "重启系统后需要手动启动一次VPN"
+      }],
+      "title": "我已经创建一个叫做Proxy的应用集",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-f7ddfe9b-1743-438d-ade2-4dc053d52ed4"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "Hiddify",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Hiddify",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Surfboard",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Surfboard",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "NekoBox",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "NekoBox",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "sing-box",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "sing-box",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "v2rayNG",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "v2rayNG",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Clash",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Clash",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Clash(Foss)",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Clash(Foss)",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Clash You",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Clash You",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Clash Meta",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Clash Meta",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "虎兕(husi)",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "虎兕",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Shadowsocks",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Shadowsocks",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "Flclash",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "代理工具",
+          "valueAsString": "Flclash",
+          "customContextDataKey": {
+          },
+          "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+        }]
+      }, {
+        "title": "没有我使用的代理工具",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "title": "反馈",
+          "message": "请告诉指令制作者",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-26c3e3eb-dbfa-4de4-8357-c08e0f64bb6e"
+        }, {
+          "@type": "type.googleapis.com/SetRuleEnabled",
+          "ruleId": "rule-1daacd50-2fc6-42c6-b765-d1c0a92e94bb",
+          "customContextDataKey": {
+          },
+          "id": "A-05f36a3e-00f1-4e9f-87ba-260c5c9fd85a"
+        }]
+      }],
+      "title": "选择你使用的代理工具",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-504ac7d8-bf21-40d4-bbf6-b2b7baf64563"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "代理工具",
+      "customContextDataKey": {
+      },
+      "id": "A-24c71324-76f1-4f75-9a50-78987fcd8f4d"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "pkgSets": ["Proxy"],
+      "customContextDataKey": {
+      },
+      "id": "F-55a02790-07de-4ac7-805e-8b2585f3d4d1"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-08968dea-9d75-49aa-be9c-d1d04af20f3f"
+    }, {
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgSets": ["Proxy"],
+      "customContextDataKey": {
+      },
+      "id": "C-ed542833-e40c-480a-9743-a7b8aad723bc"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/StopAppByPkg",
+      "pkgAndUsers": [{
+        "first": "com.github.kr328.clash",
+        "second": "0"
+      }, {
+        "first": "com.github.metacubex.clash.meta",
+        "second": "0"
+      }, {
+        "first": "fr.husi",
+        "second": "0"
+      }, {
+        "first": "io.nekohasekai.sfa",
+        "second": "0"
+      }, {
+        "first": "app.hiddify.com",
+        "second": "0"
+      }, {
+        "first": "moe.nb4a",
+        "second": "0"
+      }, {
+        "first": "com.getsurfboard",
+        "second": "0"
+      }, {
+        "first": "com.github.shadowsocks",
+        "second": "0"
+      }, {
+        "first": "com.v2ray.ang",
+        "second": "0"
+      }, {
+        "first": "yos.clash.material",
+        "second": "0"
+      }, {
+        "first": "com.github.kr328.clash.foss",
+        "second": "0"
+      }, {
+        "first": "com.follow.clash",
+        "second": "0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d39ba96f-baa0-4ca2-861e-71c9db159247"
+    }]
+  },
+  "ruleSetId": "RS-05a2e74d-dc41-47ed-813a-1c29c30a3737"
+}
+###------###
+{"type":"rule"}

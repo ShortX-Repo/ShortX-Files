@@ -1,0 +1,72 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "miui_refresh_rate",
+      "payload": {
+      },
+      "id": "C-687c1128-db57-48f2-90f9-637baef1d401"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "miui_refresh_rate",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-bc65e8b9-cfea-46ca-852b-ec494aba619c"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "miui_refresh_rate",
+      "valueAsString": "0",
+      "id": "A-c3263192-7f07-4023-bd9c-3a1575fa2718"
+    }],
+    "id": "A-184b7465-4474-4041-ba6e-bab69cc118b2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "miui_refresh_rate",
+      "payload": {
+        "value": "0"
+      },
+      "id": "C-fa4ef56f-66eb-4c64-b97f-664bb0df60c1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "service call SurfaceFlinger 1034 i32 1 ",
+      "id": "A-8772ddf0-92dd-42eb-8d77-9d10c24f215d"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "miui_refresh_rate",
+      "valueAsString": "1",
+      "id": "A-6f103aa8-579e-4068-a966-438d257b2ba2"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "service call SurfaceFlinger 1034 i32 0",
+      "id": "A-a93b229d-e638-4f4a-8ceb-8ad0656511d0"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "miui_refresh_rate",
+      "valueAsString": "0",
+      "id": "A-26174b6d-f7ba-48dc-818c-d97e87d9f3a6"
+    }],
+    "id": "A-9cb30ce6-cbde-4914-9b8e-7fac3db50646"
+  }],
+  "id": "DA5a3305f7-e497-44a9-95da-4a10b9a7ba79",
+  "lastUpdateTime": "1691910439170",
+  "createTime": "1691909904986",
+  "author": {
+    "name": "V我50"
+  },
+  "title": "MIUI刷新率",
+  "description": "MIUI刷新率开关",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

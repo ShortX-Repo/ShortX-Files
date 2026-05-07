@@ -1,0 +1,414 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+    },
+    "tag": "执行",
+    "customContextDataKey": {
+    },
+    "id": "F-ea16393f-4fc2-4b7d-9969-cf737f7f401c"
+  }, {
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+    },
+    "tag": "执行",
+    "customContextDataKey": {
+    },
+    "id": "F-fd600c01-8e70-498b-a44b-85022c3499f0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "执行",
+      "customContextDataKey": {
+      },
+      "id": "C-5c0c15a7-8e61-41d9-abaa-7ba66dcd23f9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "通知过滤器模式",
+        "payload": {
+          "value": "训练"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-0de085f1-e03a-4faf-abaf-a3f7d4d8b440"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1752324868955",
+        "title": "{title}",
+        "message": "{contentText}",
+        "smallIcon": "chat-2-line",
+        "button": [{
+          "id": "Button-602e6ddf-7557-4b83-abda-dce50372e587",
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "importClass(java.io.File);\nimportClass(java.io.FileInputStream);\nimportClass(java.io.InputStreamReader);\nimportClass(java.io.BufferedReader);\nimportClass(java.io.FileWriter);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\nimportClass(org.json.JSONTokener);\n\n\nfunction readJson(path, expectArray) {\n  var file \u003d new File(path);\n  if (!file.exists()) return expectArray ? new JSONArray() : new JSONObject();\n\n  var inputStream \u003d new FileInputStream(file);\n  var reader \u003d new BufferedReader(new InputStreamReader(inputStream, \"utf-8\"));\n  var sb \u003d new java.lang.StringBuilder();\n  var line;\n  while ((line \u003d reader.readLine()) !\u003d\u003d null) {\n    sb.append(line);\n  }\n  reader.close();\n  inputStream.close();\n\n  var text \u003d sb.toString();\n  var json \u003d new JSONTokener(text).nextValue();\n\n  // 类型校验\n  if (expectArray) {\n    if (!(json instanceof JSONArray)) throw new Error(\"文件内容不是 JSONArray\");\n  } else {\n    if (!(json instanceof JSONObject)) throw new Error(\"文件内容不是 JSONObject\");\n  }\n  return json;\n}\n\n// 工具函数：安全写入 JSON（覆盖写入）\nfunction writeJson(path, obj) {\n  var writer \u003d new FileWriter(path, false);\n  writer.write(obj.toString());\n  writer.close();\n}\n\n// 分词函数：中文单字或连续英文数字单词\nfunction tokenize(text) {\n  if (text \u003d\u003d null || text \u003d\u003d\u003d undefined) return [];\n  var pattern \u003d /[\\u4e00-\\u9fa5]+|[a-zA-Z]+|\\d+/g; // 只用 g 标志\n  var result \u003d text.match(pattern);\n  return result !\u003d null ? result : [];\n}\n\n// 全局变量：样本和模型文件路径\nvar TRAIN_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_train.json\";\nvar MODEL_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_model.json\";\n\nfunction loadTrainSamples() {\n  return readJson(TRAIN_FILE, true);\n}\n\nfunction loadModel() {\n  return readJson(MODEL_FILE, false);\n}\n\n// 保存训练样本\nfunction saveTrainSamples(arr) {\n  writeJson(TRAIN_FILE, arr);\n}\n\n// 保存模型\nfunction saveModel(obj) {\n  writeJson(MODEL_FILE, obj);\n}\n\n// 添加新训练样本\nfunction addSample(text, label) {\n  var samples \u003d loadTrainSamples();\n  samples.put(new JSONArray([text, label]));\n  saveTrainSamples(samples);\n}\n\n// 训练模型：统计词频\nfunction train() {\n  var samples \u003d loadTrainSamples();\n  var model \u003d new JSONObject();\n\n  for (var i \u003d 0; i \u003c samples.length(); i++) {\n    var pair \u003d samples.getJSONArray(i);\n    var text \u003d pair.getString(0);\n    var label \u003d pair.getString(1);\n\n    if (!model.has(label)) {\n      model.put(label, new JSONObject());\n    }\n    var labelMap \u003d model.getJSONObject(label);\n\n    var words \u003d tokenize(text);\n    for (var j \u003d 0; j \u003c words.length; j++) {\n      var w \u003d words[j];\n      if (labelMap.has(w)) {\n        labelMap.put(w, labelMap.getInt(w) + 1);\n      } else {\n        labelMap.put(w, 1);\n      }\n    }\n  }\n\n  saveModel(model);\n}\n\nfunction classify(text) {\n  var model \u003d loadModel();\n  var tokens \u003d tokenize(text);\n  if (!tokens || tokens.length \u003d\u003d\u003d 0) return \"unknown\";\n\n  var scores \u003d {};\n  var labelsIter \u003d model.keys();\n  while (labelsIter.hasNext()) {\n    var label \u003d labelsIter.next();\n    var labelMap \u003d model.getJSONObject(label);\n    scores[label] \u003d 0;\n    for (var i \u003d 0; i \u003c tokens.length; i++) {\n      var word \u003d tokens[i];\n      if (labelMap.has(word)) {\n        scores[label] +\u003d labelMap.getInt(word);\n      }\n    }\n  }\n\n  var bestLabel \u003d null;\n  var bestScore \u003d -1;\n  for (var label in scores) {\n    if (scores[label] \u003e bestScore) {\n      bestScore \u003d scores[label];\n      bestLabel \u003d label;\n    }\n  }\n  return bestLabel || \"unknown\";\n}\n\n\naddSample(String({title}+{contentText}), \"true\");\ntrain();",
+            "customContextDataKey": {
+            },
+            "id": "A-2a64083d-844d-42f7-a243-8c065485295e"
+          }],
+          "label": "垃圾"
+        }, {
+          "id": "Button-6f05ca1b-e107-4a78-8c06-cf7aca37df99",
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "importClass(java.io.File);\nimportClass(java.io.FileInputStream);\nimportClass(java.io.InputStreamReader);\nimportClass(java.io.BufferedReader);\nimportClass(java.io.FileWriter);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\nimportClass(org.json.JSONTokener);\n\n\nfunction readJson(path, expectArray) {\n  var file \u003d new File(path);\n  if (!file.exists()) return expectArray ? new JSONArray() : new JSONObject();\n\n  var inputStream \u003d new FileInputStream(file);\n  var reader \u003d new BufferedReader(new InputStreamReader(inputStream, \"utf-8\"));\n  var sb \u003d new java.lang.StringBuilder();\n  var line;\n  while ((line \u003d reader.readLine()) !\u003d\u003d null) {\n    sb.append(line);\n  }\n  reader.close();\n  inputStream.close();\n\n  var text \u003d sb.toString();\n  var json \u003d new JSONTokener(text).nextValue();\n\n  // 类型校验\n  if (expectArray) {\n    if (!(json instanceof JSONArray)) throw new Error(\"文件内容不是 JSONArray\");\n  } else {\n    if (!(json instanceof JSONObject)) throw new Error(\"文件内容不是 JSONObject\");\n  }\n  return json;\n}\n\n// 工具函数：安全写入 JSON（覆盖写入）\nfunction writeJson(path, obj) {\n  var writer \u003d new FileWriter(path, false);\n  writer.write(obj.toString());\n  writer.close();\n}\n\n// 分词函数：中文单字或连续英文数字单词\nfunction tokenize(text) {\n  if (text \u003d\u003d null || text \u003d\u003d\u003d undefined) return [];\n  var pattern \u003d /[\\u4e00-\\u9fa5]+|[a-zA-Z]+|\\d+/g; // 只用 g 标志\n  var result \u003d text.match(pattern);\n  return result !\u003d null ? result : [];\n}\n\n// 全局变量：样本和模型文件路径\nvar TRAIN_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_train.json\";\nvar MODEL_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_model.json\";\n\nfunction loadTrainSamples() {\n  return readJson(TRAIN_FILE, true);\n}\n\nfunction loadModel() {\n  return readJson(MODEL_FILE, false);\n}\n\n// 保存训练样本\nfunction saveTrainSamples(arr) {\n  writeJson(TRAIN_FILE, arr);\n}\n\n// 保存模型\nfunction saveModel(obj) {\n  writeJson(MODEL_FILE, obj);\n}\n\n// 添加新训练样本\nfunction addSample(text, label) {\n  var samples \u003d loadTrainSamples();\n  samples.put(new JSONArray([text, label]));\n  saveTrainSamples(samples);\n}\n\n// 训练模型：统计词频\nfunction train() {\n  var samples \u003d loadTrainSamples();\n  var model \u003d new JSONObject();\n\n  for (var i \u003d 0; i \u003c samples.length(); i++) {\n    var pair \u003d samples.getJSONArray(i);\n    var text \u003d pair.getString(0);\n    var label \u003d pair.getString(1);\n\n    if (!model.has(label)) {\n      model.put(label, new JSONObject());\n    }\n    var labelMap \u003d model.getJSONObject(label);\n\n    var words \u003d tokenize(text);\n    for (var j \u003d 0; j \u003c words.length; j++) {\n      var w \u003d words[j];\n      if (labelMap.has(w)) {\n        labelMap.put(w, labelMap.getInt(w) + 1);\n      } else {\n        labelMap.put(w, 1);\n      }\n    }\n  }\n\n  saveModel(model);\n}\n\nfunction classify(text) {\n  var model \u003d loadModel();\n  var tokens \u003d tokenize(text);\n  if (!tokens || tokens.length \u003d\u003d\u003d 0) return \"unknown\";\n\n  var scores \u003d {};\n  var labelsIter \u003d model.keys();\n  while (labelsIter.hasNext()) {\n    var label \u003d labelsIter.next();\n    var labelMap \u003d model.getJSONObject(label);\n    scores[label] \u003d 0;\n    for (var i \u003d 0; i \u003c tokens.length; i++) {\n      var word \u003d tokens[i];\n      if (labelMap.has(word)) {\n        scores[label] +\u003d labelMap.getInt(word);\n      }\n    }\n  }\n\n  var bestLabel \u003d null;\n  var bestScore \u003d -1;\n  for (var label in scores) {\n    if (scores[label] \u003e bestScore) {\n      bestScore \u003d scores[label];\n      bestLabel \u003d label;\n    }\n  }\n  return bestLabel || \"unknown\";\n}\n\naddSample(String({title}+{contentText}), \"false\");\n\n\ntrain();",
+            "customContextDataKey": {
+            },
+            "id": "A-2a64083d-844d-42f7-a243-8c065485295e"
+          }],
+          "label": "正常"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-f19a6045-7a8b-4146-b8c9-ecb9620d60ed"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importClass(java.io.File);\nimportClass(java.io.FileInputStream);\nimportClass(java.io.InputStreamReader);\nimportClass(java.io.BufferedReader);\nimportClass(java.io.FileWriter);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\nimportClass(org.json.JSONTokener);\n\nfunction readJson(path, expectArray) {\n  var file \u003d new File(path);\n  if (!file.exists()) return expectArray ? new JSONArray() : new JSONObject();\n\n  var inputStream \u003d new FileInputStream(file);\n  var reader \u003d new BufferedReader(new InputStreamReader(inputStream, \"utf-8\"));\n  var sb \u003d new java.lang.StringBuilder();\n  var line;\n  while ((line \u003d reader.readLine()) !\u003d\u003d null) {\n    sb.append(line);\n  }\n  reader.close();\n  inputStream.close();\n\n  var text \u003d sb.toString();\n  var json \u003d new JSONTokener(text).nextValue();\n\n  // 类型校验\n  if (expectArray) {\n    if (!(json instanceof JSONArray)) throw new Error(\"文件内容不是 JSONArray\");\n  } else {\n    if (!(json instanceof JSONObject)) throw new Error(\"文件内容不是 JSONObject\");\n  }\n  return json;\n}\n\n// 工具函数：安全写入 JSON（覆盖写入）\nfunction writeJson(path, obj) {\n  var writer \u003d new FileWriter(path, false);\n  writer.write(obj.toString());\n  writer.close();\n}\n\n// 分词函数：中文单字或连续英文数字单词\nfunction tokenize(text) {\n  if (text \u003d\u003d null || text \u003d\u003d\u003d undefined) return [];\n  var pattern \u003d /[\\u4e00-\\u9fa5]+|[a-zA-Z]+|\\d+/g; // 只用 g 标志\n  var result \u003d text.match(pattern);\n  return result !\u003d null ? result : [];\n}\n\n// 全局变量：样本和模型文件路径\nvar TRAIN_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_train.json\";\nvar MODEL_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_model.json\";\n\nfunction loadTrainSamples() {\n  return readJson(TRAIN_FILE, true);\n}\n\nfunction loadModel() {\n  return readJson(MODEL_FILE, false);\n}\n\n// 保存训练样本\nfunction saveTrainSamples(arr) {\n  writeJson(TRAIN_FILE, arr);\n}\n\n// 保存模型\nfunction saveModel(obj) {\n  writeJson(MODEL_FILE, obj);\n}\n\n// 添加新训练样本\nfunction addSample(text, label) {\n  var samples \u003d loadTrainSamples();\n  samples.put(new JSONArray([text, label]));\n  saveTrainSamples(samples);\n}\n\n// 训练模型：统计词频\nfunction train() {\n  var samples \u003d loadTrainSamples();\n  var model \u003d new JSONObject();\n\n  for (var i \u003d 0; i \u003c samples.length(); i++) {\n    var pair \u003d samples.getJSONArray(i);\n    var text \u003d pair.getString(0);\n    var label \u003d pair.getString(1);\n\n    if (!model.has(label)) {\n      model.put(label, new JSONObject());\n    }\n    var labelMap \u003d model.getJSONObject(label);\n\n    var words \u003d tokenize(text);\n    for (var j \u003d 0; j \u003c words.length; j++) {\n      var w \u003d words[j];\n      if (labelMap.has(w)) {\n        labelMap.put(w, labelMap.getInt(w) + 1);\n      } else {\n        labelMap.put(w, 1);\n      }\n    }\n  }\n\n  saveModel(model);\n}\n\nfunction classify(text) {\n  var model \u003d loadModel();\n  var tokens \u003d tokenize(text);\n  if (!tokens || tokens.length \u003d\u003d\u003d 0) return \"unknown\";\n\n  var scores \u003d {};\n  var labelsIter \u003d model.keys();\n  while (labelsIter.hasNext()) {\n    var label \u003d labelsIter.next();\n    var labelMap \u003d model.getJSONObject(label);\n    scores[label] \u003d 0;\n    for (var i \u003d 0; i \u003c tokens.length; i++) {\n      var word \u003d tokens[i];\n      if (labelMap.has(word)) {\n        scores[label] +\u003d labelMap.getInt(word);\n      }\n    }\n  }\n\n  var bestLabel \u003d null;\n  var bestScore \u003d -1;\n  for (var label in scores) {\n    if (scores[label] \u003e bestScore) {\n      bestScore \u003d scores[label];\n      bestLabel \u003d label;\n    }\n  }\n  return bestLabel || \"unknown\";\n}\n\n\nvar result \u003d classify(String({title}+{contentText}));\nresult;\n",
+        "customContextDataKey": {
+        },
+        "id": "A-2a64083d-844d-42f7-a243-8c065485295e"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "jsRet",
+          "payload": {
+            "value": "true"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-6d61d5e3-42fd-41de-b17e-ef4bc4baafd8"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/RemoveNotification",
+          "notification": {
+            "title": "{title}",
+            "contentText": "{contentText}"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-4102c18d-27c6-4051-b5b7-fcf086297f06"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(java.io.FileWriter);\nimportClass(java.io.BufferedWriter);\nimportClass(java.io.File);\n\nfunction appendToFile(path, content) {\n    try {\n        var file \u003d new File(path);\n        // 确保父文件夹存在\n        var parent \u003d file.getParentFile();\n        if (parent !\u003d null \u0026\u0026 !parent.exists()) {\n            parent.mkdirs();\n        }\n\n        var fw \u003d new FileWriter(file, true); // true 表示追加模式\n        var bw \u003d new BufferedWriter(fw);\n        bw.write(content);\n        bw.newLine(); // 如果需要换行\n        bw.close();\n        fw.close();\n        return \"写入成功\";\n    } catch (e) {\n        return \"写入失败: \" + e.message;\n    }\n}\nappendToFile(globalVarOf$shortxpath+\"/data/Notification_filter/cleaned_Notification.log\", {title}+\":\"+{contentText});",
+          "customContextDataKey": {
+          },
+          "id": "A-aeeeafed-6a60-4ceb-8310-622ee483cfa5"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-430ec86e-702c-4081-99ea-49afaf3c0b16"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-762a9607-db22-4e50-a879-91aabb3944ff"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "切换到训练模式",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "通知过滤器模式",
+          "valueAsString": "训练",
+          "customContextDataKey": {
+          },
+          "id": "A-25e94a7e-45aa-429f-8bd3-e9dc3fc8f389"
+        }]
+      }, {
+        "title": "切换到运行模式",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "通知过滤器模式",
+          "valueAsString": "运行",
+          "customContextDataKey": {
+          },
+          "id": "A-ad0510c4-d784-4fbf-a6f2-d90c801f888e"
+        }]
+      }, {
+        "title": "手动添加样本",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "添加样本",
+          "cancelable": true,
+          "textFields": [{
+            "placeholder": "样本"
+          }, {
+            "placeholder": "过滤：true 不过滤：false",
+            "value": "true"
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-c256c315-8c9d-4cb1-8db1-70266fe1d3ac"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(java.io.File);\nimportClass(java.io.FileInputStream);\nimportClass(java.io.InputStreamReader);\nimportClass(java.io.BufferedReader);\nimportClass(java.io.FileWriter);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\nimportClass(org.json.JSONTokener);\n\n\nfunction readJson(path, expectArray) {\n  var file \u003d new File(path);\n  if (!file.exists()) return expectArray ? new JSONArray() : new JSONObject();\n\n  var inputStream \u003d new FileInputStream(file);\n  var reader \u003d new BufferedReader(new InputStreamReader(inputStream, \"utf-8\"));\n  var sb \u003d new java.lang.StringBuilder();\n  var line;\n  while ((line \u003d reader.readLine()) !\u003d\u003d null) {\n    sb.append(line);\n  }\n  reader.close();\n  inputStream.close();\n\n  var text \u003d sb.toString();\n  var json \u003d new JSONTokener(text).nextValue();\n\n  // 类型校验\n  if (expectArray) {\n    if (!(json instanceof JSONArray)) throw new Error(\"文件内容不是 JSONArray\");\n  } else {\n    if (!(json instanceof JSONObject)) throw new Error(\"文件内容不是 JSONObject\");\n  }\n  return json;\n}\n\n// 工具函数：安全写入 JSON（覆盖写入）\nfunction writeJson(path, obj) {\n  var writer \u003d new FileWriter(path, false);\n  writer.write(obj.toString());\n  writer.close();\n}\n\n// 分词函数：中文单字或连续英文数字单词\nfunction tokenize(text) {\n  if (text \u003d\u003d null || text \u003d\u003d\u003d undefined) return [];\n  var pattern \u003d /[\\u4e00-\\u9fa5]+|[a-zA-Z]+|\\d+/g; // 只用 g 标志\n  var result \u003d text.match(pattern);\n  return result !\u003d null ? result : [];\n}\n\n// 全局变量：样本和模型文件路径\nvar TRAIN_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_train.json\";\nvar MODEL_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_model.json\";\n\nfunction loadTrainSamples() {\n  return readJson(TRAIN_FILE, true);\n}\n\nfunction loadModel() {\n  return readJson(MODEL_FILE, false);\n}\n\n// 保存训练样本\nfunction saveTrainSamples(arr) {\n  writeJson(TRAIN_FILE, arr);\n}\n\n// 保存模型\nfunction saveModel(obj) {\n  writeJson(MODEL_FILE, obj);\n}\n\n// 添加新训练样本\nfunction addSample(text, label) {\n  var samples \u003d loadTrainSamples();\n  samples.put(new JSONArray([text, label]));\n  saveTrainSamples(samples);\n}\n\n// 训练模型：统计词频\nfunction train() {\n  var samples \u003d loadTrainSamples();\n  var model \u003d new JSONObject();\n\n  for (var i \u003d 0; i \u003c samples.length(); i++) {\n    var pair \u003d samples.getJSONArray(i);\n    var text \u003d pair.getString(0);\n    var label \u003d pair.getString(1);\n\n    if (!model.has(label)) {\n      model.put(label, new JSONObject());\n    }\n    var labelMap \u003d model.getJSONObject(label);\n\n    var words \u003d tokenize(text);\n    for (var j \u003d 0; j \u003c words.length; j++) {\n      var w \u003d words[j];\n      if (labelMap.has(w)) {\n        labelMap.put(w, labelMap.getInt(w) + 1);\n      } else {\n        labelMap.put(w, 1);\n      }\n    }\n  }\n\n  saveModel(model);\n}\n\n\nfunction classify(text) {\n  var model \u003d loadModel();\n  var tokens \u003d tokenize(text);\n  if (!tokens || tokens.length \u003d\u003d\u003d 0) return \"unknown\";\n\n  var scores \u003d {};\n  var labelsIter \u003d model.keys();\n  while (labelsIter.hasNext()) {\n    var label \u003d labelsIter.next();\n    var labelMap \u003d model.getJSONObject(label);\n    scores[label] \u003d 0;\n    for (var i \u003d 0; i \u003c tokens.length; i++) {\n      var word \u003d tokens[i];\n      if (labelMap.has(word)) {\n        scores[label] +\u003d labelMap.getInt(word);\n      }\n    }\n  }\n\n  var bestLabel \u003d null;\n  var bestScore \u003d -1;\n  for (var label in scores) {\n    if (scores[label] \u003e bestScore) {\n      bestScore \u003d scores[label];\n      bestLabel \u003d label;\n    }\n  }\n  return bestLabel || \"unknown\";\n}\n\n\naddSample(String({textFieldInput1}), String({textFieldInput2}));\n\ntrain();",
+          "customContextDataKey": {
+          },
+          "id": "A-2a64083d-844d-42f7-a243-8c065485295e"
+        }]
+      }, {
+        "title": "误删加训",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(java.io.BufferedReader);\nimportClass(java.io.FileReader);\nimportClass(java.io.File);\n\nfunction readFile(path) {\n    try {\n        var file \u003d new File(path);\n        if (!file.exists()) {\n            return \"文件不存在\";\n        }\n\n        var fr \u003d new FileReader(file);\n        var br \u003d new BufferedReader(fr);\n        var line;\n        var content \u003d \"\";\n        while ((line \u003d br.readLine()) !\u003d null) {\n            content +\u003d line + \"\\n\";\n        }\n        br.close();\n        fr.close();\n\n        return content;\n    } catch (e) {\n        return \"读取失败: \" + e.message;\n    }\n}\n\n// 示例：读取 /sdcard/test.txt 内容\nreadFile(globalVarOf$shortxpath+\"/data/Notification_filter/cleaned_Notification.log\");",
+          "customContextDataKey": {
+          },
+          "id": "A-21b30fcc-674f-48a1-87d8-320b2c4640f6"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择误删的通知",
+          "cancelable": true,
+          "data": "{jsRet}",
+          "delimiter": ["\n"],
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-39d7df81-2f83-4853-bfca-392b1a0982da"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(java.io.File);\nimportClass(java.io.FileInputStream);\nimportClass(java.io.InputStreamReader);\nimportClass(java.io.BufferedReader);\nimportClass(java.io.FileWriter);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\nimportClass(org.json.JSONTokener);\n\n// 工具函数：安全读取 JSON（文件不存在时返回空 JSONArray 或 JSONObject）\nfunction readJson(path, expectArray) {\n  var file \u003d new File(path);\n  if (!file.exists()) return expectArray ? new JSONArray() : new JSONObject();\n\n  var inputStream \u003d new FileInputStream(file);\n  var reader \u003d new BufferedReader(new InputStreamReader(inputStream, \"utf-8\"));\n  var sb \u003d new java.lang.StringBuilder();\n  var line;\n  while ((line \u003d reader.readLine()) !\u003d\u003d null) {\n    sb.append(line);\n  }\n  reader.close();\n  inputStream.close();\n\n  var text \u003d sb.toString();\n  var json \u003d new JSONTokener(text).nextValue();\n\n  // 类型校验\n  if (expectArray) {\n    if (!(json instanceof JSONArray)) throw new Error(\"文件内容不是 JSONArray\");\n  } else {\n    if (!(json instanceof JSONObject)) throw new Error(\"文件内容不是 JSONObject\");\n  }\n  return json;\n}\n\n// 工具函数：安全写入 JSON（覆盖写入）\nfunction writeJson(path, obj) {\n  var writer \u003d new FileWriter(path, false);\n  writer.write(obj.toString());\n  writer.close();\n}\n\n// 分词函数：中文单字或连续英文数字单词\nfunction tokenize(text) {\n  if (text \u003d\u003d null || text \u003d\u003d\u003d undefined) return [];\n  var pattern \u003d /[\\u4e00-\\u9fa5]+|[a-zA-Z]+|\\d+/g; // 只用 g 标志\n  var result \u003d text.match(pattern);\n  return result !\u003d null ? result : [];\n}\n\n// 全局变量：样本和模型文件路径\nvar TRAIN_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_train.json\";\nvar MODEL_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_model.json\";\n\nfunction loadTrainSamples() {\n  return readJson(TRAIN_FILE, true);\n}\n\nfunction loadModel() {\n  return readJson(MODEL_FILE, false);\n}\n\n// 保存训练样本\nfunction saveTrainSamples(arr) {\n  writeJson(TRAIN_FILE, arr);\n}\n\n// 保存模型\nfunction saveModel(obj) {\n  writeJson(MODEL_FILE, obj);\n}\n\n// 添加新训练样本\nfunction addSample(text, label) {\n  var samples \u003d loadTrainSamples();\n  samples.put(new JSONArray([text, label]));\n  saveTrainSamples(samples);\n}\n\n// 训练模型：统计词频\nfunction train() {\n  var samples \u003d loadTrainSamples();\n  var model \u003d new JSONObject();\n\n  for (var i \u003d 0; i \u003c samples.length(); i++) {\n    var pair \u003d samples.getJSONArray(i);\n    var text \u003d pair.getString(0);\n    var label \u003d pair.getString(1);\n\n    if (!model.has(label)) {\n      model.put(label, new JSONObject());\n    }\n    var labelMap \u003d model.getJSONObject(label);\n\n    var words \u003d tokenize(text);\n    for (var j \u003d 0; j \u003c words.length; j++) {\n      var w \u003d words[j];\n      if (labelMap.has(w)) {\n        labelMap.put(w, labelMap.getInt(w) + 1);\n      } else {\n        labelMap.put(w, 1);\n      }\n    }\n  }\n\n  saveModel(model);\n}\n\n\nfunction classify(text) {\n  var model \u003d loadModel();\n  var tokens \u003d tokenize(text);\n  if (!tokens || tokens.length \u003d\u003d\u003d 0) return \"unknown\";\n\n  var scores \u003d {};\n  var labelsIter \u003d model.keys();\n  while (labelsIter.hasNext()) {\n    var label \u003d labelsIter.next();\n    var labelMap \u003d model.getJSONObject(label);\n    scores[label] \u003d 0;\n    for (var i \u003d 0; i \u003c tokens.length; i++) {\n      var word \u003d tokens[i];\n      if (labelMap.has(word)) {\n        scores[label] +\u003d labelMap.getInt(word);\n      }\n    }\n  }\n\n  var bestLabel \u003d null;\n  var bestScore \u003d -1;\n  for (var label in scores) {\n    if (scores[label] \u003e bestScore) {\n      bestScore \u003d scores[label];\n      bestLabel \u003d label;\n    }\n  }\n  return bestLabel || \"unknown\";\n}\n\n\naddSample(String({selectedListItem}[0]), \"false\");\ntrain();",
+          "customContextDataKey": {
+          },
+          "id": "A-2a64083d-844d-42f7-a243-8c065485295e"
+        }]
+      }, {
+        "title": "样本测试",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "测试样本",
+          "cancelable": true,
+          "textFields": [{
+            "placeholder": "样本"
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-b499068c-1e74-44e7-a85b-9659c663779a"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(java.io.File);\nimportClass(java.io.FileInputStream);\nimportClass(java.io.InputStreamReader);\nimportClass(java.io.BufferedReader);\nimportClass(java.io.FileWriter);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\nimportClass(org.json.JSONTokener);\n\nfunction readJson(path, expectArray) {\n  var file \u003d new File(path);\n  if (!file.exists()) return expectArray ? new JSONArray() : new JSONObject();\n\n  var inputStream \u003d new FileInputStream(file);\n  var reader \u003d new BufferedReader(new InputStreamReader(inputStream, \"utf-8\"));\n  var sb \u003d new java.lang.StringBuilder();\n  var line;\n  while ((line \u003d reader.readLine()) !\u003d\u003d null) {\n    sb.append(line);\n  }\n  reader.close();\n  inputStream.close();\n\n  var text \u003d sb.toString();\n  var json \u003d new JSONTokener(text).nextValue();\n\n  // 类型校验\n  if (expectArray) {\n    if (!(json instanceof JSONArray)) throw new Error(\"文件内容不是 JSONArray\");\n  } else {\n    if (!(json instanceof JSONObject)) throw new Error(\"文件内容不是 JSONObject\");\n  }\n  return json;\n}\n\n// 工具函数：安全写入 JSON（覆盖写入）\nfunction writeJson(path, obj) {\n  var writer \u003d new FileWriter(path, false);\n  writer.write(obj.toString());\n  writer.close();\n}\n\n// 分词函数：中文单字或连续英文数字单词\nfunction tokenize(text) {\n  if (text \u003d\u003d null || text \u003d\u003d\u003d undefined) return [];\n  var pattern \u003d /[\\u4e00-\\u9fa5]+|[a-zA-Z]+|\\d+/g; // 只用 g 标志\n  var result \u003d text.match(pattern);\n  return result !\u003d null ? result : [];\n}\n\n// 全局变量：样本和模型文件路径\nvar TRAIN_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_train.json\";\nvar MODEL_FILE \u003d globalVarOf$shortxpath+\"/data/Notification_filter/spam_model.json\";\n\nfunction loadTrainSamples() {\n  return readJson(TRAIN_FILE, true);\n}\n\nfunction loadModel() {\n  return readJson(MODEL_FILE, false);\n}\n\n// 保存训练样本\nfunction saveTrainSamples(arr) {\n  writeJson(TRAIN_FILE, arr);\n}\n\n// 保存模型\nfunction saveModel(obj) {\n  writeJson(MODEL_FILE, obj);\n}\n\n// 添加新训练样本\nfunction addSample(text, label) {\n  var samples \u003d loadTrainSamples();\n  samples.put(new JSONArray([text, label]));\n  saveTrainSamples(samples);\n}\n\n// 训练模型：统计词频\nfunction train() {\n  var samples \u003d loadTrainSamples();\n  var model \u003d new JSONObject();\n\n  for (var i \u003d 0; i \u003c samples.length(); i++) {\n    var pair \u003d samples.getJSONArray(i);\n    var text \u003d pair.getString(0);\n    var label \u003d pair.getString(1);\n\n    if (!model.has(label)) {\n      model.put(label, new JSONObject());\n    }\n    var labelMap \u003d model.getJSONObject(label);\n\n    var words \u003d tokenize(text);\n    for (var j \u003d 0; j \u003c words.length; j++) {\n      var w \u003d words[j];\n      if (labelMap.has(w)) {\n        labelMap.put(w, labelMap.getInt(w) + 1);\n      } else {\n        labelMap.put(w, 1);\n      }\n    }\n  }\n\n  saveModel(model);\n}\n\nfunction classify(text) {\n  var model \u003d loadModel();\n  var tokens \u003d tokenize(text);\n  if (!tokens || tokens.length \u003d\u003d\u003d 0) return \"unknown\";\n\n  var scores \u003d {};\n  var labelsIter \u003d model.keys();\n  while (labelsIter.hasNext()) {\n    var label \u003d labelsIter.next();\n    var labelMap \u003d model.getJSONObject(label);\n    scores[label] \u003d 0;\n    for (var i \u003d 0; i \u003c tokens.length; i++) {\n      var word \u003d tokens[i];\n      if (labelMap.has(word)) {\n        scores[label] +\u003d labelMap.getInt(word);\n      }\n    }\n  }\n\n  var bestLabel \u003d null;\n  var bestScore \u003d -1;\n  for (var label in scores) {\n    if (scores[label] \u003e bestScore) {\n      bestScore \u003d scores[label];\n      bestLabel \u003d label;\n    }\n  }\n  return bestLabel || \"unknown\";\n}\n\n\nvar result \u003d classify(String({textFieldInput1}));\nresult;\n",
+          "customContextDataKey": {
+          },
+          "id": "A-2a64083d-844d-42f7-a243-8c065485295e"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "jsRet",
+            "payload": {
+              "value": "true"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-a73a9061-cbd1-4e9a-8154-a76a6848d8ea"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "title": "测试结果",
+            "message": "样本：{textFieldInput1}\n结果：垃圾通知",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-1292882d-5612-4589-8cc4-706941d1cbf1"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "title": "测试结果",
+            "message": "样本：{textFieldInput1}\n结果：正常通知",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-1292882d-5612-4589-8cc4-706941d1cbf1"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-da7a5aad-cb2b-4445-94ed-3d10aceb213e"
+        }]
+      }, {
+        "title": "关闭"
+      }],
+      "title": "功能菜单",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-fe165760-da96-453a-a96f-31c96d1fd20c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-223494ba-c090-420f-86fc-4b36b310eb85"
+  }],
+  "id": "SHARE-rule-7b25dde2-f0e5-4433-b6a8-5efba21b4836",
+  "lastUpdateTime": "1752328566306",
+  "createTime": "1752324632044",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "通知过滤器",
+  "description": "过滤垃圾通知",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "importClass(java.io.File);\n\nfunction createFolder(path) {\n    var folder \u003d new File(path);\n    if (!folder.exists()) {\n        var success \u003d folder.mkdirs();\n        return success;\n    } else {\n        return true; // 已存在视为成功\n    }\n}\n\ncreateFolder(globalVarOf$shortxpath+\"/data/Notification_filter\");",
+      "customContextDataKey": {
+      },
+      "id": "A-fe352928-c59e-4f6a-aaad-c8106a6ce18c"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "shortxpath",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e582f75d-a9c8-48f1-ac71-2a5e3e317429"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ls /data/system/",
+        "customContextDataKey": {
+        },
+        "id": "A-801c4fa6-eba2-4e51-afa8-00191d700d69"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "shortxpath",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-373cb3e0-d030-4784-98de-cd9a4632e460"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-c179c93c-34d4-450e-b832-ab5d869180ed"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "shell异常自动获取shortx目录失败，请手动填写/data/system/目录下的shortx开头的目录名",
+          "cancelable": true,
+          "textFields": [{
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-addd959f-370e-48bb-bb7b-b3db30758a37"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shortxpath",
+          "valueAsString": "/data/system/{textFieldInput1}",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-5316575c-0810-4b20-85f6-a27e15b61187"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{shellOut}",
+          "delimiter": ["\n"],
+          "actions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "Contains",
+              "varName": "foreachData",
+              "payload": {
+                "value": "shortx_"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-6c199b1c-6d08-4a4c-85ea-5615d2f8f726"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shortxpath",
+              "valueAsString": "/data/system/{foreachData}",
+              "op": "WriteGlobalVarOp_Override",
+              "customContextDataKey": {
+              },
+              "id": "A-aaa8e53c-aa10-49ac-b87c-5035be6aa2d9"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Parent",
+              "customContextDataKey": {
+              },
+              "id": "A-42d5e9ca-0990-4a8f-9a45-fe2de0f430c0"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-6fde485b-40d1-46f5-9933-d9e6447a25db"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-b635e834-78aa-4842-b588-0d6cb00ce008"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4538b55f-3e02-4bab-879a-df01428e3bc0"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "查询shortx目录",
+      "id": "A-bbe2562b-89ae-4799-b29e-c40fb9d9d5b2"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "通知过滤器模式",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-5ba39b09-22ba-4867-9ac7-1436d21fbc8f"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "通知过滤器模式",
+      "valueAsString": "训练",
+      "customContextDataKey": {
+      },
+      "id": "A-6c7d27ac-93e8-4c35-84dc-20cffef43b1f"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

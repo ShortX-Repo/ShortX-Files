@@ -1,0 +1,38 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-2df99bbe-08a7-4851-8fbe-f06abd9b8023"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "开始下载",
+    "customContextDataKey": {
+    },
+    "id": "A-536fa5cf-6e62-463d-b9a2-8f45358b89e0"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/system/bin/sh\n\n#在Android上执行Python脚本\noutput\u003d$(/data/user/0/com.termux/files/usr/bin/python \u003c\u003cEOF\nfrom PIL import Image\nimport os\nimport re\nimport json\nimport time\nimport requests\nimport pathlib\n\ndef getAllFile (filePath):\n files \u003d os.listdir(filePath)\n return files\n \ndef handleConversion (fileName):\n fileName \u003d imgPath + fileName\n saveName \u003d fileName.replace(\u0027webp\u0027, \u0027gif\u0027)\n im \u003d Image.open(fileName)\n im.save(saveName, \u0027gif\u0027, save_all\u003dTrue)\n \ndef main():\n files \u003d getAllFile(imgPath)\n for fileName in files:\n  gifName \u003d fileName.replace(\u0027.webp\u0027, \u0027.gif\u0027)\n  # webp格式且未转过的才需要转\n  if re.findall(webpReg, fileName) !\u003d [] and (gifName not in files):\n   handleConversion(fileName)\ndef down_img(url,is_gif):\n    img \u003d requests.get(url)\n    Time \u003d str(int(time.time()))\n    if(is_gif):\n        with open(imgPath+Time+\".webp\",\u0027wb\u0027) as f:\n            f.write(img.content)\n            fileimg.append(f\"{Time}.gif\")\n    else:\n        with open(imgPath+Time+\".png\",\u0027wb\u0027) as f:\n            f.write(img.content)\n            fileimg.append(f\"{Time}.png\")\ntext \u003d\"{clipboardContent}\"\n#text \u003d \u0027https://h5.pipix.com/s/iRmKq1cJ/\u0027\nif(\"#\" in text):\n    url \u003d re.findall(r\"https.*?#\",text)[0]\nelse:\n    url \u003d text\n\nurl \u003d text\nimgPath \u003d \u0027/storage/emulated/0/DCIM/pipixia/\u0027\nwebpReg \u003d r\u0027webp$\u0027\nfileimg \u003d []\nheaders \u003d {\n   \n    \"Cookie\": \"MONITOR_WEB_ID\u003d8b569071-d264-47c2-ba23-87485116821e\",\n    \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0\"\n}\ndata \u003d requests.get(url \u003d url ,headers\u003dheaders)\nif(\"cell_id\" in data.url):\n    cell_id \u003d  re.findall(\"\u0026cell_id\u003d(.*?)\u0026\",data.url)[0]\n    img_url \u003d f\"https://h5.pipix.com/bds/webapi/cell/detail/?cell_id\u003d{cell_id}\u0026cell_type\u003d8\u0026source\u003dshare\"\n    img_data \u003d requests.get(url \u003d img_url,headers\u003dheaders).json()\n\n    for i in img_data[\"data\"][\"comment\"][\"images\"]:\n        is_gif \u003d i[\"is_gif\"]\n        img_url \u003d i[\"url_list\"][0][\"url\"]\n        down_img(img_url,is_gif)\n        time.sleep(1)\n    main()\n    # 创建Path对象\n    folder \u003d pathlib.Path(imgPath)\n\n    # 查找并删除所有.webp文件\n    for file_path in folder.glob(\u0027*.webp\u0027):\n        file_path.unlink()\nelse:\n    pattern \u003d r\"/(\\d+)\\?\"\n    match \u003d re.search(pattern, data.url)\n    number \u003d match.group(1)\n    video_json_url \u003d f\"https://h5.pipix.com/bds/cell/cell_h5_comment/?cell_id\u003d{number}\u0026count\u003d5\u0026aid\u003d1319\u0026app_name\u003dsuper\"\n    viode_json_data \u003d requests.get(url \u003d video_json_url,headers\u003dheaders).json()\n    \n    video_url \u003d viode_json_data[\"data\"][\"cell_comments\"][4][\"comment_info\"][\"item\"][\"video\"][\"video_high\"][\"url_list\"][0][\"url\"]\n    video_data \u003d requests.get(url \u003d video_url,headers\u003dheaders)\n    Time \u003d str(int(time.time()))\n    with open(imgPath+Time+\".mp4\",\u0027wb\u0027) as f:\n        f.write(video_data.content)\n        fileimg.append(f\"{Time}.mp4\")\n\noutput_str \u003d \" \".join(fileimg)\nprint(output_str)\nEOF\n)\n\n\nfor file_name in $output\ndo\n   am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/DCIM/pipixia/${file_name}\ndone\n\n\n",
+    "customContextDataKey": {
+    },
+    "id": "A-dcf6d9a4-57d0-4619-afbd-176dbd5939fc"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "下载完成",
+    "customContextDataKey": {
+    },
+    "id": "A-86056037-5f52-482d-ada3-59b821668ca3"
+  }],
+  "id": "DAa41c7d09-7225-4361-9378-95522ae56063",
+  "lastUpdateTime": "1700315298643",
+  "createTime": "1700286349850",
+  "author": {
+    "name": "XFiend"
+  },
+  "title": "无水印下载皮皮虾-视频-评论图片",
+  "description": "视频评论数少于5条的视频无法下载\n使用方法 图片点分享到qq链接就写入剪切板了，视频直接复制连接就行了  使用此指令即可",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"da"}

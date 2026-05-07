@@ -1,0 +1,132 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "包名列表",
+      "type": {
+        "@type": "type.googleapis.com/StringListVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "box格式",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-2"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "yaml格式",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-3"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "box格式",
+    "valueAsString": "(",
+    "customContextDataKey": {
+    },
+    "id": "A-4"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "yaml格式",
+    "customContextDataKey": {
+    },
+    "id": "A-5"
+  }, {
+    "@type": "type.googleapis.com/ForEachPkgSet",
+    "pkgSet": "VPN黑名单",
+    "action": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "box格式",
+      "valueAsString": "localVarOf$box格式\"0:{loopAppPkgName}\" ",
+      "customContextDataKey": {
+      },
+      "id": "A-6-1"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "yaml格式",
+      "valueAsString": "localVarOf$yaml格式    - {loopAppPkgName}\n",
+      "customContextDataKey": {
+      },
+      "id": "A-6-2"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-6"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "box \u003d localVarOf$box格式.trim() + \u0027)\u0027;\nreturn box;",
+    "customContextDataKey": {
+    },
+    "id": "A-7"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "box格式",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-8"
+  }, {
+    "@type": "type.googleapis.com/ShowPPN",
+    "tag": "tag-preview",
+    "message": "📋 准备写入的配置：\n\n【Box格式】\nlocalVarOf$box格式\n\n【YAML格式】\nlocalVarOf$yaml格式",
+    "displayTimeSeconds": 3,
+    "customContextDataKey": {
+    },
+    "id": "A-9"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "su",
+    "customContextDataKey": {
+    },
+    "id": "A-10"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 更新 box.config\ncp /data/adb/box_bll/scripts/box.config /data/adb/box_bll/scripts/box.config.bak\nsed -i \u0027s/^user_packages_list\u003d.*/user_packages_list\u003dlocalVarOf$box格式/\u0027 /data/adb/box_bll/scripts/box.config\necho \u0027[✓] Box配置已更新\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-11"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 更新 config.yaml\ncp /data/adb/box_bll/clash/config.yaml /data/adb/box_bll/clash/config.yaml.bak\n\n# 创建临时文件存储包名列表\necho \u0027localVarOf$yaml格式\u0027 \u003e /data/local/tmp/pkg_list.txt\n\n# 使用awk精确处理YAML文件\nawk \u0027\nBEGIN { exclude_section \u003d 0 }\n/^  exclude-package:/ {\n    print\n    exclude_section \u003d 1\n    system(\"cat /data/local/tmp/pkg_list.txt\")\n    next\n}\nexclude_section \u003d\u003d 1 \u0026\u0026 /^  [a-z-]/ {\n    exclude_section \u003d 0\n}\nexclude_section \u003d\u003d 1 \u0026\u0026 /^   / {\n    next\n}\n{\n    print\n}\n\u0027 /data/adb/box_bll/clash/config.yaml \u003e /data/adb/box_bll/clash/config.yaml.tmp\n\nmv /data/adb/box_bll/clash/config.yaml.tmp /data/adb/box_bll/clash/config.yaml\nrm /data/local/tmp/pkg_list.txt\n\necho \u0027[✓] YAML配置已更新\u0027\nls -l /data/adb/box_bll/clash/config.yaml",
+    "customContextDataKey": {
+    },
+    "id": "A-12"
+  }, {
+    "@type": "type.googleapis.com/ShowPPN",
+    "tag": "tag-result",
+    "message": "✅ 配置同步完成！\n\n{shellCommandOutput}\n\n📁 配置文件：\n• /data/adb/box_bll/scripts/box.config\n• /data/adb/box_bll/clash/config.yaml\n\n💾 备份文件：\n• box.config.bak\n• config.yaml.bak",
+    "displayTimeSeconds": 10,
+    "customContextDataKey": {
+    },
+    "id": "A-13"
+  }],
+  "id": "SHARED-DA-2abc2cb3-8764-48b3-9841-7a19c9046121",
+  "lastUpdateTime": "1760503555798",
+  "createTime": "1751953780954",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Surfing同步黑名单到双配置",
+  "description": "获取VPN黑名单应用集中的包名，同时更新两个配置文件：\n\n📝 更新内容：\n1. /data/adb/box_bll/scripts/box.config\n   格式: user_packages_list\u003d(\"0:包名1\" \"0:包名2\")\n\n2. /data/adb/box_bll/clash/config.yaml\n   格式: exclude-package: 下添加\n         # - 包名1\n         # - 包名2\n\n🔧 使用方法：\n1. 在ShortX中创建\u0027VPN黑名单\u0027应用集\n2. 添加需要排除的应用\n3. 运行此脚本\n4. 自动创建.bak备份文件",
+  "versionCode": "9",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

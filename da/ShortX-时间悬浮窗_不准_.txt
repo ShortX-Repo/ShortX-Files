@@ -1,0 +1,109 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "time",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-765f6d4f-1ecd-4dc3-89d1-f44d0344752d"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "count",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-90e8a4ef-c58c-4a5e-8178-0e3daccc0040"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "count",
+    "valueAsString": "0",
+    "customContextDataKey": {
+    },
+    "id": "A-6d5ce738-91bf-41e8-9629-c33c7a00d660"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "count",
+      "payload": {
+        "value": "0"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-9ac467cd-1ebe-459b-b964-a8f544531575"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "current_time\u003d$(date +%H:%M:%S)\r\necho $current_time",
+      "customContextDataKey": {
+      },
+      "id": "A-e0b7173c-01c9-4f76-b465-de88df67419b"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "time",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-8476b887-e355-4260-9592-d599e946bb7b"
+    }, {
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "label": "globalVarOf$time",
+        "longClickActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "count",
+          "valueAsString": "1",
+          "customContextDataKey": {
+          },
+          "id": "A-6d1ee81c-7693-4f76-9944-0fc7a0dc898e"
+        }, {
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["time_floating"],
+          "customContextDataKey": {
+          },
+          "id": "A-d0fdf219-6481-4968-a82c-8b509c35161d"
+        }],
+        "id": "BTN-15f587ae-a1e1-4ed1-8162-ba5cc1415d79"
+      }],
+      "tag": "time_floating",
+      "maxHeightInDp": 116,
+      "maxWidthInDp": 106,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 91,
+      "enableGlobalDrag": true,
+      "overlayPaddingV": 7,
+      "customContextDataKey": {
+      },
+      "id": "A-10606de3-cd2f-4add-bdbf-4eb27097f69c"
+    }],
+    "delay": 1000,
+    "customContextDataKey": {
+    },
+    "id": "A-1f9776ec-f352-4883-ab55-ba5998bc8031"
+  }, {
+    "@type": "type.googleapis.com/BreakActionExecute",
+    "scope": "BreakActionExecuteScope_Root",
+    "customContextDataKey": {
+    },
+    "id": "A-2af3a173-155a-4345-8df2-517feac14287"
+  }],
+  "id": "DAa58d4e3f-7e88-4765-846f-94193dcf5c8a",
+  "lastUpdateTime": "1709556230919",
+  "createTime": "1709283722214",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "时间悬浮窗(不准)",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

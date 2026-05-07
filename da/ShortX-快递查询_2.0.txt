@@ -1,0 +1,249 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "takeaway-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-c61a1219-8dc3-4a20-acca-30531ab5f696"
+  }, {
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-7ed8c4a4-2918-4375-9e21-851f6ea5b190"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n// 定义原始文本字符串\nString text \u003d {clipboardContent};\nString filteredText \u003d text.replaceAll(\"-.*\", \"\");\n// 定义正则表达式模式\nPattern pattern \u003d Pattern.compile(\"\\\\d{9,}\");\n\n// 创建匹配器\nMatcher matcher \u003d pattern.matcher(text);\n\n// 寻找匹配项\nif (matcher.find()) {\n    // 匹配成功，输出原始字符串\n    return filteredText;\n} else {\n    // 没有匹配到连续9位以上字符\n    return \"\";\n}\n",
+    "customContextDataKey": {
+    },
+    "id": "A-7be509ed-b817-4a60-8165-c7d85233da52"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{mvelRet} !\u003d \"\"",
+      "customContextDataKey": {
+      },
+      "id": "C-a4ddd7e8-37db-4dae-a6ca-217df5c776e4"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "String Time \u003d System.currentTimeMillis();\n\n\u0027{\"internation\":1,\"num\":{clipboardContent},\"appid\":\"\",\"versionCode\":2,\"os_version\":\"\",\"os_name\":\"\",\"t\":\u0027 + Time + \u0027,\"tra\":\"\",\"uchannel\":\"null\",\"nt\":\"\"}\u0027",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "json"
+        }]
+      },
+      "id": "A-3786b08a-15a9-4b6d-94ea-47746ec1df98"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://global.kuaidi100.com/internation/mobile/mobileapi.do",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["lastResult.message", "lastResult.nu", "lastResult"]
+      },
+      "method": "POST",
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyForm",
+        "items": [{
+          "key": "json",
+          "value": "{json}"
+        }, {
+          "key": "method",
+          "value": "query"
+        }]
+      },
+      "withCookieJar": true,
+      "customContextDataKey": {
+      },
+      "id": "A-3e43ded3-8b4d-444d-9bb8-e988bbbef27c"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "const Data \u003d httpRequestRet3;\n\nvar data \u003d JSON.parse(Data);\n  \n// 统一输出所有快递信息\nvar allTrackingInfo \u003d \u0027\u0027; // 用于存储所有快递信息的字符串\n\ndata.data.forEach(function(item) {\n  var formattedDate \u003d \u0027●  \u0027 + item.time; // 快递时间\n  var formattedStatus \u003d `〖${item.status}〗\\n${item.context}`; // 快递状态信息\n  var output \u003d `${formattedDate}\\n${formattedStatus}\\n`; // 格式化输出\n\n  allTrackingInfo +\u003d output; // 将每条信息添加到 allTrackingInfo 中\n});\n\n// 返回所有快递信息\nallTrackingInfo; // 直接返回所有快递信息",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "trackingInfo"
+        }]
+      },
+      "id": "A-4e80420d-abe0-4c8d-826c-42f72a9df57d"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://www.kuaidi100.com/autonumber/auto?num\u003d{mvelRet}",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "headers": [{
+        "key": "User-Agent",
+        "value": "Dalvik/2.1.0 (Linux; U; Android 13; Android Build/TKQ1.221114.001)"
+      }],
+      "requestBody": {},
+      "withCookieJar": true,
+      "customContextDataKey": {
+      },
+      "id": "A-aa6fc967-52f4-4c90-aa8b-0572d74a1007"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "const jsonArrayStr \u003d httpRequestRet;\n\nconst jsonArray \u003d JSON.parse(jsonArrayStr);\n\nconst firstElement \u003d jsonArray[0];\n(` ${firstElement.name}`);",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "courierCompany"
+        }]
+      },
+      "id": "A-5968e6a7-175b-49d8-83af-03ecb9a70116"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "好的",
+      "title": "{courierCompany}\n{httpRequestRet2}",
+      "message": "{trackingInfo}",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-e5e16213-292a-48b8-a0bf-7b844319a8c7"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "输入快递单号",
+      "textFields": [{
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-6311e7cd-f225-4486-b128-283e03194dae"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n// 定义原始文本字符串\nString text \u003d textFieldInput1;\nString filteredText \u003d text.replaceAll(\"-.*\", \"\");\n// 定义正则表达式模式\nPattern pattern \u003d Pattern.compile(\"\\\\d{9,}\");\n\n// 创建匹配器\nMatcher matcher \u003d pattern.matcher(text);\n\n// 寻找匹配项\nif (matcher.find()) {\n    // 匹配成功，输出原始字符串\n    return filteredText;\n} else {\n    // 没有匹配到连续9位以上字符\n    return \"错误\";\n}\n",
+      "customContextDataKey": {
+      },
+      "id": "A-460705f5-7854-4007-a3d3-c12327b3bc14"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "错误"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-da73896a-c5ae-4197-9313-e6faf15ba3d7"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "String Time \u003d System.currentTimeMillis();\n\n\u0027{\"internation\":1,\"num\":{textFieldInput1},\"appid\":\"\",\"versionCode\":2,\"os_version\":\"\",\"os_name\":\"\",\"t\":\u0027 + Time + \u0027,\"tra\":\"\",\"uchannel\":\"null\",\"nt\":\"\"}\u0027",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "json"
+          }]
+        },
+        "id": "A-3786b08a-15a9-4b6d-94ea-47746ec1df98"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://global.kuaidi100.com/internation/mobile/mobileapi.do",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["lastResult.message", "lastResult.nu", "lastResult"]
+        },
+        "method": "POST",
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyForm",
+          "items": [{
+            "key": "json",
+            "value": "{json}"
+          }, {
+            "key": "method",
+            "value": "query"
+          }]
+        },
+        "withCookieJar": true,
+        "customContextDataKey": {
+        },
+        "id": "A-3e43ded3-8b4d-444d-9bb8-e988bbbef27c"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "const Data \u003d httpRequestRet3;\n\nvar data \u003d JSON.parse(Data);\n  \n// 统一输出所有快递信息\nvar allTrackingInfo \u003d \u0027\u0027; // 用于存储所有快递信息的字符串\n\ndata.data.forEach(function(item) {\n  var formattedDate \u003d \u0027●  \u0027 + item.time; // 快递时间\n  var formattedStatus \u003d `〖${item.status}〗\\n${item.context}`; // 快递状态信息\n  var output \u003d `${formattedDate}\\n${formattedStatus}\\n`; // 格式化输出\n\n  allTrackingInfo +\u003d output; // 将每条信息添加到 allTrackingInfo 中\n});\n\n// 返回所有快递信息\nallTrackingInfo; // 直接返回所有快递信息",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "trackingInfo"
+          }]
+        },
+        "id": "A-4e80420d-abe0-4c8d-826c-42f72a9df57d"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "http://www.kuaidi100.com/autonumber/auto?num\u003d{mvelRet}",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "headers": [{
+          "key": "User-Agent",
+          "value": "Dalvik/2.1.0 (Linux; U; Android 13; Android Build/TKQ1.221114.001)"
+        }],
+        "requestBody": {},
+        "withCookieJar": true,
+        "customContextDataKey": {
+        },
+        "id": "A-aa6fc967-52f4-4c90-aa8b-0572d74a1007"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "const jsonArrayStr \u003d httpRequestRet;\n\nconst jsonArray \u003d JSON.parse(jsonArrayStr);\n\nconst firstElement \u003d jsonArray[0];\n(` ${firstElement.name}`);",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "courierCompany"
+          }]
+        },
+        "id": "A-5968e6a7-175b-49d8-83af-03ecb9a70116"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "title": "{courierCompany}\n{httpRequestRet2}",
+        "message": "{trackingInfo}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-e5e16213-292a-48b8-a0bf-7b844319a8c7"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "重新输入",
+        "onPositive": [{
+          "@type": "type.googleapis.com/FromDA",
+          "daId": "DAb30b872f-496b-470e-807b-62a52c424ef4",
+          "customContextDataKey": {
+          },
+          "id": "A-14368a3b-90c1-40f9-a7b2-b6c587f7df9c"
+        }],
+        "negative": "取消",
+        "title": "错误的快递单号！👎",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-d3f1981a-9755-44cb-9850-c1cf06749a44"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-fb6a60b3-c960-4ae0-b5f2-0c5e8a8bf98a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-6f08268d-e087-4145-a43a-51ef1c65e481"
+  }],
+  "id": "DA312fa1a8-9ac7-40a0-9cb2-e949a4e37572",
+  "lastUpdateTime": "1702739628806",
+  "createTime": "1702267015300",
+  "author": {
+    "name": "He"
+  },
+  "title": "快递查询 2.0",
+  "description": "使用快递 100的官方Api\n速度嘎嘎快",
+  "versionCode": "2",
+  "directActionSetId": "DS-ca358e7d-f507-4d5b-9a00-46d730580dcb",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

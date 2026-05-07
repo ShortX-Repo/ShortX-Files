@@ -1,0 +1,26 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HideOverlayButton",
+    "customContextDataKey": {
+    },
+    "id": "A-ec0e2d07-13d9-4e9c-8f0f-b6e7b430a01a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put system pointer_location 0;settings put global display_developer_mode_notification ",
+    "customContextDataKey": {
+    },
+    "note": "关闭指针位置",
+    "id": "A-7f4b715d-fb6a-4849-931f-29efa568c682"
+  }],
+  "id": "DA1c31c500-42b1-474a-bda0-ae5718b6bf0b",
+  "lastUpdateTime": "1694500317728",
+  "createTime": "1692012058566",
+  "author": {
+    "name": "1"
+  },
+  "title": "关悬浮工具和指针位置",
+  "description": "关闭所有悬浮工具并且关闭指针位置",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

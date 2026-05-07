@@ -1,0 +1,155 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 25,
+    "gesture": "KeyMultiplePress",
+    "customContextDataKey": {
+    },
+    "id": "F-5dd310f2-2ea3-4ba9-aec7-37ed127dbe73"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.android.camera"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-91227c53-88d2-4764-8faa-245e13be20e6"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "2000",
+    "customContextDataKey": {
+    },
+    "note": "相机对焦需要时间",
+    "id": "A-25aaf812-0b4b-4610-9a5f-4f63a985fe7f"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewById",
+    "viewId": "com.android.camera:id/more_mode_edit_head_pop",
+    "timeout": "1000",
+    "customContextDataKey": {
+    },
+    "note": "小米相机拍照",
+    "id": "A-4454d813-f324-41ce-85dc-831774abd199"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickMatchedView",
+    "customContextDataKey": {
+    },
+    "id": "A-b664882e-e891-4acf-93eb-a7ab352e14b2"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "2000",
+    "customContextDataKey": {
+    },
+    "id": "A-8e8b6bd7-40f9-4438-96c3-38f588085f1d"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.tencent.mm"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-4226dedd-0479-4843-b372-a865b94ad93b"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -n com.tencent.mm/.ui.chatting.ChattingUI --ei Chat_Mode 1 --es Chat_User filehelper",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "文件传输助手",
+    "id": "A-972d7cfc-0cb4-4829-8b7b-fb809981b9bb"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "2000",
+    "customContextDataKey": {
+    },
+    "id": "A-8bc521b5-3345-4c06-b814-02cd91191fdf"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewById",
+    "viewId": "com.tencent.mm:id/bjz",
+    "timeout": "1000",
+    "customContextDataKey": {
+    },
+    "note": "聊天页面+",
+    "id": "A-5ed8b462-e005-4b72-91eb-977a9d95b44d"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickMatchedView",
+    "customContextDataKey": {
+    },
+    "id": "A-6158a779-29dd-4c82-b2d0-6941165bed77"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1500",
+    "customContextDataKey": {
+    },
+    "id": "A-df28de6b-1354-446b-87d4-45855a94aab1"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "xs": "980",
+    "ys": "1275",
+    "customContextDataKey": {
+    },
+    "note": "选择照片",
+    "id": "A-a471ac41-b633-402b-9f82-744299eccf34"
+  }, {
+    "@type": "type.googleapis.com/WaitForIdle",
+    "customContextDataKey": {
+    },
+    "id": "A-fdb1aab8-c68a-41b8-9cef-d76bbb09a8bf"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "发送",
+    "timeout": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-3b4d2eff-594b-42fe-af57-6732d4d4237c"
+  }, {
+    "@type": "type.googleapis.com/WaitForIdle",
+    "customContextDataKey": {
+    },
+    "id": "A-a01f221b-3326-4d06-9c31-89bd611b7da4"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewById",
+    "viewId": "com.tencent.mm:id/o44",
+    "timeout": "1000",
+    "customContextDataKey": {
+    },
+    "note": "微信聊天页面唤醒输入法",
+    "id": "A-4b7d0bda-f511-4a2d-83b5-2536dc871ea8"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickMatchedView",
+    "customContextDataKey": {
+    },
+    "id": "A-74edc696-3b39-48ab-b507-24f431135d05"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "2000",
+    "customContextDataKey": {
+    },
+    "id": "A-ba84416c-aa43-4d71-b37f-a225c56f1ba4"
+  }, {
+    "@type": "type.googleapis.com/RemoveTasksByPkg",
+    "pkgAndUsers": [{
+      "first": "com.android.camera",
+      "second": "0"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "小米相机",
+    "id": "A-d43d98d0-1f0d-4143-8a57-53c48a50f6fc"
+  }],
+  "id": "rule-90289ee0-c281-4ef1-8460-ddaae027ee6e",
+  "lastUpdateTime": "1716086153047",
+  "createTime": "1716085529965",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "拍照发微信",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

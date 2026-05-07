@@ -1,0 +1,74 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/CallStateChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-dc721985-25e3-4dc6-8b4b-0f380bf72de9"
+  }, {
+    "@type": "type.googleapis.com/CallStateChanged",
+    "callState": "CallStateOffHook",
+    "customContextDataKey": {
+    },
+    "id": "F-31afd0c4-4e02-492c-b356-c46b9056bde6"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1500",
+    "customContextDataKey": {
+    },
+    "id": "A-e5379d88-f8c3-4a6c-a8f6-30d6133bf3ae"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings get global multi_sim_data_call | awk \u0027{print ($1? $1-1 : 0)}\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-5cf5bc0f-31ab-4e8e-b52b-e772473fe477"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "shellOut \u003d\u003d \"1\"",
+      "customContextDataKey": {
+      },
+      "id": "C-a1d2bd8b-5bd9-42b5-8dae-209014a119e4"
+    }, {
+      "@type": "type.googleapis.com/IsInCall",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-132395fb-d24a-49fc-a603-b40841fe40a9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SwitchMobileDataSlot",
+      "slotId": 1,
+      "customContextDataKey": {
+      },
+      "id": "A-2c22438d-b4cc-4741-8485-9ed01be9bbc5"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SwitchMobileDataSlot",
+      "customContextDataKey": {
+      },
+      "id": "A-2c22438d-b4cc-4741-8485-9ed01be9bbc5"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7e2abe13-6940-4b55-a211-9aa980b7e6e6"
+  }],
+  "id": "SHARE-rule-d0337f02-d563-48df-82c7-aad3da7a1ebc",
+  "lastUpdateTime": "1762851269627",
+  "createTime": "1762848158733",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "通话数据切换",
+  "description": "通话切卡1，挂断切卡2",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

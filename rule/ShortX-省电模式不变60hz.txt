@@ -1,0 +1,35 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemSettingsChanged",
+    "urlAndExpectedValueRegex": {
+      "first": "content://settings/system/POWER_SAVE_MODE_OPEN",
+      "second": "1"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-bd8f379a-8ad8-48db-924d-af1cd409b49b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "android.provider.Settings$Secure.putString(context.contentResolver, \"user_refresh_rate\", \u0027120\u0027);\nandroid.provider.Settings$Secure.putString(context.contentResolver, \"miui_refresh_rate\", \u0027120\u0027);\nandroid.provider.Settings$Secure.putString(context.contentResolver, \"peak_refresh_rate\", \u0027120\u0027);",
+    "customContextDataKey": {
+    },
+    "id": "A-fa6c706e-6228-44fc-92a5-934729cfd072"
+  }],
+  "id": "SHARE-rule-23bb9aec-aa3f-427d-a48a-d54f3f7b42d8",
+  "lastUpdateTime": "1747546491343",
+  "createTime": "1747543166990",
+  "author": {
+    "name": "Suibian"
+  },
+  "title": "省电模式不变60hz",
+  "description": "适用于小米",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

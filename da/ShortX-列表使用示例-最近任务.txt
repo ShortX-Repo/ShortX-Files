@@ -1,0 +1,42 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.app.ActivityManager);\nimportClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\n// 获取系统服务\nvar activityManager \u003d context.getSystemService(context.ACTIVITY_SERVICE);\nvar packageManager \u003d context.getPackageManager();\n\nvar result \u003d new JSONArray();\n\nif (activityManager \u003d\u003d null || packageManager \u003d\u003d null) {\n    var errorItem \u003d new JSONObject();\n    errorItem.put(\"error\", \"无法获取系统服务\");\n    result.put(errorItem);\n} else {\n    // 获取最近任务列表，这里获取100个任务\n    var tasks \u003d activityManager.getRecentTasks(100, ActivityManager.RECENT_WITH_EXCLUDED);\n    \n    if (tasks \u003d\u003d null || tasks.size() \u003d\u003d\u003d 0) {\n        var errorItem \u003d new JSONObject();\n        errorItem.put(\"error\", \"无法获取最近任务\");\n        result.put(errorItem);\n    } else {\n        for (var i \u003d 0; i \u003c tasks.size(); i++) {\n            var task \u003d tasks.get(i);\n            \n            if (task.topActivity !\u003d null) {\n                var packageName \u003d task.topActivity.getPackageName();\n                \n                try {\n                    // 获取应用信息\n                    var appInfo \u003d packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);\n                    var appName \u003d packageManager.getApplicationLabel(appInfo).toString();\n                    \n                    var item \u003d new JSONObject();\n                    item.put(\"name\", appName);\n                    item.put(\"package\", packageName);\n                    item.put(\"__value\", packageName);\n                    item.put(\"__icon\", \"app://\" + packageName);\n                    \n                    result.put(item);\n                } catch (e) {\n                    // 如果无法获取应用信息，使用默认值\n                    var item \u003d new JSONObject();\n                    item.put(\"name\", \"应用未找到\");\n                    item.put(\"package\", packageName);\n                    item.put(\"__value\", packageName);\n                    item.put(\"__icon\", \"app://android\");\n                    \n                    result.put(item);\n                }\n            }\n        }\n    }\n}\n\n// 输出JSON格式结果\nresult.toString();",
+    "customContextDataKey": {
+    },
+    "id": "A-a9793123-27bd-4415-ae42-8a673f253220"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "测试",
+    "cancelable": true,
+    "data": "{jsRet}",
+    "delimiter": [","],
+    "dataType": "ShowListDialogDataType_Json",
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a8d3472b-648a-4a61-911e-42b2c02f9303"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.content.Intent);\nimportClass(android.content.pm.PackageManager);\nvar pkg \u003d {selectedListItem}.replace(/[\\[\\]]/g, \u0027\u0027);\n\nvar pm \u003d context.getPackageManager();\nvar it \u003d pm.getLaunchIntentForPackage(pkg);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\ncontext.startActivity(it);\n\n\"已启动应用：\" + pkg;",
+    "customContextDataKey": {
+    },
+    "id": "A-c0626c4b-0fd6-4251-9a0c-521c982c348b"
+  }],
+  "id": "SHARED-DA-9a91caf6-6f85-4636-b310-0b2b4c8fc5a7",
+  "lastUpdateTime": "1759089171792",
+  "createTime": "1759085635964",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "列表使用示例-最近任务",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

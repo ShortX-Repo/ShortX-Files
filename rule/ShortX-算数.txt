@@ -1,0 +1,456 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/KeyEvent",
+    "keyCode": 25,
+    "customContextDataKey": {
+    },
+    "id": "F-e51ba847-5d85-41da-9850-ed9d3c143448"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/GetTextFromScreenNode",
+      "customContextDataKey": {
+      },
+      "id": "A-8b7a7b36-b8ce-47bd-9758-6f18c0722d54"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "text \u003d {textOfTheView};\nlines \u003d text.split(\"\\n\");\nresult \u003d null;\nfound \u003d false;\n\nfor (i \u003d 1; i \u003c lines.length \u0026\u0026 found \u003d\u003d false; i++) {  // 从第二行开始遍历\n  if (lines[i].contains(\"?\")) {  // 找到包含问号的行\n    result \u003d lines[i - 1];  // 记录上一行\n    found \u003d true;  // 设置标志，停止进一步查找\n  }\n}\nresult;",
+      "customContextDataKey": {
+      },
+      "id": "A-3c82f683-6885-454d-96d4-ecabe0f0f5f7"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{mvelRet}",
+      "regex": "\u003d",
+      "customContextDataKey": {
+      },
+      "id": "A-1883ecdd-1d1b-40cb-be6b-2728ea4daeff"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "expression \u003d {replaceResult};  // 或 \"10 - 4\"\ntokens \u003d expression.replaceAll(\"\\\\s+\", \"\").split(\"([+-])\");\n\nfirstNumber \u003d Integer.parseInt(tokens[0]);  // 第一个数字\nsecondNumber \u003d Integer.parseInt(tokens[1]);  // 第二个数字\n\nresult \u003d 0;  // 先声明 result 变量\n\nif (expression.contains(\"+\")) {\n  result \u003d firstNumber + secondNumber;\n} else if (expression.contains(\"-\")) {\n  result \u003d firstNumber - secondNumber;\n}\n\nresult;",
+      "customContextDataKey": {
+      },
+      "id": "A-34af5652-9f4b-4410-8a60-7fac26f7a9ec"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 1);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-8372b231-420c-4d15-aa7c-75cbb413397e"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "22258a07-8b4b-40ba-ae3b-43817904d919",
+          "speed": 7.9,
+          "customContextDataKey": {
+          },
+          "id": "A-3091f074-9a1b-4eb2-af5c-05bdf4266508"
+        }],
+        "description": "10",
+        "id": "Case-851963f9-69b5-4341-aea8-692ba7572ebf",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 2);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-d45ce7e3-fa69-4725-9f78-bb29007951ec"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "7e4430c7-4ebf-4f8f-b590-00a434ec8449",
+          "speed": 8.3,
+          "customContextDataKey": {
+          },
+          "id": "A-2bdec890-98a5-409a-92db-9d768b2f6b41"
+        }],
+        "description": "20",
+        "id": "Case-06a422f0-8441-47a6-8ed0-b04f12e25c85",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 3);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-67e0ccc8-300a-487c-acda-57131e8389f0"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "16d17f93-44fd-464f-a863-14cd87bbcd4d",
+          "speed": 8.0,
+          "customContextDataKey": {
+          },
+          "id": "A-2b0fb3c8-917f-43b0-93d2-8c3f33e3e3ca"
+        }],
+        "description": "30",
+        "id": "Case-e5a5f919-887b-447f-801e-09e659972666",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 4);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-e94842be-99ee-43e9-90b4-9f5d9d800572"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "a4ebb080-f5a1-4b8d-ac6e-c9712b24c5e5",
+          "speed": 7.9,
+          "customContextDataKey": {
+          },
+          "id": "A-badf3311-b48b-45f2-9ce1-ee73e04f7d07"
+        }],
+        "description": "40",
+        "id": "Case-555dfa56-15e4-43bb-b6e9-f178674530b2",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 5);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-96049999-cc23-40ce-8f62-a98158abbaee"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "954f5fce-75f6-425c-91e4-2ac247db78df",
+          "speed": 8.0,
+          "customContextDataKey": {
+          },
+          "id": "A-675a630f-7668-409a-8513-c8fff6162ee4"
+        }],
+        "description": "50",
+        "id": "Case-944cad5f-d3e1-4c7d-a879-99dfc9d5c9ad",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 6);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-ef692332-1301-4971-96f5-2d8a921f628c"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "5279e327-e238-4baa-b3d0-ade9a3885733",
+          "speed": 8.0,
+          "customContextDataKey": {
+          },
+          "id": "A-4021c40d-9b77-41ee-b2d9-bce1b7e4d0f6"
+        }],
+        "description": "60",
+        "id": "Case-52f1c3d5-3b36-41a2-aea8-91266141be0a",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 7);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-60949e10-ec2e-4b84-8acf-199fa9313ad8"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "ccc709ad-45e8-462a-9e10-d8672331b5a6",
+          "speed": 8.2,
+          "customContextDataKey": {
+          },
+          "id": "A-a2fa2f10-1615-4127-94f4-a22b0ff93e47"
+        }],
+        "description": "70",
+        "id": "Case-bd1b5e73-061d-4159-8659-2beadd3ef9ef",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 8);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-5a927469-66f4-4956-b495-a63605761d82"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "a3b7849d-1e93-404f-862f-84bc244e69fb",
+          "speed": 8.3,
+          "customContextDataKey": {
+          },
+          "id": "A-f80e1daa-2560-4b70-b3e2-69ed0f0553ff"
+        }],
+        "description": "80",
+        "id": "Case-6e7ad9fd-6534-4ec3-92cf-b7841afbe24d",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\ntensDigit \u003d number / 10;  // 取十位数\nresult \u003d (tensDigit \u003d\u003d 9);  // 判断十位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-b588808c-01f8-4b16-81fc-aad17788678a"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "5d047b17-5470-423e-93bf-4b673dda5d64",
+          "speed": 7.9,
+          "customContextDataKey": {
+          },
+          "id": "A-0f937fc8-394a-4624-99b4-1d3298eb9951"
+        }],
+        "description": "90",
+        "id": "Case-105f426d-8c94-4e49-8a12-7d8842eb4c40",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的三位数\nhundredsDigit \u003d number / 100;  // 取百位数\nresult \u003d (hundredsDigit \u003d\u003d 1);  // 判断百位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-44b64af7-a36a-453f-b38d-e363766be4f8"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "374c2356-a557-47ea-956d-ea1ea0f000e0",
+          "speed": 8.1,
+          "customContextDataKey": {
+          },
+          "id": "A-6efa46cf-11d6-4447-8bb2-8377ea228e39"
+        }],
+        "description": "100",
+        "id": "Case-d268c55d-09ca-49e5-91bf-9a4c9e7028de"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f584f3c6-6c86-41fe-a9dc-408ac79c8131"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 1);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-2453861d-14c8-4fd8-9262-993b968457dc"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "5797dcbf-08c8-4f5f-8133-f3504aaa1511",
+          "speed": 8.1,
+          "customContextDataKey": {
+          },
+          "id": "A-5a80805b-09af-4654-bad2-fd6d5bea8499"
+        }],
+        "description": "1",
+        "id": "Case-c041b4cf-bf3a-4f21-ac3d-56b43ab11d8c",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 2);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-5d0f72ac-6f96-4afc-9cfa-5c573d30855a"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "20ac12e1-42f7-4bd2-a24b-1df52ae8ca45",
+          "speed": 7.9,
+          "customContextDataKey": {
+          },
+          "id": "A-7fa5557e-7aa0-42d5-a7ee-6dead0cd7979"
+        }],
+        "description": "2",
+        "id": "Case-70c90313-bbda-4e0e-9396-bfea33481f38",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 3);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-9f853de9-584f-4339-a9cc-676b8d3e90d6"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "611b372a-cf6a-4b27-8fe3-a31e88c1c0d5",
+          "speed": 7.8,
+          "customContextDataKey": {
+          },
+          "id": "A-d135672b-024b-46af-aee9-17d441183bf6"
+        }],
+        "description": "3",
+        "id": "Case-7bd5a95b-545f-4401-a27b-b8aedb6e2d8d",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 4);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-91d80106-94ef-47ca-aa62-bad7c5a96619"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "dc3a9819-1e93-419e-a286-0f7978d70881",
+          "speed": 7.9,
+          "customContextDataKey": {
+          },
+          "id": "A-d89158cd-496a-4dba-abb5-327789cd9b2f"
+        }],
+        "description": "4",
+        "id": "Case-5bed9786-e2a1-4ab4-b7b4-7871b3a848fb",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 5);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-0098621b-a902-4327-b465-c46562403882"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "4091dfb4-18d9-4ac2-86ab-2458bb1062de",
+          "speed": 7.9,
+          "customContextDataKey": {
+          },
+          "id": "A-97b97889-a553-4bb0-a368-764d73bcc30a"
+        }],
+        "description": "5",
+        "id": "Case-1079c6ce-f61f-4e0b-b8b1-705ab8bef031",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 6);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-38cc0762-543c-400e-bad3-b0643f31661f"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "43e95a17-0193-40cc-bfed-b4c39088c8dc",
+          "speed": 7.6,
+          "customContextDataKey": {
+          },
+          "id": "A-c962cb0c-deaf-4cc9-afdd-aecf1e428e3a"
+        }],
+        "description": "6",
+        "id": "Case-5ffd58e1-eef8-4148-94b3-25678c450caf",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 7);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-fdf08c8a-478d-4410-b871-88a8e10514e2"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "a47e760f-379b-4c9b-b269-56b7bcd75225",
+          "speed": 8.0,
+          "customContextDataKey": {
+          },
+          "id": "A-c3189e5b-3c96-4051-bc37-ca27462c6a4e"
+        }],
+        "description": "7",
+        "id": "Case-07d5b256-7624-4925-acbc-7acc235614c8",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 8);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-dd7101df-5221-4b7c-9729-c3186ebac9a0"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "c67c108d-e4ab-486b-91c2-31c6f38ac927",
+          "speed": 7.8,
+          "customContextDataKey": {
+          },
+          "id": "A-551a8b11-8f2b-42d2-a81a-6eb1d7a284b1"
+        }],
+        "description": "8",
+        "id": "Case-d02f9d99-da27-4f70-b9d5-77756df582d9",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 9);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-872a9b4d-2ad2-41b2-a897-5e3339d61c1d"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "99aa9dc4-723e-4365-aa3b-0b118c8fbac2",
+          "speed": 8.0,
+          "customContextDataKey": {
+          },
+          "id": "A-7496162d-71d2-4acb-b3d6-9d74a63140d4"
+        }],
+        "description": "9",
+        "id": "Case-ef3e0bb5-bb3e-4b2a-866a-4280f17e7d18",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "number \u003d {mvelRet};  // 假设输入的两位数\nonesDigit \u003d number % 10;  // 取个位数\nresult \u003d (onesDigit \u003d\u003d 0);  // 判断个位是否为1\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "C-cd003d77-636b-42c1-b610-d404d984047f"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/InjectGestureRecording",
+          "gestureId": "fb1b6c13-e516-4554-a164-2b9820fb197d",
+          "speed": 8.1,
+          "customContextDataKey": {
+          },
+          "id": "A-b501608b-c0a4-4774-a017-f314dd8b7802"
+        }],
+        "description": "0",
+        "id": "Case-e1f706f6-1eb1-402b-a91c-fc9f64306fbe",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-539ab456-0fa5-489e-ac67-1b2ee9ff3366"
+    }],
+    "delay": 160,
+    "repeatTimes": 31,
+    "customContextDataKey": {
+    },
+    "id": "A-14eabb03-6818-41ae-b29e-0ace321277f8"
+  }],
+  "id": "SHARE-rule-c07a9899-0dca-49e9-9d5e-879e31d77885",
+  "lastUpdateTime": "1728753422777",
+  "createTime": "1728736069237",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "算数",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/KeyEvent",
+      "keyCode": 24,
+      "customContextDataKey": {
+      },
+      "id": "F-e93dd117-e0e2-41eb-a181-250e33e5a962"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,80 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.autonavi.minimap"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-95812fdc-ecc5-4a2a-bbe8-04f4925efc6b"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireTileState",
+    "state": "QSTileState_InActive",
+    "tileSpec": "location",
+    "customContextDataKey": {
+    },
+    "id": "C-8c724663-fd33-4761-9277-6575e40f9c88"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ClickTile",
+    "tile": {
+      "tileSpec": "location",
+      "label": "定位服务"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-35f5aee7-9a45-4190-8f53-ccf9cb865c1c"
+  }],
+  "id": "SHARE-rule-3b827b6b-01e0-4a94-87b9-9f78213b80d8",
+  "lastUpdateTime": "1744235381412",
+  "createTime": "1744234492998",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动开关定位",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "apps": [{
+        "pkgName": "com.autonavi.minimap"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-87e7edfd-8e2a-46db-ae61-ce3a901e1e29"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgs": [{
+        "pkgName": "com.autonavi.minimap"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-1178cf1d-79e6-4329-8a98-93143398541a"
+    }, {
+      "@type": "type.googleapis.com/RequireTileState",
+      "state": "QSTileState_Active",
+      "tileSpec": "location",
+      "customContextDataKey": {
+      },
+      "id": "C-87dabf32-e50d-46ce-a70a-0d532270426d"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ClickTile",
+      "tile": {
+        "tileSpec": "location",
+        "label": "定位服务"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-61a752ac-635d-4595-b21e-4ed762903676"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

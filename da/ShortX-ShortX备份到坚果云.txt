@@ -1,0 +1,71 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-aeb1bb76-d1a3-431d-ae5c-39a947f43d95"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "up",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "请修改写入局部变量的值",
+      "id": "A-08a7aabe-842b-4714-8677-cb0afd5456c5"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "up",
+      "customContextDataKey": {
+      },
+      "note": "变量格式如：账号:应用密码",
+      "id": "A-7b3c05b9-e3a7-4e28-9a82-fb8822dba61c"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "配置运行环境变量",
+    "id": "A-94cbc27f-5a80-4879-8167-f06bc9170834"
+  }, {
+    "@type": "type.googleapis.com/ExportBackup",
+    "destDir": "/storage/emulated/0/Android/data/tornaco.apps.shortx/",
+    "customContextDataKey": {
+    },
+    "id": "A-67ce7915-b6f1-4c1a-975c-1c0117d1f619"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# ShortX备份文件路径\na\u003d\"{backupFilePath}\"\n\n# 使用curl上传文件\ncurl --insecure -T \"$a\" -u \"localVarOf$up\" https://dav.jianguoyun.com/dav/ShortX/\n\n# 检查curl命令是否成功执行\nif [ $? -eq 0 ]; then\n  echo \"文件上传成功\"\nelse\n  echo \"文件上传失败\"\n  exit 1\nfi\n\n# 删除上传成功的备份文件\nrm \"$a\"\n\n# 检查删除命令是否成功执行\nif [ $? -eq 0 ]; then\n  echo \"已删除备份文件\"\nelse\n  echo \"删除备份文件失败\"\nfi\n",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "使用curl命令上传文件",
+    "id": "A-b5fff3dd-353a-413f-91c7-191965fdfe97"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-ShortX备份",
+    "title": "ShortX备份",
+    "message": "{shellOut}",
+    "isImportant": true,
+    "smallIcon": "cloud-line",
+    "vibrate": true,
+    "sound": true,
+    "customContextDataKey": {
+    },
+    "id": "A-6f5af3e9-9446-42df-800d-27f3b30682fd"
+  }],
+  "id": "DA0bf09ff3-72c9-4c03-840e-3877e2ea9b33",
+  "lastUpdateTime": "1720538542467",
+  "createTime": "1720534836392",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "ShortX备份到坚果云",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

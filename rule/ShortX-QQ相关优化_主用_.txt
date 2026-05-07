@@ -1,0 +1,1186 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "tag": "QQ(主用)·亮屏",
+    "customContextDataKey": {
+    },
+    "id": "F-1c9e7744-696b-4cb5-99b8-fe0b257c1dbc"
+  }, {
+    "@type": "type.googleapis.com/UserPresent",
+    "tag": "QQ(主用)·亮屏",
+    "customContextDataKey": {
+    },
+    "id": "F-ef989cff-430b-4e68-ab87-0b34086b1738"
+  }, {
+    "@type": "type.googleapis.com/ScreenOff",
+    "tag": "QQ(主用)·息屏",
+    "customContextDataKey": {
+    },
+    "id": "F-f1eb0e0c-d1fe-4579-84ff-3f66785b90ba"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.tencent.mobileqq"
+    }],
+    "tag": "QQ(主用)·进入前台",
+    "customContextDataKey": {
+    },
+    "id": "F-20c9f3c1-97d6-4405-9422-da4f8a11c72a"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.tencent.mobileqq"
+    }],
+    "tag": "QQ(主用)·进入后台",
+    "customContextDataKey": {
+    },
+    "id": "F-ccd4c66c-91e0-4027-b03b-b94c75e699af"
+  }, {
+    "@type": "type.googleapis.com/TaskRemoved",
+    "apps": [{
+      "pkgName": "com.tencent.mobileqq"
+    }],
+    "tag": "QQ(主用)·移除任务",
+    "customContextDataKey": {
+    },
+    "id": "F-79f8b9cf-9ad5-4374-af65-6c1b73b7b454"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.tencent.mobileqq"
+      }]
+    },
+    "tag": "QQ(主用)·新通知",
+    "customContextDataKey": {
+    },
+    "id": "F-50f10dbb-c525-4a79-b1f0-fd4cbf1fe3dd"
+  }, {
+    "@type": "type.googleapis.com/NotificationRemoved",
+    "record": {
+      "apps": [{
+        "pkgName": "com.tencent.mobileqq"
+      }]
+    },
+    "tag": "QQ(主用)·移除通知",
+    "customContextDataKey": {
+    },
+    "id": "F-86b9a08b-aab2-46f4-964b-fe6d5aa168e4"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "com.tencent.mobileqq"
+    }],
+    "tag": "QQ(主用)·停止应用",
+    "customContextDataKey": {
+    },
+    "id": "F-74b873a0-2f7b-47a2-a82c-b140589958d4"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-6b30897a-1c2b-4bb6-bbc8-7e48a9d2302a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "QQ(主用)·亮屏",
+      "customContextDataKey": {
+      },
+      "id": "C-84338a19-ca96-4afd-85ad-7dd75127b0c0"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StartAppProcess",
+      "appPkg": [{
+        "pkgName": "have.fun"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e61e35cf-369f-4a96-9429-e10a629f4c0f"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-3f274fa9-5135-4f74-9092-24bcc6b5a109"
+    }, {
+      "@type": "type.googleapis.com/StartAppProcess",
+      "appPkg": [{
+        "pkgName": "com.tencent.mobileqq"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-81e439db-a899-4a77-87a3-eeaeea559773"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "10000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-ff45a3b5-50f4-415e-84d2-4ecc66dd797d"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "ps -ef|grep com.tencent.mobileqq:|grep -v :MSF|grep -v :video|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "保留双进程：通知\u0026主页面\u0026通话",
+      "id": "A-b9c9f1c7-d16e-4f5c-951d-e606ed6f2758"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "process_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\nif [ -z \"$process_list\" ]; then\n    echo \"Killed process: None\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        kill -9 $pid\n        echo \"Killed process: $process_name\"\n    done\nfi\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "保留双进程：通知\u0026主页面\u0026通话(可用)",
+      "id": "A-8837a420-ec37-4f36-a12d-2adb677605ec"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-3cb62cb5-655d-40e1-85f7-0e907f96a2cf"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 获取服务的进程ID\nPID1\u003d$(pidof -s androidx.room.MultiInstanceInvalidationService)\nPID2\u003d$(pidof -s com.tencent.mobileqq.music.QQPlayerService)\n\n# 检查服务是否存在\nif [ -n \"$PID1\" ]; then\n  echo \"停止服务: androidx.room.MultiInstanceInvalidationService\"\n  kill $PID1\nelse\n  echo \"服务 androidx.room.MultiInstanceInvalidationService 未运行\"\nfi\n\nif [ -n \"$PID2\" ]; then\n  echo \"停止服务: com.tencent.mobileqq.music.QQPlayerService\"\n  kill $PID2\nelse\n  echo \"服务 com.tencent.mobileqq.music.QQPlayerService 未运行\"\nfi\n\necho \"服务已停止，但保留主进程。\"\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "停止服务，保留主进程(可用)",
+      "id": "A-aa9fd6dc-5a35-421e-a328-d864dfee836f"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 获取 com.tencent.mobileqq 的所有进程，排除主进程\nprocess_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\n\n# 检查是否有需要停止的进程\nif [ -z \"$process_list\" ]; then\n    echo \"没有找到需要停止的进程。\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        # 杀掉进程\n        kill -9 $pid\n        echo \"已停止进程: $process_name (PID: $pid)\"\n    done\nfi\n\n# 验证是否成功停止服务\necho \"验证服务状态...\"\nadb shell dumpsys activity services com.tencent.mobileqq | grep -E \u0027MultiInstanceInvalidationService|QQPlayerService\u0027\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "停止服务，保留主进程(可用)",
+      "id": "A-33b7d211-f30d-40e4-b052-f1eeda2e65d7"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "ps -ef | grep com.tencent.mobileqq | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2,$8}\u0027 | while read pid name; do echo \"Stopping $name (PID: $pid)\"; kill -9 $pid; done",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "保留双进程：通知\u0026主页面\u0026通话",
+      "id": "A-1653b28c-bdf2-456d-9863-1b5c6f81d245"
+    }, {
+      "@type": "type.googleapis.com/StopService",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.tencent.mobileqq"
+        },
+        "className": "com.tencent.mobileqq.music.QQPlayerService"
+      }, {
+        "pkg": {
+          "pkgName": "com.tencent.mobileqq"
+        },
+        "className": "androidx.room.MultiInstanceInvalidationService"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-322507ac-8884-403a-80d5-bfd50ce9d22a"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ(主用)·亮屏",
+    "id": "A-3c682851-71e0-4dbd-926d-7cb42f4c2834"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "QQ(主用)·息屏",
+      "customContextDataKey": {
+      },
+      "id": "C-7bfb6ddc-6976-4d14-bc86-d2a3204974fe"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-3b1fbea7-83b0-4434-b564-0adebb504217"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppHasNotification",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-f8422526-246d-417a-a2db-94d95773bf4b"
+      }, {
+        "@type": "type.googleapis.com/AppHasTask",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "isDisabled": true,
+        "customContextDataKey": {
+        },
+        "id": "C-cd22e3c5-67a8-44a4-a94c-bc9383d96f0b"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "error",
+        "customContextDataKey": {
+        },
+        "id": "A-c60961f7-8570-4323-b8d6-598b93ba5bb7"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "3000",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-2a362564-a98e-4a02-832b-1d09ea827a42"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ps -ef|grep com.tencent.mobileqq:|grep -v :MSF|grep -v :video|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "保留双进程：通知\u0026主页面\u0026通话",
+        "id": "A-0557eb10-798b-4fd5-a703-21f1e23ecba2"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "process_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\nif [ -z \"$process_list\" ]; then\n    echo \"Killed process: None\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        kill -9 $pid\n        echo \"Killed process: $process_name\"\n    done\nfi\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "保留双进程：通知\u0026主页面\u0026通话(可用)",
+        "id": "A-07bb96b9-fee6-47d1-ae9b-ad224e0eb613"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-1f534989-bf02-4bd1-82c9-40017373d368"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 停止特定服务\nam stop-service com.tencent.mobileqq/androidx.room.MultiInstanceInvalidationService\nam stop-service com.tencent.mobileqq/com.tencent.mobileqq.music.QQPlayerService\n\n# 杀死应用的非主进程（保留主进程）\nam kill com.tencent.mobileqq\n\necho \"服务已停止，但保留主进程。\"\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "停止服务，保留主进程(可用)",
+        "id": "A-d6dd0b99-2397-4570-a491-d10df075dbfa"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 获取 com.tencent.mobileqq 的所有进程，排除主进程\nprocess_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\n\n# 检查是否有需要停止的进程\nif [ -z \"$process_list\" ]; then\n    echo \"没有找到需要停止的进程。\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        # 杀掉进程\n        kill -9 $pid\n        echo \"已停止进程: $process_name (PID: $pid)\"\n    done\nfi\n\n# 验证是否成功停止服务\necho \"验证服务状态...\"\nadb shell dumpsys activity services com.tencent.mobileqq | grep -E \u0027MultiInstanceInvalidationService|QQPlayerService\u0027\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "停止服务，保留主进程(可用)",
+        "id": "A-120d51ac-3c48-467a-8c2c-6649ec2e03b4"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ps -ef | grep com.tencent.mobileqq | grep -v :MSF | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027 | while read pid name; do echo \"Stopping $name (PID: $pid)\"; kill -9 $pid; done",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "保留双进程：通知\u0026主页面\u0026通话",
+        "id": "A-26858c77-957a-4d5d-a304-0c4343a8a8eb"
+      }, {
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-5e99fe91-84e6-4bea-b3ba-dcb4e95da9e7"
+      }, {
+        "@type": "type.googleapis.com/RemoveTasks",
+        "appPkg": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-18432c0d-7121-46cb-ab94-50b67b61f6a6"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "QQ(主用)后台优化",
+        "customContextDataKey": {
+        },
+        "id": "A-ea247109-1ce1-422d-a938-499ec34203b2"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "QQ(主用)进入后台，进行检测",
+      "id": "A-301b9a89-b70a-4b6b-9ae6-bb4dfc5813d8"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ(主用)·息屏",
+    "id": "A-8b0e51a9-7547-4a8f-87d2-0820ea9c895f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "QQ(主用)·进入前台",
+      "customContextDataKey": {
+      },
+      "id": "C-872a5097-eef6-41c1-a272-702957b02549"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "error",
+      "customContextDataKey": {
+      },
+      "id": "A-197b9c37-2c2c-431a-b314-d0f2f3c5ec44"
+    }, {
+      "@type": "type.googleapis.com/StartAppProcess",
+      "appPkg": [{
+        "pkgName": "have.fun"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d6a47fe9-ce76-4f5a-8974-2a556adf9189"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-b0cbfe93-db25-4a20-a16e-95e1221a13f7"
+    }, {
+      "@type": "type.googleapis.com/StartAppProcess",
+      "appPkg": [{
+        "pkgName": "com.tencent.mobileqq"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-a1393622-be37-4748-a3f9-3d30abac40ea"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ(主用)·进入前台",
+    "id": "A-18ceb7e8-0a01-4ac9-8c9d-43f8b8595cf9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "QQ(主用)·进入后台",
+      "customContextDataKey": {
+      },
+      "id": "C-b1a6c0a1-7141-4ee8-9b1e-55cf2205a735"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-2a7ed6bd-0ea3-4aa4-9f9b-3bb9874f8629"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "QQ(主用)进入后台，进行优化",
+      "customContextDataKey": {
+      },
+      "id": "A-4510420e-11fb-482f-a9d5-a0f4dc59932d"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppHasNotification",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-f8422526-246d-417a-a2db-94d95773bf4b"
+      }, {
+        "@type": "type.googleapis.com/AppHasTask",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "isDisabled": true,
+        "customContextDataKey": {
+        },
+        "id": "C-cd22e3c5-67a8-44a4-a94c-bc9383d96f0b"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "error",
+        "customContextDataKey": {
+        },
+        "id": "A-c60961f7-8570-4323-b8d6-598b93ba5bb7"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "150000",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-2a362564-a98e-4a02-832b-1d09ea827a42"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ps -ef|grep com.tencent.mobileqq:|grep -v :MSF|grep -v :video|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "保留双进程：通知\u0026主页面\u0026通话",
+        "id": "A-31678f1a-77b2-4d05-9855-9c761c5268ca"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "process_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\nif [ -z \"$process_list\" ]; then\n    echo \"Killed process: None\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        kill -9 $pid\n        echo \"Killed process: $process_name\"\n    done\nfi\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "保留双进程：通知\u0026主页面\u0026通话(可用)",
+        "id": "A-6722d765-16dc-4a48-862c-1feef0fa0388"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/bash\n\n# 获取所有与com.tencent.mobileqq相关的进程和服务\nprocess_list\u003d$(ps -ef | grep \"com.tencent.mobileqq\" | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\n\n# 初始化一个变量来记录是否已经杀死了任何服务或进程\nkilled_anything\u003dfalse\n\nif [ -z \"$process_list\" ]; then\n    echo \"Killed: None\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n\n\n\n        # 检查是否为主进程\n        if [[ \"$process_name\" \u003d\u003d \"com.tencent.mobileqq\" ]]; then\n            echo \"Skipping main process: $process_name (PID: $pid)\"\n        else\n\n\n\n\n\n\n        # 检查是否为主进程\n#        if [[ \"$process_name\" \u003d\u003d \"com.tencent.mm\" || \"$process_name\" \u003d\u003d \"com.tencent.mm:push\" ]]; then\n#            echo \"Skipping main process: $process_name (PID: $pid)\"\n\n\n\n\n\n\n\n            # 停止其他服务\n            kill -9 $pid\n            echo \"Killed service: com.tencent.mobileqq:$process_name (PID: $pid)\"\n            killed_anything\u003dtrue\n        fi\n    done\n\n\n\n\n    # 如果没有杀死任何服务或进程，输出 \"Killed: None\"\n    if [ \"$killed_anything\" \u003d false ]; then\n        echo \"Killed: None\"\n    fi\nfi",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "保留双进程：通知\u0026主页面\u0026通话(测试)",
+        "id": "A-7250c1e1-c5e0-4661-a6d8-42528a5b03e4"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-f323c99f-edcc-48ab-9575-28a30a9d1e60"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 停止特定服务\nam stop-service com.tencent.mobileqq/androidx.room.MultiInstanceInvalidationService\nam stop-service com.tencent.mobileqq/com.tencent.mobileqq.music.QQPlayerService\n\n# 杀死应用的非主进程（保留主进程）\nam kill com.tencent.mobileqq\n\necho \"服务已停止，但保留主进程。\"\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "停止服务，保留主进程(可用)",
+        "id": "A-95c5a94c-9bc7-4685-b868-3d566d7394d8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 获取 com.tencent.mobileqq 的所有进程，排除主进程\nprocess_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\n\n# 检查是否有需要停止的进程\nif [ -z \"$process_list\" ]; then\n    echo \"没有找到需要停止的进程。\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        # 杀掉进程\n        kill -9 $pid\n        echo \"已停止进程: $process_name (PID: $pid)\"\n    done\nfi\n\n# 验证是否成功停止服务\necho \"验证服务状态...\"\nadb shell dumpsys activity services com.tencent.mobileqq | grep -E \u0027MultiInstanceInvalidationService|QQPlayerService\u0027\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "停止服务，保留主进程(可用)",
+        "id": "A-4cd964b5-00d1-4a40-8264-fca8adb3731c"
+      }, {
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-5e99fe91-84e6-4bea-b3ba-dcb4e95da9e7"
+      }, {
+        "@type": "type.googleapis.com/RemoveTasks",
+        "appPkg": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-541cc06f-565f-4feb-88f5-64dfac054375"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "QQ(主用)后台优化",
+        "customContextDataKey": {
+        },
+        "id": "A-ea247109-1ce1-422d-a938-499ec34203b2"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "QQ(主用)进入后台，进行检测",
+      "id": "A-e20f6b5a-4743-4be8-9bb8-52b69afea404"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ(主用)·进入后台",
+    "id": "A-d2f6cf93-3c75-4010-926e-e3389f6774b1"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "QQ(主用)·移除任务",
+      "customContextDataKey": {
+      },
+      "id": "C-590e3c55-1e6a-409b-b608-96c4ab04d4e3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-720ab08a-1b64-4b3e-89d0-9c96a74d527a"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "error",
+        "customContextDataKey": {
+        },
+        "id": "A-370dc00e-f403-4c72-a06d-c7e6e665adeb"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/AppHasNotification",
+          "pkgs": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-2f158fba-0b00-4dec-a794-e87a0e8bfeb6"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "error",
+          "customContextDataKey": {
+          },
+          "id": "A-6e232482-7dac-42c0-8a90-88f6783c62d4"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "150000",
+          "useAlarm": true,
+          "customContextDataKey": {
+          },
+          "id": "A-23501783-d658-42c1-b43d-f038e47ff1e5"
+        }, {
+          "@type": "type.googleapis.com/StopApp",
+          "appPkg": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-9733f2a1-4da4-4416-bf8f-a4c5e6619c6d"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "QQ(主用)后台优化",
+          "customContextDataKey": {
+          },
+          "id": "A-a8312b96-3f0e-4e59-990c-5dad469c8cbe"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "QQ(主用)移除任务，检测通知",
+        "id": "A-377cfff2-2e77-4929-be4e-a6709ebd407f"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-0f9e993e-4bb2-49db-92c8-cc32e4b10db0"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppHasTask",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-38b74015-6157-4c85-adb6-0a69483759ae"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/AppIsNotRunning",
+          "pkgs": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-720ab08a-1b64-4b3e-89d0-9c96a74d527a"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "error",
+          "customContextDataKey": {
+          },
+          "id": "A-370dc00e-f403-4c72-a06d-c7e6e665adeb"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/AppHasNotification",
+            "pkgs": [{
+              "pkgName": "com.tencent.mobileqq"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-2f158fba-0b00-4dec-a794-e87a0e8bfeb6"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/NoAction",
+            "icon": "error",
+            "customContextDataKey": {
+            },
+            "id": "A-6e232482-7dac-42c0-8a90-88f6783c62d4"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "150000",
+            "useAlarm": true,
+            "customContextDataKey": {
+            },
+            "id": "A-23501783-d658-42c1-b43d-f038e47ff1e5"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "ps -ef|grep com.tencent.mobileqq:|grep -v :MSF|grep -v :video|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "note": "保留双进程：通知\u0026主页面\u0026通话",
+            "id": "A-d37a39a8-2b4e-4c5b-85df-67910137511d"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "process_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\nif [ -z \"$process_list\" ]; then\n    echo \"Killed process: None\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        kill -9 $pid\n        echo \"Killed process: $process_name\"\n    done\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "保留双进程：通知\u0026主页面\u0026通话(可用)",
+            "id": "A-da5d8fda-6703-45c0-922f-66734d27da35"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "500",
+            "useAlarm": true,
+            "customContextDataKey": {
+            },
+            "id": "A-8a77bda9-9236-429f-b4d6-f11547448839"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 停止特定服务\nam stop-service com.tencent.mobileqq/androidx.room.MultiInstanceInvalidationService\nam stop-service com.tencent.mobileqq/com.tencent.mobileqq.music.QQPlayerService\n\n# 杀死应用的非主进程（保留主进程）\nam kill com.tencent.mobileqq\n\necho \"服务已停止，但保留主进程。\"\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "note": "停止服务，保留主进程(可用)",
+            "id": "A-b6a50634-de9b-4e7e-9671-3017ea4106d9"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 获取 com.tencent.mobileqq 的所有进程，排除主进程\nprocess_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\n\n# 检查是否有需要停止的进程\nif [ -z \"$process_list\" ]; then\n    echo \"没有找到需要停止的进程。\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        # 杀掉进程\n        kill -9 $pid\n        echo \"已停止进程: $process_name (PID: $pid)\"\n    done\nfi\n\n# 验证是否成功停止服务\necho \"验证服务状态...\"\nadb shell dumpsys activity services com.tencent.mobileqq | grep -E \u0027MultiInstanceInvalidationService|QQPlayerService\u0027\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "停止服务，保留主进程(可用)",
+            "id": "A-433d3134-0531-4176-a884-494a981df758"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "ps -ef | grep com.tencent.mobileqq | grep -v :MSF | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027 | while read pid name; do echo \"Stopping $name (PID: $pid)\"; kill -9 $pid; done",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "note": "保留双进程：通知\u0026主页面\u0026通话",
+            "id": "A-dee52dfb-9144-4f6e-b850-3649de71dc6f"
+          }, {
+            "@type": "type.googleapis.com/StopApp",
+            "appPkg": [{
+              "pkgName": "com.tencent.mobileqq"
+            }],
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-9733f2a1-4da4-4416-bf8f-a4c5e6619c6d"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "QQ(主用)后台优化",
+            "customContextDataKey": {
+            },
+            "id": "A-a8312b96-3f0e-4e59-990c-5dad469c8cbe"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "QQ(主用)移除任务，检测通知",
+          "id": "A-377cfff2-2e77-4929-be4e-a6709ebd407f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0f9e993e-4bb2-49db-92c8-cc32e4b10db0"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/AppHasNotification",
+          "pkgs": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-2f158fba-0b00-4dec-a794-e87a0e8bfeb6"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "error",
+          "customContextDataKey": {
+          },
+          "id": "A-6e232482-7dac-42c0-8a90-88f6783c62d4"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "150000",
+          "useAlarm": true,
+          "customContextDataKey": {
+          },
+          "id": "A-23501783-d658-42c1-b43d-f038e47ff1e5"
+        }, {
+          "@type": "type.googleapis.com/StopApp",
+          "appPkg": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-9733f2a1-4da4-4416-bf8f-a4c5e6619c6d"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "QQ(主用)后台优化",
+          "customContextDataKey": {
+          },
+          "id": "A-a8312b96-3f0e-4e59-990c-5dad469c8cbe"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "QQ(主用)移除任务，检测通知",
+        "id": "A-377cfff2-2e77-4929-be4e-a6709ebd407f"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-751be76f-86ed-4f53-8cf0-f5b659793745"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ(主用)·移除任务",
+    "id": "A-29cafad3-220b-4f33-91ce-cad7e74eb178"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "QQ(主用)·新通知",
+      "customContextDataKey": {
+      },
+      "id": "C-61087975-de45-4388-8432-d48b5c9288da"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-71d41348-023d-4871-858f-5cf629c8b35e"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "error",
+        "customContextDataKey": {
+        },
+        "id": "A-4d2051d5-2e54-40d0-b9f2-f74b6e011f7d"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/StartAppProcess",
+        "appPkg": [{
+          "pkgName": "have.fun"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-a6f0f26e-c4f4-4352-90f5-d489065ae9a6"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-6f45bd3a-caa6-4d31-9f9b-bcf27484cb35"
+      }, {
+        "@type": "type.googleapis.com/StartAppProcess",
+        "appPkg": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-2265b526-ec72-4aa0-8deb-e7aeae3d3c55"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "QQ(主用)有新通知，尝试挂起",
+        "customContextDataKey": {
+        },
+        "id": "A-d124bb50-f3b2-4407-abc7-d3ada5121bd2"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "150000",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-3b55343a-2546-4026-bf44-4c1c6c5dff41"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/AppHasNotification",
+          "pkgs": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-f8422526-246d-417a-a2db-94d95773bf4b"
+        }, {
+          "@type": "type.googleapis.com/AppHasTask",
+          "pkgs": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "op": "ANY",
+          "isDisabled": true,
+          "customContextDataKey": {
+          },
+          "id": "C-cd22e3c5-67a8-44a4-a94c-bc9383d96f0b"
+        }],
+        "IfCondOp": "ANY",
+        "IfActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "error",
+          "customContextDataKey": {
+          },
+          "id": "A-c60961f7-8570-4323-b8d6-598b93ba5bb7"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "QQ(主用)非前台，30s后进行优化",
+          "customContextDataKey": {
+          },
+          "id": "A-a0ea7ecd-1e04-47e5-a325-6ba466b50114"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "30000",
+          "useAlarm": true,
+          "customContextDataKey": {
+          },
+          "id": "A-2a362564-a98e-4a02-832b-1d09ea827a42"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "ps -ef|grep com.tencent.mobileqq:|grep -v :MSF|grep -v :video|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "保留双进程：通知\u0026主页面\u0026通话",
+          "id": "A-a781ecce-1a10-46e6-ba35-71c5dd322ffe"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "process_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\nif [ -z \"$process_list\" ]; then\n    echo \"Killed process: None\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        kill -9 $pid\n        echo \"Killed process: $process_name\"\n    done\nfi\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "保留双进程：通知\u0026主页面\u0026通话(可用)",
+          "id": "A-a693c868-72d0-454a-aea3-2a62bea736ba"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "500",
+          "useAlarm": true,
+          "customContextDataKey": {
+          },
+          "id": "A-ed2eb061-598b-4559-8d2c-3d6d1ad8162d"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 停止特定服务\nam stop-service com.tencent.mobileqq/androidx.room.MultiInstanceInvalidationService\nam stop-service com.tencent.mobileqq/com.tencent.mobileqq.music.QQPlayerService\n\n# 杀死应用的非主进程（保留主进程）\nam kill com.tencent.mobileqq\n\necho \"服务已停止，但保留主进程。\"\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "停止服务，保留主进程(可用)",
+          "id": "A-85b2f2fe-72a2-4dbc-979b-41d9a13fb929"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 获取 com.tencent.mobileqq 的所有进程，排除主进程\nprocess_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\n\n# 检查是否有需要停止的进程\nif [ -z \"$process_list\" ]; then\n    echo \"没有找到需要停止的进程。\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        # 杀掉进程\n        kill -9 $pid\n        echo \"已停止进程: $process_name (PID: $pid)\"\n    done\nfi\n\n# 验证是否成功停止服务\necho \"验证服务状态...\"\nadb shell dumpsys activity services com.tencent.mobileqq | grep -E \u0027MultiInstanceInvalidationService|QQPlayerService\u0027\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "停止服务，保留主进程(可用)",
+          "id": "A-ec9e2cb8-6e46-4ad5-8029-87eabc2772ec"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "ps -ef | grep com.tencent.mobileqq | grep -v :MSF | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027 | while read pid name; do echo \"Stopping $name (PID: $pid)\"; kill -9 $pid; done",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "保留双进程：通知\u0026主页面\u0026通话",
+          "id": "A-3ed0ef24-9544-4d46-bb67-a8f0a59219ea"
+        }, {
+          "@type": "type.googleapis.com/StopApp",
+          "appPkg": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-5e99fe91-84e6-4bea-b3ba-dcb4e95da9e7"
+        }, {
+          "@type": "type.googleapis.com/RemoveTasks",
+          "appPkg": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-fe2c8e98-60bb-4daf-b472-5b7e8940b045"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "QQ(主用)后台优化",
+          "customContextDataKey": {
+          },
+          "id": "A-ea247109-1ce1-422d-a938-499ec34203b2"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "QQ(主用)进入后台，进行检测",
+        "id": "A-a8e8945d-fdbb-46cc-a1e7-346260d07b59"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5f994ffb-c8b4-4837-8b1e-24af97d756ba"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ(主用)·新通知",
+    "id": "A-18c965d3-bcc6-45a6-bddc-dd2847c83aae"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "QQ(主用)·移除通知",
+      "customContextDataKey": {
+      },
+      "id": "C-9fdf33eb-95c9-4f2c-8173-de73029fe1d8"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-77ce981f-041d-4b2b-939d-da3f9e9dfbc7"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppHasNotification",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-f8422526-246d-417a-a2db-94d95773bf4b"
+      }, {
+        "@type": "type.googleapis.com/AppHasTask",
+        "pkgs": [{
+          "pkgName": "com.tencent.mobileqq"
+        }],
+        "op": "ANY",
+        "isDisabled": true,
+        "customContextDataKey": {
+        },
+        "id": "C-cd22e3c5-67a8-44a4-a94c-bc9383d96f0b"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "error",
+        "customContextDataKey": {
+        },
+        "id": "A-c60961f7-8570-4323-b8d6-598b93ba5bb7"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/CurrentPkgList",
+          "pkgs": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-dec39017-4606-46a1-999c-49c6e612b58c"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "error",
+          "customContextDataKey": {
+          },
+          "id": "A-93372ba9-d981-408a-84d2-c0afd988211e"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "150000",
+          "useAlarm": true,
+          "customContextDataKey": {
+          },
+          "id": "A-f3158795-91b5-443a-a222-7271c9218130"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "ps -ef|grep com.tencent.mobileqq:|grep -v :MSF|grep -v :video|grep -v grep|awk \u0027{print $2}\u0027|xargs kill -9",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "保留双进程：通知\u0026主页面\u0026通话",
+          "id": "A-c748a59e-edff-457c-a429-766f28b96041"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "process_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\nif [ -z \"$process_list\" ]; then\n    echo \"Killed process: None\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        kill -9 $pid\n        echo \"Killed process: $process_name\"\n    done\nfi\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "保留双进程：通知\u0026主页面\u0026通话(可用)",
+          "id": "A-7d96f4b7-3737-4471-aa6a-7c79b4f5603f"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "500",
+          "useAlarm": true,
+          "customContextDataKey": {
+          },
+          "id": "A-d736f8d3-ecaa-4564-a90c-ff42348476d5"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 停止特定服务\nam stop-service com.tencent.mobileqq/androidx.room.MultiInstanceInvalidationService\nam stop-service com.tencent.mobileqq/com.tencent.mobileqq.music.QQPlayerService\n\n# 杀死应用的非主进程（保留主进程）\nam kill com.tencent.mobileqq\n\necho \"服务已停止，但保留主进程。\"\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "停止服务，保留主进程(可用)",
+          "id": "A-7102091c-5e11-452a-81d0-5d0aee059d17"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/bin/sh\n\n# 确保设备已获取Root权限\necho \"正在停止服务...\"\n\n# 获取 com.tencent.mobileqq 的所有进程，排除主进程\nprocess_list\u003d$(ps -ef | grep com.tencent.mobileqq: | grep -v :MSF | grep -v :video | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027)\n\n# 检查是否有需要停止的进程\nif [ -z \"$process_list\" ]; then\n    echo \"没有找到需要停止的进程。\"\nelse\n    echo \"$process_list\" | while read pid process_name; do\n        # 杀掉进程\n        kill -9 $pid\n        echo \"已停止进程: $process_name (PID: $pid)\"\n    done\nfi\n\n# 验证是否成功停止服务\necho \"验证服务状态...\"\nadb shell dumpsys activity services com.tencent.mobileqq | grep -E \u0027MultiInstanceInvalidationService|QQPlayerService\u0027\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "停止服务，保留主进程(可用)",
+          "id": "A-3186adc8-77d1-40bc-a803-c2a8a0170971"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "ps -ef | grep com.tencent.mobileqq | grep -v :MSF | grep -v grep | awk \u0027{print $2 \" \" $8}\u0027 | while read pid name; do echo \"Stopping $name (PID: $pid)\"; kill -9 $pid; done",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "note": "保留双进程：通知\u0026主页面\u0026通话",
+          "id": "A-71bb2d6c-84c4-40ae-821d-ad1c3e63609f"
+        }, {
+          "@type": "type.googleapis.com/StopApp",
+          "appPkg": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-126e2a03-7cea-4fb6-8cec-b6faa14fceb4"
+        }, {
+          "@type": "type.googleapis.com/RemoveTasks",
+          "appPkg": [{
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-e21a63cb-40b1-4ffc-b653-7e2e9ec43cdb"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "QQ(主用)后台优化",
+          "customContextDataKey": {
+          },
+          "id": "A-8d3ecb2e-4111-426b-a81e-5685a7e55d67"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4029bb58-e55b-43ca-9d76-b4d99232e111"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "QQ(主用)进入后台，进行检测",
+      "id": "A-e5b59774-f397-442e-976c-f63e16ee03c0"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ(主用)·移除通知",
+    "id": "A-1c392fad-564e-49fe-b7eb-550155b09718"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "QQ(主用)·停止应用",
+      "customContextDataKey": {
+      },
+      "id": "C-dd685156-65f4-48f1-bdec-e0cf0168e716"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "error",
+      "customContextDataKey": {
+      },
+      "id": "A-560d3857-f1f2-4d42-b440-a5bf9c458627"
+    }, {
+      "@type": "type.googleapis.com/RemoveTasks",
+      "appPkg": [{
+        "pkgName": "com.tencent.mobileqq"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-409ca0c2-39c3-4b5f-ab8d-b5b6996c8bd1"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ(主用)·停止应用",
+    "id": "A-336abcc2-e5ab-4435-8ad4-7d392fc01883"
+  }],
+  "id": "SHARE-rule-893ffd6e-3ec1-4548-8bca-46814f3dc938",
+  "lastUpdateTime": "1749912720477",
+  "createTime": "1747596016372",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "QQ相关优化(主用)",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-653a95fd-1fb5-4281-90f2-02af4082e7d1"
+}
+###------###
+{"type":"rule"}

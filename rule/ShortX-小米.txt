@@ -1,0 +1,82 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/RandomInPeriod",
+    "start": {
+      "minutes": 30
+    },
+    "end": {
+      "hour": 23
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-d0fb0a74-558d-4cb7-a620-bb980bbd3b89"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WakeupScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-22a8e74b-edf7-415b-aa63-82424771627d"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start \"intent://web.vip.miui.com/page/info/mio/mio/detail?postId\u003d44632525#Intent;scheme\u003dhttps;component\u003dcom.xiaomi.vipaccount/.newbrowser.NormalWebActivity;S.postId\u003d44632525;end\"",
+    "customContextDataKey": {
+    },
+    "id": "A-e7116346-02ed-423b-bc53-19564cebc813"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "15000",
+    "customContextDataKey": {
+    },
+    "id": "A-dae258f9-6279-43a8-90e1-dd35f66f1a3a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -d mio://web.vip.miui.com/page/info/mio/mio/checkIn?ref\u003dlongpressshortcuts",
+    "customContextDataKey": {
+    },
+    "id": "A-5a587ad2-d9af-40b7-854b-a20824a21173"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "2000",
+    "customContextDataKey": {
+    },
+    "id": "A-78bda866-744b-44ba-bf29-d991c3e5bfb9"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -n org.autojs.autojs6.xiami1/org.autojs.autojs.inrt.SplashActivity",
+    "customContextDataKey": {
+    },
+    "id": "A-5d111e78-536a-41d8-960b-22bf60561b83"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "50000",
+    "customContextDataKey": {
+    },
+    "id": "A-c4b8fdfb-8794-47b8-9536-d1f6b0d85c92"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.xiaomi.vipaccount"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-83ddff79-4f32-4636-8eb8-d61b5d47dbc1"
+  }],
+  "id": "rule-35fa7573-044d-456b-a5cb-362b134b6f9b",
+  "lastUpdateTime": "1716365423503",
+  "createTime": "1716359755453",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "小米",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

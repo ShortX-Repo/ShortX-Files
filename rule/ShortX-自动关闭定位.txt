@@ -1,0 +1,25 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/TaskRemoved",
+    "pkgSets": ["map"],
+    "id": "F-5d10cc8e-1c4e-4f15-a508-c07b49503953"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-9c1cd6a4-5009-4f29-b9a7-80fff0bfb7c9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetLocationEnabled",
+    "id": "A-7e1e84d1-5a55-4223-bb0b-ec6f9fceb8d8"
+  }],
+  "id": "rule-93ef6093-1cf1-4876-99c7-45eb3662a92c",
+  "lastUpdateTime": "1687307866416",
+  "createTime": "1687307823605",
+  "title": "自动关闭定位",
+  "description": "自动关闭定位",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

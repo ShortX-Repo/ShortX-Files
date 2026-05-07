@@ -1,0 +1,93 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "export PATH\u003d$PATH:/data/user/0/com.termux/files/usr/bin/\n\ncurl -s \"http://ip-api.com/json\" | jq -r \u0027.lat,.lon\u0027 | tr \u0027\\n\u0027 \u0027 \u0027\n",
+    "customContextDataKey": {
+    },
+    "id": "A-6dfbdfbf-2e66-41ec-8997-0b1d76e78f6d"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo {shellOut}| awk \u0027{print $1}\u0027\n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "纬度"
+      }]
+    },
+    "id": "A-59825a6a-4489-4f66-be69-4358d290beee"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo {shellOut}| awk \u0027{print $2}\u0027\n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "经度"
+      }]
+    },
+    "id": "A-fd69b863-a576-4fc1-af31-01db16e91137"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "经度",
+    "valueAsString": "{经度}",
+    "customContextDataKey": {
+    },
+    "id": "A-adb52ed1-cb7e-4712-983c-4ff762cae4c0"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "纬度",
+    "valueAsString": "{纬度}",
+    "customContextDataKey": {
+    },
+    "id": "A-7ed03eec-160a-47ad-a333-6c647a1080d5"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "纬度",
+      "payload": {
+        "value": "31.8731"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4607addd-5b4c-4c23-b578-c0c43cd51b99"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "经度",
+      "payload": {
+        "value": "120.5425"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-8e26754a-15b5-42c0-a5a5-e018f3dcca5a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "在家",
+      "customContextDataKey": {
+      },
+      "id": "A-a73e8390-8ce7-4bf3-8ef4-7c308733210d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "不在家",
+      "customContextDataKey": {
+      },
+      "id": "A-c4824c38-292e-437c-a2fa-fe3c02dc9cea"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a6489819-f488-4f07-a839-acc6fc64ebab"
+  }],
+  "id": "DA34ba9a3f-12ce-4dac-9d21-43019977edb5",
+  "lastUpdateTime": "1706088858561",
+  "createTime": "1706084825984",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "获取经纬度判断是否在家",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

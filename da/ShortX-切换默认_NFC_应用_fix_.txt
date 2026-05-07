@@ -1,0 +1,61 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "payApp\u003d$(settings get secure nfc_payment_default_component)\n\ncase \"$payApp\" in\n    *com.android.nfc*)\n        echo \"小米钱包\"\n        ;;\n    *com.eg.android.AlipayGphone*)\n        echo \"支付宝\"\n        ;;\n    *cn.gov.pbc.dcep*)\n        echo \"数字人民币\"\n        ;;\n    *null* | \"\")\n        echo \"未设置默认支付\"\n        ;;\n    *)\n        echo \"其他支付应用 ($payApp)\"\n        ;;\nesac",
+    "customContextDataKey": {
+    },
+    "id": "A-2dcc0aa8-5d3f-4e15-85e1-d18002dad762"
+  }, {
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "小米钱包",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put secure nfc_payment_default_component com.android.nfc/com.android.nfc.cardemulation.ESEWalletDummyService",
+        "customContextDataKey": {
+        },
+        "id": "A-606fed35-488a-4e4e-b9c2-5d19574f8c39"
+      }]
+    }, {
+      "title": "支付宝",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put secure nfc_payment_default_component com.eg.android.AlipayGphone/com.alipay.android.app.service.AlipayNfcPaymentService",
+        "customContextDataKey": {
+        },
+        "id": "A-f160bf27-fbab-4b26-be56-1d003bb89a74"
+      }]
+    }, {
+      "title": "数字人民币",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put secure nfc_payment_default_component cn.gov.pbc.dcep/cn.gov.pbc.dcep.nfc.service.EcnyNfcPaymentService",
+        "customContextDataKey": {
+        },
+        "id": "A-1769e1ed-ed89-48a9-89fe-fb119bd787ce"
+      }]
+    }],
+    "title": "选择 NFC 应用（{shellOut}）",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-c62ad939-b400-4fb1-8039-c432fe47f2c8"
+  }],
+  "id": "SHARED-DA-9941c0b2-c2f0-4867-8e73-f6ea98e5973d",
+  "lastUpdateTime": "1771493781538",
+  "createTime": "1771492153980",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "切换默认 NFC 应用（fix）",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

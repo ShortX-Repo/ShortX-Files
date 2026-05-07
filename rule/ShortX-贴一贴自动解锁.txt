@@ -1,0 +1,36 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.miui.tsmclient"
+      }, {
+        "pkgName": "com.android.nfc"
+      }]
+    },
+    "id": "F-eef2f16d-4123-4143-bb01-518b2edf96b4"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-a2dfc34d-46d6-48a6-a6d5-ef29b7d14a27"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FromDA",
+    "daId": "DA227e201c-97fa-47f5-aefe-d7beda5d5c19",
+    "id": "A-be50e9cd-66b9-4ee1-98db-e873a154b42b"
+  }],
+  "id": "rule-171fa653-24a4-4b52-8614-448a1bea21f9",
+  "lastUpdateTime": "1691671039539",
+  "createTime": "1687318444561",
+  "author": {
+    "name": "ZhiQing"
+  },
+  "title": "贴一贴自动解锁",
+  "description": "手环贴一下自动解锁，不会误触",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}

@@ -7,50 +7,74 @@
     "id": "F-a3ff31ff-3cb3-47f9-9c2f-a5aec97992a4"
   }],
   "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "api",
+    "valueAsString": "api.telegram.org",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "官方接口，需代理",
+    "id": "A-c3804a0c-9da7-4bf5-a486-c88eff31baf4"
+  }, {
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "crown-two",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "给一个反代api方案用\n\n可以在github新建仓库创建vercel.json写入以下内容，然后在vercel部署项目(需要绑自己域名)\n\n{\n    \"version\": 2,\n    \"routes\": [\n      {\"src\": \"/(.*)\",\"dest\": \"https://api.telegram.org\"}\n    ]\n}",
+    "id": "A-3c4cc56f-7fcc-4f33-9a99-98e8bd134305"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "text",
+    "valueAsString": "{clipboardContent}",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-e142b27e-27c9-493c-a337-769129bbdc02"
+  }, {
     "@type": "type.googleapis.com/HttpRequest",
-    "url": "https://globalVarOf$tg_api/botglobalVarOf$tg_token/sendMessage",
+    "url": "https://globalVarOf$api/botglobalVarOf$token/sendMessage",
     "adapter": {
       "@type": "type.googleapis.com/HttpRequestJsonMapAdapter"
     },
     "method": "POST",
     "requestBody": {
       "@type": "type.googleapis.com/HttpRequestBodyJson",
-      "json": "{\n \"chat_id\":\"globalVarOf$tg_id\",\n \"parse_mode\":\"MarkDown\",\n \"text\":\"{clipboardContent}\"\n}"
+      "json": "{\n \"chat_id\":\"globalVarOf$id\",\n \"parse_mode\":\"MarkDown\",\n \"text\":\"globalVarOf$text\"\n}"
     },
     "customContextDataKey": {
     },
     "id": "A-fa8df2e3-6f59-4b94-aec9-476bf2277494"
   }],
-  "id": "SHARE-rule-0fa51c39-72e8-428b-9e5d-3ad635ad89e7",
-  "lastUpdateTime": "1766087945262",
+  "id": "SHARE-rule-87ed3aad-6c61-48e4-b7ef-ff6cbdb062dc",
+  "lastUpdateTime": "1744571505240",
   "createTime": "1744567749161",
   "author": {
-    "name": "二次寒树"
+    "name": "ShortX"
   },
   "title": "剪贴板同步(TG)",
-  "description": "剪贴板变化自动发送到TG机器人",
+  "description": "启动创建全局变量(关闭删除)，请自行修改",
   "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
       "@type": "type.googleapis.com/CreateGlobalVar",
       "globalVar": {
-        "name": "tg_api",
+        "name": "text",
         "type": {
           "@type": "type.googleapis.com/StringVar"
-        },
-        "note": "剪贴板同步(TG)"
+        }
       },
       "customContextDataKey": {
       },
-      "id": "A-c5f30b25-45d9-4789-ad27-85b214e7350b"
+      "id": "A-7252c45b-b8d2-400c-95ea-6854c12910b2"
     }, {
       "@type": "type.googleapis.com/CreateGlobalVar",
       "globalVar": {
-        "name": "tg_token",
+        "name": "token",
         "type": {
           "@type": "type.googleapis.com/StringVar"
-        },
-        "note": "剪贴板同步(TG)"
+        }
       },
       "customContextDataKey": {
       },
@@ -58,103 +82,50 @@
     }, {
       "@type": "type.googleapis.com/CreateGlobalVar",
       "globalVar": {
-        "name": "tg_id",
+        "name": "id",
         "type": {
           "@type": "type.googleapis.com/StringVar"
-        },
-        "note": "剪贴板同步(TG)"
+        }
       },
       "customContextDataKey": {
       },
       "id": "A-0c428131-7245-47b3-92fb-6af6be9e51a9"
     }, {
-      "@type": "type.googleapis.com/ShowAlertDialog",
-      "positive": "确认",
-      "message": "如果你有自己的域名，推荐vercel反代tg api，无需代理且连接稳定\n\ngithub新建仓库→根目录创建vercel.json写入以下内容→在vercel部署项目(需要绑自己域名)\n\n{\n    \"version\": 2,\n    \"routes\": [\n      {\"src\": \"/(.*)\",\"dest\": \"https://api.telegram.org\"}\n    ]\n}",
-      "style": {
-        "fontScale": 1.0
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "api",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
       },
       "customContextDataKey": {
       },
-      "id": "A-b33c77ed-25a6-4cc6-826f-fc72c6335c2d"
-    }, {
-      "@type": "type.googleapis.com/ShowTextFieldDialog",
-      "title": "参数设置",
-      "textFields": [{
-        "placeholder": "TG api 接口",
-        "value": "api.telegram.org"
-      }, {
-        "placeholder": "TG bot token"
-      }, {
-        "placeholder": "TG 用户 id"
-      }],
-      "style": {
-      },
-      "customContextDataKey": {
-      },
-      "id": "A-74197b0e-4564-492f-9a96-cc314bafaed5"
-    }, {
-      "@type": "type.googleapis.com/WriteGlobalVar",
-      "varName": "tg_api",
-      "valueAsString": "{textFieldInput1}",
-      "op": "WriteGlobalVarOp_Override",
-      "customContextDataKey": {
-      },
-      "id": "A-05d081fa-6c17-4581-b863-b68b37104eb4"
-    }, {
-      "@type": "type.googleapis.com/WriteGlobalVar",
-      "varName": "tg_token",
-      "valueAsString": "{textFieldInput2}",
-      "op": "WriteGlobalVarOp_Override",
-      "customContextDataKey": {
-      },
-      "id": "A-a6c17887-b418-477e-acac-78ab70eea84b"
-    }, {
-      "@type": "type.googleapis.com/WriteGlobalVar",
-      "varName": "tg_id",
-      "valueAsString": "{textFieldInput3}",
-      "op": "WriteGlobalVarOp_Override",
-      "customContextDataKey": {
-      },
-      "id": "A-6da55077-3b07-485e-ac73-9af9bd713f76"
+      "id": "A-c5f30b25-45d9-4789-ad27-85b214e7350b"
     }],
     "actionsOnDisabled": [{
       "@type": "type.googleapis.com/DeleteGlobalVar",
-      "varName": "tg_api",
+      "varName": "text",
       "customContextDataKey": {
       },
-      "id": "A-5270cccd-063e-456d-bedf-779fae1658bf"
+      "id": "A-f270a1d7-042a-444d-8298-de8429bbb2fd"
     }, {
       "@type": "type.googleapis.com/DeleteGlobalVar",
-      "varName": "tg_token",
+      "varName": "token",
       "customContextDataKey": {
       },
       "id": "A-3c0ac368-a068-4c08-99f7-07f326b717b4"
     }, {
       "@type": "type.googleapis.com/DeleteGlobalVar",
-      "varName": "tg_id",
+      "varName": "id",
       "customContextDataKey": {
       },
       "id": "A-a387d481-4fa6-4264-b5f2-5ccd1107afef"
-    }],
-    "actionsOnDeleted": [{
-      "@type": "type.googleapis.com/DeleteGlobalVar",
-      "varName": "tg_api",
-      "customContextDataKey": {
-      },
-      "id": "A-5bd496a8-9236-4ce0-b28f-9d61e9c62139"
     }, {
       "@type": "type.googleapis.com/DeleteGlobalVar",
-      "varName": "tg_token",
+      "varName": "api",
       "customContextDataKey": {
       },
-      "id": "A-f37858c8-3219-4329-8b64-7bb9b7b4a84e"
-    }, {
-      "@type": "type.googleapis.com/DeleteGlobalVar",
-      "varName": "tg_id",
-      "customContextDataKey": {
-      },
-      "id": "A-47d66601-4d9a-4518-9304-c83e3f339522"
+      "id": "A-5270cccd-063e-456d-bedf-779fae1658bf"
     }]
   },
   "quit": {

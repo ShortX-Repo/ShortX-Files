@@ -1,0 +1,84 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-c9a93259-53e9-42c2-b8f8-92c2369fa57c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://ip或域名/message?token\u003d填写",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["message"]
+    },
+    "method": "POST",
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyForm",
+      "items": [{
+        "key": "title"
+      }, {
+        "key": "message",
+        "value": "{clipboardContent}"
+      }, {
+        "key": "priority",
+        "value": "10"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-b277c319-a995-43b7-8c7a-b3b354a1ec10"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "自动同步成功：{httpRequestRet1}",
+    "customContextDataKey": {
+    },
+    "id": "A-0057641a-44a0-4a13-9dcb-5191ab73b30a"
+  }, {
+    "@type": "type.googleapis.com/WebSocketConnect",
+    "url": "wss:////ip或域名/message?token\u003d填写",
+    "onMessage": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "(function() {\n    // 原始 JSON 数据\n    var data \u003d wsMessage;\n\n    // 解析 JSON 数据\n    var parsedData \u003d JSON.parse(data);\n\n    // 提取 title 和 message\n    //var title \u003d parsedData.title;\n    var message \u003d parsedData.message;\n\n    // 格式化输出\n    var formattedOutput \u003d message;\n\n    return formattedOutput;\n})();",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "push"
+        }]
+      },
+      "note": "提取消息并格式化",
+      "id": "A-84b8ddff-e657-484a-9455-db7e606a0bbd"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{push}",
+      "customContextDataKey": {
+      },
+      "id": "A-e333aa25-1397-4ff3-ba40-6990b12b0c6f"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "已写入剪贴板：{push}",
+      "customContextDataKey": {
+      },
+      "id": "A-9e342348-7797-4e95-82a1-8ce22efc892c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b421655a-9515-4acc-9ae6-d0ac1889abf3"
+  }],
+  "id": "SHARE-rule-86a62730-4aa9-48b3-bff3-3658d0d29d44",
+  "lastUpdateTime": "1728822405913",
+  "createTime": "1696096094368",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "Gotify剪贴板",
+  "description": "自动同步写入到剪贴板，自动同步剪贴板到Gotify",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

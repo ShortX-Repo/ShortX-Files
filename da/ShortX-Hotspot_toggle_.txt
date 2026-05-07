@@ -1,0 +1,66 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "hotspot\u003d$(dumpsys wifi | grep \"mCurrentSoftApInfoMap {wlan\" | awk \u0027NR\u003c2\u0027)\nif echo $hotspot | grep -q \"about\"; then\n    echo 0\nelse\n    echo 1\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-aabd7c2e-599c-492d-a781-e88a198c080d"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "shellOut",
+      "payload": {
+        "value": "0"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-743027a3-57d6-4bc0-a1de-b74d462a9bc0"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetHotSpotEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-d21cc5af-16bc-44b9-8b3a-fbc0666b8177"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "Hotspot On ",
+      "customContextDataKey": {
+      },
+      "id": "A-0f9f0c3b-1111-4afa-9312-1327fff8c03b"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetHotSpotEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-b97c0af8-6434-46bc-aa75-7f4c867ecef9"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "Hotspot Off ",
+      "customContextDataKey": {
+      },
+      "id": "A-b59f37c4-7b57-4cdd-9202-ae06b4e18aea"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-bff0fbe8-ad1f-419d-9631-fad47f64993e"
+  }],
+  "id": "SHARED-DA-f007ce99-10bd-4f9a-9bc3-0217e947f514",
+  "lastUpdateTime": "1760244587096",
+  "createTime": "1759121856328",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Hotspot toggle ",
+  "versionCode": "1",
+  "directActionSetId": "DS-36b50348-74aa-4c25-87ee-ae3cfb536475",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [[ $(settings get global airplane_mode_on) \u003d\u003d \"0\" ]]; then\n  settings put global airplane_mode_on 1\n  echo \"Airplane Mode is now ON.\"\nelse\n  settings put global airplane_mode_on 0\n  echo \"Airplane Mode is now OFF.\"\nfi",
+    "customContextDataKey": {
+    },
+    "id": "A-27e26f3c-16c1-4d25-bc7b-5b21da1e07b5"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-9c44112a-0f36-4b02-9a64-5f9d85d340bc"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "Airplane Mode Toggle\n   🙏 ૐ નમઃ શિવાય 🙏",
+    "customContextDataKey": {
+    },
+    "id": "A-b13d222f-93d8-4238-852f-65995c3a6bbb"
+  }],
+  "id": "SHARED-DA-dc446f41-eb5a-47bb-a99e-53c47706e907",
+  "lastUpdateTime": "1759165369794",
+  "createTime": "1758277663409",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "AirPlane Mode Toggle",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,152 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "customContextDataKey": {
+    },
+    "id": "F-aed12cb1-9865-4fd5-bcad-3e7778356e31"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-28478523-8b8c-44b4-8147-c5b5dc212645"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "{isAllow}",
+    "valueAsString": "1",
+    "customContextDataKey": {
+    },
+    "id": "A-3caa3013-1941-4780-9e64-51e83cd17846"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "Contains",
+      "varName": "{allowPkg}",
+      "payload": {
+        "value": "{pkgName}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-25b1f132-5d96-4432-8edf-13f29b1671dd"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "Contains",
+      "varName": "{pkgName}",
+      "payload": {
+        "value": "{allowPkg}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-c0e5a4ae-f28e-40b3-ae65-dc4ae88714e3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "title": "stop",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-e226eae0-52b1-4893-89ec-b79c948d12dc"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e572f9a8-c7b8-4cd3-b246-54063a620ba0"
+  }],
+  "id": "SHARE-rule-59c78392-5d95-4fa8-a197-7fab75ad6d52",
+  "lastUpdateTime": "1762533891977",
+  "createTime": "1762445253746",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "applim",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "isAllow",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d63b1dc7-49d0-48af-ba7b-9372e2d2cb7f"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "{isAllow}",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-b196406b-5dc8-48fc-b338-3793f49fe4ab"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "allowPkg",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d5493ff3-4a90-47d7-98b8-225dec4b5e6a"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "importClass(android.content.pm.PackageManager);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\nfunction getInstalledAppsAsJsonList() {\n    var pm \u003d context.getPackageManager();\n    var apps \u003d pm.getInstalledApplications(PackageManager.GET_META_DATA);\n    var result \u003d new JSONArray();\n\n    for (var i \u003d 0; i \u003c apps.size(); i++) {\n        var appInfo \u003d apps.get(i);\n        var appName \u003d pm.getApplicationLabel(appInfo).toString();\n        var packageName \u003d appInfo.packageName;\n        var item \u003d new JSONObject();\n        item.put(\"name\", appName);\n        item.put(\"version\", packageName); \n        item.put(\"__value\", packageName);\n        item.put(\"__icon\", \"app://\" + packageName);\n\n        result.put(item);\n    }\n\n    return result;\n}\n\ngetInstalledAppsAsJsonList();",
+      "customContextDataKey": {
+      },
+      "id": "A-5e85dc13-3686-425c-a3b2-68b88c5c5c57"
+    }, {
+      "@type": "type.googleapis.com/ShowListDialog",
+      "title": "applist",
+      "cancelable": true,
+      "data": "{jsRet}",
+      "isMultipleChoice": true,
+      "delimiter": [","],
+      "needConfirmAction": true,
+      "dataType": "ShowListDialogDataType_Json",
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-e9cd9581-2a84-4b1c-a0a1-3b21f78b42aa"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "allowPkg",
+      "valueAsString": "{selectedListItem}",
+      "customContextDataKey": {
+      },
+      "id": "A-4ab8d746-d17b-4156-9ca4-35753c54dbb0"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "appLimitIsEnable ",
+      "customContextDataKey": {
+      },
+      "id": "A-d6eb7f5b-2781-416b-886e-772ea0fffdae"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "{allowPkg}",
+      "op": "WriteGlobalVarOp_Clear",
+      "customContextDataKey": {
+      },
+      "id": "A-2e4efb37-d153-4921-8ff2-a879efb00f67"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "leaveAppLimit",
+      "customContextDataKey": {
+      },
+      "id": "A-9753fd00-1f91-422c-b76f-d5799d9e3c5f"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,59 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-f892842a-4096-40ac-84fd-c297cc04be77"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 获取安卓版本\nString androidVersion \u003d android.os.Build.VERSION.RELEASE;\n\n// 获取设备型号\nString deviceModel \u003d android.os.Build.MODEL;\n\n// 输出结果\n\"同步\" + deviceModel + \"安卓\" + androidVersion + \"剪贴板\";",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "equipment"
+      }]
+    },
+    "id": "A-01a6241e-a9c8-4f9b-b313-cb1215c0ec57"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://你的ip或域名/message?token\u003d你创建的APPS的token",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["id"]
+    },
+    "method": "POST",
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyForm",
+      "items": [{
+        "key": "title",
+        "value": "{equipment}"
+      }, {
+        "key": "message",
+        "value": "{clipboardContent}"
+      }, {
+        "key": "priority",
+        "value": "10"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "note": "推送",
+    "id": "A-476fc5b1-2535-46fc-8c71-6a3fb8d50450"
+  }],
+  "id": "rule-bc44fe2d-30f6-4283-8a1e-abff7713b936",
+  "lastUpdateTime": "1719495582248",
+  "createTime": "1719492766349",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "剪贴板推送",
+  "description": "使用Gotify推送",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

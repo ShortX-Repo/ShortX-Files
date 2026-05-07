@@ -1,0 +1,66 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["聊天"],
+    "customContextDataKey": {
+    },
+    "id": "F-47a416ef-3af9-43e2-b61a-7dfd7c5da7db"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgSets": ["聊天"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-3b41683b-0871-4da4-8f09-8eba6f430a2b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StartAppProcess",
+      "pkgSets": ["聊天"],
+      "customContextDataKey": {
+      },
+      "id": "A-d1241161-f94e-4ceb-a836-314931396a8a"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "保活成功",
+      "customContextDataKey": {
+      },
+      "id": "A-4fbb5c18-bc07-4f35-8df4-b6adad206f6d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "保活失败",
+      "customContextDataKey": {
+      },
+      "id": "A-2e73bd21-1850-4dcf-9bd1-c3dfd17089bf"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-bd206801-0a7f-4721-9c77-96acb24c7716"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "保活成功",
+    "customContextDataKey": {
+    },
+    "id": "A-0ef19355-1edf-424b-928e-970c70e860ad"
+  }],
+  "id": "rule-468387f2-b16e-48f1-b881-4f5cafd64e6c",
+  "lastUpdateTime": "1704640573800",
+  "createTime": "1704543861883",
+  "author": {
+    "name": "www.lxapk.com"
+  },
+  "title": "微信、Tim保活",
+  "description": "微信、Tim保证后台运行",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-cfa2391c-0857-4e0c-8af7-513a82df5e09"
+}
+###------###
+{"type":"rule"}

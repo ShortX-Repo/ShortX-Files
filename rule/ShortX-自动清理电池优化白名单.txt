@@ -1,0 +1,71 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-0125a5ac-8542-45ab-af5f-46f2e4d47e8b"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/IsInCall",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-9293b5d4-7408-4f50-aeb1-b2e91c2fbf7d"
+  }, {
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-eebf3904-6696-4c73-9b93-993b8f899652"
+  }, {
+    "@type": "type.googleapis.com/PlugState",
+    "type": "PlugType_NotPlug",
+    "customContextDataKey": {
+    },
+    "id": "C-91222930-1ea3-47c7-9abc-952753572cfd"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys deviceidle whitelist | grep user | while read line; do\n    m\u003d$line\n    m\u003d${m##*mFocusedApp} # 取最后一个\n    m\u003d${m#*,} # 取第一个逗号后的内容\n    m\u003d${m%,*} # 取第一个逗号前的内容\n    if [[ \"$m\" !\u003d \"com.android.phone\" \u0026\u0026 \"$m\" !\u003d \"com.android.mms\" ]]; then\n        dumpsys deviceidle whitelist -$m\n    fi\ndone\n",
+    "customContextDataKey": {
+    },
+    "id": "A-925522be-942d-4945-af9e-70463340a4cb"
+  }, {
+    "@type": "type.googleapis.com/ForEachPkgSet",
+    "pkgSet": "电池优化白名单",
+    "action": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "dumpsys deviceidle whitelist \"+{loopAppPkgName}\"",
+      "customContextDataKey": {
+      },
+      "id": "A-fb47b602-ad19-48c8-863a-fe4db928f7b5"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8ae371fb-90ae-4209-aecc-7af3bdc5a397"
+  }],
+  "id": "rule-818e6bc7-0c50-44fb-91d9-859a37f635f8",
+  "lastUpdateTime": "1719125918278",
+  "createTime": "1716876613054",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "自动清理电池优化白名单",
+  "description": "电池优化白名单请前往应用集内添加",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "电池优化白名单",
+      "customContextDataKey": {
+      },
+      "id": "A-adf1d023-4e5f-46e9-8040-87933d401cf5"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
+}
+###------###
+{"type":"rule"}

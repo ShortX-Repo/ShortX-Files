@@ -1,0 +1,217 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/RequireWifiConnected",
+          "requiredSSID": "*",
+          "customContextDataKey": {
+          },
+          "id": "C-dfb9d412-7416-4622-8413-3f3472aea523"
+        }, {
+          "@type": "type.googleapis.com/RequireMobileDataEnabled",
+          "slotId": -1,
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-4df6dba6-d6a6-4b14-96ee-84c5a1617714"
+        }],
+        "IfCondOp": "ANY",
+        "IfActions": [{
+          "@type": "type.googleapis.com/SetDataEnabled",
+          "enable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-2afadf8d-3b52-4542-8e28-53875dc4115d"
+        }, {
+          "@type": "type.googleapis.com/SetWifiEnabled",
+          "customContextDataKey": {
+          },
+          "id": "A-c6dbd0db-65ba-4475-820a-9d3af714cebe"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/RequireMobileDataEnabled",
+            "slotId": -1,
+            "customContextDataKey": {
+            },
+            "id": "C-466e7a32-ad41-42f8-9df0-879226100a7e"
+          }, {
+            "@type": "type.googleapis.com/RequireWifiDisconnected",
+            "customContextDataKey": {
+            },
+            "id": "C-c7fdc75a-7cae-46e5-915d-472b0b5f7079"
+          }],
+          "IfCondOp": "ANY",
+          "IfActions": [{
+            "@type": "type.googleapis.com/SetWifiEnabled",
+            "enable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-77a89f14-129a-414b-a0e9-3c2a927c69b5"
+          }, {
+            "@type": "type.googleapis.com/SetDataEnabled",
+            "customContextDataKey": {
+            },
+            "id": "A-918fe1a4-1b6a-4ea1-9635-a826eeb727b5"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-e9271565-87ee-417b-aa30-9d5a4ecc3b08"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-3ac0a03f-b4e0-4e33-a75b-645e6b26ba9a"
+      }],
+      "icon": "loop-left-fill",
+      "label": "WIFI/数据",
+      "id": "BTN-8abea3c6-236e-4584-aef9-3e079a42d46d"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/ServiceIsRunning",
+          "services": [{
+            "pkg": {
+              "pkgName": "com.github.kr328.clash"
+            },
+            "className": "com.github.kr328.clash.service.TunService"
+          }, {
+            "pkg": {
+              "pkgName": "com.github.kr328.clash.foss"
+            },
+            "className": "com.github.kr328.clash.service.TunService"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-60759444-9422-4c97-b152-7cedff77b23e"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "am start-foreground-service -n com.github.kr328.clash.foss/com.github.kr328.clash.service.TunService || am start-foreground-service -n com.github.kr328.clash/com.github.kr328.clash.service.TunService",
+          "customContextDataKey": {
+          },
+          "id": "A-31cb8d3f-59ad-4b79-9764-5d1dfa4483a9"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "开启clash",
+          "customContextDataKey": {
+          },
+          "id": "A-7ceaed83-27fd-4195-91bf-6b3a6c146de8"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/ServiceIsRunning",
+            "services": [{
+              "pkg": {
+                "pkgName": "com.github.kr328.clash"
+              },
+              "className": "com.github.kr328.clash.service.TunService"
+            }, {
+              "pkg": {
+                "pkgName": "com.github.kr328.clash.foss"
+              },
+              "className": "com.github.kr328.clash.service.TunService"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-db9456a4-ef65-4a22-8e27-2989a9a41b2c"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "am force-stop com.github.kr328.clash.foss || am force-stop com.github.kr328.clash\n",
+            "customContextDataKey": {
+            },
+            "id": "A-4afc9f3b-7a89-45ad-9959-5b01a19f1f23"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "停止clash",
+            "customContextDataKey": {
+            },
+            "id": "A-ba186487-7229-4adc-a704-fc56289f3de5"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-84ed0451-74c8-4796-bdaa-6859d450b98e"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-36874d40-9a47-4b59-b211-3561393ce55f"
+      }],
+      "icon": "earth-line",
+      "label": "vpn",
+      "id": "BTN-c3088996-1306-4d74-b02f-a9f8a5365342"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "http://ovoa.cc/api/ktff.php",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-f21947c3-0bd0-4018-a73d-c7bea2a121e3"
+      }, {
+        "@type": "type.googleapis.com/InputText",
+        "text": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-ec7cf5e9-a89e-4128-b7e8-66752f38077f"
+      }],
+      "icon": "speak-line",
+      "label": "友好交流”",
+      "id": "BTN-d52d3949-01e2-4c87-a865-7c3f7dfaa4f2"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "input text 支付密码",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-9f348ecf-13d9-4b99-a5ce-99ffca7d8bb6"
+      }],
+      "icon": "money-cny-circle-line",
+      "label": "支付",
+      "id": "BTN-a549296c-65cc-455e-b08c-24c15b2ef4d9"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["1"],
+        "customContextDataKey": {
+        },
+        "id": "A-0b40b23b-d41e-4696-9faa-2eea7f666fe0"
+      }],
+      "icon": "close-circle-line",
+      "label": "退出",
+      "id": "BTN-11bae353-cc84-4ce5-bed2-8dbf2741cfac"
+    }],
+    "autoCollapse": true,
+    "tag": "1",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 129,
+    "buttonMinWidth": 20,
+    "overlayPaddingH": 1,
+    "overlayPaddingV": 20,
+    "customContextDataKey": {
+    },
+    "id": "A-4b202d70-946d-478f-9648-dcb4c32003bc"
+  }],
+  "id": "DA3906ec8a-eb52-4608-b4a3-88df888bc92d",
+  "lastUpdateTime": "1699100035114",
+  "createTime": "1696159057145",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "工具1.1（半成品）",
+  "description": "自己整合着玩的\nvpn指令抄袭自“奋斗 青年”\n友好交流抄袭自“▓▓”\n支付灵感来源于“奋斗 青年”帮人解决应用锁问题时的方案\n"
+}
+###------###
+{"type":"da"}

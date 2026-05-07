@@ -1,0 +1,37 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.voip.ui.VideoActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-d78bbd9f-b669-4e2b-aa0b-507c4f3d5f97"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "微信语音",
+    "valueAsString": "1",
+    "customContextDataKey": {
+    },
+    "id": "A-39e08035-a688-49b8-a78e-7ddde054f087"
+  }],
+  "id": "rule-70577c15-0fc3-474b-8f22-4826a78230fc",
+  "lastUpdateTime": "1703899356850",
+  "createTime": "1703899298702",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "语音通话写1",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

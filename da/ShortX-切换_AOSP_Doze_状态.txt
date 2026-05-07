@@ -1,0 +1,27 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "status\u003d$(dumpsys deviceidle | awk -F \u0027\u003d\u0027 \u0027/mDeepEnabled/ {print $2}\u0027 | cut -b -5 | tr -d \u0027[:space:]\u0027)\nif [ \"$status\" \u003d\u003d \"true\" ]; then\n    dumpsys deviceidle disable \u003e /dev/null 2\u003e\u00261\n    echo \"检测到 Doze 处于开启状态，已关闭 Doze\"\nelif [ \"$status\" \u003d\u003d \"false\" ]; then\n    dumpsys deviceidle enable \u003e /dev/null 2\u003e\u00261\n    echo \"检测到 Doze 处于禁用状态，已开启 Doze\"\nelse\n    echo \"未知的状态：$status\"\nfi",
+    "customContextDataKey": {
+    },
+    "id": "A-cdaff082-3563-4494-b11f-6b6e2979f665"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-36b693e0-108c-478a-9d02-483c54b5cf0c"
+  }],
+  "id": "SHARED-DA-2e8c0dde-eee6-4c74-a23b-caeca39b9272",
+  "lastUpdateTime": "1731848934765",
+  "createTime": "1731847576191",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "切换 AOSP Doze 状态",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

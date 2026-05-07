@@ -1,0 +1,50 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BTConnectedTo",
+    "device": ["OPPO Enco Air2 Pro"],
+    "customContextDataKey": {
+    },
+    "id": "F-adf554f5-ae9c-4f88-bb32-6f64d25ef189"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetBTEnabled",
+    "customContextDataKey": {
+    },
+    "id": "A-46a2134c-1abd-4a80-a421-f179ff3480d6"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-0bf480a5-142e-43e2-8751-1e3672eb4ce5"
+  }, {
+    "@type": "type.googleapis.com/SetBTEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-b422df63-43a4-4cf6-b60f-d122242dd6ba"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "2000",
+    "customContextDataKey": {
+    },
+    "id": "A-512c9e2e-a130-46f4-b9b7-8a136c1ca7c9"
+  }],
+  "id": "rule-4f557b9a-c5ba-49bc-b0ea-d6124e040624",
+  "lastUpdateTime": "1709134937752",
+  "createTime": "1709132629440",
+  "author": {
+    "name": "cong"
+  },
+  "title": "连接耳机自动开关蓝牙",
+  "description": " ",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

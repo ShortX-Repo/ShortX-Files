@@ -1,0 +1,343 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["需要清理进程的app"],
+    "tag": "执行",
+    "customContextDataKey": {
+    },
+    "id": "F-52bc366e-b06b-4d70-85c0-fd7c8fabaacb"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "执行",
+      "customContextDataKey": {
+      },
+      "id": "C-31ac7203-5755-45db-9dde-42dc723154ed"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "function killChildProcessesUserAware(appInfo, whitelist) {\n    var targetPkg \u003d String(appInfo.packagename);\n    var targetUser \u003d parseInt(appInfo.userid);\n    var safeWhitelist \u003d [];\n    \n    if (whitelist \u0026\u0026 whitelist.length \u003e 0) {\n        for (var k \u003d 0; k \u003c whitelist.length; k++) {\n            safeWhitelist.push(String(whitelist[k]));\n        }\n    }\n    try {\n        var ActivityThread \u003d android.app.ActivityThread;\n        var context \u003d ActivityThread.currentActivityThread().getSystemContext();\n        var am \u003d context.getSystemService(android.content.Context.ACTIVITY_SERVICE);\n        var Process \u003d android.os.Process;\n        var UserHandle \u003d android.os.UserHandle; \n\n        var appList \u003d am.getRunningAppProcesses();\n        if (!appList) return \"错误: 无法获取进程列表\";\n\n        var killedList \u003d [];\n        var ignoredList \u003d [];\n        var mainAlive \u003d false;\n\n        for (var i \u003d 0; i \u003c appList.size(); i++) {\n            var info \u003d appList.get(i);\n            var procUserId \u003d UserHandle.getUserId(info.uid);\n            \n            if (procUserId !\u003d\u003d targetUser) {\n                continue;\n            }\n\n            var procName \u003d String(info.processName);\n            var pid \u003d info.pid;\n\n            if (procName.startsWith(targetPkg)) {\n                \n                if (procName \u003d\u003d\u003d targetPkg) {\n                    mainAlive \u003d true;\n                } else if (safeWhitelist.includes(procName)) {\n                    ignoredList.push(procName.split(\":\").pop());\n                } else {\n                    Process.killProcess(pid);\n                    killedList.push(procName.split(\":\").pop());\n                }\n            }\n        }\n\n        var result \u003d \"目标: \" + targetPkg + \"(U\" + targetUser + \")\" +\n                     \", 主进程\" + (mainAlive ? \"存活\" : \"未运行\") +\n                     \", 清理: \" + killedList.length;\n\n        if (killedList.length \u003e 0) result +\u003d \" [\" + killedList.join(\", \") + \"]\";\n        if (ignoredList.length \u003e 0) result +\u003d \", 白名单: [\" + ignoredList.join(\", \") + \"]\";\n\n        return result;\n\n    } catch (e) {\n        var err \u003d \"异常: \" + e;\n        console.log(err);\n        return err;\n    }\n}\nkillChildProcessesUserAware({\"packagename\":pkgName,\"userid\":userId},JSON.parse(globalVarOf$进程白名单))",
+      "customContextDataKey": {
+      },
+      "id": "A-b916719d-8329-41e7-8c9c-27911c9f6464"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "添加白名单",
+        "clickActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "packages",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-43c3daf6-aac0-4f12-9236-8a8fbe550600"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "packages",
+          "valueAsString": "[]",
+          "customContextDataKey": {
+          },
+          "id": "A-1306c708-1b70-4777-8905-92359e553f72"
+        }, {
+          "@type": "type.googleapis.com/ForEachPkgSet",
+          "pkgSet": "需要清理进程的app",
+          "action": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var pkgs\u003dJSON.parse(localVarOf$packages)\npkgs.push({\"packagename\":loopAppPkgName,\"userid\":loopAppUserId})\n\nvar writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                    .setVarName(\"packages\")\n                    .setValueAsString(JSON.stringify(pkgs))\n                    .build();\n                shortx.executeAction(writeLocalVar);",
+            "customContextDataKey": {
+            },
+            "id": "A-b4df9382-4d9b-4274-a775-70e83dd974ad"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-bac51040-5741-4359-ae43-2d3479f6ef38"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "packages",
+            "payload": {
+              "value": "[]"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-abe9f9b9-9c16-44e3-80c8-9891ec2f8a3a"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "我知道了",
+            "title": "请添加应用",
+            "message": "请先前往应用集→需要清理进程的app处添加需要处理的应用后再添加白名单",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-734eadce-e23e-4091-8d33-669594cebd40"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-23afcfbb-ae3f-49cc-8c98-f25bbe69aaed"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-918a5940-eec9-4aad-ad70-98db7bc296fb"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "function filterRunningAppsFormatted(targetList) {\n    if (!targetList || targetList.length \u003d\u003d\u003d 0) return [];\n    var checkMap \u003d {}; \n    var keysToCheck \u003d [];\n\n    for (var i \u003d 0; i \u003c targetList.length; i++) {\n        var item \u003d targetList[i];\n        var uId \u003d parseInt(item.userid);\n        var pkg \u003d String(item.packagename);\n        \n        var key \u003d uId + \"|\" + pkg;\n        checkMap[key] \u003d {\n            packagename: pkg,\n            userid: uId\n        };\n        keysToCheck.push(key);\n    }\n\n    try {\n        var ActivityThread \u003d android.app.ActivityThread;\n        var context \u003d ActivityThread.currentActivityThread().getSystemContext();\n        var am \u003d context.getSystemService(android.content.Context.ACTIVITY_SERVICE);\n        var pm \u003d context.getPackageManager();\n        var UserHandle \u003d android.os.UserHandle;\n        var runningProcs \u003d am.getRunningAppProcesses();\n        if (!runningProcs) return [];\n\n        var runningMap \u003d {};\n\n        for (var i \u003d 0; i \u003c runningProcs.size(); i++) {\n            var info \u003d runningProcs.get(i);\n            var procUserId \u003d UserHandle.getUserId(info.uid);\n            var pkgs \u003d info.pkgList;\n            \n            if (pkgs) {\n                for (var j \u003d 0; j \u003c pkgs.length; j++) {\n                    var compositeKey \u003d procUserId + \"|\" + String(pkgs[j]);\n                    runningMap[compositeKey] \u003d true;\n                }\n            }\n        }\n\n        var resultList \u003d [{\n        \"name\": \"取消\",\n        \"__value\": \"取消\",\n        \"__icon\": \"close\"\n    }];\n        \n        for (var k \u003d 0; k \u003c keysToCheck.length; k++) {\n            var checkKey \u003d keysToCheck[k];\n            if (runningMap[checkKey]) {\n                var itemData \u003d checkMap[checkKey];\n                var pkgName \u003d itemData.packagename;\n                var userId \u003d itemData.userid;\n                var appLabel \u003d pkgName; \n                try {\n                    var appInfo \u003d pm.getApplicationInfo(pkgName, 0);\n                    var labelSeq \u003d pm.getApplicationLabel(appInfo);\n                    if (labelSeq) {\n                        appLabel \u003d labelSeq.toString();\n                    }\n                } catch (e) {}\n                var resultObj \u003d {\n                    \"name\": appLabel,\n                    \"version\": userId,\n                    \"__value\": JSON.stringify(itemData),\n                    \"__icon\": \"app://\" + pkgName\n                };\n                resultList.push(resultObj);\n            }\n        }\n\n        return resultList;\n\n    } catch (e) {\n        console.log(\"执行异常: \" + e);\n        return [];\n    }\n}\nJSON.stringify(filterRunningAppsFormatted(JSON.parse(localVarOf$packages)))",
+          "customContextDataKey": {
+          },
+          "id": "A-bab76bb2-9f1d-475e-8083-3deaa9d9a88f"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "jsRet",
+            "payload": {
+              "value": "[]"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-aeccd1b7-e3e9-4655-b085-6002a6a7df9b"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "我知道了",
+            "title": "请先打开目标应用",
+            "message": "当前应用集中没有正在运行的应用，请先添加/打开应用",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-7ba6e362-29a6-407a-aff0-28de97a8480a"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-0464e2bb-9408-448b-88c7-64894a11e47c"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShowListDialog",
+            "title": "正在运行的应用",
+            "data": "{jsRet}",
+            "delimiter": [","],
+            "dataType": "ShowListDialogDataType_Json",
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-0bca0fde-c92c-4f01-a65d-218028641166"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "selectedListItem",
+              "payload": {
+                "value": "[]"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-430762b5-6786-4173-b994-2c64c92987b4"
+            }, {
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "selectedListItem",
+              "payload": {
+                "value": "取消"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-71791bb5-ba53-48dd-91e4-a94a7a7a4e4f"
+            }, {
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "IsEmpty",
+              "varName": "selectedListItem",
+              "payload": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-ea1b698d-309a-446a-85cc-d89183be7db9"
+            }],
+            "IfCondOp": "ANY",
+            "IfActions": [{
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Root",
+              "customContextDataKey": {
+              },
+              "id": "A-2ded6a54-43b1-42e2-91ca-4002c6252e49"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-75f57a04-e2bf-41cd-a0ce-8a4d4dcc85c8"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-4df12e26-1994-4ed7-8393-c45952fb2b51"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "function getAppChildProcessesUserAware(appInfo) {\n    var targetPkg \u003d String(appInfo.packagename);\n    var targetUser \u003d parseInt(appInfo.userid);\n    var childList \u003d [];\n\n\n    try {\n        var ActivityThread \u003d android.app.ActivityThread;\n        var context \u003d ActivityThread.currentActivityThread().getSystemContext();\n        var am \u003d context.getSystemService(android.content.Context.ACTIVITY_SERVICE);\n        var UserHandle \u003d android.os.UserHandle;\n\n        var appList \u003d am.getRunningAppProcesses();\n        if (!appList) return [];\n\n        for (var i \u003d 0; i \u003c appList.size(); i++) {\n            var info \u003d appList.get(i);\n            var procUserId \u003d UserHandle.getUserId(info.uid);\n            if (procUserId !\u003d\u003d targetUser) continue;\n\n            var procName \u003d String(info.processName);\n            var pid \u003d info.pid;\n            if (procName.startsWith(targetPkg) \u0026\u0026 procName !\u003d\u003d targetPkg) {\n                childList.push({\n        \"name\": procName,\n        \"version\":\"userid:\"+appInfo.userid+ \"pid:\"+pid,\n        \"__value\": procName,\n        \"__icon\": \"app://\"+appInfo.packagename\n    });\n            }\n        }\n        return childList;\n\n    } catch (e) {\n        console.log(\"获取异常: \" + e);\n        return [];\n    }\n}\nJSON.stringify(getAppChildProcessesUserAware(JSON.parse(selectedListItem[0])))",
+          "customContextDataKey": {
+          },
+          "id": "A-acf6b47c-88d5-4619-aacf-c45013ad3ba6"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "添加白名单子进程",
+          "data": "{jsRet}",
+          "isMultipleChoice": true,
+          "delimiter": [","],
+          "needConfirmAction": true,
+          "dataType": "ShowListDialogDataType_Json",
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-9c601bc8-6c57-45fa-911f-5598ec9cc5da"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var whitelist\u003dJSON.parse(globalVarOf$进程白名单);\nvar i\u003d0;\nwhile(true){\n    var value\u003dselectedListItem[i];\n        if(value!\u003d\u003dundefined){\n            if(!whitelist.includes(String(value))){\n                whitelist.push(String(value));\n            }\n        i++;\n    }else break;\n}\nshortx.writeGlobalVarWithOp(\"进程白名单\", JSON.stringify(whitelist), 3);    ",
+          "customContextDataKey": {
+          },
+          "id": "A-f849ef40-c96d-423c-a8db-676dd82ab264"
+        }]
+      }, {
+        "title": "删除白名单",
+        "clickActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchJS",
+            "expression": "var whitelist\u003dJSON.parse(globalVarOf$进程白名单);\nwhitelist.length\u003e0;",
+            "customContextDataKey": {
+            },
+            "id": "C-40b5ca8f-c555-480b-b001-1658423639c1"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var whitelist\u003dJSON.parse(globalVarOf$进程白名单);\nvar jsonlist\u003d[];\nfor(i in whitelist){\n    var procName\u003dwhitelist[i];\n    var packageName\u003dprocName.split(\":\")[0];\n    jsonlist.push({\n        \"name\": procName,\n        \"__value\": procName,\n        \"__icon\": \"app://\"+packageName\n    })\n}\nJSON.stringify(jsonlist)",
+            "customContextDataKey": {
+            },
+            "id": "A-83791f20-31c5-4435-99e7-d3e326b19999"
+          }, {
+            "@type": "type.googleapis.com/ShowListDialog",
+            "title": "删除子进程",
+            "cancelable": true,
+            "data": "{jsRet}",
+            "isMultipleChoice": true,
+            "delimiter": [","],
+            "needConfirmAction": true,
+            "dataType": "ShowListDialogDataType_Json",
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-44603e46-dbd2-4339-b6d9-947b39682603"
+          }, {
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var whitelist\u003dJSON.parse(globalVarOf$进程白名单);\nvar i\u003d0;\nvar choose\u003d[];\nwhile(true){\n    var value\u003dselectedListItem[i];\n        if(value!\u003d\u003dundefined){\n            if(!choose.includes(String(value))){\n                choose.push(String(value));\n            }\n        i++;\n    }else break;\n}\nvar whitelistnext\u003d[];\nfor(i in whitelist){\n    if(!choose.includes(whitelist[i])){\n        whitelistnext.push(whitelist[i]);\n    }\n}\nshortx.writeGlobalVarWithOp(\"进程白名单\", JSON.stringify(whitelistnext), 3);    ",
+            "customContextDataKey": {
+            },
+            "id": "A-f849ef40-c96d-423c-a8db-676dd82ab264"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "当前没有可删除的白名单进程",
+            "customContextDataKey": {
+            },
+            "id": "A-a806c71b-fb0e-4a0b-b981-7fad6c19c84a"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-d8bec70f-19b7-4ad8-ad07-968fb99c64fc"
+        }]
+      }, {
+        "title": "取消"
+      }],
+      "title": "选择操作",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-181e52a3-8b16-4fc0-87bd-068105bf2f97"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c65c669a-eeb9-42f9-9990-1615e675eb53"
+  }],
+  "id": "SHARE-rule-4c4e0702-537f-4ae8-b1cb-bc3bc007f527",
+  "lastUpdateTime": "1765172308178",
+  "createTime": "1765161957274",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "后台进程清理",
+  "description": "先在应用集添加应用\n⬆️点击上方图标→执行动作可添加/删除白名单进程",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "需要清理进程的app",
+      "customContextDataKey": {
+      },
+      "id": "A-8a3e30a8-775b-4d26-8131-dbcc57c7f2de"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "进程白名单",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-d329b5bc-0a9b-4e29-8d96-dcfa12617cb6"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "进程白名单",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-6a942253-2883-446f-9f20-7e271de90050"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "进程白名单",
+        "valueAsString": "[]",
+        "customContextDataKey": {
+        },
+        "id": "A-64f59f0c-117f-4faf-b2f6-951c241208d9"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-213aa6dc-d0f4-4022-ad12-28d044f8a513"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

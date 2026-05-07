@@ -1,0 +1,32 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BTConnectedTo",
+    "device": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-bb790555-fac3-44ef-8eb1-e48fab77e8f2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -d orpheus://song/1931198850",
+    "customContextDataKey": {
+    },
+    "id": "A-72ceeb5d-22a2-4aec-9126-a00f11ec48a6"
+  }],
+  "id": "rule-aec4d071-65a1-4a62-a976-645d47673e9b",
+  "lastUpdateTime": "1713246074837",
+  "createTime": "1713197320309",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动播放网易云指定歌曲",
+  "description": "歌曲id分享网页获取（给自启动）",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-833e3604-c146-4067-852c-f2eaea1aaa32"
+}
+###------###
+{"type":"rule"}

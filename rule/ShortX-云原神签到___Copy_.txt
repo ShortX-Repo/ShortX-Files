@@ -1,0 +1,304 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/RandomInPeriod",
+    "start": {
+      "hour": 5,
+      "minutes": 30
+    },
+    "end": {
+      "hour": 8,
+      "minutes": 30
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-17eb2aaa-0daf-443c-b16b-1fb916a1f78f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "token",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      },
+      "isSecret": true
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-db5b3c65-31d0-48f9-99ef-c31d3185fbbd"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "x-rpc-device_id",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1349734b-f672-4ea1-b471-fc8c6160d021"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "token",
+    "customContextDataKey": {
+    },
+    "note": "输入你的x-rpc-combo_token",
+    "id": "A-a6cfe1a9-4a63-433c-90dd-ad03f25d902f"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "x-rpc-device_id",
+    "customContextDataKey": {
+    },
+    "note": "云原神抓包获取",
+    "id": "A-eb9ccd03-cc43-4c86-b0af-50e1058ace12"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "String token \u003d globalVarOf$token;\n\nString[] pairs \u003d token.split(\";\");\nfor (String pair : pairs) {\n    String[] keyValue \u003d pair.split(\"\u003d\");\n    if (keyValue[0].equals(\"oi\")) {\n        String value \u003d keyValue[1];\n        return value;\n    }\n}\n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "appid"
+      }]
+    },
+    "note": "在token中提取oi",
+    "id": "A-c5646d2a-53a0-4a76-9571-798526608d3d"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api-cloudgame-static.mihoyo.com/hk4e_cn/cg/gamer/api/getFunctionShieldNew?cg_game_biz\u003dhk4e_cn\u0026client_type\u003d2",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "headers": [{
+      "key": "accept-encoding",
+      "value": "gzip"
+    }, {
+      "key": "user-agent",
+      "value": "okhttp/4.10.0"
+    }, {
+      "key": "Host",
+      "value": "api-cloudgame-static.mihoyo.com"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "note": "原神版本号",
+    "id": "A-bbad1dac-09fe-40b1-aeeb-ecc72107e721"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\n\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONObject(\"data\").getJSONObject(\"config\").getJSONObject(\"cg.key_function_language_setting\").getJSONArray(\"versions\").getString(0);\n\nreturn version\n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "version"
+      }]
+    },
+    "note": "版本号",
+    "id": "A-7c773d29-736e-4a26-a560-aba0a37fe977"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api-cloudgame.mihoyo.com/hk4e_cg_cn/gamer/api/listNotifications?status\u003dNotificationStatusUnread\u0026type\u003dNotificationTypePopup\u0026is_sort\u003dtrue",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["retcode", "data.list[0].msg"]
+    },
+    "headers": [{
+      "key": "x-rpc-combo_token",
+      "value": "globalVarOf$token"
+    }, {
+      "key": "x-rpc-client_type",
+      "value": "2"
+    }, {
+      "key": "x-rpc-app_version",
+      "value": "{version}"
+    }, {
+      "key": "x-rpc-sys_version",
+      "value": "13"
+    }, {
+      "key": "x-rpc-channel",
+      "value": "mihoyo"
+    }, {
+      "key": "x-rpc-device_id",
+      "value": "localVarOf$x-rpc-device_id"
+    }, {
+      "key": "x-rpc-app_id",
+      "value": "{appid}"
+    }, {
+      "key": "x-rpc-vendor_id",
+      "value": "1"
+    }, {
+      "key": "User-Agent",
+      "value": "okhttp/4.10.0"
+    }, {
+      "key": "Accept-Encoding",
+      "value": "gzip"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "note": "访问公告列表进行签到",
+    "id": "A-31b2a475-1b65-482a-b7f9-a0a72ed12c01"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api-cloudgame.mihoyo.com/hk4e_cg_cn/wallet/wallet/get",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data.free_time.free_time", "data.play_card.short_msg", "data.coin.coin_num"]
+    },
+    "headers": [{
+      "key": "x-rpc-combo_token",
+      "value": "globalVarOf$token"
+    }, {
+      "key": "x-rpc-app_version",
+      "value": "{version}"
+    }, {
+      "key": "x-rpc-sys_version",
+      "value": "13"
+    }, {
+      "key": "x-rpc-device_id",
+      "value": "localVarOf$x-rpc-device_id"
+    }, {
+      "key": "x-rpc-app_id",
+      "value": "{appid}"
+    }, {
+      "key": "x-rpc-channel",
+      "value": "mihoyo"
+    }, {
+      "key": "x-rpc-client_type",
+      "value": "2"
+    }, {
+      "key": "x-rpc-vendor_id",
+      "value": "1"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "note": "云原神信息",
+    "id": "A-29bfeb4e-dc19-4bfe-89f2-9819032b629c"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "int time \u003d httpRequestRet1;\nint hours \u003d time / 60;\nint minutes \u003d time % 60;\nreturn \"米云币：\"+httpRequestRet3+\"枚\\n免费时长：\"+ hours + \"小时\" + minutes +\"分钟\\n畅玩卡状态：\" +httpRequestRet2;",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "push"
+      }]
+    },
+    "note": "云原神免费时长",
+    "id": "A-d8239a90-2e56-4c13-a172-79fbf67f1adf"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1} \u003d\u003d -100;",
+      "customContextDataKey": {
+      },
+      "id": "C-0c692b77-306e-4ebf-9bf5-09eb0f3597a2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1692930447600",
+      "title": "云原神签到",
+      "message": "Token以失效请重新抓取",
+      "smallIcon": "chat-2-line",
+      "customContextDataKey": {
+      },
+      "id": "A-6ea3984d-ae68-4474-a491-a734c4bccd42"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet2} \u003d\u003d \u0027\u0027;",
+        "customContextDataKey": {
+        },
+        "id": "C-c4d26571-124c-4c13-9efa-1209a4400d0d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1692933354726",
+        "title": "云原神签到",
+        "message": "签到状态：重复签到\n{push}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-a6f03ad7-967f-45ee-8371-076ea25464f4"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1692930414800",
+        "title": "云原神签到",
+        "message": "签到状态：OK\n{push}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-2ac5bec4-4d06-46c3-b5b5-0b6b56513e44"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b8a68f4b-36fa-4e39-9331-9499cf8ca051"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4013bac5-be86-409b-b94a-86d50a22d46f"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api-cloudgame.mihoyo.com/hk4e_cg_cn/gamer/api/getAnnouncementInfo",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "headers": [{
+      "key": "x-rpc-combo_token",
+      "value": "localVarOf$token"
+    }, {
+      "key": "x-rpc-client_type",
+      "value": "2"
+    }, {
+      "key": "x-rpc-app_version",
+      "value": "{version}"
+    }, {
+      "key": "x-rpc-sys_version",
+      "value": "13"
+    }, {
+      "key": "x-rpc-channel",
+      "value": "mihoyo"
+    }, {
+      "key": "x-rpc-device_id",
+      "value": "5d07b8a2-346d-3961-94bf-f8e05a025226"
+    }, {
+      "key": "x-rpc-device_name",
+      "value": "Realme RMX3350"
+    }, {
+      "key": "x-rpc-device_model",
+      "value": "RMX3350"
+    }, {
+      "key": "x-rpc-app_id",
+      "value": "1953439974"
+    }, {
+      "key": "x-rpc-vendor_id",
+      "value": "1"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "看其他脚本里都有不知道啥用",
+    "id": "A-44b55379-a818-4f33-ac95-69492ffb04a3"
+  }],
+  "id": "rule-07fa7475-afa1-4f9e-ab81-9f5925e20453",
+  "lastUpdateTime": "1692934175305",
+  "createTime": "1692841588703",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "云原神签到  (Copy)",
+  "description": "每日自动领时长",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,70 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "focus-fill",
+    "id": "A-91c75fe2-0e6e-405a-83fc-d6ab6f724630"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "note": "防止在别的Activity",
+    "id": "A-b9fab4f2-dc8d-4a7c-adbd-6d26a08af862"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "300",
+    "id": "A-e4fc68e3-3aa7-457e-b23a-473361733cbb"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "tornaco.apps.shortx"
+    },
+    "note": "进入APP",
+    "id": "A-fb738ca6-0ca6-4d9d-bb23-f43abc1c59c6"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "300",
+    "id": "A-3b5fccfe-baf7-4b19-9a94-8427a2392693"
+  }, {
+    "@type": "type.googleapis.com/InputSwipe",
+    "startX": 200,
+    "startY": 1190,
+    "endX": 800,
+    "endY": 1190,
+    "swipeTime": "100",
+    "note": "打开设置",
+    "id": "A-d580f098-eca6-46eb-9bdd-e3c0d635d14c"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "200",
+    "id": "A-cefa0c39-a51d-45c9-9d96-fba2e221bb06"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "备份",
+    "isRegex": true,
+    "id": "A-907dbe56-3415-49d7-bdf2-461480b13d3f"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "200",
+    "id": "A-82e76e2e-2700-43fd-8275-5330758f97e6"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "确定",
+    "id": "A-9ff1a7ba-5351-46dd-b263-16c8289761a3"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "ShortX备份成功！",
+    "id": "A-917c8ec4-4325-4c89-a1ae-8d06e00862ba"
+  }],
+  "id": "DAf9cac13c-d15f-4a89-818b-e906cf60eb9d",
+  "lastUpdateTime": "1691662615599",
+  "createTime": "1691662068471",
+  "author": {
+    "name": "ZhiQing"
+  },
+  "title": "ShortX自动备份",
+  "description": "自动备份ShortX数据，将现有数据备份到Download文件夹下，请配合定时任务使用",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,169 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "customContextDataKey": {
+    },
+    "id": "F-65cec1c2-26b0-4add-be9a-55dabeadc0ef"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "pgrep -f \"alist\"",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-2333608d-4555-453b-b4d8-3862be5e059a"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "Alist",
+    "valueAsString": "{shellOut}",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-7f7650b0-d32f-42ed-ab69-b36e0c2c520e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsEmpty",
+      "varName": "Alist",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-c3ff1287-d3cd-4362-a16a-1c0263269b6b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo \"启动Alist\"\nMODDIR\u003d/data/adb/modules/Alist\nchmod 777 $MODDIR/bin/alist\n$MODDIR/bin/alist server --data $MODDIR/data\u0026",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-d91277d8-86f0-4cd2-ae0d-5dd228eb2ba7"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1500",
+      "customContextDataKey": {
+      },
+      "id": "A-57a54982-22db-4337-bda0-3c8443d7f544"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "pgrep -f \"alist\"",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-5ab9123f-3c64-4293-8fda-9c8e7908a08b"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Alist",
+      "valueAsString": "{shellOut}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-051707f7-2971-445e-b62e-9ae407fa4ccf"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "启动Alist进程id：{shellOut} 已写入全局变量",
+      "customContextDataKey": {
+      },
+      "id": "A-c3e42a54-9022-4489-8fea-da90b7d523de"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "kill $(pgrep alist)\necho \"重启Alist\"\nMODDIR\u003d/data/adb/modules/Alist\nchmod 777 $MODDIR/bin/alist\n$MODDIR/bin/alist server --data $MODDIR/data\u0026",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-37b3ec65-70ff-4b9c-99cd-79a0bd676d32"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1500",
+      "customContextDataKey": {
+      },
+      "id": "A-57a54982-22db-4337-bda0-3c8443d7f544"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "pgrep -f \"alist\"",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-5ab9123f-3c64-4293-8fda-9c8e7908a08b"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Alist",
+      "valueAsString": "{shellOut}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-051707f7-2971-445e-b62e-9ae407fa4ccf"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "重启Alist进程id：{shellOut} 已写入全局变量",
+      "customContextDataKey": {
+      },
+      "id": "A-c3e42a54-9022-4489-8fea-da90b7d523de"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-6350f06c-4a5b-462c-9a48-3fe2d9b133ae"
+  }],
+  "id": "rule-8ee4786f-8f60-49f5-9bfe-59bffc577e03",
+  "lastUpdateTime": "1701967052506",
+  "createTime": "1701965698942",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "自动运行Alist",
+  "description": "一键指令全放动作中了，方便分享。本意是该自动指令执行一键指令。有时候需要重启Alist。",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "Alist",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-6ebd1bc2-c676-4f59-a4a3-ac12829a140a"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "Alist",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "Alist进程id"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-ec99f938-c811-4eb5-8c21-2b486516b8cf"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "focus-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-841991f7-3b6a-4edb-9493-dbc5a173f478"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a0a5fd9b-71a0-43d6-8b07-45acb318e842"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "Alist",
+      "customContextDataKey": {
+      },
+      "id": "A-0a7c3a5c-4bfd-4455-abb3-f9f17c629dbd"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-de5b5bd8-2d88-4189-94e9-c3283b1c4658"
+}
+###------###
+{"type":"rule"}

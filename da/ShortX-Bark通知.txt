@@ -1,0 +1,22 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\n#!/bin/bash\n\n# 替换为你的 Bark API 网址、通知标题、内容、分组名称和剪贴板选项\nBARK_URL\u003d\"https://api.day.app/###############\"\n\nMESSAGE\u003d$(cat /storage/emulated/0/Documents/lepao.txt)\nGROUP\u003d\"分组名字\"\nTITLE\u003d\"你的标题\"\n\n# 发送 HTTP 请求\ncurl -s -o /dev/null -X POST --data-urlencode \"title\u003d${TITLE}\" --data-urlencode \"body\u003d${MESSAGE}\" \"${BARK_URL}/?group\u003d${GROUP}\" ",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-9b44e91b-ac80-4234-9abc-044fa8657098"
+  }],
+  "id": "DA711f2d6b-b0ba-4979-af68-5585b8c619e0",
+  "lastUpdateTime": "1699725795704",
+  "createTime": "1698433662211",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Bark通知",
+  "description": "推送lepao.txt里面的所有内容",
+  "versionCode": "1",
+  "directActionSetId": "DS-be298808-b3b1-4298-9f67-625039fb9a61"
+}
+###------###
+{"type":"da"}

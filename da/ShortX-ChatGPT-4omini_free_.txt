@@ -1,0 +1,84 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "robot",
+    "customContextDataKey": {
+    },
+    "id": "A-845e8fe5-7980-4a4c-a18b-febaf8245d19"
+  }, {
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "ChatGPT-4omini",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "给“ChatGPT”发送消息"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-bb6694c9-36f1-4271-9d34-ebcf86438ddc"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://free.gpt.ge/v1/chat/completions",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["choices[0].message.content"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Authorization",
+      "value": "Bearer YourApiKey"
+    }, {
+      "key": "application/json",
+      "value": "Content-Type"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"{textFieldInput1}\"\n        }\n    ],\n    \"max_tokens\": 1688,\n    \"temperature\": 0.5,\n    \"stream\": false\n}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-95b31123-cbc7-4f84-94a5-063adbd2e3a0"
+  }, {
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{httpRequestRet1}",
+    "regex": "\\*|#|-|`",
+    "customContextDataKey": {
+    },
+    "id": "A-fd27b83c-d528-4bb5-907b-180ddea9f9ff"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制回复",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{httpRequestRet1}",
+      "customContextDataKey": {
+      },
+      "id": "A-3e613542-de73-4c85-aa0f-15b4881898c4"
+    }],
+    "negative": "继续提问",
+    "onNegative": [{
+      "@type": "type.googleapis.com/FromDA",
+      "daId": "SHARED-DA-3a9025ab-020f-4b4d-87cb-eef48aa9d7f2",
+      "customContextDataKey": {
+      },
+      "id": "A-7cad7837-25f8-4063-8224-cd9aae85296b"
+    }],
+    "title": "ChatGPT-4omini",
+    "message": "Q：{textFieldInput1}\nA：{replaceResult}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-9ebd67a4-6041-4900-bae0-a0f663c941ee"
+  }],
+  "id": "SHARED-DA-3a9025ab-020f-4b4d-87cb-eef48aa9d7f2",
+  "lastUpdateTime": "1729574692103",
+  "createTime": "1729445312923",
+  "author": {
+    "name": "PrsTest"
+  },
+  "title": "ChatGPT-4omini（free）",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

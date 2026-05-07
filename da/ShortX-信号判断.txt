@@ -1,0 +1,77 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.telephony.TelephonyManager; \nimport android.telephony.ServiceState;\n\nboolean flag \u003d false;\nboolean re \u003d false;\n\nTelephonyManager telephonyManager \u003d (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);\n\ndef main(){\n// 获取网络类型\nint networkType \u003d telephonyManager.getNetworkType();\n// 获取信号强度\nint signalStrength \u003d telephonyManager.getSignalStrength().getLevel();\nif (signalStrength \u003d\u003d 0) {\n        flag \u003d true;\n        re \u003d true;\n  } else if (networkType \u003d\u003d 20 \u0026\u0026 signalStrength \u003e 2) {\n        flag \u003d true;\n        re \u003d false;\n    }\n}\n//while(!flag){\nmain();\n//re\nflag;\n    \n    ",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "flag"
+      }]
+    },
+    "id": "A-0b859d67-63a1-40b9-bb42-35a412e07cad"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "flag",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-04aa9065-861a-4472-9eb5-cb24702dc99f"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.content.Context;\nimport android.telephony.TelephonyManager; \nimport android.telephony.ServiceState;\n\nboolean flag \u003d false;\nboolean re \u003d false;\n\nTelephonyManager telephonyManager \u003d (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);\n\ndef main(){\n// 获取网络类型\nint networkType \u003d telephonyManager.getNetworkType();\n// 获取信号强度\nint signalStrength \u003d telephonyManager.getSignalStrength().getLevel();\nif (signalStrength \u003d\u003d 0) {\n        flag \u003d true;\n        re \u003d true;\n  } else if (networkType \u003d\u003d 20 \u0026\u0026 signalStrength \u003e 2) {\n        flag \u003d true;\n        re \u003d false;\n    }\n}\n//while(!flag){\nmain();\nflag;",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "flag"
+        }]
+      },
+      "id": "A-0b859d67-63a1-40b9-bb42-35a412e07cad"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.content.Context;\nimport android.telephony.TelephonyManager; \nimport android.telephony.ServiceState;\n\nboolean flag \u003d false;\nboolean re \u003d false;\n\nTelephonyManager telephonyManager \u003d (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);\n\ndef main(){\n// 获取网络类型\nint networkType \u003d telephonyManager.getNetworkType();\n// 获取信号强度\nint signalStrength \u003d telephonyManager.getSignalStrength().getLevel();\nif (signalStrength \u003d\u003d 0) {\n        flag \u003d true;\n        re \u003d true;\n  } else if (networkType \u003d\u003d 20 \u0026\u0026 signalStrength \u003e 2) {\n        flag \u003d true;\n        re \u003d false;\n    }\n}\n//while(!flag){\nmain();\n//re\nre;\n    \n    ",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet",
+          "second": "re"
+        }]
+      },
+      "isDisabled": true,
+      "id": "A-e7bab9e4-eedb-4257-a93a-65485a1cf195"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-63242f85-5087-48a1-85ec-e8fac63b9991"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.telephony.TelephonyManager; \nimport android.telephony.ServiceState;\n\nboolean flag \u003d false;\nboolean re \u003d false;\n\nTelephonyManager telephonyManager \u003d (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);\n\ndef main(){\n// 获取网络类型\nint networkType \u003d telephonyManager.getNetworkType();\n// 获取信号强度\nint signalStrength \u003d telephonyManager.getSignalStrength().getLevel();\nif (signalStrength \u003d\u003d 0) {\n        flag \u003d true;\n        re \u003d true;\n  } else if (networkType \u003d\u003d 20 \u0026\u0026 signalStrength \u003e 2) {\n        flag \u003d true;\n        re \u003d false;\n    }\n}\n//while(!flag){\nmain();\n//re\nre;\n    ",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "re"
+      }]
+    },
+    "id": "A-c0a42f83-e7ef-43e4-a8e7-20f01f0c4b2b"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{re}",
+    "customContextDataKey": {
+    },
+    "id": "A-dcf4d2d6-ffcd-4d16-8b45-02433c77ed87"
+  }],
+  "id": "DA00005903-0d70-4548-8d92-a2ab5cf46339",
+  "lastUpdateTime": "1717891506622",
+  "createTime": "1717800721572",
+  "author": {
+    "name": " author：Prslc"
+  },
+  "title": "信号判断",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

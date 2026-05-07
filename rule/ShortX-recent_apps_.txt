@@ -1,0 +1,110 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "RightCenter",
+    "gesture": "SwipeFromTop",
+    "customContextDataKey": {
+    },
+    "id": "F-517c5fab-0d5e-48da-926a-f8c74b10b759"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "packagelist",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-340ef714-ce93-45ca-86d0-76fccd49e7b8"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys activity recents | \\\ngrep -E \u0027A\u003d[0-9]+:\u0027 | \\\ngrep -vE \u0027type\u003d(home|recents)\u0027 | \\\ngrep -oE \u0027:[^ /]+\u0027 | \\\ncut -d: -f2 | \\\nsed -E \u0027s/[^a-zA-Z0-9\\.]+$//\u0027 | \\\ngrep -vE \u0027com\\.android\\.settings|com\\.android\\.launcher|com\\.google\\.android\\.inputmethod|com\\.android\\.systemui|android$|\\.FallbackHome|\\.CodeEditorActivity|com\\.google\\.android\\.googlequicksearchbox\\.googleapp|com\\.google\\.android\\.gms|com\\.android\\.vending|com\\.google\\.android\\.ext\\.services|com\\.google\\.android\\.music|com\\.google\\.android\\.apps\\.maps|com\\.arlosoft\\.macrodroid|\\.activities\\.ImageViewerActivity|com\\.android\\.shell\u0027 | \\\ngrep -vE \u0027com\\.google\\.android\\.googlequicksearchbox\\.LensActivity\u0027 | \\\ngrep -vE \u0027:\\.\u0027 | \\\nsort -u\n",
+    "customContextDataKey": {
+    },
+    "id": "A-d3e9cfff-330e-414c-9ccf-196e22c4232e"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "packagelist",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-0679ac3a-3eb0-4d08-ab62-452c4d4148e7"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "applist",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-28d69ff7-6c19-473f-822f-d2e8390ea1dc"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// 输入包名字符串（多行）\nvar input \u003d localVarOf$packagelist;\n\n// 引用 Java 类\nvar AppGlobals \u003d Packages.android.app.AppGlobals;\nvar pm \u003d AppGlobals.getInitialApplication().getPackageManager();\n\n// 拆分包名\nvar lines \u003d input.split(\"\\n\");\n\n// 用数组存放结果\nvar result \u003d [];\n\n// 遍历\nfor (var i \u003d 0; i \u003c lines.length; i++) {\n    var pkg \u003d lines[i].trim();\n    if (pkg.length \u003d\u003d\u003d 0) continue;\n\n    try {\n        var appInfo \u003d pm.getApplicationInfo(pkg, 0);\n        var appName \u003d pm.getApplicationLabel(appInfo).toString();\n\n        // 构造对象\n        var obj \u003d {\n            \"name\": appName,\n            \"version\": pkg,\n            \"__value\": pkg,\n            \"__icon\": \"app://\" + pkg\n        };\n\n        result.push(obj);\n        console.log(\"Resolved: \" + pkg + \" → \" + appName);\n\n    } catch (e) {\n        // 如果没找到应用，仍然输出占位\n        var obj \u003d {\n            \"name\": \"[未安装或无法识别]\",\n            \"version\": pkg,\n            \"__value\": pkg,\n            \"__icon\": \"app://\" + pkg\n        };\n\n        result.push(obj);\n        console.log(\"Failed: \" + pkg + \" → \" + e);\n    }\n}\n\n// 返回 JSON 数组字符串\nJSON.stringify(result, null, 4);",
+    "customContextDataKey": {
+    },
+    "note": "json格式带图标",
+    "id": "A-66bb5285-a21b-4641-9415-0cf8505c4755"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "applist",
+    "customContextDataKey": {
+    },
+    "id": "A-8d15ac51-84a9-4c5f-b31b-3dd35494155a"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "selectapp",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-eb0b5464-cf25-4081-ad2c-551538f7911c"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "Recent apps",
+    "cancelable": true,
+    "data": "{jsRet}",
+    "delimiter": [","],
+    "dataType": "ShowListDialogDataType_Json",
+    "style": {
+      "fontScale": 1.1584258
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-65f2aaa8-670e-4e70-93f9-fb080c36f7bf"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.content.Intent);\nimportClass(android.content.pm.PackageManager);\nvar pkg \u003d {selectedListItem}.replace(/[\\[\\]]/g, \u0027\u0027);\n\nvar pm \u003d context.getPackageManager();\nvar it \u003d pm.getLaunchIntentForPackage(pkg);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\ncontext.startActivity(it);\n\n\"已启动应用：\" + pkg;",
+    "customContextDataKey": {
+    },
+    "id": "A-c0626c4b-0fd6-4251-9a0c-521c982c348b"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.app.ActivityManager);\nimportClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\n// 获取系统服务\nvar activityManager \u003d context.getSystemService(context.ACTIVITY_SERVICE);\nvar packageManager \u003d context.getPackageManager();\n\nvar result \u003d new JSONArray();\n\nif (activityManager \u003d\u003d null || packageManager \u003d\u003d null) {\n    var errorItem \u003d new JSONObject();\n    errorItem.put(\"error\", \"无法获取系统服务\");\n    result.put(errorItem);\n} else {\n    // 获取最近任务列表，这里获取100个任务\n    var tasks \u003d activityManager.getRecentTasks(100, ActivityManager.RECENT_WITH_EXCLUDED);\n    \n    if (tasks \u003d\u003d null || tasks.size() \u003d\u003d\u003d 0) {\n        var errorItem \u003d new JSONObject();\n        errorItem.put(\"error\", \"无法获取最近任务\");\n        result.put(errorItem);\n    } else {\n        for (var i \u003d 0; i \u003c tasks.size(); i++) {\n            var task \u003d tasks.get(i);\n            \n            if (task.topActivity !\u003d null) {\n                var packageName \u003d task.topActivity.getPackageName();\n                \n                try {\n                    // 获取应用信息\n                    var appInfo \u003d packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);\n                    var appName \u003d packageManager.getApplicationLabel(appInfo).toString();\n                    \n                    var item \u003d new JSONObject();\n                    item.put(\"name\", appName);\n                    item.put(\"package\", packageName);\n                    item.put(\"__value\", packageName);\n                    item.put(\"__icon\", \"app://\" + packageName);\n                    \n                    result.put(item);\n                } catch (e) {\n                    // 如果无法获取应用信息，使用默认值\n                    var item \u003d new JSONObject();\n                    item.put(\"name\", \"应用未找到\");\n                    item.put(\"package\", packageName);\n                    item.put(\"__value\", packageName);\n                    item.put(\"__icon\", \"app://android\");\n                    \n                    result.put(item);\n                }\n            }\n        }\n    }\n}\n\n// 输出JSON格式结果\nresult.toString();",
+    "customContextDataKey": {
+    },
+    "id": "A-a9793123-27bd-4415-ae42-8a673f253220"
+  }],
+  "id": "SHARE-rule-d126f1e9-9665-4d52-bfe4-dbc3504d0b23",
+  "lastUpdateTime": "1759496452544",
+  "createTime": "1759006767939",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "recent apps ",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

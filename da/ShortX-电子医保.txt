@@ -1,0 +1,27 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "alipay-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-b78474ef-c415-487b-8105-649619623128"
+  }, {
+    "@type": "type.googleapis.com/StartActivityIntentUri",
+    "intentUri": "intent:#Intent;launchFlags\u003d0x10040000;component\u003dcom.eg.android.AlipayGphone/com.alipay.android.phone.wallet.healthysecurity.ui.HsMainActivity;S.app_id\u003d20002069;B.__fw_from_microapp_startactivity\u003dtrue;B.__fw_start_with_activity_context\u003dtrue;end",
+    "customContextDataKey": {
+    },
+    "id": "A-93bd6f6d-d8c0-429c-a874-1c66003cb87a"
+  }],
+  "id": "DA1e3e0cd4-6431-4ce4-a08a-d3214b766fa9",
+  "lastUpdateTime": "1700612522013",
+  "createTime": "1700304860929",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "电子医保",
+  "description": "支付宝电子医保",
+  "versionCode": "1",
+  "directActionSetId": "DS-1242d340-cc01-4909-b224-518d538dc191"
+}
+###------###
+{"type":"da"}

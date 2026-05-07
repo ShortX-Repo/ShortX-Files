@@ -1,0 +1,396 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "apps": [{
+        "pkgName": "cn.aqzscn.stream_music"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-4a049415-9dcb-49de-a53a-f4f49f155841"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "String text \u003d {title};\nint length \u003d text.length();",
+    "customContextDataKey": {
+    },
+    "id": "A-6494d091-1f56-457f-9cfc-e2aab2605777"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-88a985f2-26e0-40de-a97d-78500211fcb2"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "String text \u003d {title};\nString repeatChar \u003d \" \";\nint repeatCount \u003d (5 - text.length()) * 4;\nString result \u003d (text.length() \u003c 5) ? text + repeatChar.repeat(repeatCount): text;\nresult\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "歌词"
+          }]
+        },
+        "id": "A-62f6b992-8f5a-49a5-8fac-6e1553a457aa"
+      }, {
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "{歌词}",
+        "icon": "app://cn.aqzscn.stream_music",
+        "clickAction": [{
+          "@type": "type.googleapis.com/ShowOverlayButton",
+          "buttonSettings": [{
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_SkipToPrevious",
+              "customContextDataKey": {
+              },
+              "id": "A-a46e8dcd-9419-483b-be37-9508e85b87b3"
+            }],
+            "icon": "skip-back-fill",
+            "label": "上一曲",
+            "id": "BTN-c341af5c-e657-44d0-abc5-a00a41275cd1"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_Pause",
+              "customContextDataKey": {
+              },
+              "id": "A-a029b797-eff1-41d2-b1d2-7f9c7581ad30"
+            }],
+            "icon": "pause-mini-line",
+            "label": "暂停",
+            "id": "BTN-be2931fe-8493-4b93-9e0c-6fd5f2c2c857"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "customContextDataKey": {
+              },
+              "id": "A-52651bce-ff03-4812-96a9-ea7db2c7bd6c"
+            }],
+            "icon": "play-mini-fill",
+            "label": "播放",
+            "id": "BTN-734c3f42-b04e-4d7a-9fd0-6d4ccfe4f4f4"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_SkipToNext",
+              "customContextDataKey": {
+              },
+              "id": "A-67cf583d-6bd8-408e-973a-43b4061fa73d"
+            }],
+            "icon": "skip-forward-fill",
+            "label": "下一曲",
+            "id": "BTN-818bfab7-0cff-4f80-bb76-d40cb7606229"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_Stop",
+              "customContextDataKey": {
+              },
+              "id": "A-b99aea1d-1ecd-4812-a764-845a4f984365"
+            }, {
+              "@type": "type.googleapis.com/HideStatusBarClip",
+              "customContextDataKey": {
+              },
+              "id": "A-de620f39-b286-4909-b1e5-b12c636671ff"
+            }],
+            "icon": "stop-mini-fill",
+            "label": "停止",
+            "id": "BTN-e75359c2-8c7c-43ea-af9c-1927ab06a2c0"
+          }],
+          "tag": "2024-09-28 14:13:25",
+          "maxHeightInDp": 500,
+          "maxWidthInDp": 500,
+          "backgroundAlpha": 0.8,
+          "buttonMinWidth": 64,
+          "closeOnTouchOutside": true,
+          "customContextDataKey": {
+          },
+          "id": "A-65e8b3fd-b570-4fee-8778-866f80a1379f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-95e26d88-1352-4b7e-8485-0515adb3f2bd"
+      }],
+      "description": "0到5",
+      "id": "Case-072dc52a-22dd-4da1-9c5d-609729b6b030"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "5"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-f208eab8-4461-4693-a644-3d35fcb0ee9e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "String text \u003d {title};\nString result \u003d text.substring(5);",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "歌词"
+          }]
+        },
+        "id": "A-9a3ee9d2-a1b4-4c4a-848f-a67979be49b4"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "String text \u003d {歌词};\nString repeatChar \u003d \" \";\nint repeatCount \u003d (5 - text.length()) * 4;\nString result \u003d (text.length() \u003c 5) ? text + repeatChar.repeat(repeatCount): text;\nresult\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "歌词"
+          }]
+        },
+        "id": "A-a71f8d6a-86c2-421e-8c0c-ea2086dd9006"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1200",
+        "customContextDataKey": {
+        },
+        "id": "A-4c850b37-3294-4dc5-922d-5727675d3119"
+      }, {
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "{歌词}",
+        "icon": "app://cn.aqzscn.stream_music",
+        "clickAction": [{
+          "@type": "type.googleapis.com/ShowOverlayButton",
+          "buttonSettings": [{
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_SkipToPrevious",
+              "customContextDataKey": {
+              },
+              "id": "A-a46e8dcd-9419-483b-be37-9508e85b87b3"
+            }],
+            "icon": "skip-back-fill",
+            "label": "上一曲",
+            "id": "BTN-c341af5c-e657-44d0-abc5-a00a41275cd1"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_Pause",
+              "customContextDataKey": {
+              },
+              "id": "A-a029b797-eff1-41d2-b1d2-7f9c7581ad30"
+            }],
+            "icon": "pause-mini-line",
+            "label": "暂停",
+            "id": "BTN-be2931fe-8493-4b93-9e0c-6fd5f2c2c857"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "customContextDataKey": {
+              },
+              "id": "A-52651bce-ff03-4812-96a9-ea7db2c7bd6c"
+            }],
+            "icon": "play-mini-fill",
+            "label": "播放",
+            "id": "BTN-734c3f42-b04e-4d7a-9fd0-6d4ccfe4f4f4"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_SkipToNext",
+              "customContextDataKey": {
+              },
+              "id": "A-67cf583d-6bd8-408e-973a-43b4061fa73d"
+            }],
+            "icon": "skip-forward-fill",
+            "label": "下一曲",
+            "id": "BTN-818bfab7-0cff-4f80-bb76-d40cb7606229"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_Stop",
+              "customContextDataKey": {
+              },
+              "id": "A-b99aea1d-1ecd-4812-a764-845a4f984365"
+            }, {
+              "@type": "type.googleapis.com/HideStatusBarClip",
+              "customContextDataKey": {
+              },
+              "id": "A-de620f39-b286-4909-b1e5-b12c636671ff"
+            }],
+            "icon": "stop-mini-fill",
+            "label": "停止",
+            "id": "BTN-e75359c2-8c7c-43ea-af9c-1927ab06a2c0"
+          }],
+          "tag": "2024-09-28 14:13:25",
+          "maxHeightInDp": 500,
+          "maxWidthInDp": 500,
+          "backgroundAlpha": 0.8,
+          "buttonMinWidth": 64,
+          "closeOnTouchOutside": true,
+          "customContextDataKey": {
+          },
+          "id": "A-65e8b3fd-b570-4fee-8778-866f80a1379f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-f83407b9-5122-4479-963f-99794eb9243d"
+      }],
+      "description": "5到10",
+      "id": "Case-4b68fee8-499d-4e77-bc6a-4cd5250df9ac"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "varName": "mvelRet",
+        "payload": {
+          "value": "10"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-aaffc289-5dff-4afd-aecd-40f4539fb621"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "String text \u003d {title};\nString result \u003d text.substring(10);",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "歌词"
+          }]
+        },
+        "id": "A-688b4875-e356-4c2b-8212-bc7590c0b0aa"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "String text \u003d {歌词};\nString repeatChar \u003d \" \";\nint repeatCount \u003d (5 - text.length()) * 4;\nString result \u003d (text.length() \u003c 5) ? text + repeatChar.repeat(repeatCount): text;\nresult\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "歌词"
+          }]
+        },
+        "id": "A-43fc6087-7115-4e54-8080-99fc8db8aa91"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1200",
+        "customContextDataKey": {
+        },
+        "id": "A-28eba763-aadd-4b17-b4c1-94dfb6cb80c8"
+      }, {
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "{歌词}",
+        "icon": "app://cn.aqzscn.stream_music",
+        "clickAction": [{
+          "@type": "type.googleapis.com/ShowOverlayButton",
+          "buttonSettings": [{
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_SkipToPrevious",
+              "customContextDataKey": {
+              },
+              "id": "A-a46e8dcd-9419-483b-be37-9508e85b87b3"
+            }],
+            "icon": "skip-back-fill",
+            "label": "上一曲",
+            "id": "BTN-c341af5c-e657-44d0-abc5-a00a41275cd1"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_Pause",
+              "customContextDataKey": {
+              },
+              "id": "A-a029b797-eff1-41d2-b1d2-7f9c7581ad30"
+            }],
+            "icon": "pause-mini-line",
+            "label": "暂停",
+            "id": "BTN-be2931fe-8493-4b93-9e0c-6fd5f2c2c857"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "customContextDataKey": {
+              },
+              "id": "A-52651bce-ff03-4812-96a9-ea7db2c7bd6c"
+            }],
+            "icon": "play-mini-fill",
+            "label": "播放",
+            "id": "BTN-734c3f42-b04e-4d7a-9fd0-6d4ccfe4f4f4"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_SkipToNext",
+              "customContextDataKey": {
+              },
+              "id": "A-67cf583d-6bd8-408e-973a-43b4061fa73d"
+            }],
+            "icon": "skip-forward-fill",
+            "label": "下一曲",
+            "id": "BTN-818bfab7-0cff-4f80-bb76-d40cb7606229"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/MediaPlayback",
+              "action": "MediaPlaybackAction_Stop",
+              "customContextDataKey": {
+              },
+              "id": "A-b99aea1d-1ecd-4812-a764-845a4f984365"
+            }, {
+              "@type": "type.googleapis.com/HideStatusBarClip",
+              "customContextDataKey": {
+              },
+              "id": "A-de620f39-b286-4909-b1e5-b12c636671ff"
+            }],
+            "icon": "stop-mini-fill",
+            "label": "停止",
+            "id": "BTN-e75359c2-8c7c-43ea-af9c-1927ab06a2c0"
+          }],
+          "tag": "2024-09-28 14:13:25",
+          "maxHeightInDp": 500,
+          "maxWidthInDp": 500,
+          "backgroundAlpha": 0.8,
+          "buttonMinWidth": 64,
+          "closeOnTouchOutside": true,
+          "customContextDataKey": {
+          },
+          "id": "A-65e8b3fd-b570-4fee-8778-866f80a1379f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-c081abc3-b1df-4161-b494-07cc00d31ef5"
+      }],
+      "description": "10到15",
+      "id": "Case-e7b14184-90ad-40c0-8a62-6c9b6afdd894"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8bb7a82f-95bb-46c2-99a8-137feacfdd9f"
+  }],
+  "id": "SHARE-rule-0fc22157-1708-4ca6-9af6-724b6aa046d5",
+  "lastUpdateTime": "1728278439140",
+  "createTime": "1727502004769",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "状态栏歌词",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AudioFocusLost",
+      "customContextDataKey": {
+      },
+      "id": "F-4c57d200-3adc-4ea8-864a-f6fdd97f922f"
+    }, {
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "customContextDataKey": {
+      },
+      "id": "F-2181e270-eccd-496f-9ff0-10e68e6184bd"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-a84e657d-ec5d-4a49-9359-3995f3bf55ae"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

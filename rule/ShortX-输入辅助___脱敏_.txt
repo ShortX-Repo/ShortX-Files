@@ -1,0 +1,383 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-63e89cab-022b-44ee-a726-d65f9f4c668d"
+  }, {
+    "@type": "type.googleapis.com/DeepLinkCall",
+    "deepLinkTag": "srfz",
+    "customContextDataKey": {
+    },
+    "id": "F-e6974196-e6ed-4125-9f4c-700fce0e3a01"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenOrientationIsPort",
+    "customContextDataKey": {
+    },
+    "id": "C-03fb3b36-07a2-43a9-a707-6804ceb3689f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["输入辅助"],
+        "customContextDataKey": {
+        },
+        "id": "A-db116321-87d4-40aa-b891-10ecf665e8a0"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的手机号 1",
+            "id": "A-762459b2-4642-4644-b8a9-e8a190ab773e"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-6d0cb590-9e95-4a33-8729-7805858d1fdf"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "phone-fill",
+          "label": "手机号",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的手机号 2",
+            "id": "A-bd2e41b3-f326-422f-a0c0-3357823dd379"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-6f7ade68-7d4e-485d-963b-eccd9feb9ceb"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-e151b72a-1122-44ef-b6b1-fcb9ef3a23e4"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的邮箱 1",
+            "id": "A-1e822304-3b40-4964-b0d4-763acbdec530"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-4e152948-8f3b-4a65-bb53-0d4fa40413eb"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "mail-unread-line",
+          "label": "邮箱",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的邮箱 2",
+            "id": "A-4ca86987-23fa-43bd-b60f-2de65c301877"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-e1369fc5-3611-461d-89ab-ccdfcbb6e5f8"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-18fd934e-ce2a-4378-8807-888a5d70b2b6"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的身份证",
+            "id": "A-b8edae1e-10df-460c-9c14-a2a0e3038d5e"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-871fe5d0-2fd6-4b36-8d1a-3881c99ccb54"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "layout-6-fill",
+          "label": "身份证",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为身份证地址或姓名",
+            "id": "A-6efe90b3-cce8-441b-91ab-1399d71b327e"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-4365c041-06a3-4e6e-8674-cffea5d0e021"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-aa3e5914-7eae-4748-b90c-ed1665683d45"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的 QQ1",
+            "id": "A-15b23b09-7081-4369-8f6c-68894170f0bf"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-4f317f3b-a6df-4242-a03c-166992175283"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "qq-fill",
+          "label": "QQ",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/InputText",
+            "text": " ",
+            "customContextDataKey": {
+            },
+            "note": "修改为你的 QQ2 或密码",
+            "id": "A-b18495e5-d5df-4de4-844c-9a2582c368d5"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-184dae16-41e5-48c0-94f8-e0fabf8e34bb"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-4be45446-5aeb-4c68-9abd-33043aaccf86"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-2606e467-adbf-4da1-9f30-a6aeb9fe0601"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "icon": "share-forward-fill",
+          "label": "返回",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["快捷输入"],
+            "customContextDataKey": {
+            },
+            "id": "A-0f045d2b-2310-49d5-bf34-329ef922b95b"
+          }, {
+            "@type": "type.googleapis.com/StartActivityUrlSchema",
+            "urlSchema": "shortx://trigger?tag\u003dsrfz",
+            "customContextDataKey": {
+            },
+            "id": "A-15d3f114-beed-450d-bee7-ca2681bc2dc4"
+          }],
+          "id": "BTN-e4194b5f-d0ab-4838-a4c7-afd9d093731a"
+        }],
+        "tag": "快捷输入",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 500,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 64,
+        "disableAutoEdge": true,
+        "customContextDataKey": {
+        },
+        "note": "这里配置",
+        "id": "A-63ef16c5-e20a-40bb-9af6-57f79b77b438"
+      }],
+      "icon": "mark-pen-line",
+      "label": "快捷输入",
+      "id": "BTN-27c5be66-2c81-4816-8f55-e56bcf13a4eb"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Paste",
+        "customContextDataKey": {
+        },
+        "id": "A-71ab861c-c3a5-4970-b7f0-83d157038f34"
+      }],
+      "icon": "pantone-line",
+      "label": "粘贴/撤销",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Undo",
+        "customContextDataKey": {
+        },
+        "id": "A-54ae12a6-200a-48fb-bf13-a19667e771f4"
+      }],
+      "id": "BTN-a69e955c-2ca7-4289-b24e-07b028089e30"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "customContextDataKey": {
+        },
+        "id": "A-c0d3649e-54ed-4ad9-aff7-528f0896e430"
+      }],
+      "icon": "t-box-fill",
+      "label": "全选/清空",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "customContextDataKey": {
+        },
+        "id": "A-acafc9fe-e06d-439b-9a3f-86ff3bc14e2e"
+      }, {
+        "@type": "type.googleapis.com/PerformContextMenuAction",
+        "action": "ContextMenuAction_Cut",
+        "customContextDataKey": {
+        },
+        "id": "A-fb583630-1ea0-4b88-af28-40118a3490fa"
+      }],
+      "id": "BTN-9896c799-b667-4bf7-94a6-927ae0f5dbed"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShowClipboardView",
+        "customContextDataKey": {
+        },
+        "id": "A-4d2a43e0-455e-41b6-931b-47e377c74cf3"
+      }],
+      "icon": "scissors-fill",
+      "label": "剪贴板",
+      "id": "BTN-5e98ccd8-6e70-4efd-b86b-65c87cf4b4e7"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "搜狗输入法",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "settings put secure default_input_method com.sohu.inputmethod.sogou.xiaomi/.SogouIME",
+            "customContextDataKey": {
+            },
+            "id": "A-fbed7181-405f-4eba-b65c-beec1fbe56a5"
+          }]
+        }, {
+          "title": "微信输入法",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "settings put secure default_input_method com.tencent.wetype/.plugin.hld.WxHldService",
+            "customContextDataKey": {
+            },
+            "id": "A-0b16be59-7a1d-4fa8-910f-fdfccfe469d0"
+          }]
+        }],
+        "title": "选择输入法",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "note": "目前支持微信输入法和搜狗输入法小米版，其他输入法请自行使用设置项监视器抓取后添加",
+        "id": "A-e31b87f7-6cb1-41fa-bd35-6173401ef59f"
+      }],
+      "icon": "repeat-line",
+      "label": "输入法",
+      "id": "BTN-3a8ce7c3-4834-43d5-aa89-02e7c140c884"
+    }],
+    "tag": "输入辅助",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 500,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "note": "这里配置",
+    "id": "A-7a7a8b2e-45aa-450f-b5b7-8b5e96689d7d"
+  }],
+  "id": "rule-1f94c332-3d12-4628-a3d5-7e0357cca2ff",
+  "lastUpdateTime": "1709808580128",
+  "createTime": "1702212032291",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "输入辅助  (脱敏)",
+  "description": "显示输入辅助",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-dd6fedda-bc2f-4c25-a07d-32d12d82557e"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["快捷输入"],
+      "customContextDataKey": {
+      },
+      "id": "A-41e3a781-d1c9-4f90-a829-d6e5107d736c"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["输入辅助"],
+      "customContextDataKey": {
+      },
+      "id": "A-7fd20c21-9a4d-476c-a43f-14e96f2bb340"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-74fd852c-eeb8-4df7-aad6-3dbb746f258b"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,120 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "content": "(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^\u003d%\u0026:/~\\+#]*[\\w\\-\\@?^\u003d%\u0026/~\\+#])?",
+    "customContextDataKey": {
+    },
+    "id": "F-a8121565-e5dd-4439-b2ca-1e75c8d171ea"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "com.jingdong.app.mall"
+    }, {
+      "pkgName": "com.taobao.taobao"
+    }, {
+      "pkgName": "com.xunmeng.pinduoduo"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-1be1ab45-fd85-45eb-af13-6bb3a449e23d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "url",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-2dd12972-abb7-4341-8293-d123f3dece40"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "url",
+    "valueAsString": "{clipboardContent}",
+    "customContextDataKey": {
+    },
+    "id": "A-cd102402-0082-43bf-87de-6d3184033d94"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "https://tool.manmanbuy.com/m/history.aspx?type\u003dhistory_mobile_tool\u0026url\u003dlocalVarOf$url",
+        "customContextDataKey": {
+        },
+        "id": "A-739cdf8a-727b-4b43-8fb6-ade6cc288ff7"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["price_view"],
+        "customContextDataKey": {
+        },
+        "id": "A-c91ffe30-30ca-49ee-b84b-ea319deaf667"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-64cdb7c8-c325-428a-b659-c53371be9d95"
+      }],
+      "icon": "price-tag-3-fill",
+      "label": "price",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["price_view"],
+        "customContextDataKey": {
+        },
+        "id": "A-df5a226d-185a-48d2-807e-7e86de41c499"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-92071c69-21ce-4e42-b63c-0aa862b63f95"
+      }],
+      "id": "BTN-63185e70-3fd2-453f-a5c3-a514bb9fd99b"
+    }],
+    "tag": "price_view",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingH": 5,
+    "overlayPaddingV": 5,
+    "customContextDataKey": {
+    },
+    "id": "A-95718e68-5d51-4fd3-a6ba-b55ff3e3dbbf"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-a83739cc-e7a5-4891-9828-2d036b444ec2"
+  }, {
+    "@type": "type.googleapis.com/HideOverlayButton",
+    "overlayTags": ["price_view"],
+    "customContextDataKey": {
+    },
+    "id": "A-5a0c0f60-d905-469b-b0c1-5d2e60eb44ab"
+  }],
+  "id": "rule-f343b9cb-1e5c-439f-bd6b-d58edacb0ca0",
+  "lastUpdateTime": "1707974551812",
+  "createTime": "1707969556276",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "历史价格查询",
+  "description": "复制商品链接查看历史价格",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,76 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppProcessRemoved",
+    "processName": [{
+      "processName": "com.tencent.mm:push"
+    }, {
+      "userId": 999,
+      "processName": "com.tencent.mm:push"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-fd021854-08ca-4806-8b36-1a31fb1d2c3a"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-24b78b4e-035a-41bf-87c2-050e19c65ebe"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "推送被杀",
+    "customContextDataKey": {
+    },
+    "id": "A-fe9eb21f-e674-40e7-906d-40f8f12c59d6"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-4951aee0-e118-4fcd-ab77-6586a3cc40ef"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.tencent.mm",
+      "className": "com.tencent.mm.booter.CoreService"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a5eafbbb-a021-4355-b938-fca6c77bf113"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.tencent.mm",
+      "className": "com.tencent.mm.booter.CoreService"
+    },
+    "userId": 999,
+    "customContextDataKey": {
+    },
+    "id": "A-514a9941-ee5f-4188-84a9-1aa57290396e"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "进程启动",
+    "customContextDataKey": {
+    },
+    "id": "A-98284af8-bab1-4884-8ab4-8def5e952298"
+  }],
+  "id": "SHARE-rule-d7411c05-628e-4a63-9ed5-bffb4a8d3aa9",
+  "lastUpdateTime": "1764166079934",
+  "createTime": "1764162232479",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信推送启动",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

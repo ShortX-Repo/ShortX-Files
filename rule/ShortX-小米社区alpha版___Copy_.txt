@@ -1,0 +1,94 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "miui_vip_a_ph",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-e1952f35-0962-4695-a33a-32cd27675695"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "encodedData",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-a4002e86-531e-4192-bc7c-5c2d3917f670"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Cookie",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-40e0102b-873a-491d-9398-bb77ede25a06"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "miui_vip_a_ph",
+    "note": "这里填入你的miui_vip_ph，\u003d\u003d结尾",
+    "id": "A-afa417cf-64ee-48f9-80b3-7d8471008dfe"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Cookie",
+    "valueAsString": " ",
+    "note": "这里填入你的Cookie，cUserId开头",
+    "id": "A-da019c17-33a1-4fe5-b7df-3c0e5c8c0198"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.net.URLEncoder;\nimport java.nio.charset.StandardCharsets;\n\n\nString data \u003d localVarOf$miui_vip_a_ph;\nString encodedData \u003d URLEncoder.encode(data, StandardCharsets.UTF_8);\n\nreturn encodedData;\n    \n",
+    "note": "转为URL编码",
+    "id": "A-c59e1b0f-bd1e-440c-a7b3-82e80c7fea72"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "encodedData",
+    "valueAsString": "{mvelRet}",
+    "id": "A-ab851470-1a9b-4cc9-9d53-0c03f4100b87"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api-alpha.vip.miui.com/mtop/planet/vip/user/checkin?ref\u003dvipAccountShortcut\u0026pathname\u003d%2Fmio%2FcheckIn\u0026miui_vip_a_ph\u003dlocalVarOf$encodedData",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Host",
+      "value": "api-alpha.vip.miui.com"
+    }, {
+      "key": "User-Agent",
+      "value": "Mozilla/5.0 (Linux; Android 13; 2210132C Build/TKQ1.220905.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.196 Mobile Safari/537.36XiaoMi/HybridView/ app/vipaccount/dev.20230727"
+    }, {
+      "key": "Cookie",
+      "value": "localVarOf$Cookie"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{}"
+    },
+    "note": "小米社区签到",
+    "id": "A-f13e7a36-3350-4968-9c85-41d086cc017c"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{httpRequestRet}",
+    "note": "测试",
+    "id": "A-a3f16797-708c-46bc-bb97-4db1ac08dc37"
+  }],
+  "id": "rule-78e9857b-ed6e-4b50-a8b9-5a443ffc597d",
+  "lastUpdateTime": "1690739764090",
+  "createTime": "1690434474628",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "小米社区alpha版  (Copy)",
+  "description": " 最新alpha小米社区自动签到",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

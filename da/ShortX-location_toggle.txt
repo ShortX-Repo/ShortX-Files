@@ -1,0 +1,43 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "(android.provider.Settings$Secure.getString(context.contentResolver, \u0027location_mode\u0027) \u003d\u003d 0);",
+      "customContextDataKey": {
+      },
+      "id": "C-66a18c2d-b2f8-49c2-9cab-87d4ce160441"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-196dd1b4-86f8-4023-bd28-e0c925cc5bb4"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-57d71d53-e119-4134-9476-d2fc89736fac"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fbb6ac3f-33c9-41e7-a9a1-e86df09f1cd2"
+  }],
+  "id": "SHARED-DA-36aa1cb0-857e-43f3-971b-dc2c246aee99",
+  "lastUpdateTime": "1769429163374",
+  "createTime": "1769428723338",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "location toggle",
+  "versionCode": "1",
+  "directActionSetId": "DS-b4dc7d0f-efee-4429-951f-1bafb3ee79e4",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

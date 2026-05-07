@@ -1,0 +1,78 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["GPS"],
+    "customContextDataKey": {
+    },
+    "id": "F-76365e15-aa3c-4f2b-ab2b-aee4ca9ba128"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["GPS"],
+    "customContextDataKey": {
+    },
+    "id": "F-abb699c5-975c-481d-8b6e-54b1314d1538"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-2a98f44a-a614-4bb6-9db1-86d9ec9ae8b0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["GPS"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-19dd4269-9538-47b7-b88e-38d3d5952146"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-60b0827c-5a79-4a30-b346-72919c4481a3"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsRunning",
+        "pkgSets": ["GPS"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-dd9a6ad4-c84a-49de-abd0-ed67cd8db1c0"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/SetLocationEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-ff935fc2-ddd7-4f81-8b4c-434c807fb21b"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f91397a5-3994-4056-8b98-6731d85bd74d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-73c45169-df63-4862-8fa7-0096e3507da4"
+  }],
+  "id": "rule-45fb8e34-c35e-4473-a9dd-a3d3dbf9882d",
+  "lastUpdateTime": "1714058561624",
+  "createTime": "1713513817657",
+  "author": {
+    "name": "我无聊了"
+  },
+  "title": "自动开关启GPS",
+  "description": "打开应用集的应用自动开启GPS\n关闭应用集的应用自动关闭GPS\n如果应用集的应用存活则取消关闭",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

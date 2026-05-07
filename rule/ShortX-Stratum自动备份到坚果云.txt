@@ -1,0 +1,42 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "com.stratumauth.app",
+    "className": "androidx.documentfile.provider.TreeDocumentFile",
+    "methodName": "getName",
+    "expressions": [{
+      "expressionMVEL": "param.result",
+      "contextKey": "BackupFiles"
+    }],
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "id": "F-b453cc20-b3c9-4e21-ae49-54bd54942433"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WebDavPut",
+    "profileId": "807a8fe7-3cd7-4718-bbb4-bff308061282",
+    "url": "https://dav.jianguoyun.com/dav/AuthenticatorPro/{BackupFiles}",
+    "localFilePath": "/storage/emulated/0/MT2/apks/备份/{BackupFiles}",
+    "customContextDataKey": {
+    },
+    "note": "自行修改备份目录",
+    "id": "A-00522e8b-6804-449c-a900-9bded0886682"
+  }],
+  "id": "SHARE-rule-1241343e-d8bf-4da0-887a-98f2d64eb050",
+  "lastUpdateTime": "1742753754125",
+  "createTime": "1742752099097",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "Stratum自动备份到坚果云",
+  "description": "仅在Stratum1.2.2 (7)版本测试可用。",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,41 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.xiaomi.shop"
+      }]
+    },
+    "id": "F-5288e69d-ff0d-446f-b050-a14e8c2d3bff"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "{contentText}\u003d\u003d\"您关注的商品有折扣啦～\"",
+    "id": "C-277642f4-91a0-4ccd-9ab7-31e426ffab68"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.xiaomi.shop/com.xiaomi.passport.ui.page.UserInfoActivity",
+        "id": "A-195d5e3a-4232-4418-b32b-d49d8a0c351d"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "id": "A-d4b75980-0577-41af-8593-afa04504d187"
+      }],
+      "icon": "knife-fill",
+      "label": "跳转应用"
+    }],
+    "id": "A-40ae172b-053d-4d09-8400-e0ad9b352931"
+  }],
+  "id": "rule-b2fdda21-4873-422a-8c2f-b5484ee731e1",
+  "lastUpdateTime": "1688443480759",
+  "createTime": "1688443209180",
+  "title": "通知测试",
+  "description": "收到指定应用的特定通知，然后执行特定动作",
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

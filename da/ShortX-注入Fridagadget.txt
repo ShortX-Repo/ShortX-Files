@@ -1,0 +1,97 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "注入FridaGadget",
+    "textFields": [{
+      "placeholder": "填写APP包名"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-95e55df2-5c92-4c0a-ab2d-f50e68d5fb7e"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {textFieldInput1};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);",
+    "customContextDataKey": {
+    },
+    "id": "A-f1ff6c0b-790c-4790-8813-3e21a0d2c374"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-dba12e25-acdb-4bf2-8bc8-182c2ec80449"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "app",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-6feacbb2-e70d-49ba-9cee-de5b69bd1a75"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "app",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-5e6b8e21-853c-4cd4-a639-614b3ce9364f"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "初始化",
+    "id": "A-1635d837-e543-4526-9e1c-d9e69ff3102d"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsNotEmpty",
+      "varName": "app",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-a69224d6-4d99-4dc6-aeac-6024fab55b10"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 提示用户输入包名\n#echo -n \"请输入包名: \"\n#read package_name\npackage_name\u003d\"{textFieldInput1}\"\n\n# 文件列表\nfiles\u003d(\"abcd\" \"libabcd.deploy.so\" \"libabcd.so\" \"libabcd64.deploy.so\" \"libabcd64.so\")\n\n# 原始路径和目标路径\nsource_path\u003d\"/data/local/tmp/ABCD/\"\ntarget_path\u003d\"/data/data/$package_name/\"\n\n# 循环处理每个文件\nfor file in \"${files[@]}\"; do\n    # 构建文件路径\n    source_file\u003d\"$source_path$file\"\n    target_file\u003d\"$target_path$file\"\n\n    # 检查文件是否存在\n    if [ -e \"$source_file\" ]; then\n        # 复制二进制文件并替换包名\n        echo -n \"文件 $file 处理中...\"\n        cp \"$source_file\" \"$target_file\" \u0026\u0026\n        sed -i \"s/包名/$package_name/g\" \"$target_file\" \u0026\u0026\n        chmod 777 \"$target_file\" \u0026\u0026\n        echo \"完成。\"\n    else\n        echo \"文件 $file 不存在，跳过处理。\"\n    fi\ndone\n\necho \"脚本执行完成。\"",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-438de304-58e3-4ea9-9141-85600dfaa12d"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "{mvelRet}：已注入FridaGadget",
+      "customContextDataKey": {
+      },
+      "id": "A-c097b94a-1ca5-4c68-84a7-ad510b57fc6e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "警告：未输入包名/输入包名有误/未安装此应用",
+      "customContextDataKey": {
+      },
+      "id": "A-c1651935-d458-4924-96db-1fbc458070ae"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "根据判断注入任务",
+    "id": "A-20300ac0-7767-402e-a9f7-3f8e7987ea5f"
+  }],
+  "id": "DA88be4346-117b-456d-9563-bcdb0cdc6319",
+  "lastUpdateTime": "1707304973856",
+  "createTime": "1703766408942",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "注入Fridagadget",
+  "description": "使用方法：https://muort.cn/S31230-21352386.png\n环境部署下载：https://wululu.lanzout.com/iiMdg1nnxu0b",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

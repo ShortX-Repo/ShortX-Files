@@ -1,0 +1,23 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportClass(android.graphics.BitmapFactory);\nimportClass(android.graphics.PixelFormat);\nimportClass(android.view.WindowManager);\nimportClass(java.io.File);\nimportClass(java.lang.Runnable);\n\nfunction runOnUiThread(fn) {\n    new Handler(Looper.getMainLooper()).post(new Runnable({ run: fn }));\n}\n\nrunOnUiThread(function () {\n    var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n    // 使用 FrameLayout 方便叠加关闭按钮\n    var layout \u003d new FrameLayout(context);\n    layout.setBackgroundColor(android.graphics.Color.BLACK);\n\n    var layoutParams \u003d new WindowManager.LayoutParams(\n        WindowManager.LayoutParams.MATCH_PARENT,\n        WindowManager.LayoutParams.MATCH_PARENT,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        PixelFormat.TRANSLUCENT\n    );\n    layoutParams.gravity \u003d android.view.Gravity.CENTER;\n\n    // 图片路径\n    var imagePath \u003d \"/data/system/shortx_iTyDsRmCXAQopZmh/tmp/skm.png\";\n    var file \u003d new File(imagePath);\n\n    if (file.exists()) {\n        var bitmap \u003d BitmapFactory.decodeFile(imagePath);\n        if (bitmap !\u003d null) {\n            var imageView \u003d new ImageView(context);\n            imageView.setImageBitmap(bitmap);\n\n            var imgParams \u003d new FrameLayout.LayoutParams(\n                FrameLayout.LayoutParams.MATCH_PARENT,\n                FrameLayout.LayoutParams.MATCH_PARENT\n            );\n            imageView.setLayoutParams(imgParams);\n\n            // ✅ 保持原比例，不拉伸\n            imageView.setAdjustViewBounds(true);\n            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);\n\n            layout.addView(imageView);\n        } else {\n            layout.setBackgroundColor(android.graphics.Color.RED);\n        }\n    } else {\n        layout.setBackgroundColor(android.graphics.Color.RED);\n    }\n\n    // 关闭按钮\n    var closeButton \u003d new Button(context);\n    closeButton.setText(\"关闭\");\n    closeButton.setTextColor(android.graphics.Color.WHITE);\n    closeButton.setBackgroundColor(android.graphics.Color.parseColor(\"#AA000000\")); // 半透明黑\n\n    var buttonSize \u003d 140; // px\n    var closeParams \u003d new FrameLayout.LayoutParams(buttonSize, buttonSize);\n    closeParams.gravity \u003d android.view.Gravity.TOP | android.view.Gravity.RIGHT;\n    closeParams.setMargins(0, 40, 40, 0);\n    closeButton.setLayoutParams(closeParams);\n\n    closeButton.setOnClickListener(new View.OnClickListener({\n        onClick: function () {\n            try {\n                windowManager.removeView(layout);\n            } catch (e) {}\n        }\n    }));\n\n    layout.addView(closeButton);\n\n    try {\n        windowManager.addView(layout, layoutParams);\n    } catch (e) {\n        console.log(\"添加视图失败：\" + e);\n    }\n});",
+    "customContextDataKey": {
+    },
+    "id": "A-ebcb0c69-814a-4daa-97f0-fd6d4446c470"
+  }],
+  "id": "SHARED-DA-aad4594a-a475-4e10-b3a1-6825b1cf8026",
+  "lastUpdateTime": "1760061960616",
+  "createTime": "1760061572304",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "本地图片展示",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

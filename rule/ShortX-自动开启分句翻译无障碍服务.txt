@@ -1,0 +1,152 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.very.app.split_translate"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-e06b1cbe-50da-48c6-90b5-23bf4553fcdd"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ServiceIsRunning",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.very.app.split_translate"
+        },
+        "className": "slayer.accessibility.service.flutter_accessibility_service.AccessibilityListener"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "C-8bd44c42-e980-4c4e-95bc-867ebc344084"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "layout-3-fill",
+      "customContextDataKey": {
+      },
+      "id": "A-67d1b23f-2d98-4fd9-bedb-15630b102185"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure enabled_accessibility_services com.very.app.split_translate/slayer.accessibility.service.flutter_accessibility_service.AccessibilityListener",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-49c6ea84-96cf-4a4b-9f07-4d92fc117758"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure enabled_accessibility_services 1",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-0d333301-a038-4979-bbe2-f1fcbf8565a0"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure enabled_accessibility_services com.very.app.split_translate/slayer.accessibility.service.flutter_accessibility_service.AccessibilityListener",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-f699a458-1216-4183-b2d9-8f70033e6cb2"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-fbd7c768-cec1-45e3-b146-145d0cd777f1"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 1000,
+      "y": 150,
+      "customContextDataKey": {
+      },
+      "id": "A-e7cad99d-2588-4ecd-a2ac-31be8f361cea"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-dd078a35-2af5-455b-9712-f0eaa286265a"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 750,
+      "y": 750,
+      "customContextDataKey": {
+      },
+      "id": "A-43d8bce2-a1da-4178-b9f6-94f322d28332"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-0c93966b-efae-4ea5-84e9-e2a646983b96"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 925,
+      "y": 600,
+      "customContextDataKey": {
+      },
+      "id": "A-122bdb85-cb9b-4d11-8fd6-b59e9b6198cc"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-31d7248c-00c3-41d4-ad16-9df39a426d52"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 550,
+      "y": 1060,
+      "customContextDataKey": {
+      },
+      "id": "A-79645a9e-e142-404f-b106-8310da1f27ca"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-7cbe1e19-59a6-4a0d-989a-ba3fd18928ac"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 876,
+      "y": 1515,
+      "customContextDataKey": {
+      },
+      "id": "A-32c03f36-e54e-46c2-baca-a67f0f57d7b9"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "200",
+      "customContextDataKey": {
+      },
+      "id": "A-04b00c11-db36-48c9-a830-cad1adcc1642"
+    }, {
+      "@type": "type.googleapis.com/InjectKeyCode",
+      "keyCode": 3,
+      "customContextDataKey": {
+      },
+      "id": "A-3312f87a-9b0d-4716-8766-ec7e127d7c9d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-be109f02-c9e5-455b-b9f3-1d2fe3924617"
+  }],
+  "id": "rule-c98b21d0-dcc3-4245-b09f-2c3cae1d2524",
+  "lastUpdateTime": "1699095510772",
+  "createTime": "1696036900773",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "自动开启分句翻译无障碍服务",
+  "description": "并开启屏幕翻译和返回桌面",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-de5b5bd8-2d88-4189-94e9-c3283b1c4658"
+}
+###------###
+{"type":"rule"}

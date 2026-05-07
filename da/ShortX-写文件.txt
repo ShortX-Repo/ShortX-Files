@@ -1,0 +1,21 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var File \u003d java.io.File;\nvar FileWriter \u003d java.io.FileWriter;\nvar BufferedWriter \u003d java.io.BufferedWriter;\nvar IOException \u003d java.io.IOException;\n\nfunction writeToFile(filePath, content) {\n    try {\n        var file \u003d new File(filePath);\n        if (!file.exists()) {\n            file.getParentFile().mkdirs(); // 创建上级目录（如有必要）\n            file.createNewFile(); // 创建新文件\n        }\n        var writer \u003d new BufferedWriter(new FileWriter(file));\n        writer.write(content);\n        writer.close();\n        true; // 写入成功\n    } catch (e) {\n        if (e instanceof IOException) {\n            false; // 写入失败\n        } else {\n            throw e; // 其他异常继续抛出\n        }\n    }\n}\nwriteToFile(globalVarOf$shortxpath+\"/log/clean.log\", \"这是写入的内容\");",
+    "customContextDataKey": {
+    },
+    "id": "A-e060bae7-c7c9-4af2-9542-45ee6a86c018"
+  }],
+  "id": "SHARED-DA-478c1c60-b1a7-43da-b184-3bb016f32418",
+  "lastUpdateTime": "1747928674973",
+  "createTime": "1747928487594",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "写文件",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

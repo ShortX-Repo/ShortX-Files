@@ -1,0 +1,19 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/StartActivity",
+    "componentNameAsString": "com.android.settings/com.android.settings.Settings$NotificationStationActivity",
+    "customContextDataKey": {
+    },
+    "id": "A-ac1aea33-c9d9-4df9-8825-699669b87864"
+  }],
+  "id": "DA45126984-c614-45a4-990f-e40e7c5de985",
+  "lastUpdateTime": "1695479573614",
+  "createTime": "1695479549319",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "通知日志",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

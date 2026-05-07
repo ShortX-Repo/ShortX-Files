@@ -1,0 +1,52 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.am.ActivityManagerService",
+    "methodName": "killBackgroundProcesses",
+    "expressions": [{
+      "expressionMVEL": "param.args[0]",
+      "contextKey": "package_name"
+    }, {
+      "expressionMVEL": "param.args[2]",
+      "contextKey": "reason"
+    }],
+    "lifecycle": "LoadedPackage",
+    "constraint": [{
+      "@type": "type.googleapis.com/MethodHookConstraintParamsCount",
+      "count": 3
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-fc94da27-bb1c-4322-b83f-c6e988eaa55d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\r\nimport android.content.pm.ApplicationInfo;\r\nimport android.content.pm.PackageManager;\r\n\r\ndef apkname(context, app) {\r\n    // 获取PackageManager实例，用于管理应用程序\r\n    PackageManager packageManager \u003d context.getPackageManager();\r\n    \r\n    // 获取指定包名的应用信息\r\n    ApplicationInfo appInfo \u003d packageManager.getApplicationInfo(app, 0);\r\n    \r\n    // 获取应用名称\r\n    String appName \u003d packageManager.getApplicationLabel(appInfo).toString();\r\n    \r\n    return appName;\r\n}\r\n\r\napkname(context, {package_name}); \r\n               //将后面的内容修改为你需要的包名\r\n",
+    "customContextDataKey": {
+    },
+    "id": "A-ada64d92-1cb0-4cd3-8b32-9d38e64f054c"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{mvelRet}已被杀死\n原因：{reason}",
+    "customContextDataKey": {
+    },
+    "id": "A-8080eae5-4972-452c-b259-af7f9de45d1e"
+  }],
+  "id": "rule-bf7ffeb3-c855-4ec8-8ea2-6fea1861b831",
+  "lastUpdateTime": "1725421221571",
+  "createTime": "1725094474875",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "捕捉killBackgroundProcesses",
+  "description": "捕捉使用killBackgroundProcesses方法杀死的进程",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

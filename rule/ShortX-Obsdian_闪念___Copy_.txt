@@ -1,0 +1,104 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "customContextDataKey": {
+    },
+    "id": "F-bdfa6e69-f897-4908-904c-9c0cb82dccfe"
+  }, {
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "RightTop",
+    "gesture": "SwipeFromRight",
+    "customContextDataKey": {
+    },
+    "id": "F-4fd7d13e-f61b-4818-bd5b-93d00928679b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "速记",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "请输入内容"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-1b97d6f5-5d4d-46e6-95ad-5be01f77a776"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "内容",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-b886f613-1e2d-4c09-9c6e-f03ceda87459"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "内容",
+    "valueAsString": "{textFieldInput1}",
+    "customContextDataKey": {
+    },
+    "id": "A-b9ae9bc2-4503-4898-a981-2d9703ca72d7"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsNotEmpty",
+      "varName": "内容",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4950e955-8b0e-48e6-98ce-80d6dc398d68"
+    }, {
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "DoesNotContain",
+      "varName": "内容",
+      "payload": {
+        "value": "textFieldInput1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f79372e3-adc6-4b2b-8393-852a3fbd5a89"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 生成今日日期：2024－01－14\ntoday\u003d$(date +%Y-%m-%d)\n# 生成当前时间 10:21\ncurrent_time\u003d$(date +%H:%M)\n\n# 文件路径\nfile_path\u003d\"/storage/emulated/0/Documents/Library/🌍 Areas/📝 Diary/$today.md\"\n\n# 默认的title，后面通过$包裹识别为title\ntitle\u003d\u0027闪念\u0027\n\n# 输入框内容\ncontent\u003d\u0027{textFieldInput1}\u0027\n\ncontent1\u003d$(echo -e \"$content\" | awk \u0027{gsub(/\\//, \"\\\\/\"); print}\u0027)\n\n# 使用 grep 和 sed 判断并提取标题\nif echo \"$content1\" | grep -qo \u0027\\$[^$]*\\$\u0027; then\n    title\u003d$(echo \"$content1\" | sed -n \u0027s/\\$\\([^$]*\\)\\$/\\1/p\u0027)\n    content1\u003d$(echo \"$content1\" | sed \u0027/\\$\\([^$]*\\)\\$/d\u0027)\nfi\n\n# 输出信息 memo\necho -e \u0027**\u0027$title\u0027**\\n\u0027\"$content1\" | sed \u0027:a;N;$!ba;s/\\n/\\\\n/g\u0027\n\n# 判断文件是否存在\nif [ -f \"$file_path\" ]; then\n    # 文件存在，追加内容\n    \n    # 指定字符\n    target_string\u003d\"line-4, body-1]\"\n\n    # 要追加的内容\n    append_content\u003d\"+\\n+ $title\\n+ $current_time\\n$content1\\n\"\n    \n    # 使用sed命令在指定字符后追加内容\n    sed -i \"s/$target_string/$target_string\\n\\n$append_content/\" \"$file_path\"\nelse\n    # 文件不存在，新建文件并写入\n    echo -e \"# Today\\n\\n\\n# TimeLine\\n\\n\\`\\`\\`timeline\\n[line-4, body-1]\\n\\n+\\n+ $title\\n+ $current_time\\n$content1\\n\\n\\`\\`\\`\" \u003e\u003e \"$file_path\"\n\nfi\n",
+      "customContextDataKey": {
+      },
+      "id": "A-447accf9-51c7-40b9-bcf4-405fcf282f7d"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "添加成功",
+      "customContextDataKey": {
+      },
+      "id": "A-a76a43d6-b6c0-44ef-8941-3851bc6d5866"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "取消添加",
+      "customContextDataKey": {
+      },
+      "id": "A-466f77c8-38bb-444f-b88f-f6d8632923b7"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-99c85421-b642-4c47-8dfa-d1058d609823"
+  }],
+  "id": "rule-b5af5d13-4a0b-4dc6-af28-fe8747d92418",
+  "lastUpdateTime": "1706168504055",
+  "createTime": "1705288367507",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "Obsdian 闪念  (Copy)",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

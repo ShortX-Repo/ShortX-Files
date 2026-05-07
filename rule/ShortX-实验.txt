@@ -1,0 +1,39 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-22c2190c-a99b-4619-aea4-bb0796813cf7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo \"成功\"",
+    "customContextDataKey": {
+    },
+    "id": "A-f98903be-6930-4f42-9ecf-d521f77e8d96"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-43704139-2c4e-4c07-9b7c-da73f3778588"
+  }],
+  "id": "rule-9ed9820c-10c8-40b7-a09b-cff8870e4884",
+  "lastUpdateTime": "1711462494886",
+  "createTime": "1711462414569",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "实验",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

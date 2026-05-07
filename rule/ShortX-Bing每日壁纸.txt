@@ -1,0 +1,40 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "id": "F-d1676318-ac3f-4217-95bb-2473f0fa1de8"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.paugram.com/bing/?info",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["link"]
+    },
+    "requestBody": {},
+    "id": "A-a05318d9-b370-4157-886d-5eb7e39c37ff"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "rm -rf /data/system/theme_magic/users/0/wallpaper/desktop*\nrm -rf /data/system/theme_magic/users/0/wallpaper/lock*\n\ncurl -o \"/data/system/theme_magic/users/0/wallpaper/image/home_wallpaper.jpg\" {httpRequestRet1}\ncp /data/system/theme_magic/users/0/wallpaper/image/home_wallpaper.jpg /data/system/theme_magic/users/0/wallpaper/image/lock_wallpaper.jpg\n\nsed -i \u0027s/\\(\u003cwallpaper_data[^\u003e]*path0\u003d\\)\"[^\"]*\"/\\1\"\\/data\\/system\\/theme_magic\\/users\\/0\\/wallpaper\\/image\\/home_wallpaper.jpg\"/\u0027 /data/system/theme_magic/users/0/wallpaper/data/home.xml\nsed -i \u0027s/\\(\u003cwallpaper_data[^\u003e]*path0\u003d\\)\"[^\"]*\"/\\1\"\\/data\\/system\\/theme_magic\\/users\\/0\\/wallpaper\\/image\\/lock_wallpaper.jpg\"/\u0027 /data/system/theme_magic/users/0/wallpaper/data/lock.xml\nsed -i \u0027s/path1\u003d\"[^\"]*\"//\u0027 /data/system/theme_magic/users/0/wallpaper/data/home.xml\nsed -i \u0027s/path1\u003d\"[^\"]*\"//\u0027 /data/system/theme_magic/users/0/wallpaper/data/lock.xml",
+    "id": "A-43bb256d-074f-4849-8693-dafe2452be04"
+  }],
+  "id": "rule-16e31a33-108d-4ce5-ae44-f32f25ae66c2",
+  "lastUpdateTime": "1690843947978",
+  "createTime": "1689491962736",
+  "author": {
+    "name": "Fearless"
+  },
+  "title": "Bing每日壁纸",
+  "description": "每天晚上12点自动更换壁纸(仅测试了miui其他不清楚能不能用)",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,94 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppGainWindowFocus",
+    "apps": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-e1896383-2d89-44cc-8baf-6cb6d9dec4ac"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WaitForIdle",
+    "customContextDataKey": {
+    },
+    "id": "A-284efbb8-271a-46b6-af43-e9e3c235127b"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-437bf22e-723c-4051-9744-aac69b25160e"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/InputSwipe",
+      "startXS": "1000",
+      "startYS": "2800",
+      "endXS": "1000",
+      "endYS": "2800",
+      "swipeTimeS": "700",
+      "customContextDataKey": {
+      },
+      "id": "A-e33bf0da-a08d-4094-bfdd-7e2a4a963605"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "100",
+      "customContextDataKey": {
+      },
+      "id": "A-2b37eab8-e9e4-4e00-b7e6-c4bf91057782"
+    }, {
+      "@type": "type.googleapis.com/FindAndClickViewByText",
+      "text": "不显示该聊天",
+      "timeout": "3000",
+      "rect": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-872c1858-3a3d-4035-9838-9a09ff0382b5"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "100",
+      "customContextDataKey": {
+      },
+      "id": "A-03e01df0-752c-441a-a9f9-a83d941b44c1"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "xs": "1000",
+      "ys": "1800",
+      "customContextDataKey": {
+      },
+      "id": "A-32a56714-d36d-4328-a661-b7b873a1abf7"
+    }],
+    "delay": 500,
+    "customContextDataKey": {
+    },
+    "id": "A-3e764647-4b25-4a59-b338-5b444a02e43a"
+  }],
+  "id": "SHARE-rule-b4835477-1fe2-4498-bf3e-d8fad4807243",
+  "lastUpdateTime": "1742204226643",
+  "createTime": "1742141877985",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "批量不显示对话",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/KeyEvent",
+      "keyCode": 25,
+      "customContextDataKey": {
+      },
+      "id": "F-526e384b-2924-4df5-81da-b177684e032b"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

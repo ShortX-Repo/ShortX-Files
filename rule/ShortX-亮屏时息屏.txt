@@ -1,0 +1,80 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOn",
+    "customContextDataKey": {
+    },
+    "id": "F-da81f36f-302d-45e8-b262-01bd2e9c6547"
+  }, {
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-031719b9-f10b-400d-b647-7c0437a0e71b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-7cdcda8e-6caa-45fe-8ca2-b3299f86ae17",
+        "customContextDataKey": {
+        },
+        "id": "A-f03a69b0-93c7-402d-8882-3f4497461de1"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["亮屏时息屏"],
+        "customContextDataKey": {
+        },
+        "id": "A-ec366689-2e4e-4dfa-bc30-ce919424b4bd"
+      }],
+      "label": "关闭"
+    }],
+    "tag": "亮屏时息屏",
+    "customContextDataKey": {
+    },
+    "id": "A-03e2a78b-255e-4b05-b4b3-afd9e208e847"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "id": "C-d645ce32-00b1-4a30-9a3c-ddd59fe77087"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0ccf679d-4171-4e40-bf81-a04b76100de9"
+    }, {
+      "@type": "type.googleapis.com/SleepScreen",
+      "customContextDataKey": {
+      },
+      "id": "A-a1555ff5-7801-47e7-aac9-cf84472a80f8"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WakeupScreen",
+      "customContextDataKey": {
+      },
+      "id": "A-ab02f90c-3e94-4521-bdc2-1230f0641647"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d9fbda11-30da-4a1b-8bc8-d5611d7c6c93"
+  }],
+  "id": "rule-7cdcda8e-6caa-45fe-8ca2-b3299f86ae17",
+  "lastUpdateTime": "1693888575451",
+  "createTime": "1693888045251",
+  "author": {
+    "name": "1"
+  },
+  "title": "亮屏时息屏",
+  "description": "息屏时亮屏",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

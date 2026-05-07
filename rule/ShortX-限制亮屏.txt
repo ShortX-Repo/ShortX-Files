@@ -1,0 +1,110 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresent",
+    "customContextDataKey": {
+    },
+    "id": "F-9ebb1db2-70db-4666-8274-5f6eb6f886eb"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireDelay",
+    "timeString": "900000",
+    "customContextDataKey": {
+    },
+    "id": "C-3a84da14-df0d-4573-aa8e-32eb706d1269"
+  }, {
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "bin.mt.plus"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-8855bf9e-1d94-4d97-a74f-9e650bfa735a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "lock",
+    "valueAsString": "true",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-c3ce93e1-2734-4893-88e1-5d94962d0696"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys activity recents | awk -F \u0027[#: ]\u0027 \u0027/Recent #/ \u0026\u0026 !/(com.miui.home|com.jwg.searchEVO|com.tencent.mm)/ {system(\"am stack remove \"$10\"; sleep 0.1; am force-stop \"$13\"\")}\u0027",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-96b3933e-099b-490c-a50b-15460d3ac9b3"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/KeyguardIsLocked",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-b2174b52-8513-4b7f-a1a3-a0556a9412cc"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SleepScreen",
+        "customContextDataKey": {
+        },
+        "id": "A-739089c1-5f25-4f43-9ef8-24427b5d56b2"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-0218f7ca-d20b-45d4-825c-aeea36640fe7"
+    }],
+    "delay": 1000,
+    "repeatTimes": 90,
+    "customContextDataKey": {
+    },
+    "id": "A-9312e328-5abc-4df5-beb8-b9f6d816f6ea"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "lock",
+    "op": "WriteGlobalVarOp_Clear",
+    "customContextDataKey": {
+    },
+    "id": "A-dcb03605-1ac0-44fe-ab15-88eaf7ef4cbb"
+  }],
+  "id": "SHARE-rule-8836c498-2556-47de-824d-766a12763f7d",
+  "lastUpdateTime": "1729149592363",
+  "createTime": "1702525916837",
+  "author": {
+    "name": "He"
+  },
+  "title": "限制亮屏",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOff",
+      "customContextDataKey": {
+      },
+      "id": "F-8b0ebd78-cc61-40b4-9b79-26ea474d8fed"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "NotSet",
+      "varName": "lock",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-073a9522-67f8-4f5d-a05c-40c3aabebf4d"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-7ce7dbe8-84ad-43c8-8dbe-e6283a62f4a5"
+}
+###------###
+{"type":"rule"}

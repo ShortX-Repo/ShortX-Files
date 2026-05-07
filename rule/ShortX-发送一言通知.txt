@@ -1,0 +1,394 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-9f4f6e03-00be-441a-8298-c41c0125c551"
+  }, {
+    "@type": "type.googleapis.com/ScreenOn",
+    "customContextDataKey": {
+    },
+    "id": "F-ac92dd1b-efa8-4406-a0d5-5caf655b4fb8"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-2456bf28-6642-4928-8ba3-29195d33ef27"
+  }, {
+    "@type": "type.googleapis.com/AppHasNotification",
+    "pkgs": [{
+      "pkgName": "com.android.systemui"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-28dc6882-5e49-45b4-95f5-29954bef61b5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "onehour",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-6ed7cab3-2139-42c7-bd89-78143e3b0fc2"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "onetime",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-fcb66056-32a5-45c3-9002-5abe64adb2f5"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "onetime",
+    "valueAsString": "5:00",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "note": "- 单位HH:ss",
+    "id": "A-42cf0254-3ca2-4dc5-bbf5-2d7a473d922b"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "onehour",
+    "valueAsString": "1",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "note": "- 单位h\n- 这是息屏后延迟发送通知的时间，ps:不会与定时冲突",
+    "id": "A-0acfff81-3dfc-4b47-a7a8-03a88ece6deb"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "globalVarOf$onehour * 3600000",
+    "customContextDataKey": {
+    },
+    "id": "A-6ad52335-b9b5-48e6-99fe-4485a4d7fffa"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppHasNotification",
+      "pkgs": [{
+        "pkgName": "com.android.systemui"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-c35fc8dd-8bf3-40c8-a4aa-bd4ef13a4e84"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "globalVarOf$onetext \u003d\u003d {matchedAppHasNotificationTitle}",
+      "customContextDataKey": {
+      },
+      "id": "C-9e2a4165-f1ff-4775-b830-54dd568e7a25"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "5000",
+      "customContextDataKey": {
+      },
+      "id": "A-09aba27e-d5ba-439e-942f-cd0c2b32a8e9"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotificationForPackage",
+      "appPkg": [{
+        "pkgName": "com.android.systemui"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-1935590b-9358-4d8f-aa02-36fb1d02e7dc"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "实现指定时间发送一言通知后亮屏自动取消",
+    "id": "A-90405339-43bb-4497-b07f-2a5dac891f02"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-cbca1120-ce58-44f2-9862-dceab3c27141"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "2000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-bd336aba-c1a0-468b-a92e-a4729aa1e637"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://v1.hitokoto.cn/?max_length\u003d15\u0026c\u003dd\u0026c\u003di",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["hitokoto", "from", "from_who"]
+      },
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "id": "A-ded9dc60-435a-44cd-be6c-14c84dce98a4"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo {httpRequestRet1} | sed \u0027s/./ /g\u0027",
+      "customContextDataKey": {
+      },
+      "id": "A-714b346e-d45f-42c2-ba12-ca989432e8da"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "onetext",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-a88de7a1-93e0-4334-bf84-42426c706763"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "onetext",
+      "valueAsString": "{httpRequestRet1}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-2173ccff-0fa0-414f-8b50-6078581cdd48"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-50daf774-1e6b-4f2b-92a8-63b54abd23a9"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.text.SimpleDateFormat;\nimport java.util.Date;\n\n\n        // 获取当前时间\n        Date currentTime \u003d new Date();\n\n        // 创建一个SimpleDateFormat对象，用于提取时间部分\n        SimpleDateFormat sdf \u003d new SimpleDateFormat(\"H:mm\");\n\n        // 提取时间部分\n        String timePart \u003d sdf.format(currentTime);\n\n        // 指定要匹配的时间\n        String targetTime \u003d globalVarOf$onetime;\n\n        // 使用三元运算符匹配时间\n        String result \u003d timePart.equals(targetTime) ? \"true\" : \"false\";\n",
+        "customContextDataKey": {
+        },
+        "id": "C-204571c4-3ffc-4a9f-a9dc-d2ecdb4ec344"
+      }],
+      "IfCondOp": "MVEL",
+      "IfCondOpPayload": {
+        "expression": "c1 \u0026\u0026 c2 \u003d\u003d true"
+      },
+      "IfActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1693640668849",
+        "title": "{httpRequestRet1}",
+        "message": "{shellOut} ––– {httpRequestRet3} 《{httpRequestRet2}》",
+        "isImportant": true,
+        "largeIcon": "layout-3-fill",
+        "smallIcon": "chat-3-line",
+        "sound": true,
+        "customContextDataKey": {
+        },
+        "id": "A-5a0182db-58e3-440e-8fd9-e11d5b8b92e3"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/ScreenIsOn",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-7fb4166b-7557-47f2-ad26-9f94aa48993c"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "{mvelRet}",
+          "useAlarm": true,
+          "customContextDataKey": {
+          },
+          "note": "延迟1h",
+          "id": "A-4d05e56f-f163-4583-8224-cf36f24aa64f"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-1693640668849",
+          "title": "{httpRequestRet1}",
+          "message": "{shellOut} ––– {httpRequestRet3} 《{httpRequestRet2}》",
+          "isImportant": true,
+          "largeIcon": "layout-3-fill",
+          "smallIcon": "chat-3-line",
+          "customContextDataKey": {
+          },
+          "id": "A-da2371ca-58eb-46b8-8e93-4eff3967c47d"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-0fc1a738-8f7c-423a-be0e-090576413c3f"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-299811d8-46f6-424a-9519-55bec2849c53"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-52456694-48f0-4c5c-b8bb-7d90c29f5a10"
+  }],
+  "id": "rule-19d53c31-14d5-4b6a-8066-0ca2df8a6736",
+  "lastUpdateTime": "1694597133014",
+  "createTime": "1693674322983",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "发送一言通知",
+  "description": "默认:\n- 定时 5:00 发送\n- 息屏 1h 发送",
+  "isEnabled": true,
+  "condOp": "ANY",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://v1.hitokoto.cn/?max_length\u003d15\u0026c\u003dd\u0026c\u003di",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["hitokoto", "from", "from_who"]
+      },
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "id": "A-036802c5-ed86-47e7-b3d2-ec11cf2aaf5c"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo {httpRequestRet1} | sed \u0027s/./ /g\u0027",
+      "customContextDataKey": {
+      },
+      "id": "A-24a18651-f281-409c-953c-f9bf41ba4246"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "onetext",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3ebe32c6-e49d-47ad-a044-85eac62f874e"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "onetext",
+      "valueAsString": "{httpRequestRet1}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-c31fe644-d920-4907-b77a-6e93ea26f42d"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1693640668849",
+      "title": "{httpRequestRet1}",
+      "message": "{shellOut} ––– {httpRequestRet3} 《{httpRequestRet2}》",
+      "isImportant": true,
+      "largeIcon": "layout-3-fill",
+      "smallIcon": "chat-3-line",
+      "customContextDataKey": {
+      },
+      "id": "A-56e99536-632d-4ed6-9d9d-51c386fcbcac"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "2000",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-0625cd01-2f82-404f-a955-b2538a57860a"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotificationForPackage",
+      "appPkg": [{
+        "pkgName": "com.android.systemui"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-798d5861-4b19-473d-a519-968182ddfe72"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "onehour",
+      "customContextDataKey": {
+      },
+      "id": "A-84404fec-e623-4be8-9d06-ee5dc1e043de"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "onetime",
+      "customContextDataKey": {
+      },
+      "id": "A-6c0c588e-d3d1-4063-bf81-957e28f2afb4"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "onetext",
+      "customContextDataKey": {
+      },
+      "id": "A-6e359d31-939b-4190-93d9-88d10bf25867"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOn",
+      "customContextDataKey": {
+      },
+      "id": "F-5b9d1a6d-ba50-4eee-b3fc-0cb3450046f5"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/AppHasNotification",
+      "pkgs": [{
+        "pkgName": "com.android.systemui"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-767a3bbb-f58d-46f7-86b9-ec4cb920a423"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppHasNotification",
+        "pkgs": [{
+          "pkgName": "com.android.systemui"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-c35fc8dd-8bf3-40c8-a4aa-bd4ef13a4e84"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "globalVarOf$onetext \u003d\u003d {matchedAppHasNotificationTitle}",
+        "customContextDataKey": {
+        },
+        "id": "C-9e2a4165-f1ff-4775-b830-54dd568e7a25"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "5000",
+        "customContextDataKey": {
+        },
+        "id": "A-09aba27e-d5ba-439e-942f-cd0c2b32a8e9"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotificationForPackage",
+        "appPkg": [{
+          "pkgName": "com.android.systemui"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-1935590b-9358-4d8f-aa02-36fb1d02e7dc"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "实现指定时间发送一言通知后亮屏自动取消",
+      "id": "A-d5e4d2d6-733b-4ca1-927a-39b53c33fdef"
+    }]
+  },
+  "asyncMode": "AsyncMode_Sync_InRule",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-4a683b59-66f2-4772-b1f2-f89dd5c9f4ca"
+}
+###------###
+{"type":"rule"}

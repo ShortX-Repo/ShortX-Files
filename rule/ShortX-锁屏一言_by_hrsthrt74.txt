@@ -1,0 +1,68 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-221aa6ba-fe56-4b39-a9bc-ef614a02cb2d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "curl -s \u0027https://v1.hitokoto.cn/?encode\u003dtext\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-49ee94d4-e850-4d4a-8ee3-5749f87c9255"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "lockscreen_hitokoto",
+    "title": "一言",
+    "message": "{shellOut}",
+    "isImportant": true,
+    "smallIcon": "document-folder",
+    "clickAction": [{
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "tag": "lockscreen_hitokoto"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-2983b296-6c2e-4137-b482-34f58ec7fb3f"
+    }],
+    "onGoing": true,
+    "customContextDataKey": {
+    },
+    "note": "❗记得根据自身实际情况更改通知设置",
+    "id": "A-e7d41e10-e821-452a-b511-6e325f95d4c3"
+  }],
+  "id": "SHARE-rule-a28d1a4e-1d02-4717-8778-778677a696d8",
+  "lastUpdateTime": "1737126984287",
+  "createTime": "1736617863960",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "锁屏一言 by hrsthrt74",
+  "description": "①使用 Shell 进行 HTTP 请求，无需高级版 ShortX\n②请根据自身实际情况调整通知设置，建议关闭「ShortX Alert」通道的震动与声音",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/UserPresent",
+      "customContextDataKey": {
+      },
+      "id": "F-ead5877e-5fb1-4213-80ea-75b892fb2eb1"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "tag": "lockscreen_hitokoto"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0c642e49-019c-4da9-a3f2-461f6e3b5991"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,59 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "gesture": "KeyLongPress",
+    "isInterceptMode": true,
+    "customContextDataKey": {
+    },
+    "id": "F-e7490b26-2379-4386-a861-31b7109f7902"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "torch_state\u003d$(settings get global torch_state)\nif [ \"$torch_state\" -eq 1 ]; then\n  echo 1\nelse\n  echo 0\nfi\n",
+    "customContextDataKey": {
+    },
+    "id": "A-0c8f397b-d0c7-4b1d-8cd7-7a92a99e8df2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{shellOut} \u003d\u003d 0\n",
+      "customContextDataKey": {
+      },
+      "id": "C-977aada8-3051-4028-910e-bab58f0b6040"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-e3e9ee2d-a2fa-4c0e-a7cd-4dac58c77189"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-313c4ff8-44b7-43c1-bcf2-159a46d1b774"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ee0bc668-4279-44da-910f-56eef0b39bd2"
+  }],
+  "id": "rule-1b45b8d0-d21a-42d3-8f69-4fc1973ed672",
+  "lastUpdateTime": "1722166719524",
+  "createTime": "1722166292478",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "开关手电筒",
+  "description": "长按音量+开启手电筒",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

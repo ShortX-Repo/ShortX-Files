@@ -1,0 +1,51 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Broadcast",
+    "actions": ["shortx.toolhub.SHELL"],
+    "customContextDataKey": {
+    },
+    "id": "F-f7810638-87bf-4b95-9a4c-01e844407a84"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 这段表达式的主要内容/用途：从广播 intent 里读取 cmd/root 并展示出来用于验证\ncmd \u003d intent.getStringExtra(\"cmd\");\nroot \u003d intent.getBooleanExtra(\"root\", true);\n\"cmd\u003d\" + cmd + \"\\nroot\u003d\" + root + \"\\naction\u003d\" + intent.action",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-cc106abd-7e5d-42e6-8a09-afac3206613f"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 这段表达式的主要内容/用途：从广播 intent 里取出 cmd 并作为 shell 命令执行\nintent.getStringExtra(\"cmd\")",
+    "customContextDataKey": {
+    },
+    "id": "A-d968d474-9897-463b-80f8-ed78835de46f"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "{mvelRet}",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-4f588811-8c47-4fda-91b2-e89bbe650cca"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-4fa61346-c825-4f56-bcc3-500d0e7ecac0"
+  }],
+  "id": "SHARE-rule-1b86b188-9b40-4f49-90b5-bac03f9e9b21",
+  "lastUpdateTime": "1766484869545",
+  "createTime": "1766283583501",
+  "author": {
+    "name": "阿然@xin-blog.com"
+  },
+  "title": "ToolHub 广播执行shell",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

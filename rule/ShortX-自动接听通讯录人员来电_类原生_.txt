@@ -1,0 +1,100 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.google.android.dialer"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-f05d655a-df32-40b6-9494-e91fddedf2c5"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireBTConnected",
+    "device": "*",
+    "customContextDataKey": {
+    },
+    "id": "C-b3b5a274-db35-41a2-8710-c2a60c10a322"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "接听情况",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-245f86c1-e270-4149-bf30-6abefa39e04f"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#如果标题为纯数字则认定为非通讯录人员\n#意思就是记得通讯录备注(只要不是纯数字就行\n\n# 定义变量\nvariable\u003d{title}\n\n# 检查变量是否为纯数字\nif [[ $variable \u003d\u003d *[!0-9]* ]]; then\n  echo \"接听\"\nelse\n  echo \"不接听\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "验证是否为联系人",
+    "id": "A-509592e8-b276-49ee-8c9d-c3e06f146078"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "接听情况",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-a9d35a83-d638-4a82-9a01-cd6082ee6d60"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "接听情况",
+      "payload": {
+        "value": "接听"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-e7ee19c6-16c4-48ea-b70d-1ab2e1dbe8ca"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "2000",
+      "customContextDataKey": {
+      },
+      "id": "A-f25e735a-2f49-4a1d-9ef7-e205eb5efd70"
+    }, {
+      "@type": "type.googleapis.com/ClickNotificationActionButton",
+      "notification": {
+        "contentText": "来电",
+        "apps": [{
+          "pkgName": "com.google.android.dialer"
+        }]
+      },
+      "button": {
+        "label": "接听"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c38de821-8e73-4418-ba4a-83ae24bc3c4c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0d4f51fd-d463-4106-9ea0-29b38d41bdf9"
+  }],
+  "id": "rule-854f3455-e738-44dd-8d5e-c530fb754edd",
+  "lastUpdateTime": "1709231619644",
+  "createTime": "1709221556851",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "自动接听通讯录人员来电(类原生)",
+  "description": "连接上任意蓝牙后，自动接听通讯录人员来电\n(看看动作了解了解实现原理",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

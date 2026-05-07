@@ -1,0 +1,79 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 8
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "SATURDAY", "TUESDAY", "FRIDAY", "WEDNESDAY", "THURSDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-3782a68c-96bb-4c10-bdc2-2f9bc48279c4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "layout-3-fill",
+    "customContextDataKey": {
+    },
+    "note": "via浏览器登录，点击左上角查看cookie，然后复制",
+    "id": "A-72eb3d72-c5d6-454f-bf84-c343e2b3dda4"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "\u0027xxxxx\u0027;",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "cookie"
+      }]
+    },
+    "note": "这里输入恩山论坛的cookie",
+    "id": "A-aba9e818-3276-4625-af18-31651628a327"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://www.right.com.cn/FORUM/home.php?mod\u003dspacecp\u0026ac\u003dcredit\u0026showcredit\u003d1",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "headers": [{
+      "key": "User-Agent",
+      "value": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.125 Safari/537.36"
+    }, {
+      "key": "Cookie",
+      "value": "{cookie}"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-3361d55b-979a-4c89-b931-7f1deaa113b7"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\nString RESPONSE \u003d httpRequestRet;\nString coinPattern \u003d \"恩山币: \u003c/em\u003e(.*?)nb \u0026nbsp;\";\nString pointPattern \u003d \"\u003cem\u003e积分: \u003c/em\u003e(.*?)\u003cspan\";\nPattern pattern \u003d Pattern.compile(\"(?:\" + coinPattern + \")|(?:\" + pointPattern + \")\");\nMatcher matcher \u003d pattern.matcher(RESPONSE);\nif (matcher.find()) {\n    String coin \u003d matcher.group(1);\n    String point \u003d matcher.group(1);\n    return \"恩山币：\" + coin + \"\\n积分：\" + point;\n} else {\n    return \"false\";\n}\n",
+    "customContextDataKey": {
+    },
+    "id": "A-c810721a-8045-41f3-adb6-d21b84774b67"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1699537676925",
+    "title": "恩山论坛",
+    "message": "{mvelRet}",
+    "smallIcon": "chat-2-line",
+    "customContextDataKey": {
+    },
+    "id": "A-37dd7f36-357f-4676-a7f5-1c002a334eab"
+  }],
+  "id": "rule-5dc0fdb3-7720-4ab2-bd68-b8e0ece2fe7f",
+  "lastUpdateTime": "1699537748125",
+  "createTime": "1699523198312",
+  "author": {
+    "name": "奋斗的青年"
+  },
+  "title": "恩山论坛签到",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,96 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "shurufa",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-5b58ed45-4c7d-4bb6-ad28-619311949a1f"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings get secure default_input_method",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-d2fd17fb-faa2-4ed8-a81e-783088296908"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "shurufa",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-4f4f1a80-9aa0-4204-b352-edb678560061"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "localVarOf$shurufa",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-61729a04-2f1b-44a4-9543-0b8b412d46dc"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "Contains",
+      "varName": "shurufa",
+      "payload": {
+        "value": "com.baidu.input/.ImeService"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-c572cd9b-d68e-4a20-9e63-bf91f2b0188b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "ime set com.tencent.wetype/.plugin.hld.WxHldService",
+      "customContextDataKey": {
+      },
+      "id": "A-82b69f04-cdee-4636-8f6c-fa175c926a48"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已切换为微信输入法",
+      "customContextDataKey": {
+      },
+      "id": "A-789776bd-f962-4bfc-8047-6987d71e75e5"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "ime set com.baidu.input/.ImeService",
+      "customContextDataKey": {
+      },
+      "id": "A-0f550479-14ee-479f-8941-3a37e7b8ae28"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已切换为百度输入法",
+      "customContextDataKey": {
+      },
+      "id": "A-d2c2b297-c568-45fd-beb3-4fe69d06278d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fd0392d2-c819-4865-93a6-56c00defba6b"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "ime list -s",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-9e0c090a-f612-4a55-a76c-cd10215ee76e"
+  }],
+  "id": "SHARED-DA-157929a7-c3f6-42ba-936a-2efde99d5ef1",
+  "lastUpdateTime": "1746655632193",
+  "createTime": "1746620590423",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "切换百度，微信输入法",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

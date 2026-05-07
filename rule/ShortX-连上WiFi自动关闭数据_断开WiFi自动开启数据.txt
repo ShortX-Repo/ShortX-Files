@@ -1,0 +1,56 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiConnectedTo",
+    "ssidList": ["*"],
+    "tag": "connect",
+    "customContextDataKey": {
+    },
+    "id": "F-39226b8e-b96f-46d2-b86a-3724a24eb8a3"
+  }, {
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-43bc9f78-495e-47b9-86ad-11702c1fbf3c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "connect",
+      "customContextDataKey": {
+      },
+      "id": "C-d8063f3b-b592-4294-9e3a-f00e78807ffe"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-2e62d2da-be8a-446c-baea-bee5cd2672fb"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-b015e603-77f9-412d-9a9a-699a8a4986d0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-5790136d-6d14-480b-94ff-a53d151b5932"
+  }],
+  "id": "SHARE-rule-42a9c65e-9cb2-4a81-b0b0-a54c783f0a14",
+  "lastUpdateTime": "1734245610706",
+  "createTime": "1728992886150",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "连上WiFi自动关闭数据，断开WiFi自动开启数据",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,65 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/TaskRemoved",
+    "pkgSets": ["谷歌应用"],
+    "id": "F-dd4a1ab3-73fa-4945-b57e-609bc819c4b2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetAppEnabled",
+    "appPkg": [{
+      "pkgName": "com.google.android.gms",
+      "userId": 999
+    }, {
+      "pkgName": "com.google.android.gms"
+    }, {
+      "pkgName": "com.google.android.gsf",
+      "userId": 999
+    }, {
+      "pkgName": "com.google.android.gsf"
+    }],
+    "isDisabled": true,
+    "id": "A-21a20f7a-f17a-4cd6-8728-28b2a7b66c48"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "冻结谷歌服务",
+    "isDisabled": true,
+    "id": "A-140968a9-feec-4581-9d68-e61666756b89"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgSets": ["谷歌应用"],
+      "id": "C-b6325ce4-6fe7-49f2-aa3d-a4db61220ea6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "无法关闭 还有应用",
+      "id": "A-7e76dfe9-24f0-4000-b490-6091652c64a9"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetAppEnabled",
+      "pkgSets": ["谷歌框架以及服务"],
+      "id": "A-b46ff84e-76e8-413b-88f5-46a8abd6077b"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "框架关闭成功",
+      "id": "A-47a854b6-6088-46ba-aaf4-b20cc15812d1"
+    }],
+    "id": "A-a8ee84a6-6b3b-410b-b72e-5f426d3c6742"
+  }],
+  "id": "rule-e09f2157-2868-4713-8be5-9a3df2ee0533",
+  "lastUpdateTime": "1691414750917",
+  "createTime": "1691412308388",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "冻结谷歌",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,1333 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "chat-smile-2-line",
+    "customContextDataKey": {
+    },
+    "note": "1.该指令用于Jshook软件的游戏Frida脚本辅助编写\n2.功能有脚本生成、返回值\u0026地址快速修改、快速添加Hook、快速修改描述\n3.路径在/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/xxx.js\n4.无需担心同名脚本生成替换，同名会有后缀\n5.返回值和地址可选择一个修改，不改的话为空则不会变动\n6.由于这种方式很蠢，所以代码必须是生成的这种格式，比较固定，可用于快速测试\n\nBy酷安墨上千里",
+    "id": "A-dfad430c-cffa-406b-b11a-adc25ce685ad"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "Frida",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-b37cb129-2dce-4418-8c54-424bde6e29a3"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "FridaMod",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-2fedd495-0090-43e4-8b0b-546c79809be1"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "SelectJS",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-5cde9075-d102-49c7-9337-a4a03cbd44fc"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "FridaModDescription",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-3a205323-5c5b-49b9-abe3-1f2bc6c822f1"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "Temporary",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-244c0841-1c91-4824-a429-7a0fa7ad6723"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Frida",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b7279601-1d2a-4ac2-93f9-3e38d80f8cd1"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "FridaMod",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-79059f30-8f5c-4ff9-89f8-b6bfb8fcd2c9"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "SelectJS",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "选择的脚本"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-77592ef0-2f90-42de-a6cc-904d3ee80326"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Temporary",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-7b0178ac-27b7-45b2-a1da-317dc3c6350c"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "FridaModDescription",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "修改描述存储"
+      },
+      "customContextDataKey": {
+      },
+      "note": "以上为变量的创建，刚需！！！",
+      "id": "A-af423899-0f80-4ad6-aee6-624449c290d6"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["2025-03-31 14:44:34"],
+          "customContextDataKey": {
+          },
+          "id": "A-6ea319c5-54c4-4c5e-b43f-eb2b4d8f2a7b"
+        }, {
+          "@type": "type.googleapis.com/SwitchCase",
+          "case": [{
+            "action": [{
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateGlobalVar",
+                "op": "IsEmpty",
+                "varName": "SelectJS",
+                "payload": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-1e5526dc-d66c-4f0f-aa57-fc6a8d5088a6"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "ls \"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/\" | grep \u0027.js$\u0027 | paste -sd \u0027,\u0027 -",
+                "customContextDataKey": {
+                },
+                "note": "过滤特定类型（只要.js文件），逗号隔开",
+                "id": "A-39665159-e3cd-4a11-ac47-f61427c7d0d8"
+              }, {
+                "@type": "type.googleapis.com/ShowListDialog",
+                "title": "选择要添加hook的脚本",
+                "cancelable": true,
+                "data": "{shellOut}",
+                "delimiter": [",", " "],
+                "needConfirmAction": true,
+                "style": {
+                  "fontScale": 1.0
+                },
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "selectedListItem",
+                    "second": "selectjs"
+                  }]
+                },
+                "note": "选择要修改的脚本",
+                "id": "A-932dbafc-c167-4e55-b251-95ddb470280a"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "SelectJS",
+                "valueAsString": "{selectjs}",
+                "customContextDataKey": {
+                },
+                "note": "写入全局变量为避免修改后还要选择",
+                "id": "A-9c708899-dba8-4bec-a594-efac13c7287c"
+              }, {
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "cat /storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/globalVarOf$SelectJS",
+                "singleShot": true,
+                "customContextDataKey": {
+                },
+                "note": "取Frida代码，可由代码生成功能来生成",
+                "id": "A-c239194e-60b9-4c69-9fc1-92f57fbabee1"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "Frida",
+                "valueAsString": "{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-86abf793-ef7d-4a26-aa7e-f9234105359f"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 使用原始ArrayList声明方式（去掉泛型）\nList hookAddresses \u003d new ArrayList();\n\n// 正则表达式保持不变\nPattern pattern \u003d Pattern.compile(\"address\\\\.add\\\\(\u0027(.*)\u0027\\\\)\");\nMatcher matcher \u003d pattern.matcher(jsCode);\n\nwhile (matcher.find()) {\n    hookAddresses.add(matcher.group(1));\n}\n\nif (!hookAddresses.isEmpty()) {\n    return \"发现\" + hookAddresses.size() + \"个Hook地址\"+\"(globalVarOf$SelectJS)\";\n} else {\n    return false;\n}",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "FindAddress"
+                  }]
+                },
+                "note": "发现17个hook地址，标题使用",
+                "id": "A-91f634b4-1cd8-4456-9f04-d327e5a87487"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "import java.util.regex.Pattern;\nimport java.util.regex.Matcher;\nimport org.json.JSONObject;\nimport org.json.JSONArray;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 增强版正则表达式（支持无注释匹配）\nPattern pattern \u003d Pattern.compile(\n    \"(?://\\\\s*([^\\\\n]*)\\\\s*\\\\n)?\" +      // 可选注释（第1捕获组）\n    \"\\\\s*Interceptor\\\\.attach\\\\(address\\\\.add\\\\(\u0027(.*?)\u0027\\\\),\"+ // 地址（第2捕获组）\n    \"[\\\\s\\\\S]*?retval\\\\.replace\\\\((\\\\d+)\\\\)\", // 数值（第3捕获组）\n    Pattern.DOTALL\n);\n\nMatcher matcher \u003d pattern.matcher(jsCode);\nJSONArray hooks \u003d new JSONArray();\n\n// 统一在外部声明变量\nint count \u003d 0;\nJSONObject hookInfo;\nString description, address;\nint value;\n\nwhile (matcher.find()) {\n    hookInfo \u003d new JSONObject();\n    \n    // 处理可能为空的描述\n    description \u003d matcher.group(1) !\u003d null ? \n                 matcher.group(1).trim() : \n                 \"无描述\";\n    \n    address \u003d matcher.group(2);\n    value \u003d Integer.parseInt(matcher.group(3));\n\n    // 空描述特殊处理\n    if (description.isEmpty()) {\n        description \u003d \"无描述\";\n    }\n\n    hookInfo.put(\"id\", \"第\" + (++count) + \"组\");\n    hookInfo.put(\"__address\", address.toLowerCase());\n    hookInfo.put(\"value\", value);\n    hookInfo.put(\"__value\", address.toLowerCase() + \",\" + value);\n    hookInfo.put(\"summary\", description);\n    \n    hooks.put(hookInfo);\n}\n\nreturn hooks.length() \u003e 0 ? hooks.toString() : \"[]\";",
+                "customContextDataKey": {
+                },
+                "note": "返回Json，给后续识别并选择",
+                "id": "A-d12a8164-662c-4d02-9363-b3410f0282c5"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "Temporary",
+                "valueAsString": "{mvelRet}",
+                "customContextDataKey": {
+                },
+                "note": "写入临时变量，测试用的，本来只有我自己有这个，算了，加上吧。。",
+                "id": "A-fa14970c-be5a-493e-8bbb-39496fc98100"
+              }, {
+                "@type": "type.googleapis.com/IfThenElse",
+                "If": [{
+                  "@type": "type.googleapis.com/EvaluateContextVar",
+                  "op": "EqualTo",
+                  "varName": "FindAddress",
+                  "payload": {
+                    "value": "false"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "C-be0bdc53-d786-4ec4-8cff-b6e8650a7d8d"
+                }],
+                "ElseActions": [{
+                  "@type": "type.googleapis.com/ShowListDialog",
+                  "title": "{FindAddress}",
+                  "cancelable": true,
+                  "data": "globalVarOf$Temporary",
+                  "delimiter": [","],
+                  "needConfirmAction": true,
+                  "dataType": "ShowListDialogDataType_Json",
+                  "style": {
+                    "fontScale": 1.0
+                  },
+                  "customContextDataKey": {
+                  },
+                  "note": "前面的Json解析出来供选择",
+                  "id": "A-b9a01353-92e6-4daf-a5a9-1dc63eb7755f"
+                }, {
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "FridaMod",
+                  "valueAsString": "{selectedListItem}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-3ddcaf0f-5663-4ee2-b8c7-8620a505c6e8"
+                }, {
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateGlobalVar",
+                    "op": "IsEmpty",
+                    "varName": "FridaMod",
+                    "payload": {
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-099fe92f-dac0-4a79-974d-00df9ef723ec"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ShowMenuDialog",
+                    "items": [{
+                      "title": "原值：{selectedListItem}（单击修改）",
+                      "clickActions": [{
+                        "@type": "type.googleapis.com/ExecuteMVEL",
+                        "expression": "// Java 版本\nif (globalVarOf$FridaMod \u003d\u003d null || globalVarOf$FridaMod.isEmpty()) {\n    return \"\"; // 处理空输入\n}\nString[] parts \u003d globalVarOf$FridaMod.split(\",\");\nreturn parts.length \u003e 0 ? parts[0] : globalVarOf$FridaMod;",
+                        "customContextDataKey": {
+                          "keys": [{
+                            "first": "mvelRet",
+                            "second": "GetAddress"
+                          }]
+                        },
+                        "note": "增强版取地址",
+                        "id": "A-f2172342-dbb2-4882-8294-d56146764dc4"
+                      }, {
+                        "@type": "type.googleapis.com/ExecuteJS",
+                        "expression": "firstValue \u003d (globalVarOf$FridaMod || \"\").split(\u0027,\u0027)[1] || \"\";",
+                        "customContextDataKey": {
+                          "keys": [{
+                            "first": "jsRet",
+                            "second": "Get Return Value"
+                          }]
+                        },
+                        "note": "取返回值",
+                        "id": "A-474da047-13c0-4991-a3fa-24c5a639a3b5"
+                      }, {
+                        "@type": "type.googleapis.com/ShowTextFieldDialog",
+                        "title": "请输入修改后的值",
+                        "cancelable": true,
+                        "textFields": [{
+                          "placeholder": "这里修改地址"
+                        }, {
+                          "placeholder": "这里修改返回值"
+                        }],
+                        "style": {
+                        },
+                        "customContextDataKey": {
+                        },
+                        "id": "A-3ef90510-1b73-4639-bce4-f3f43aa647fd"
+                      }, {
+                        "@type": "type.googleapis.com/SwitchCase",
+                        "case": [{
+                          "case": [{
+                            "@type": "type.googleapis.com/EvaluateContextVar",
+                            "op": "IsEmpty",
+                            "varName": "textFieldInput1",
+                            "payload": {
+                            },
+                            "customContextDataKey": {
+                            },
+                            "id": "C-47c783c6-1cce-4719-b026-ef2173fdf568"
+                          }],
+                          "action": [{
+                            "@type": "type.googleapis.com/ShowToast",
+                            "message": "地址为空不替换",
+                            "customContextDataKey": {
+                            },
+                            "id": "A-32f11ab9-3051-42e3-b7b1-ef1e636b42e4"
+                          }],
+                          "description": "空地址",
+                          "id": "Case-4e1dd09a-efdc-430e-9152-6f9596ee3a39"
+                        }, {
+                          "case": [{
+                            "@type": "type.googleapis.com/EvaluateContextVar",
+                            "op": "IsEmpty",
+                            "varName": "textFieldInput2",
+                            "payload": {
+                            },
+                            "customContextDataKey": {
+                            },
+                            "id": "C-da6611d6-6051-4367-8081-228555e4c0c2"
+                          }],
+                          "action": [{
+                            "@type": "type.googleapis.com/ShowToast",
+                            "message": "返回值为空不替换",
+                            "customContextDataKey": {
+                            },
+                            "id": "A-eb2cf80c-9977-4ca0-8467-303c3f242fb6"
+                          }],
+                          "description": "空返回值",
+                          "id": "Case-3739eafb-d297-4483-b501-6d77240c477e"
+                        }, {
+                          "case": [{
+                            "@type": "type.googleapis.com/EvaluateContextVar",
+                            "op": "IsNotEmpty",
+                            "varName": "textFieldInput2",
+                            "payload": {
+                            },
+                            "customContextDataKey": {
+                            },
+                            "id": "C-bfdcf160-7c13-415e-a676-3d5205d235df"
+                          }],
+                          "action": [{
+                            "@type": "type.googleapis.com/ShellCommand",
+                            "command": "#!/bin/bash\n\n# 配置参数\nSEARCH_DIR\u003d\"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写\"\nFILE_PATTERN\u003d\"globalVarOf$SelectJS\"\nBACKUP_EXT\u003d\".bak\"\nREPLACE_RULES\u003d(\n    \u0027s/retval\\.replace({Get Return Value})/retval.replace({textFieldInput2})/g\u0027\n    \n)\n\n# 执行替换（保留备份）\nfind \"$SEARCH_DIR\" -type f -name \"$FILE_PATTERN\" -print0 | while IFS\u003d read -r -d $\u0027\\0\u0027 file\ndo\n    # 生成备份\n    cp \"$file\" \"${file}${BACKUP_EXT}\"\n    \n    # 应用替换规则\n    for rule in \"${REPLACE_RULES[@]}\"; do\n        sed -i \"$rule\" \"$file\"\n    done\n    \n    # 验证修改\n    echo \"修改文件：$file\"\n    diff --color\u003dalways \"${file}${BACKUP_EXT}\" \"$file\" | head -n 10\ndone",
+                            "customContextDataKey": {
+                            },
+                            "note": "单个替换返回值",
+                            "id": "A-b54e2c03-5d72-4c2e-a2ba-803f42b2e4ab"
+                          }, {
+                            "@type": "type.googleapis.com/ShowToast",
+                            "message": "新返回值：{shellOut}",
+                            "customContextDataKey": {
+                            },
+                            "id": "A-74882089-5b66-4187-94d2-944c70406365"
+                          }],
+                          "description": "有效返回值",
+                          "id": "Case-027e5c4d-0fb7-4633-bc12-1f3fe3efda3d"
+                        }, {
+                          "case": [{
+                            "@type": "type.googleapis.com/EvaluateContextVar",
+                            "op": "IsNotEmpty",
+                            "varName": "textFieldInput1",
+                            "payload": {
+                            },
+                            "customContextDataKey": {
+                            },
+                            "id": "C-9901edcf-a4c6-42ce-b78c-584210d74f1a"
+                          }],
+                          "action": [{
+                            "@type": "type.googleapis.com/ShellCommand",
+                            "command": "#!/bin/bash\n\n# 配置参数\nSEARCH_DIR\u003d\"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写\"\nFILE_PATTERN\u003d\"globalVarOf$SelectJS\"\nOLD_ADDR\u003d\"{GetAddress}\"  # 需要替换的旧地址\nNEW_ADDR\u003d\"{textFieldInput1}\"  # 新地址\n\n# 固定替换规则（精准匹配Interceptor.attach(address.add(\u0027地址\u0027)）\nREPLACE_RULE\u003d\"s/Interceptor\\.attach(address\\.add(\u0027${OLD_ADDR}\u0027)/Interceptor.attach(address.add(\u0027${NEW_ADDR}\u0027)/g\"\n\n# 检查目录和权限\n[ ! -d \"$SEARCH_DIR\" ] \u0026\u0026 echo \"目录不存在: $SEARCH_DIR\" \u003e\u00262 \u0026\u0026 exit 1\ntouch \"$SEARCH_DIR/.testw\" || { echo \"无写入权限\"; exit 1; }\nrm -f \"$SEARCH_DIR/.testw\"\n\n# 执行替换\nfind \"$SEARCH_DIR\" -type f -name \"$FILE_PATTERN\" | while read -r file; do\n    echo \"处理文件: $file\"\n    if sed -i.bak \"$REPLACE_RULE\" \"$file\"; then\n        echo \"替换成功\"\n        diff --color\u003dalways \"$file.bak\" \"$file\" | head -n 2\n        rm -f \"$file.bak\"\n    else\n        echo \"替换失败\"\n    fi\ndone",
+                            "customContextDataKey": {
+                            },
+                            "note": "成功替换16进制地址",
+                            "id": "A-8cf96065-13b8-44de-a9aa-95ecc9e7de62"
+                          }, {
+                            "@type": "type.googleapis.com/ShowToast",
+                            "message": "新地址：{shellOut}",
+                            "customContextDataKey": {
+                            },
+                            "id": "A-ec8fe4e5-1b0f-4651-83bf-95c4a95ab4d9"
+                          }],
+                          "description": "有效地址",
+                          "id": "Case-2e1e3ec2-cd38-4483-8815-f64521c40d01"
+                        }],
+                        "customContextDataKey": {
+                        },
+                        "note": "防止了只改一种的情况",
+                        "id": "A-2df6fdb8-de02-4af8-9793-5b6a0ea1fbce"
+                      }]
+                    }],
+                    "title": "{FindAddress}",
+                    "cancelable": true,
+                    "style": {
+                      "fontScale": 1.0
+                    },
+                    "customContextDataKey": {
+                    },
+                    "note": "来到了修改地址返回值的地方",
+                    "id": "A-2f519622-6ef6-4c92-9910-eb83e1399163"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "note": "避免多余弹框",
+                  "id": "A-81fdb611-b903-4996-9853-4dda827e0d00"
+                }],
+                "customContextDataKey": {
+                },
+                "note": "避免没有选择还弹框",
+                "id": "A-f8f0eed5-e408-41c0-9025-82833e25f1e8"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "cat /storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/globalVarOf$SelectJS",
+                "singleShot": true,
+                "customContextDataKey": {
+                },
+                "id": "A-c239194e-60b9-4c69-9fc1-92f57fbabee1"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "Frida",
+                "valueAsString": "{shellOut}",
+                "customContextDataKey": {
+                },
+                "id": "A-86abf793-ef7d-4a26-aa7e-f9234105359f"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 使用原始ArrayList声明方式（去掉泛型）\nList hookAddresses \u003d new ArrayList();\n\n// 正则表达式保持不变\nPattern pattern \u003d Pattern.compile(\"address\\\\.add\\\\(\u0027(.*)\u0027\\\\)\");\nMatcher matcher \u003d pattern.matcher(jsCode);\n\nwhile (matcher.find()) {\n    hookAddresses.add(matcher.group(1));\n}\n\nif (!hookAddresses.isEmpty()) {\n    return \"发现\" + hookAddresses.size() + \"个Hook地址\"+\"(\"+globalVarOf$SelectJS+\")\";\n} else {\n    return false;\n}",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "FindAddress"
+                  }]
+                },
+                "note": "发现17个hook地址",
+                "id": "A-91f634b4-1cd8-4456-9f04-d327e5a87487"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "import java.util.regex.Pattern;\nimport java.util.regex.Matcher;\nimport org.json.JSONObject;\nimport org.json.JSONArray;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 增强版正则表达式（支持无注释匹配）\nPattern pattern \u003d Pattern.compile(\n    \"(?://\\\\s*([^\\\\n]*)\\\\s*\\\\n)?\" +      // 可选注释（第1捕获组）\n    \"\\\\s*Interceptor\\\\.attach\\\\(address\\\\.add\\\\(\u0027(.*?)\u0027\\\\),\"+ // 地址（第2捕获组）\n    \"[\\\\s\\\\S]*?retval\\\\.replace\\\\((\\\\d+)\\\\)\", // 数值（第3捕获组）\n    Pattern.DOTALL\n);\n\nMatcher matcher \u003d pattern.matcher(jsCode);\nJSONArray hooks \u003d new JSONArray();\n\n// 统一在外部声明变量\nint count \u003d 0;\nJSONObject hookInfo;\nString description, address;\nint value;\n\nwhile (matcher.find()) {\n    hookInfo \u003d new JSONObject();\n    \n    // 处理可能为空的描述\n    description \u003d matcher.group(1) !\u003d null ? \n                 matcher.group(1).trim() : \n                 \"无描述\";\n    \n    address \u003d matcher.group(2);\n    value \u003d Integer.parseInt(matcher.group(3));\n\n    // 空描述特殊处理\n    if (description.isEmpty()) {\n        description \u003d \"无描述\";\n    }\n\n    hookInfo.put(\"id\", \"第\" + (++count) + \"组\");\n    hookInfo.put(\"__address\", address.toLowerCase());\n    hookInfo.put(\"value\", value);\n    hookInfo.put(\"__value\", address.toLowerCase() + \",\" + value);\n    hookInfo.put(\"summary\", description);\n    \n    hooks.put(hookInfo);\n}\n\nreturn hooks.length() \u003e 0 ? hooks.toString() : \"[]\";",
+                "customContextDataKey": {
+                },
+                "note": "返回Json正确匹配无描述",
+                "id": "A-e12484cd-11f7-40df-aad4-1b0a84829e67"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "Temporary",
+                "valueAsString": "{mvelRet}",
+                "customContextDataKey": {
+                },
+                "id": "A-fa14970c-be5a-493e-8bbb-39496fc98100"
+              }, {
+                "@type": "type.googleapis.com/IfThenElse",
+                "If": [{
+                  "@type": "type.googleapis.com/EvaluateContextVar",
+                  "op": "EqualTo",
+                  "varName": "FindAddress",
+                  "payload": {
+                    "value": "false"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "C-be0bdc53-d786-4ec4-8cff-b6e8650a7d8d"
+                }],
+                "ElseActions": [{
+                  "@type": "type.googleapis.com/ShowListDialog",
+                  "title": "{FindAddress}",
+                  "cancelable": true,
+                  "data": "globalVarOf$Temporary",
+                  "delimiter": [","],
+                  "needConfirmAction": true,
+                  "dataType": "ShowListDialogDataType_Json",
+                  "style": {
+                    "fontScale": 1.0
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-b9a01353-92e6-4daf-a5a9-1dc63eb7755f"
+                }, {
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "FridaMod",
+                  "valueAsString": "{selectedListItem}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-3ddcaf0f-5663-4ee2-b8c7-8620a505c6e8"
+                }, {
+                  "@type": "type.googleapis.com/IfThenElse",
+                  "If": [{
+                    "@type": "type.googleapis.com/EvaluateGlobalVar",
+                    "op": "IsEmpty",
+                    "varName": "FridaMod",
+                    "payload": {
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "C-099fe92f-dac0-4a79-974d-00df9ef723ec"
+                  }],
+                  "ElseActions": [{
+                    "@type": "type.googleapis.com/ShowMenuDialog",
+                    "items": [{
+                      "title": "原值：{selectedListItem}（单击修改）",
+                      "clickActions": [{
+                        "@type": "type.googleapis.com/ExecuteMVEL",
+                        "expression": "// Java 版本\nif (globalVarOf$FridaMod \u003d\u003d null || globalVarOf$FridaMod.isEmpty()) {\n    return \"\"; // 处理空输入\n}\nString[] parts \u003d globalVarOf$FridaMod.split(\",\");\nreturn parts.length \u003e 0 ? parts[0] : globalVarOf$FridaMod;",
+                        "customContextDataKey": {
+                          "keys": [{
+                            "first": "mvelRet",
+                            "second": "GetAddress"
+                          }]
+                        },
+                        "note": "增强版取地址",
+                        "id": "A-f2172342-dbb2-4882-8294-d56146764dc4"
+                      }, {
+                        "@type": "type.googleapis.com/ExecuteJS",
+                        "expression": "firstValue \u003d (globalVarOf$FridaMod || \"\").split(\u0027,\u0027)[1] || \"\";",
+                        "customContextDataKey": {
+                          "keys": [{
+                            "first": "jsRet",
+                            "second": "Get Return Value"
+                          }]
+                        },
+                        "note": "取返回值",
+                        "id": "A-474da047-13c0-4991-a3fa-24c5a639a3b5"
+                      }, {
+                        "@type": "type.googleapis.com/ShowTextFieldDialog",
+                        "title": "请输入修改后的值",
+                        "cancelable": true,
+                        "textFields": [{
+                          "placeholder": "这里修改地址"
+                        }, {
+                          "placeholder": "这里修改返回值"
+                        }],
+                        "style": {
+                        },
+                        "customContextDataKey": {
+                        },
+                        "id": "A-3ef90510-1b73-4639-bce4-f3f43aa647fd"
+                      }, {
+                        "@type": "type.googleapis.com/SwitchCase",
+                        "case": [{
+                          "case": [{
+                            "@type": "type.googleapis.com/EvaluateContextVar",
+                            "op": "IsEmpty",
+                            "varName": "textFieldInput1",
+                            "payload": {
+                            },
+                            "customContextDataKey": {
+                            },
+                            "id": "C-47c783c6-1cce-4719-b026-ef2173fdf568"
+                          }],
+                          "action": [{
+                            "@type": "type.googleapis.com/ShowToast",
+                            "message": "地址为空不替换",
+                            "customContextDataKey": {
+                            },
+                            "id": "A-32f11ab9-3051-42e3-b7b1-ef1e636b42e4"
+                          }],
+                          "description": "空地址",
+                          "id": "Case-4e1dd09a-efdc-430e-9152-6f9596ee3a39"
+                        }, {
+                          "case": [{
+                            "@type": "type.googleapis.com/EvaluateContextVar",
+                            "op": "IsEmpty",
+                            "varName": "textFieldInput2",
+                            "payload": {
+                            },
+                            "customContextDataKey": {
+                            },
+                            "id": "C-da6611d6-6051-4367-8081-228555e4c0c2"
+                          }],
+                          "action": [{
+                            "@type": "type.googleapis.com/ShowToast",
+                            "message": "返回值为空不替换",
+                            "customContextDataKey": {
+                            },
+                            "id": "A-eb2cf80c-9977-4ca0-8467-303c3f242fb6"
+                          }],
+                          "description": "空返回值",
+                          "id": "Case-3739eafb-d297-4483-b501-6d77240c477e"
+                        }, {
+                          "case": [{
+                            "@type": "type.googleapis.com/EvaluateContextVar",
+                            "op": "IsNotEmpty",
+                            "varName": "textFieldInput2",
+                            "payload": {
+                            },
+                            "customContextDataKey": {
+                            },
+                            "id": "C-bfdcf160-7c13-415e-a676-3d5205d235df"
+                          }],
+                          "action": [{
+                            "@type": "type.googleapis.com/ShellCommand",
+                            "command": "#!/bin/bash\n\n# 配置参数\nSEARCH_DIR\u003d\"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写\"\nFILE_PATTERN\u003d\"globalVarOf$SelectJS\"\nBACKUP_EXT\u003d\".bak\"\nREPLACE_RULES\u003d(\n    \u0027s/retval\\.replace({Get Return Value})/retval.replace({textFieldInput2})/g\u0027\n    \n)\n\n# 执行替换（保留备份）\nfind \"$SEARCH_DIR\" -type f -name \"$FILE_PATTERN\" -print0 | while IFS\u003d read -r -d $\u0027\\0\u0027 file\ndo\n    # 生成备份\n    cp \"$file\" \"${file}${BACKUP_EXT}\"\n    \n    # 应用替换规则\n    for rule in \"${REPLACE_RULES[@]}\"; do\n        sed -i \"$rule\" \"$file\"\n    done\n    \n    # 验证修改\n    echo \"修改文件：$file\"\n    diff --color\u003dalways \"${file}${BACKUP_EXT}\" \"$file\" | head -n 10\ndone",
+                            "customContextDataKey": {
+                            },
+                            "note": "单个替换返回值",
+                            "id": "A-b54e2c03-5d72-4c2e-a2ba-803f42b2e4ab"
+                          }, {
+                            "@type": "type.googleapis.com/ShowToast",
+                            "message": "新返回值：{shellOut}",
+                            "customContextDataKey": {
+                            },
+                            "id": "A-74882089-5b66-4187-94d2-944c70406365"
+                          }],
+                          "description": "有效返回值",
+                          "id": "Case-027e5c4d-0fb7-4633-bc12-1f3fe3efda3d"
+                        }, {
+                          "case": [{
+                            "@type": "type.googleapis.com/EvaluateContextVar",
+                            "op": "IsNotEmpty",
+                            "varName": "textFieldInput1",
+                            "payload": {
+                            },
+                            "customContextDataKey": {
+                            },
+                            "id": "C-9901edcf-a4c6-42ce-b78c-584210d74f1a"
+                          }],
+                          "action": [{
+                            "@type": "type.googleapis.com/ShellCommand",
+                            "command": "#!/bin/bash\n\n# 配置参数\nSEARCH_DIR\u003d\"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写\"\nFILE_PATTERN\u003d\"globalVarOf$SelectJS\"\nOLD_ADDR\u003d\"{GetAddress}\"  # 需要替换的旧地址\nNEW_ADDR\u003d\"{textFieldInput1}\"  # 新地址\n\n# 固定替换规则（精准匹配Interceptor.attach(address.add(\u0027地址\u0027)）\nREPLACE_RULE\u003d\"s/Interceptor\\.attach(address\\.add(\u0027${OLD_ADDR}\u0027)/Interceptor.attach(address.add(\u0027${NEW_ADDR}\u0027)/g\"\n\n# 检查目录和权限\n[ ! -d \"$SEARCH_DIR\" ] \u0026\u0026 echo \"目录不存在: $SEARCH_DIR\" \u003e\u00262 \u0026\u0026 exit 1\ntouch \"$SEARCH_DIR/.testw\" || { echo \"无写入权限\"; exit 1; }\nrm -f \"$SEARCH_DIR/.testw\"\n\n# 执行替换\nfind \"$SEARCH_DIR\" -type f -name \"$FILE_PATTERN\" | while read -r file; do\n    echo \"处理文件: $file\"\n    if sed -i.bak \"$REPLACE_RULE\" \"$file\"; then\n        echo \"替换成功\"\n        diff --color\u003dalways \"$file.bak\" \"$file\" | head -n 2\n        rm -f \"$file.bak\"\n    else\n        echo \"替换失败\"\n    fi\ndone",
+                            "customContextDataKey": {
+                            },
+                            "note": "成功替换16进制地址",
+                            "id": "A-8cf96065-13b8-44de-a9aa-95ecc9e7de62"
+                          }, {
+                            "@type": "type.googleapis.com/ShowToast",
+                            "message": "新地址：{shellOut}",
+                            "customContextDataKey": {
+                            },
+                            "id": "A-ec8fe4e5-1b0f-4651-83bf-95c4a95ab4d9"
+                          }],
+                          "description": "有效地址",
+                          "id": "Case-2e1e3ec2-cd38-4483-8815-f64521c40d01"
+                        }],
+                        "customContextDataKey": {
+                        },
+                        "id": "A-2df6fdb8-de02-4af8-9793-5b6a0ea1fbce"
+                      }]
+                    }],
+                    "title": "{FindAddress}",
+                    "cancelable": true,
+                    "style": {
+                      "fontScale": 1.0
+                    },
+                    "customContextDataKey": {
+                    },
+                    "note": "SW新",
+                    "id": "A-2f519622-6ef6-4c92-9910-eb83e1399163"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-81fdb611-b903-4996-9853-4dda827e0d00"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-491e42a9-7bb5-4e8b-bf43-27948d4dfdb8"
+              }],
+              "customContextDataKey": {
+              },
+              "note": "开始修改",
+              "id": "A-0c85f181-829b-424d-834d-792c3a4e593a"
+            }],
+            "description": "修改地址和返回值",
+            "id": "Case-e7808504-0466-46e6-aa27-66fa492944a7"
+          }, {
+            "action": [{
+              "@type": "type.googleapis.com/FromDA",
+              "daId": "DA-a3659a44-b4a0-4903-b055-66b1e3acd3d6",
+              "customContextDataKey": {
+              },
+              "id": "A-b72c2c50-5bdf-4c9e-9a18-1452a0188156"
+            }],
+            "description": "显示悬浮工具",
+            "id": "Case-35d68759-2e05-45ba-a096-bcf0d31003aa"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-a080c9d2-6384-46e1-9ecc-61e1bc04269d"
+        }],
+        "icon": "cutting-one",
+        "label": "修改地址",
+        "id": "BTN-705e1999-921a-46f2-b9ee-9780b17c121a"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "IsEmpty",
+            "varName": "SelectJS",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-1e5526dc-d66c-4f0f-aa57-fc6a8d5088a6"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "ls \"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/\" | grep \u0027.js$\u0027 | paste -sd \u0027,\u0027 -",
+            "customContextDataKey": {
+            },
+            "note": "过滤特定类型（只要.js文件），逗号隔开",
+            "id": "A-39665159-e3cd-4a11-ac47-f61427c7d0d8"
+          }, {
+            "@type": "type.googleapis.com/ShowListDialog",
+            "title": "选择要添加hook的脚本",
+            "cancelable": true,
+            "data": "{shellOut}",
+            "delimiter": [",", " "],
+            "needConfirmAction": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+              "keys": [{
+                "first": "selectedListItem",
+                "second": "selectjs"
+              }]
+            },
+            "id": "A-932dbafc-c167-4e55-b251-95ddb470280a"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "SelectJS",
+            "valueAsString": "{selectjs}",
+            "customContextDataKey": {
+            },
+            "id": "A-9c708899-dba8-4bec-a594-efac13c7287c"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "cat /storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/globalVarOf$SelectJS",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "取代码内容",
+            "id": "A-c239194e-60b9-4c69-9fc1-92f57fbabee1"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "Frida",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-86abf793-ef7d-4a26-aa7e-f9234105359f"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 使用原始ArrayList声明方式（去掉泛型）\nList hookAddresses \u003d new ArrayList();\n\n// 正则表达式保持不变\nPattern pattern \u003d Pattern.compile(\"address\\\\.add\\\\(\u0027(.*)\u0027\\\\)\");\nMatcher matcher \u003d pattern.matcher(jsCode);\n\nwhile (matcher.find()) {\n    hookAddresses.add(matcher.group(1));\n}\n\nif (!hookAddresses.isEmpty()) {\n    return \"选择要修改描述的地址\"+\"(\"+globalVarOf$SelectJS+\")\";\n} else {\n    return false;\n}",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "FindAddress"
+              }]
+            },
+            "note": "发现17个hook地址，数量数量，不一定17个，嘿嘿",
+            "id": "A-7b33847c-3bdf-4f3c-9f71-e0bad7fc9f97"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import java.util.regex.Pattern;\nimport java.util.regex.Matcher;\nimport org.json.JSONObject;\nimport org.json.JSONArray;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 增强版正则表达式（支持无注释匹配）\nPattern pattern \u003d Pattern.compile(\n    \"(?://\\\\s*([^\\\\n]*)\\\\s*\\\\n)?\" +      // 可选注释（第1捕获组）\n    \"\\\\s*Interceptor\\\\.attach\\\\(address\\\\.add\\\\(\u0027(.*?)\u0027\\\\),\"+ // 地址（第2捕获组）\n    \"[\\\\s\\\\S]*?retval\\\\.replace\\\\((\\\\d+)\\\\)\", // 数值（第3捕获组）\n    Pattern.DOTALL\n);\n\nMatcher matcher \u003d pattern.matcher(jsCode);\nJSONArray hooks \u003d new JSONArray();\n\n// 统一在外部声明变量\nint count \u003d 0;\nJSONObject hookInfo;\nString description, address;\nint value;\n\nwhile (matcher.find()) {\n    hookInfo \u003d new JSONObject();\n    \n    // 处理可能为空的描述\n    description \u003d matcher.group(1) !\u003d null ? \n                 matcher.group(1).trim() : \n                 \"无描述\"+count;\n    \n    address \u003d matcher.group(2);\n    value \u003d Integer.parseInt(matcher.group(3));\n\n    // 空描述特殊处理\n    if (description.isEmpty()) {\n        description \u003d \"无描述\"+count;\n    }\n\n    hookInfo.put(\"id\", \"第\" + (++count) + \"组\");\n    hookInfo.put(\"__address\", address.toLowerCase());\n    hookInfo.put(\"value\", value);\n    hookInfo.put(\"__value\", address.toLowerCase());\n    hookInfo.put(\"summary\", description);\n    \n    hooks.put(hookInfo);\n}\n\nreturn hooks.length() \u003e 0 ? hooks.toString() : \"[]\";",
+            "customContextDataKey": {
+            },
+            "note": "返回Json",
+            "id": "A-a6fc63dd-0642-4b2b-9f49-4d1a8afa257c"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "Temporary",
+            "valueAsString": "{mvelRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-fa14970c-be5a-493e-8bbb-39496fc98100"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "FindAddress",
+              "payload": {
+                "value": "false"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-be0bdc53-d786-4ec4-8cff-b6e8650a7d8d"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowListDialog",
+              "title": "{FindAddress}",
+              "cancelable": true,
+              "data": "globalVarOf$Temporary",
+              "delimiter": [","],
+              "needConfirmAction": true,
+              "dataType": "ShowListDialogDataType_Json",
+              "style": {
+                "fontScale": 1.0
+              },
+              "customContextDataKey": {
+              },
+              "note": "选择描述",
+              "id": "A-b9a01353-92e6-4daf-a5a9-1dc63eb7755f"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "FridaModDescription",
+              "valueAsString": "{selectedListItem}",
+              "customContextDataKey": {
+              },
+              "id": "A-3ddcaf0f-5663-4ee2-b8c7-8620a505c6e8"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateGlobalVar",
+                "op": "IsEmpty",
+                "varName": "FridaModDescription",
+                "payload": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-bb845d60-cbbb-4212-b004-6acc60b73594"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "检查地址是否空值",
+                "customContextDataKey": {
+                },
+                "id": "A-ec8640e5-4191-44c1-9ad1-4f46dc4fb519"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowMenuDialog",
+                "items": [{
+                  "title": "地址：{selectedListItem}（单击修改描述）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ShowTextFieldDialog",
+                    "title": "请输入修改后的描述",
+                    "cancelable": true,
+                    "textFields": [{
+                      "placeholder": "这里修改描述",
+                      "value": "默认 RoleAttributeProx∶get_max_hp"
+                    }],
+                    "style": {
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "A-da3a55ef-2122-4cfb-9633-a7352f2cdf70"
+                  }, {
+                    "@type": "type.googleapis.com/SwitchCase",
+                    "case": [{
+                      "case": [{
+                        "@type": "type.googleapis.com/EvaluateContextVar",
+                        "op": "IsEmpty",
+                        "varName": "textFieldInput1",
+                        "payload": {
+                        },
+                        "customContextDataKey": {
+                        },
+                        "id": "C-47c783c6-1cce-4719-b026-ef2173fdf568"
+                      }],
+                      "action": [{
+                        "@type": "type.googleapis.com/ShowToast",
+                        "message": "地址为空不替换",
+                        "customContextDataKey": {
+                        },
+                        "id": "A-32f11ab9-3051-42e3-b7b1-ef1e636b42e4"
+                      }],
+                      "description": "空描述",
+                      "id": "Case-4e1dd09a-efdc-430e-9152-6f9596ee3a39"
+                    }, {
+                      "case": [{
+                        "@type": "type.googleapis.com/EvaluateContextVar",
+                        "op": "IsNotEmpty",
+                        "varName": "textFieldInput1",
+                        "payload": {
+                        },
+                        "customContextDataKey": {
+                        },
+                        "id": "C-9901edcf-a4c6-42ce-b78c-584210d74f1a"
+                      }],
+                      "action": [{
+                        "@type": "type.googleapis.com/ShellCommand",
+                        "command": "#!/bin/bash\n\n# 配置参数\nSEARCH_DIR\u003d\"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写\"\nFILE_PATTERN\u003d\"globalVarOf$SelectJS\"\n\n# 动态参数（从环境变量或命令行参数获取）\nTARGET_ADDRESS\u003d\"globalVarOf$FridaModDescription\"  # 传入的地址\nNEW_DESCRIPTION\u003d\"//{textFieldInput1}\"  # 新的描述\n\n# 检查目录和权限\nif [ ! -d \"$SEARCH_DIR\" ]; then\n    echo \"目录不存在: $SEARCH_DIR\" \u003e\u00262\n    exit 1\nfi\n\n# 简化后的提取或添加描述的函数\nextract_or_add_description() {\n    local file\u003d\"$1\"\n    local target_address\u003d\"$2\"\n    local code_block\n    local description\n\n    # 使用 awk 提取代码块及其描述\n    code_block\u003d$(awk -v addr\u003d\"$target_address\" \u0027\n    {\n        if (/Interceptor\\.attach/ \u0026\u0026 /address\\.add/ \u0026\u0026 $0 ~ addr) {\n            block \u003d $0\n            for (i \u003d 1; i \u003c\u003d 100; i++) {  # 增加行数限制，避免无限循环\n                getline\n                block \u003d block RS $0\n                if (/}/) break\n            }\n            # 记录代码块\n            print block\n            exit\n        }\n    }\u0027 \"$file\")\n\n    if [ -z \"$code_block\" ]; then\n        echo \"未找到匹配的代码块: $target_address\" \u003e\u00262\n        return 1\n    fi\n\n    # 提取旧描述（更灵活的匹配方式）\n    # 使用 awk 查找代码块上方的注释行\n    description\u003d$(awk -v addr\u003d\"$target_address\" \u0027\n    {\n        if (/Interceptor\\.attach/ \u0026\u0026 /address\\.add/ \u0026\u0026 $0 ~ addr) {\n            for (i \u003d 1; i \u003c\u003d 10; i++) {  # 向上查找最多 10 行\n                if (NR - i \u003e 0) {\n                    prev_line \u003d lines[NR - i]\n                    if (prev_line ~ /^ *\\/\\//) {\n                        print prev_line\n                        exit\n                    }\n                }\n            }\n            exit\n        }\n        lines[NR] \u003d $0\n    }\u0027 \"$file\")\n\n    # 替换或添加描述\n    if [ -z \"$description\" ]; then\n        # 添加新描述\n        sed -i \"/$target_address/i $NEW_DESCRIPTION\" \"$file\"\n        echo \"已添加新描述: $NEW_DESCRIPTION\"\n    else\n        # 替换旧描述为新描述\n        # 使用 printf 转义特殊字符，避免 sed 匹配失败\n        escaped_description\u003d$(printf \u0027%s\\n\u0027 \"$description\" | sed \u0027s:[][\\/.^$*]:\\\\\u0026:g\u0027)\n        sed -i \"s|$escaped_description|$NEW_DESCRIPTION|\" \"$file\"\n        echo \"已替换旧描述 $description 为 $NEW_DESCRIPTION\"\n    fi\n\n    # 显示匹配的代码块和描述\n    echo \"匹配的代码块：\"\n    echo \"$code_block\"\n    echo \"新描述：$NEW_DESCRIPTION\"\n}\n\n# 主逻辑\nif [ -z \"$TARGET_ADDRESS\" ]; then\n    echo \"地址不能为空！\" \u003e\u00262\n    exit 1\nfi\n\n# 处理每个匹配的文件\nfind \"$SEARCH_DIR\" -type f -name \"$FILE_PATTERN\" | while read -r file; do\n    echo \"处理文件: $file\"\n    extract_or_add_description \"$file\" \"$TARGET_ADDRESS\"\ndone\n",
+                        "customContextDataKey": {
+                        },
+                        "note": "替换可能有问题",
+                        "id": "A-c2e12737-b087-46ba-aff3-577725f61e33"
+                      }, {
+                        "@type": "type.googleapis.com/ShowToast",
+                        "message": "新地址：{shellOut}",
+                        "customContextDataKey": {
+                        },
+                        "id": "A-ec8fe4e5-1b0f-4651-83bf-95c4a95ab4d9"
+                      }],
+                      "description": "有效描述",
+                      "id": "Case-2e1e3ec2-cd38-4483-8815-f64521c40d01"
+                    }],
+                    "customContextDataKey": {
+                    },
+                    "id": "A-dee551d2-fe31-4211-85a6-84b31a6ac37b"
+                  }]
+                }],
+                "title": "{FindAddress}",
+                "cancelable": true,
+                "style": {
+                  "fontScale": 1.0
+                },
+                "customContextDataKey": {
+                },
+                "note": "修改",
+                "id": "A-2f519622-6ef6-4c92-9910-eb83e1399163"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-ad0f8df6-31e9-46a9-a017-194847bf14fc"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-b9a5cb1a-623c-452b-b853-96cd470ca994"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "cat /storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/globalVarOf$SelectJS",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "id": "A-c239194e-60b9-4c69-9fc1-92f57fbabee1"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "Frida",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-86abf793-ef7d-4a26-aa7e-f9234105359f"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 使用原始ArrayList声明方式（去掉泛型）\nList hookAddresses \u003d new ArrayList();\n\n// 正则表达式保持不变\nPattern pattern \u003d Pattern.compile(\"address\\\\.add\\\\(\u0027(.*)\u0027\\\\)\");\nMatcher matcher \u003d pattern.matcher(jsCode);\n\nwhile (matcher.find()) {\n    hookAddresses.add(matcher.group(1));\n}\n\nif (!hookAddresses.isEmpty()) {\n    return \"发现\" + hookAddresses.size() + \"个Hook地址\"+\"(\"+globalVarOf$SelectJS+\")\";\n} else {\n    return false;\n}",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "FindAddress"
+              }]
+            },
+            "isDisabled": true,
+            "note": "发现17个hook地址",
+            "id": "A-91f634b4-1cd8-4456-9f04-d327e5a87487"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 使用原始ArrayList声明方式（去掉泛型）\nList hookAddresses \u003d new ArrayList();\n\n// 正则表达式保持不变\nPattern pattern \u003d Pattern.compile(\"address\\\\.add\\\\(\u0027(.*)\u0027\\\\)\");\nMatcher matcher \u003d pattern.matcher(jsCode);\n\nwhile (matcher.find()) {\n    hookAddresses.add(matcher.group(1));\n}\n\nif (!hookAddresses.isEmpty()) {\n    return \"选择要修改描述的地址\"+\"(\"+globalVarOf$SelectJS+\")\";\n} else {\n    return false;\n}",
+            "customContextDataKey": {
+              "keys": [{
+                "first": "mvelRet",
+                "second": "FindAddress"
+              }]
+            },
+            "note": "发现17个hook地址",
+            "id": "A-3aecb48a-a4c5-4de3-a383-08fd1103c41d"
+          }, {
+            "@type": "type.googleapis.com/ExecuteMVEL",
+            "expression": "import java.util.regex.Pattern;\nimport java.util.regex.Matcher;\nimport org.json.JSONObject;\nimport org.json.JSONArray;\n\nString jsCode \u003d globalVarOf$Frida;\n\n// 增强版正则表达式（支持无注释匹配）\nPattern pattern \u003d Pattern.compile(\n    \"(?://\\\\s*([^\\\\n]*)\\\\s*\\\\n)?\" +      // 可选注释（第1捕获组）\n    \"\\\\s*Interceptor\\\\.attach\\\\(address\\\\.add\\\\(\u0027(.*?)\u0027\\\\),\"+ // 地址（第2捕获组）\n    \"[\\\\s\\\\S]*?retval\\\\.replace\\\\((\\\\d+)\\\\)\", // 数值（第3捕获组）\n    Pattern.DOTALL\n);\n\nMatcher matcher \u003d pattern.matcher(jsCode);\nJSONArray hooks \u003d new JSONArray();\n\n// 统一在外部声明变量\nint count \u003d 0;\nJSONObject hookInfo;\nString description, address;\nint value;\n\nwhile (matcher.find()) {\n    hookInfo \u003d new JSONObject();\n    \n    // 处理可能为空的描述\n    description \u003d matcher.group(1) !\u003d null ? \n                 matcher.group(1).trim() : \n                 \"无描述\"+count;\n    \n    address \u003d matcher.group(2);\n    value \u003d Integer.parseInt(matcher.group(3));\n\n    // 空描述特殊处理\n    if (description.isEmpty()) {\n        description \u003d \"无描述\"+count;\n    }\n\n    hookInfo.put(\"id\", \"第\" + (++count) + \"组\");\n    hookInfo.put(\"__address\", address.toLowerCase());\n    hookInfo.put(\"value\", value);\n    hookInfo.put(\"__value\", address.toLowerCase());\n    hookInfo.put(\"summary\", description);\n    \n    hooks.put(hookInfo);\n}\n\nreturn hooks.length() \u003e 0 ? hooks.toString() : \"[]\";",
+            "customContextDataKey": {
+            },
+            "note": "返回Json正确匹配无描述\n这里数值魔改为描述",
+            "id": "A-dcadabf9-9f9b-491f-868b-6957e49c77ff"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "Temporary",
+            "valueAsString": "{mvelRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-fa14970c-be5a-493e-8bbb-39496fc98100"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "EqualTo",
+              "varName": "FindAddress",
+              "payload": {
+                "value": "false"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-be0bdc53-d786-4ec4-8cff-b6e8650a7d8d"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowListDialog",
+              "title": "{FindAddress}",
+              "cancelable": true,
+              "data": "globalVarOf$Temporary",
+              "delimiter": [","],
+              "needConfirmAction": true,
+              "dataType": "ShowListDialogDataType_Json",
+              "style": {
+                "fontScale": 1.0
+              },
+              "customContextDataKey": {
+              },
+              "note": "选择描述",
+              "id": "A-b9a01353-92e6-4daf-a5a9-1dc63eb7755f"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "FridaModDescription",
+              "valueAsString": "{selectedListItem}",
+              "customContextDataKey": {
+              },
+              "id": "A-3ddcaf0f-5663-4ee2-b8c7-8620a505c6e8"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateGlobalVar",
+                "op": "IsEmpty",
+                "varName": "FridaModDescription",
+                "payload": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-bb845d60-cbbb-4212-b004-6acc60b73594"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "检查地址是否空值",
+                "customContextDataKey": {
+                },
+                "id": "A-ec8640e5-4191-44c1-9ad1-4f46dc4fb519"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowMenuDialog",
+                "items": [{
+                  "title": "原值：{selectedListItem}（单击修改）",
+                  "clickActions": [{
+                    "@type": "type.googleapis.com/ShowTextFieldDialog",
+                    "title": "请输入修改后的描述",
+                    "cancelable": true,
+                    "textFields": [{
+                      "placeholder": "这里修改描述",
+                      "value": "默认 RoleAttributeProx∶get_max_hp"
+                    }],
+                    "style": {
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "A-da3a55ef-2122-4cfb-9633-a7352f2cdf70"
+                  }, {
+                    "@type": "type.googleapis.com/SwitchCase",
+                    "case": [{
+                      "case": [{
+                        "@type": "type.googleapis.com/EvaluateContextVar",
+                        "op": "IsEmpty",
+                        "varName": "textFieldInput1",
+                        "payload": {
+                        },
+                        "customContextDataKey": {
+                        },
+                        "id": "C-47c783c6-1cce-4719-b026-ef2173fdf568"
+                      }],
+                      "action": [{
+                        "@type": "type.googleapis.com/ShowToast",
+                        "message": "地址为空不替换",
+                        "customContextDataKey": {
+                        },
+                        "id": "A-32f11ab9-3051-42e3-b7b1-ef1e636b42e4"
+                      }],
+                      "description": "空描述",
+                      "id": "Case-4e1dd09a-efdc-430e-9152-6f9596ee3a39"
+                    }, {
+                      "case": [{
+                        "@type": "type.googleapis.com/EvaluateContextVar",
+                        "op": "IsNotEmpty",
+                        "varName": "textFieldInput1",
+                        "payload": {
+                        },
+                        "customContextDataKey": {
+                        },
+                        "id": "C-9901edcf-a4c6-42ce-b78c-584210d74f1a"
+                      }],
+                      "action": [{
+                        "@type": "type.googleapis.com/ShellCommand",
+                        "command": "#!/bin/bash\n\n# 配置参数\nSEARCH_DIR\u003d\"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写\"\nFILE_PATTERN\u003d\"globalVarOf$SelectJS\"\n\n# 动态参数（从环境变量或命令行参数获取）\nTARGET_ADDRESS\u003d\"globalVarOf$FridaModDescription\"  # 传入的地址\nNEW_DESCRIPTION\u003d\"//{textFieldInput1}\"  # 新的描述\n\n# 检查目录和权限\nif [ ! -d \"$SEARCH_DIR\" ]; then\n    echo \"目录不存在: $SEARCH_DIR\" \u003e\u00262\n    exit 1\nfi\n\n# 简化后的提取或添加描述的函数\nextract_or_add_description() {\n    local file\u003d\"$1\"\n    local target_address\u003d\"$2\"\n    local code_block\n    local description\n\n    # 使用 awk 提取代码块及其描述\n    code_block\u003d$(awk -v addr\u003d\"$target_address\" \u0027\n    {\n        if (/Interceptor\\.attach/ \u0026\u0026 /address\\.add/ \u0026\u0026 $0 ~ addr) {\n            block \u003d $0\n            for (i \u003d 1; i \u003c\u003d 100; i++) {  # 增加行数限制，避免无限循环\n                getline\n                block \u003d block RS $0\n                if (/}/) break\n            }\n            # 记录代码块\n            print block\n            exit\n        }\n    }\u0027 \"$file\")\n\n    if [ -z \"$code_block\" ]; then\n        echo \"未找到匹配的代码块: $target_address\" \u003e\u00262\n        return 1\n    fi\n\n    # 提取旧描述（更灵活的匹配方式）\n    # 使用 awk 查找代码块上方的注释行\n    description\u003d$(awk -v addr\u003d\"$target_address\" \u0027\n    {\n        if (/Interceptor\\.attach/ \u0026\u0026 /address\\.add/ \u0026\u0026 $0 ~ addr) {\n            for (i \u003d 1; i \u003c\u003d 10; i++) {  # 向上查找最多 10 行\n                if (NR - i \u003e 0) {\n                    prev_line \u003d lines[NR - i]\n                    if (prev_line ~ /^ *\\/\\//) {\n                        print prev_line\n                        exit\n                    }\n                }\n            }\n            exit\n        }\n        lines[NR] \u003d $0\n    }\u0027 \"$file\")\n\n    # 替换或添加描述\n    if [ -z \"$description\" ]; then\n        # 添加新描述\n        sed -i \"/$target_address/i $NEW_DESCRIPTION\" \"$file\"\n        echo \"已添加新描述: $NEW_DESCRIPTION\"\n    else\n        # 替换旧描述为新描述\n        # 使用 printf 转义特殊字符，避免 sed 匹配失败\n        escaped_description\u003d$(printf \u0027%s\\n\u0027 \"$description\" | sed \u0027s:[][\\/.^$*]:\\\\\u0026:g\u0027)\n        sed -i \"s|$escaped_description|$NEW_DESCRIPTION|\" \"$file\"\n        echo \"已替换旧描述 $description 为 $NEW_DESCRIPTION\"\n    fi\n\n    # 显示匹配的代码块和描述\n    echo \"匹配的代码块：\"\n    echo \"$code_block\"\n    echo \"新描述：$NEW_DESCRIPTION\"\n}\n\n# 主逻辑\nif [ -z \"$TARGET_ADDRESS\" ]; then\n    echo \"地址不能为空！\" \u003e\u00262\n    exit 1\nfi\n\n# 处理每个匹配的文件\nfind \"$SEARCH_DIR\" -type f -name \"$FILE_PATTERN\" | while read -r file; do\n    echo \"处理文件: $file\"\n    extract_or_add_description \"$file\" \"$TARGET_ADDRESS\"\ndone\n",
+                        "customContextDataKey": {
+                        },
+                        "note": "替换可能有问题",
+                        "id": "A-c2e12737-b087-46ba-aff3-577725f61e33"
+                      }, {
+                        "@type": "type.googleapis.com/ShowToast",
+                        "message": "新地址：{shellOut}",
+                        "customContextDataKey": {
+                        },
+                        "id": "A-ec8fe4e5-1b0f-4651-83bf-95c4a95ab4d9"
+                      }],
+                      "description": "有效描述",
+                      "id": "Case-2e1e3ec2-cd38-4483-8815-f64521c40d01"
+                    }],
+                    "customContextDataKey": {
+                    },
+                    "id": "A-dee551d2-fe31-4211-85a6-84b31a6ac37b"
+                  }]
+                }],
+                "title": "{FindAddress}",
+                "cancelable": true,
+                "style": {
+                  "fontScale": 1.0
+                },
+                "customContextDataKey": {
+                },
+                "note": "SW新",
+                "id": "A-2f519622-6ef6-4c92-9910-eb83e1399163"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-ad0f8df6-31e9-46a9-a017-194847bf14fc"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-597bf30f-149b-451f-81cb-7934ffe9e7e5"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "这里用于生成Hook代码后对描述的修改",
+          "id": "A-0c85f181-829b-424d-834d-792c3a4e593a"
+        }],
+        "icon": "edit-fill",
+        "label": "修改描述",
+        "id": "BTN-24a0f805-2e80-4542-9123-7bd2410c2ecb"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "激活",
+          "onPositive": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "#!/system/bin/sh\n\nSCRIPT_PATH\u003d\"/data/adb/modules/zygisk_jshook/service.sh\"\n\n# 自动检测并添加执行权限\nif [ ! -x \"$SCRIPT_PATH\" ]; then\n    chmod +x \"$SCRIPT_PATH\" \u003e/dev/null 2\u003e\u00261 || {\n        echo \"Failed to add execute permission\"\n        exit 1\n    }\nfi\n\n# 使用root权限执行\nsu -c \"$SCRIPT_PATH\" || {\n    echo \"Execution failed\"\n    exit 1\n}\n\necho \"Script executed successfully\"",
+            "customContextDataKey": {
+            },
+            "note": "手动激活Jshook",
+            "id": "A-71a2d4d4-dafc-4860-9bd6-699c111acf3c"
+          }],
+          "negative": "取消",
+          "title": "温馨提示",
+          "message": "这里是因某种Bug导致JsHook掉激活，所以手动激活，没刷模块以及没重启无效果\n\n单击激活尝试手动激活",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-aa466294-7bf2-41ba-a12e-29493a223acb"
+        }],
+        "icon": "handle-round",
+        "label": "激活Jshook",
+        "id": "BTN-00627f58-930f-4b32-9cf8-50780638d405"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["2025-03-31 14:44:34"],
+          "customContextDataKey": {
+          },
+          "id": "A-8391d71d-4706-43cb-bb07-e459078d47f3"
+        }, {
+          "@type": "type.googleapis.com/ShowOverlayButton",
+          "buttonSettings": [{
+            "actions": [{
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "请输入脚本名字",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "比如：元气骑士"
+              }],
+              "style": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d1eb066b-c2bf-43be-acd3-db3fbef69d33"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "target_dir\u003d\"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写\"\nbase_name\u003d\"{textFieldInput1}.js\"\n\n# 自动创建目录\nmkdir -p \"$target_dir\"\n\n# 智能文件名生成\nif [ ! -f \"${target_dir}/${base_name}\" ]; then\n  full_path\u003d\"${target_dir}/${base_name}\"\nelse\n  i\u003d1\n  while [ -f \"${target_dir}/${base_name%.js}_${i}.js\" ]; do\n    ((i++))\n  done\n  full_path\u003d\"${target_dir}/${base_name%.js}_${i}.js\"\nfi\n\n# 生成文件内容\ncat \u003c\u003c EOF \u003e \"$full_path\"\nvar times \u003d setInterval(function() {\nvar address;\ntry {\naddress \u003d Module.findBaseAddress(\u0027libil2cpp.so\u0027)\n} catch (e) {}\nif (address) {\nclearInterval(times);\n//不同版本地址可能不一样修改会失效，可以提取dump对照类名和方法名获取地址，b站有dump教程\n//第一个是功能名称，第二个是类名，第三个是方法名\n//固定 RoleAttributeProx∶get_max_hp\nInterceptor.attach(address.add(\u00279999999\u0027), {\nonLeave: function(retval) {\nretval.replace(8888888)\n}\n});\n\n\n}\n}, 1000);\nEOF\n\necho \"文件已创建: $full_path\"",
+              "customContextDataKey": {
+              },
+              "note": "完整智能版本",
+              "id": "A-ced3754f-df77-465b-903b-3b696a6cd642"
+            }, {
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "{shellOut}",
+              "customContextDataKey": {
+              },
+              "id": "A-b3284929-8949-428e-9be4-3b40c0a112fe"
+            }],
+            "icon": "add-box-fill",
+            "label": "生成脚本",
+            "id": "BTN-2475ee7a-493c-4c21-92a1-3282eddf9707"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "ls \"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/\" | grep \u0027.js$\u0027 | paste -sd \u0027,\u0027 -",
+              "customContextDataKey": {
+              },
+              "note": "过滤特定类型（只要.js文件），逗号隔开",
+              "id": "A-c69cb7bb-8852-488c-b95f-cd79f91f1867"
+            }, {
+              "@type": "type.googleapis.com/ShowListDialog",
+              "title": "选择要添加hook的脚本",
+              "cancelable": true,
+              "data": "{shellOut}",
+              "delimiter": [",", " "],
+              "needConfirmAction": true,
+              "style": {
+                "fontScale": 1.0
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-73bf1ed0-796d-417d-9340-6611ba284c6e"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateContextVar",
+                "op": "IsEmpty",
+                "varName": "selectedListItem",
+                "payload": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "C-b0f9e6af-234b-4657-a6c6-2666a15d8f2b"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "未选择任何脚本",
+                "customContextDataKey": {
+                },
+                "id": "A-62418f2d-02d5-4b23-8484-8583207b51ef"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShellCommand",
+                "command": "#!/bin/bash\n\n# 生成随机地址和返回值（十六进制和十进制）\nRANDOM_ADDR\u003d$(printf \"0x%x\" $(( RANDOM * 1000 + 1000000 )))\nRANDOM_VALUE\u003d$(( RANDOM * 100 + 1000 ))\n\n# 使用sed在指定位置插入代码\nsed -i \"/\\/\\/第一个是功能名称，第二个是类名，第三个是方法名/a \\\n    \\/\\/血量 RoleAttributeProx∶get_max_hp\\n\\\nInterceptor.attach(address.add(\u0027$RANDOM_ADDR\u0027), {\\n\\\n    onLeave: function(retval) {\\n\\\n        retval.replace($RANDOM_VALUE)\\n\\\n    }\\n\\\n});\\n\" \"/storage/emulated/0/Android/data/me.jsonet.jshook/jsdata/ShortX辅助编写/{selectedListItem}\"",
+                "customContextDataKey": {
+                },
+                "id": "A-62aac8ce-ebeb-447e-964b-44b70c779005"
+              }, {
+                "@type": "type.googleapis.com/ShowToast",
+                "message": "已添加Hook",
+                "customContextDataKey": {
+                },
+                "id": "A-44222d8e-de59-475b-b05b-1ff02a872e0a"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-aca04713-355e-4e2d-a46f-fdfcfff61daa"
+            }],
+            "icon": "soybean-milk-maker",
+            "label": "添加hook",
+            "id": "BTN-612c585f-1732-4cb4-878a-45196de99f21"
+          }, {
+            "actions": [{
+              "@type": "type.googleapis.com/HideOverlayButton",
+              "overlayTags": ["2025-03-31 23:08:50"],
+              "customContextDataKey": {
+              },
+              "id": "A-2761331b-5ea9-42cf-840a-7b703a02719b"
+            }, {
+              "@type": "type.googleapis.com/FromDA",
+              "daId": "DA-a3659a44-b4a0-4903-b055-66b1e3acd3d6",
+              "customContextDataKey": {
+              },
+              "id": "A-434ee52d-661c-4c74-9522-619e28135eae"
+            }],
+            "icon": "back",
+            "label": "返回上一级",
+            "id": "BTN-524ef3cb-f0a4-4230-b6f7-6498ddf74d8d"
+          }],
+          "tag": "2025-03-31 23:08:50",
+          "maxHeightInDp": 500,
+          "maxWidthInDp": 218,
+          "backgroundAlpha": 0.8,
+          "buttonMinWidth": 64,
+          "enableGlobalDrag": true,
+          "disableAutoEdge": true,
+          "customContextDataKey": {
+          },
+          "id": "A-64e60be4-0e99-4c78-97e1-d92a238de07c"
+        }],
+        "icon": "add-one",
+        "label": "代码生成",
+        "id": "BTN-feba79b8-ee80-4a9e-b0ae-97151a932412"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["2025-03-31 14:44:34"],
+          "customContextDataKey": {
+          },
+          "id": "A-d5feb145-dde2-4295-810f-44fdc29f41ef"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "SelectJS",
+          "customContextDataKey": {
+          },
+          "id": "A-aac98e56-8889-42b8-8db0-98e8af308ad0"
+        }],
+        "icon": "eye-off-line",
+        "label": "隐藏",
+        "id": "BTN-2aa857b5-3b2e-4a6d-94d9-315939ef01f7"
+      }],
+      "tag": "2025-03-31 14:44:34",
+      "maxHeightInDp": 500,
+      "maxWidthInDp": 196,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 20,
+      "enableGlobalDrag": true,
+      "overlayPaddingV": 1,
+      "disableAutoEdge": true,
+      "customContextDataKey": {
+      },
+      "note": "功能菜单",
+      "id": "A-6022ab30-c509-452e-8923-bc1c9631e744"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "OK，让我们开始",
+    "id": "A-bf0cd4ed-5531-4d66-8351-9c8bf4d4c5d7"
+  }],
+  "id": "SHARED-DA-8f607524-d770-4462-9275-a60a1b29194b",
+  "lastUpdateTime": "1743989627216",
+  "createTime": "1743233448395",
+  "author": {
+    "name": "墨上千里"
+  },
+  "title": "Frida脚本编写辅助_v0.0.1",
+  "versionCode": "1",
+  "directActionSetId": "DS-b44842bd-bf7d-4170-b184-36c157f00230",
+  "quit": {
+    "isEnabled": true
+  }
+}
+###------###
+{"type":"da"}

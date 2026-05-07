@@ -1,0 +1,88 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-d39b8150-fd9b-437c-b5c8-066847a19bb6"
+  }, {
+    "@type": "type.googleapis.com/BatteryTemperatureChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-73921dc8-c7e5-4a39-ae3b-0076db41bf47"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-4e1dbdf0-84db-45f3-aa96-c4411812ec0d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "GreaterThanOrEQ",
+      "varName": "batteryTemperature",
+      "payload": {
+        "value": "41.5"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-b64c00a4-af32-42ca-829b-49e9cee527f7"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo \"1\" \u003e /sys/class/power_supply/battery/night_charging",
+      "customContextDataKey": {
+      },
+      "note": "充电时，当电池温度大于等于41.5度，开启旁路充电，仅向手机主板供电，停止向电池充电",
+      "id": "A-8494c8c9-a6bf-47e3-ad46-c7e77b5787d3"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo \"0\" \u003e /sys/class/power_supply/battery/night_charging",
+      "customContextDataKey": {
+      },
+      "note": "充电时，当电池温度小于41.5度，关闭旁路充电，向电池正常充电",
+      "id": "A-66a329c1-597d-4e96-a6a0-270b8e212e83"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "充电时，当电池温度大于等于41.5度，开启旁路充电，仅向手机主板供电，停止向电池充电",
+    "id": "A-945fcb5f-0730-444f-8a2d-bbac0fb97bd3"
+  }],
+  "id": "SHARE-rule-e4fc846f-72f0-4b69-91b3-ad9100612d03",
+  "lastUpdateTime": "1752905843040",
+  "createTime": "1752828288094",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "亮屏控温，电池停充",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ChargerUnplug",
+      "customContextDataKey": {
+      },
+      "id": "F-87348b5a-af08-4cb2-b87a-6818ebfe6bd3"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-5f3d8fc1-d4ed-494e-bb86-d1bf172e0cfa"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-ddf1cd21-4e50-4ea1-8419-3be3d4efbd9f"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,44 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "ls /data/adb/shamiko/whitelist",
+    "id": "A-e1e2af26-7b77-43ff-93e8-a0e3dd2611a4"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{shellOut}.contains(\"No such file or directory\")",
+      "id": "C-5c1415d7-48c3-45bc-83b2-b34b1fadd7ef"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "touch /data/adb/shamiko/whitelist",
+      "id": "A-d7d62f98-6995-4a34-85ff-c1e4e3b6ba21"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "目前为白名单模式",
+      "id": "A-b4b8604e-ad78-4805-b05d-0110a3cefe83"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "rm /data/adb/shamiko/whitelist",
+      "id": "A-88ae8e0a-0d3b-4386-a8e1-cfb247000be6"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "目前为黑名单模式",
+      "id": "A-0dccefba-0847-4e55-9348-6c5bd3b2bf8d"
+    }],
+    "id": "A-0bd600e5-24a3-480f-97f6-692a13fb7044"
+  }],
+  "id": "DA0d7310e5-62ac-4370-bdb0-39f077a062a6",
+  "lastUpdateTime": "1689875556273",
+  "createTime": "1689874564699",
+  "author": {
+    "name": "Genicur"
+  },
+  "title": "shamiko白名单开关",
+  "description": " ",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

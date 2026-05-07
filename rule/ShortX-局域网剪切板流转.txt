@@ -1,0 +1,171 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "tag": "发送",
+    "customContextDataKey": {
+    },
+    "id": "F-cf828234-cc59-41c3-be77-bbf1b09d17b9"
+  }, {
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "tag": "启动",
+    "customContextDataKey": {
+    },
+    "id": "F-fedb664b-ccf6-4289-bbb5-3c2f9fd3f1a1"
+  }, {
+    "@type": "type.googleapis.com/DeepLinkCall",
+    "deepLinkTag": "clipboardserverstart",
+    "tag": "启动",
+    "customContextDataKey": {
+    },
+    "id": "F-5f62377a-6a93-49e7-a2c7-33913f569ac2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "iplist",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-7f318ea7-b4ac-4f81-a3aa-8444f55b780b"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "iplist",
+    "valueAsString": "192.168.10.101",
+    "customContextDataKey": {
+    },
+    "note": "请在此处填写接收端ip，如有多个设备使用英文逗号分割",
+    "id": "A-de69ef6c-ca1b-480d-991c-7fcfd8a1bff4"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "发送",
+        "customContextDataKey": {
+        },
+        "id": "C-d9eeec6f-d9eb-43c7-b100-c90490d30412"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "EqualTo",
+          "varName": "clipboardserverget",
+          "payload": {
+            "value": "{clipboardContent}"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-ca9c63ff-0f8c-42c0-8a93-93a75f5f33a5"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "clipboardserverget",
+          "customContextDataKey": {
+          },
+          "id": "A-362dedb2-c826-4f6b-b4b7-6faddd061979"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-d9935970-cc49-46c9-bb33-a082276efcda"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-8680543e-4806-4155-a3b0-ca42130ac558"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var Socket \u003d Packages.java.net.Socket;\nvar PrintWriter \u003d Packages.java.io.PrintWriter;\nvar BufferedReader \u003d Packages.java.io.BufferedReader;\nvar InputStreamReader \u003d Packages.java.io.InputStreamReader;\nvar Base64 \u003d Packages.java.util.Base64;\nvar SecureRandom \u003d Packages.java.security.SecureRandom;\n\n// 创建随机 Sec-WebSocket-Key\nfunction createWebSocketKey() {\n    var random \u003d new SecureRandom();\n    var bytes \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 16);\n    random.nextBytes(bytes);\n    return Base64.getEncoder().encodeToString(bytes);\n}\n\n// 建立连接并发送消息\nfunction sendWebSocketMessage(host, port, message) {\n    var socket \u003d new Socket(host, port);\n    var out \u003d new PrintWriter(socket.getOutputStream());\n    var inReader \u003d new BufferedReader(new InputStreamReader(socket.getInputStream(), \"UTF-8\"));\n\n    var key \u003d createWebSocketKey();\n\n    // 发送握手请求\n    out.print(\"GET / HTTP/1.1\\r\\n\");\n    out.print(\"Host: \" + host + \":\" + port + \"\\r\\n\");\n    out.print(\"Upgrade: websocket\\r\\n\");\n    out.print(\"Connection: Upgrade\\r\\n\");\n    out.print(\"Sec-WebSocket-Key: \" + key + \"\\r\\n\");\n    out.print(\"Sec-WebSocket-Version: 13\\r\\n\");\n    out.print(\"\\r\\n\");\n    out.flush();\n\n    // 读取握手响应\n    var line;\n    while ((line \u003d inReader.readLine()) !\u003d null \u0026\u0026 line.length() \u003e 0) {\n        console.log(\"握手响应头: \" + line);\n    }\n\n    // \u003d\u003d\u003d 关键修复：JS 字符串转 Java 字符串 \u003d\u003d\u003d\n    var jMsg \u003d new java.lang.String(message);\n    var msgBytes \u003d jMsg.getBytes(\"UTF-8\");\n\n    // 发送 WebSocket 帧 (masked text frame)\n    var frame \u003d new java.io.ByteArrayOutputStream();\n    frame.write(0x81); // FIN + text frame\n    var payloadLen \u003d msgBytes.length;\n    if (payloadLen \u003c\u003d 125) {\n        frame.write(0x80 | payloadLen); // 设置 mask 位\n    } else if (payloadLen \u003c\u003d 65535) {\n        frame.write(0x80 | 126);\n        frame.write((payloadLen \u003e\u003e 8) \u0026 0xFF);\n        frame.write(payloadLen \u0026 0xFF);\n    } else {\n        console.log(\"消息太长，未支持\");\n        socket.close();\n        return;\n    }\n\n    // 生成 mask\n    var mask \u003d [1, 2, 3, 4];\n    frame.write(mask[0]); frame.write(mask[1]); frame.write(mask[2]); frame.write(mask[3]);\n\n    // 写入 masked 数据\n    for (var i \u003d 0; i \u003c msgBytes.length; i++) {\n        frame.write(msgBytes[i] ^ mask[i % 4]);\n    }\n\n    socket.getOutputStream().write(frame.toByteArray());\n    socket.getOutputStream().flush();\n\n    console.log(\"已发送消息: \" + message);\n\n    socket.close();\n    console.log(\"客户端已断开\");\n}\n\n// 使用示例：连接本机 8080 并发送 \"hello\"\nvar iplist\u003dlocalVarOf$iplist.split(\",\");\nfor(var i\u003d0;i\u003ciplist.length;i++){\n    sendWebSocketMessage(iplist[i], 8080, clipboardContent);\n}\n\"客户端执行完成\";",
+        "customContextDataKey": {
+        },
+        "id": "A-54699ea8-8b11-400b-b0bc-86d729401386"
+      }],
+      "description": "写入",
+      "id": "Case-738fb466-ad2b-4a42-8861-b8e005009c67",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "启动",
+        "customContextDataKey": {
+        },
+        "id": "C-f8de5f63-fced-4fbd-8b81-9b411321d14e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var ServerSocket \u003d Packages.java.net.ServerSocket;\nvar Base64 \u003d Packages.java.util.Base64;\nvar MessageDigest \u003d Packages.java.security.MessageDigest;\nvar InputStreamReader \u003d Packages.java.io.InputStreamReader;\nvar BufferedReader \u003d Packages.java.io.BufferedReader;\nvar PrintWriter \u003d Packages.java.io.PrintWriter;\nvar Executors \u003d Packages.java.util.concurrent.Executors;\nvar Runnable \u003d java.lang.Runnable;\nimportClass(Packages.tornaco.apps.shortx.core.proto.action.WriteClipboard);\nimportClass(Packages.tornaco.apps.shortx.core.proto.action.ShowToast);\nvar executor \u003d Executors.newCachedThreadPool();\nvar running \u003d true; // 全局运行状态\nfunction CopyText(text) {\n        var action \u003d WriteClipboard.newBuilder()\n            .setText(text)\n            .build();\n        shortx.executeAction(action);\n}\nfunction showToast(text) {\n        action \u003d ShowToast.newBuilder().setMessage(text).build();\n        shortx.executeAction(action);\n}\nfunction startWebSocketServer(port) {\n    var server \u003d new ServerSocket(port);\n    console.log(\"WebSocket 服务器已启动，端口: \" + port);\n\n    executor.execute(new Runnable({\n        run: function () {\n            try {\n                while (running) {\n                    try {\n                        var socket \u003d server.accept(); // 如果 server 被关闭，这里会抛异常\n                        console.log(\"客户端已连接: \" + socket);\n                        executor.execute(new ClientHandler(socket, server));\n                    } catch (e) {\n                        if (running) {\n                            console.log(\"accept 异常: \" + e);\n                        }\n                        break;\n                    }\n                }\n            } finally {\n                console.log(\"服务器主循环退出\");\n            }\n        }\n    }));\n}\n\nfunction ClientHandler(socket, server) {\n    return new Runnable({\n        run: function () {\n            try {\n                var reader \u003d new BufferedReader(new InputStreamReader(socket.getInputStream(), \"UTF-8\"));\n                var writer \u003d new PrintWriter(socket.getOutputStream());\n\n                // 握手\n                var line;\n                var secKey \u003d null;\n                while ((line \u003d reader.readLine()) !\u003d null \u0026\u0026 line.length() \u003e 0) {\n                    if (line.toLowerCase().startsWith(\"sec-websocket-key:\")) {\n                        secKey \u003d line.split(\":\")[1].trim();\n                    }\n                }\n\n                if (secKey \u003d\u003d null) {\n                    console.log(\"握手失败\");\n                    socket.close();\n                    return;\n                }\n\n                var magic \u003d \"258EAFA5-E914-47DA-95CA-C5AB0DC85B11\";\n                var sha1 \u003d MessageDigest.getInstance(\"SHA-1\");\n                sha1.update(new java.lang.String(secKey + magic).getBytes(\"UTF-8\"));\n                var acceptKey \u003d Base64.getEncoder().encodeToString(sha1.digest());\n\n                writer.print(\"HTTP/1.1 101 Switching Protocols\\r\\n\");\n                writer.print(\"Upgrade: websocket\\r\\n\");\n                writer.print(\"Connection: Upgrade\\r\\n\");\n                writer.print(\"Sec-WebSocket-Accept: \" + acceptKey + \"\\r\\n\\r\\n\");\n                writer.flush();\n\n                console.log(\"握手完成，开始收消息...\");\n\n                var inStream \u003d socket.getInputStream();\n                var outStream \u003d socket.getOutputStream();\n\n                while (running) {\n                    var b1 \u003d inStream.read();\n                    if (b1 \u003d\u003d -1) break;\n\n                    var b2 \u003d inStream.read();\n                    var opcode \u003d b1 \u0026 0x0F;\n                    var masked \u003d (b2 \u0026 0x80) !\u003d 0;\n                    var payloadLen \u003d b2 \u0026 0x7F;\n\n                    if (payloadLen \u003d\u003d 126) {\n                        payloadLen \u003d (inStream.read() \u003c\u003c 8) | inStream.read();\n                    } else if (payloadLen \u003d\u003d 127) {\n                        console.log(\"消息太长，未处理\");\n                        break;\n                    }\n\n                    var mask \u003d null;\n                    if (masked) {\n                        mask \u003d [inStream.read(), inStream.read(), inStream.read(), inStream.read()];\n                    }\n\n                    var dataBytes \u003d new java.io.ByteArrayOutputStream();\n                    for (var i \u003d 0; i \u003c payloadLen; i++) {\n                        var b \u003d inStream.read();\n                        if (masked) {\n                            b \u003d b ^ mask[i % 4];\n                        }\n                        dataBytes.write(b);\n                    }\n\n                    var msg \u003d new java.lang.String(dataBytes.toByteArray(), \"UTF-8\");\n                    console.log(\"收到消息: \" + msg);\n\n                    // 收到退出命令\n                    if (String(msg) \u003d\u003d\u003d \"exittheclipboardserver\") {\n                        console.log(\"收到退出指令，关闭服务器\");\n                        showToast(\"剪贴板流转服务已退出\")\n                        running \u003d false;\n                        try {\n                            socket.close();\n                            server.close(); // 触发 accept() 抛异常\n                        } catch (e) {}\n                        executor.shutdownNow();\n                        return;\n                    }else{\n                        CopyText(String(msg));\n                    }\n\n                    // 回显消息\n                    var msgBytes \u003d msg.getBytes(\"UTF-8\");\n                    var frame \u003d new java.io.ByteArrayOutputStream();\n                    frame.write(0x81);\n                    if (msgBytes.length \u003c\u003d 125) {\n                        frame.write(msgBytes.length);\n                    } else if (msgBytes.length \u003c\u003d 65535) {\n                        frame.write(126);\n                        frame.write((msgBytes.length \u003e\u003e 8) \u0026 0xFF);\n                        frame.write(msgBytes.length \u0026 0xFF);\n                    }\n                    frame.write(msgBytes);\n                    outStream.write(frame.toByteArray());\n                    outStream.flush();\n                }\n\n                socket.close();\n                console.log(\"客户端断开连接\");\n            } catch (e) {\n                if (running) {\n                    console.log(\"客户端处理异常: \" + e);\n                }\n            }\n        }\n    });\n}\n\nstartWebSocketServer(8080);\n\n\"WebSocket 服务器运行中 (端口 8080)，发送 exit 可关闭服务器\";",
+        "customContextDataKey": {
+        },
+        "id": "A-f3607717-7199-46c2-963f-b188055d829d"
+      }],
+      "description": "启动",
+      "id": "Case-7d902008-5233-4eaf-9c2b-c721979eb89c",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-1191c72b-e3d8-4481-bf08-7230008e35c6"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// Rhino 引擎 JS：获取局域网 IPv4 地址\nfunction getLanIPv4() {\n    var NetworkInterface \u003d java.net.NetworkInterface;\n    var result \u003d [];\n    try {\n        var en \u003d NetworkInterface.getNetworkInterfaces();\n        while (en.hasMoreElements()) {\n            var ni \u003d en.nextElement();\n            try {\n                var addrs \u003d ni.getInetAddresses();\n                while (addrs.hasMoreElements()) {\n                    var addr \u003d addrs.nextElement();\n                    var rawHost \u003d addr.getHostAddress();\n                    var pct \u003d rawHost.indexOf(\u0027%\u0027);\n                    if (pct !\u003d\u003d -1) rawHost \u003d rawHost.substring(0, pct);\n\n                    var isIPv4 \u003d rawHost.indexOf(\u0027:\u0027) \u003d\u003d\u003d -1;\n                    if (isIPv4 \u0026\u0026 addr.isSiteLocalAddress()) {\n                        result.push(rawHost);\n                    }\n                }\n            } catch (e) {\n                console \u0026\u0026 console.error \u0026\u0026 console.error(\"处理网卡时出错: \" + e);\n            }\n        }\n    } catch (err) {\n        console \u0026\u0026 console.error \u0026\u0026 console.error(\"获取网络接口失败: \" + err);\n    }\n    return result;\n}\n\n// 返回局域网 IPv4 地址数组\ngetLanIPv4().join(\"\\n\");",
+        "customContextDataKey": {
+        },
+        "id": "A-124d0368-da30-4304-a057-b82f63759c77"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "title": "IP地址",
+        "message": "{jsRet}",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-76aab30a-1336-4d8e-8132-13c61b143a8d"
+      }],
+      "description": "查询",
+      "id": "Case-542941aa-72e9-4f74-a807-48c9303bd866",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-78c683ae-912f-425b-960a-77e1d2e76f29"
+  }],
+  "id": "SHARE-rule-88dab318-f990-48b3-a5f3-adc7160d3fe1",
+  "lastUpdateTime": "1758455119409",
+  "createTime": "1758449103997",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "局域网剪切板流转",
+  "description": "使用前在双方指令动作处设置接收端ip，点击图标→执行动作查询本机ip",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "shortx://trigger?tag\u003dclipboardserverstart",
+      "customContextDataKey": {
+      },
+      "id": "A-b7bc417d-34b7-4376-8eea-dcbfbcb23563"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var Socket \u003d Packages.java.net.Socket;\nvar PrintWriter \u003d Packages.java.io.PrintWriter;\nvar BufferedReader \u003d Packages.java.io.BufferedReader;\nvar InputStreamReader \u003d Packages.java.io.InputStreamReader;\nvar Base64 \u003d Packages.java.util.Base64;\nvar SecureRandom \u003d Packages.java.security.SecureRandom;\n\n// 创建随机 Sec-WebSocket-Key\nfunction createWebSocketKey() {\n    var random \u003d new SecureRandom();\n    var bytes \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 16);\n    random.nextBytes(bytes);\n    return Base64.getEncoder().encodeToString(bytes);\n}\n\n// 建立连接并发送消息\nfunction sendWebSocketMessage(host, port, message) {\n    var socket \u003d new Socket(host, port);\n    var out \u003d new PrintWriter(socket.getOutputStream());\n    var inReader \u003d new BufferedReader(new InputStreamReader(socket.getInputStream(), \"UTF-8\"));\n\n    var key \u003d createWebSocketKey();\n\n    // 发送握手请求\n    out.print(\"GET / HTTP/1.1\\r\\n\");\n    out.print(\"Host: \" + host + \":\" + port + \"\\r\\n\");\n    out.print(\"Upgrade: websocket\\r\\n\");\n    out.print(\"Connection: Upgrade\\r\\n\");\n    out.print(\"Sec-WebSocket-Key: \" + key + \"\\r\\n\");\n    out.print(\"Sec-WebSocket-Version: 13\\r\\n\");\n    out.print(\"\\r\\n\");\n    out.flush();\n\n    // 读取握手响应\n    var line;\n    while ((line \u003d inReader.readLine()) !\u003d null \u0026\u0026 line.length() \u003e 0) {\n        console.log(\"握手响应头: \" + line);\n    }\n\n    // \u003d\u003d\u003d 关键修复：JS 字符串转 Java 字符串 \u003d\u003d\u003d\n    var jMsg \u003d new java.lang.String(message);\n    var msgBytes \u003d jMsg.getBytes(\"UTF-8\");\n\n    // 发送 WebSocket 帧 (masked text frame)\n    var frame \u003d new java.io.ByteArrayOutputStream();\n    frame.write(0x81); // FIN + text frame\n    var payloadLen \u003d msgBytes.length;\n    if (payloadLen \u003c\u003d 125) {\n        frame.write(0x80 | payloadLen); // 设置 mask 位\n    } else if (payloadLen \u003c\u003d 65535) {\n        frame.write(0x80 | 126);\n        frame.write((payloadLen \u003e\u003e 8) \u0026 0xFF);\n        frame.write(payloadLen \u0026 0xFF);\n    } else {\n        console.log(\"消息太长，未支持\");\n        socket.close();\n        return;\n    }\n\n    // 生成 mask\n    var mask \u003d [1, 2, 3, 4];\n    frame.write(mask[0]); frame.write(mask[1]); frame.write(mask[2]); frame.write(mask[3]);\n\n    // 写入 masked 数据\n    for (var i \u003d 0; i \u003c msgBytes.length; i++) {\n        frame.write(msgBytes[i] ^ mask[i % 4]);\n    }\n\n    socket.getOutputStream().write(frame.toByteArray());\n    socket.getOutputStream().flush();\n\n    console.log(\"已发送消息: \" + message);\n\n    socket.close();\n    console.log(\"客户端已断开\");\n}\n\n// 使用示例：连接本机 8080 并发送 \"hello\"\nsendWebSocketMessage(\"127.0.0.1\", 8080, \"exittheclipboardserver\");\n\n\"客户端执行完成\";",
+      "customContextDataKey": {
+      },
+      "id": "A-a21ef5e1-fa08-45a3-8c76-425d5d7abe6e"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

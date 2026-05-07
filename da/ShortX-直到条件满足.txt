@@ -1,0 +1,68 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "true",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-50f04a40-8be2-41df-b478-e5b09c25b549"
+      }],
+      "icon": "preview-open",
+      "label": "打开",
+      "id": "BTN-3383ffa2-f784-4ccc-b104-f0773747ca4f"
+    }],
+    "tag": "open",
+    "maxHeightInDp": 40,
+    "maxWidthInDp": 84,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 68,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 15,
+    "customContextDataKey": {
+    },
+    "id": "A-48e8e24a-ccae-42ef-8f17-1773d86e0e23"
+  }, {
+    "@type": "type.googleapis.com/WaitUtilConditionMatch",
+    "condition": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsExists",
+      "varName": "true",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-65eb0741-324a-4660-8f0f-725549595237"
+    }],
+    "timeout": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-a132e4ac-2398-48dd-a4d7-b82233b3be31"
+  }, {
+    "@type": "type.googleapis.com/HideOverlayButton",
+    "overlayTags": ["open"],
+    "customContextDataKey": {
+    },
+    "id": "A-cc3f32c0-d286-4b45-aa94-d78ca07304b9"
+  }],
+  "id": "SHARED-DA-1e21599f-6dbd-4fc1-90b5-693f47983f26",
+  "lastUpdateTime": "1764826559477",
+  "createTime": "1764826504403",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "直到条件满足",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

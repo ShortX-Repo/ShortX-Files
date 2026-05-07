@@ -1,0 +1,83 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "编辑页面 (回车请使用\"\\n\")",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "主题 (Title)"
+    }, {
+      "placeholder": "文本 (Text)"
+    }, {
+      "placeholder": "配置文件路径"
+    }, {
+      "placeholder": "发送到的邮箱"
+    }],
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-6ceb1bd7-f22b-4703-ba14-3f33cef2fb7d"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "{textFieldInput1}.replace(\"$r\",\"\\n\")",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "EnterFix1"
+      }]
+    },
+    "isDisabled": true,
+    "id": "A-a8d3167f-79f8-44e0-9a5b-b6ba10bc46c8"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "{textFieldInput2}.replace(\"$r\",\"\\n\")",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "EnterFix2"
+      }]
+    },
+    "isDisabled": true,
+    "id": "A-cd5499c6-d29b-4619-bcb0-f2dc7a923ff2"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "command_file\u003d\"/data/data/com.termux/files/usr/bin/msmtp\"\n\n#Title\u003d{EnterFix1}\n#Text\u003d{EnterFix2}\n\nTitle\u003d{textFieldInput1}\nText\u003d{textFieldInput2}\nCfile\u003d{textFieldInput3}\nEmail\u003d{textFieldInput4}\n\nfunction share (){\necho -e \"Subject: ${Title}\\n\\n${Text}\" | /data/data/com.termux/files/usr/bin/msmtp -C \"/data/data/com.termux/files/home/msmtp/user/lanyi233@qq.com\" -a muort $Email\n}\n\nShareOut\u003d$(share)\nif [[ $ShareOut \u003d\u003d \"\" ]]; then\n  echo -e \"主题 (Title)：\\n$Title\\n\\n内容 (Text)：\\n$Text\"\nelse\n  echo -e \"\\n发送失败，ShellOut：\\n\\n$ShareOut\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "ShareOut"
+      }]
+    },
+    "id": "A-0dd49c53-a492-411c-80c2-0a78afd53303"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "{ShareOut}.replace(\", \",\"\\n\")",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "EnterFix3"
+      }]
+    },
+    "id": "A-c1db7ced-2e88-4225-a0f2-82eb9ae5f254"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "ok",
+    "title": "OutText",
+    "message": "配置文件：{textFieldInput3}\n邮箱：{textFieldInput4}\n发送内容：\"\n{EnterFix3}\n\"",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-a346dadc-76c9-4d5f-9989-14dfbb26d0de"
+  }],
+  "id": "DAf7be1d99-0c93-4fab-8b5c-2c0abe680fc2",
+  "lastUpdateTime": "1700835231006",
+  "createTime": "1700831612015",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "邮件发送测试指令",
+  "versionCode": "1",
+  "directActionSetId": "DS-ae1ad1c1-e8d0-48be-ace5-979b4b611383"
+}
+###------###
+{"type":"da"}

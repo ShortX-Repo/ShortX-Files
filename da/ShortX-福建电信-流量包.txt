@@ -1,0 +1,18 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -a android.intent.action.SENDTO -d sms:10001 --es sms_body \"80638\" --ez exit_on_sent true\n",
+    "id": "A-055b5172-98d6-40a0-b20f-a2efef206f5f"
+  }],
+  "id": "DAb89f50a5-8f85-42c7-949e-f1b727221eaf",
+  "lastUpdateTime": "1690908946321",
+  "createTime": "1690906975609",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "福建电信-流量包",
+  "description": "SA网络专用体验流量包50GB(3个月)",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

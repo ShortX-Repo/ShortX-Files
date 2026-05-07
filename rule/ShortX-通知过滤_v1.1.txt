@@ -1,0 +1,57 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "(速抢|先到先得|\u003e|!|！|\\||》|《|@|抢|咨询|名额|订阅|推荐|优惠券|过期|人民|更新|安装|仅差|快来美团|吗|直播|吧|了|习惯|领取|充电|游戏|明星|福利|反差|红包|服务|启用|邀请|限量|限时|到账|恭喜|今日|优惠|送|竟然|竟遭|竞争|倍|回应|～|~)",
+      "contentText": "(速抢|先到先得|\u003e|!|！|\\||》|《|@|抢|咨询|名额|订阅|推荐|优惠券|过期|人民|更新|安装|仅差|快来美团|吗|直播|吧|了|习惯|领取|充电|游戏|明星|福利|反差|红包|服务|启用|邀请|限量|限时|到账|恭喜|今日|优惠|送|竟然|竟遭|竞争|倍|回应|～|~)",
+      "pkgSets": ["User"],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn",
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-0fcce530-9919-4b7c-90df-86a0a055f3bc"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n// 排除过滤通知的应用 使用|分割\nString newPattern \u003d \"(tornaco.apps.shortx|app2)\";\nString msgText \u003d \"{contentText}\";\nboolean containsMatch \u003d Pattern.compile(newPattern).matcher(msgText).find();\nreturn containsMatch;\n",
+    "customContextDataKey": {
+    },
+    "id": "C-334ed206-0c4b-4ec1-b070-a5ce23ae41f7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "[[ -s /sdcard/Android/shortx-通知过滤.txt ]] \u0026\u0026 find \"/sdcard/Android/shortx-通知过滤.txt\" -type f -size +1M -exec rm {} \\;\ncat \u003e\u003e/sdcard/Android/shortx-通知过滤.txt \u003c\u003c EOF\n当前时间：$(date \"+%Y-%m-%d %H:%M:%S\")\n通知过滤：{pkgName}\n过滤内容：{contentText}\n\nEOF\n\n",
+    "customContextDataKey": {
+    },
+    "id": "A-bd2eb504-d0a9-460a-a4b7-476c5106fb72"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotification",
+    "notification": {
+      "title": "(速抢|先到先得|\u003e|!|！|\\||》|《|@|抢|咨询|名额|订阅|推荐|优惠券|过期|人民|更新|安装|仅差|快来美团|吗|直播|吧|了|习惯|领取|充电|游戏|明星|福利|反差|红包|服务|启用|邀请|限量|限时|到账|恭喜|今日|优惠|送|竟然|竟遭|竞争|倍|回应|～|~|耳机使用提示)",
+      "contentText": "(速抢|先到先得|\u003e|!|！|\\||》|《|@|抢|咨询|名额|订阅|推荐|优惠券|过期|人民|更新|安装|仅差|快来美团|吗|直播|吧|了|习惯|领取|充电|游戏|明星|福利|反差|红包|服务|启用|邀请|限量|限时|到账|恭喜|今日|优惠|送|竟然|竟遭|竞争|倍|回应|～|~)",
+      "pkgSets": ["User"],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn",
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-65e3717a-0e0d-46db-9b88-93e0b51edb62"
+  }],
+  "id": "rule-bc2e3a28-3935-496c-819c-cc8a492282ee",
+  "lastUpdateTime": "1708595525054",
+  "createTime": "1708561798011",
+  "author": {
+    "name": "cong"
+  },
+  "title": "通知过滤 v1.1",
+  "description": "过滤垃圾通知",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

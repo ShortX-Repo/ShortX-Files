@@ -1,0 +1,120 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-8bd7a1e1-6454-4d88-b9bc-2fa5e179b53e"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "packagelist",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-32881cd9-928a-4f33-9d63-d082ec4ed2b9"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "pm list packages -d | cut -d: -f2 | \\\ngrep -vE \u0027com.android.settings|com.google.android.gsf|com.google.android.gms|com.google.android.configupdater|com.google.android.ext.shared|com.google.android.onetimeinitializer|com.google.android.printservice.recommendation\u0027 | \\\nsort -u",
+    "customContextDataKey": {
+    },
+    "id": "A-7f6f7b6c-793c-4493-bef1-0ee239d1f695"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "packagelist",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-77cf71f8-823a-45fc-b07c-f0ac80b5aebf"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// 输入包名字符串（多行）\nvar input \u003d localVarOf$packagelist;\n\n// 引用 Java 类\nvar AppGlobals \u003d Packages.android.app.AppGlobals;\nvar pm \u003d AppGlobals.getInitialApplication().getPackageManager();\n\n// 拆分包名\nvar lines \u003d input.split(\"\\n\");\n\n// 用数组存放结果\nvar result \u003d [];\n\n// 遍历\nfor (var i \u003d 0; i \u003c lines.length; i++) {\n    var pkg \u003d lines[i].trim();\n    if (pkg.length \u003d\u003d\u003d 0) continue;\n\n    try {\n        var appInfo \u003d pm.getApplicationInfo(pkg, 0);\n        var appName \u003d pm.getApplicationLabel(appInfo).toString();\n\n        // 构造对象\n        var obj \u003d {\n            \"name\": appName,\n            \"__value\": pkg,\n            \"__icon\": \"app://\" + pkg\n        };\n\n        result.push(obj);\n        console.log(\"Resolved: \" + pkg + \" → \" + appName);\n\n    } catch (e) {\n        // 如果没找到应用，仍然输出占位\n        var obj \u003d {\n            \"name\": \"[未安装或无法识别]\",\n            \"__value\": pkg,\n            \"__icon\": \"app://\" + pkg\n        };\n\n        result.push(obj);\n        console.log(\"Failed: \" + pkg + \" → \" + e);\n    }\n}\n\n// 返回 JSON 数组字符串\nJSON.stringify(result, null, 4);",
+    "customContextDataKey": {
+    },
+    "note": "创建带图标列表",
+    "id": "A-892b492a-4828-4116-934e-af13ca87b75f"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "🚫 Frozen Apps",
+    "cancelable": true,
+    "data": "{jsRet}",
+    "delimiter": [","],
+    "dataType": "ShowListDialogDataType_Json",
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-c412e7ae-36bb-420d-b5b3-2b2279ffa78f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "selectedListItem",
+      "payload": {
+        "value": "com.android.vending"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-0cb6be1e-b297-42be-9c9a-9fab9b2d5a00"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetAppEnabledByPkg",
+      "pkgAndUsers": [{
+        "first": "com.google.android.gms",
+        "second": "0"
+      }, {
+        "first": "com.android.vending",
+        "second": "0"
+      }],
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-957c83ba-1c48-428b-ac19-df7b79203445"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetAppEnabledByPkg",
+      "pkgAndUsers": [{
+        "first": "{selectedListItem}",
+        "second": "0"
+      }],
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-8056b09f-b1df-49a6-bd47-8dc073b36f59"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-1cec1b45-3242-44c7-a8f7-a0487663be61"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.app.ActivityManager);\nimportClass(android.content.Context);\n\nvar pkg \u003d {selectedListItem}.replace(/[\\[\\]]/g, \u0027\u0027);\n\n// 获取 ActivityManager\nvar am \u003d context.getSystemService(Context.ACTIVITY_SERVICE);\n\n// 获取所有最近任务\nvar tasks \u003d am.getRunningTasks(100);\n\nvar found \u003d false;\nfor (var i \u003d 0; i \u003c tasks.size(); i++) {\n    var task \u003d tasks.get(i);\n    if (task.topActivity.getPackageName() \u003d\u003d pkg) {\n        // 直接把已有任务调到前台\n        am.moveTaskToFront(task.id, 0);\n        found \u003d true;\n        break;\n    }\n}\n\nif (!found) {\n    // 如果没有在后台运行，就正常启动\n    importClass(android.content.Intent);\n    var pm \u003d context.getPackageManager();\n    var it \u003d pm.getLaunchIntentForPackage(pkg);\n    if (it !\u003d null) {\n        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n        context.startActivity(it);\n    }\n}\n\n\"已切换到应用：\" + pkg;",
+    "customContextDataKey": {
+    },
+    "id": "A-8baea151-dc83-4d9e-9266-0d5e526d9c70"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-c06d91c7-ed64-4672-8072-8a906c7d28a0"
+  }],
+  "id": "SHARED-DA-410f405c-37d5-4194-871e-df43fb9b22a0",
+  "lastUpdateTime": "1759996792780",
+  "createTime": "1759014989002",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Frozen Apps Launcher",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

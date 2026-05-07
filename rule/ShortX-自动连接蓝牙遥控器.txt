@@ -1,0 +1,68 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BTDisconnectedFrom",
+    "device": ["RemoteG10"],
+    "customContextDataKey": {
+    },
+    "id": "F-0b13b5ec-7eb1-4664-a59e-81bb63569b77"
+  }, {
+    "@type": "type.googleapis.com/WifiStatusChanged",
+    "ooa": "Off",
+    "customContextDataKey": {
+    },
+    "id": "F-27cde4e1-495f-45ca-a1e3-eed0a3a9bc92"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetWifiEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-673903f2-d474-47db-90b0-81a8d27fbc2d"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-d7a77712-f771-4f02-88ab-4b214b639818"
+  }, {
+    "@type": "type.googleapis.com/SetBTEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-4739b457-5437-4479-a9f0-2f32603ffd36"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-a94494ff-cdac-44c5-aa1e-d0616fd9ea98"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "bluetoothDevice.contains(\"6C:B3:DB:83:B8:82\")",
+    "customContextDataKey": {
+    },
+    "id": "A-1787d029-3488-49b5-8e06-5cde969c2633"
+  }],
+  "id": "SHARE-rule-333d38ff-5312-423b-aada-228c180d4321",
+  "lastUpdateTime": "1776235544938",
+  "createTime": "1756467610447",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动连接蓝牙遥控器",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "actions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-e23f6763-409f-49d1-8105-4d4ee7a3d130"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

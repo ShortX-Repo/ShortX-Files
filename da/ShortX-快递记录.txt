@@ -1,0 +1,284 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "Package",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-1469720e-b5e8-4299-b4fd-a4ac68112248"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Package",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d544d071-8bc8-4978-a58d-62a4e355a25e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "focus-fill",
+      "customContextDataKey": {
+      },
+      "id": "A-2eb3f0ba-eee7-466c-9611-ad08465d5314"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-9660af04-1f9b-462f-a423-5e24c66c120e"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "PackCompany",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-2a753fb4-a970-4267-ac2f-b50d27089c9a"
+  }, {
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "快递单号识别",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "请输入取件信息",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "快递单号"
+        }, {
+          "placeholder": "取件码"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-88092092-4ef3-4d54-92cb-e842991232dc"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "textFieldInput1",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-fa98387e-48b8-4013-9bb6-b53c1133a3c2"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-3fc6d4fc-5cbb-4113-9aa4-4e1130028254"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "function checkExpressCompany(number) {\n    const expressCompanies \u003d {\n        \"78\": \"中通快递\",\n        \"46\": \"韵达速递\",\n        \"98\": \"邮政快递\",\n        \"77\": \"申通快递\",\n        \"JT\": \"极兔速递\",\n        \"YT\": \"圆通快递\",\n        \"JD\": \"京东快递\",\n        \"SF\": \"顺丰速递\"\n    };\n\n    const prefix \u003d number.substring(0, 2);\n\n    return expressCompanies[prefix] || \"未知快递公司\";\n}\n\nvar inputNumber \u003d {textFieldInput1}; \nvar result \u003d checkExpressCompany(inputNumber);\n(result);",
+          "customContextDataKey": {
+          },
+          "id": "A-cd102b0a-3624-493c-b768-2d058443bada"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{jsRet} \n取件码:{textFieldInput2}",
+          "customContextDataKey": {
+          },
+          "id": "A-e7291e90-b2ff-4ebd-99fb-57f6e21572ca"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Package",
+          "valueAsString": "{jsRet}\n取件码:{textFieldInput2}",
+          "customContextDataKey": {
+          },
+          "id": "A-c59569f1-a583-45c3-b454-914a2843891f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-a47878e1-d5d2-41a7-b243-92246d82ebdf"
+      }]
+    }, {
+      "title": "手选快递公司",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "中通快递",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "PackCompany",
+            "valueAsString": "中通快递",
+            "customContextDataKey": {
+            },
+            "id": "A-5ad475da-498c-4138-8f31-c74e70df46fe"
+          }]
+        }, {
+          "title": "圆通快递",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "PackCompany",
+            "valueAsString": "圆通快递",
+            "customContextDataKey": {
+            },
+            "id": "A-5ad475da-498c-4138-8f31-c74e70df46fe"
+          }]
+        }, {
+          "title": "极兔速递",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "PackCompany",
+            "valueAsString": "极兔速递",
+            "customContextDataKey": {
+            },
+            "id": "A-5ad475da-498c-4138-8f31-c74e70df46fe"
+          }]
+        }, {
+          "title": "邮政快递",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "PackCompany",
+            "valueAsString": "邮政快递",
+            "customContextDataKey": {
+            },
+            "id": "A-5ad475da-498c-4138-8f31-c74e70df46fe"
+          }]
+        }, {
+          "title": "韵达快递",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "PackCompany",
+            "valueAsString": "韵达快递",
+            "customContextDataKey": {
+            },
+            "id": "A-5ad475da-498c-4138-8f31-c74e70df46fe"
+          }]
+        }, {
+          "title": "申通快递",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "PackCompany",
+            "valueAsString": "申通快递",
+            "customContextDataKey": {
+            },
+            "id": "A-5ad475da-498c-4138-8f31-c74e70df46fe"
+          }]
+        }, {
+          "title": "顺丰快递",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "PackCompany",
+            "valueAsString": "顺丰快递",
+            "customContextDataKey": {
+            },
+            "id": "A-5ad475da-498c-4138-8f31-c74e70df46fe"
+          }]
+        }],
+        "title": "选择快递公司",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-e9b1c291-4bc0-4d6e-85bb-3b130d358545"
+      }, {
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "请输入快递信息",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "取货码"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-2a3b856b-cb67-4c14-beb3-e9bcafce46b3"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "textFieldInput1",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-8e13e4d1-4861-4ee7-b00d-1e0780497c92"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-ab5b6212-9e5a-400d-bccd-ff0bd9dadec7"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "localVarOf$PackCompany\n取件码:{textFieldInput1}",
+          "customContextDataKey": {
+          },
+          "id": "A-d976b5be-3e20-4102-a0d8-490a5092f8af"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Package",
+          "valueAsString": "localVarOf$PackCompany \n取货码:{textFieldInput1}",
+          "customContextDataKey": {
+          },
+          "id": "A-b1de3c9d-e7bb-44c2-9ad3-23db37f6dab0"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-051773e3-e001-4a05-9813-b588448355ab"
+      }]
+    }, {
+      "title": "查看添加记录",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/bash\n\ninputString\u003d\"globalVarOf$Package\"\nresult\u003d$(echo \"$inputString\" | sed \u0027s/, /,\\n/g\u0027)\necho \"$result\"",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-f52a6ab3-aa11-4813-bb7e-aeef245d93f9"
+      }, {
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "{shellOut}"
+        }],
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-a4bd1624-a9f4-406c-9c96-16d42df762b2"
+      }]
+    }, {
+      "title": "导出添加记录",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"globalVarOf$Package\" | sed \u0027s/, */,\\\n/g\u0027 \u003e /sdcard/快递导出.txt",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-cee3d67b-dcd6-40e4-834e-a6078c65a8fd"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已导出至:\n/sdcard/快递导出.txt",
+        "customContextDataKey": {
+        },
+        "id": "A-88c1b12c-3a72-4743-86c8-4d4eda21a80c"
+      }]
+    }],
+    "title": "快递输入方式",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-fcf4af3b-81c6-48f4-9601-a2a1454299f6"
+  }],
+  "id": "DAc36db87e-85fc-4e65-a56a-1feae717f592",
+  "lastUpdateTime": "1713653058837",
+  "createTime": "1712160325655",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "快递记录",
+  "description": " ",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

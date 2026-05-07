@@ -1,0 +1,170 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "com.tencent.mobileqq"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-7e3c9796-be4a-4cf2-9106-ea4eb0ef4a1b"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-2326b67a-5e9b-4294-a810-3a9f05a303c2"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-6da385fb-cfdd-42b3-a770-1c4a875b2443"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgs": [{
+        "pkgName": "com.tencent.mobileqq"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-30289152-2352-465f-97be-e6f69f35ed65"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "QQ Killed...",
+      "customContextDataKey": {
+      },
+      "id": "A-9f7d0713-dcce-44f0-b3b0-7aa1f74f6eb7"
+    }, {
+      "@type": "type.googleapis.com/StartAppProcess",
+      "appPkg": [{
+        "pkgName": "com.tencent.mobileqq"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-fff01ff7-36ad-48dd-8923-1b83c69b0d98"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-a89483b8-dd24-4943-b52f-fb36a85a2939"
+    }, {
+      "@type": "type.googleapis.com/StartService",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.tencent.mobileqq",
+        "className": "com.tencent.mobileqq.msf.service.MsfService"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-7b0237dc-2f1b-436c-98bc-240bc6273217"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "QQ Start...",
+      "customContextDataKey": {
+      },
+      "id": "A-bd522563-dc69-46c6-a50d-d5703daee8c9"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "QQ",
+    "id": "A-41e260f7-2560-4ea6-b986-884c1c2f6788"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgs": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-f48bc404-010c-43de-855d-bf7bbf0d5eb3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "WeChat Killed...",
+      "customContextDataKey": {
+      },
+      "id": "A-909976a4-5b87-4805-882c-32bbd04ea447"
+    }, {
+      "@type": "type.googleapis.com/StartAppProcess",
+      "appPkg": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d1b4002b-fa75-424e-9e37-59dcecee49bb"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-ae7054a4-6930-45da-a403-e51523b069fb"
+    }, {
+      "@type": "type.googleapis.com/StartService",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.tencent.mm",
+        "className": "com.tencent.mm.booter.CoreService"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ae62dc2a-d2c6-4671-96a7-7b270e2eb646"
+    }, {
+      "@type": "type.googleapis.com/StartService",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.tencent.mm",
+        "className": "com.tencent.mm.service.ProcessService$MMProcessService"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-71a63074-1d48-497a-8093-1c782437b27d"
+    }, {
+      "@type": "type.googleapis.com/StartService",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.tencent.mm",
+        "className": "com.tencent.mm.ipcinvoker.wx_extension.service.PushProcessIPCService"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9d636bce-2bb8-4621-8393-6cc68441499e"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "WeChat Start...",
+      "customContextDataKey": {
+      },
+      "id": "A-e8a0181a-a2da-4da2-a7ba-9c21b2585c39"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "WeChat",
+    "id": "A-346e0470-37f5-4d12-8523-1c0e2eb7c7ce"
+  }],
+  "id": "rule-fd301f73-6f6b-4745-b1bc-532d2b4337d4",
+  "lastUpdateTime": "1701941349705",
+  "createTime": "1701940443454",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "QQ 微信保后台",
+  "description": "(๑ᵕ⌓ᵕ̤)...",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

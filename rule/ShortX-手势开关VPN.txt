@@ -1,0 +1,64 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopLeft",
+    "gesture": "SingleTap",
+    "customContextDataKey": {
+    },
+    "id": "F-456ed94d-e92e-4346-8c5d-f39c3326d652"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-60b0d987-9fe4-4d36-a8f2-8da164fac807"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-386a395c-375a-414f-b260-971d3453d8a3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "world.letsgo.booster.android.pro"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d4c86c32-e6ca-427e-a525-832e28abed2e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/StartService",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "world.letsgo.booster.android.pro",
+        "className": "world.letsgo.booster.android.proxy.ProxyService"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9c4962cd-57cb-4fee-afd7-27287094e08f"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-55b07764-cd68-49a0-87d7-53ded38e243c"
+  }],
+  "id": "rule-addb9b0c-31d5-460e-b7a5-0f74f876ecea",
+  "lastUpdateTime": "1700068404341",
+  "createTime": "1700068196808",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "手势开关VPN",
+  "description": "快连VPN",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

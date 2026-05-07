@@ -1,0 +1,120 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "RightCenter",
+    "gesture": "SwipeFromBottom",
+    "customContextDataKey": {
+    },
+    "id": "F-f68c4827-2fc9-4d29-8433-12dcff48b273"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-b8af1f47-be26-4795-b69a-099b38b6b599"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.tencent.mm/com.tencent.mm.plugin.scanner.ui.BaseScanUI",
+        "customContextDataKey": {
+        },
+        "id": "A-cec36bd2-600c-42e5-a09a-70ae1697baa5"
+      }],
+      "icon": "wechat-pay-fill",
+      "label": "微信扫",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["scan\u0026pay"],
+        "customContextDataKey": {
+        },
+        "id": "A-23114e50-a50d-4703-8833-6ea379d3a904"
+      }],
+      "id": "BTN-a6b59e0a-d821-430e-8317-91ac81311ae2"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.tencent.mm/com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI",
+        "customContextDataKey": {
+        },
+        "id": "A-b090fe96-2cbc-4a92-b1fa-2144a8e867d6"
+      }],
+      "icon": "wechat-pay-fill",
+      "label": "微信付",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["scan\u0026pay"],
+        "customContextDataKey": {
+        },
+        "id": "A-23114e50-a50d-4703-8833-6ea379d3a904"
+      }],
+      "id": "BTN-7dc56904-4ebc-4421-b9e8-26d6dcefddc1"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.eg.android.AlipayGphone/com.alipay.mobile.scan.as.main.MainCaptureActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-206a92bc-25bb-496d-a406-218e7bfc2228"
+      }],
+      "icon": "alipay-fill",
+      "label": "支付宝扫",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["scan\u0026pay"],
+        "customContextDataKey": {
+        },
+        "id": "A-23114e50-a50d-4703-8833-6ea379d3a904"
+      }],
+      "id": "BTN-3bb65818-73cd-40a4-b29e-af193f526473"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.eg.android.AlipayGphone/com.alipay.mobile.onsitepay.merge.OnsitepayActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-80851a95-44bc-46b1-a0ff-1693f4e3f3d5"
+      }],
+      "icon": "alipay-fill",
+      "label": "支付宝付",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["scan\u0026pay"],
+        "customContextDataKey": {
+        },
+        "id": "A-23114e50-a50d-4703-8833-6ea379d3a904"
+      }],
+      "id": "BTN-0eb2d5c4-f8f7-43ef-bf6c-21f5e5b46730"
+    }],
+    "tag": "scan\u0026pay",
+    "maxHeightInDp": 256,
+    "maxWidthInDp": 39,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 107,
+    "enableGlobalDrag": true,
+    "overlayPaddingH": 3,
+    "overlayPaddingV": 7,
+    "customContextDataKey": {
+    },
+    "id": "A-ca4b5521-d765-47c8-bfe6-901e7aede392"
+  }],
+  "id": "rule-190879fa-95c3-4448-b937-3dbaac8d5fb6",
+  "lastUpdateTime": "1696306944990",
+  "createTime": "1696301330924",
+  "author": {
+    "name": "dishuo"
+  },
+  "title": "便捷付款",
+  "description": "长按退出",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-86bb4ba6-017f-4c4b-88a8-cc101840e6ac"
+}
+###------###
+{"type":"rule"}

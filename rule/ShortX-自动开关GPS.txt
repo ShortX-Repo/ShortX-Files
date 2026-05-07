@@ -1,0 +1,166 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "customContextDataKey": {
+    },
+    "id": "F-50d32ffc-e9cd-42db-8bef-10da80fc7d0b"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import java.util.Arrays;\nimport java.util.List;\nString a \u003d globalVarOf$GPSoff;\nString b \u003d {componentName};\nboolean c \u003d a.contains(b);\nreturn c;\n",
+    "customContextDataKey": {
+    },
+    "id": "C-e14bcc52-db89-4fcc-bff4-21300cbbad3d"
+  }, {
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import java.util.Arrays;\nimport java.util.List;\nString a \u003d globalVarOf$GPSon;\nString b \u003d {componentName};\nboolean c \u003d a.contains(b);\nreturn c;\n",
+    "customContextDataKey": {
+    },
+    "id": "C-502cf5db-99a1-4ae4-a68c-f7d36401e400"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.location.LocationManager;\n\nlocationManager \u003d context.getSystemService(context.LOCATION_SERVICE);\nboolean gpsEnabled \u003d locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "GPSofno"
+      }]
+    },
+    "id": "A-5cfc7c9e-6cbf-4785-8622-8666fff4ac53"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{GPSofno} \u003d\u003d \u0027false\u0027;",
+      "customContextDataKey": {
+      },
+      "id": "C-05885e60-c879-4f4e-a67b-1aca80c44b92"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "import java.util.Arrays;\nimport java.util.List;\nString a \u003d globalVarOf$GPSoff;\nString b \u003d {componentName};\nboolean c \u003d a.contains(b);\nreturn c;\n",
+      "customContextDataKey": {
+      },
+      "id": "C-40b4cb15-bac6-4e56-a93d-2d2923010d52"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-da4894cf-2147-46ad-916f-9af12655147c"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "GPS已开启",
+      "customContextDataKey": {
+      },
+      "id": "A-48f64388-3979-4894-814c-51f22c54745a"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{GPSofno} \u003d\u003d \u0027true\u0027;",
+        "customContextDataKey": {
+        },
+        "id": "C-eb006902-9460-44ab-8c24-e290e2825c5e"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.util.Arrays;\nimport java.util.List;\nString a \u003d globalVarOf$GPSon;\nString b \u003d {componentName};\nboolean c \u003d a.contains(b);\nreturn c;\n",
+        "customContextDataKey": {
+        },
+        "id": "C-db619885-8bb7-42c1-a601-db1dee5be924"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetLocationEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-0291328a-1a3e-4bbc-85b9-9a50d913055c"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "GPS已关闭",
+        "customContextDataKey": {
+        },
+        "id": "A-352a25dd-c770-4f2f-8221-6aa67bd2e547"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a0e1f573-91a3-4938-b662-1bc53cbea420"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a6e5eb96-7394-4fd9-a1d9-7230f31a2733"
+  }],
+  "id": "rule-6d48c268-93b7-480d-98d9-c94849e1d836",
+  "lastUpdateTime": "1697527228839",
+  "createTime": "1696736781058",
+  "author": {
+    "name": "奋斗的青年"
+  },
+  "title": "自动开关GPS",
+  "description": "应用再打开指定Activity开启GPS，回到桌面关闭GPS",
+  "condOp": "ANY",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "GPSoff",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2d2228f4-1791-403e-bd76-7c21d0e90478"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "GPSon",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-908d8c51-e55b-448c-b81e-67be27cfab62"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "GPSon",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-e7ac947c-4544-4654-8e47-80d8c11e168a"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "GPSoff",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-f1795e9a-1a2e-4832-bb57-59134d5a9c13"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-715d7e08-81b4-4ecc-b6a5-cba0d96d7923"
+    }]
+  },
+  "quit": {
+    "actions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-8cbe0f9b-0baa-4a95-87a0-168dfdeb1cf2"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-2677a032-b889-4b79-82c0-d15f5620b585"
+}
+###------###
+{"type":"rule"}

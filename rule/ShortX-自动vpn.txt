@@ -1,0 +1,131 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["Proxy"],
+    "customContextDataKey": {
+    },
+    "id": "F-d59adc83-c75a-403d-807c-64105ace8d7f"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/VPNIsConnected",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-8ff74d14-aeff-4dc8-8831-8b7c3545c3b7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 导入所需的引用库\nimport android.content.ContextWrapper;\nimport android.content.pm.PackageManager;\nimport android.content.ComponentName;\nimport android.content.pm.ServiceInfo;\nimport java.lang.reflect.Method;\nimport android.content.Intent;\n\n// 指定目标应用包名\ntargetPackageName \u003d globalVarOf$daili;\n\n// 获取 PackageManager 实例\npackageManager \u003d context.getPackageManager();\n\n// 获取目标应用的所有服务信息\nserviceInfos \u003d packageManager.getPackageInfo(targetPackageName, PackageManager.GET_SERVICES).services;\n\n// 遍历服务信息，查找 VPN 服务类名\nvpnServiceClassName \u003d \"\";\nforeach (serviceInfo : serviceInfos) {\n    if (serviceInfo.permission \u003d\u003d \"android.permission.BIND_VPN_SERVICE\") {\n        vpnServiceClassName \u003d serviceInfo.name;\n    }\n}\n\n// 创建 Intent 对象\nIntent vpnIntent \u003d new Intent();\nvpnIntent.setClassName(targetPackageName, vpnServiceClassName);\n\n// 获取 Context 类的字节码对象\nctxClass \u003d java.lang.Class.forName(\"android.content.Context\");\n\n// 获取 startService 方法\nstartServiceMethod \u003d ctxClass.getMethod(\"startService\", java.lang.Class.forName(\"android.content.Intent\"));\n\n// 调用 startService 方法启动 VPN 服务\nstartServiceMethod.invoke(context, vpnIntent);\n\nvpnServiceClassName;",
+    "customContextDataKey": {
+    },
+    "id": "A-a04dc478-4631-41a0-8dea-f55fa7bedd3a"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "{textFieldInput1}",
+      "className": "{mvelRet}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-99fbbe66-dd14-47e3-8f9f-be5d96ec9e8a"
+  }],
+  "id": "SHARE-rule-66ab7611-7b6f-4b95-b94b-21eeea5a8f7a",
+  "lastUpdateTime": "1768283542750",
+  "createTime": "1768264549043",
+  "author": {
+    "name": "Summer"
+  },
+  "title": "自动vpn",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "daili",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-4a7c4ad7-95dc-4357-a86a-19436f875031"
+    }, {
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "Proxy",
+      "customContextDataKey": {
+      },
+      "id": "A-89bd6c87-9b74-4c43-9dc7-73bf1e190737"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "确定",
+      "title": "提示",
+      "message": "应用集proxy里面添加你要代理的APP\n（如telegarm）",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3e20d5f1-2d5e-4f6e-ba3e-0fe1892e1143"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "代理包名",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "vpn包名\n（如绿茶:com.abjlvcha.main）"
+      }],
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-a9a5301c-e2d1-40fb-85b1-fc58a46d6dc1"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "daili",
+      "valueAsString": "{textFieldInput1}",
+      "customContextDataKey": {
+      },
+      "id": "A-0e7659cf-7822-4bc6-91f6-c38468672d61"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "daili",
+      "customContextDataKey": {
+      },
+      "id": "A-77d28a06-d0d7-4a06-ae89-9a6228cfcd73"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "pkgSets": ["Proxy"],
+      "customContextDataKey": {
+      },
+      "id": "F-4ed1832c-5036-4d3a-be21-f740f4b47c68"
+    }, {
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "pkgSets": ["Proxy"],
+      "customContextDataKey": {
+      },
+      "id": "F-76933153-5d47-4dbe-9227-9701b58a4cf2"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-8aad291d-0520-4ac8-ad71-f983b46fbffc"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "// 导入所需的引用库\nimport android.app.ActivityManager;\nimport android.content.Context;\nimport android.content.pm.PackageManager;\nimport android.content.ComponentName;\nimport android.content.pm.ServiceInfo;\nimport java.lang.reflect.Method;\n\n// 指定目标应用包名\ntargetPackageName \u003d globalVarOf$daili;\n\n// 获取 PackageManager 实例\npackageManager \u003d context.getPackageManager();\n\n// 获取目标应用的所有服务信息\nserviceInfos \u003d packageManager.getPackageInfo(targetPackageName, PackageManager.GET_SERVICES).services;\n\n// 遍历服务信息，查找 VPN 服务类名\nvpnServiceClassName \u003d \"\";\nforeach (serviceInfo : serviceInfos) {\n    if (serviceInfo.permission \u003d\u003d \"android.permission.BIND_VPN_SERVICE\") {\n        vpnServiceClassName \u003d serviceInfo.name;\n    }\n}\n\n// 检查是否找到了 VPN 服务\nif (vpnServiceClassName \u003d\u003d \"\") {\n    throw new RuntimeException(\"无法找到VPN服务\");\n}\n\n// 使用反射获取 ActivityManager 服务\nactivityManagerClass \u003d Class.forName(\"android.app.ActivityManager\");\nactivityManager \u003d context.getSystemService(\"activity\");\n\n// 通过反射获取ActivityManager中的\"forceStopPackage\"方法\nforceStopPackageMethod \u003d activityManagerClass.getDeclaredMethod(\"forceStopPackage\", Class.forName(\"java.lang.String\"));\nforceStopPackageMethod.setAccessible(true);\n\n// 调用 forceStopPackage 方法强制停止目标应用\nforceStopPackageMethod.invoke(activityManager, targetPackageName);",
+      "customContextDataKey": {
+      },
+      "id": "A-85b25522-258e-4ae5-a815-8f94826e50f5"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

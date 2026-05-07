@@ -1,0 +1,261 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "customContextDataKey": {
+    },
+    "note": "👋点此设置磁贴",
+    "id": "F-19de20eb-0d85-41e3-87b4-06ac1c54e407"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Box4running?",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1b48d6be-e759-4766-8c47-a0d8d99b87d8"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "检测方式",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-e3c635cf-1e82-4eb5-86a0-13192c144a62"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "内核",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-c160d522-f3f0-4e13-afe1-15a859ebee68"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "外部端口",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-47f7cf3e-9ee1-444f-b1ec-7d03da8196b6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-dd7ec37b-b489-4e9e-ba44-5f6222bb5080"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "检测方式",
+      "valueAsString": "进程",
+      "customContextDataKey": {
+      },
+      "note": "可选值:\n1.外部端口\n2.进程(推荐)",
+      "id": "A-f377b4fa-b517-43fa-ab7d-79bfba19cb04"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "内核",
+      "valueAsString": "sing-box",
+      "customContextDataKey": {
+      },
+      "note": "可选值:\n1.sing-box\n2.mihomo(没测过)",
+      "id": "A-ab45d0bc-80f4-429a-a7e0-0092a935679d"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "外部端口",
+      "valueAsString": "9090",
+      "customContextDataKey": {
+      },
+      "note": "需要在内核配置文件打开外部控制(使用进程检测无需设置)",
+      "id": "A-5ea50715-1363-4d18-ba1f-c308713bdf21"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "    ╓┈┈┈┈┈┈┈┈┈┈╖\n   ║                           ║\n  ║ 👋面向使用者的修改 👋\n ║                           ║\n╙┈┈┈┈┈┈┈┈┈┈╜",
+    "id": "A-fe2e84dd-a0fb-4d4f-9345-4066f06c6bdd"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "检测方式",
+        "payload": {
+          "value": "外部端口"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-8394a169-6acc-4b59-a932-a3906237d911"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "export PATH\u003d\"/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nsu -c busybox nc -z -w 1 127.0.0.1 $\"localVarOf$外部端口\" \u0026\u003e /dev/null \u0026\u0026 echo yes || echo no",
+        "customContextDataKey": {
+        },
+        "id": "A-b84c43f8-b1d5-4e11-b5a1-5155fd797207"
+      }],
+      "description": "外部端口",
+      "id": "Case-e863b153-d506-41cb-93fd-52923284e8f5",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "检测方式",
+        "payload": {
+          "value": "进程"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-5003a1e6-4825-4e57-8803-d9f75c8be808"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "export PATH\u003d\"/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nsu -c busybox pidof $\"localVarOf$内核\" \u003e /dev/null \u0026\u0026 echo yes || echo no",
+        "customContextDataKey": {
+        },
+        "id": "A-ee916c13-7187-40b8-b5d5-ebe0e9ebf7f7"
+      }],
+      "description": "进程",
+      "id": "Case-10460870-5580-4418-9120-a81d849f39d3",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c3b157a2-4326-4efd-919e-fcf49ed21a2f"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Box4running?",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-89d65d5e-d520-44a3-9afb-7719ef2a1c73"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "Box4running?",
+        "payload": {
+          "value": "yes"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-bb300630-7d3f-4d38-9730-0ad398eda2e3"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "su -c /data/adb/box/scripts/box.tproxy disable \u0026\u0026 su -c /data/adb/box/scripts/box.service stop",
+        "customContextDataKey": {
+        },
+        "id": "A-084e92fd-53c3-46d3-b290-d16f4acb5a17"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-box4",
+        "title": "Box4已停止,shellOut:",
+        "message": "{shellOut}",
+        "smallIcon": "chat-2-line",
+        "vibrate": true,
+        "clickAction": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "title": "Box4已停止,shellOut",
+          "message": "{shellOut}",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-d0834f1a-5330-4624-aa92-967e56160e15"
+        }],
+        "overrideAppName": "Box4",
+        "customContextDataKey": {
+        },
+        "id": "A-6cdcbca7-1df1-4d3e-87fa-260140394c5a"
+      }],
+      "description": "box正在运行",
+      "id": "Case-f103f953-d7b9-46ac-9e8c-0bb6d42a274c",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "Box4running?",
+        "payload": {
+          "value": "no"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-03485f90-3741-45aa-a332-f6dba7f51858"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "su -c /data/adb/box/scripts/box.service start \u0026\u0026 su -c /data/adb/box/scripts/box.tproxy enable",
+        "customContextDataKey": {
+        },
+        "id": "A-084e92fd-53c3-46d3-b290-d16f4acb5a17"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-box4",
+        "title": "Box4已启动,shellOut:",
+        "message": "{shellOut}",
+        "smallIcon": "chat-2-line",
+        "vibrate": true,
+        "clickAction": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "title": "Box4已启动,shellOut",
+          "message": "{shellOut}",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-d0834f1a-5330-4624-aa92-967e56160e15"
+        }],
+        "overrideAppName": "Box4",
+        "customContextDataKey": {
+        },
+        "id": "A-6cdcbca7-1df1-4d3e-87fa-260140394c5a"
+      }],
+      "description": "box没在运行",
+      "id": "Case-59001593-6c7a-4769-b30c-205d1849452f",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-27049172-394d-473c-a412-0e05246bca32"
+  }],
+  "id": "SHARE-rule-4f594376-bf19-4b4f-bfdc-0cd9aa7d343a",
+  "lastUpdateTime": "1744387320472",
+  "createTime": "1744380876319",
+  "author": {
+    "name": "Sorubedo"
+  },
+  "title": "Box4一键切换磁贴",
+  "description": "⚠️ 请务必设置 👋面对使用者的修改👋",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

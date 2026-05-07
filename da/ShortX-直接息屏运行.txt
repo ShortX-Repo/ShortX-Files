@@ -1,0 +1,81 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.os.Build;\nimport android.os.IBinder;\nimport android.os.Parcel;\nimport android.os.ServiceManager;\nimport android.view.SurfaceControl;\n\n// 直接设置电源模式\nint displayMode \u003d 0; // 2: 开启, 0: 关闭\n\nif (Build.VERSION.SDK_INT \u003c 34) { // Android 14 之前的版本\n    // 获取 SurfaceControl 类\n    CLASS \u003d Class.forName(\"android.view.SurfaceControl\");\n\n    // 根据 Android 版本获取显示器 Token 方法\n    getGetBuiltInDisplayMethod \u003d (Build.VERSION.SDK_INT \u003c Build.VERSION_CODES.Q) ?\n        CLASS.getMethod(\"getBuiltInDisplay\", Integer.TYPE) :\n        CLASS.getMethod(\"getInternalDisplayToken\");\n\n    // 获取显示器 Token\n    getBuiltInDisplay \u003d (Build.VERSION.SDK_INT \u003c Build.VERSION_CODES.Q) ?\n        getGetBuiltInDisplayMethod.invoke(null, 0) :\n        getGetBuiltInDisplayMethod.invoke(null);\n\n    // 设置电源模式\n    method \u003d CLASS.getMethod(\"setDisplayPowerMode\", IBinder, Integer.TYPE);\n    if (displayMode \u003d\u003d 0 || displayMode \u003d\u003d 2) {\n        method.invoke(null, getBuiltInDisplay, displayMode);\n    }\n} else { // Android 14 及以上版本\n    // 获取 SurfaceFlinger 服务\n    surfaceFlingerService \u003d ServiceManager.getService(\"SurfaceFlingerAIDL\");\n\n    // 获取显示器 ID 列表\n    parcelData \u003d Parcel.obtain();\n    parcelReply \u003d Parcel.obtain();\n    parcelData.writeInterfaceToken(\"android.gui.ISurfaceComposer\");\n    surfaceFlingerService.transact(IBinder.FIRST_CALL_TRANSACTION + 5, parcelData, parcelReply, 0);\n    parcelReply.readException();\n    int displayCount \u003d parcelReply.readInt();\n    long[] displayIds \u003d new long[displayCount];\n\n    // 读取显示器 ID\n    for (index \u003d 0; index \u003c displayCount; index++) {\n        displayIds[index] \u003d parcelReply.readLong();\n    }\n    parcelData.recycle();\n    parcelReply.recycle();\n\n    // 遍历每个显示器，设置电源模式\n    for (displayId : displayIds) {\n        // 开启电源模式\n        parcelData \u003d Parcel.obtain();\n        parcelReply \u003d Parcel.obtain();\n        parcelData.writeInterfaceToken(\"android.gui.ISurfaceComposer\");\n        parcelData.writeLong(displayId);\n        surfaceFlingerService.transact(IBinder.FIRST_CALL_TRANSACTION + 6, parcelData, parcelReply, 0);\n        parcelReply.readException();\n        IBinder displayToken \u003d parcelReply.readStrongBinder();\n        parcelData.recycle();\n        parcelReply.recycle();\n\n        // 直接调用 SurfaceControl 的方法，设置电源模式\n        SurfaceControl.setDisplayPowerMode(displayToken, displayMode);\n    }\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-3c1d2d0d-5137-4f7e-a38f-4a0353757103"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "屏幕亮着",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a9766a3a-16c7-4865-b454-86f042ede384"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "屏幕亮着",
+    "valueAsString": "false",
+    "customContextDataKey": {
+    },
+    "id": "A-fb3840b9-b455-4064-b404-d08f2232d09a"
+  }],
+  "id": "SHARED-DA-383de7eb-d95f-44f0-94ea-706501489515",
+  "lastUpdateTime": "1754002022825",
+  "createTime": "1732940893652",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "直接息屏运行",
+  "description": "点击直接息屏挂机，单击音量-亮屏",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/Logcat",
+      "regex": "keyCode 25",
+      "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+      "customContextDataKey": {
+      },
+      "id": "F-482b7c33-29c0-420e-8d77-134445f26256"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "屏幕亮着",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-7545a2ff-07b0-44b8-af6a-8c9eee5b3f89"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.os.Build;\nimport android.os.IBinder;\nimport android.os.Parcel;\nimport android.os.ServiceManager;\nimport android.view.SurfaceControl;\n\n// 直接设置电源模式\nint displayMode \u003d 2; // 2: 开启, 0: 关闭\n\nif (Build.VERSION.SDK_INT \u003c 34) { // Android 14 之前的版本\n    // 获取 SurfaceControl 类\n    CLASS \u003d Class.forName(\"android.view.SurfaceControl\");\n\n    // 根据 Android 版本获取显示器 Token 方法\n    getGetBuiltInDisplayMethod \u003d (Build.VERSION.SDK_INT \u003c Build.VERSION_CODES.Q) ?\n        CLASS.getMethod(\"getBuiltInDisplay\", Integer.TYPE) :\n        CLASS.getMethod(\"getInternalDisplayToken\");\n\n    // 获取显示器 Token\n    getBuiltInDisplay \u003d (Build.VERSION.SDK_INT \u003c Build.VERSION_CODES.Q) ?\n        getGetBuiltInDisplayMethod.invoke(null, 0) :\n        getGetBuiltInDisplayMethod.invoke(null);\n\n    // 设置电源模式\n    method \u003d CLASS.getMethod(\"setDisplayPowerMode\", IBinder, Integer.TYPE);\n    if (displayMode \u003d\u003d 0 || displayMode \u003d\u003d 2) {\n        method.invoke(null, getBuiltInDisplay, displayMode);\n    }\n} else { // Android 14 及以上版本\n    // 获取 SurfaceFlinger 服务\n    surfaceFlingerService \u003d ServiceManager.getService(\"SurfaceFlingerAIDL\");\n\n    // 获取显示器 ID 列表\n    parcelData \u003d Parcel.obtain();\n    parcelReply \u003d Parcel.obtain();\n    parcelData.writeInterfaceToken(\"android.gui.ISurfaceComposer\");\n    surfaceFlingerService.transact(IBinder.FIRST_CALL_TRANSACTION + 5, parcelData, parcelReply, 0);\n    parcelReply.readException();\n    int displayCount \u003d parcelReply.readInt();\n    long[] displayIds \u003d new long[displayCount];\n\n    // 读取显示器 ID\n    for (index \u003d 0; index \u003c displayCount; index++) {\n        displayIds[index] \u003d parcelReply.readLong();\n    }\n    parcelData.recycle();\n    parcelReply.recycle();\n\n    // 遍历每个显示器，设置电源模式\n    for (displayId : displayIds) {\n        // 开启电源模式\n        parcelData \u003d Parcel.obtain();\n        parcelReply \u003d Parcel.obtain();\n        parcelData.writeInterfaceToken(\"android.gui.ISurfaceComposer\");\n        parcelData.writeLong(displayId);\n        surfaceFlingerService.transact(IBinder.FIRST_CALL_TRANSACTION + 6, parcelData, parcelReply, 0);\n        parcelReply.readException();\n        IBinder displayToken \u003d parcelReply.readStrongBinder();\n        parcelData.recycle();\n        parcelReply.recycle();\n\n        // 直接调用 SurfaceControl 的方法，设置电源模式\n        SurfaceControl.setDisplayPowerMode(displayToken, displayMode);\n    }\n}",
+      "customContextDataKey": {
+      },
+      "id": "A-d81cc2a4-4a61-47d4-b805-6de6a25c3ae7"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "屏幕亮着",
+      "customContextDataKey": {
+      },
+      "id": "A-5deaff80-1ec8-47e3-8252-473979594c88"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已取消息屏运行",
+      "customContextDataKey": {
+      },
+      "id": "A-9d411232-ae92-4987-9d0b-060b1d849de2"
+    }]
+  }
+}
+###------###
+{"type":"da"}

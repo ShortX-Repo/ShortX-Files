@@ -1,0 +1,71 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenRotate",
+    "degree": "ScreenRotateDegree_90",
+    "customContextDataKey": {
+    },
+    "id": "F-c94ab39e-ed81-4b70-81b6-69d730d18eca"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetBrightness",
+    "value": 222,
+    "customContextDataKey": {
+    },
+    "id": "A-bf182dfc-219a-4d62-bdc9-e7817e92d7bc"
+  }, {
+    "@type": "type.googleapis.com/SetVolume",
+    "type": 3,
+    "index": 13,
+    "customContextDataKey": {
+    },
+    "id": "A-1b0481be-d8b0-4d3e-b901-c1f8ca126387"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-57f2193c-68c4-412c-ae89-c2f873209677"
+  }, {
+    "@type": "type.googleapis.com/InjectGestureRecording",
+    "gestureId": "33ac4270-6e75-4022-868e-38d79b7f8422",
+    "speed": 1.0,
+    "customContextDataKey": {
+    },
+    "id": "A-774a04d3-cf88-419e-b85f-c57ccdb6026c"
+  }],
+  "id": "SHARE-rule-354f2f7d-39b5-4c52-a035-1738f9bae121",
+  "lastUpdateTime": "1745397558642",
+  "createTime": "1745210307322",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "看视频",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenRotate",
+      "customContextDataKey": {
+      },
+      "id": "F-71c9f52c-f260-4a4b-ac2e-8a0e35fbca66"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/SetBrightness",
+      "value": 23,
+      "customContextDataKey": {
+      },
+      "id": "A-75790a83-af1b-46b0-afe8-b15b8be6da55"
+    }, {
+      "@type": "type.googleapis.com/SetVolume",
+      "type": 3,
+      "index": 6,
+      "customContextDataKey": {
+      },
+      "id": "A-7fa52dd3-ec10-4182-bf8e-c55d72e32884"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,58 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "contentText": "验证码|校验码|检验码|确认码|激活码|动态码|安全码|验证代码|校验代码|检验代码|激活代码|确认代码|动态代码|安全代码|登入码|认证码|识别码|短信口令|动态密码|交易码|上网密码|随机码|动态口令|驗證碼|校驗碼|檢驗碼|確認碼|激活碼|動態碼|驗證代碼|校驗代碼|檢驗代碼|確認代碼|激活代碼|動態代碼|登入碼|認證碼|識別碼|Code|code|CODE",
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b68a2cd8-668e-47c2-8a80-27677eb09de5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\nString msgText \u003d{contentText} ;\n\n// 关键词数组\nString[] keywords \u003d {\"验证码\", \"校验码\", \"检验码\", \"确认码\", \"激活码\", \"动态码\", \"安全码\", \"验证代码\", \"校验代码\", \"检验代码\", \"激活代码\", \"确认代码\", \"动态代码\", \"安全代码\", \"登入码\", \"认证码\", \"识别码\", \"短信口令\", \"动态密码\", \"交易码\", \"上网密码\", \"随机码\", \"动态口令\", \"驗證碼\", \"校驗碼\", \"檢驗碼\", \"確認碼\", \"激活碼\", \"動態碼\", \"驗證代碼\", \"校驗代碼\", \"檢驗代碼\", \"確認代碼\", \"激活代碼\", \"動態代碼\", \"登入碼\", \"認證碼\", \"識別碼\", \"Code\", \"code\", \"CODE\"};\n\n// 正则表达式匹配6到10位的数字和字母混合序列\nPattern pattern \u003d Pattern.compile(\"((?\u003d.*[a-zA-Z])(?\u003d.{0,4}\\\\d)[a-zA-Z0-9]{4,8})|(\\\\d{4,8})\");\nMatcher matcher \u003d pattern.matcher(msgText);\n\n// 存储匹配到的最近的PIN码及其距离\nString closestPinCode \u003d null;\nint closestDistance \u003d Integer.MAX_VALUE;\nint pinCodePosition \u003d -1;\nint distance \u003d -1;\n\n// 遍历所有关键词\nfor (String keyword : keywords) { \n    int keywordPosition \u003d msgText.indexOf(keyword);\n    \n    // 如果找到关键词的位置，继续查找其后续出现的位置\n    while (keywordPosition !\u003d -1) {\n\n        // 遍历所有匹配的PIN码\n        while (matcher.find()) {\n            pinCodePosition \u003d matcher.start();\n\n            // 计算PIN码与关键词之间的距离\n            distance \u003d Math.abs(pinCodePosition - keywordPosition);\n\n            // 如果找到更近的PIN码，更新最近的PIN码\n            if (distance \u003c closestDistance) {\n                closestDistance \u003d distance;\n                closestPinCode \u003d matcher.group();\n            }\n        }\n\n        // 重置matcher以便下一次循环使用\n        matcher.reset();\n\n        // 查找下一个关键词位置\n        keywordPosition \u003d msgText.indexOf(keyword, keywordPosition + keyword.length());\n    }\n}\n\n// 返回最近的PIN码值，如果未找到则返回false\nreturn closestPinCode !\u003d null ? closestPinCode : false;",
+    "customContextDataKey": {
+    },
+    "id": "A-2ffeae0f-c841-449c-b262-97bc869c2201"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "mvelRet",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-a1a4a028-2556-4609-ba74-6e2d0719c9f0"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "importClass(android.os.SystemClock);\nimportClass(android.view.KeyEvent);\nimportClass(android.view.inputmethod.InputConnection);\nimportClass(android.app.Instrumentation);\n\n// 模拟输入函数：依次输入字符串中的字符\nfunction simulateTyping(text, delayMillis) {\n    var instrumentation \u003d new Instrumentation();\n    var chars \u003d text.split(\u0027\u0027);\n    for (var i \u003d 0; i \u003c chars.length; i++) {\n        var c \u003d chars[i];\n        instrumentation.sendStringSync(c);\n        SystemClock.sleep(delayMillis);\n    }\n    return \"输入完成: \" + text;\n}\n\nsimulateTyping({mvelRet}, 10);",
+      "customContextDataKey": {
+      },
+      "id": "A-add2acce-7bc4-4fbb-add3-a053d21c2fbe"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3767495d-888a-4c65-afcb-20372d6f523b"
+  }],
+  "id": "SHARE-rule-b887e682-af57-4b72-96d3-939c37400338",
+  "lastUpdateTime": "1751283493193",
+  "createTime": "1751283316270",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "自动输入验证码",
+  "description": "收到验证码自动输入",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

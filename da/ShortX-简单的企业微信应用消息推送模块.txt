@@ -1,0 +1,61 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token\u003dglobalVarOf$access_token",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["errmsg"]
+    },
+    "method": "POST",
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\"touser\":\"@all\",\"msgtype\":\"text\",\"agentid\":\"globalVarOf$AgentID\",\"text\":{\"content\":\"globalVarOf$MSG\"},\"safe\":\"0\"}"
+    },
+    "id": "A-484575e6-1eaa-486a-bfaa-265ad453d27e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1}.contains(\"ok\")",
+      "id": "C-a220556b-91ca-4f3d-bf26-8e9ccf4a6b50"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid\u003dglobalVarOf$CorpID\u0026corpsecret\u003dglobalVarOf$Secret",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["access_token"]
+      },
+      "requestBody": {},
+      "id": "A-72455b76-f680-414c-86a5-ed3da21fe40a"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "access_token",
+      "valueAsString": "{httpRequestRet1}",
+      "id": "A-bf29f18c-ebbd-4072-b782-388ec12b947e"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token\u003dglobalVarOf$access_token",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "POST",
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\"touser\":\"@all\",\"msgtype\":\"text\",\"agentid\":\"globalVarOf$AgentID\",\"text\":{\"content\":\"globalVarOf$MSG\"},\"safe\":\"0\"}"
+      },
+      "id": "A-41f45937-a965-482a-b2e5-1ce27f4f9893"
+    }],
+    "id": "A-d4a528cb-2ed6-46ed-8e89-50c40cfb8df7"
+  }],
+  "id": "DA0dbc1626-af0d-475b-bbe4-6990c2f63d07",
+  "lastUpdateTime": "1689876335210",
+  "createTime": "1689647942009",
+  "author": {
+    "name": "Genicur"
+  },
+  "title": "简单的企业微信应用消息推送模块",
+  "description": "添加全局变量CorpID、Secret、AgentID、access_token(留空)、MSG(消息文本)，并写入对应内容即可食用。详细可查阅https://developer.work.weixin.qq.com/document/path/90236"
+}
+###------###
+{"type":"da"}

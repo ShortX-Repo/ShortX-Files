@@ -1,0 +1,399 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresent",
+    "customContextDataKey": {
+    },
+    "id": "F-23b4122b-5628-4488-98fb-457ae93e8d5c"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchJS",
+    "expression": "var File \u003d java.io.File;\nvar SimpleDateFormat \u003d java.text.SimpleDateFormat;\nvar Calendar \u003d java.util.Calendar;\n\nfunction isFileModifiedToday(path) {\n    var file \u003d new File(path);\n    if (!file.exists()) {\n        true;\n    }\n\n    var lastModified \u003d file.lastModified(); \n    var cal \u003d Calendar.getInstance();\n    cal.setTimeInMillis(lastModified);\n\n    var today \u003d Calendar.getInstance();\n    if (cal.get(Calendar.YEAR) \u003d\u003d\u003d today.get(Calendar.YEAR) \u0026\u0026\n        cal.get(Calendar.MONTH) \u003d\u003d\u003d today.get(Calendar.MONTH) \u0026\u0026\n        cal.get(Calendar.DAY_OF_MONTH) \u003d\u003d\u003d today.get(Calendar.DAY_OF_MONTH)) {\n        return false;\n    } else {\n        return true;\n    }\n}\nisFileModifiedToday(globalVarOf$shortxpath+\"/log/clean.log\");",
+    "customContextDataKey": {
+    },
+    "id": "C-ccee2a89-91ae-46c5-be9a-132b6b4b6cae"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importPackage(java.io);\nimportPackage(java.util);\nvar File \u003d java.io.File;\nvar FileWriter \u003d java.io.FileWriter;\nvar BufferedWriter \u003d java.io.BufferedWriter;\nvar IOException \u003d java.io.IOException;\nimportClass(Packages.tornaco.apps.shortx.core.proto.action.ShellCommand);\n\nfunction appendToFile(filePath, content) {\n    try {\n        var file \u003d new File(filePath);\n        if (!file.exists()) {\n            file.getParentFile().mkdirs(); \n            file.createNewFile();\n        }\n        var writer \u003d new BufferedWriter(new FileWriter(file, true));\n        writer.write(content);\n        writer.newLine();\n        writer.close();\n        true;\n    } catch (e) {\n        if (e instanceof IOException) {\n            false;\n        } else {\n            throw e;\n        }\n    }\n}\nvar timewhiteliststring \u003d globalVarOf$whitetime;\nvar timeRangeWhitelist \u003d timewhiteliststring.split(\",\");\n\nfunction getMidnight(offsetDays) {\n  var now \u003d new Date();\n  return new Date(now.getFullYear(), now.getMonth(), now.getDate() + offsetDays, 0, 0, 0, 0).getTime();\n}\n\nfunction isNDaysAgo(fileDate, n) {\n  var now \u003d new Date();\n  var targetDate \u003d new Date(now.getFullYear(), now.getMonth(), now.getDate() - n);\n  return fileDate.getFullYear() \u003d\u003d\u003d targetDate.getFullYear() \u0026\u0026\n         fileDate.getMonth() \u003d\u003d\u003d targetDate.getMonth() \u0026\u0026\n         fileDate.getDate() \u003d\u003d\u003d targetDate.getDate();\n}\n\nfunction inWhitelistRange(timestamp) {\n  for (var i \u003d 0; i \u003c timeRangeWhitelist.length; i++) {\n    var entry \u003d timeRangeWhitelist[i];\n    var start, end;\n\n    if (entry.indexOf(\"::\") !\u003d\u003d -1) {\n      var parts \u003d entry.split(\"::\");\n      if (parts.length \u003d\u003d\u003d 2) {\n        start \u003d parseFloat(parts[0]);\n        end \u003d parseFloat(parts[1]);\n      }\n    } else if (entry.startsWith(\":\")) {\n      start \u003d getMidnight(-1);\n      end \u003d parseFloat(entry.substring(1));\n    } else if (entry.endsWith(\":\")) {\n      start \u003d parseFloat(entry.substring(0, entry.length - 1));\n      end \u003d getMidnight(0) - 1;\n    }\n\n    if (!isNaN(start) \u0026\u0026 !isNaN(end) \u0026\u0026 timestamp \u003e\u003d start \u0026\u0026 timestamp \u003c\u003d end) {\n      return true;\n    }\n  }\n  return false;\n}\n\nfunction checkFiles(dir, resultList, n,needwhite) {\n  var files \u003d dir.listFiles();\n  if (!files) return;\n\n  for (var i \u003d 0; i \u003c files.length; i++) {\n    var file \u003d files[i];\n\n    if (file.isDirectory()) {\n      checkFiles(file, resultList, n,needwhite);\n    } else {\n      var lastModifiedMillis \u003d file.lastModified();\n      var fileDate \u003d new Date(lastModifiedMillis);\n      if (needwhite){\n         if (isNDaysAgo(fileDate, n) \u0026\u0026 !inWhitelistRange(lastModifiedMillis)) {\n        resultList.push(file.getAbsolutePath());\n         }\n      }else{\n      if (isNDaysAgo(fileDate, n)) {\n        resultList.push(file.getAbsolutePath());\n         }\n      }\n    }\n  }\n}\n\nfunction getShell(dirs, n,top,end,needwhite) {\n  var resultList \u003d [];\n\n  for (var i \u003d 0; i \u003c dirs.length; i++) {\n    var dir \u003d new File(dirs[i]);\n    checkFiles(dir, resultList, n,needwhite);\n  }\n\n  if (resultList.length \u003e 0) {\n    return top + resultList.join(end+\"\\n\"+top)+end;\n  } else {\n    return \"\";\n  }\n}\nfunction getCurrentTimeFormatted() {\n  var now \u003d new Date();\n  function pad(n) {\n    return n \u003c 10 ? \u00270\u0027 + n : n;\n  }\n\n  var year \u003d now.getFullYear();\n  var month \u003d pad(now.getMonth() + 1);\n  var day \u003d pad(now.getDate());\n\n  var hours \u003d pad(now.getHours());\n  var minutes \u003d pad(now.getMinutes());\n  var seconds \u003d pad(now.getSeconds());\n\n  return year + \u0027-\u0027 + month + \u0027-\u0027 + day + \u0027 \u0027 + hours + \u0027:\u0027 + minutes + \u0027:\u0027 + seconds;\n}\n\nvar dir1 \u003d \"/data/media/0/Pictures/\";\nvar dir2 \u003d \"/data/media/0/DCIM/\";\nvar dir3 \u003d \"/data/media/0/Movies/\";\nvar dir4 \u003d globalVarOf$shortxpath+\"/tmp/.Regret_medicine/\"\n\nvar MoveFileShell \u003d getShell([dir1, dir2, dir3], 1 ,\"mv \",\" \"+globalVarOf$shortxpath+\"/tmp/.Regret_medicine/\",true);\nvar RemoveFileShell \u003dgetShell([dir4],3,\"rm -r \",\"\",false);\nvar Shell \u003dMoveFileShell+\"\\n\"+RemoveFileShell+\"\\nam broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/\";\nappendToFile(globalVarOf$shortxpath+\"/log/clean.log\",\"\\n\\n\\n--------------------------------------\\n\"+getCurrentTimeFormatted()+\"\\n--------------------------------------\\n\"+Shell);\nvar command \u003d ShellCommand.newBuilder()\n    .setCommand(Shell).build();\n\nshortx.executeAction(command);",
+    "customContextDataKey": {
+    },
+    "id": "A-6cf6b7d7-0c60-4682-bf54-ca89d0bc5584"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "whitetime",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-453235c6-9821-414e-82e3-706e473f3fd1"
+  }],
+  "id": "SHARE-rule-c214d093-d6e6-4bb5-8a4d-51cf03749757",
+  "lastUpdateTime": "1748238686778",
+  "createTime": "1747922429402",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "临时性图片/视频 2.2 Beta",
+  "description": "自动移除临时性图片/视频",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "whitetime",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-bf4aafb9-0d9a-4d66-a5cc-2cf3a50c5a7b"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "whitetime",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-86e3757e-bc8f-46de-8ce5-47705297fc78"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "isexit",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-57828c49-9ab8-447f-b72f-b4e475a151a2"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "isexit",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "id": "A-649428dd-d543-4c51-8f9a-16efcdaac92f"
+    }, {
+      "@type": "type.googleapis.com/WhileLoop",
+      "conditions": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "isexit",
+        "payload": {
+          "value": "false"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-876e74c2-5d69-46fc-87fd-d8fd3a487f86"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "start",
+          "type": {
+            "@type": "type.googleapis.com/Int64Var"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2f1a255f-61ba-4497-bc1b-8b54a10a77a8"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "end",
+          "type": {
+            "@type": "type.googleapis.com/Int64Var"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-3bb98350-e989-4a91-bf45-849a032a0162"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "start",
+        "valueAsString": "%CurrentTimeMillis%",
+        "customContextDataKey": {
+        },
+        "id": "A-0508a1f3-e650-4f19-8e5a-b3ce5ac451f5"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "继续",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "end",
+          "valueAsString": "%CurrentTimeMillis%",
+          "customContextDataKey": {
+          },
+          "id": "A-d31b2332-b1c2-4416-b908-3f9b0bb67e83"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/MatchMVEL",
+            "expression": "localVarOf$end - localVarOf$start \u003e\u003d5000;",
+            "customContextDataKey": {
+            },
+            "id": "C-e7f6891b-760b-4030-987d-8b30a0866751"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "isexit",
+            "valueAsString": "true",
+            "customContextDataKey": {
+            },
+            "id": "A-b3cc3d33-d774-43ce-80c4-49ba8bb9ee9d"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-48f7111f-91e8-4402-bed3-047d90c49d36"
+        }],
+        "title": "使用说明（5秒后可继续）",
+        "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.自行导入附加开关，并绑定磁贴（重命名磁贴和修改磁贴LOGO需要自己进行），并在控制中心添加绑定的磁贴。\n3.需要保留图片时，点开磁贴后保存即可，并在不需要保存图片后关闭磁贴。\n3.被清理的图片会存放在shortx目录/tmp/.Regret_medicine下，3天后会被彻底删除，如果有重要文件误删，请在后悔药目录找回，移动回原目录时记得开启保存。\n4.清理日志在shortx目录/log/clean.log，指令高度依赖日志判断每日执行，请勿删除日志和写日志动作",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-66b812a9-2b52-4d8c-a2d6-241779b2ff64"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "霸道说明强制看",
+      "id": "A-b15d206e-e104-4f56-a1b4-22a27120c622"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "test",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo true",
+          "customContextDataKey": {
+          },
+          "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "test",
+          "valueAsString": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
+        }],
+        "description": "2",
+        "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "300",
+          "customContextDataKey": {
+          },
+          "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "test",
+            "payload": {
+              "value": "true"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "shell正常",
+            "customContextDataKey": {
+            },
+            "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "确定",
+            "title": "shell运行异常",
+            "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+            "cancelable": true,
+            "style": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+        }],
+        "description": "1",
+        "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "root检测",
+      "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "shortxpath",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e582f75d-a9c8-48f1-ac71-2a5e3e317429"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ls /data/system/",
+        "customContextDataKey": {
+        },
+        "id": "A-801c4fa6-eba2-4e51-afa8-00191d700d69"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "shortxpath",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-373cb3e0-d030-4784-98de-cd9a4632e460"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-c179c93c-34d4-450e-b832-ab5d869180ed"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "shell异常自动获取shortx目录失败，请手动填写/data/system/目录下的shortx开头的目录名",
+          "cancelable": true,
+          "textFields": [{
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-addd959f-370e-48bb-bb7b-b3db30758a37"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shortxpath",
+          "valueAsString": "/data/system/{textFieldInput1}",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-5316575c-0810-4b20-85f6-a27e15b61187"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{shellOut}",
+          "delimiter": ["\n"],
+          "actions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "Contains",
+              "varName": "foreachData",
+              "payload": {
+                "value": "shortx_"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-6c199b1c-6d08-4a4c-85ea-5615d2f8f726"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shortxpath",
+              "valueAsString": "/data/system/{foreachData}",
+              "op": "WriteGlobalVarOp_Override",
+              "customContextDataKey": {
+              },
+              "id": "A-aaa8e53c-aa10-49ac-b87c-5035be6aa2d9"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Parent",
+              "customContextDataKey": {
+              },
+              "id": "A-42d5e9ca-0990-4a8f-9a45-fe2de0f430c0"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-6fde485b-40d1-46f5-9933-d9e6447a25db"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-b635e834-78aa-4842-b588-0d6cb00ce008"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4538b55f-3e02-4bab-879a-df01428e3bc0"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "查询shortx目录",
+      "id": "A-bbe2562b-89ae-4799-b29e-c40fb9d9d5b2"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import java.io.File;\n\nString dirPath \u003d globalVarOf$shortxpath+\"/log/clean.log\"; \nFile dir \u003d new File(dirPath);\n\n// 返回目录是否存在且是一个目录\nreturn dir.exists() \u0026\u0026 dir.isFile();",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-6db991b8-48b1-4700-939e-61f863468adc"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var File \u003d java.io.File;\nvar FileWriter \u003d java.io.FileWriter;\nvar BufferedWriter \u003d java.io.BufferedWriter;\nvar IOException \u003d java.io.IOException;\n\nfunction appendToFile(filePath, content) {\n    try {\n        var file \u003d new File(filePath);\n        if (!file.exists()) {\n            file.getParentFile().mkdirs(); // 创建上级目录（如有必要）\n            file.createNewFile(); // 创建新文件\n        }\n        // 第二个参数为 true 表示追加模式\n        var writer \u003d new BufferedWriter(new FileWriter(file, true));\n        writer.write(content);\n        writer.newLine(); // 可选：添加换行符\n        writer.close();\n        true; // 写入成功\n    } catch (e) {\n        if (e instanceof IOException) {\n            false; // 写入失败\n        } else {\n            throw e; // 其他异常继续抛出\n        }\n    }\n}\nappendToFile(globalVarOf$shortxpath+\"/log/clean.log\",\"清理日志\\n\");",
+        "customContextDataKey": {
+        },
+        "note": "日志（勿删）",
+        "id": "A-99f01d26-41ab-4a3f-a2a3-1dc27c940e8c"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "初始化日志",
+      "id": "A-1d601fef-7f5d-4c53-a85a-c26eb85ababf"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "new java.io.File(globalVarOf$shortxpath+\"/tmp/.Regret_medicine/\").mkdirs();",
+      "customContextDataKey": {
+      },
+      "note": "创建后悔药文件夹",
+      "id": "A-19d3804c-14e3-45bd-86a2-5c72100352de"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

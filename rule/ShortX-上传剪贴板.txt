@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-3850a85b-71b6-4fa7-bcdc-e5eb6b288f01"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://futtsu.teracloud.jp/dav/同步剪贴板/SyncClipboard.json",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "PUT",
+    "headers": [{
+      "key": "Authorization",
+      "value": "Basic pTQyMjAxlTAyOD83eTJFTFRRNXgzdTdaQjZ8抓包获取"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\"File\":\"\",\"Clipboard\":\"{clipboardContent}\",\"Type\":\"Text\"}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-aa04f8eb-2d1d-4a31-a7c8-c78a20e40fbb"
+  }],
+  "id": "rule-ec8dbca4-9046-4174-b039-bd819dd75f95",
+  "lastUpdateTime": "1719490855972",
+  "createTime": "1719490132528",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "上传剪贴板",
+  "description": "使用TeraCloud云盘WebDav",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,293 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 8
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-1b40bd03-5d17-45c5-ab1d-eea3946ab374"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 6
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-3b7f8477-13d4-430f-87c5-bbed0da85d2c"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 3,
+      "minutes": 56
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-1093a77c-672e-412b-8c66-75b6b347d6c2"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 5,
+      "minutes": 56
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-c70f5850-5cc4-46b2-a6f3-07b5572a2381"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 1
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-79288516-cbd9-46ba-98d9-8405926750ce"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "needAirplaneMode",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a7d16bcf-67e6-4a1b-a0fe-0109b1215f94"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "todayFirstTime",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-720588fb-be09-4053-9269-41e5f37f1e43"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/TimeInRange",
+      "range": {
+        "start": {
+        },
+        "end": {
+          "hour": 2
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-6ea79fb2-b35a-4a7c-afb9-22c50f29d581"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "needAirplaneMode",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "id": "A-06b0864c-3944-45ee-a9d8-52d22f21b7dc"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "todayFirstTime",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "id": "A-9d53ba69-623f-4590-abd9-136779ef0ad0"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "重置變數 \nneedAirplaneMode\ntodayFirstTime",
+    "id": "A-62a932a0-77bf-454c-b759-9824c06f07a4"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/TimeInRange",
+      "range": {
+        "start": {
+          "hour": 6
+        },
+        "end": {
+          "hour": 11
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-1e33154a-59bd-4751-a493-1072efd34db7"
+    }, {
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "todayFirstTime",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-b91b3080-3395-47cf-8a9d-037fce12470f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "need",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "needAirplaneMode",
+        "valueAsString": "true",
+        "customContextDataKey": {
+        },
+        "id": "A-06b0864c-3944-45ee-a9d8-52d22f21b7dc"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "todayFirstTime",
+        "valueAsString": "false",
+        "customContextDataKey": {
+        },
+        "id": "A-af152bd7-e348-49e1-b53a-4c586abe3a6d"
+      }],
+      "negative": "no need",
+      "onNegative": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "needAirplaneMode",
+        "valueAsString": "false",
+        "customContextDataKey": {
+        },
+        "id": "A-06b0864c-3944-45ee-a9d8-52d22f21b7dc"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "todayFirstTime",
+        "valueAsString": "false",
+        "customContextDataKey": {
+        },
+        "id": "A-9ec98286-ee32-4c71-9e3b-6eb5f747c959"
+      }],
+      "title": "Notice ",
+      "message": "Need to turn airplane mode on at 8 a.m.?",
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-a4eb0bc3-ac99-4558-88bd-e2df676fb21a"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "問要不要開飛航",
+    "id": "A-36024c89-9c02-4a34-b52f-5ab63ca8cd18"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "needAirplaneMode",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-2b85e531-27e8-4053-887e-6a9a2bbdd7f8"
+    }, {
+      "@type": "type.googleapis.com/TimeInRange",
+      "range": {
+        "start": {
+          "hour": 7,
+          "minutes": 59
+        },
+        "end": {
+          "hour": 8,
+          "minutes": 1
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-56dfbcd4-a34c-460d-b721-52cb55958c31"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetAPMModeEnabled",
+      "isEnable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-2432982a-1d6a-4aea-b87a-d6c5ecd6baa6"
+    }, {
+      "@type": "type.googleapis.com/SetRingerMode",
+      "customContextDataKey": {
+      },
+      "id": "A-93ba9fd4-11fc-4d50-8224-60b86fe48a7c"
+    }, {
+      "@type": "type.googleapis.com/SetDNDEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-1f3f2da4-5458-476d-9ae2-eeeadba3ac53"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "8.開飛航",
+    "id": "A-e8fec6af-16b7-494c-9499-1833d7a4a032"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/TimeInRange",
+      "range": {
+        "start": {
+          "hour": 3,
+          "minutes": 54
+        },
+        "end": {
+          "hour": 6
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-8fbca58c-6ba1-48d4-960d-e4a18aadb324"
+    }, {
+      "@type": "type.googleapis.com/RequireAPMMode",
+      "isAPMEnable": true,
+      "customContextDataKey": {
+      },
+      "id": "C-94144eeb-b4f3-4c9e-a7ac-32a9e896057e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetAPMModeEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-3f1acc72-72ab-410d-a513-56a955695ff7"
+    }, {
+      "@type": "type.googleapis.com/SetRingerMode",
+      "mode": "vibrate",
+      "customContextDataKey": {
+      },
+      "id": "A-2ee16f53-e238-475e-a593-b9ee142b72d8"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "4.~5.關飛航",
+    "id": "A-85a80552-3650-46e9-8be3-bdeb2d736be3"
+  }],
+  "id": "SHARE-rule-0e1ca856-1f03-4322-9030-b2aed3ca5627",
+  "lastUpdateTime": "1763283680320",
+  "createTime": "1763280408668",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "airplane modddde",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

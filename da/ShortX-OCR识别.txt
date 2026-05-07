@@ -1,0 +1,39 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/OcrDetect",
+    "rectSrc": {
+      "@type": "type.googleapis.com/RectSourceSelectScreenArea"
+    },
+    "threads": 4,
+    "separator": " ",
+    "customContextDataKey": {
+    },
+    "id": "A-1fc443d6-da44-4dc0-8dcd-06f173b80a10"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{ocrResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-4c80fcb2-85dd-4fae-85a5-54c1ad11b5a1"
+    }],
+    "title": "文本内容",
+    "message": "{ocrResult}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-9844f0c7-2559-4084-b9b6-96839943f21f"
+  }],
+  "id": "SHARED-DA-00865596-3220-4954-8fa3-ac786eb39501",
+  "lastUpdateTime": "1761025201337",
+  "createTime": "1761025201337",
+  "title": "OCR识别",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

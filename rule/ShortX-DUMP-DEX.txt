@@ -1,0 +1,134 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "tileNumber": 1,
+    "customContextDataKey": {
+    },
+    "id": "F-9a483ed8-bebf-4055-91ab-87c0bc78fab9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "请输入包名",
+    "cancelable": true,
+    "textFields": [{
+    }],
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-86d08588-a94f-43f0-be11-74193e937f24"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\nString packageName \u003d {textFieldInput1};\nPackageManager packageManager \u003d context.getPackageManager();\nApplicationInfo applicationInfo \u003d packageManager.getApplicationInfo(packageName, 0);\nString appName \u003d (String) packageManager.getApplicationLabel(applicationInfo);\n//返回应用名",
+    "customContextDataKey": {
+    },
+    "id": "A-390bf321-f9d2-4022-90b1-3ea027041abc"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "mvelRet",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-071842d3-68d1-49bd-86b8-784e9f767938"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 定义包名和文件路径\nPACKAGE_NAME\u003d\"{textFieldInput1}\"\nTARGET_FILE\u003d\"/data/adb/modules/dump_dex/list.txt\"\n\n# 直接写入包名到文件（覆盖原有内容）\necho \"$PACKAGE_NAME\" \u003e \"$TARGET_FILE\"\n\necho \"Successfully wrote $PACKAGE_NAME to $TARGET_FILE\"",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-f94647cb-6487-46d3-b6a1-1ea9d4bf3df3"
+    }, {
+      "@type": "type.googleapis.com/LaunchAppByPkg",
+      "pkgAndUsers": [{
+        "first": "{textFieldInput1}",
+        "second": "0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-050c7bc8-c426-424f-ad0f-e6dabfbd29cb"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "5",
+      "showCD": true,
+      "timeUnit": "TimeUnit_S",
+      "customContextDataKey": {
+      },
+      "id": "A-f49da3e7-3aa6-4044-bab4-182f68be2d3a"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 定义包名和目标路径\nPACKAGE_NAME\u003d\"{textFieldInput1}\"\nSOURCE_DIR\u003d\"/data/user/0/$PACKAGE_NAME/dexes\"\nTARGET_DIR\u003d\"/storage/emulated/0/MT2/apks\"\n\n# 检查源目录是否存在\nif [ ! -d \"$SOURCE_DIR\" ]; then\n    echo \"脱壳失败！\"\n    exit 1\nfi\n\n# 移动dexes目录到目标路径\nmv \"$SOURCE_DIR\" \"$TARGET_DIR\"\necho \"脱壳成功！DEX目录：$TARGET_DIR/dexes\"",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-29c7b61c-cff2-49cd-ab18-40b008742533"
+    }, {
+      "@type": "type.googleapis.com/StopAppByPkg",
+      "pkgAndUsers": [{
+        "first": "{textFieldInput1}",
+        "second": "0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-185620c2-bb1f-4dc8-a134-7fa088f1b37a"
+    }, {
+      "@type": "type.googleapis.com/LaunchApp",
+      "appPkg": {
+        "pkgName": "bin.mt.plus.canary"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-f788b817-c62c-4fa4-9102-8a8f5af6ab9d"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-66977504-d2b6-42dd-936f-e2e0a74b6ddc"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "# 目标文件路径\nLIST_FILE\u003d\"/data/adb/modules/dump_dex/list.txt\"\n\n# 检查文件是否存在\nif [ ! -f \"$LIST_FILE\" ]; then\n    echo \"错误: 文件 $LIST_FILE 不存在！\"\n    exit 1\nfi\n\n# 检查是否有写入权限\nif [ ! -w \"$LIST_FILE\" ]; then\n    echo \"错误: 没有写入 $LIST_FILE 的权限！\"\n    exit 1\nfi\n\n# 清空文件内容\necho \"正在清空 $LIST_FILE ...\"\n\u003e \"$LIST_FILE\"\n\n# 检查是否清空成功\nif [ -s \"$LIST_FILE\" ]; then\n    echo \"错误: 文件清空失败！\"\n    exit 1\nelse\n    echo \"文件已成功清空。\"\n    exit 0\nfi",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-ac559e91-8614-49e2-b2f9-40b2d09af6f9"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "输入包名有误或未安装此应用！",
+      "customContextDataKey": {
+      },
+      "id": "A-bbf522df-e960-4fcb-a38d-f95ed98ae7d3"
+    }, {
+      "@type": "type.googleapis.com/StopAllActions",
+      "customContextDataKey": {
+      },
+      "id": "A-a797f01c-f1e2-4228-879d-5a8da3756ad9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f10a847b-feed-4217-a742-2f0c30aa6cfa"
+  }],
+  "id": "SHARE-rule-a8a96af6-66f2-4677-9e29-a8b6414632d8",
+  "lastUpdateTime": "1763017528351",
+  "createTime": "1737214620007",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "DUMP-DEX",
+  "description": "需要安装zygisk-dump_dex_v1.0模块\n地址:https://github.com/a422015028/zygisk-dump-dex",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-de5b5bd8-2d88-4189-94e9-c3283b1c4658"
+}
+###------###
+{"type":"rule"}

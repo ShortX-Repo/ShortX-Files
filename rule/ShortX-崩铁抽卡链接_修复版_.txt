@@ -1,0 +1,84 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Logcat",
+    "regex": "https://(webstatic|hk4e-api|webstatic-sea|hk4e-api-os|api-takumi|api-os-takumi|gs|public-operation-hk4e|aki-gm-resources-oversea).(mihoyo\\.com|hoyoverse\\.com|aki-game\\.net|aki-game\\.com).*gacha",
+    "regexMatchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-b59cb066-c583-47ab-957a-d0d24a3c4a00"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "com.miHoYo.hkrpg"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-97a29ea9-4f17-4801-852e-941844fda5e5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "var\u003d\"{line}\"; url\u003d$(echo \"$var\" | grep -o \u0027https://[^ ]*\u0027); echo \"$url\"",
+    "customContextDataKey": {
+    },
+    "id": "A-b93bf284-bf2d-4048-bfba-6cfc10ebd01f"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制链接",
+    "onPositive": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "防重复",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-88fe6047-42fe-49fb-9628-154c0707fbc7"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-5d3bad29-b247-4e33-bcd0-bdebcff74f6f"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-661636b4-72bc-4d90-82b8-af5640665cf1"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "防重复",
+      "customContextDataKey": {
+      },
+      "id": "A-3982a782-2d87-4436-a190-7f18dccf5871"
+    }],
+    "title": "抽卡链接",
+    "message": "{shellOut}",
+    "cancelable": true,
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-4ff245c1-e9e9-421a-b185-446a52c16d9c"
+  }],
+  "id": "SHARE-rule-c88b853c-6db5-4e2b-862d-cc0a4eb8de43",
+  "lastUpdateTime": "1742388194672",
+  "createTime": "1714718627800",
+  "author": {
+    "name": "jjj"
+  },
+  "title": "崩铁抽卡链接（修复版）",
+  "description": "打开抽卡自动获取链接",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

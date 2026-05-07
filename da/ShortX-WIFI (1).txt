@@ -1,0 +1,73 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "B_O",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-886ec56d-907e-41f7-9cb3-d444cb244299"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "B_O",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-1c291acd-14b1-42b3-a532-71f7681868ab"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": " su -c \u0027svc wifi enable\u0027",
+      "customContextDataKey": {
+      },
+      "id": "A-44c3e9e6-4669-47d7-a204-87ff08e47ad7"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "WIFI ON",
+      "customContextDataKey": {
+      },
+      "id": "A-d2c14581-1dc8-4a98-b978-c1d84e3badfe"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "B_O",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-71c9fe18-d0a5-47d8-b433-6a37af28279c"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "su -c \u0027svc wifi disable\u0027",
+      "customContextDataKey": {
+      },
+      "id": "A-6e9745a6-6361-42f3-89f9-adfc9e378c9a"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "WIFI OFF",
+      "customContextDataKey": {
+      },
+      "id": "A-5156a8b0-5293-4239-a644-5059ba9cfad9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-63ce4746-3d6d-4cda-89d9-237b86be383e"
+  }],
+  "id": "SHARED-DA-4e7ac850-c1b9-4f53-b011-a83911ffddf2",
+  "lastUpdateTime": "1760185262399",
+  "createTime": "1760185201937",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "WIFI 🛜",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

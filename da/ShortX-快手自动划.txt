@@ -1,0 +1,339 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "8",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-3cbbbbe7-1169-40d3-a660-7c0422b76845"
+  }, {
+    "@type": "type.googleapis.com/StartActivityIntent",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.kuaishou.nebula",
+      "className": "com.yxcorp.gifshow.webview.KwaiYodaWebViewActivity",
+      "extras": [{
+        "key": "KEY_URL",
+        "value": "https://encourage.kuaishou.com/huge-sign-in?layoutType\u003d4\u0026source\u003dtodotask",
+        "type": "String"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-65bfb348-826e-4343-8015-c3e51f16756f"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-3e946087-d4a5-4f2d-8aa6-272de8f5ce06"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "去观看",
+    "timeout": "3000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-e7b5c110-d8bb-433b-a237-b9ec776a470b"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-caf29d9d-76bd-43bc-83a2-6a3490f60427"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "去看视频",
+    "timeout": "3000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-ea0e70b3-6cde-4d57-9f14-410a4c66bf73"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-5eaf831e-c277-439c-ae41-8ab8c9ced979"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "去看广告",
+    "timeout": "3000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-0cb57e8d-8ca9-4879-a1cc-52f542670945"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-144c9f61-ebac-468d-acf9-03992ece9a31"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/HasNodeOnScreen",
+      "matchers": [{
+        "@type": "type.googleapis.com/NodeMatcherViewId",
+        "id": "com.kuaishou.nebula:id/pendant_task_status"
+      }],
+      "detectTimeout": "5000",
+      "customContextDataKey": {
+      },
+      "id": "C-dfeffede-1896-43a2-9905-65deebf7d3e7"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/GetTextFromScreenNode",
+      "nodeId": "com.kuaishou.nebula:id/pendant_task_status",
+      "customContextDataKey": {
+      },
+      "id": "A-3b25607a-86d4-4731-95b3-71a2903c3d59"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-6d05bdd2-9545-45e2-80ec-4fb530cfa15e"
+    }, {
+      "@type": "type.googleapis.com/GetTextFromScreenNode",
+      "nodeId": "com.kuaishou.nebula:id/pendant_task_status",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "textOfTheView",
+          "second": "ko"
+        }]
+      },
+      "id": "A-c03cc4ad-a15c-438d-ba88-072ca4c654bd"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "textOfTheView",
+        "payload": {
+          "value": "{ko}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-9bec554f-8266-4c3a-b986-6d477aaec0d2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/InputSwipe",
+        "startXS": "600",
+        "startYS": "1999",
+        "endXS": "603",
+        "endYS": "1555",
+        "swipeTimeS": "300",
+        "customContextDataKey": {
+        },
+        "id": "A-2624de25-7ae3-4973-92c1-daacbe478518"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-3105740f-a29b-49b3-9296-a4b6655c69cb"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-707650bd-bde4-4e22-92c3-76b0c55ab2d8"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.kuaishou.nebula"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-00d3d07e-d71d-4ea7-906f-b2cdf26a4066"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-d4a452fa-3937-49b1-bceb-0ae7c21c6a78"
+  }, {
+    "@type": "type.googleapis.com/StartActivityIntent",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.kuaishou.nebula",
+      "className": "com.yxcorp.gifshow.webview.KwaiYodaWebViewActivity",
+      "extras": [{
+        "key": "KEY_URL",
+        "value": "https://encourage.kuaishou.com/huge-sign-in?layoutType\u003d4\u0026source\u003dtodotask",
+        "type": "String"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-42a7893e-3e88-4bc5-adb6-5e0fc3f07738"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-c8f664f4-19eb-4fc4-ba1c-9d0c87a5f814"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "去观看",
+    "timeout": "3000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1215114c-19eb-437c-9a6f-0c8cebbf5307"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-dedb71cb-8e6e-41f6-809e-05cb13f60ed2"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/HasNodeOnScreen",
+      "matchers": [{
+        "@type": "type.googleapis.com/NodeMatcherViewId",
+        "id": "com.kuaishou.nebula.commercial_neo:id/video_countdown"
+      }],
+      "detectTimeout": "5000",
+      "customContextDataKey": {
+      },
+      "id": "C-312fc7cb-f0e1-4730-9bb9-0d0f43da1048"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/GetTextFromScreenNode",
+      "nodeId": "com.kuaishou.nebula.commercial_neo:id/video_countdown",
+      "customContextDataKey": {
+      },
+      "id": "A-3b25607a-86d4-4731-95b3-71a2903c3d59"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3000",
+      "customContextDataKey": {
+      },
+      "id": "A-6d05bdd2-9545-45e2-80ec-4fb530cfa15e"
+    }, {
+      "@type": "type.googleapis.com/GetTextFromScreenNode",
+      "nodeId": "com.kuaishou.nebula.commercial_neo:id/video_countdown",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "textOfTheView",
+          "second": "ko"
+        }]
+      },
+      "id": "A-c03cc4ad-a15c-438d-ba88-072ca4c654bd"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "textOfTheView",
+        "payload": {
+          "value": "{ko}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-9bec554f-8266-4c3a-b986-6d477aaec0d2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "id": "A-8aa95816-43b2-4cf8-8ad2-87927e00f9b8"
+      }, {
+        "@type": "type.googleapis.com/InjectKeyCode",
+        "keyCode": 4,
+        "customContextDataKey": {
+        },
+        "id": "A-38397bf4-ecf8-4af9-9b3d-8fddeab88880"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/HasNodeOnScreen",
+          "matchers": [{
+            "@type": "type.googleapis.com/NodeMatcherText",
+            "text": "观看广告（5/5）"
+          }],
+          "detectTimeout": "5000",
+          "customContextDataKey": {
+          },
+          "id": "C-818afcd1-6226-4faf-97aa-cc3db2a73426"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/StopAllActions",
+          "customContextDataKey": {
+          },
+          "id": "A-51cfdb77-bc03-4562-898b-9a55dc134254"
+        }, {
+          "@type": "type.googleapis.com/SleepScreen",
+          "customContextDataKey": {
+          },
+          "id": "A-130b801d-17ed-4c8a-9a9b-1468a8692e95"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4f56bc21-c68d-45bd-bf34-0d173715d9da"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "8",
+        "timeUnit": "TimeUnit_S",
+        "customContextDataKey": {
+        },
+        "id": "A-6a521f2c-b3aa-4f3a-b80e-cd24f9644336"
+      }, {
+        "@type": "type.googleapis.com/FindAndClickViewByText",
+        "text": "去观看",
+        "timeout": "3000",
+        "rect": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-0aa04329-64d5-41d5-a255-fd9e406f72c4"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "5",
+        "timeUnit": "TimeUnit_S",
+        "customContextDataKey": {
+        },
+        "id": "A-f26b7926-5e15-4582-b65b-1ddd03dc651a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-3105740f-a29b-49b3-9296-a4b6655c69cb"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-aac1ea92-ea64-4f2d-b4b3-b74eec26b5a3"
+  }, {
+    "@type": "type.googleapis.com/StopAllActions",
+    "customContextDataKey": {
+    },
+    "id": "A-51cfdb77-bc03-4562-898b-9a55dc134254"
+  }, {
+    "@type": "type.googleapis.com/SleepScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-130b801d-17ed-4c8a-9a9b-1468a8692e95"
+  }],
+  "id": "SHARED-DA-7507eba2-d456-41ac-9f20-b203b4658f9b",
+  "lastUpdateTime": "1765844083486",
+  "createTime": "1759549457002",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "快手自动划",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

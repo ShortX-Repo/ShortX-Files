@@ -1,0 +1,144 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "content": "twitter.com/",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-b9f99f46-6f76-49f5-a79b-713621712bb9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "pkg install python\npkg install libxml2\npkg install libxslt\npip install bs4\npio install lxml",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "termux 运行以上命令",
+    "id": "A-ccb38f25-2b5f-4eff-8291-1188e8a6e971"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://savetwitter.net/api/ajaxSearch",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["statusCode", "msg", "data"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "x-requested-with",
+      "value": "XMLHttpRequest"
+    }, {
+      "key": "content-type",
+      "value": "application/x-www-form-urlencoded; charset\u003dUTF-8"
+    }, {
+      "key": "user-agent",
+      "value": "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Mobile Safari/537.36"
+    }, {
+      "key": "same-origin",
+      "value": "https://savetwitter.net"
+    }, {
+      "key": "referer",
+      "value": "https://savetwitter.net/zh-cn"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyForm",
+      "items": [{
+        "key": "q",
+        "value": "{clipboardContent}"
+      }, {
+        "key": "lang",
+        "value": "zh-cn"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-5ccb1281-240d-4282-a4c8-419ef7229bf9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1} \u003d\u003d \"\"",
+      "customContextDataKey": {
+      },
+      "id": "C-bceadfb4-c280-4c8f-ba00-a592f6d28b6e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var str \u003d (httpRequestRet3);\nvar unicodeStr \u003d \u0027\u0027;\n\nfor (var i \u003d 0; i \u003c str.length; i++) {\n  var charCode \u003d str.charCodeAt(i);\n  // 过滤掉数字和英文字母以外的字符\n  if ((charCode \u003e\u003d 48 \u0026\u0026 charCode \u003c\u003d 57) || (charCode \u003e\u003d 65 \u0026\u0026 charCode \u003c\u003d 90) || (charCode \u003e\u003d 97 \u0026\u0026 charCode \u003c\u003d 122)) {\n    unicodeStr +\u003d str.charAt(i);\n  } else {\n    unicodeStr +\u003d \u0027\\\\u\u0027 + charCode.toString(16).padStart(4, \u00270\u0027);\n  }\n}\n\nunicodeStr;",
+      "customContextDataKey": {
+      },
+      "note": "转换为 unicode 不然报错",
+      "id": "A-4adac268-be2d-41f9-b595-e3763f0bedde"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "开始下载",
+      "customContextDataKey": {
+      },
+      "id": "A-8274aab8-5900-4ecb-afb7-d4a154e77361"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "python\u003d\"/data/user/0/com.termux/files/usr/bin/python\"\n\n$python -c \u0027\nimport os\nimport requests\nfrom bs4 import BeautifulSoup\n\n\nhtml \u003d \"{jsRet}\"\n# 保存路径 可以按照自己的习惯改\nsave_dir \u003d \"/storage/emulated/0/Download/Twitter_DL/\"\nheaders \u003d {\n  \"user-agent\": \"Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Mobile Safari/537.36\"\n}\nsoup \u003d BeautifulSoup(html, \"lxml\")\n\n\n\ndef html_parse():\n    title \u003d soup.find(\"div\", class_\u003d\"clearfix\").find(\"h3\").text.replace(\"/\", \"_\")\n    link \u003d soup.find(\"a\", class_\u003d\"tw-button-dl button dl-success\").attrs[\"href\"]\n    \n    download(title, link)\n\n\ndef download(title, link):\n\n    filename \u003d title + \".mp4\"\n    file \u003d os.path.join(save_dir, filename)    \n    \n    count \u003d 0\n    while True:\n        if os.path.exists(file):                \n            count +\u003d 1        \n            file \u003d os.path.join(save_dir, f\"{filename}_({count}).mp4\")                  \n        else:\n            break\n   \n    r \u003d requests.get(link, headers\u003dheaders)\n    with open(file, \"wb\") as f:\n         f.write(r.content)\n\n\n# 创建保存文件夹\ndef create_dir():\n    if not os.path.exists(save_dir):\n        os.makedirs(save_dir)\n         \n\ncreate_dir()\nhtml_parse()\n\u0027\n\n\n\n\n",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "shellOut"
+        }]
+      },
+      "id": "A-ee53abe0-abe5-4bbc-bb12-cbd3a98bab3d"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{shellOut} \u003d\u003d \"\"",
+        "customContextDataKey": {
+        },
+        "id": "C-5e344b02-f1c7-4fa6-a03b-99496a47fc8e"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "下载成功",
+        "customContextDataKey": {
+        },
+        "id": "A-ea5ae396-e63b-4e40-9808-c6fcc35d444c"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "下载失败",
+        "customContextDataKey": {
+        },
+        "id": "A-d84d7676-f619-47bc-8219-27b4e78ad8b9"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-834928b3-57cc-4fa9-b311-5bd316685c83"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1700407855040",
+      "title": "解析失败",
+      "message": "{httpRequestRet2}",
+      "smallIcon": "chat-2-line",
+      "customContextDataKey": {
+      },
+      "id": "A-a3818187-a51e-46cf-8b67-8129fbed17e8"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fe66e5ac-736e-41a2-bd3d-a4fedc712c84"
+  }],
+  "id": "rule-a36599e4-91aa-4390-a14e-a7b8500ec795",
+  "lastUpdateTime": "1700480295806",
+  "createTime": "1700407041063",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Twitter 下载",
+  "description": "使用方法：分享 -\u003e 复制链接",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

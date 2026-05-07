@@ -1,0 +1,225 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "authorizationKey",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-e6bb6a19-d4bb-4232-89d5-ae894415eb71"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "awk \u0027/authorizationKey/{print $2}\u0027 /data/adb/sfm/src/config.yaml",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "id": "A-145069ae-f94f-4075-8147-3acf044fbb71"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "authorizationKey",
+    "valueAsString": "{shellOut}",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-8db4f523-b044-4ad9-a551-7ccf35f887c2"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "status",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-91333e23-52f4-4800-8e32-f9e277b973be"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://localhost:23333/api/kernel",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["status"]
+    },
+    "headers": [{
+      "key": "authorization",
+      "value": "globalVarOf$authorizationKey"
+    }, {
+      "key": "Content-Type",
+      "value": "application/json"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-35b52291-50bf-45b9-93b6-5933abe7c713"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "status",
+    "valueAsString": "{httpRequestRet1}",
+    "customContextDataKey": {
+    },
+    "id": "A-d346e4a4-4bc1-4c5e-80bd-9ff0010900d4"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "status",
+      "payload": {
+        "value": "stopped"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f6cd7cbc-c542-44f2-b0f6-68d887fc85ed"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://localhost:23333/api/kernel",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "POST",
+      "headers": [{
+        "key": "authorization",
+        "value": "globalVarOf$authorizationKey"
+      }, {
+        "key": "Content-Type",
+        "value": "application/json"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\"method\":\"start\"}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d74e1492-b541-4d83-aadf-ce17fdef1906"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "开启神秘",
+      "customContextDataKey": {
+      },
+      "id": "A-29eaf502-f6ed-47a3-81ac-358dde08d3f8"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "tag": "tag-神秘关闭"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-be6b8449-53aa-4ee9-8035-f3ff2ab0b3e0"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-神秘开启",
+      "message": "正在运行",
+      "smallIcon": "relieved-face",
+      "vibrate": true,
+      "clickAction": [{
+        "@type": "type.googleapis.com/FromDA",
+        "daId": "DAc1edeae3-162c-4ebd-becf-ee2e0200c20c",
+        "customContextDataKey": {
+        },
+        "id": "A-51dea4cb-e628-430f-a2b3-d50a0561ea13"
+      }],
+      "overrideAppName": "神秘",
+      "onGoing": true,
+      "customContextDataKey": {
+      },
+      "id": "A-645a4fcb-98da-4a27-9ac4-ff66c3e2cf59"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "status",
+        "payload": {
+          "value": "working"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c1a079de-8283-4cfa-b27a-b9d238986ba2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "http://localhost:23333/api/kernel",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "method": "POST",
+        "headers": [{
+          "key": "authorization",
+          "value": "globalVarOf$authorizationKey"
+        }, {
+          "key": "Content-Type",
+          "value": "application/json"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyJson",
+          "json": "{\"method\":\"stop\"}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-aaad72df-a445-46e4-a24c-3dd0769dc478"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "关闭神秘",
+        "customContextDataKey": {
+        },
+        "id": "A-e77879d0-0665-4d3e-8be5-860aab197082"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "tag": "tag-神秘开启"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-392e1e1a-79b4-4e7b-bbae-a0ceee83f7fd"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-神秘关闭",
+        "message": "未运行",
+        "smallIcon": "worried-face",
+        "vibrate": true,
+        "clickAction": [{
+          "@type": "type.googleapis.com/FromDA",
+          "daId": "DAc1edeae3-162c-4ebd-becf-ee2e0200c20c",
+          "customContextDataKey": {
+          },
+          "id": "A-920b0b0f-04d9-4a12-8d81-2208a571009c"
+        }],
+        "overrideAppName": "神秘",
+        "onGoing": true,
+        "customContextDataKey": {
+        },
+        "id": "A-7e4cc492-9ab9-42d7-b7ac-8f51fe64e357"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-7fd77467-cc89-4a40-b3f3-4d4d7acfe2b7"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-185ba53e-e516-493b-93c1-f6737aa06a25"
+  }],
+  "id": "SHARED-DA-dbcec429-abf3-4525-86e7-e215df9dd1ae",
+  "lastUpdateTime": "1726331912819",
+  "createTime": "1693446993304",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "神秘开关",
+  "description": "神秘开关咒语",
+  "versionCode": "1",
+  "directActionSetId": "DS-3fa14980-31b3-4967-9b7c-24e85559cd44"
+}
+###------###
+{"type":"da"}

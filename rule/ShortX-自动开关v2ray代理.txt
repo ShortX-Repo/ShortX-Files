@@ -1,0 +1,109 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/TaskRemoved",
+    "pkgSets": ["代理"],
+    "customContextDataKey": {
+    },
+    "id": "F-184cabff-85a5-4644-b89f-618cd067b0e7"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["代理"],
+    "customContextDataKey": {
+    },
+    "id": "F-67bef1c6-0e06-463b-af59-f2a3471152f9"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-82445186-6a22-42d3-bda0-42908883f486"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["代理"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-f9129de9-671c-44fc-95e9-953e0360145f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "id": "C-64f662bc-d579-4f70-beaf-e2a2075cd0ac"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "300",
+        "customContextDataKey": {
+        },
+        "id": "A-9669473d-48c1-4713-85d0-498bff1e2adb"
+      }, {
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.v2ray.ang/com.v2ray.ang.ui.ScSwitchActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-5bfaf0df-1bd6-49e2-af1d-5ef674234cec"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-99f1b6b0-b4f9-4de6-add1-6fccde393d8e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ServiceIsRunning",
+        "services": [{
+          "pkg": {
+            "pkgName": "com.v2ray.ang"
+          },
+          "className": "com.v2ray.ang.service.V2RayVpnService"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "C-3d659567-7561-4e84-ab32-b5f6a011cd92"
+      }, {
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["代理"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-1e7f00a0-2087-43a4-a5ff-d3616e4575d3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "com.v2ray.ang"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-6759b9da-8351-4242-9136-04d511fbf188"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-75e525be-2d13-4903-8937-de681cd74264"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ee066070-8492-4f62-bda9-2b8b58854582"
+  }],
+  "id": "rule-228ca8dd-298e-4755-b025-6dda04e94e82",
+  "lastUpdateTime": "1698167242109",
+  "createTime": "1687238394751",
+  "author": {
+    "name": "Betterman"
+  },
+  "title": "自动开关v2ray代理",
+  "description": "自动开关v2ray",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}

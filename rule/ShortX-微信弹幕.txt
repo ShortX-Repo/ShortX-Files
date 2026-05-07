@@ -1,0 +1,78 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+    },
+    "id": "F-2c0da081-1a09-434a-953f-8f690255bd7a"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+    },
+    "id": "F-b6bb33e3-4de9-4f80-a918-73e576db8410"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-8345ca89-ae58-4264-90cd-80351f40055a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "pkg",
+      "payload": {
+        "value": "{pkgName}"
+      },
+      "id": "C-4a854161-aa1d-4bc8-aa0f-95621bd8118f"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "Contains",
+      "varName": "title",
+      "payload": {
+        "value": "{title}"
+      },
+      "id": "C-41c70258-b5d1-4f2c-bc11-23dc79585b64"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "{title}\n{contentText}",
+      "icon": "app://{pkgName}",
+      "id": "A-6e1fa9c2-65c5-4dd1-a31a-1f4af5e8adf7"
+    }],
+    "id": "A-74afa833-075c-4caa-b144-d8c7da44b8bb"
+  }],
+  "id": "rule-b147ed7e-10c1-4581-8e9e-2c3fa5046703",
+  "lastUpdateTime": "1687170917403",
+  "createTime": "1687101865586",
+  "title": "微信弹幕",
+  "description": "只显示指定微信对象的弹幕通知\nOnly display the barrage notification of the specified WeChat object",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "pkg",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-8f6043cf-d83f-49c8-a5ec-f4e93a15203f"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "title",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "id": "A-4562ecf7-9fdb-4e47-8434-28efda8d9464"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "pkg",
+      "valueAsString": "com.tencent.mm",
+      "id": "A-9a095297-36f2-4a41-a859-c78bca0c1d9e"
+    }]
+  }
+}
+###------###
+{"type":"rule"}

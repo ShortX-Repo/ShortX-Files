@@ -1,0 +1,219 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresent",
+    "customContextDataKey": {
+    },
+    "id": "F-943a7993-9932-4569-9850-913ae59ea501"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "num",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-ef765672-c0aa-4edc-abf4-e135b5b11a62"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "tmp",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-7d37d0d8-2713-4e7d-b3eb-900f49d39fe8"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "num",
+    "valueAsString": "0",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-f80db0dd-c4fe-4a7d-86b7-5311af9a9a09"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "int i\u003dglobalVarOf$num;\nboolean c\u003dglobalVarOf$ctn.contains(globalVarOf$ctn[i]);\n",
+      "customContextDataKey": {
+      },
+      "id": "C-67f4abec-89dd-49db-9bc9-d4a1bb75640a"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "boolean d\u003d!globalVarOf$ctn.contains(\"NO VALUE\");",
+      "customContextDataKey": {
+      },
+      "id": "C-7dade0ee-6186-4734-8969-a5e010f685d2"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "int i\u003dglobalVarOf$num;\nreturn globalVarOf$ctn[i];",
+      "customContextDataKey": {
+      },
+      "id": "A-17437d6c-4072-4bf7-8f27-803c599e18f8"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "tmp",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-65977058-dd9e-42d5-b40c-9e617b0ac788"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "int i\u003dglobalVarOf$num;\nreturn globalVarOf$ctnpkg[i];\n",
+      "customContextDataKey": {
+      },
+      "id": "A-688dbe26-abb9-4ab8-a4b6-fa8e2bddb74e"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "globalVarOf$tmp",
+      "icon": "app://{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-a5708de5-3de6-4041-a7eb-6691658b02fa"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "IsEmpty",
+        "varName": "tmp",
+        "payload": {
+          "value": "NO VALUE"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-6bce45b1-3be9-43f4-866c-463e415b608e"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsEmpty",
+          "varName": "tmptitle",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-83bf012d-7bb1-45af-ba66-5c7ae66064f2"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-0e13246a-9841-4a95-b7d7-12cdaa3c5ff0"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-685cd468-a591-4eb9-aaf5-ae3480aece4e"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "localVarOf$tmptitle",
+        "icon": "app://{mvelRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-a5708de5-3de6-4041-a7eb-6691658b02fa"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-d1fb2a60-c563-482c-902a-74ceb54d4943"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-9d7143ae-579f-4b0d-8f52-9a76ca47dfd1"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "int length\u003dlocalVarOf$tmpctn.length()+localVarOf$tmptitle.length();\nif (length\u003e18) \n{return true}\nelse\n{return false}",
+        "customContextDataKey": {
+        },
+        "id": "C-50019ea8-3588-4a19-9009-bb7632b5723d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "localVarOf$tmptitle:\nlocalVarOf$tmpctn",
+        "icon": "app://{pkgName}",
+        "customContextDataKey": {
+        },
+        "id": "A-30f9497c-ec48-4320-b12a-f92cbb8bb5ad"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "localVarOf$tmptitle:localVarOf$tmpctn",
+        "icon": "app://{pkgName}",
+        "customContextDataKey": {
+        },
+        "id": "A-30f9497c-ec48-4320-b12a-f92cbb8bb5ad"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-7fa52f69-a568-4b39-bc31-854853874c07"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "int i\u003dglobalVarOf$num;\nreturn i+1;",
+      "customContextDataKey": {
+      },
+      "id": "A-6ca12c4c-9ecf-4889-9392-6f65c8a4f517"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "num",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-23626d8b-aaf0-45fe-829f-974f58c41d94"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-2ca7dab1-3222-41b7-b10e-974a711eb302"
+  }, {
+    "@type": "type.googleapis.com/DeleteGlobalVar",
+    "varName": "ctn",
+    "customContextDataKey": {
+    },
+    "id": "A-9bcb2b59-cadd-4412-9fa7-6a6d1a33bcff"
+  }, {
+    "@type": "type.googleapis.com/DeleteGlobalVar",
+    "varName": "ctnpkg",
+    "customContextDataKey": {
+    },
+    "id": "A-242d9890-28b4-43d5-9863-718e7fb02c5c"
+  }, {
+    "@type": "type.googleapis.com/DeleteGlobalVar",
+    "varName": "num",
+    "customContextDataKey": {
+    },
+    "id": "A-a701ed76-b43e-4e84-8aa7-bd9540272f90"
+  }, {
+    "@type": "type.googleapis.com/DeleteGlobalVar",
+    "varName": "tmp",
+    "customContextDataKey": {
+    },
+    "id": "A-7667f669-c013-4c26-9b7a-c43f66050d46"
+  }],
+  "id": "rule-6bb4b6d8-dc68-4fcb-ab79-3610a52fc510",
+  "lastUpdateTime": "1722007145968",
+  "createTime": "1697619093948",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "亮屏瀑布",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-076d3a6e-c076-4a36-bed3-8d9989d8f23e"
+}
+###------###
+{"type":"rule"}

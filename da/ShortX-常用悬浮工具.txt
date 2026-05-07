@@ -1,0 +1,111 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "android.provider.Settings$System.putInt(context.contentResolver, \"pointer_location\", android.provider.Settings$System.getInt(context.contentResolver, \"pointer_location\")^1);",
+        "customContextDataKey": {
+        },
+        "id": "A-9b751d9a-2f8a-4434-98f3-2dfc0d592db8"
+      }],
+      "icon": "connection-point-two",
+      "label": "开关指针位置",
+      "id": "BTN-c985438b-53d1-4929-aaa9-11a95434ba7d"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/EnableViewIdViewer",
+        "customContextDataKey": {
+        },
+        "id": "A-0d326ea7-e5d1-4282-b252-d8802da64d26"
+      }],
+      "icon": "view-grid-detail",
+      "label": "显示视图",
+      "id": "BTN-ceae1934-fa50-4e57-8079-80b57fc93957"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ToggleGestureRecording",
+        "customContextDataKey": {
+        },
+        "id": "A-54001d93-c7c1-4e7b-8278-15d84fbb9ebf"
+      }],
+      "icon": "record-circle-line",
+      "label": "开关手势录制",
+      "id": "BTN-789c8b46-258b-4b35-bc26-8b8ffeeb0432"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/SelectScreenArea",
+        "customContextDataKey": {
+        },
+        "id": "A-749aaf79-c263-4c85-bf8a-d5a7c0c4c80a"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "rectFlattenToString",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-04adfaf5-59a8-49a9-a3fb-4721821a2b84"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "已复制: {rectFlattenToString}",
+          "customContextDataKey": {
+          },
+          "id": "A-727974a3-4774-4bdb-bc7a-b470172d9053"
+        }, {
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{rectFlattenToString}",
+          "customContextDataKey": {
+          },
+          "id": "A-9232f9d0-138a-45ac-bcc1-e8e304699bb9"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-e9cc1af4-b688-4f8c-9b35-017b52cb2961"
+      }],
+      "icon": "full-screen",
+      "label": "选择屏幕区域",
+      "id": "BTN-32ae86cc-c53b-43dc-bc3d-23338c06dabc"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["bd571df9-7124-4b99-ac1b-77c0577b9fa5"],
+        "customContextDataKey": {
+        },
+        "id": "A-7bf4de21-3ac2-40af-9774-c9dda6898255"
+      }],
+      "icon": "close",
+      "label": "关闭",
+      "id": "BTN-6a2a979a-1a2a-4fef-8bec-755ae36e0cd1"
+    }],
+    "tag": "bd571df9-7124-4b99-ac1b-77c0577b9fa5",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 53,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 64,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 16,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-50854207-2ff1-454c-871b-f46b66d773a4"
+  }],
+  "id": "SHARED-DA-aed74c33-7102-4b16-b33a-1249c0a7ac2f",
+  "lastUpdateTime": "1745547390119",
+  "createTime": "1744761017713",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "常用悬浮工具",
+  "description": "开关指针位置\u0026抓取视图\u0026开关手势录制\u0026选择屏幕区域\n没有使用shell，开关指针位置为mvel实现",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

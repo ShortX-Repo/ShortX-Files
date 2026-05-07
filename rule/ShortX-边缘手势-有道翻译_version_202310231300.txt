@@ -1,0 +1,95 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopRight",
+    "gesture": "SingleTap",
+    "customContextDataKey": {
+    },
+    "id": "F-cfe7d976-8f97-491d-a2e6-180cb00411a3"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "clipboardContent",
+        "second": "text"
+      }]
+    },
+    "id": "A-d7244f80-38bc-4ad2-a45d-78bbc14f336b"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://v.api.aa1.cn/api/api-fanyi-yd/index.php?msg\u003d{text}\u0026type\u003d3",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["text"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-f8fcf114-ff2d-45e3-978b-997dbf113a4c"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1} !\u003d \u0027\u0027;",
+      "customContextDataKey": {
+      },
+      "id": "C-fe0209ef-9e58-4f79-9ff5-0cbf8c3c2334"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "复制译文",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-c68457d2-f2fc-43cb-84bf-fcb5c48ebab5"
+      }],
+      "negative": "关闭",
+      "title": "自动翻译结果",
+      "message": "原文：{text}\n译文：{httpRequestRet1}",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-fe4212c9-2b52-4f47-afb7-f247fa0c4d2c"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "复制译文",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-c68457d2-f2fc-43cb-84bf-fcb5c48ebab5"
+      }],
+      "negative": "关闭",
+      "title": "自动翻译结果",
+      "message": "原文：{text}\n译文：无",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-fe4212c9-2b52-4f47-afb7-f247fa0c4d2c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-eae81dcf-23dc-40ab-8a68-0b0690df0035"
+  }],
+  "id": "rule-91a6b07b-c78c-42fc-a190-b7ac02ba7e68",
+  "lastUpdateTime": "1698037286737",
+  "createTime": "1697124052082",
+  "author": {
+    "name": "我无聊了"
+  },
+  "title": "边缘手势-有道翻译\nversion：202310231300",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

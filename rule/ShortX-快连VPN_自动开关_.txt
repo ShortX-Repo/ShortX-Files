@@ -1,0 +1,109 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "org.telegram.messenger"
+    }],
+    "tag": "开启",
+    "customContextDataKey": {
+    },
+    "id": "F-27870400-e66e-49c0-b0f4-ed2e298479a6"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "org.telegram.messenger"
+    }],
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-ec23f325-ba47-4544-8989-8404d3c0c00f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开启",
+      "customContextDataKey": {
+      },
+      "id": "C-8861e9a2-e8ed-414e-a609-accba44ec50e"
+    }, {
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-c4c00ebe-4134-411d-99e0-afe348787b77"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start-foreground-service -n world.letsgo.booster.android.pro/world.letsgo.booster.android.proxy.ProxyService c:world.letsgo.booster.android.pro",
+      "customContextDataKey": {
+      },
+      "id": "A-a5753062-d24c-40b2-a0cc-1594257620fa"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已开启VPN",
+      "customContextDataKey": {
+      },
+      "id": "A-093f1fab-3b3a-48a6-b41a-d17adef9d111"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-aa8ad458-93ab-4ba8-8e44-b3e6f1e0a98f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "关闭",
+      "customContextDataKey": {
+      },
+      "id": "C-62e40dbe-ca91-4b33-9416-66bea6b9dd44"
+    }, {
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-a340637b-7a81-4028-8154-8c7366868143"
+    }, {
+      "@type": "type.googleapis.com/AppHasTask",
+      "pkgs": [{
+        "pkgName": "org.telegram.messenger"
+      }],
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-b48cde0a-c756-49d0-8059-1e0f6bffb4eb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "world.letsgo.booster.android.pro"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-616f79de-2ed7-4df4-a551-4d44332824d4"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已关闭VPN",
+      "customContextDataKey": {
+      },
+      "id": "A-325d20b7-39c0-428f-bde1-6864dfb1b021"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e137fb09-5808-49d7-94a4-529546a10ccb"
+  }],
+  "id": "SHARE-rule-f048321c-0eb5-4717-9b46-25673849b495",
+  "lastUpdateTime": "1755722378329",
+  "createTime": "1708125008669",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "快连VPN（自动开关）",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

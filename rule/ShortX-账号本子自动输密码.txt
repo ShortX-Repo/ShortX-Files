@@ -1,0 +1,89 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.wei.account"
+      },
+      "className": "com.wei.accountbox.activity.MainActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-91e907eb-392d-427b-95ec-12a5453cba6c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-71a890fa-0b5a-42db-9637-d038d2daa379"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 542,
+    "y": 1872,
+    "customContextDataKey": {
+    },
+    "id": "A-02c2d6a6-82e4-4302-ad3b-a65552ed6dfd"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 823,
+    "y": 1652,
+    "customContextDataKey": {
+    },
+    "id": "A-d247b9a5-7ed8-4fe5-87e7-cddbaa6b5386"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 536,
+    "y": 1201,
+    "customContextDataKey": {
+    },
+    "id": "A-118103ac-881f-421b-9274-5e7f0abca257"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 536,
+    "y": 1201,
+    "customContextDataKey": {
+    },
+    "id": "A-ab50d238-7904-41a9-939b-a9648caf3629"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.wei.account"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-992a216e-5f67-4143-978d-85bcb00d2966"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "layout-3-fill",
+      "customContextDataKey": {
+      },
+      "id": "A-6c58eb3f-9fe2-45cd-beac-6967b976c9b7"
+    }],
+    "delay": 5000,
+    "customContextDataKey": {
+    },
+    "id": "A-9f6ad4a1-bbed-423d-ab1a-f715064087e0"
+  }],
+  "id": "rule-9b1469d0-365e-4312-b8da-d608b09c629f",
+  "lastUpdateTime": "1696166777824",
+  "createTime": "1696164862068",
+  "author": {
+    "name": "muort"
+  },
+  "title": "账号本子自动输密码",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-96562f20-f714-4320-b01d-4315f2f35042"
+}
+###------###
+{"type":"rule"}

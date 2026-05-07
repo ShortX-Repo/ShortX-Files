@@ -1,0 +1,51 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "骚扰电话",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "请输入手机号码"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0ee4b0cc-f14d-4462-996b-b9e14a66ab2a"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://zj.v.api.aa1.cn/api/saorao/?phone\u003d{textFieldInput1}",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["info.province", "info.city", "info.operator", "data[0].name", "data[0].msg", "data[1].name", "data[1].msg", "data[2].name", "data[2].msg"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-78b08b6d-f7de-4860-924b-bf72ab7735c2"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "号码：{textFieldInput1}\n归属地：{httpRequestRet1} {httpRequestRet2} \n运营商：{httpRequestRet3}\n{httpRequestRet4}：{httpRequestRet5}\n{httpRequestRet6}：{httpRequestRet7}\n{httpRequestRet8}：{httpRequestRet9}",
+      "customContextDataKey": {
+      },
+      "id": "A-185d07f2-764a-460e-b9ff-9484e3c4af73"
+    }],
+    "title": "骚扰电话",
+    "message": "号码：{textFieldInput1}\n归属地：{httpRequestRet1} {httpRequestRet2} \n运营商：{httpRequestRet3}\n{httpRequestRet4}：{httpRequestRet5}\n{httpRequestRet6}：{httpRequestRet7}\n{httpRequestRet8}：{httpRequestRet9}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-5671250a-469a-48ef-a70f-7ebcf76d177c"
+  }],
+  "id": "DA6a6479ad-4eb4-4500-8198-b57e1e7fa5a9",
+  "lastUpdateTime": "1694758712441",
+  "createTime": "1694580212530",
+  "author": {
+    "name": "1"
+  },
+  "title": "骚扰电话",
+  "versionCode": "1",
+  "directActionSetId": "DS-09726893-6517-437c-b47a-730383cf26df"
+}
+###------###
+{"type":"da"}

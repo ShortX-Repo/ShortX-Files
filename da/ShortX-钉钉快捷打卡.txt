@@ -1,0 +1,53 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "dingtalkCorpId",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-6d73b822-72dd-45d7-b27c-9e1c6bc3a5c2"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "dingtalkCorpId",
+    "note": "这里填入你的corpId，ding开头",
+    "id": "A-cac22d4d-3687-4a35-a884-aa5c6f40941d"
+  }, {
+    "@type": "type.googleapis.com/SetLocationEnabled",
+    "enable": true,
+    "id": "A-d8591bee-5db7-45cc-b9cf-c394dd7a8052"
+  }, {
+    "@type": "type.googleapis.com/SetBTEnabled",
+    "enable": true,
+    "id": "A-505294fc-8769-4d41-ae76-39b29b48e319"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -n com.alibaba.android.rimet/com.alibaba.lightapp.runtime.activity.CommonWebViewActivity -d https://attend.dingtalk.com/attend/index.html?corpId\u003dglobalVarOf$dingtalkCorpId",
+    "id": "A-963cfd89-8bed-465a-8d06-338c58360d18"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10000",
+    "id": "A-84fa8f17-3137-4e77-bc93-41007a710072"
+  }, {
+    "@type": "type.googleapis.com/SetLocationEnabled",
+    "id": "A-df107f0c-7157-4d1e-a9b0-2d418380dab6"
+  }, {
+    "@type": "type.googleapis.com/RemoveTasks",
+    "appPkg": [{
+      "pkgName": "com.alibaba.android.rimet"
+    }],
+    "id": "A-a0874eed-e364-4995-b55b-45082240e385"
+  }],
+  "id": "DA93115f1f-a334-4eae-8f16-e063706e6074",
+  "lastUpdateTime": "1691682765065",
+  "createTime": "1691678574522",
+  "author": {
+    "name": "V我50"
+  },
+  "title": "钉钉快捷打卡",
+  "description": "开启定位，蓝牙后直达钉钉打卡界面，定时关闭定位并移除钉钉。",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

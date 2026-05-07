@@ -1,0 +1,63 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExportBackup",
+    "destDir": "/storage/emulated/0/Download/应用集/",
+    "customContextDataKey": {
+    },
+    "id": "A-2c4b93a9-7fd3-4287-83e2-a26914ff8c09"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/system/bin/sh\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 配置项（按需修改） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 文件备份目录（无需改动，除非路径变更）\nBACKUP_DIR\u003d\"/storage/emulated/0/Download/应用集/\"  \n# 匹配规则：前缀固定，后续任意字符（覆盖带日期时间的文件名）\nMATCH_PATTERN\u003d\"ShortX-Backup-*.zip\"  \n\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤1：检查备份目录是否存在 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nif [ ! -d \"$BACKUP_DIR\" ]; then\n    echo \"错误：备份目录不存在！路径：$BACKUP_DIR\"\n    exit 1  # 终止脚本，避免无效操作\nfi\n\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤2：查找**最新**的备份文件 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 命令解释：\n#   find $BACKUP_DIR → 在目标目录查找\n#   -maxdepth 1      → 只查当前目录（不递归子文件夹）\n#   -type f          → 只匹配文件（排除文件夹）\n#   -name \"$MATCH_PATTERN\" → 按前缀匹配文件名\n#   -exec ls -t {} + → 对找到的文件执行 `ls -t`（按修改时间降序排序）\n#   head -n 1        → 取排序后的**第一个结果**（最新文件）\nTARGET_FILE\u003d$(find \"$BACKUP_DIR\" -maxdepth 1 -type f -name \"$MATCH_PATTERN\" -exec ls -t {} + | head -n 1)\n\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤3：检查是否找到有效文件 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nif [ -z \"$TARGET_FILE\" ]; then\n    echo \"错误：未找到符合规则的备份文件！\\n规则：$MATCH_PATTERN\\n目录：$BACKUP_DIR\"\n    exit 1\nfi\n\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤4：输出最新文件路径（供 ShortX 后续上传） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\necho \"$TARGET_FILE\"\n",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-99c2240d-a30c-4dfc-a59e-a495be40c9e4"
+  }, {
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "{shellOut}",
+    "regex": "[^/]+$",
+    "customContextDataKey": {
+    },
+    "id": "A-a848ba69-b37d-417b-ae9d-d1eda8f6ac23"
+  }, {
+    "@type": "type.googleapis.com/WebDavPut",
+    "profileId": "a4d97e78-f242-4439-b915-ae0ad504994a",
+    "url": "https://dav.jianguoyun.com/dav/Shortx/\n{matchResult}",
+    "localFilePath": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-c6406a11-9a59-405d-a426-ca5461d76560"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "ShortX",
+    "title": "ShortX",
+    "message": "备份成功{shellOut}",
+    "isImportant": true,
+    "smallIcon": "chat-2-line",
+    "vibrate": true,
+    "customContextDataKey": {
+    },
+    "id": "A-8ab43f18-a73d-449c-b05f-78115409e3bc"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/system/bin/sh\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 配置项（按需修改） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nBACKUP_DIR\u003d\"/storage/emulated/0/Download/应用集/\"  \nMATCH_PATTERN\u003d\"ShortX-Backup-*.zip\"  \n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤1：检查备份目录是否存在 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nif [ ! -d \"$BACKUP_DIR\" ]; then\n    echo \"错误：备份目录不存在！路径：$BACKUP_DIR\"\n    exit 1\nfi\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤2：查找最新的备份文件 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nTARGET_FILE\u003d$(find \"$BACKUP_DIR\" -maxdepth 1 -type f -name \"$MATCH_PATTERN\" -exec ls -t {} + | head -n 1)\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤3：检查是否找到有效文件 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nif [ -z \"$TARGET_FILE\" ]; then\n    echo \"错误：未找到符合规则的备份文件！\\n规则：$MATCH_PATTERN\\n目录：$BACKUP_DIR\"\n    exit 1\nfi\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤4：直接删除最新文件 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nif rm -f \"$TARGET_FILE\"; then\n    echo \"已成功删除：$TARGET_FILE\"\nelse\n    echo \"删除失败！请检查文件权限\"\n    exit 1\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-9ae1a2f2-01c8-423f-87af-b80c848ceb62"
+  }],
+  "id": "SHARED-DA-ad493d78-a785-4e38-8186-9a2d7c9347d4",
+  "lastUpdateTime": "1763128316613",
+  "createTime": "1755515766482",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "备份到坚果云",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

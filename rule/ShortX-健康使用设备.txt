@@ -1,0 +1,464 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "tag": "前台",
+    "customContextDataKey": {
+    },
+    "id": "F-d41cf07b-a14b-4acd-8eb2-8770f355ce07"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "IsNotEmpty",
+      "varName": "factTag",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-9390fd8e-f2ed-4ff3-a1f5-a5153b77020b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar config\u003djsonall[\"config\"];\nvar cache\u003djsonall[\"cache\"];\nvar apppkgn\u003dString(pkgName)\n\nfunction getTimestamp() {\n    var ms \u003d java.lang.System.currentTimeMillis();\n    return parseInt(Math.floor(ms / 1000));\n}\n\nfunction findObjectByKeyValue(list, key, value) {\n    return list.find(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\nfunction filterObjectsByKeyValue(list, key, value) {\n    return list.filter(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\n\nfunction isSameDay(minTs1, minTs2) {\n    var day1 \u003d Math.floor(minTs1 / 86400);\n    var day2 \u003d Math.floor(minTs2 / 86400);\n    return day1 \u003d\u003d\u003d day2;\n}\n\nvar unfreeze\u003d[];\nif(!isSameDay(jsonall[\"time\"],getTimestamp())){\n    jsonall[\"time\"]\u003dgetTimestamp();\n    for(var i in cache){\n        var cachei\u003dcache[i];\n        if(cachei[\"disabled\"]\u003d\u003dtrue){\n            unfreeze.push(cachei[\"packagename\"]);\n        }\n    }\n    cache\u003d[];\n}\nvar appconfig\u003dfindObjectByKeyValue(config,\"packagename\",apppkgn);\nvar appcache\u003dfindObjectByKeyValue(cache,\"packagename\",apppkgn);\nif(appconfig!\u003d\u003dundefined){\n    if(appcache\u003d\u003d\u003dundefined){\n        cache.push({\"packagename\":apppkgn,\"usedoncetime\":0,\"usedonedaytime\":0,\"lastbackgroundtime\":-1,\"disabled\":false,\"disabledtime\":-1});\n    }else{\n        if(getTimestamp()-parseInt(appcache[\"lastbackgroundtime\"])\u003eparseInt(appconfig[\"cleanoncetime\"])){\n            findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"usedoncetime\"]\u003d0;\n            findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"lastbackgroundtime\"]\u003d-1;\n        }\n    }\n}\n\nvar disabledapps\u003dfilterObjectsByKeyValue(cache,\"disabled\",true)\nfor(var i in disabledapps){\n    var disableapp\u003ddisabledapps[i].packagename;\n    var appcachei\u003ddisabledapps[i]\n    if(getTimestamp()-parseInt(appcachei[\"disabledtime\"])\u003efindObjectByKeyValue(config,\"packagename\",disableapp)[\"disabletime\"]\u0026\u0026findObjectByKeyValue(cache,\"packagename\",disableapp)[\"usedonedaytime\"]\u003cfindObjectByKeyValue(config,\"packagename\",disableapp)[\"onedaymaxtime\"]){\n            unfreeze.push(appcachei[\"packagename\"]);\n            findObjectByKeyValue(cache,\"packagename\",disableapp)[\"disabled\"]\u003dfalse;\n            findObjectByKeyValue(cache,\"packagename\",disableapp)[\"disabledtime\"]\u003d-1;\n            \n        }\n}\n\njsonall[\"cache\"]\u003dcache;\nshortx.writeGlobalVarWithOp(\"健康使用设备\", JSON.stringify(jsonall), 3);\nunfreeze.join(\",\");",
+      "customContextDataKey": {
+      },
+      "id": "A-af568348-61a0-4f63-8e84-9516f4cd3601"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "jsRet",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-30c69782-8bc8-4f85-826d-dbfdf4044f8c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ForEach",
+        "data": "{jsRet}",
+        "delimiter": [","],
+        "actions": [{
+          "@type": "type.googleapis.com/SetAppSuspendByPkg",
+          "pkgAndUsers": [{
+            "first": "{foreachData}",
+            "second": "0"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-c11b6c8b-8953-4058-8529-2124d7ee57d1"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-dc026ca7-273d-4c3e-8159-aba120e17b19"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-69b1101f-1a6d-4baf-8899-eecf56262783"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar config\u003djsonall[\"config\"];\nvar cache\u003djsonall[\"cache\"];\nvar apppkgn\u003dString(pkgName)\n\nfunction findObjectByKeyValue(list, key, value) {\n    return list.find(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\nvar appconfig\u003dfindObjectByKeyValue(config,\"packagename\",apppkgn);\nvar appcache\u003dfindObjectByKeyValue(cache,\"packagename\",apppkgn);\nappconfig.oncemaxtime -appcache.usedoncetime\n",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "timeout"
+        }]
+      },
+      "actionOnError": "Break",
+      "id": "A-8b7c6bca-50c7-4c60-9903-06d7ebceeb8a"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "function getTimestamp() {\n    var ms \u003d java.lang.System.currentTimeMillis();\n    return parseInt(Math.floor(ms / 1000));\n}\ngetTimestamp()",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "time"
+        }]
+      },
+      "id": "A-aa3e80be-4bf6-4fc6-a7a4-7ff6e6abf0de"
+    }, {
+      "@type": "type.googleapis.com/WhileLoop",
+      "conditions": [{
+        "@type": "type.googleapis.com/CurrentPkgListByPkg",
+        "pkgAndUsers": [{
+          "first": "{pkgName}",
+          "second": "0"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-2f5e5c5c-938e-47b4-8212-3ffdce11288d"
+      }, {
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "function getTimestamp() {\n    var ms \u003d java.lang.System.currentTimeMillis();\n    return parseInt(Math.floor(ms / 1000));\n}\ngetTimestamp()-parseInt(parseInt(timeout)+parseInt(time))\u003c0",
+        "customContextDataKey": {
+        },
+        "id": "C-eda1c1cc-ed87-4173-8998-06bce8f3099d"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "function getTimestamp() {\n    var ms \u003d java.lang.System.currentTimeMillis();\n    return parseInt(Math.floor(ms / 1000));\n}\nfunction formatTimeDifference(startTime, endTime) {\n    var start \u003d new Date(startTime).getTime();\n    var end \u003d new Date(endTime).getTime();\n    var diff \u003d Math.abs(end - start);\n    var hours \u003d Math.floor(diff / 3600);\n    var leave1 \u003d diff % 3600;\n    var minutes \u003d Math.floor(leave1 / 60);\n    var leave2 \u003d leave1 % 60; \n    var seconds \u003d parseInt(leave2);\n    var result\u003d\"\"\n    if(hours!\u003d\u003d0)result+\u003dString(hours)+\"小时\";\n    if(minutes!\u003d\u003d0)result+\u003dString(minutes)+\"分\";\n    if(seconds\u003d\u003d\u003d0)result+\u003d\"钟\";\n    if(seconds!\u003d\u003d0)result+\u003dString(seconds)+\"秒\";\n    return result;\n}\n\nvar t1 \u003d getTimestamp();\nvar t2 \u003d parseInt(parseInt(timeout)+parseInt(time));\nformatTimeDifference(t1, t2);",
+        "customContextDataKey": {
+        },
+        "id": "A-20d1cee0-c36d-4218-a7cb-86c8e1958153"
+      }, {
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "可用：{jsRet}",
+        "icon": "app://{pkgName}",
+        "customContextDataKey": {
+        },
+        "id": "A-234c7a9f-2fbe-469a-adb7-490d66f485af"
+      }],
+      "delay": 1000,
+      "customContextDataKey": {
+      },
+      "id": "A-6c1b5f5d-d644-42b1-a92f-217157096a55"
+    }, {
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-bf28b051-8cdc-4a41-bb8f-79afa4b1753e"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/CurrentPkgListByPkg",
+        "pkgAndUsers": [{
+          "first": "{pkgName}",
+          "second": "0"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-fe8a9e6d-5217-4401-b6a5-97b4ddcc5cd1"
+      }],
+      "timeoutStr": "@math{{timeout}*1000}",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-3246bcb3-1058-4350-9734-a59b2ac6a2dc"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar config\u003djsonall[\"config\"];\nvar cache\u003djsonall[\"cache\"];\nvar apppkgn\u003dString(pkgName)\n\nfunction getTimestamp() {\n    var ms \u003d java.lang.System.currentTimeMillis();\n    return parseInt(Math.floor(ms / 1000));\n}\n\nfunction findObjectByKeyValue(list, key, value) {\n    return list.find(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\n\nvar timeo\u003dparseInt(timeout)\nvar nowtime \u003d getTimestamp();\nvar oldtime \u003d parseInt(time);\nvar pkgn\u003dString(pkgName);\nvar usesecs\u003dnowtime-oldtime;\n\nif(usesecs\u003e\u003dtimeo){\n    findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"usedonedaytime\"]+\u003dusesecs;\n    findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"usedoncetime\"]\u003d0;\n    findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"disabled\"]\u003dtrue;\n    findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"disabledtime\"]\u003dnowtime;\n    var out\u003dapppkgn;\n}else{\n    findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"usedoncetime\"]+\u003dusesecs;\n    findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"usedonedaytime\"]+\u003dusesecs;\n    var out\u003d\"无需挂起\"\n}\nfindObjectByKeyValue(cache,\"packagename\",apppkgn)[\"lastbackgroundtime\"]\u003dnowtime;\n\njsonall[\"cache\"]\u003dcache;\nshortx.writeGlobalVarWithOp(\"健康使用设备\", JSON.stringify(jsonall), 3);\nout",
+      "customContextDataKey": {
+      },
+      "id": "A-01fcab01-127a-4745-bc27-11732135dfda"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar config\u003djsonall[\"config\"];\nvar cache\u003djsonall[\"cache\"];\nvar apppkgn\u003dString(pkgName)\nvar appname\u003dString(appLabel);\n\nfunction findObjectByKeyValue(list, key, value) {\n    return list.find(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\nvar disabletime\u003dMath.floor(findObjectByKeyValue(config,\"packagename\",apppkgn)[\"disabletime\"]/60);\nif(findObjectByKeyValue(cache,\"packagename\",apppkgn)[\"usedonedaytime\"]\u003e\u003dfindObjectByKeyValue(config,\"packagename\",apppkgn)[\"onedaymaxtime\"]){\n    var out\u003dappname+\"今日已达最大时限，明日可用\";\n}else{\n    var out\u003dappname+\"已达单次最大时限，禁用\"+String(disabletime)+\"分钟\";\n}\nout;",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "message"
+        }]
+      },
+      "id": "A-dd9ddca3-6e09-43f4-94c0-2ee02f1addd2"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "{message}",
+      "customContextDataKey": {
+      },
+      "id": "A-50b4202b-d7d2-4b3d-a2c8-8e334983f3be"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "jsRet",
+        "payload": {
+          "value": "无需挂起"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-b3a8809a-65c9-44e0-a5d1-c06c21055781"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetAppSuspendByPkg",
+        "pkgAndUsers": [{
+          "first": "{jsRet}",
+          "second": "0"
+        }],
+        "suspend": true,
+        "customContextDataKey": {
+        },
+        "id": "A-da8118b2-9054-4443-b2ce-a53a4344af79"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-602b70dc-8deb-432a-8ab2-6934397eb99a"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "添加规则",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "importClass(android.content.pm.PackageManager);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\nfunction getInstalledAppsAsJsonList() {\n    var pm \u003d context.getPackageManager();\n    var apps \u003d pm.getInstalledApplications(PackageManager.GET_META_DATA);\n    var result \u003d new JSONArray();\n\n    for (var i \u003d 0; i \u003c apps.size(); i++) {\n        var appInfo \u003d apps.get(i);\n        var appName \u003d pm.getApplicationLabel(appInfo).toString();\n        var packageName \u003d appInfo.packageName;\n        var item \u003d new JSONObject();\n        item.put(\"name\", appName);\n        item.put(\"version\", packageName); \n        item.put(\"__value\", packageName);\n        item.put(\"__icon\", \"app://\" + packageName);\n\n        result.put(item);\n    }\n\n    return result;\n}\n\ngetInstalledAppsAsJsonList();",
+          "customContextDataKey": {
+          },
+          "id": "A-abb41ebd-f883-4842-861a-53bd64749f61"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择应用",
+          "cancelable": true,
+          "data": "{jsRet}",
+          "isMultipleChoice": true,
+          "delimiter": [","],
+          "needConfirmAction": true,
+          "dataType": "ShowListDialogDataType_Json",
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-333457ec-9d54-4e39-aacc-75805a04af5b"
+        }, {
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "设置",
+          "cancelable": true,
+          "textFields": [{
+            "placeholder": "每日最大使用时长（分钟）"
+          }, {
+            "placeholder": "单次最大使用时长（分钟）"
+          }, {
+            "placeholder": "重置单次使用时长阈值（分钟）"
+          }, {
+            "placeholder": "禁用时长（分钟）"
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-97801b8c-a3b5-47e1-9061-2e64428ed014"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar i\u003d0;\nvar oncemaxtime\u003dparseInt(parseInt(textFieldInput2)*60);\nvar onedaymaxtime\u003dparseInt(60*parseInt(textFieldInput1));\nvar cleanoncetime\u003dparseInt(60*parseInt(textFieldInput3));\nvar disabletime\u003dparseInt(60*parseInt(textFieldInput4));\nwhile(true){\n    var packagename \u003d String(selectedListItem[i]);\n    if(selectedListItem[i]!\u003d\u003dundefined){\n        jsonall[\"config\"].push({\"packagename\":packagename,\"oncemaxtime\":oncemaxtime,\"onedaymaxtime\":onedaymaxtime,\"cleanoncetime\":cleanoncetime,\"disabletime\":disabletime});\n        i++;\n    }else break;\n}\nshortx.writeGlobalVarWithOp(\"健康使用设备\", JSON.stringify(jsonall), 3);   ",
+          "customContextDataKey": {
+          },
+          "id": "A-a994b615-b784-488a-8784-ef552c8bb965"
+        }]
+      }, {
+        "title": "删除规则",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar packagenames\u003d[];\nfunction getappname(pkgn){\n    importClass(android.content.pm.PackageManager);\n    var pm \u003d context.getPackageManager();\n    return pm.getApplicationLabel(pm.getApplicationInfo(pkgn, PackageManager.GET_META_DATA)).toString();\n}\n\nfor(var i in jsonall[\"config\"]){\n    var configpkg\u003djsonall[\"config\"][i][\"packagename\"];\n    packagenames.push({\n        \"name\": getappname(configpkg),\n        \"__value\": configpkg,\n        \"__icon\": \"app://\"+configpkg\n    })\n\n}\nJSON.stringify(packagenames);",
+          "customContextDataKey": {
+          },
+          "id": "A-5d1ba86f-b1f3-46c5-8ad8-45e77202458c"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择应用",
+          "cancelable": true,
+          "data": "{jsRet}",
+          "isMultipleChoice": true,
+          "delimiter": [","],
+          "needConfirmAction": true,
+          "dataType": "ShowListDialogDataType_Json",
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-ec9e9146-aff1-4aac-881d-9879b780e615"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nfunction removeAllItemFromArray(arr, item) {\n    return arr.filter(function (x) {\n        return JSON.stringify(x) !\u003d\u003d JSON.stringify(item);\n    });\n}\nfunction findObjectByKeyValue(list, key, value) {\n    return list.find(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\n//开始删除\nvar i\u003d0;\nwhile(true){\n    var packagename \u003d String(selectedListItem[i]);\n    if(selectedListItem[i]!\u003d\u003dundefined){\n        jsonall[\"config\"]\u003dremoveAllItemFromArray(jsonall[\"config\"],findObjectByKeyValue(jsonall[\"config\"],\"packagename\",packagename));\n        i++;\n    }else break;\n}\nshortx.writeGlobalVarWithOp(\"健康使用设备\", JSON.stringify(jsonall), 3);   \n",
+          "customContextDataKey": {
+          },
+          "id": "A-35e5ff0f-979c-4760-a55e-f6ae7585fb1f"
+        }]
+      }, {
+        "title": "修改规则",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar packagenames\u003d[];\nfunction getappname(pkgn){\n    importClass(android.content.pm.PackageManager);\n    var pm \u003d context.getPackageManager();\n    return pm.getApplicationLabel(pm.getApplicationInfo(pkgn, PackageManager.GET_META_DATA)).toString();\n}\n\nfor(var i in jsonall[\"config\"]){\n    var configpkg\u003djsonall[\"config\"][i][\"packagename\"];\n    packagenames.push({\n        \"name\": getappname(configpkg),\n        \"__value\": configpkg,\n        \"__icon\": \"app://\"+configpkg\n    })\n\n}\nJSON.stringify(packagenames);",
+          "customContextDataKey": {
+          },
+          "id": "A-5d1ba86f-b1f3-46c5-8ad8-45e77202458c"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择应用",
+          "cancelable": true,
+          "data": "{jsRet}",
+          "isMultipleChoice": true,
+          "delimiter": [","],
+          "needConfirmAction": true,
+          "dataType": "ShowListDialogDataType_Json",
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-20e02ddb-88d7-4eb0-84b3-f8433925df63"
+        }, {
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "设置",
+          "cancelable": true,
+          "textFields": [{
+            "placeholder": "每日最大使用时长（分钟）"
+          }, {
+            "placeholder": "单次最大使用时长（分钟）"
+          }, {
+            "placeholder": "重置单次使用时长阈值（分钟）"
+          }, {
+            "placeholder": "禁用时长（分钟）"
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-7810b81f-314a-44f6-a286-8b7f718675c7"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar oncemaxtime\u003dparseInt(parseInt(textFieldInput2)*60);\nvar onedaymaxtime\u003dparseInt(60*parseInt(textFieldInput1));\nvar cleanoncetime\u003dparseInt(60*parseInt(textFieldInput3));\nvar disabletime\u003dparseInt(60*parseInt(textFieldInput4));\n\nfunction findObjectByKeyValue(list, key, value) {\n    return list.find(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\n\nvar i\u003d0;\nwhile(true){\n    var packagename \u003d String(selectedListItem[i]);\n    if(selectedListItem[i]!\u003d\u003dundefined){\n        findObjectByKeyValue(jsonall[\"config\"],\"packagename\",packagename)[\"oncemaxtime\"]\u003doncemaxtime;\n        findObjectByKeyValue(jsonall[\"config\"],\"packagename\",packagename)[\"onedaymaxtime\"]\u003donedaymaxtime;\n        findObjectByKeyValue(jsonall[\"config\"],\"packagename\",packagename)[\"cleanoncetime\"]\u003dcleanoncetime;\n        findObjectByKeyValue(jsonall[\"config\"],\"packagename\",packagename)[\"disabletime\"]\u003ddisabletime;\n        i++;\n    }else break;\n}\nshortx.writeGlobalVarWithOp(\"健康使用设备\", JSON.stringify(jsonall), 3);   ",
+          "customContextDataKey": {
+          },
+          "id": "A-9b906714-72f5-4fb8-bdd2-9bb7886df996"
+        }]
+      }, {
+        "title": "清除缓存",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nvar packagenames\u003d[];\nfunction getappname(pkgn){\n    importClass(android.content.pm.PackageManager);\n    var pm \u003d context.getPackageManager();\n    return pm.getApplicationLabel(pm.getApplicationInfo(pkgn, PackageManager.GET_META_DATA)).toString();\n}\n\nfor(var i in jsonall[\"cache\"]){\n    var cachepkg\u003djsonall[\"cache\"][i][\"packagename\"];\n    packagenames.push({\n        \"name\": getappname(cachepkg),\n        \"__value\": cachepkg,\n        \"__icon\": \"app://\"+cachepkg\n    })\n\n}\nJSON.stringify(packagenames);",
+          "customContextDataKey": {
+          },
+          "id": "A-5d1ba86f-b1f3-46c5-8ad8-45e77202458c"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择应用",
+          "cancelable": true,
+          "data": "{jsRet}",
+          "isMultipleChoice": true,
+          "delimiter": [","],
+          "needConfirmAction": true,
+          "dataType": "ShowListDialogDataType_Json",
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-ec9e9146-aff1-4aac-881d-9879b780e615"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var jsonall\u003dJSON.parse(globalVarOf$健康使用设备);\nfunction removeAllItemFromArray(arr, item) {\n    return arr.filter(function (x) {\n        return JSON.stringify(x) !\u003d\u003d JSON.stringify(item);\n    });\n}\nfunction findObjectByKeyValue(list, key, value) {\n    return list.find(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\nfunction filterObjectsByKeyValue(list, key, value) {\n    return list.filter(function (item) {\n        return item[key] \u003d\u003d\u003d value;\n    });\n}\nvar unfreezeapp\u003d[];\nvar disabledapps\u003dfilterObjectsByKeyValue(jsonall.cache,\"disabled\",true)\nfor(var i in disabledapps){\n    var disableapp\u003ddisabledapps[i].packagename;\n    unfreezeapp.push(disableapp);\n}\n//开始删除\nvar i\u003d0;\nwhile(true){\n    var packagename \u003d String(selectedListItem[i]);\n    if(selectedListItem[i]!\u003d\u003dundefined){\n        jsonall[\"cache\"]\u003dremoveAllItemFromArray(jsonall[\"cache\"],findObjectByKeyValue(jsonall[\"cache\"],\"packagename\",packagename));\n        i++;\n    }else break;\n}\n\n\nshortx.writeGlobalVarWithOp(\"健康使用设备\", JSON.stringify(jsonall), 3);   \nunfreezeapp.join(\",\")",
+          "customContextDataKey": {
+          },
+          "id": "A-35e5ff0f-979c-4760-a55e-f6ae7585fb1f"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "jsRet",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-30c69782-8bc8-4f85-826d-dbfdf4044f8c"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ForEach",
+            "data": "{jsRet}",
+            "delimiter": [","],
+            "actions": [{
+              "@type": "type.googleapis.com/SetAppSuspendByPkg",
+              "pkgAndUsers": [{
+                "first": "{foreachData}",
+                "second": "0"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-c11b6c8b-8953-4058-8529-2124d7ee57d1"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-dc026ca7-273d-4c3e-8159-aba120e17b19"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-69b1101f-1a6d-4baf-8899-eecf56262783"
+        }]
+      }, {
+        "title": "取消"
+      }],
+      "title": "选择操作",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c112ab6c-e378-4a35-b09b-e041d1b4aa6d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-42ff199a-1a1f-4137-8fc4-8fa7439972d9"
+  }],
+  "id": "SHARE-rule-a2ca8608-9a6e-481b-8e96-0cbff333a842",
+  "lastUpdateTime": "1765854999912",
+  "createTime": "1765687439482",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "健康使用设备",
+  "description": "⬆️点击上方图标→执行动作，进入设置",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "健康使用设备",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-97c0c58b-b011-4186-99eb-09e5227509a3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "健康使用设备",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-481908f4-83aa-4f7a-bbc1-1307c9eadf62"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "健康使用设备",
+        "valueAsString": "{\"time\":0,\"config\":[],\"cache\":[]}",
+        "customContextDataKey": {
+        },
+        "id": "A-62b8dee9-8fbd-44dc-83a0-6a643909baa5"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-eb4e2abd-2a02-40d7-a849-9e0d7bdc23cc"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "健康使用设备",
+      "customContextDataKey": {
+      },
+      "id": "A-c39ca2ee-8027-46fb-9456-a15394c9068a"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleInstanceIdGenerator": {
+    "@type": "type.googleapis.com/RuleInstanceIdGenerator_String",
+    "insId": "%CurrentTimeMillis%"
+  }
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,85 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://ip.164746.xyz/ipTop.html",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-30962362-7d56-45cb-b615-ed3548ef27b6"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "response \u003d {httpRequestRet};\nips \u003d response.split(\",\");\nips[0]",
+    "customContextDataKey": {
+    },
+    "id": "A-138a1ef2-2d49-4686-b897-1317a361bf49"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 固定的 IP 地址\nnewIp\u003d\"{mvelRet}\"\n\n# 目标文件路径\nfile\u003d\"/data/user/0/com.ech.workers/shared_prefs/SocksPrefs.xml\"\n\n# 使用 sed 替换 IP（直接写死）\nsed -i \"s/\u003cstring name\u003d\\\"PrefIp_default\\\"\u003e.*\u003c\\/string\u003e/\u003cstring name\u003d\\\"PrefIp_default\\\"\u003e$newIp\u003c\\/string\u003e/g\" \"$file\"\n\n# 检查是否成功\nif [ $? -eq 0 ]; then\n    echo \"优选IP已固定为：$newIp\"\nelse\n    echo \"错误：更新失败，请检查文件路径或权限\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-c3f1c36f-257f-4310-9536-a8d02080b8d4"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "启动ECH-Workers",
+    "onPositive": [{
+      "@type": "type.googleapis.com/LaunchApp",
+      "appPkg": {
+        "pkgName": "com.ech.workers"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-7e2bad3e-6afe-4f06-83e2-e42d367386ce"
+    }],
+    "negative": "重启ECH-Workers",
+    "onNegative": [{
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.ech.workers"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-31fbd5a3-6310-47cf-a5f6-3b7306e4cece"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1",
+      "timeUnit": "TimeUnit_S",
+      "customContextDataKey": {
+      },
+      "id": "A-20fdfce4-c06e-4a4c-b925-1be007c4523a"
+    }, {
+      "@type": "type.googleapis.com/LaunchApp",
+      "appPkg": {
+        "pkgName": "com.ech.workers"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-bdd6ebb4-ad4d-4e3f-8d39-8dfc5e5a27b0"
+    }],
+    "message": "{shellOut}",
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-9de20734-7595-4807-9609-351ce7d67dfc"
+  }],
+  "id": "SHARED-DA-ff21c3fa-d702-4f72-8e01-ca32a81e8a73",
+  "lastUpdateTime": "1765213230242",
+  "createTime": "1765208159530",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "CF优选IP",
+  "description": "TG:https://t.me/CF_NAT",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,2028 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "tag": "剪贴板变化",
+    "customContextDataKey": {
+    },
+    "id": "F-b3201130-fc53-4b1e-a4e3-954fc1943b67"
+  }, {
+    "@type": "type.googleapis.com/DeepLinkCall",
+    "deepLinkTag": "SyncClipboardUpload",
+    "tag": "DeeplinkSyncClipboardUpload",
+    "customContextDataKey": {
+    },
+    "id": "F-b1fcd95e-2019-46cf-a863-d1edcf7d670a"
+  }, {
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": "DCIM|Pictures",
+    "options": "RegexMatchOptions_ContainsMatchIn",
+    "tag": "新媒体文件",
+    "customContextDataKey": {
+    },
+    "id": "F-6d063a8e-4e49-40c6-8ca5-71a77cd7c075"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "import java.net.HttpURLConnection;\nimport java.net.URL;\n\n// 创建一个URL对象，指向百度网站\n//URL url \u003d new URL(\"https://baidu.com\");\nURL url \u003d new URL(argOf$FuwuqiLianjieDizhi + \"/\" + argOf$FuwuqiLianjieWenjianming);\n\n// 打开一个HTTP连接\nHttpURLConnection connection \u003d (HttpURLConnection) url.openConnection();\n\n// 设置HTTP请求方法为GET\nconnection.setRequestMethod(\"GET\");\n\n// 设置连接超时时间为3秒\nconnection.setReadTimeout(3000); // 3秒\n\n//用户名密码使用Base64编码，格式为UserName:Password。\nconnection.setRequestProperty(\u0027Authorization\u0027, \u0027Basic \u0027 + argOf$FuwuqiYonghuPingzheng); \n\n// 获取HTTP响应码\nint responseCode \u003d connection.getResponseCode();\n\n// 如果收到的状态码不是在400-499范围内，则输出网络连接正常\nif (responseCode \u003c 400 || responseCode \u003e\u003d 500) {\n    (\"网络连接正常\");\n    Boolean isConnected \u003d (responseCode \u003c 400 || responseCode \u003e\u003d 500);\n}",
+    "customContextDataKey": {
+    },
+    "id": "C-f5566ff8-5a68-4240-8a60-b2863517c6bf"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "IsEmpty",
+      "varName": "clipboardContent",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-0d11b40c-064f-45d1-9a1a-6198908d51e3"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "剪贴板变化",
+      "customContextDataKey": {
+      },
+      "id": "C-8eb86892-1b3e-4bcc-a527-6040b3e146ac"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-1e57d9ae-ae6a-408a-b39b-00aa0e566896"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "剪贴板清空动作不执行",
+    "id": "A-72543464-aa94-4820-87c8-0e8ce579b8d0"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireTileState",
+      "state": "QSTileState_Active",
+      "tileSpec": "custom(tornaco.apps.shortx/.ui.service.tile.Tile8)",
+      "customContextDataKey": {
+      },
+      "id": "C-02768dff-20f2-4204-ab38-a315f060d644"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "剪贴板变化",
+      "customContextDataKey": {
+      },
+      "id": "C-a4f5f4eb-cab2-4de6-87fd-e5e6bf009d53"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "JiantiebanNeirong",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0cc94915-ff05-457e-8e95-10ed326479b8"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "JiantiebanNeirong",
+      "valueAsString": "{clipboardContent}",
+      "customContextDataKey": {
+      },
+      "id": "A-c5d0d775-63c0-441b-a259-fbc0178beb04"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\n# 待处理的字符串\ninput_str\u003d\"localVarOf$JiantiebanNeirong\"\n\necho \"\u003d\u003d\u003d\u003d\u003d 调试开始 \u003d\u003d\u003d\u003d\u003d\"\necho \"1. 原始输入字符串长度: $(echo -n \"$input_str\" | wc -c) 字节\"\necho \"2. 原始输入内容预览:\"\necho \"$input_str\" | head -n 10 | sed \u0027s/^/   /\u0027\n\n# 1. 过滤出包含/storage的行\nstorage_lines\u003d$(echo \"$input_str\" | grep -i \"/storage\")\necho \"\u003d\u003d\u003d\u003d\u003d 步骤1: 过滤含/storage的行 \u003d\u003d\u003d\u003d\u003d\"\necho \"过滤结果行数: $(echo \"$storage_lines\" | wc -l)\"\necho \"过滤内容预览:\"\necho \"$storage_lines\" | head -n 10 | sed \u0027s/^/   /\u0027\n\n# 2. 提取所有/storage路径并处理连续路径\npaths\u003d\"\"\necho \"\u003d\u003d\u003d\u003d\u003d 步骤2: 处理连续路径 \u003d\u003d\u003d\u003d\u003d\"\nfor line in $storage_lines; do\n    echo \"--- 处理行: $line\"\n    # 处理连续路径：在每个/storage前插入换行符（保留开头的/）\n    line_with_newlines\u003d$(echo \"$line\" | sed \u0027s:/storage:\\n/storage:g\u0027)\n    echo \"  分割后路径段:\"\n    echo \"$line_with_newlines\" | sed \u0027s/^/    /\u0027\n    \n    # 提取每行中的路径\n    for path in $line_with_newlines; do\n        echo \"  --- 处理路径段: $path\"\n        # 确保路径以/storage开头且包含.\n        if [[ \"$path\" \u003d\u003d \"/storage\"* \u0026\u0026 \"$path\"*.* ]]; then\n            echo \"  ✔ 符合基本条件: 以/storage开头且包含点号\"\n            # 提取完整路径（无需额外处理，已保留/storage前缀）\n            full_path\u003d\"$path\"\n            echo \"  提取的完整路径: $full_path\"\n            \n            # 确保路径有有效扩展名\n            if echo \"$full_path\" | grep -q \u0027\\.[^/]*$\u0027; then\n                echo \"  ✔ 有效扩展名: $full_path\"\n                paths\u003d\"$paths\\n$full_path\"\n            else\n                echo \"  ✖ 无效扩展名: $full_path\"\n            fi\n        else\n            echo \"  ✖ 不符合基本条件: $path\"\n        fi\n    done\ndone\n\n# 3. 去重并排序\npaths\u003d$(echo \"$paths\" | sort -u | sed \u00271d\u0027)  # 移除首行空行\necho \"\u003d\u003d\u003d\u003d\u003d 步骤3: 去重排序后结果 \u003d\u003d\u003d\u003d\u003d\"\necho \"提取的路径数量: $(echo \"$paths\" | wc -l)\"\necho \"提取的路径内容:\"\necho \"$paths\" | sed \u0027s/^/   /\u0027\n\n# 输出提取的路径\necho \"\u003d\u003d\u003d\u003d\u003d 最终结果 \u003d\u003d\u003d\u003d\u003d\"\necho \"提取的有扩展名路径：\"\necho \"$paths\"\n\n# 合并路径（使用|作为分隔符）\nmerged_paths\u003d$(echo \"$paths\" | tr \u0027\\n\u0027 \u0027|\u0027 | sed \u0027s/|$//\u0027)\necho \"合并后的路径（分隔符：|）：\"\necho \"$merged_paths\"\n\necho \"\u003d\u003d\u003d\u003d\u003d 调试结束 \u003d\u003d\u003d\u003d\u003d\"\n",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "note": "带调试信息的字符分割",
+      "id": "A-92fb0fe0-e17c-431f-9655-e99d892d69fb"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "JiantiebanNeirongLujingTiqu",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-170d9350-bb2f-43ba-9bf8-23e509bbc24e"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\n# 待处理字符串（实际使用时可替换为输入参数）\ninput_str\u003d\"localVarOf$JiantiebanNeirong\"\n\n# 提取并处理路径\npaths\u003d$(echo \"$input_str\" | \n  grep \"/storage\" | \n  sed \u0027s:/storage:\\n/storage:g\u0027 | \n  grep -E \u0027^/storage.*\\.[^/]*$\u0027 | \n  sort -u)\n\n# 输出提取的路径\n# echo \"提取的有扩展名路径：\"\n# echo \"$paths\"\n\n# 合并路径（使用|分隔）\nmerged\u003d$(echo \"$paths\" | tr \u0027\\n\u0027 \u0027|\u0027 | sed \u0027s/|$//\u0027)\n# echo \"合并后的路径（分隔符：|）：\"\necho \"$merged\"\n",
+      "customContextDataKey": {
+      },
+      "id": "A-3d027fce-a699-4f39-b48f-7477330c728a"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "JiantiebanNeirongLujingTiqu",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-e75a0c82-529e-4cab-9adb-ea2c03622a76"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "Contains",
+        "varName": "JiantiebanNeirongLujingTiqu",
+        "payload": {
+          "value": "|"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-0df34d9b-0420-46cf-a2a0-bf0c58067db7"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "检测到多个路径，请选择：",
+        "cancelable": true,
+        "data": "localVarOf$JiantiebanNeirongLujingTiqu",
+        "delimiter": ["|"],
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b2cb8155-36d3-4984-9ba5-55f2a5073443"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "JiantiebanNeirongLujingTiqu",
+        "valueAsString": "{selectedListItem}",
+        "customContextDataKey": {
+        },
+        "id": "A-e5ed16f3-9c5d-4f65-80de-00b16e436667"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d1c10fe9-08a8-4d3c-bc8d-7b7f67bc8255"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianJiance",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-6f500f8b-8fd7-4a56-b6b4-e0a96f249421"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/sh\n\n# 文件路径\nfile_path\u003d\"localVarOf$JiantiebanNeirongLujingTiqu\"\n\n# 检查文件是否存在\nif [ -f \"$file_path\" ]; then\n  # 输出完整文件路径\n  echo \"$file_path\"\nelse\n  # 输出不存在提示\n  echo \"NotExists\"\nfi\n",
+      "customContextDataKey": {
+      },
+      "id": "A-5ff67062-9d3f-4990-9042-4f0861e5ad17"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianJiance",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-d0d7fb19-8b3b-47a8-a3db-fa88531c7e7b"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "BendiWenjianJiance",
+        "payload": {
+          "value": "localVarOf$JiantiebanNeirongLujingTiqu"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-9ea65fa6-f76c-41f7-a09d-59943d287061"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "SyncClipboardShishiTongbuKaiguan",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2787eb93-8703-44dd-94da-cd8959781b02"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "SyncClipboardShishiTongbuKaiguan",
+        "valueAsString": "On",
+        "customContextDataKey": {
+        },
+        "id": "A-7a32c9c0-1c89-4a72-b6ae-abc6f434aadc"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a0cf9013-39cd-4b93-b1fb-8a7a37e33520"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "检测SyncClipboard实时同步开关状态\n用于判断是否检测剪贴板中的本地文件路径",
+    "id": "A-13c73b57-170d-4f4d-9f13-2a38ea0bf6eb"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "剪贴板变化",
+      "customContextDataKey": {
+      },
+      "id": "C-e2cbf849-6e90-4a40-aa05-fb08698ca545"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "JiantiebanNeirong",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c63adfac-f7a9-4e82-8741-cd56b4584acd"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "JiantiebanNeirong",
+      "valueAsString": "{clipboardContent}",
+      "customContextDataKey": {
+      },
+      "id": "A-10fceb46-640d-4893-ab52-38456ad0ad01"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "SyncClipboardFuchuangTXT",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d3464a49-ec26-4a8b-b619-40456a622df7"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "SyncClipboardFuchuangTXT",
+      "valueAsString": "剪贴板文字：\nlocalVarOf$JiantiebanNeirong",
+      "customContextDataKey": {
+      },
+      "id": "A-4b3b55e1-cccf-497c-a02b-8ad618180052"
+    }, {
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["SyncClipboardFuchuang"],
+          "customContextDataKey": {
+          },
+          "id": "A-a9355901-d224-4dac-98d0-ecc1409b7ad5"
+        }],
+        "label": "localVarOf$SyncClipboardFuchuangTXT",
+        "id": "BTN-d5a59cf7-dbb5-44f8-a0ba-1fdb82c5cfed"
+      }],
+      "tag": "SyncClipboardFuchuang",
+      "maxHeightInDp": 113,
+      "maxWidthInDp": 113,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 500,
+      "enableGlobalDrag": true,
+      "disableAutoEdge": true,
+      "customContextDataKey": {
+      },
+      "id": "A-9d7931b0-142f-4179-a2bb-51a890d3a90c"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "SyncClipboardFuchuangTXT",
+      "valueAsString": "正在上传文字：\nlocalVarOf$JiantiebanNeirong",
+      "customContextDataKey": {
+      },
+      "id": "A-09af31f2-a134-4bf5-b322-b09baa3d12a5"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "localVarOf$JiantiebanNeirong",
+      "regex": "\\\\",
+      "replacement": "\\\\\\\\",
+      "customContextDataKey": {
+      },
+      "id": "A-03ec97a3-ef35-4463-8167-142a5f0450f2"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{replaceResult}",
+      "regex": "\"",
+      "replacement": "\\\\\"",
+      "customContextDataKey": {
+      },
+      "id": "A-bb1cf35c-8a52-499d-b55d-577a45c227ac"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{replaceResult}",
+      "regex": "\\r|\\n",
+      "replacement": "\\\\n",
+      "customContextDataKey": {
+      },
+      "id": "A-941abc15-e995-47c6-a6d8-d82e888b9a4b"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{replaceResult}",
+      "regex": "\t",
+      "replacement": " ",
+      "customContextDataKey": {
+      },
+      "note": "特殊空格替换为正常空格",
+      "id": "A-54e66e6d-a0a8-41dd-b923-4b29b707973a"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "JiantiebanNeirong",
+      "valueAsString": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-95ff335f-8bc6-49f8-9919-cbb46261d2c6"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "argOf$FuwuqiLianjieDizhi/argOf$FuwuqiLianjieWenjianming",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "PUT",
+      "headers": [{
+        "key": "Authorization",
+        "value": "Basic argOf$FuwuqiYonghuPingzheng"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\n\"File\":\"\",\n\"Clipboard\":\"localVarOf$JiantiebanNeirong\",\n\"Type\":\"Text\"\n}"
+      },
+      "withCookieJar": true,
+      "customContextDataKey": {
+      },
+      "note": "使用Base64编码，格式：\nUserName:Password\nBasic YWRt\u003d",
+      "id": "A-2806098b-2b6c-4b0d-a5cd-128c27c08e04"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "SyncClipboardFuchuangTXT",
+      "valueAsString": "文字已上传：\nlocalVarOf$JiantiebanNeirong",
+      "customContextDataKey": {
+      },
+      "id": "A-e7eccceb-34b0-4422-a936-dc0ac852d5fe"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "2000",
+      "customContextDataKey": {
+      },
+      "id": "A-5aa8a23f-7816-4653-bed5-5a0415f83a9e"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["SyncClipboardFuchuang"],
+      "customContextDataKey": {
+      },
+      "id": "A-30de8c7b-b5bb-472f-93b4-8a4b143d97c7"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-f84f1a2c-d18b-455b-b2dd-1492955d0b29"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "文本类",
+    "id": "A-fe274df1-ee40-4e85-a7ef-8581a9337701"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "DeeplinkSyncClipboardUpload",
+      "customContextDataKey": {
+      },
+      "id": "C-5c848f2c-305b-44ce-a380-b2e229128123"
+    }, {
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "SyncClipboardShishiTongbuKaiguan",
+      "payload": {
+        "value": "On"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-539ba1ec-2803-4eca-ae29-67b167d8b8b7"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianWanzhengLujing",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-bcc7afbc-651b-41ff-9e97-8485698ee168"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "SyncClipboardShishiTongbuKaiguan",
+        "payload": {
+          "value": "On"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-dc09aff4-5158-4714-be76-6f216502b4d2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "BendiWenjianWanzhengLujing",
+        "valueAsString": "localVarOf$BendiWenjianJiance",
+        "customContextDataKey": {
+        },
+        "id": "A-4130f11a-4c30-4758-996f-2e6033406c15"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "剪贴板触发",
+      "id": "A-2a0c006a-eddf-4944-a90f-84187d8a7171"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "DeeplinkSyncClipboardUpload",
+        "customContextDataKey": {
+        },
+        "id": "C-45ab8cc1-c11f-4a31-b70c-52ac57c68998"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 获取本地文件路径的目录名\nDIRNAME\u003d$(dirname \"argOf$BendiWenjianDizhi\")\n\n# 定义目标文件路径\nFILE_PATH\u003d\"$DIRNAME/FileCheck.txt\"\n\n# 检查文件是否存在并读取第一行\nif [ -f \"$FILE_PATH\" ]; then\n    # 使用 shell 内建的 read 读取第一行\n    IFS\u003d read -r first_line \u003c \"$FILE_PATH\"\n    echo \"$first_line\"\nelse\n    echo \"Error: File not found at $FILE_PATH\" \u003e\u00262\n    exit 1\nfi",
+        "customContextDataKey": {
+        },
+        "id": "A-ea4fca3b-9238-4dc8-b47f-d4c2ab59728c"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "BendiWenjianWanzhengLujing",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-4130f11a-4c30-4758-996f-2e6033406c15"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "DeepLink触发",
+      "id": "A-ffd2965f-327b-4e3c-ac2c-bad7df2cc5e8"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "SyncClipboardUpload\nlocalVarOf$BendiWenjianWanzhengLujing",
+      "customContextDataKey": {
+      },
+      "id": "A-1f956dd6-5d60-4fac-a32b-390afc4d6f5d"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianMD5",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-8432109c-92b3-4ef9-8526-5e44b1e448e4"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "md5sum \"localVarOf$BendiWenjianWanzhengLujing\" | awk \u0027{ print $1 }\u0027\n",
+      "customContextDataKey": {
+      },
+      "note": "获取等待上传文件的MD5",
+      "id": "A-9a971d93-cf0d-45db-a288-527e5105028b"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianMD5",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-133ed7d1-35e9-4c9c-a482-08b9d8dbc5c0"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianLujing",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-4e7d1a1f-ccfd-4f0c-80e9-7ddd2ec86cc9"
+    }, {
+      "@type": "type.googleapis.com/MatchRegex",
+      "string": "localVarOf$BendiWenjianWanzhengLujing",
+      "regex": "^.*(?\u003d\\/[^\\/]*$)",
+      "customContextDataKey": {
+      },
+      "id": "A-7ce7b39e-5db0-4c6d-b768-fdc891e9ce8b"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{matchResult}",
+      "regex": "^\\[|\\]$",
+      "customContextDataKey": {
+      },
+      "id": "A-998069be-ec18-4558-99a3-81ca98fd01b6"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianLujing",
+      "valueAsString": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-d69b878e-b097-4a7e-a0a8-4b390eac5903"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianming",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ef87dfe4-c1ab-4729-b08d-c718db4837b6"
+    }, {
+      "@type": "type.googleapis.com/MatchRegex",
+      "string": "localVarOf$BendiWenjianWanzhengLujing",
+      "regex": "[^\\/]+$",
+      "customContextDataKey": {
+      },
+      "id": "A-c9a01f43-17c5-4f3a-96cf-86057172aa32"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{matchResult}",
+      "regex": "^\\[|\\]$",
+      "customContextDataKey": {
+      },
+      "id": "A-d0416ad6-ff62-481a-9657-38e62f0a4e15"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianming",
+      "valueAsString": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-1ee3030c-0fe9-432f-ab4b-5a789f82a876"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "DoesNotContain",
+        "varName": "BendiWenjianming",
+        "payload": {
+          "value": "."
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-1b033b1d-6fd8-4e6d-b10c-66fb33cb8b63"
+      }, {
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "Contains",
+        "varName": "BendiWenjianming",
+        "payload": {
+          "value": "$"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-1f5d6391-b0fe-4bd2-bf87-ef8fad665325"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "路径不是文件类型\n或文件名中有特殊字符$",
+        "customContextDataKey": {
+        },
+        "id": "A-f121256b-d2f8-418f-8321-4028ea67ae6d"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-c92c0fd4-66e9-4e09-b4d1-d904297edda9"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "$符号$判断",
+      "id": "A-7f0040f7-1510-4420-943e-4cc04eedd114"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianSyncClipboardWenjianmingURL",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-416aceb1-9ce0-4729-998a-e5c5a314ba3b"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "localVarOf$BendiWenjianming",
+      "regex": " ",
+      "replacement": "%20",
+      "customContextDataKey": {
+      },
+      "id": "A-f5ee2f5e-3de6-48c7-858e-0043337127c1"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianSyncClipboardWenjianmingURL",
+      "valueAsString": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-68e82237-1649-4be0-8957-d7f5b67ebce3"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "fuwuqiwenjianshifoucunzai",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ee4fb820-72dd-4b45-8587-43281c112322"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/bash\n\n# 定义变量\nWEBDAV_URL_FILE\u003d\"argOf$FuwuqiLianjieDizhi/file/localVarOf$BendiWenjianSyncClipboardWenjianmingURL\"\nLOCAL_FILE\u003d\"localVarOf$BendiWenjianWanzhengLujing\"\nUSERNAME\u003d\"argOf$FuwuqiYonghuming\"\nPASSWORD\u003d\"argOf$FuwuqiYonghuMima\"\n\n# 获取本地文件大小\nif [ -f \"$LOCAL_FILE\" ]; then\n  local_file_size\u003d$(stat --format\u003d%s \"$LOCAL_FILE\")\nelse\n  echo \"本地文件不存在\"\n  exit 1\nfi\n\n# 使用 curl 的 GET 方法来检查服务器文件是否存在\nresponse\u003d$(curl --user \"$USERNAME:$PASSWORD\" --write-out \"%{http_code}\" --silent --output /dev/null \"$WEBDAV_URL_FILE\")\n\n# 检查响应状态码\nif [ \"$response\" -eq 200 ]; then\n  # 获取服务器文件头信息\n  file_info\u003d$(curl -u \"$USERNAME:$PASSWORD\" -sI \"$WEBDAV_URL_FILE\")\n  \n  # 提取服务器文件大小\n  server_file_size\u003d$(echo \"$file_info\" | grep -i Content-Length | awk \u0027{ print $2 }\u0027)\n  \n  # 对比本地文件和服务器文件的大小\n  if [ \"$local_file_size\" -eq \"$server_file_size\" ]; then\n    echo \"fuwuqiwenjiancunzai\"\n  else\n    echo \"fuwuqiwenjianbucunzai\"\n  fi\nelif [ \"$response\" -eq 404 ]; then\n  echo \"fuwuqiwenjianbucunzai\"\nelse\n  echo \"请求失败，HTTP 状态码: $response，本地文件大小：$local_file_size\"\nfi",
+      "customContextDataKey": {
+      },
+      "note": "检查服务器是否存在相同文件",
+      "id": "A-9d1657fe-5649-4d0d-8471-c71ab02a2cd7"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "fuwuqiwenjianshifoucunzai",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-56380c16-adf8-45e6-9bdd-826720de9566"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "SyncClipboardFuchuangTXT",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c3945d65-9a40-4c3a-bbb2-d2037bbe9677"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "SyncClipboardFuchuangTXT",
+      "valueAsString": "正在上传文件：\nlocalVarOf$BendiWenjianming",
+      "customContextDataKey": {
+      },
+      "id": "A-f49e8c29-3a13-430b-8815-fba90db37c31"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "fuwuqiwenjianshifoucunzai",
+        "payload": {
+          "value": "fuwuqiwenjianbucunzai"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-7327a0c0-26dd-4c60-8356-d6e0e9949da8"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["SyncClipboardFuchuang"],
+            "customContextDataKey": {
+            },
+            "id": "A-a9355901-d224-4dac-98d0-ecc1409b7ad5"
+          }],
+          "label": "localVarOf$SyncClipboardFuchuangTXT",
+          "longClickActions": [{
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["SyncClipboardFuchuang"],
+            "customContextDataKey": {
+            },
+            "id": "A-a9355901-d224-4dac-98d0-ecc1409b7ad5"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-6329c8bd-5feb-4fd6-9513-efeb71923a20"
+          }],
+          "id": "BTN-d5a59cf7-dbb5-44f8-a0ba-1fdb82c5cfed"
+        }],
+        "tag": "SyncClipboardFuchuang",
+        "maxHeightInDp": 113,
+        "maxWidthInDp": 113,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 500,
+        "enableGlobalDrag": true,
+        "disableAutoEdge": true,
+        "customContextDataKey": {
+        },
+        "id": "A-4ad41ef1-fb96-4afd-8997-a9d2f60bcb49"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "SyncClipboardFileUploadWaiting",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-56ff9a96-27fc-4346-86f8-56560eab59b4"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "curl -u argOf$FuwuqiYonghuming:argOf$FuwuqiYonghuMima -T \"localVarOf$BendiWenjianWanzhengLujing\"  argOf$FuwuqiLianjieDizhi/file/",
+        "customContextDataKey": {
+        },
+        "note": "上传文件",
+        "id": "A-aff27891-5cd6-485c-89c5-dbb98c362ad3"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "url\u003d\"argOf$FuwuqiLianjieDizhi/file/localVarOf$BendiWenjianSyncClipboardWenjianmingURL\"\nusername\u003d\"argOf$FuwuqiYonghuming\"\npassword\u003d\"argOf$FuwuqiYonghuMima\"\nmax_attempts\u003d20\nattempt\u003d0\n\nwhile [ $attempt -lt $max_attempts ]; do\n    # 使用 curl 检查文件是否存在\n    status_code\u003d$(curl -u \"$username:$password\" -o /dev/null -s -w \"%{http_code}\" \"$url\")\n    \n    if [ \"$status_code\" -eq 200 ]; then\n        echo \"webcunzai\"\n        break\n    fi\n    \n    attempt\u003d$((attempt + 1))\n    sleep 1  # 每秒钟检查一次\ndone\n\nif [ $attempt -eq $max_attempts ]; then\n    echo \"文件不存在\"\nfi\n",
+        "customContextDataKey": {
+        },
+        "note": "检查文件是否已经上传完成",
+        "id": "A-22359004-ab2e-498f-a645-34335c03462c"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "SyncClipboardFileUploadWaiting",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-83c9d696-66ae-4145-9767-c986bc654a86"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["SyncClipboardFuchuang"],
+        "customContextDataKey": {
+        },
+        "id": "A-50e050af-fbc7-4ce5-adc5-3bb8e405d382"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "服务器找到相同文件：\nlocalVarOf$BendiWenjianming",
+        "customContextDataKey": {
+        },
+        "id": "A-4742b07f-8e32-4c21-9443-bd22dec70812"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "如果服务器上没有相同文件，就上传",
+      "id": "A-6b57e698-6b47-4666-a981-bc8206d1d643"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "fuwuqiwenjianshifoucunzai",
+        "payload": {
+          "value": "fuwuqiwenjiancunzai"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-dedf0cdb-0a04-499a-9364-12e278ab3eb0"
+      }, {
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "SyncClipboardFileUploadWaiting",
+        "payload": {
+          "value": "webcunzai"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-8b1b06b6-4e17-4e23-bd51-abba701ea4bf"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "argOf$FuwuqiLianjieDizhi/argOf$FuwuqiLianjieWenjianming",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "method": "PUT",
+        "headers": [{
+          "key": "Authorization",
+          "value": "Basic argOf$FuwuqiYonghuPingzheng"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyJson",
+          "json": "{\n\"File\":\"localVarOf$BendiWenjianming\",\n\"Clipboard\":\"localVarOf$BendiWenjianMD5\",\n\"Type\":\"File\"\n}"
+        },
+        "withCookieJar": true,
+        "customContextDataKey": {
+        },
+        "note": "使用Base64编码，格式：\nUserName:Password\nBasic YWR",
+        "id": "A-2d96c7e4-090e-4bf4-95fb-e066ea32b9c8"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "文件已上传，配置文件已写入。\nlocalVarOf$BendiWenjianming",
+        "customContextDataKey": {
+        },
+        "id": "A-517c8b4e-e4e8-42f3-be0e-12abfb8cb3b1"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "文件上传失败！\nlocalVarOf$BendiWenjianming",
+        "customContextDataKey": {
+        },
+        "id": "A-db36dc24-cc6e-42f1-aab7-b37a167a431f"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "如果上传成功就写入配置文件",
+      "id": "A-57bc4a62-565a-4ec5-ab6c-c827cacf1b99"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "文件类",
+    "id": "A-a70b87e3-1f20-4fd3-b07f-d7a2de6616cb"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "新媒体文件",
+      "customContextDataKey": {
+      },
+      "id": "C-bb3d059f-d98a-4987-a31a-44c5c2f4069b"
+    }, {
+      "@type": "type.googleapis.com/RequireTileState",
+      "state": "QSTileState_Active",
+      "tileSpec": "custom(tornaco.apps.shortx/.ui.service.tile.Tile8)",
+      "customContextDataKey": {
+      },
+      "id": "C-ecd97114-9b88-4ead-bdf6-1f861be5c8a5"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "PanduanShifouLuping",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-019dae55-e611-43fa-bf6b-1c96d154da5e"
+    }, {
+      "@type": "type.googleapis.com/MatchRegex",
+      "string": "{mediaFilePath}",
+      "regex": "\\.pending-[^\\/]*(?\u003dScreenrecorder-)",
+      "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+      "customContextDataKey": {
+      },
+      "id": "A-982c73e0-7ada-4ef6-99a9-b8cfd328f654"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "PanduanShifouLuping",
+      "valueAsString": "{isMatch}",
+      "customContextDataKey": {
+      },
+      "id": "A-f97f8a32-52da-40bb-bd9e-6e4d47978a01"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "PanduanShifouLuping",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ca79eb08-346d-4e44-be97-645b6514f7ce"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "正在录屏",
+        "customContextDataKey": {
+        },
+        "id": "A-2f3c4279-4124-4c59-94d5-35875f1acc80"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "没有录屏",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-d94dbe88-06ca-453a-88c4-de38029a1bc2"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "判断是否录屏阶段",
+      "id": "A-c491897c-4842-4cf2-9d85-73c01081d372"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianWanzhengLujing",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-8fdd5901-ec65-4ad5-9300-89f406fa8d11"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianWanzhengLujing",
+      "valueAsString": "{mediaFilePath}",
+      "customContextDataKey": {
+      },
+      "note": "因媒体触发瞬间，文件名前会带.pending",
+      "id": "A-258608a2-6010-49a6-ae83-cda995738179"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianLujing",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0053a2fd-64a7-4019-81c1-6c1c5bd88cf6"
+    }, {
+      "@type": "type.googleapis.com/MatchRegex",
+      "string": "{mediaFilePath}",
+      "regex": "^.*(?\u003d\\/[^\\/]*$)",
+      "customContextDataKey": {
+      },
+      "id": "A-e735f727-3c92-456d-8c8c-9139c10bbc0b"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{matchResult}",
+      "regex": "^\\[|\\]$",
+      "customContextDataKey": {
+      },
+      "id": "A-f7cfc406-dbcb-4ff9-9e76-4f545a15bc0c"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianLujing",
+      "valueAsString": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-f308db58-3d81-4b1b-a884-7bf7e8029a25"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianming",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1a25a86c-4cb6-4e86-bc43-fffebe939d17"
+    }, {
+      "@type": "type.googleapis.com/MatchRegex",
+      "string": "{mediaFilePath}",
+      "regex": "[^/]+$",
+      "customContextDataKey": {
+      },
+      "id": "A-446f281d-9cc4-4eb9-9711-8d38aaeb5f9a"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{matchResult}",
+      "regex": "^\\[|\\]$",
+      "customContextDataKey": {
+      },
+      "id": "A-603297ac-d9c0-4570-9939-f1c543e3d556"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{replaceResult}",
+      "regex": "\\.pending[^\\/]*-(?\u003dIMG_)",
+      "customContextDataKey": {
+      },
+      "id": "A-9a1ffb63-7f00-4a15-af20-e54dec490b0b"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{replaceResult}",
+      "regex": "\\.pending-[^\\/]*(?\u003dScreenrecorder-)",
+      "customContextDataKey": {
+      },
+      "id": "A-c166c255-9b13-4617-9d08-bffac4540edc"
+    }, {
+      "@type": "type.googleapis.com/ReplaceRegex",
+      "string": "{replaceResult}",
+      "regex": "\\.pending-[^-]*-",
+      "customContextDataKey": {
+      },
+      "id": "A-5b6a1596-c3e9-4eef-9118-dd3ee7b1c59f"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianming",
+      "valueAsString": "{replaceResult}",
+      "customContextDataKey": {
+      },
+      "id": "A-253ddac7-1bb2-4ca1-8926-3ba9f3a0bd58"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianLujingWenjianming",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c1e37c2b-26f2-4b10-80cb-69e464f6b7bf"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianLujingWenjianming",
+      "valueAsString": "localVarOf$BendiWenjianLujing/localVarOf$BendiWenjianming",
+      "customContextDataKey": {
+      },
+      "id": "A-ef5abf22-7261-4064-afa3-ffba245200c2"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "SyncClipboardFuchuangTXT",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0b0a6342-b276-458e-90d5-bcb77f462447"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "SyncClipboardFuchuangTXT",
+      "valueAsString": "处理媒体文件：\nlocalVarOf$BendiWenjianming",
+      "customContextDataKey": {
+      },
+      "id": "A-d5b5f282-0a4e-4d6e-a564-e162bbeb2bf3"
+    }, {
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["SyncClipboardFuchuang"],
+          "customContextDataKey": {
+          },
+          "id": "A-a9355901-d224-4dac-98d0-ecc1409b7ad5"
+        }],
+        "label": "localVarOf$SyncClipboardFuchuangTXT",
+        "id": "BTN-d5a59cf7-dbb5-44f8-a0ba-1fdb82c5cfed"
+      }],
+      "tag": "SyncClipboardFuchuang",
+      "maxHeightInDp": 113,
+      "maxWidthInDp": 113,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 500,
+      "enableGlobalDrag": true,
+      "disableAutoEdge": true,
+      "customContextDataKey": {
+      },
+      "id": "A-ec1c3207-dac1-4dc9-b88b-c75946bd5d3d"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianDengdai",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-63f35425-790a-4a56-9d38-1f124308d789"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "file_path\u003d\"localVarOf$BendiWenjianLujingWenjianming\"\nmax_attempts\u003d20\nattempt\u003d0\nprevious_size\u003d0\n\nwhile [ $attempt -lt $max_attempts ]; do\n    if [ -f \"$file_path\" ]; then\n        if [ -s \"$file_path\" ]; then\n            current_size\u003d$(stat -c %s \"$file_path\")\n            if [ $current_size -eq $previous_size ]; then\n                echo \"cunzai\"\n                break\n            else\n                previous_size\u003d$current_size\n                sleep 1  # 等待2秒钟再检查文件大小\n            fi\n        fi\n    fi\n    attempt\u003d$((attempt + 1))\n    sleep 1  # 每秒钟检查一次文件是否存在\ndone\n\nif [ $attempt -eq $max_attempts ]; then\n    echo \"文件不存在或大小为0\"\nfi\n",
+      "customContextDataKey": {
+      },
+      "note": "文件是否正在变化",
+      "id": "A-c123af27-ea9c-4413-9a2f-d33021ed78bb"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianDengdai",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-d7ca5bfd-66a4-4c65-bd76-0e6eaa63a2f8"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file://localVarOf$BendiWenjianLujing",
+      "customContextDataKey": {
+      },
+      "note": "马上刷新指定路径中的媒体",
+      "id": "A-a57d1796-766e-40c9-b41c-a8d1fe3f8c6e"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianSize",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-980125f3-78ae-41b3-9967-10f00d95e114"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "FILE_PATH\u003d\"localVarOf$BendiWenjianLujingWenjianming\"\nFILE_SIZE\u003d$(stat -c%s \"$FILE_PATH\")\n\n#大于20MB则输出over，小于30MB则输出sizeok\nif [ \"$FILE_SIZE\" -gt 30000000 ]; then\n  echo \"over\"\nelse\n  echo \"sizeok\"\nfi\n",
+      "customContextDataKey": {
+      },
+      "note": "文件尺寸限制",
+      "id": "A-27422d1a-4b0c-4fe1-861d-2ead6952ad6e"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianSize",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-bac6722c-d850-4ec9-8508-d859a954d94c"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "BendiWenjianSize",
+        "payload": {
+          "value": "over"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-12cf15be-8489-4d0b-b3cd-adc0c14ca821"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "label": "xuanfugonfju",
+          "id": "BTN-ec3c36b8-eb7f-4648-bf39-671e23026b7e"
+        }],
+        "tag": "zuanfugonfju",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 500,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 64,
+        "enableGlobalDrag": true,
+        "disableAutoEdge": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-c41d25ad-b1c1-48b0-b1f3-f68a31aade12"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "同步文件大小超限！",
+        "customContextDataKey": {
+        },
+        "id": "A-bbf2ef7a-77ae-4b1a-b5ef-d20fad723f3b"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "2000",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-b35aa938-535c-4385-882b-79f50cf921a8"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["JiantiebanZhuangtai"],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-3dd286a4-d99d-4f2f-abf9-30b0f2795d62"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-0513ff56-b80c-4ca2-a3ba-21a1659f54c3"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "文件大小限制如果超出",
+      "id": "A-af4207a5-a865-4eb6-94f6-5c47a2fc095a"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "ClickClickClick",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-522131ee-f993-4bd8-9d9c-c2014145234c"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "CheckOneClickDoubleClick",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b0c4ea28-22a9-48f6-8912-269ebed314d3"
+    }, {
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "IsNotExists",
+            "varName": "SyncClipboardChongmingming",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-8caafa48-84be-4678-8cba-37e1c7e0b4b6"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "SyncClipboardChongmingming",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-b6bcc9a6-1799-4848-9d62-69b08252aae3"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "判断新增变量SyncClipboardChongmingming",
+          "id": "A-3d8bbcef-9ad3-45ea-b213-53ffdf7ec1f7"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "IsNotExists",
+            "varName": "SyncClipboardZhushiWenjianNeirong",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-415d9031-2e37-4715-bf0b-c1b5bcad0933"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "SyncClipboardZhushiWenjianNeirong",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-62ae1daf-9f25-40f0-872d-4eaa8b52a4b7"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "判断新增变量SyncClipboardZhushiWenjianNeirong",
+          "id": "A-5a80749a-6376-49f2-a0ac-0ea151e3c955"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "CheckOneClickDoubleClick",
+            "payload": {
+              "value": "1"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-008d8a58-136b-45b2-87a8-d39591d034fa"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "CheckOneClickDoubleClick",
+            "valueAsString": "0",
+            "customContextDataKey": {
+            },
+            "id": "A-68d8b646-0f6a-4324-9712-c1d806bcddd7"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "ClickClickClick",
+            "valueAsString": "DoubleClick",
+            "customContextDataKey": {
+            },
+            "id": "A-199720c2-2090-4637-ae9e-a1047db871cc"
+          }, {
+            "@type": "type.googleapis.com/ShowTextFieldDialog",
+            "title": "填写注释内容",
+            "cancelable": true,
+            "textFields": [{
+              "placeholder": "服务器端文件同步目录下会生成“文件名_Zhushi.txt”\n已知问题：取消也会输出内容。\n解决方案：清空所有内容后点击确定。"
+            }],
+            "style": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-14f08c25-f1cb-4b74-9e74-177f2f4d2e7f"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "SyncClipboardZhushiWenjianNeirong",
+            "valueAsString": "{textFieldInput1}",
+            "customContextDataKey": {
+            },
+            "id": "A-5d58e344-e24c-4a05-8129-366a21a1df30"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "双击",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-ff9ddd19-9b6b-4591-ba5a-1e4fffa6e1b3"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-09e22cf8-e680-48c8-8033-ad57efe705d8"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "CheckOneClickDoubleClick",
+            "valueAsString": "1",
+            "customContextDataKey": {
+            },
+            "id": "A-18dc7a03-64fa-43b2-8c29-bb23918381b9"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "200",
+            "customContextDataKey": {
+            },
+            "note": "控制两次点击之间的延迟",
+            "id": "A-fef52b0e-5dc2-4154-a541-d79a446e78a6"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "CheckOneClickDoubleClick",
+              "payload": {
+                "value": "1"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-71e88bc8-d192-4e99-9b1b-9d4074a921ba"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "CheckOneClickDoubleClick",
+              "valueAsString": "0",
+              "customContextDataKey": {
+              },
+              "id": "A-c2cba8af-198d-4ab8-a483-dcbdc8596400"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "ClickClickClick",
+              "valueAsString": "OneClick",
+              "customContextDataKey": {
+              },
+              "id": "A-44d3d61a-b327-44c7-86d1-1c60c93d5954"
+            }, {
+              "@type": "type.googleapis.com/ShowTextFieldDialog",
+              "title": "填写修改后的文件名，需要包含扩展名",
+              "cancelable": true,
+              "textFields": [{
+                "placeholder": "已知问题：取消也会输出内容。\n解决方案：清空所有内容后点击确定。",
+                "value": "localVarOf$BendiWenjianming"
+              }],
+              "style": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-b8af4a8c-58bc-450a-aa0f-87d42e9ed747"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "SyncClipboardChongmingming",
+              "valueAsString": "{textFieldInput1}",
+              "customContextDataKey": {
+              },
+              "id": "A-095e8f5f-eea9-4993-ae2d-4f3c62405768"
+            }, {
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "单击",
+              "customContextDataKey": {
+              },
+              "isDisabled": true,
+              "id": "A-0a4690c9-1940-436e-a4ea-ec1fb12054ae"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "customContextDataKey": {
+              },
+              "isDisabled": true,
+              "id": "A-70467ee2-4160-4134-8ca6-e7d1910d1c67"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-e8895ba9-57ac-4212-be09-6f0001403fc2"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-82288b87-d041-4c6a-af44-90c44b85f364"
+          }],
+          "customContextDataKey": {
+          },
+          "note": "单击双击判断",
+          "id": "A-4b6ce9c7-289c-45bc-97e7-19411af7bc8b"
+        }],
+        "label": "单击修改原文件名\n双击添加注释文件\n长按隐藏悬浮窗并停止当前指令",
+        "longClickActions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["SyncClipboardFuchuang"],
+          "customContextDataKey": {
+          },
+          "id": "A-91ae9c6f-5627-4aa1-ac35-12c84f3ab9fd"
+        }, {
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["ClickClickClickFuchuang"],
+          "customContextDataKey": {
+          },
+          "id": "A-f83bfb02-6536-4a97-9c42-693ba18643e4"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-f603d148-e0b7-451f-b523-b9a5a090260b"
+        }],
+        "id": "BTN-3d7f2b00-7116-4674-8167-446035b3789d"
+      }],
+      "tag": "ClickClickClickFuchuang",
+      "maxHeightInDp": 20,
+      "maxWidthInDp": 110,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 500,
+      "enableGlobalDrag": true,
+      "disableAutoEdge": true,
+      "customContextDataKey": {
+      },
+      "note": "单击修改文件名\n双击加注释文件\n长按隐藏悬浮窗",
+      "id": "A-c9ebeb17-1005-4477-962c-7ce31db7b147"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["SyncClipboardFuchuang"],
+      "customContextDataKey": {
+      },
+      "id": "A-2a23f694-09c3-4d20-8d57-123384727931"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "SyncClipboardFuchuangTXT",
+      "valueAsString": "正在上传媒体：\nlocalVarOf$BendiWenjianming",
+      "customContextDataKey": {
+      },
+      "id": "A-abd74501-d8ca-4aab-ab66-7204bb2881e5"
+    }, {
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["SyncClipboardFuchuang"],
+          "customContextDataKey": {
+          },
+          "id": "A-a9355901-d224-4dac-98d0-ecc1409b7ad5"
+        }],
+        "label": "localVarOf$SyncClipboardFuchuangTXT",
+        "id": "BTN-d5a59cf7-dbb5-44f8-a0ba-1fdb82c5cfed"
+      }],
+      "tag": "SyncClipboardFuchuang",
+      "maxHeightInDp": 113,
+      "maxWidthInDp": 113,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 500,
+      "enableGlobalDrag": true,
+      "disableAutoEdge": true,
+      "customContextDataKey": {
+      },
+      "id": "A-aa1b65a7-4202-47f1-bec3-e1ed9ebc00be"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "curl -u argOf$FuwuqiYonghuming:argOf$FuwuqiYonghuMima -T \"localVarOf$BendiWenjianLujingWenjianming\"  argOf$FuwuqiLianjieDizhi/file/",
+      "customContextDataKey": {
+      },
+      "note": "上传文件",
+      "id": "A-aff27891-5cd6-485c-89c5-dbb98c362ad3"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "BendiWenjianMD5",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9048f5a3-fa0e-4ad7-8c1c-239ea1957da3"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "md5sum \"localVarOf$BendiWenjianLujingWenjianming\" | awk \u0027{ print $1 }\u0027\n",
+      "customContextDataKey": {
+      },
+      "note": "获取上传文件的MD5",
+      "id": "A-9a971d93-cf0d-45db-a288-527e5105028b"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "BendiWenjianMD5",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-96f14597-b6b9-4e05-9de1-7040574c16ca"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "SyncClipboardUploadWaiting",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-15047530-2f04-4d75-9a75-519820929855"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "url\u003d\"argOf$FuwuqiLianjieDizhi/file/localVarOf$BendiWenjianming\"\nusername\u003d\"argOf$FuwuqiYonghuming\"\npassword\u003d\"argOf$FuwuqiYonghuMima\"\nmax_attempts\u003d20\nattempt\u003d0\n\nwhile [ $attempt -lt $max_attempts ]; do\n    # 使用 curl 检查文件是否存在\n    status_code\u003d$(curl -u \"$username:$password\" -o /dev/null -s -w \"%{http_code}\" \"$url\")\n    \n    if [ \"$status_code\" -eq 200 ]; then\n        echo \"webcunzai\"\n        break\n    fi\n    \n    attempt\u003d$((attempt + 1))\n    sleep 1  # 每秒钟检查一次\ndone\n\nif [ $attempt -eq $max_attempts ]; then\n    echo \"文件不存在\"\nfi\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "检查文件是否已经上传完成",
+      "id": "A-22359004-ab2e-498f-a645-34335c03462c"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "SyncClipboardUploadWaiting",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-e644839f-3ef4-4444-a5ed-4e3a80c102cc"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "2000",
+      "customContextDataKey": {
+      },
+      "id": "A-ddf3a1dc-80b6-47d1-8b64-b155f3162d7a"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "SyncClipboardUploadWaiting",
+        "payload": {
+          "value": "webcunzai"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e88e60ea-d691-42c2-96c8-90e46254a575"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "ClickClickClick",
+          "payload": {
+            "value": "OneClick"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-980a9662-bf9d-45b2-a702-a0f1a088ffa6"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "IsExists",
+            "varName": "SyncClipboardChongmingming",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-34a50ca1-86af-476c-8901-d093c29c4f06"
+          }, {
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "HasBeenSet",
+            "varName": "SyncClipboardChongmingming",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-4bac695f-d41b-4d93-b6e9-2b7674e9dbbf"
+          }],
+          "timeoutStr": "60000",
+          "customContextDataKey": {
+          },
+          "id": "A-0fe58d53-23b5-49fd-b209-2e11651cad64"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "IsExists",
+            "varName": "SyncClipboardChongmingming",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-f2dd8fe6-0c85-4d61-8a63-57c4377d63ce"
+          }, {
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "HasBeenSet",
+            "varName": "SyncClipboardChongmingming",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-9e8f6d53-2621-4b6c-ac5c-a12dc921a923"
+          }, {
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "SyncClipboardChongmingming",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-7942cf01-e7ea-47f3-a649-824bf5e1f8ab"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "SyncClipboardRenameWaiting",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-d2b4ce83-84f8-483e-b99e-0119242ba2db"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "curl -X MOVE \"argOf$FuwuqiLianjieDizhi/file/localVarOf$BendiWenjianming\" -H \"Destination:argOf$FuwuqiLianjieDizhi/file/localVarOf$SyncClipboardChongmingming\" -u argOf$FuwuqiYonghuming:argOf$FuwuqiYonghuMima\n\n",
+            "customContextDataKey": {
+            },
+            "note": "重命名服务器上的文件",
+            "id": "A-fd7bd0cb-16a8-417d-9810-e828a2c7fe29"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "url\u003d\"argOf$FuwuqiLianjieDizhi/file/localVarOf$SyncClipboardChongmingming\"\nusername\u003d\"argOf$FuwuqiYonghuming\"\npassword\u003d\"argOf$FuwuqiYonghuMima\"\nmax_attempts\u003d20\nattempt\u003d0\n\nwhile [ $attempt -lt $max_attempts ]; do\n    # 使用 curl 检查文件是否存在\n    status_code\u003d$(curl -u \"$username:$password\" -o /dev/null -s -w \"%{http_code}\" \"$url\")\n    \n    if [ \"$status_code\" -eq 200 ]; then\n        echo \"webcunzai\"\n        break\n    fi\n    \n    attempt\u003d$((attempt + 1))\n    sleep 1  # 每秒钟检查一次\ndone\n\nif [ $attempt -eq $max_attempts ]; then\n    echo \"文件不存在\"\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "检查文件是否重命名成功",
+            "id": "A-9be6ec4f-a9c4-4ce9-b30e-0016e9000681"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "SyncClipboardRenameWaiting",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-72f691e5-174b-4245-8dd4-945e40c28e18"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "SyncClipboardRenameWaiting",
+              "payload": {
+                "value": "webcunzai"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-36bebe9e-3dd9-43fa-b8af-a362110119c9"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "服务器文件重命名成功",
+              "customContextDataKey": {
+              },
+              "id": "A-99537462-8220-4a6f-bcd8-3a57e5ed0d8f"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "BendiWenjianming",
+              "valueAsString": "localVarOf$SyncClipboardChongmingming",
+              "customContextDataKey": {
+              },
+              "id": "A-2710901b-c704-4b8f-8eda-c24ab587c7b0"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "服务器文件重命名失败",
+              "customContextDataKey": {
+              },
+              "id": "A-85cae1d1-197b-406b-ae99-426913ed5eef"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f3383a57-282a-4122-9891-7551caab3ecb"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-0c4b642f-1c06-4b3a-adba-04f4a044b878"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "如果单击了修改文件名",
+        "id": "A-2dc183db-13d1-46bb-9d85-da295baa2430"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "ClickClickClick",
+          "payload": {
+            "value": "DoubleClick"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-e0e3cfb5-54c2-4aa1-911c-979e4a87b675"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "IsExists",
+            "varName": "SyncClipboardZhushiWenjianNeirong",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-34a50ca1-86af-476c-8901-d093c29c4f06"
+          }, {
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "HasBeenSet",
+            "varName": "SyncClipboardZhushiWenjianNeirong",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-4bac695f-d41b-4d93-b6e9-2b7674e9dbbf"
+          }],
+          "timeoutStr": "300000",
+          "customContextDataKey": {
+          },
+          "id": "A-0fe58d53-23b5-49fd-b209-2e11651cad64"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "IsExists",
+            "varName": "SyncClipboardZhushiWenjianNeirong",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-f2dd8fe6-0c85-4d61-8a63-57c4377d63ce"
+          }, {
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "HasBeenSet",
+            "varName": "SyncClipboardZhushiWenjianNeirong",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-9e8f6d53-2621-4b6c-ac5c-a12dc921a923"
+          }, {
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "SyncClipboardZhushiWenjianNeirong",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-7942cf01-e7ea-47f3-a649-824bf5e1f8ab"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "SyncClipboardAnnotationWaiting",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-d2b4ce83-84f8-483e-b99e-0119242ba2db"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "#!/system/bin/sh\n\n# WebDAV服务器配置\nSERVER_URL\u003d\"argOf$FuwuqiLianjieDizhi/file/\"\nUSERNAME\u003d\"argOf$FuwuqiYonghuming\"\nPASSWORD\u003d\"argOf$FuwuqiYonghuMima\"\nTARGET_FILE\u003d\"localVarOf$BendiWenjianming_Zhushi.txt\"\n\n# 要上传的文本内容\nTEXT_CONTENT\u003d\"localVarOf$SyncClipboardZhushiWenjianNeirong\"\n\n# 使用curl上传文本到WebDAV（合并为一行）\necho \"$TEXT_CONTENT\" | curl -T - -u \"$USERNAME:$PASSWORD\" -X PUT \"${SERVER_URL}${TARGET_FILE}\" -H \"Content-Type: text/plain; charset\u003dutf-8\"\n\n# 检查上传状态\nif [ $? -eq 0 ]; then\n  echo \"上传成功\"\nelse\n  echo \"上传失败\"\nfi    ",
+            "customContextDataKey": {
+            },
+            "note": "重命名服务器上的文件",
+            "id": "A-fd7bd0cb-16a8-417d-9810-e828a2c7fe29"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "url\u003d\"argOf$FuwuqiLianjieDizhi/file/localVarOf$BendiWenjianming_Zhushi.txt\"\nusername\u003d\"argOf$FuwuqiYonghuming\"\npassword\u003d\"argOf$FuwuqiYonghuMima\"\nmax_attempts\u003d20\nattempt\u003d0\n\nwhile [ $attempt -lt $max_attempts ]; do\n    # 使用 curl 检查文件是否存在\n    status_code\u003d$(curl -u \"$username:$password\" -o /dev/null -s -w \"%{http_code}\" \"$url\")\n    \n    if [ \"$status_code\" -eq 200 ]; then\n        echo \"webcunzai\"\n        break\n    fi\n    \n    attempt\u003d$((attempt + 1))\n    sleep 1  # 每秒钟检查一次\ndone\n\nif [ $attempt -eq $max_attempts ]; then\n    echo \"文件不存在\"\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "检查文件是否重命名成功",
+            "id": "A-9be6ec4f-a9c4-4ce9-b30e-0016e9000681"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "SyncClipboardAnnotationWaiting",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-72f691e5-174b-4245-8dd4-945e40c28e18"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "SyncClipboardAnnotationWaiting",
+              "payload": {
+                "value": "webcunzai"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-36bebe9e-3dd9-43fa-b8af-a362110119c9"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "服务器端添加注释文件成功\nlocalVarOf$BendiWenjianming_Zhushi.txt",
+              "customContextDataKey": {
+              },
+              "id": "A-99537462-8220-4a6f-bcd8-3a57e5ed0d8f"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "BendiWenjianming",
+              "valueAsString": "localVarOf$SyncClipboardChongmingming",
+              "customContextDataKey": {
+              },
+              "isDisabled": true,
+              "id": "A-2710901b-c704-4b8f-8eda-c24ab587c7b0"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "服务器端添加注释文件失败",
+              "customContextDataKey": {
+              },
+              "id": "A-85cae1d1-197b-406b-ae99-426913ed5eef"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f3383a57-282a-4122-9891-7551caab3ecb"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-0c4b642f-1c06-4b3a-adba-04f4a044b878"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "如果双击了添加注释文件",
+        "id": "A-acd6228b-db55-4866-a976-eff9fbbf2b8a"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "argOf$FuwuqiLianjieDizhi/argOf$FuwuqiLianjieWenjianming",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "method": "PUT",
+        "headers": [{
+          "key": "Authorization",
+          "value": "Basic argOf$FuwuqiYonghuPingzheng"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyJson",
+          "json": "{\n\"File\":\"localVarOf$BendiWenjianming\",\n\"Clipboard\":\"localVarOf$BendiWenjianMD5\",\n\"Type\":\"Image\"\n}"
+        },
+        "withCookieJar": true,
+        "customContextDataKey": {
+        },
+        "note": "使用Base64编码，格式：\nUserName:Password\nBasic YWR",
+        "id": "A-2d96c7e4-090e-4bf4-95fb-e066ea32b9c8"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "媒体已上传，配置文件已更新\nlocalVarOf$BendiWenjianming",
+        "customContextDataKey": {
+        },
+        "id": "A-517c8b4e-e4e8-42f3-be0e-12abfb8cb3b1"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "媒体上传失败！\nlocalVarOf$BendiWenjianming",
+        "customContextDataKey": {
+        },
+        "id": "A-db36dc24-cc6e-42f1-aab7-b37a167a431f"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "如果上传成功就写入配置文件",
+      "id": "A-57bc4a62-565a-4ec5-ab6c-c827cacf1b99"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["SyncClipboardFuchuang"],
+      "customContextDataKey": {
+      },
+      "id": "A-fdaf6b78-e14e-473b-beec-b7839d1ab2c1"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["ClickClickClickFuchuang"],
+      "customContextDataKey": {
+      },
+      "id": "A-79e0cd5b-2e60-42a0-b8bd-44b7aa9597db"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "SyncClipboard\n实时同步已关闭",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-e369748f-e414-4bd5-8f4d-be75e9acbf6e"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "媒体文件实时同步",
+    "id": "A-c6471ae4-e1f5-4006-bde9-4ac4d5a8838e"
+  }],
+  "id": "SHARE-rule-790ff708-2fbb-4a9c-af97-99a262a57b59",
+  "lastUpdateTime": "1751468192245",
+  "createTime": "1751161613559",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "上传剪贴板_SyncClipboard",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo 1",
+      "customContextDataKey": {
+      },
+      "id": "A-0d5ec890-cd7b-4ca3-87dc-cec89123b2a7"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "shellOut",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-f6a68423-f699-45b7-a8cb-c7d51776ddfd"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "onPositive": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+        }],
+        "title": "shell运行异常",
+        "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+        "cancelable": true,
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "Shell测试，指令参数提示。",
+      "id": "A-7abc1e52-ed56-4c17-aa4d-7d94215e44a4"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-13ee1a40-e6f5-4e5b-9840-14c06ef17a18",
+  "parameters": [{
+    "name": "BendiWenjianDizhi",
+    "defaultValue": "/storage/emulated/0/Download/SyncClipboard/file",
+    "isRequired": true,
+    "comments": "修改一个可用的本地存储路径。\n\n注意！字符结尾不要带“/”"
+  }, {
+    "name": "FuwuqiYonghuming",
+    "defaultValue": "NotSet",
+    "isRequired": true,
+    "comments": "填写服务器用户名。"
+  }, {
+    "name": "FuwuqiYonghuMima",
+    "defaultValue": "NotSet",
+    "isRequired": true,
+    "comments": "填写服务器密码"
+  }, {
+    "name": "FuwuqiYonghuPingzheng",
+    "defaultValue": "NotSet",
+    "isRequired": true,
+    "comments": "填写服务器用户凭证"
+  }, {
+    "name": "FuwuqiLianjieWenjianming",
+    "defaultValue": "SyncClipboard.json",
+    "isRequired": true,
+    "comments": "服务器目录下默认连接的文件名，默认为：SyncClipboard.json\n\n注意，是单文件名，前面不要加网址。\n以下是错误格式：\nhttps://fuwuqidizhi.com/mulu/file/SyncClipboard.json\n"
+  }, {
+    "name": "FuwuqiLianjieDizhi",
+    "defaultValue": "NotSet",
+    "isRequired": true,
+    "comments": "是服务器连接文件的目录位置\n如：\nhttps://fuwuqidizhi.com/mulu/wenjianjia\n\n只到json文件所在那个目录的路径\n不要加“/file”\n不要写入最后的“/”"
+  }]
+}
+###------###
+{"type":"rule"}

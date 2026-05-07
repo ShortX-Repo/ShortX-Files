@@ -1,0 +1,105 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/KeyEvent",
+    "keyCode": 24,
+    "id": "F-2596e709-10be-480d-9f71-e747d22d6ed4"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-34277d8a-0647-428a-93e6-a67892c25a1e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "StartOrStop",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-8e79560b-9195-4aa2-9a9f-3de853197880"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "StartOrStop",
+        "valueAsString": "Start",
+        "id": "A-ff148881-ca69-4375-84b3-a86a4e5fc80c"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "StartOrStop",
+          "payload": {
+            "value": "Start"
+          },
+          "id": "C-e4418d05-b474-4e1b-9ae5-44d4bfec7b0f"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WhileLoop",
+          "conditions": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "StartOrStop",
+            "payload": {
+              "value": "Start"
+            },
+            "id": "C-d0a9af66-4731-4e28-b226-09ae6aa66eae"
+          }],
+          "actions": [{
+            "@type": "type.googleapis.com/InputTap",
+            "x": 1710,
+            "y": 710,
+            "id": "A-de95f97e-d0c1-4d71-bee9-88a5b3c01994"
+          }],
+          "id": "A-2321f1d1-815b-4dd3-a15f-68dfe0336b88"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "edit-circle-line",
+          "id": "A-9a7e419d-be4c-41e7-8b80-1df083fd23bb"
+        }],
+        "id": "A-4dec96e6-012a-4cc3-8840-2830e632cf0a"
+      }],
+      "icon": "edit-circle-fill",
+      "label": "开始"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "StartOrStop",
+        "valueAsString": "Stop",
+        "id": "A-82cf67ad-bbd5-492b-9303-35d8774fe948"
+      }],
+      "icon": "edit-circle-line",
+      "label": "结束"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["Event"],
+        "id": "A-bb63b11f-dc92-4974-b9cd-d09d27a9ad64"
+      }],
+      "icon": "tools-line",
+      "label": "关闭"
+    }],
+    "tag": "Event",
+    "orientation": "Land",
+    "id": "A-76c66d10-27aa-417b-97d5-1ce2e3026119"
+  }],
+  "id": "rule-532ed161-8d08-4700-b7ae-c76812d0b7a0",
+  "lastUpdateTime": "1692366255569",
+  "createTime": "1692364951778",
+  "author": {
+    "name": "MrMoxing"
+  },
+  "title": "自动剧情",
+  "description": " ",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

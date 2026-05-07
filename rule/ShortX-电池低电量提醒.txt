@@ -1,0 +1,188 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BatteryTemperatureChanged",
+    "tag": "任意温度",
+    "customContextDataKey": {
+    },
+    "id": "F-971614f0-42ed-466b-be24-ba6a2b84410a"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "tag": "电量改变",
+    "customContextDataKey": {
+    },
+    "note": "无需修改，默认必开",
+    "id": "F-6ce79c7d-eabc-41e1-8a53-07ce4b679f8a"
+  }, {
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "gesture": "KeyLongPress",
+    "tag": "长按",
+    "customContextDataKey": {
+    },
+    "id": "F-1d6ca0f3-4b6d-483a-8232-de9443f8cf59"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "任意温度",
+        "customContextDataKey": {
+        },
+        "id": "C-d088ec71-97f8-4ccc-99b2-b42b0aab10fd"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "{batteryTemperature}°",
+        "icon": "remix://battery-tips",
+        "clickAction": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "battery_prompt",
+          "valueAsString": "0",
+          "customContextDataKey": {
+          },
+          "id": "A-45dac878-437e-4dff-ae62-c4c557bd917d"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-91bcad7a-517e-4b30-ad8b-7a9315c9ea66"
+      }],
+      "description": "任意温度",
+      "id": "Case-df8eec87-9af5-40de-8b80-4a5e201a2012",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "电量改变",
+        "customContextDataKey": {
+        },
+        "id": "C-ffe34a65-1081-4963-b509-12567511b925"
+      }, {
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "长按",
+        "customContextDataKey": {
+        },
+        "id": "C-505c4fdc-8e20-414f-b248-690d37336797"
+      }],
+      "caseCondOp": "ANY",
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/ChargeState",
+          "customContextDataKey": {
+          },
+          "id": "C-5facc786-94b3-413f-837c-ba115071bc49"
+        }, {
+          "@type": "type.googleapis.com/BatteryPercent",
+          "value": 26,
+          "op": "IntLessThanOrEQ",
+          "customContextDataKey": {
+          },
+          "id": "C-cbce51ba-16f5-4be1-a151-33394e898cb3"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/RequireFactTag",
+            "tag": "电量改变",
+            "customContextDataKey": {
+            },
+            "id": "C-96f26481-f628-4def-9a45-c318ef6887bb"
+          }, {
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "IsNotExists",
+            "varName": "按键",
+            "payload": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-2e397959-fa3a-4025-8cf6-5ff471371ba1"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/TTS",
+            "text": "为保证电池健康请尽快充电",
+            "customContextDataKey": {
+            },
+            "id": "A-a99c1d43-e654-4947-8d37-c46b2923e146"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateGlobalVar",
+              "op": "IsExists",
+              "varName": "按键",
+              "payload": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-294b7042-8e8d-4292-860e-3bbf9d05591e"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Parent",
+              "customContextDataKey": {
+              },
+              "id": "A-31695b29-590e-48af-81e3-6200a603342d"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-5836890b-6fe1-4814-94f8-82019fc688bc"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "关闭播报",
+            "customContextDataKey": {
+            },
+            "id": "A-85e9d767-d409-4357-b258-122dde971390"
+          }, {
+            "@type": "type.googleapis.com/CreateGlobalVar",
+            "globalVar": {
+              "name": "按键",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-366bf4d8-b12b-4cdf-a61f-ccc947bc28cd"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-271d66d3-a76a-4984-944d-24437b903e12"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/DeleteGlobalVar",
+          "varName": "按键",
+          "customContextDataKey": {
+          },
+          "id": "A-90baccbc-9113-4ba3-a2bb-cbc62092a122"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-aa117eb4-8a86-4e4d-bf33-bafdcecd8d6a"
+      }],
+      "description": "充电播报",
+      "id": "Case-8ae34f9d-6d40-4389-96fb-193ca2456aea",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d52f9902-7c88-4ed0-baa4-b6f60add3999"
+  }],
+  "id": "SHARE-rule-800bfb6a-2177-4111-96f5-67eaa4d0ad59",
+  "lastUpdateTime": "1770769782422",
+  "createTime": "1742223587368",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "电池低电量提醒",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-13f73354-119b-48c2-929f-aea0ed87b148",
+  "actionAsyncMode": "ActionAsyncMode_Async"
+}
+###------###
+{"type":"rule"}

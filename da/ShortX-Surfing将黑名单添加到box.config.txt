@@ -1,0 +1,114 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "包名列表",
+      "type": {
+        "@type": "type.googleapis.com/StringListVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-95148e92-1b69-4895-9cba-32a199c1b591"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "格式化列表",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-7200a1be-4244-476e-9254-dc777610dece"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "格式化列表",
+    "valueAsString": "(",
+    "customContextDataKey": {
+    },
+    "id": "A-8aae1ac7-82bb-43b3-8659-cb860f3fe13c"
+  }, {
+    "@type": "type.googleapis.com/ForEachPkgSet",
+    "pkgSet": "VPN黑名单",
+    "action": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "packageName \u003d loopAppPkgName;\nformatted \u003d \u0027\"0:\u0027 + packageName + \u0027\"\u0027;\nreturn formatted;",
+      "customContextDataKey": {
+      },
+      "id": "A-9ed17fc-7e3b-4d77-9aaf-ba8fa2054adb"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "格式化列表",
+      "valueAsString": "localVarOf$格式化列表{mvelRet} ",
+      "customContextDataKey": {
+      },
+      "id": "A-bed17fc-7e3b-4d77-9aaf-ba8fa2054adb"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d0db22c3-1322-4a6d-b2d4-64f9a6cd30e9"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "list \u003d localVarOf$格式化列表;\nresult \u003d list.trim() + \u0027)\u0027;\nreturn result;",
+    "customContextDataKey": {
+    },
+    "id": "A-feed17fc-7e3b-4d77-9aaf-ba8fa2054adb"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "格式化列表",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-geed17fc-7e3b-4d77-9aaf-ba8fa2054adb"
+  }, {
+    "@type": "type.googleapis.com/ShowPPN",
+    "tag": "tag-1751954383951",
+    "message": "准备写入的包名列表：\nlocalVarOf$格式化列表",
+    "displayTimeSeconds": 5,
+    "customContextDataKey": {
+    },
+    "id": "A-35f39772-7f56-4a4b-81e5-82abe31e5463"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "su",
+    "customContextDataKey": {
+    },
+    "id": "A-h5f39772-7f56-4a4b-81e5-82abe31e5463"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var packageList \u003d localVarOf$格式化列表; var configPath \u003d \u0027/data/adb/box_bll/scripts/box.config\u0027; var shellCmd \u003d \u0027cp \u0027 + configPath + \u0027 \u0027 + configPath + \u0027.bak \u0026\u0026 sed -i \"s/^user_packages_list\u003d.*/user_packages_list\u003d\u0027 + packageList.replace(/\"/g, \u0027\\\\\"\u0027) + \u0027/\" \u0027 + configPath + \u0027 \u0026\u0026 echo \"配置文件已更新\"\u0027; shellCmd;",
+    "customContextDataKey": {
+    },
+    "id": "A-j5f39772-7f56-4a4b-81e5-82abe31e5463"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "{jsRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-k5f39772-7f56-4a4b-81e5-82abe31e5463"
+  }, {
+    "@type": "type.googleapis.com/ShowPPN",
+    "tag": "tag-1751954383952",
+    "message": "包名列表写入完成！\n\n执行结果：\n{shellCommandOutput}\n\n包名列表：\nlocalVarOf$格式化列表\n\n配置文件路径：/data/adb/box_bll/scripts/box.config\n备份文件：/data/adb/box_bll/scripts/box.config.bak",
+    "displayTimeSeconds": 10,
+    "customContextDataKey": {
+    },
+    "id": "A-i5f39772-7f56-4a4b-81e5-82abe31e5463"
+  }],
+  "id": "SHARED-DA-829eb79d-9b7e-4d32-8d24-1665a1659a3c",
+  "lastUpdateTime": "1751964352366",
+  "createTime": "1751953780954",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Surfing将黑名单添加到box.config",
+  "description": "获取VPN黑名单应用集中的包名及其对应的Android用户ID，并写入到/data/adb/box_bll/scripts/box.config文件的user_packages_list配置项中。\n\n使用说明：\n1. 确保/data/adb/box_bll/scripts/box.config文件存在\n2. 在ShortX中创建名为\u0027VPN黑名单\u0027的应用集\n3. 运行此脚本自动更新配置",
+  "versionCode": "7",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

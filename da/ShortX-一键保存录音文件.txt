@@ -1,0 +1,19 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "for i in $(echo \"/data/system/$(ls /data/system | grep -E \u0027shortx_.*\u0027)/record\")/*\ndo\n  cp -f ${i} /sdcard/music\ndone\n",
+    "customContextDataKey": {
+    },
+    "id": "A-201a4a7c-8bea-4a11-8b3a-61bf138604b7"
+  }],
+  "id": "DA3c1457db-eea8-4a6c-9bbd-26f0de0a8a2c",
+  "lastUpdateTime": "1700628788277",
+  "createTime": "1700628771642",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "一键保存录音文件",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

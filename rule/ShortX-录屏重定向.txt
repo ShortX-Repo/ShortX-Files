@@ -1,0 +1,106 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MediaStoreInsert",
+    "filterPath": ".*Screenrecords.*",
+    "customContextDataKey": {
+    },
+    "id": "F-0c3fdf55-bda6-4e22-9b56-44de2ee34836"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "while [ -z \"$(ls -A /sdcard/Movies/Screenrecords/ | grep -v \u0027^\\..*\u0027)\" ]; do\n  sleep 1\ndone\n\nmv /sdcard/Movies/Screenrecords/* /sdcard/MT2/apks/影音影像/",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-60c98872-fbd8-4fd3-a766-092e73037da3"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "Audiovisual_imaging",
+    "valueAsString": "{shellCode}",
+    "customContextDataKey": {
+    },
+    "id": "A-4edf3374-1662-4482-a2a1-b4422a098821"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "Audiovisual_imaging",
+      "payload": {
+        "value": "0"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-845ee453-d3c4-45e1-b7dd-dc7b052b4d18"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "录屏已保存到：/sdcard/MT2/apks/影音影像/ 目录下",
+      "customContextDataKey": {
+      },
+      "id": "A-ee1af908-2894-4489-8a8e-ae97ebed8d38"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "shell失败：{shellCode}",
+      "customContextDataKey": {
+      },
+      "id": "A-dbcafa26-33d8-4ec9-8a12-54f1c6187da3"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e3b99b47-14fe-4c94-93a4-f1739cda9e7a"
+  }],
+  "id": "rule-a0fdf9ce-423d-42da-8d5f-1010ffabc565",
+  "lastUpdateTime": "1696423321970",
+  "createTime": "1696341370386",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "录屏重定向",
+  "description": "到：/sdcard/MT2/apks/影音影像/",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "Audiovisual_imaging",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c0577146-2f1a-45ac-8a86-7c203a39601f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "Audiovisual_imaging",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-8cef3c1e-1761-4ec2-a48c-7a3915dc5c44"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-5a7fcec8-31ce-4a45-b494-bcc016794419"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5422ab45-1f8d-493b-a6f4-6c889b8bd8d5"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-de5b5bd8-2d88-4189-94e9-c3283b1c4658"
+}
+###------###
+{"type":"rule"}

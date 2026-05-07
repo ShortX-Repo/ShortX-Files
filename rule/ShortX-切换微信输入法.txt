@@ -1,0 +1,45 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["外网应用"],
+    "customContextDataKey": {
+    },
+    "id": "F-2ad165ae-af3b-4734-a67c-55dc67c96ae7"
+  }, {
+    "@type": "type.googleapis.com/AppLostWindowFocus",
+    "pkgSets": ["外网应用"],
+    "customContextDataKey": {
+    },
+    "id": "F-a490334d-9a02-435f-b074-0cf5289cbf21"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "300",
+    "customContextDataKey": {
+    },
+    "id": "A-04e16846-45a1-4ef0-bd4e-3c498d746744"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "ime list -a\nime set com.tencent.mm/.WeChatIME",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-f3aeefd4-8f5a-4b25-9bdd-322d3a2cced4"
+  }],
+  "id": "SHARE-rule-14ea4549-aed2-4b3f-af7e-3ec9ee10a450",
+  "lastUpdateTime": "1746623761429",
+  "createTime": "1746616307054",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "切换微信输入法",
+  "description": "打开外网app时，切换gboard\n打开国内app时，切换微信输入法",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

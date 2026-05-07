@@ -1,0 +1,46 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://auth0.openai.com/oauth/token",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["access_token"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "User-Agent",
+      "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\"redirect_uri\":\"com.openai.chat://auth0.openai.com/ios/com.openai.chat/callback\",\"grant_type\":\"refresh_token\",\"client_id\":\"pdlLIX2Y72MIl2rhLhTE9VV9bN905kBh\",\"refresh_token\":\"VX9Vtc3Juq4JGISZ3K3nHJY97Tl6BOQnPi7W5p1-9x1YU\"}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-9f366bfa-6566-4aa9-b2bd-65a6f46f824c"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "新的access_token：\n{httpRequestRet1}",
+    "icon": "app://com.openai.chatgpt",
+    "customContextDataKey": {
+    },
+    "id": "A-8039db2d-6250-47b2-a1c0-6d0f75d38659"
+  }, {
+    "@type": "type.googleapis.com/WriteClipboard",
+    "text": "{httpRequestRet1}",
+    "customContextDataKey": {
+    },
+    "id": "A-877b6ed8-d7ba-415f-b56d-048c729ee2bc"
+  }],
+  "id": "DAaceb54a6-f564-472d-ad93-576fdbe61fbb",
+  "lastUpdateTime": "1697039645925",
+  "createTime": "1696609613122",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "获取openai访问令牌",
+  "description": "使用refresh_token来刷新access_token并写入剪贴板。",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

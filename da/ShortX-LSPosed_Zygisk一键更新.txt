@@ -1,0 +1,75 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.github.com/repos/JingMatrix/LSPosed/releases/latest",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["name", "assets[assets.size()-\n1].browser_download_url", "assets[assets.size()- 1].updated_at", "body"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-9d313702-f8a1-4b95-9f67-f657a87c203b"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "查看",
+    "onPositive": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "https://github.com/JingMatrix/LSPosed/releases/",
+      "customContextDataKey": {
+      },
+      "id": "A-99ad70b8-444a-47a0-a1bf-011a896d39fa"
+    }],
+    "negative": "复制",
+    "onNegative": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "最新版本号为 {httpRequestRet1}\n上传时间 {httpRequestRet3}\n\n{httpRequestRet4}",
+      "customContextDataKey": {
+      },
+      "id": "A-38f87f5e-ee77-48e9-bc16-98b956d69e93"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{httpRequestRet2}",
+      "customContextDataKey": {
+      },
+      "id": "A-6004839c-4f73-442b-8967-cdabd7b65ac8"
+    }],
+    "neutral": "下载",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/DownloadFile",
+      "subject": {
+        "title": "LSPosed-V{httpRequestRet1}.zip",
+        "description": "LSPosed最新版本",
+        "url": "{httpRequestRet2}",
+        "fileName": "LSPosed-V{httpRequestRet1}.zip"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9f1a6284-5e9e-4b7a-8f8b-4e5000142bbe"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已下载到系统下载目录",
+      "customContextDataKey": {
+      },
+      "id": "A-33fb1cdf-f34a-40a7-aab7-a3fa040ee393"
+    }],
+    "title": "LSPosed最新版本",
+    "message": "最新版本号为 {httpRequestRet1}\n上传时间 {httpRequestRet3}\n\n{httpRequestRet4}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-0caba0f5-f09e-4b85-9e6b-bb437b7aef9a"
+  }],
+  "id": "DA3d3701bd-639f-49be-b048-d56f281f23e1",
+  "lastUpdateTime": "1724410062796",
+  "createTime": "1724409561216",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "LSPosed Zygisk一键更新",
+  "description": "LSPosed zygisk mode版一键下载更新",
+  "versionCode": "1",
+  "directActionSetId": "DS-fb21ecca-9e17-492b-b730-13331d1c275d"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,289 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemReady",
+    "tag": "systemOn",
+    "customContextDataKey": {
+    },
+    "id": "F-a4eb026d-c0e8-478a-b31c-3fffb625e940"
+  }, {
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "customContextDataKey": {
+    },
+    "id": "F-966341c1-8604-41c1-b4eb-617412791e8d"
+  }, {
+    "@type": "type.googleapis.com/APMStatusChanged",
+    "ooa": "Off",
+    "tag": "airmodeOff",
+    "customContextDataKey": {
+    },
+    "id": "F-8b12d860-7a99-42d7-a69d-8737d858f2ff"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-f731f13b-a39f-44ba-8aec-fd58175b627e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.telephony.SubscriptionManager;\n\nsubscriptionManager \u003d context.getSystemService(\"telephony_subscription_service\");\ndefaultDataSubId \u003d SubscriptionManager.getDefaultDataSubscriptionId();\n\n// 获取卡槽 0 和卡槽 1 的订阅信息\nsimSlot1Info \u003d subscriptionManager.getActiveSubscriptionInfoForSimSlotIndex(0);\nsimSlot2Info \u003d subscriptionManager.getActiveSubscriptionInfoForSimSlotIndex(1);\n\nif (simSlot1Info !\u003d null \u0026\u0026 simSlot1Info.getSubscriptionId() \u003d\u003d defaultDataSubId) {\n    return 1;\n} else if (simSlot2Info !\u003d null \u0026\u0026 simSlot2Info.getSubscriptionId() \u003d\u003d defaultDataSubId) {\n    return 2;\n} else {\n    return -1;\n}",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "curSIM"
+      }]
+    },
+    "note": "获取默认上网卡",
+    "id": "A-50d36029-167f-45ed-8ac0-065de03f535d"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "getprop gsm.network.type | awk -F \u0027,\u0027 \u0027{print ${curSIM}}\u0027",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "network_type"
+      }]
+    },
+    "note": "查看卡槽的网络类型",
+    "id": "A-d13ce8ee-2416-426e-9974-c2d39d8aafc4"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "return {curSIM} - 1;",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "curSlot"
+      }]
+    },
+    "id": "A-7168f68c-2410-454e-937f-2580903de8a5"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "return {curSIM} % 2;",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "otherSlot"
+      }]
+    },
+    "id": "A-cf892f7b-68a4-4d0f-9b95-5944ab101698"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "cmd phone set-allowed-network-types-for-users -s {otherSlot} 01001111101111111111",
+    "customContextDataKey": {
+    },
+    "note": "非流量卡锁4G",
+    "id": "A-b16f91f7-6307-4c95-89b9-e0db4c6b058e"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "turnOn5G",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-79a89729-8322-4f96-bb4a-f09a7bcea470"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "systemOn",
+      "customContextDataKey": {
+      },
+      "id": "C-a9e959e1-6cc8-4706-9426-3ae7184f5552"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "airmodeOff",
+      "customContextDataKey": {
+      },
+      "id": "C-f4e7bd32-b4d5-4969-89e6-be90bba171ff"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "turnOn5G",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "id": "A-66e5d948-8dea-41cb-8c5f-81428b3f4c62"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{network_type} !\u003d \u0027NR_SA\u0027 \u0026\u0026 {network_type} !\u003d \u0027LTE\u0027",
+        "customContextDataKey": {
+        },
+        "id": "C-0c6d4c23-1d92-40f1-bd71-a5b59664094e"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "return globalVarOf$is5G !\u003d \u0027true\u0027",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "getNeg"
+          }]
+        },
+        "id": "A-6700d759-72bc-4a66-82b0-694bf01fd412"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "turnOn5G",
+        "valueAsString": "{getNeg}",
+        "customContextDataKey": {
+        },
+        "id": "A-45bcb484-c571-4e75-bf07-19332ee53d4c"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "network_type",
+          "payload": {
+            "value": "NR_SA"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-6b82a17a-0a3e-463c-9efd-28e783a15c26"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "turnOn5G",
+          "valueAsString": "false",
+          "customContextDataKey": {
+          },
+          "id": "A-f1e6f93f-c5d9-4a0f-8a0b-095b346af8a6"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "turnOn5G",
+          "valueAsString": "true",
+          "customContextDataKey": {
+          },
+          "id": "A-5f2e550e-c80b-40ef-93dc-d2548ea30e82"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-20c31eda-b040-4bd7-9453-db4146ba1b54"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-94c69c2d-90ee-4d32-9b5a-522d4359e84b"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-46587bf2-78b7-4ebc-9b3c-6552e1b10de8"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "turnOn5G",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d86c7cdd-f984-44d4-b677-81ff025e9d2b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "cmd phone set-allowed-network-types-for-users -s {curSlot} 10000000000000000000",
+      "customContextDataKey": {
+      },
+      "note": "流量卡锁5G",
+      "id": "A-f1913e6b-ebda-4863-82a7-5ec4fb5dbfe7"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "is5G",
+      "valueAsString": "true",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-cbbe5e96-0f52-4925-b10a-480b5a638288"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "锁5G",
+      "customContextDataKey": {
+      },
+      "id": "A-840918b2-b725-4c34-bfef-66aa431a7ea9"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "cmd phone set-allowed-network-types-for-users -s {curSlot} 01001111101111111111",
+      "customContextDataKey": {
+      },
+      "note": "流量卡禁5G",
+      "id": "A-b24518ba-0c2a-477f-99bf-f87d23162333"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "is5G",
+      "valueAsString": "false",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-9ecb113c-3f84-4207-91d9-3cac67a3e563"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "锁4G",
+      "customContextDataKey": {
+      },
+      "id": "A-17e19550-f333-4aaf-874b-e274db522b93"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fb34b2af-ffc5-4e51-b38b-b153c2daf696"
+  }],
+  "id": "SHARE-rule-1fe0cc7d-de71-40fa-adf9-546bb40169d9",
+  "lastUpdateTime": "1757476860507",
+  "createTime": "1730096994791",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "锁5G",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "is5G",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-49df00e3-ce02-4c6d-b3af-81a5cb8b7d1e"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "is5G",
+      "valueAsString": "true",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-a99fb504-58d1-4a7d-83a5-c6090383a197"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "is5G",
+      "customContextDataKey": {
+      },
+      "id": "A-d7438b78-9b3a-49b2-973c-800f2b2c8923"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "is5G",
+      "customContextDataKey": {
+      },
+      "id": "A-4b9d7582-39af-4331-900e-21bee17499d4"
+    }]
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

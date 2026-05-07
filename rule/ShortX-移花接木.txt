@@ -1,0 +1,346 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "tag": "activity",
+    "customContextDataKey": {
+    },
+    "id": "F-a4e9d17f-7d1a-42a5-9115-6ad1c8ba10a1"
+  }, {
+    "@type": "type.googleapis.com/PkgStartRunning",
+    "tag": "start",
+    "customContextDataKey": {
+    },
+    "id": "F-086e9edb-9a34-4d93-95ea-0b0641ef623e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(Packages.tornaco.apps.shortx.core.proto.action.StartActivity);\n\nfunction startactivity(activityname){\nvar action \u003d StartActivity.newBuilder()\n    .setComponentNameAsString(activityname).build();\nshortx.executeAction(action)\n}\n\nfunction formatComponent(componentName) {\n    var parts \u003d componentName.split(\"/\");\n    if (parts.length \u003d\u003d\u003d 2) {\n        var pkg \u003d parts[0];\n        var cls \u003d parts[1];\n        if (cls.charAt(0) \u003d\u003d\u003d \u0027.\u0027) {\n            cls \u003d pkg + cls;\n        }\n        return pkg + \"/\" + cls;\n    }\n    return componentName;\n}\ntry{\n    var tigger\u003dfactTag;\n    var configjson\u003dglobalVarOf$移花接木规则;\n    var config\u003dJSON.parse(configjson);\n    if(tigger\u003d\u003d\u003d\"activity\"){\n        var toactivity \u003d config[tigger][formatComponent(componentName)];\n    }else{\n        var toactivity \u003d config[tigger][pkgName];\n    }\n    if(toactivity!\u003d\u003dundefined){\n        startactivity(toactivity);\n    }\n    \"common\"\n}catch(e){\n    \"setting\"\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-b85c8a8a-7c53-436a-82c3-9d2cc9c38810"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "jsRet",
+      "payload": {
+        "value": "setting"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-11293ff5-df60-41b4-9eea-15066b79e316"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "添加活动替换规则",
+        "clickActions": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "startactivitycache",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-3da2d265-fc54-4730-98ac-b7e34d6e3037"
+        }, {
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "当前activity",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-0112aea5-6120-42ef-983f-8660b9f836f6"
+        }, {
+          "@type": "type.googleapis.com/ShowOverlayButton",
+          "buttonSettings": [{
+            "actions": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "startactivitycache",
+              "valueAsString": "globalVarOf$当前activity",
+              "customContextDataKey": {
+              },
+              "id": "A-e8a39110-a10b-44ad-89c0-b5762ecd9715"
+            }, {
+              "@type": "type.googleapis.com/HideOverlayButton",
+              "overlayTags": ["原活动"],
+              "customContextDataKey": {
+              },
+              "id": "A-51cbe1f3-9d8f-4112-8dc4-90298f5f4156"
+            }, {
+              "@type": "type.googleapis.com/ShowOverlayButton",
+              "buttonSettings": [{
+                "actions": [{
+                  "@type": "type.googleapis.com/ExecuteJS",
+                  "expression": "var oldrule\u003dglobalVarOf$移花接木规则;\nvar config\u003dJSON.parse(oldrule);\nfunction formatComponent(componentName) {\n    var parts \u003d componentName.split(\"/\");\n    if (parts.length \u003d\u003d\u003d 2) {\n        var pkg \u003d parts[0];\n        var cls \u003d parts[1];\n        if (cls.charAt(0) \u003d\u003d\u003d \u0027.\u0027) {\n            cls \u003d pkg + cls;\n        }\n        return pkg + \"/\" + cls;\n    }\n    return componentName;\n}\nif(globalVarOf$startactivitycache!\u003d\u003dglobalVarOf$当前activity){\n    config[\"activity\"][formatComponent(globalVarOf$startactivitycache)]\u003dformatComponent(globalVarOf$当前activity);\n    shortx.writeGlobalVarWithOp(\"移花接木规则\", JSON.stringify(config), 3);\n    \"规则添加成功\";\n}else{\n    \"原活动和目标活动不能相同\";\n}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-e66e757f-e682-4f20-b477-6283303de161"
+                }, {
+                  "@type": "type.googleapis.com/HideOverlayButton",
+                  "overlayTags": ["目标活动"],
+                  "customContextDataKey": {
+                  },
+                  "id": "A-aa9dffde-f807-414f-aa90-c0779e0b8eeb"
+                }, {
+                  "@type": "type.googleapis.com/ShowToast",
+                  "message": "{jsRet}",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-da565e46-cbe4-4774-a739-501257ff4ce2"
+                }, {
+                  "@type": "type.googleapis.com/DeleteGlobalVar",
+                  "varName": "startactivitycache",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-4fc8ab99-e6f8-437b-9a80-047aeee96aaa"
+                }, {
+                  "@type": "type.googleapis.com/DeleteGlobalVar",
+                  "varName": "当前activity",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-5e86e2c0-b54b-4aa8-947a-86546838645c"
+                }],
+                "icon": "figma-reset-instance",
+                "label": "目标活动：\nglobalVarOf$当前activity",
+                "id": "BTN-694079ba-d038-4b37-af06-4a04b3c41e96"
+              }],
+              "tag": "目标活动",
+              "maxHeightInDp": 500,
+              "maxWidthInDp": 122,
+              "backgroundAlpha": 0.6569176,
+              "buttonMinWidth": 20,
+              "enableGlobalDrag": true,
+              "disableAutoEdge": true,
+              "customContextDataKey": {
+              },
+              "id": "A-4a53bbb1-a003-485f-a3c6-797d41b38f5f"
+            }],
+            "icon": "figma-reset-instance",
+            "label": "原活动：globalVarOf$当前activity",
+            "id": "BTN-6c4ba19a-00bf-43f0-9cf5-7a869c3cf3fe"
+          }],
+          "tag": "原活动",
+          "maxHeightInDp": 500,
+          "maxWidthInDp": 123,
+          "backgroundAlpha": 0.7434762,
+          "buttonMinWidth": 20,
+          "enableGlobalDrag": true,
+          "disableAutoEdge": true,
+          "customContextDataKey": {
+          },
+          "id": "A-f652393b-81d3-4206-a14a-7c68c2a1606d"
+        }]
+      }, {
+        "title": "添加启动重定向规则",
+        "clickActions": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "当前activity",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-a42edf76-b1a5-4e72-a4cd-8ee2b4129b06"
+        }, {
+          "@type": "type.googleapis.com/ShowOverlayButton",
+          "buttonSettings": [{
+            "actions": [{
+              "@type": "type.googleapis.com/ExecuteJS",
+              "expression": "var oldrule\u003dglobalVarOf$移花接木规则;\nvar config\u003dJSON.parse(oldrule);\nfunction formatComponent(componentName) {\n    var parts \u003d componentName.split(\"/\");\n    if (parts.length \u003d\u003d\u003d 2) {\n        var pkg \u003d parts[0];\n        var cls \u003d parts[1];\n        if (cls.charAt(0) \u003d\u003d\u003d \u0027.\u0027) {\n            cls \u003d pkg + cls;\n        }\n        return pkg + \"/\" + cls;\n    }\n    return componentName;\n}\n\nconfig[\"start\"][%FrontAppPkgName%]\u003dformatComponent(globalVarOf$当前activity);\nshortx.writeGlobalVarWithOp(\"移花接木规则\", JSON.stringify(config), 3);\n\"规则添加成功\";\n",
+              "customContextDataKey": {
+              },
+              "id": "A-e66e757f-e682-4f20-b477-6283303de161"
+            }, {
+              "@type": "type.googleapis.com/HideOverlayButton",
+              "overlayTags": ["目标活动"],
+              "customContextDataKey": {
+              },
+              "id": "A-aa9dffde-f807-414f-aa90-c0779e0b8eeb"
+            }, {
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "{jsRet}",
+              "customContextDataKey": {
+              },
+              "id": "A-da565e46-cbe4-4774-a739-501257ff4ce2"
+            }, {
+              "@type": "type.googleapis.com/DeleteGlobalVar",
+              "varName": "当前activity",
+              "customContextDataKey": {
+              },
+              "id": "A-5e86e2c0-b54b-4aa8-947a-86546838645c"
+            }],
+            "icon": "figma-reset-instance",
+            "label": "目标活动：\nglobalVarOf$当前activity",
+            "id": "BTN-694079ba-d038-4b37-af06-4a04b3c41e96"
+          }],
+          "tag": "目标活动",
+          "maxHeightInDp": 500,
+          "maxWidthInDp": 122,
+          "backgroundAlpha": 0.6569176,
+          "buttonMinWidth": 20,
+          "enableGlobalDrag": true,
+          "disableAutoEdge": true,
+          "customContextDataKey": {
+          },
+          "id": "A-4a53bbb1-a003-485f-a3c6-797d41b38f5f"
+        }]
+      }, {
+        "title": "删除",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var config\u003dJSON.parse(globalVarOf$移花接木规则);\nvar out\u003d[];\nvar keys \u003d Object.keys(config[\"activity\"]);\nfor (var i \u003d 0; i \u003c keys.length; i++) {\n    var k \u003d keys[i];\n    var vpart\u003d config[\"activity\"][k].split(\"/\")[1];\n    var part \u003d k.split(\"/\");\n    out.push({\n        \"name\": part[1],\n        \"version\":vpart,\n        \"__value\": k,\n        \"__icon\": \"app://\"+part[0]\n    })\n}\nvar keys \u003d Object.keys(config[\"start\"]);\nfor (var i \u003d 0; i \u003c keys.length; i++) {\n    var k \u003d keys[i];\n    var vpart\u003d config[\"start\"][k].split(\"/\")[1];\n    out.push({\n        \"name\": k,\n        \"version\":vpart,\n        \"__value\": k,\n        \"__icon\": \"app://\"+k\n    })\n}\nJSON.stringify(out);",
+          "customContextDataKey": {
+          },
+          "id": "A-9361dba0-fbbc-4e18-8c35-b08c2751bfc5"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "选择删除的规则",
+          "cancelable": true,
+          "data": "{jsRet}",
+          "isMultipleChoice": true,
+          "delimiter": [","],
+          "needConfirmAction": true,
+          "dataType": "ShowListDialogDataType_Json",
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-3a70f23e-6745-4794-81bd-5c765d0d980e"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var config\u003dJSON.parse(globalVarOf$移花接木规则);\ntry{\n    var willdelete\u003dselectedListItem;\n    if(willdelete.length\u003d\u003d\u003d0){\n        \"删除了0个规则\";\n    }else{\n        for(var i\u003d0;i\u003cwilldelete.length;i++){\n            var deleterule\u003dwilldelete[i];\n            if(deleterule.includes(\"/\")){\n                delete config[\"activity\"][deleterule];\n            }else{\n                delete config[\"start\"][deleterule];\n            }\n        }\n        shortx.writeGlobalVarWithOp(\"移花接木规则\", JSON.stringify(config), 3);\n        \"删除了\"+willdelete.length+\"个规则\";\n    }\n}catch(e){\n    \"删除了0个规则\";\n}",
+          "customContextDataKey": {
+          },
+          "id": "A-a27baf28-b265-4e49-b2c4-ba769a13738a"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{jsRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-0b818464-74f7-4473-a4e6-5d8c15833467"
+        }]
+      }],
+      "title": "操作？",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-226b6078-cc38-4202-9a79-06175758a89e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "当前activity",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-86f9aae7-3e41-4149-9ed0-e4cb6ad6fec0"
+      }, {
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "activity",
+        "customContextDataKey": {
+        },
+        "id": "C-d31d86ff-3f57-461c-a961-3333cad0ff0d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "当前activity",
+        "valueAsString": "{componentName}",
+        "customContextDataKey": {
+        },
+        "id": "A-0f9f6894-8f97-4760-9a76-03b6ba5b68dc"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-32c1f7d7-d7e7-4a33-b7a2-df0a3b1c9af9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3869d795-0d96-4d15-9c3e-078974f0fb4f"
+  }],
+  "id": "SHARE-rule-098b213a-bb96-4cf5-99e2-e8fd96e34599",
+  "lastUpdateTime": "1764561944920",
+  "createTime": "1764516391253",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "移花接木",
+  "description": "🔝点击上方图标→执行动作，即可添加/删除规则",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "移花接木规则",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-daab66e6-ba28-4eb5-9243-02f654347a2c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "移花接木规则",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-91e43038-56c0-4263-be00-0d98184fba84"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "移花接木规则",
+        "valueAsString": "{\"activity\":{},\"start\":{}}",
+        "customContextDataKey": {
+        },
+        "id": "A-11711474-e794-496a-bff9-f6fac2331aed"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-11c5bf28-9579-4449-9022-b57ab996e122"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "var config\u003dJSON.parse(globalVarOf$移花接木规则);\nconfig[\"start\"]\u003d\u003d\u003dundefined||config[\"activity\"]\u003d\u003d\u003dundefined",
+        "customContextDataKey": {
+        },
+        "id": "C-74d0eb88-bd64-4dbd-8022-59e1896fa3cf"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var oldconfig\u003dJSON.parse(globalVarOf$移花接木规则);\nvar newconfig\u003d{\"start\":{},\"activity\":oldconfig};\nshortx.writeGlobalVarWithOp(\"移花接木规则\", JSON.stringify(newconfig), 3);",
+        "customContextDataKey": {
+        },
+        "id": "A-0e98c8e4-5089-4398-a672-44c05e6923d8"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f13f61ad-dfde-4cfe-b5ef-708a0b86b5a5"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

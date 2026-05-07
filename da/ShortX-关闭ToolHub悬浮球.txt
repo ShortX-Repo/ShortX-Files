@@ -1,0 +1,32 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am broadcast -a shortx.wm.floatball.CLOSE",
+    "customContextDataKey": {
+    },
+    "note": "关闭ToolHub悬浮球",
+    "id": "A-4cf07e6e-f382-4654-869d-32e96cbedeb1"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "for t in global system secure; do settings list $t 2\u003e/dev/null | grep \u0027^shortx_wm_floatball_\u0027 | cut -d\u003d -f1 | xargs -r -n1 settings delete $t; done",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "恢复默认设置",
+    "id": "A-c06e768a-4c14-498b-a951-465bff5d0fd1"
+  }],
+  "id": "SHARED-DA-e10f63e0-16b8-40e0-9415-7eb4c1bfaef5",
+  "lastUpdateTime": "1766412117565",
+  "createTime": "1766073813445",
+  "author": {
+    "name": "阿然@xin-blog.com"
+  },
+  "title": "关闭ToolHub悬浮球",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,35 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "android.widget.Toast",
+    "methodName": "makeText",
+    "expressions": [{
+      "expressionMVEL": "param.args[1]",
+      "contextKey": "text"
+    }],
+    "lifecycle": "LoadedPackage",
+    "constraint": [{
+      "@type": "type.googleapis.com/MethodHookConstraintParamsType",
+      "type": ["android.content.Context", "java.lang.CharSequence", "int"]
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-749bbc9a-188f-42ec-9f35-b04a80cf5925"
+  }],
+  "id": "SHARE-rule-de2ce42d-6093-44a8-a13b-eeabeeec84c9",
+  "lastUpdateTime": "1730118032794",
+  "createTime": "1730100999872",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "系统吐司捕获",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-dbdb9d62-b2c4-4d56-9ba8-3e7ec3bb3fda"
+}
+###------###
+{"type":"rule"}

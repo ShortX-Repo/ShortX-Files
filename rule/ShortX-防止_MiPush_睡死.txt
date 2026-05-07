@@ -1,0 +1,90 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+    },
+    "end": {
+      "hour": 11,
+      "minutes": 30
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "1800000"
+    },
+    "customContextDataKey": {
+    },
+    "note": "每隔 30 min 执行",
+    "id": "F-1cc5844c-493b-4f5f-8d5f-1fc68e9cae83"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "MiPush...",
+    "customContextDataKey": {
+    },
+    "id": "A-26355e51-2fe9-48c2-9576-37cad8768b6f"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.xiaomi.xmsf"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0b157494-822c-47e9-b9cd-45ecd8637485"
+  }, {
+    "@type": "type.googleapis.com/StartAppProcess",
+    "appPkg": [{
+      "pkgName": "com.xiaomi.xmsf"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d4ee98bb-6278-48b0-afdf-466a8f319300"
+  }, {
+    "@type": "type.googleapis.com/StartService",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.xiaomi.xmsf",
+      "className": "com.xiaomi.push.service.XMPushService"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-780f8f8c-504b-4757-90ae-21e6af595c57"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "id": "C-22dfe4ed-1f56-4cf8-8f70-94813fd04aab"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/FromDA",
+      "daId": "DAc40d59ff-f614-4c0a-a6f6-6757b6fa644d",
+      "customContextDataKey": {
+      },
+      "id": "A-7f18757d-c382-4211-bb86-6893320efa4b"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "doze",
+    "id": "A-b1f14b6a-9ac3-4e72-b23b-5616462a4a84"
+  }],
+  "id": "rule-266e758b-e318-46f8-bb5c-5ab3847b8bf5",
+  "lastUpdateTime": "1702436757612",
+  "createTime": "1702279977430",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "防止 MiPush 睡死",
+  "description": "🥱",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,28 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-30259d69-7ec8-4ed0-9abc-a63e3cf8ba76"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SleepScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-39801744-7d2e-45aa-b8c7-a7f390907ba8"
+  }],
+  "id": "rule-77cbbb5b-908e-4f70-8772-9430cbce97a0",
+  "lastUpdateTime": "1693880379506",
+  "createTime": "1693880362482",
+  "author": {
+    "name": "Fearless"
+  },
+  "title": "息屏时息屏",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

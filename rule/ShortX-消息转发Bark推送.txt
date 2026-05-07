@@ -1,0 +1,46 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "pkgSets": ["All"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-0666fb80-49e9-4316-b2b2-7e2d09f61160"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-9272edfa-f7f7-4d62-bd0f-ffa9df85868d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.day.app/push",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "POST",
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n\"device_key\":\"需要自行填写key\",\n\"title\":\"{title}\",\n\"body\":\"{contentText}\"\n}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-98a59091-1a78-47cd-b4f6-8c370f287459"
+  }],
+  "id": "SHARE-rule-2a8f37d0-75a7-4986-9160-9aa7cff21406",
+  "lastUpdateTime": "1733823677861",
+  "createTime": "1733746960080",
+  "author": {
+    "name": "Chuhe"
+  },
+  "title": "消息转发Bark推送",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

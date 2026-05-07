@@ -1,0 +1,121 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "tv.danmaku.bili"
+    }],
+    "tag": "应用",
+    "customContextDataKey": {
+    },
+    "id": "F-c492d33b-562a-4006-a5ef-2746fdd80df3"
+  }, {
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "RightCenter",
+    "gesture": "SwipeFromRight",
+    "tag": "返回",
+    "customContextDataKey": {
+    },
+    "id": "F-b4e657d5-d0c8-4cd6-87e1-8b54ed973df0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "返回",
+      "customContextDataKey": {
+      },
+      "id": "C-163f92cb-2841-4810-9f43-d21faa298352"
+    }, {
+      "@type": "type.googleapis.com/RequireDelay",
+      "timeString": "2000",
+      "customContextDataKey": {
+      },
+      "id": "C-b05b29f2-cb11-4039-ab52-e4d3319bc053"
+    }, {
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.miui.home"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-351eb7b2-f450-4c93-8ca4-d8a52fa2c2e9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "返回",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3e241438-7df4-4125-9639-c89394f63030"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "返回",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-2e3c4fc6-7e80-4c13-983b-e6635588633e"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4b8cf27b-2aef-449d-9285-c2d5d2890992"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "应用",
+      "customContextDataKey": {
+      },
+      "id": "C-d3928078-5d9c-4c88-b42a-a163be104be0"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "返回",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-e2054bd6-b866-4d6a-a02e-e91a502023e2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopAppByPkg",
+      "pkgAndUsers": [{
+        "first": "{pkgName}",
+        "second": "0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e8e125c9-c647-4015-8c96-5001521581dc"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "返回",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-bb4c54e0-d170-46d0-8296-1a542875ed43"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fa6f90be-4458-4c81-ae80-03b3559cff00"
+  }],
+  "id": "rule-a919e0fe-63f9-4e73-bf0e-45e2e3cab9da",
+  "lastUpdateTime": "1712565386146",
+  "createTime": "1712484028320",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "返回杀后台",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-2f535b34-e59f-4944-b9d0-a2d01660d221"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,54 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireMobileDataEnabled",
+      "slotId": -1,
+      "customContextDataKey": {
+      },
+      "id": "C-8d557a34-e44a-4162-9b7c-d145e7945668"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-38e4ce88-0a28-4c1c-8fe3-ccac42694430"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "data disabeled",
+      "customContextDataKey": {
+      },
+      "id": "A-f14c6b5d-5c0a-4314-87d2-cdc5af18d17d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-78e47253-9b36-4c93-8c03-dbe6b5a37815"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "data enabled ",
+      "customContextDataKey": {
+      },
+      "id": "A-b19ac3a9-6e9d-45ce-a4e6-b7cedfffc0c3"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d00aa6bb-8ed9-4b08-b5fa-d20fa036d892"
+  }],
+  "id": "SHARED-DA-7fa323d8-4766-4602-a968-0bfc42790bc8",
+  "lastUpdateTime": "1759983358229",
+  "createTime": "1758649664939",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Mobile Data Toggle",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,89 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "电量",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-05ad398f-7121-465f-9a70-25c87ca13331"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "电量",
+    "valueAsString": "700",
+    "customContextDataKey": {
+    },
+    "id": "A-b774d47f-7b29-4611-8d5f-b338e6376aae"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "当前",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-63b0867f-4dd6-4101-b4e6-f306792e69f5"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "当前",
+    "valueAsString": "%BatteryLevel%",
+    "customContextDataKey": {
+    },
+    "id": "A-40397cc8-73f2-4f1a-b92e-2f15659059c8"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "localVarOf$电量 比 localVarOf$当前 大",
+    "customContextDataKey": {
+    },
+    "id": "A-3c2206d3-ef30-4fdb-8197-3d92ff5e1385"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "电量",
+      "payload": {
+        "value": "localVarOf$当前"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-eae4ae1e-1021-487e-b673-8992034e380f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "正确",
+      "customContextDataKey": {
+      },
+      "id": "A-cdcbb0ce-006d-46ba-84e7-c89730b92a5b"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "错误",
+      "customContextDataKey": {
+      },
+      "id": "A-f7475d80-3d6d-4904-883e-b60ac80b14a4"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8a26e5f0-47eb-45c1-a8e9-f75d45daf4c4"
+  }],
+  "id": "SHARED-DA-b75ceb1a-61e0-48eb-bead-7c11611ceb8e",
+  "lastUpdateTime": "1770879088543",
+  "createTime": "1770878437483",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "新建局部变量",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

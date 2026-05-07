@@ -1,0 +1,53 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://bbs.kanxue.com/app-signin.htm",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["message"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "User-Agent",
+      "value": "HD1910(Android/7.1.2) (pediy.UNICFBC0DD/1.0.5) Weex/0.26.0 720x1280"
+    }, {
+      "key": "Cookie",
+      "value": "填自己的"
+    }, {
+      "key": "Authorization",
+      "value": "填自己的"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-4a0f838e-12fb-49c1-b611-bfee2908a6f3"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "确认",
+    "onPositive": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "customContextDataKey": {
+      },
+      "id": "A-c5b3514a-a427-4986-b458-ec193469f8be"
+    }],
+    "title": "看雪签到通知",
+    "message": "获得{httpRequestRet1}雪币",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-ce582745-219e-473a-a3ed-61a04675965f"
+  }],
+  "id": "DA2f4fb9bc-327d-4c99-8db7-4970a26a183d",
+  "lastUpdateTime": "1693797319610",
+  "createTime": "1693794611551",
+  "author": {
+    "name": "muort"
+  },
+  "title": "看雪签到",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

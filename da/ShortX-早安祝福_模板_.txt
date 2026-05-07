@@ -1,0 +1,102 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "chat-heart-line",
+    "customContextDataKey": {
+    },
+    "id": "A-e7d3fad6-f9b5-4e46-8fbd-67e333aa7450"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 早安鼓励语录\nencouragements \u003d [\n    \"祝福1\",\n    \"祝福2\",\n    \"祝福3\"\n];\n\n// 随机选择并输出语录\nencouragements[new java.util.Random().nextInt(encouragements.size())]\n",
+    "customContextDataKey": {
+    },
+    "id": "A-52394f15-862d-4f56-b8b4-21930f08d584"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "s",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-c61ae677-bf62-4511-bb22-28465f0ed624"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "s",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-19dce79b-de58-414c-a64f-888c05a58624"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "78608792-674e-496d-8655-9677ae1d628e",
+    "title": "早安祝福",
+    "message": "localVarOf$s",
+    "isImportant": true,
+    "smallIcon": "chat-heart-line",
+    "clickAction": [{
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "title": "早安祝福"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b518e407-23a1-49b5-bd03-b88c7b9228b5"
+    }],
+    "button": [{
+      "id": "Button-c4d54d65-8139-4510-b4b2-0fe6340b6e40",
+      "action": [{
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "title": "早安祝福"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-3384c59d-2bd6-41e1-9a74-30405fea5201"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "300",
+        "customContextDataKey": {
+        },
+        "id": "A-26f9e434-8672-4c85-beed-67d9246de04c"
+      }, {
+        "@type": "type.googleapis.com/FromDA",
+        "daId": "SHARED-DA-6d5777b4-b6e6-43bc-8f55-951c7152291f",
+        "customContextDataKey": {
+        },
+        "id": "A-d9e3183a-9ba5-49a6-8496-7ab0ec4e9265"
+      }],
+      "label": "再来一个！"
+    }, {
+      "id": "Button-4285afef-6f36-4621-8d0d-b967d0193a34",
+      "action": [{
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "title": "早安祝福"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-a5a2f759-be78-4b7b-8ba7-eb6844660951"
+      }],
+      "label": "今天也要开开心心的！"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ac591597-56a4-4e66-ae38-ebfb181923bf"
+  }],
+  "id": "SHARED-DA-dd970e86-d75c-45ae-937c-fe5788f48d27",
+  "lastUpdateTime": "1746972323294",
+  "createTime": "1746970949679",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "早安祝福（模板）",
+  "description": "显示一条早安祝福，首次导入可能需要从『显示通知』中修改『执行一键指令』，推荐搭配自动指令使用",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

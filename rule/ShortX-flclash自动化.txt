@@ -1,0 +1,82 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["3001"],
+    "customContextDataKey": {
+    },
+    "id": "F-3c5731c2-cedf-4d64-943a-8cbc74ed8174"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/AppIsNotRunning",
+    "pkgs": [{
+      "pkgName": "com.sangfor.vpn.client.phone"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-cd64cbf4-2eff-4256-9e33-f729272a2111"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ClickTile",
+    "tile": {
+      "tileSpec": "custom(com.follow.clash/.TileService)",
+      "label": "FlClash"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a64b3083-d18c-4155-9b8a-93cbbb93b58e"
+  }],
+  "id": "SHARE-rule-009531ed-aa2a-4c50-a0d9-1ba79226b2b3",
+  "lastUpdateTime": "1777454057211",
+  "createTime": "1777368339836",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "flclash自动化",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/WifiConnectedTo",
+      "ssidList": ["3001"],
+      "customContextDataKey": {
+      },
+      "id": "F-f8642f6e-9eda-41f5-b707-ad5fa23105d5"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgs": [{
+        "pkgName": "com.sangfor.vpn.client.phone"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-f70978fe-9666-4d67-b17f-7f2110b657a8"
+    }, {
+      "@type": "type.googleapis.com/ServiceIsRunning",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.follow.clash"
+        },
+        "className": "com.follow.clash.service.VpnService"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "C-fd371dcd-54d9-4d11-a7d9-1457884eb638"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.follow.clash"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-8f9f71d5-8bdd-4cb2-b0e1-31a75fee50e9"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

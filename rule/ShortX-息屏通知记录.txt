@@ -1,0 +1,257 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "^(?!.*(GroupSum|正在下载|后台|电脑登陆|正在运行|商品降价了)).*$",
+      "contentText": "^(?!.*(GroupSum|正在下载|后台|电脑登陆|正在运行|商品降价了)).*$",
+      "pkgSets": ["弹幕"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-5e473a28-16c2-4b22-84f5-c5509436620e"
+  }, {
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "title": "^(?!.*(GroupSum|正在下载|后台|电脑登陆|正在运行|商品降价了)).*$",
+      "contentText": "^(?!.*(GroupSum|正在下载|后台|电脑登陆|正在运行|商品降价了)).*$",
+      "pkgSets": ["弹幕"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-4e8bd887-a5b0-4648-addb-aa34fac3ca8b"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-95cbd278-fe33-4382-b9f0-9bdc850d2de7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "ctnpkg",
+      "type": {
+        "@type": "type.googleapis.com/StringListVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-c61a77a8-fae8-4b03-a59b-e0fefc80a183"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "tmptitle",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-db95e919-081a-40d9-956a-311a45c5f8ee"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "tmp\u003dtitle.replaceAll(\"\\\\(\\\\d+条新消息\\\\)\",\"\");\nee\u003dtmp.replaceAll(\"您|菜鸟驿站|购买的宝贝|评论成功|发送中...|物流更新|拼单已发起提醒|拼单成功通知\",\"\")",
+    "customContextDataKey": {
+    },
+    "id": "A-9254a43e-1fc6-43cb-86ed-9313aa8912f7"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "tmptitle",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-9bb3bd1b-eeef-4bdd-a81e-de1e20a7d8dc"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "tmpctn",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-ca30537d-8a70-482c-84db-9b6e556a6e85"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "\ntmp\u003dcontentText.replaceAll(\"您有\\\\d个还未取件,快去领取吧，点击查看全部取件码|您购买的商品已被签收，点击可查看售后保障|，手机号已加密，享号码保护服务，点击查看详情|，手机号已加密，享号码保护服务，点击查看预计送达时间，如有需求可联系快递员|【，点击配送到楼下，go|在菜鸟驿站|【取件码-\\\\d+-\\\\d+-\\\\d+】，别忘了哦|，点击查看物流进度|包裹当前|点击查看详情|您的商品已|，您可点击查看预计送达时间\u003e\u003e|，点击领取10个支付宝积分|已发货，去领取1笔物流返现|快递到达新站点|。\\\\d+位好友想看你的评价|恭喜您完成支付，创建拼单成功啦，邀请好友参加拼单更快哦~|，请凭取件码.*及时取件|.*派送中。 请注意查收。|💰获得奖励，当前订单可领|您的|您的商品已存放至|，系统会在1-2天内提交至此订单您的支付渠道处理。\",\"\");\ntmp.replaceAll(\"您购买的商品|你特别关注的|尊敬的用户，|\\\\[@全体成员\\\\]|取件码-|您|🔴|韵达|已|\\\\\u003e|过|@全体成员|\\\\[\\\\d条\\\\]\",\"\");\n\n\n",
+    "customContextDataKey": {
+    },
+    "id": "A-0a175471-d665-40b6-aad6-157d3c514ba3"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "en\u003dmvelRet.charAt(mvelRet.length() - 1);",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "mv"
+      }]
+    },
+    "id": "A-dd7e0d8a-e683-4c49-817a-66c2e021d26e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "{mv}",
+      "payload": {
+        "value": "，"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f2acdd72-470c-48fb-9cd1-93cf24e126bf"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "een \u003d mvelRet.substring(0, mvelRet.length()-1)",
+      "customContextDataKey": {
+      },
+      "id": "A-a33cf4bb-0516-4a02-8dfd-e89554d1ff4d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8e5655d1-7d7e-41f2-8907-2dd7c757fa93"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "tmpctn",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-04ce5ad4-fb1e-4fff-8412-c63d71ff04fa"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "ctnpkg",
+    "valueAsString": "{pkgName}",
+    "op": "WriteGlobalVarOp_AppendToLast",
+    "customContextDataKey": {
+    },
+    "id": "A-bbd5b532-1c06-4e94-872e-7315195e5a14"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "int length\u003dglobalVarOf$tmpctn.length()+globalVarOf$tmptitle.length();\nif (length\u003e12) \n{return true}\nelse\n{return false}",
+      "customContextDataKey": {
+      },
+      "id": "C-b048ac30-e568-4c96-aabc-f3d0535d59c7"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "content",
+      "valueAsString": "globalVarOf$tmptitle:\nglobalVarOf$tmpctn",
+      "customContextDataKey": {
+      },
+      "id": "A-5ec9d55d-b7d9-4696-a962-ab1fe2b0b444"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "content",
+      "valueAsString": "globalVarOf$tmptitle:globalVarOf$tmpctn",
+      "customContextDataKey": {
+      },
+      "id": "A-5ec9d55d-b7d9-4696-a962-ab1fe2b0b444"
+    }],
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-709d911e-c1e7-4d3d-97e9-8d498f605bf5"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsEmpty",
+      "varName": "tmpctn",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-ffab5ae6-9591-47ca-a6c2-a87f6756362e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "IsEmpty",
+        "varName": "tmptitle",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-83bf012d-7bb1-45af-ba66-5c7ae66064f2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-0e13246a-9841-4a95-b7d7-12cdaa3c5ff0"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-685cd468-a591-4eb9-aaf5-ae3480aece4e"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "ctn",
+      "valueAsString": "localVarOf$tmptitle",
+      "op": "WriteGlobalVarOp_AppendToLast",
+      "customContextDataKey": {
+      },
+      "id": "A-d1aa9310-b607-4d18-ba47-92d1b59c21d5"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-d1fb2a60-c563-482c-902a-74ceb54d4943"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-400d8e33-e5a3-4679-b9a7-414cfda14c9e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "int length\u003dlocalVarOf$tmpctn.length()+localVarOf$tmptitle.length();\nif (length\u003e12) \n{return true}\nelse\n{return false}",
+      "customContextDataKey": {
+      },
+      "id": "C-50019ea8-3588-4a19-9009-bb7632b5723d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "ctn",
+      "valueAsString": "localVarOf$tmptitle:\nlocalVarOf$tmpctn",
+      "customContextDataKey": {
+      },
+      "id": "A-1cc7baad-09ef-4957-bb64-8964358ac559"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "ctn",
+      "valueAsString": "localVarOf$tmptitle:localVarOf$tmpctn",
+      "customContextDataKey": {
+      },
+      "id": "A-7796fa03-5c72-4f2e-8b00-2e6bdae365d2"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d33461e3-efa4-4193-bd21-5eee0e5b2516"
+  }],
+  "id": "rule-16445850-7d59-4f3f-a62f-3ade9221a806",
+  "lastUpdateTime": "1723186382942",
+  "createTime": "1700314056528",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "息屏通知记录",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-076d3a6e-c076-4a36-bed3-8d9989d8f23e"
+}
+###------###
+{"type":"rule"}

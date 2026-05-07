@@ -1,0 +1,98 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "status",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-739737d5-0012-44b7-be92-ee390e2db80e"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "/data/adb/box_bll/scripts/box.service status",
+    "customContextDataKey": {
+    },
+    "id": "A-1c667643-d467-46ea-9f21-93f3919106a7"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "status",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-2a3427a2-c536-4056-b967-20b84b16e21f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "Contains",
+      "varName": "status",
+      "payload": {
+        "value": "stopped"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f6cd7cbc-c542-44f2-b0f6-68d887fc85ed"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "/data/adb/box_bll/scripts/start.sh",
+      "customContextDataKey": {
+      },
+      "id": "A-001359b1-e818-4ef8-98cd-798a7761ca98"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "开启box",
+      "icon": "remix://verified-badge-line",
+      "customContextDataKey": {
+      },
+      "id": "A-29eaf502-f6ed-47a3-81ac-358dde08d3f8"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "Contains",
+        "varName": "status",
+        "payload": {
+          "value": "started"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c1a079de-8283-4cfa-b27a-b9d238986ba2"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "/data/adb/box_bll/scripts/stop.sh",
+        "customContextDataKey": {
+        },
+        "id": "A-49bd0f6e-2ed6-4897-a70c-8daa1fe82e21"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "关闭box",
+        "icon": "remix://close-circle-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-e77879d0-0665-4d3e-8be5-860aab197082"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-7fd77467-cc89-4a40-b3f3-4d4d7acfe2b7"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ef1d0f67-7b18-475c-9356-6d1274123d92"
+  }],
+  "id": "DA088663ba-af2b-4030-81cf-1c2f9c2424c6",
+  "lastUpdateTime": "1700240615084",
+  "createTime": "1693446993304",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "box开关",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

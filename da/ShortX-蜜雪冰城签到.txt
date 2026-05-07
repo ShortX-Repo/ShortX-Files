@@ -1,0 +1,94 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "rm -rf /data/user/0/com.mxbc.mxsa/cache/NetCache/*\n",
+    "note": "清空缓存数据",
+    "id": "A-4d3b0ecc-94e9-4dbd-b3f7-1a2270c27bf8"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "URL",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-b49e30f5-3a4c-4d01-8ef2-ff715ddaa6ce"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "URL_Temp",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-7eb3fe83-6617-499b-aa8e-f15f1bc8ae78"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.mxbc.mxsa"
+    },
+    "id": "A-2f16bc79-481a-47cd-8c32-2f80dd25e7cb"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "time": "5000",
+    "id": "A-7b4c5bb6-20bb-4f45-8fa0-443b611feb20"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\ndir\u003d\"/data/user/0/com.mxbc.mxsa/cache/NetCache/\"\nurl\u003d\"https://mxsa.mxbc.net/api/v1/customer/info?appId\u003d\"\n\nfor file in \"$dir\"/*; do\n    if grep -q \"$url\" \"$file\"; then\n        first_line\u003d$(head -n 1 \"$file\")\n        echo \"File: $file\"\n        echo \"First line: $first_line\"\n    fi\ndone\n",
+    "note": "遍历文本",
+    "id": "A-42b183e3-a67e-4fd8-9ffa-e1e8fe1489d5"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "URL_Temp",
+    "valueAsString": "{shellOut}",
+    "note": "获取读取到的文本",
+    "id": "A-32b19901-5b42-4ada-9994-55f70b8b96bd"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "String URL \u003d localVarOf$URL_Temp;\nint index \u003d localVarOf$URL_Temp.indexOf(\"First line:\") + \"First line:\".length();\nString result \u003d localVarOf$URL_Temp.substring(index);\nSystem.out.println(result);\n\nreturn result;",
+    "note": "截取链接",
+    "id": "A-eadb25c5-79a8-4607-a092-6283a8aa4522"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "URL",
+    "valueAsString": "{mvelRet}",
+    "note": "将链接写入变量",
+    "id": "A-56954933-c7bb-4720-90bf-e625ad35186d"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "localVarOf$URL",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "headers": [{
+      "key": "Host",
+      "value": "mxsa.mxbc.net"
+    }, {
+      "key": "Access-Token"
+    }],
+    "requestBody": {},
+    "note": "自行填入Access-Token",
+    "id": "A-b13bfdff-8020-4c9f-ae6a-dc7d1f167983"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{httpRequestRet}",
+    "id": "A-90667301-dd5d-4d18-b86b-4065bf202a6e"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.mxbc.mxsa"
+    }],
+    "id": "A-ba34ff02-56b7-4f4f-a217-3f591b7d6e6e"
+  }],
+  "id": "DA90e990f9-c579-4b5e-b677-12d570933894",
+  "lastUpdateTime": "1690548324802",
+  "createTime": "1690544527031",
+  "author": {
+    "name": "MrMoxing"
+  },
+  "title": "蜜雪冰城",
+  "description": "自行填入Access-Token",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

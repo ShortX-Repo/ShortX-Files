@@ -1,0 +1,51 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["谷歌应用"],
+    "id": "F-350f1060-14b9-4d93-8ac2-ece4e071a0b9"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-69f4c5d2-a289-4a0d-88e6-b8d9f3cc3fc5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgSets": ["谷歌框架以及服务"],
+      "op": "ANY",
+      "id": "C-ef6059d6-5512-4601-9039-b37e19519f77"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetAppEnabled",
+      "pkgSets": ["谷歌框架以及服务"],
+      "enable": true,
+      "id": "A-c20a5c24-9d1a-48a6-93b4-c00f0545487e"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "正在开启谷歌服务",
+      "id": "A-1ef55d5d-4201-4123-87f0-c530058a64db"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "谷歌服务已经开启过了",
+      "id": "A-164b1ec1-e383-4b9c-8239-ba1b3aafbfe1"
+    }],
+    "id": "A-e8c1f94d-5614-4cd2-a599-624105fbda4e"
+  }],
+  "id": "rule-97387a25-b6ef-4ab0-ba53-527f2a3dd2db",
+  "lastUpdateTime": "1691413959310",
+  "createTime": "1691411227750",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "启动谷歌服务",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

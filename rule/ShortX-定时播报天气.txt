@@ -1,0 +1,121 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 8
+    },
+    "repeat": {
+      "days": ["SATURDAY", "FRIDAY", "THURSDAY", "WEDNESDAY", "TUESDAY", "MONDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b7080705-551b-45ca-a2a0-c4eb0ff7a27e"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "FRIDAY", "SATURDAY", "THURSDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-2985fa4b-5858-4b44-9cee-7e3c816bd775"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 5
+    },
+    "repeat": {
+      "days": ["SATURDAY", "FRIDAY", "THURSDAY", "WEDNESDAY", "TUESDAY", "MONDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-54e1e46b-cdb6-4488-bb85-e3cc8f940c22"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://t.weather.itboy.net/api/weather/city/globalVarOf$citycode",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["cityInfo.city", "data.forecast[0].type", "data.forecast[0].high", "data.forecast[0].low", "data.shidu", "data.wendu", "data.quality", "data.pm10", "data.pm25", "data.forecast[0].fx", "data.forecast[0].fl", "data.ganmao", "data.forecast[0].notice", "cityInfo.parent"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-8d023c3b-988c-4031-83b5-2d6ee055b4e8"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "title": "天气预报",
+    "message": "城市：{httpRequestRet14} {httpRequestRet1}\n天气：{httpRequestRet2}\n当前温度：{httpRequestRet6}℃\n今日温度：{httpRequestRet3}  {httpRequestRet4}\n湿度：{httpRequestRet5}\n空气质量：{httpRequestRet7}\nPM2.5：{httpRequestRet9}\nPM10：{httpRequestRet8}\n风力风向：{httpRequestRet10} {httpRequestRet11}\n感冒指数：{httpRequestRet12}\n温馨提示：{httpRequestRet13}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-11375eed-5969-4d13-9473-2415b5ff59cf"
+  }, {
+    "@type": "type.googleapis.com/TTS",
+    "text": "天气预报\n城市：{httpRequestRet14} {httpRequestRet1}\n天气：{httpRequestRet2}\n当前温度：{httpRequestRet6}℃\n今日温度：{httpRequestRet3}  {httpRequestRet4}\n湿度：{httpRequestRet5}\n空气质量：{httpRequestRet7}\nPM2.5：{httpRequestRet9}\nPM10：{httpRequestRet8}\n风力风向：{httpRequestRet10} {httpRequestRet11}\n感冒指数：{httpRequestRet12}\n温馨提示：{httpRequestRet13}",
+    "customContextDataKey": {
+    },
+    "id": "A-2efa6a53-9f9d-44b6-8059-76a111e54e2a"
+  }],
+  "id": "rule-92f58ddc-9985-4281-804c-dc74d2cbd1dd",
+  "lastUpdateTime": "1695246938127",
+  "createTime": "1695238531057",
+  "author": {
+    "name": "muort"
+  },
+  "title": "定时播报天气",
+  "description": "实时天气",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "citycode",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-3e959b73-0dca-471b-8ab8-56e1e9faa808"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "citycode",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-db86a9f9-6735-48f5-b43b-7d10a31e4a96"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "明白了",
+        "title": "使用说明：",
+        "message": "请使用浏览器打开链接：https://fastly.jsdelivr.net/gh/Oreomeow/checkinpanel@master/city.json\n查看自己需要的城市ID，将其添加到全局变量\u0027\u0027citycode\u0027\u0027中。",
+        "customContextDataKey": {
+        },
+        "id": "A-28d94c7f-145c-4a3a-bb12-a68886dbb99c"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-47102481-ba29-4745-8ad1-d43f89b9214a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-abba69c1-175c-44db-8fd3-c0cdeb5c4768"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

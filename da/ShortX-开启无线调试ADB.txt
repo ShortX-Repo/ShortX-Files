@@ -1,0 +1,38 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "setprop service.adb.tcp.port 5555\nstop adbd\nstart adbd",
+    "customContextDataKey": {
+    },
+    "id": "A-855a6ede-f3ec-441c-865f-cfc2374e82e5"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put global adb_wifi_enabled 0",
+    "customContextDataKey": {
+    },
+    "id": "A-5cec5591-9094-4e8b-a11b-e8240a2885c3"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-e4ac836e-1cc9-40fe-a0f2-9e9d51f2d77a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put global adb_wifi_enabled 1",
+    "customContextDataKey": {
+    },
+    "id": "A-535cae60-be78-4c26-bf50-f57ed679812e"
+  }],
+  "id": "DA220ea400-3e1e-432c-b344-a59fe95bb63f",
+  "lastUpdateTime": "1703130658995",
+  "createTime": "1702958060331",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "开启无线调试ADB",
+  "versionCode": "1",
+  "directActionSetId": "DS-ff12c10a-2b46-4f8b-b75d-8e6c83651b29"
+}
+###------###
+{"type":"da"}

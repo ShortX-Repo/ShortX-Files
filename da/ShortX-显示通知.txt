@@ -1,0 +1,38 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1733065773296",
+    "title": "好",
+    "isImportant": true,
+    "smallIcon": "chat-2-line",
+    "vibrate": true,
+    "sound": true,
+    "clickAction": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "message": "好",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-95625b62-0774-485e-bdc6-6525f31cb026"
+    }],
+    "onGoing": true,
+    "customContextDataKey": {
+    },
+    "id": "A-2a49bb4e-0ba9-4d77-9f17-ddf929e7613f"
+  }],
+  "id": "SHARED-DA-d48ae9f8-cab9-42df-a402-b6e484bad0c5",
+  "lastUpdateTime": "1733065987570",
+  "createTime": "1733065757592",
+  "author": {
+    "name": "He"
+  },
+  "title": "显示通知",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

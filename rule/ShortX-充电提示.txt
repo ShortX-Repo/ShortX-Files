@@ -1,0 +1,270 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "tag": "充电开始",
+    "customContextDataKey": {
+    },
+    "id": "F-af143ee2-ce92-4528-a324-4a0eede63a47"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 100,
+    "tag": "充电结束",
+    "customContextDataKey": {
+    },
+    "id": "F-7e47c284-3123-4a66-b651-7c629c3bfe6f"
+  }, {
+    "@type": "type.googleapis.com/DeepLinkCall",
+    "deepLinkTag": "cdjs",
+    "tag": "充电结束",
+    "customContextDataKey": {
+    },
+    "id": "F-b51eba63-9037-4408-bf62-b7f83a55b5d9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "充电开始",
+        "customContextDataKey": {
+        },
+        "id": "C-7325e5da-ae56-432e-8ec6-711c6dfcd3f8"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "充电开始时间",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-067b8ecd-2d58-4b79-8fb2-719a09d5b4ff"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "充电开始时间",
+        "valueAsString": "%CurrentTimeMillis%",
+        "op": "WriteGlobalVarOp_AppendToFirst",
+        "customContextDataKey": {
+        },
+        "id": "A-10022ffc-7843-477a-bd95-1a0562c113b7"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "充电开始时间",
+        "valueAsString": "%BatteryLevel%",
+        "op": "WriteGlobalVarOp_AppendToLast",
+        "customContextDataKey": {
+        },
+        "id": "A-3cab608f-a325-4907-b38e-23ad8f0fb987"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/BatteryPercent",
+          "value": 100,
+          "op": "IntEqualTo",
+          "customContextDataKey": {
+          },
+          "id": "C-c73f3612-7dee-480e-8eda-dfdb9b6bc8c1"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "shortx://trigger?tag\u003dcdjs",
+          "customContextDataKey": {
+          },
+          "id": "A-584c1b7e-96cc-4455-8a76-6628d38c2a8d"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-8d1d5a64-69c8-4ac3-9acf-1747c3348aab"
+      }],
+      "description": "充电开始",
+      "id": "Case-51cb4bc6-171f-4df1-9a16-5c3e9a968abb",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "充电结束",
+        "customContextDataKey": {
+        },
+        "id": "C-ad0d4c62-e661-4177-93a8-2c9db1bb99c7"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "充电开始时间",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-6cf37d40-36ad-4d14-ab3a-ef2c6eed2f99"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "100time",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-1d8ece12-a3d2-445c-b101-57bf71969f0e"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "100time",
+        "valueAsString": "%CurrentTimeMillis%",
+        "customContextDataKey": {
+        },
+        "id": "A-04153882-faa9-408b-ac43-75050b99418d"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "// 假设 startTime 和 endTime 为两个时间戳（毫秒）\ndiffMillis \u003d localVarOf$100time - globalVarOf$充电开始时间[0];\ndiffSeconds \u003d diffMillis / 1000;\n\n// 计算时、分、秒，使用整数运算\nhours \u003d (int)(diffSeconds / 3600);  // 整数除法计算小时\nminutes \u003d (int)((diffSeconds % 3600) / 60);  // 先取小时后的剩余秒数，再整除 60 得到分钟\nseconds \u003d (int)(diffSeconds % 60);  // 取余得到秒数\n\n// 根据值是否为0决定是否显示对应部分\nresult \u003d \"\";\nif (hours \u003e 0) {\n    result +\u003d hours + \"时\";\n}\nif (minutes \u003e 0) {\n    result +\u003d minutes + \"分\";\n}\nif (seconds \u003e 0) {\n    result +\u003d seconds + \"秒\";\n}\n\n// 如果所有部分都为0，可以选择返回 \"0秒\" 或空字符串\nif (result \u003d\u003d \"\") {\n    result \u003d \"0秒\";\n}\n\nreturn result;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "100time"
+          }]
+        },
+        "id": "A-5409e156-4cf1-445a-813a-0583f4680faa"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/bash\n\nrunning\u003dtrue\ncount\u003d0  # 初始化连续检测到0的计数器\n\nwhile $running; do\n    current\u003d$(cat /sys/class/power_supply/battery/current_now)\n    \n    if [ \"$current\" -eq 0 ]; then\n        count\u003d$((count + 1))  # 计数器加1\n        echo \"检测到 current_now 为 0，连续次数：$count/10\"\n        \n        if [ $count -ge 10 ]; then  # 检查是否达到10次\n            echo \"已连续检测到 10 次 current_now 为 0，停止循环。\"\n            running\u003dfalse\n        fi\n    else\n        count\u003d0  # 如果值不为0，重置计数器\n        echo \"当前值非0，重置计数器\"\n    fi\n    \n    sleep 1  # 每次检测间隔1秒（无论是否为0）\ndone",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-3f2a15f1-c70a-4878-9913-6c26553b869f"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "time",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-03147459-125c-4f96-9126-2f418593e812"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "time",
+        "valueAsString": "%CurrentTimeMillis%",
+        "customContextDataKey": {
+        },
+        "id": "A-1c799273-8f8f-43f8-8ef8-e1128a8c898a"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "// 假设 startTime 和 endTime 为两个时间戳（毫秒）\ndiffMillis \u003d localVarOf$time - globalVarOf$充电开始时间[0] - 10000;\ndiffSeconds \u003d diffMillis / 1000;\n\n// 计算时、分、秒，使用整数运算\nhours \u003d (int)(diffSeconds / 3600);  // 整数除法计算小时\nminutes \u003d (int)((diffSeconds % 3600) / 60);  // 先取小时后的剩余秒数，再整除 60 得到分钟\nseconds \u003d (int)(diffSeconds % 60);  // 取余得到秒数\n\n// 根据值是否为0决定是否显示对应部分\nresult \u003d \"\";\nif (hours \u003e 0) {\n    result +\u003d hours + \"时\";\n}\nif (minutes \u003e 0) {\n    result +\u003d minutes + \"分\";\n}\nif (seconds \u003e 0) {\n    result +\u003d seconds + \"秒\";\n}\n\n// 如果所有部分都为0，可以选择返回 \"0秒\" 或空字符串\nif (result \u003d\u003d \"\") {\n    result \u003d \"0秒\";\n}\n\nreturn result;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "fulltime"
+          }]
+        },
+        "id": "A-f61ed199-2abd-4942-8308-2036f17eb48b"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "// 假设 startTime 和 endTime 为两个时间戳（毫秒）\ndiffMillis \u003d localVarOf$time - localVarOf$100time - 10000;\ndiffSeconds \u003d diffMillis / 1000;\n\n// 计算时、分、秒，使用整数运算\nhours \u003d (int)(diffSeconds / 3600);  // 整数除法计算小时\nminutes \u003d (int)((diffSeconds % 3600) / 60);  // 先取小时后的剩余秒数，再整除 60 得到分钟\nseconds \u003d (int)(diffSeconds % 60);  // 取余得到秒数\n\n// 根据值是否为0决定是否显示对应部分\nresult \u003d \"\";\nif (hours \u003e 0) {\n    result +\u003d hours + \"时\";\n}\nif (minutes \u003e 0) {\n    result +\u003d minutes + \"分\";\n}\nif (seconds \u003e 0) {\n    result +\u003d seconds + \"秒\";\n}\n\n// 如果所有部分都为0，可以选择返回 \"0秒\" 或空字符串\nif (result \u003d\u003d \"\") {\n    result \u003d \"0秒\";\n}\n\nreturn result;",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "jltime"
+          }]
+        },
+        "id": "A-06e38573-7495-46e9-8202-464dca95acb7"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1741170738766",
+        "title": "充电完成",
+        "message": "globalVarOf$充电开始时间[2]%→100%，共用时{fulltime}\n快速充电用时{100time}\n涓流充电用时{jltime}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-ced7a144-43be-4732-9c58-6ff058666a66"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "充电开始时间",
+        "customContextDataKey": {
+        },
+        "id": "A-501d090a-a8b6-4de0-a1d3-5d88634b887b"
+      }],
+      "description": "充电结束",
+      "id": "Case-8c3f49f2-1a56-4e21-ab62-b6edba210abd",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8b683c31-c5d0-474b-8e32-aa955a36307c"
+  }],
+  "id": "SHARE-rule-25944d24-fb85-4aef-91bf-8178e8aa3daa",
+  "lastUpdateTime": "1742107838860",
+  "createTime": "1741170199275",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "充电提示",
+  "description": "显示充电统计通知",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ChargerUnplug",
+      "customContextDataKey": {
+      },
+      "id": "F-30d819b5-a744-4929-bbaf-8a86babd4b46"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsExists",
+      "varName": "充电开始时间",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d5517235-897d-420a-93b4-b3e3a2d884ee"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "time",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-7ef90a3b-8487-4092-988a-f8cc104ae717"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "time",
+      "valueAsString": "%CurrentTimeMillis%",
+      "customContextDataKey": {
+      },
+      "id": "A-952fee63-49a6-455e-a97d-1d7e40f1764c"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "// 假设 startTime 和 endTime 为两个时间戳（毫秒）\ndiffMillis \u003d localVarOf$time - globalVarOf$充电开始时间[0];\ndiffSeconds \u003d diffMillis / 1000;\n\n// 计算时、分、秒，使用整数运算\nhours \u003d (int)(diffSeconds / 3600);  // 整数除法计算小时\nminutes \u003d (int)((diffSeconds % 3600) / 60);  // 先取小时后的剩余秒数，再整除 60 得到分钟\nseconds \u003d (int)(diffSeconds % 60);  // 取余得到秒数\n\n// 根据值是否为0决定是否显示对应部分\nresult \u003d \"\";\nif (hours \u003e 0) {\n    result +\u003d hours + \"时\";\n}\nif (minutes \u003e 0) {\n    result +\u003d minutes + \"分\";\n}\nif (seconds \u003e 0) {\n    result +\u003d seconds + \"秒\";\n}\n\n// 如果所有部分都为0，可以选择返回 \"0秒\" 或空字符串\nif (result \u003d\u003d \"\") {\n    result \u003d \"0秒\";\n}\n\nreturn result;",
+      "customContextDataKey": {
+      },
+      "id": "A-d6cf8ce5-c864-4b41-b98b-549a899c7b46"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1741170625895",
+      "title": "充电停止",
+      "message": "globalVarOf$充电开始时间[2]%→%BatteryLevel%%，充电时间：{mvelRet}",
+      "smallIcon": "chat-2-line",
+      "customContextDataKey": {
+      },
+      "id": "A-c3898cde-a982-4bd9-a04e-462c8245c8e5"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "充电开始时间",
+      "customContextDataKey": {
+      },
+      "id": "A-501d090a-a8b6-4de0-a1d3-5d88634b887b"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

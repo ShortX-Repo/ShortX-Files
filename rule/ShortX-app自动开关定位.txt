@@ -1,0 +1,107 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["GPS"],
+    "customContextDataKey": {
+    },
+    "id": "F-2dd6acdb-8c17-47d1-a90f-43bd5499a020"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.nearlife.ui.CheckInLifeUI"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-623c8739-d30e-4ca6-b475-ba419c89fd1a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetLocationEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-a6a60202-76d7-42a9-ae38-5c6363ddc899"
+  }],
+  "id": "rule-93e60675-6736-462f-9251-0583977ef276",
+  "lastUpdateTime": "1707299947575",
+  "createTime": "1704122685062",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "app自动开关定位",
+  "description": "添加应用集gps，将应用放入gps",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["GPS"],
+        "customContextDataKey": {
+        },
+        "id": "C-6d1b5c01-7063-456c-acd3-cfaff175ddaa"
+      }, {
+        "@type": "type.googleapis.com/CurrentActivity",
+        "activities": [{
+          "pkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "className": "com.tencent.mm.plugin.nearlife.ui.CheckInLifeUI"
+        }],
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-0deb2979-192c-4baf-ba73-b2094f7de4c7"
+      }, {
+        "@type": "type.googleapis.com/RequireTileState",
+        "state": "QSTileState_Active",
+        "tileSpec": "gps",
+        "customContextDataKey": {
+        },
+        "id": "C-c7b1e959-1776-489a-8359-adad7e0841d7"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-04f2310c-18d0-4991-9869-3095b8da1fc3"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "pkgSets": ["GPS"],
+      "customContextDataKey": {
+      },
+      "id": "F-35f581c9-82ed-4c29-b0de-29f56d1e6dd0"
+    }, {
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-53696de8-4ee1-4055-afbe-6511579d81d8"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-3fee15e0-2b4a-482e-a929-c716dc72a56d"
+    }]
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

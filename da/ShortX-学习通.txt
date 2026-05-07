@@ -1,0 +1,47 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.termux"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-fd3f4571-c7b5-4f5e-b274-10231f61f14d"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "2000",
+    "customContextDataKey": {
+    },
+    "id": "A-0a3e21fd-1681-42f6-91ff-b53f01d3b432"
+  }, {
+    "@type": "type.googleapis.com/InputText",
+    "text": "echo -e \"cd chaoxing\\npython main.py\\n2\\n4\\n\" | bash",
+    "customContextDataKey": {
+    },
+    "id": "A-5f3f3be5-ddf1-4481-9451-b94cb3a47e33"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-f90a2ba8-ca6e-4ff3-a3dc-f0525211d655"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 1300,
+    "y": 2800,
+    "customContextDataKey": {
+    },
+    "note": "回车",
+    "id": "A-5563d417-d4f6-45e5-9307-d7acc9397a4d"
+  }],
+  "id": "DA168de235-b90b-48a3-9a12-66e4b6098c9d",
+  "lastUpdateTime": "1698474278164",
+  "createTime": "1697734172898",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "学习通",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

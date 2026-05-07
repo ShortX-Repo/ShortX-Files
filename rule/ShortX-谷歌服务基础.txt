@@ -105,13 +105,12 @@
     "id": "A-38f1a509-4918-469b-8d1e-eb0c71b380cb"
   }],
   "id": "rule-378e112b-6d99-4ea4-9ab1-8861663d3f51",
-  "lastUpdateTime": "1703988766737",
+  "lastUpdateTime": "1701852250853",
   "createTime": "1701837016655",
   "author": {
     "name": "ShortX"
   },
   "title": "谷歌服务基础",
-  "description": "使用前请确认打开Shell命令引擎开关",
   "isEnabled": true,
   "hook": {
   },

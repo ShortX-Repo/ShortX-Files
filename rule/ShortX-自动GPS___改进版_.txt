@@ -1,0 +1,518 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["自动开关GPS应用"],
+    "tag": "GPS·打开指定应用",
+    "customContextDataKey": {
+    },
+    "id": "F-5d437355-7314-45c8-84ed-0747a0a20da6"
+  }, {
+    "@type": "type.googleapis.com/LocationStatusChanged",
+    "tag": "GPS·开启后待机检测",
+    "customContextDataKey": {
+    },
+    "id": "F-a8039922-4d7f-4884-9e12-f5ee4380a190"
+  }, {
+    "@type": "type.googleapis.com/TaskRemoved",
+    "pkgSets": ["自动开关GPS应用"],
+    "tag": "GPS·关闭指定应用",
+    "customContextDataKey": {
+    },
+    "id": "F-15cfc34b-8ae0-4d35-bfa7-3ab5b516cc64"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["自动开关GPS应用"],
+    "tag": "GPS·关闭指定应用",
+    "customContextDataKey": {
+    },
+    "id": "F-e1adcb42-2eef-4a60-9715-aee89d786f8d"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI00"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI01"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI02"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI03"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI04"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+    }],
+    "tag": "GPS·开启指定活动",
+    "customContextDataKey": {
+    },
+    "note": "微信小程序+位置",
+    "id": "F-c358a014-062e-4857-bf8e-d4f247244127"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI00"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI01"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI02"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI03"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI04"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+    }],
+    "tag": "GPS·开启指定活动",
+    "customContextDataKey": {
+    },
+    "note": "微信小程序+位置",
+    "id": "F-9e645d15-9d6a-45d3-b169-dd83b8e42b6a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "GPS·打开指定应用",
+      "customContextDataKey": {
+      },
+      "id": "C-77e7bf3b-7e27-4c09-8802-cd94356c45ed"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "GPS·开启指定活动",
+      "customContextDataKey": {
+      },
+      "id": "C-a844fd12-b86d-4c48-9356-a6928a3b24d6"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "5000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-aa0a9b63-edc6-4ddc-9ddf-0ec6afc82483"
+    }, {
+      "@type": "type.googleapis.com/SetLocationEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-b845fbc0-2795-4821-82ea-22958eee870f"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "打开指定应用，开启GPS",
+      "customContextDataKey": {
+      },
+      "id": "A-e06c0332-f2d7-4f99-b027-1a5dea38e182"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "error",
+      "customContextDataKey": {
+      },
+      "id": "A-526c5540-a6c8-46ba-bb57-919cf2769da7"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "打开指定应用和活动，开启GPS",
+    "id": "A-f996584e-6051-4d73-b2a3-2ac5cf53f505"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "GPS·开启后待机检测",
+      "customContextDataKey": {
+      },
+      "id": "C-9b01c425-b841-4c23-82ca-d76ebb76c352"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgSets": ["自动开关GPS应用"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-52319888-a7f2-42af-b15b-665a9093a555"
+      }, {
+        "@type": "type.googleapis.com/AppIsRunning",
+        "pkgSets": ["自动开关GPS应用"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-2b32b028-46c9-4643-be8a-db4830353d56"
+      }, {
+        "@type": "type.googleapis.com/CurrentActivity",
+        "activities": [{
+          "pkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI00"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI01"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI02"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI03"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI04"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm",
+            "userId": 999
+          },
+          "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm",
+            "userId": 999
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI00"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm",
+            "userId": 999
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI01"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm",
+            "userId": 999
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI02"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm",
+            "userId": 999
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI03"
+        }, {
+          "pkg": {
+            "pkgName": "com.tencent.mm",
+            "userId": 999
+          },
+          "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI04"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-569f80c0-5ec6-4567-b645-be0223203c8c"
+      }, {
+        "@type": "type.googleapis.com/AppHasTask",
+        "pkgSets": ["自动开关GPS应用"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-3d08429a-da40-4c1c-88cc-4a51dc721f33"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "error",
+        "customContextDataKey": {
+        },
+        "id": "A-4f712e7d-5bc3-442e-853b-ab84e548fe73"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "无GPS需求，60s后自动关闭",
+        "customContextDataKey": {
+        },
+        "id": "A-bc6e9db9-8681-4094-b4e6-f41cb7e9e524"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "60000",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-fa9a701c-b37e-4e69-b173-b4a3ee2c7f88"
+      }, {
+        "@type": "type.googleapis.com/SetLocationEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-f0820f29-2b22-40e0-9b76-de9919ec8990"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已关闭GPS",
+        "customContextDataKey": {
+        },
+        "id": "A-be4a1c3e-f3fd-4475-9854-3ab8d12e5464"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e80c9a05-e581-47fd-9868-fc75bdfc1050"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "error",
+      "customContextDataKey": {
+      },
+      "id": "A-af3e24c0-21c2-4abd-a0bb-a93cba484183"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "GPS开启后待机检测",
+    "id": "A-199234e0-dbbd-4289-a7cb-4aca8c71f84e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "GPS·关闭指定应用",
+      "customContextDataKey": {
+      },
+      "id": "C-4fe3c72b-d256-4c41-99c0-d7694bc2fb01"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "GPS·关闭指定活动",
+      "customContextDataKey": {
+      },
+      "id": "C-ac56ecec-6f64-44e0-beba-1f24cf3163f7"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "关闭指定应用，60s后进行检测GPS需求",
+      "customContextDataKey": {
+      },
+      "id": "A-44514215-f4b8-4db1-b96e-bf5ddaedebd5"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "60000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-1076200f-dbb6-46fb-a7c0-38f25e29581d"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgSets": ["自动开关GPS应用"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-7a7b4c80-ae4e-45f2-ac89-3ab0979001be"
+      }, {
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["自动开关GPS应用"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-b8960565-ecc8-4055-b087-5a265e97d346"
+      }, {
+        "@type": "type.googleapis.com/AppHasNotification",
+        "pkgSets": ["自动开关GPS应用"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-529bda73-34f0-4026-8d77-775a44f120d0"
+      }, {
+        "@type": "type.googleapis.com/AppHasTask",
+        "pkgSets": ["自动开关GPS应用"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-7f5c7563-7fce-409d-a300-a9d100fd80dc"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "指定应用停止，检测活动GPS需求",
+        "customContextDataKey": {
+        },
+        "id": "A-f5b3d19d-2263-4a87-b75c-283496866972"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/CurrentActivity",
+          "activities": [{
+            "pkg": {
+              "pkgName": "com.tencent.mm"
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI00"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm"
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI01"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm"
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI02"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm"
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI03"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm"
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI04"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm"
+            },
+            "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm",
+              "userId": 999
+            },
+            "className": "com.tencent.mm.plugin.location_soso.SoSoProxyUI"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm",
+              "userId": 999
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI00"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm",
+              "userId": 999
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI01"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm",
+              "userId": 999
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI02"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm",
+              "userId": 999
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI03"
+          }, {
+            "pkg": {
+              "pkgName": "com.tencent.mm",
+              "userId": 999
+            },
+            "className": "com.tencent.mm.plugin.appbrand.ui.AppBrandUI04"
+          }],
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-3d2c06d8-cac3-4ec9-bce4-b8e33677a8b0"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/SetLocationEnabled",
+          "customContextDataKey": {
+          },
+          "id": "A-fbc31baf-1dea-40d1-8f05-28d36828fa71"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "无GPS需求，已关闭GPS",
+          "customContextDataKey": {
+          },
+          "id": "A-963e6d57-5ea5-402d-8461-ef0e0ae9dedc"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "error",
+          "customContextDataKey": {
+          },
+          "id": "A-5beec0f4-ad69-4efe-94d5-dcc3d42bde38"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "检测微信小程序+位置",
+        "id": "A-3d38343f-773c-450e-8a1a-2dab622c72e0"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "error",
+        "customContextDataKey": {
+        },
+        "id": "A-523da1b7-5e23-4259-a2a7-94f5482a13d8"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-5b6c74ca-ac08-47fc-aa88-2506a642d311"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "error",
+      "customContextDataKey": {
+      },
+      "id": "A-9b6d4139-de49-4456-aba1-a3f28cc787bf"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "关闭指定应用和活动，检测GPS需求",
+    "id": "A-e43a33eb-5af6-435f-bbbf-079cde67a1db"
+  }],
+  "id": "SHARE-rule-5ece6aae-e753-4eba-af3e-40158b62cb50",
+  "lastUpdateTime": "1743991850448",
+  "createTime": "1721160356126",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动GPS (♢改进版)",
+  "description": "1.打开指定应用或活动自动开启GPS\n2.关闭指定应用或活动，开启60s检测环节(若60s内不再启用，自动关闭GPS；若60s内再启用，无动作)",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-3d91332f-ac91-4ef3-b37e-a5f0a80bd167"
+}
+###------###
+{"type":"rule"}

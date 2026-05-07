@@ -1,0 +1,82 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "gesture": "SwipeFromBottom",
+    "customContextDataKey": {
+    },
+    "id": "F-080c3765-9485-4744-ad49-72ece0ba9b13"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "B_O",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-886ec56d-907e-41f7-9cb3-d444cb244299"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "B_O",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-1c291acd-14b1-42b3-a532-71f7681868ab"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo 0 \u003e /sys/class/leds/flashlight/brightness",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-f105c250-cd08-4859-b495-ebd21e4cb323"
+    }, {
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-dcd42168-9fb7-4de5-831e-1fc93872ffd8"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "B_O",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-71c9fe18-d0a5-47d8-b433-6a37af28279c"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo 500 \u003e /sys/class/leds/flashlight/brightness",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-a15a5834-1e31-4212-8987-6241a4caaab0"
+    }, {
+      "@type": "type.googleapis.com/SetFlashLightEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-c52c6e92-2e2e-4dd9-b1f8-6eee19782831"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b26c3e98-ebb0-4010-9292-fb77546a86b7"
+  }],
+  "id": "SHARE-rule-109b8fd6-ea13-49e6-b2b4-1653a85c750d",
+  "lastUpdateTime": "1768543854257",
+  "createTime": "1754652717905",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Torch 🔦",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

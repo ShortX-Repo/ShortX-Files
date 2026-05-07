@@ -1,0 +1,1221 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-912ce2d6-9618-47ba-a10e-cb61433304eb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "crown-two",
+      "customContextDataKey": {
+      },
+      "note": "0.不支持tproxy和redirect哦，不会写转发QWQ\n\n可以用tun入站，打开auto_redirect很好用的！\n\nsing-box原核没有provider写法，需要的可以换e5大佬或yelnoo大佬的修改核\n\n或者使用sub-store",
+      "id": "A-70df090f-ca38-4d5d-a85b-561c76706a30"
+    }, {
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "six-circular-connection",
+      "customContextDataKey": {
+      },
+      "note": "1.务必查看🌝面对使用者的修改🌝",
+      "id": "A-6c612272-5be2-4dcd-a292-672e90efd0b8"
+    }, {
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "oval-love",
+      "customContextDataKey": {
+      },
+      "note": "2.termux不必须，但是更新脚本需要termux环境，如果不用termux，请修改bin_path变量并关闭sing-box的安装和更新检查",
+      "id": "A-511bb911-3bab-46bd-8f98-0b0d525110c7"
+    }, {
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "association",
+      "customContextDataKey": {
+      },
+      "note": "3.内核默认位于/data/data/com.termux/files/usr/bin/sing-box",
+      "id": "A-8a0b877c-8d08-4c49-9b4c-14ea4944ed7f"
+    }, {
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "triangular-pyramid",
+      "customContextDataKey": {
+      },
+      "note": "4.sing-box工作目录默认为/data/data/com.termux/files/home/.sing-box",
+      "id": "A-3d0ae687-7d23-4566-903c-dd80e379d42f"
+    }, {
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "shield-add",
+      "customContextDataKey": {
+      },
+      "note": "5.手动放置配置文件时顺便修改文件的归属和权限，避免termux用户无权限\n(不改也没关系，本指令使用root用户)",
+      "id": "A-5860b30a-d331-49b0-8484-4d547d353a43"
+    }, {
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "pantone-line",
+      "customContextDataKey": {
+      },
+      "note": "6.开启Shell In Systemui,并给予系统界面root权限",
+      "id": "A-0fc198aa-3941-468f-afa5-6b9f64c2c8a7"
+    }],
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "  🌚🌚🌚🌚🌚\n🌚  指令说明  🌚\n  🌚🌚🌚🌚🌚",
+    "id": "A-9bb5bf13-3be9-4c7c-909d-30f375c7c35a"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-8a52063f-d5ec-418f-8134-a7ec75a75171"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "allow-external-apps",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "这是termux的一个设置",
+      "id": "A-f8703f5e-1e53-44f3-b590-1d72586e7669"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "versions",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "存储当前已安装的sing-box版本",
+      "id": "A-22cd43b8-2d5c-4ae1-b771-d41c57b436eb"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "latest-versions",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "存储sing-box-beta最新版本",
+      "id": "A-65949f75-8b32-4fb1-a4c4-d3d3c6b220cb"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "skip-sing-box-detect",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "是否跳过sing-box安装检测(更新检测也会跳过)",
+      "id": "A-2b057427-63d9-4e88-81d5-d1ef1b6e1966"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "skip-sing-box-update",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "是否跳过sing-box更新",
+      "id": "A-1c7bdef1-9441-4ec9-81b5-ce5c5b553a32"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "skip-termux-detect",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "是否跳过termux安装检测",
+      "id": "A-bac421f6-b94e-451b-8432-babb070421b9"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "skip-config-detect",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "是否跳过配置文件检测",
+      "id": "A-fa736403-3e34-4790-833e-52ecd6f0d061"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "config-check",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "用于存储config检查错误",
+      "id": "A-8e13dcf2-ef0a-402a-a227-676ed68b1e54"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "pid",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "存储sing-box进程pid\n空为不存在",
+      "id": "A-243552f0-1650-4bf2-9120-d859ea85c8c8"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "WorkDir",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "sing-box的工作目录",
+      "id": "A-5f81bfa8-ccf0-4dc5-b78d-a713e16c125c"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "bin_path",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "sing-box二进制文件位置",
+      "id": "A-83714958-27fa-4fea-ab80-a36c888dfe74"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "skip-config-pull",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "是否跳过启动前的配置文件拉取",
+      "id": "A-175ff214-5c3f-4c89-b397-2f61ec855a06"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "sub",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "note": "订阅链接/sub-store链接",
+      "id": "A-9d7e637a-67f0-4f46-a7f4-a4e37eed7144"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "初始化一些变量",
+    "id": "A-4cb85c61-f4b3-4b24-85d0-30723eec08e9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-44d45499-f453-4f7c-aad9-874df0e8fede"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "skip-sing-box-detect",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "note": "是否跳过sing-box安装及更新检测\n可选值:\n1.true\n2.false",
+      "id": "A-e3abf217-80ce-4153-9d72-c8a9c620084c"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "skip-sing-box-update",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "note": "是否跳过sing-box更新\n可选值:\n1.true\n2.false",
+      "id": "A-5660557f-4252-49eb-92cf-821d7b6e3316"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "skip-termux-detect",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "note": "是否跳过termux安装检测\n可选值:\n1.true\n2.false",
+      "id": "A-4c0c3f6b-81ad-4707-8f1b-4932a53f657d"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "skip-config-detect",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "note": "是否跳过sing-box配置合法性检测\n可选值:\n1.true\n2.false",
+      "id": "A-77a9fb24-d1de-42b8-bbaf-a014f3d51377"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "WorkDir",
+      "valueAsString": "/data/data/com.termux/files/home/.sing-box",
+      "customContextDataKey": {
+      },
+      "note": "sing-box的工作目录",
+      "id": "A-60c0f825-cb0f-48d7-8e9a-d72e1fcd9a68"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "bin_path",
+      "valueAsString": "/data/data/com.termux/files/usr/bin/sing-box",
+      "customContextDataKey": {
+      },
+      "note": "sing-box的二进制程序位置",
+      "id": "A-6858f26c-7d78-48cb-a0e3-530caa63aa5c"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "skip-config-pull",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "note": "是否跳过启动前的配置文件拉取",
+      "id": "A-be8622ce-f098-445e-9973-a428599e3a28"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "sub",
+      "valueAsString": "https://example.com",
+      "customContextDataKey": {
+      },
+      "note": "填入订阅链接/sub-store链接",
+      "id": "A-e29b17f0-ce64-45bd-ae29-595ee6dbe9e1"
+    }],
+    "customContextDataKey": {
+    },
+    "note": " 🌝🌝🌝🌝🌝🌝🌝🌝\n🌝面向使用者的修改🌝\n 🌝🌝🌝🌝🌝🌝🌝🌝",
+    "id": "A-e36b57d7-18bd-4cc7-be2f-c67c9e8577c6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "skip-termux-detect",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-40e3ada4-ccda-43e2-b26a-a982b608e004"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 定义要检查的文件路径和要搜索的条目\nFILE_PATH\u003d\"/data/data/com.termux/files/home/.termux/termux.properties\"\nSEARCH_STRING\u003d\"allow-external-apps \u003d true\"\n\n# 1. 检查文件是否存在\nif [ -f \"$FILE_PATH\" ]; then\n  # 2. 如果文件存在，使用 grep 检查是否包含指定条目\n  #    -q (quiet): 安静模式，不输出任何匹配结果，只通过退出状态码表示是否找到。\n  #    -F (fixed-strings): 将搜索内容视为固定字符串，而不是正则表达式。\n  #    -x (line-regexp): 精确匹配整行。\n  if grep -Fxq \"$SEARCH_STRING\" \"$FILE_PATH\"; then\n    # 如果 grep 找到了匹配项（退出状态码为0），则输出 true\n    echo \"true\"\n  else\n    # 如果 grep 未找到匹配项（退出状态码非0），则输出 false\n    echo \"false\"\n  fi\nelse\n  # 如果文件不存在，输出 not found\n  echo \"not found\"\nfi\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-1505a8d4-b0ac-4bf9-a807-ee09064fde27"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "allow-external-apps",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-4bfe447b-7e18-43d3-a3b7-1b4127284f11"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "allow-external-apps",
+          "payload": {
+            "value": "not found"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-cfc5e9f0-edb4-489e-afb5-f837be4fbbec"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "复制github链接",
+          "onPositive": [{
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "https://github.com/termux/termux-app/releases",
+            "customContextDataKey": {
+            },
+            "id": "A-d86ae858-454e-466e-8739-5438eca41d2c"
+          }],
+          "message": "Termux未安装或未正确安装",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-8b9709df-57a2-4826-aef8-a63a903b2156"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-16165d6f-44cf-496c-a4de-a5941c0b5a56"
+        }],
+        "description": "not found",
+        "id": "Case-88b32b8b-395e-44e0-bd7d-1bfec8d4721d",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "allow-external-apps",
+          "payload": {
+            "value": "false"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-49a9ff06-a2e5-4029-bab9-540d45588908"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "帮我修改",
+          "onPositive": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 定义文件路径和目标行\nFILE_PATH\u003d\"/data/data/com.termux/files/home/.termux/termux.properties\"\nTARGET_LINE\u003d\"allow-external-apps \u003d true\"\n\necho \"--- Setting Termux External Apps Property ---\"\necho \"Target file: $FILE_PATH\"\necho \"Target setting: $TARGET_LINE\"\n\necho \"Modifying \u0027$FILE_PATH\u0027 to ensure \u0027$TARGET_LINE\u0027 is present.\"\n\n# 使用 sed 删除所有包含 \u0027allow-external-apps\u0027 的行\n# 这包括注释掉的行、设置为 false 的行，以及任何其他形式的该条目\n# ^[[:space:]]*: 匹配行首的0个或多个空格\n# #\\?: 匹配0个或1个 \u0027#\u0027\n# allow-external-apps[[:space:]]*\u003d: 匹配 \u0027allow-external-apps\u0027 后跟0个或多个空格和 \u0027\u003d\u0027\n# /d: 删除匹配到的行\nsed -i \u0027/^[[:space:]]*#\\?allow-external-apps[[:space:]]*\u003d/d\u0027 \"$FILE_PATH\"\n\n# 检查 sed 命令是否成功（虽然文件存在，但权限问题仍可能导致失败）\nif [ $? -ne 0 ]; then\n  echo \"Error: Failed to remove existing \u0027allow-external-apps\u0027 entries using sed. Please check file permissions.\"\n  exit 1\nfi\n\n# 将目标行添加到文件末尾\necho \"$TARGET_LINE\" \u003e\u003e \"$FILE_PATH\"\n\n# 检查 echo 命令是否成功\nif [ $? -ne 0 ]; then\n  echo \"Error: Failed to append \u0027$TARGET_LINE\u0027 to \u0027$FILE_PATH\u0027. Please check file permissions or disk space.\"\n  exit 1\nfi\n\necho \"Successfully updated \u0027$FILE_PATH\u0027 with \u0027$TARGET_LINE\u0027.\"\necho \"--- Script Finished ---\"\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "id": "A-c0140d04-ad37-46d8-815d-81d279fbc29d"
+          }, {
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "message": "已修改，请重新运行指令\n\n{shellOut}",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-5342acb2-279d-42f9-85cc-01f937000792"
+          }],
+          "message": "Termux已安装，但allow-external-apps未设置为true",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-e6eb1f18-a40f-48f6-a4e9-8e32c2655cfa"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-3d43f3e0-cdef-43ba-9082-95d2ce23190b"
+        }],
+        "description": "false",
+        "id": "Case-758d2fb5-3e34-4994-9f5d-36b645e9e9dc",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "allow-external-apps",
+          "payload": {
+            "value": "true"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-def2c5a7-c7fd-4c92-8096-11d9e4678218"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "six-circular-connection",
+          "customContextDataKey": {
+          },
+          "id": "A-21ba53ed-652c-4e90-b81c-c9609d4c3281"
+        }],
+        "description": "true",
+        "id": "Case-7d9fc053-1f67-4aaf-9a33-5b7a8cb7cb97",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-64b197a1-1df5-442e-b9cf-f8ea473747a1"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "检测termux是否已安装并正确设置",
+    "id": "A-c49b7b4f-f1ef-4b66-955f-2330de1c915a"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "skip-sing-box-detect",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f5c1cfa4-a147-4ec0-b222-744b4f18204f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 定义 sing-box 程序的路径\nSINGBOX_PATH\u003d\"localVarOf$bin_path\"\n\n# 检查文件是否存在并且是可执行文件\nif [ -x \"$SINGBOX_PATH\" ]; then\n  # 如果存在，执行 version 命令，并提取版本号\n  # head -n 1: 只取输出的第一行\n  # awk \u0027{print $3}\u0027: 将第一行按空格分割，打印第3个字段（即版本号）\n  version\u003d$($SINGBOX_PATH version | head -n 1 | awk \u0027{print $3}\u0027)\n  echo \"$version\"\nelse\n  # 如果不存在，输出 \"not found\"\n  echo \"not found\"\nfi\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "检测已安装sing-box版本",
+      "id": "A-0d2b9ed6-276e-41a0-947b-4e8ab2c76fda"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "versions",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-4bfe447b-7e18-43d3-a3b7-1b4127284f11"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "versions",
+          "payload": {
+            "value": "not found"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-cfc5e9f0-edb4-489e-afb5-f837be4fbbec"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "安装",
+          "onPositive": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 这个脚本用于创建并配置 sing-box-beta-install.sh 文件\n\n# 当任何命令失败时立即退出\nset -e\n\nTARGET_FILE\u003d\"/data/data/com.termux/files/home/sing-box-beta-install.sh\"\nPARENT_DIR\u003d$(dirname \"$TARGET_FILE\")\n\necho \"\u003d\u003d\u003e 正在确保目标目录存在: $PARENT_DIR\"\nmkdir -p \"$PARENT_DIR\"\n\necho \"\u003d\u003d\u003e 正在创建文件并写入内容: $TARGET_FILE\"\n\n# 使用 \u0027EOF_SCRIPT_CONTENT\u0027 作为 here document 的结束标记，并用单引号引用，\n# 以确保内部脚本的内容被原样写入，不被当前脚本解析。\ncat \u003c\u003c \u0027EOF_SCRIPT_CONTENT\u0027 \u003e \"$TARGET_FILE\"\n#!/data/data/com.termux/files/usr/bin/bash\n\n# 当任何命令失败时立即退出\nset -e\n\n# --- 颜色定义 ---\n# 检查输出是否为终端，如果是，则定义颜色变量\nif [ -t 1 ]; then\n  RED\u003d$(printf \u0027\\033[0;31m\u0027)\n  GREEN\u003d$(printf \u0027\\033[0;32m\u0027)\n  YELLOW\u003d$(printf \u0027\\033[0;33m\u0027)\n  BLUE\u003d$(printf \u0027\\033[0;34m\u0027)\n  BOLD\u003d$(printf \u0027\\033[1m\u0027)\n  RESET\u003d$(printf \u0027\\033[0m\u0027)\nelse\n  # 如果输出不是终端（例如重定向到文件），则不使用颜色\n  RED\u003d\"\"\n  GREEN\u003d\"\"\n  YELLOW\u003d\"\"\n  BLUE\u003d\"\"\n  BOLD\u003d\"\"\n  RESET\u003d\"\"\nfi\n\n# --- 1. 依赖项检查 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在检查所需软件包...${RESET}\\n\"\nmissing_packages\u003d\"\"\nrequired_commands\u003d\"curl tar grep awk sed\"\n\nfor cmd in $required_commands; do\n    if ! command -v \"$cmd\" \u003e/dev/null 2\u003e\u00261; then\n        package_name\u003d\"$cmd\"\n        if [ \"$cmd\" \u003d \"awk\" ]; then\n            package_name\u003d\"gawk\"\n        fi\n        missing_packages\u003d\"$missing_packages $package_name\"\n    fi\ndone\n\nif [ -n \"$missing_packages\" ]; then\n    missing_packages\u003d$(echo \"$missing_packages\" | sed \u0027s/^ *//\u0027)\n    printf \"\\n${RED}${BOLD}错误：检测到缺失的软件包。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}为了运行此脚本，请先安装它们。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}请运行以下命令：${RESET}\\n\\n\" \u003e\u00262\n    printf \"  ${BOLD}pkg install %s${RESET}\\n\\n\" \"$missing_packages\" \u003e\u00262\n    exit 1\nfi\n\nprintf \"${GREEN}\u003d\u003d\u003e 所有依赖项均已安装。${RESET}\\n\\n\"\n\n\n# --- 2. 检测架构 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在检测 Termux 架构...${RESET}\\n\"\ncase \"$(uname -m)\" in\n  aarch64)\n    arch\u003d\"arm64\"\n    ;;\n  armv7l|armv8l)\n    arch\u003d\"armv7\"\n    ;;\n  x86_64)\n    arch\u003d\"amd64\"\n    ;;\n  *)\n    printf \"${RED}${BOLD}错误: 不支持的架构: $(uname -m)${RESET}\\n\" \u003e\u00262\n    exit 1\n    ;;\nesac\nprintf \"检测到架构: ${BOLD}%s${RESET}\\n\\n\" \"$arch\"\n\n\n# --- 3. 获取最新的 beta 版本号 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在获取最新的 beta 版本号...${RESET}\\n\"\napi_url\u003d\"https://api.github.com/repos/SagerNet/sing-box/releases\"\n\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  latest_release_json\u003d$(curl -s -H \"Authorization: token ${GITHUB_TOKEN}\" \"$api_url\")\nelse\n  latest_release_json\u003d$(curl -s \"$api_url\")\nfi\n\nif [ $? -ne 0 ]; then\n  printf \"${RED}${BOLD}错误: 使用 curl 获取版本信息失败。${RESET}\\n\" \u003e\u00262\n  exit 1\nfi\n\nif echo \"$latest_release_json\" | grep -q \"API rate limit exceeded\"; then\n    printf \"\\n${RED}${BOLD}错误：GitHub API 请求频率超限。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}这是因为在短时间内从未经身份验证的 IP 地址发起了过多请求。${RESET}\\n\\n\" \u003e\u00262\n    printf \"${BOLD}解决方案：${RESET}\\n\" \u003e\u00262\n    printf \"1. 前往 ${BLUE}https://github.com/settings/tokens${RESET} 创建一个个人访问令牌 (Personal Access Token)。\\n\" \u003e\u00262\n    printf \"   创建时${BOLD}无需勾选任何权限${RESET} (scopes)。\\n\" \u003e\u00262\n    printf \"2. 复制你创建的令牌。\\n\" \u003e\u00262\n    printf \"3. 使用以下命令重新运行脚本 (将 \u0027your_token_here\u0027 替换为你的令牌):\\n\\n\" \u003e\u00262\n    printf \"   ${BOLD}GITHUB_TOKEN\u003dyour_token_here sh %s${RESET}\\n\\n\" \"$0\" \u003e\u00262\n    exit 1\nfi\n\ndownload_version\u003d$(echo \"$latest_release_json\" | grep tag_name | head -n 1 | awk -F: \u0027{print $2}\u0027 | sed \u0027s/[\", v]//g\u0027)\n\nif [ -z \"$download_version\" ]; then\n  printf \"${RED}${BOLD}错误: 无法从 GitHub API 获取版本号。${RESET}\\n\" \u003e\u00262\n  printf \"API 返回内容:\\n\" \u003e\u00262\n  echo \"$latest_release_json\" \u003e\u00262\n  exit 1\nfi\nprintf \"最新的 beta 版本为: ${GREEN}${BOLD}%s${RESET}\\n\\n\" \"$download_version\"\n\n\n# --- 4. 下载、解压并安装 ---\npackage_name\u003d\"sing-box-${download_version}-android-${arch}.tar.gz\"\npackage_url\u003d\"https://github.com/SagerNet/sing-box/releases/download/v${download_version}/${package_name}\"\n\ntmp_dir\u003d$(mktemp -d)\ntrap \u0027rm -rf \"$tmp_dir\"\u0027 EXIT\n\ncd \"$tmp_dir\"\n\nprintf \"${BLUE}\u003d\u003d\u003e 正在从以下链接下载:${RESET}\\n%s\\n\" \"$package_url\"\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  curl --fail -Lo \"$package_name\" -H \"Authorization: token ${GITHUB_TOKEN}\" \"$package_url\"\nelse\n  curl --fail -Lo \"$package_name\" \"$package_url\"\nfi\n\nif [ $? -ne 0 ]; then\n  printf \"${RED}${BOLD}错误: 下载失败。${RESET}\\n\" \u003e\u00262\n  exit 1\nfi\n\nprintf \"${BLUE}\u003d\u003d\u003e 正在解压文件...${RESET}\\n\"\ntar -xzf \"$package_name\"\n\nextracted_dir\u003d$(tar -tf \"$package_name\" | head -n 1 | cut -f1 -d\"/\")\nif [ -f \"${extracted_dir}/sing-box\" ]; then\n    install_source\u003d\"${extracted_dir}/sing-box\"\nelse\n    printf \"${RED}${BOLD}错误: 在解压后的文件中未找到 \u0027sing-box\u0027 可执行文件。${RESET}\\n\" \u003e\u00262\n    ls -lR\n    exit 1\nfi\n\ninstall_path\u003d\"$PREFIX/bin/sing-box\"\n\nif [ -f \"$install_path\" ]; then\n    printf \"${YELLOW}\u003d\u003d\u003e 检测到已安装的 sing-box，正在覆盖更新...${RESET}\\n\"\nelse\n    printf \"${BLUE}\u003d\u003d\u003e 正在安装 sing-box 到 ${install_path}...${RESET}\\n\"\nfi\n\nmv -f \"$install_source\" \"$install_path\"\nchmod +x \"$install_path\"\n\nprintf \"\\n${GREEN}${BOLD}🎉 sing-box 版本 %s 已成功安装！${RESET}\\n\" \"$download_version\"\nprintf \"你可以使用 \u0027${BOLD}sing-box${RESET}\u0027 命令来运行它。\\n\\n\"\n\n\n# --- 5. 验证安装 ---\nprintf \"${BOLD}\u003d\u003d\u003e 验证安装:${RESET}\\n\"\nsing-box version\nEOF_SCRIPT_CONTENT\n\necho \"\u003d\u003d\u003e 正在修改文件用户和组为父文件夹的用户和组...\"\n# 获取父文件夹的用户和组\nOWNER\u003d$(stat -c \"%U\" \"$PARENT_DIR\")\nGROUP\u003d$(stat -c \"%G\" \"$PARENT_DIR\")\n\n# 修改文件的用户和组\nchown \"${OWNER}:${GROUP}\" \"$TARGET_FILE\"\n\necho \"\u003d\u003d\u003e 正在为文件用户赋予执行权限...\"\n# 为文件用户赋予执行权限\nchmod u+x \"$TARGET_FILE\"\n\necho \"🎉 脚本已成功创建并配置！\"\necho \"文件路径: $TARGET_FILE\"\necho \"你可以通过以下命令运行它:\"\necho \"  sh $TARGET_FILE\"\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "note": "创建安装脚本",
+            "id": "A-69899b8c-d32c-447b-bff0-0a740e8cc1cd"
+          }, {
+            "@type": "type.googleapis.com/StartActivityIntent",
+            "intent": {
+              "action": "com.termux.RUN_COMMAND",
+              "pkgName": "com.termux",
+              "className": "com.termux.app.RunCommandService",
+              "extras": [{
+                "key": "com.termux.RUN_COMMAND_PATH",
+                "value": "/data/data/com.termux/files/home/sing-box-beta-install.sh",
+                "type": "String"
+              }, {
+                "key": "com.termux.RUN_COMMAND_BACKGROUND",
+                "value": "false",
+                "type": "Bool"
+              }, {
+                "key": "com.termux.RUN_COMMAND_WORKDIR",
+                "value": "/data/data/com.termux/files/home",
+                "type": "String"
+              }]
+            },
+            "componentType": "AndroidIntentComponentTypeService",
+            "customContextDataKey": {
+            },
+            "note": "启动安装脚本",
+            "id": "A-d427be98-1187-4139-b618-dd246b5f2d3b"
+          }],
+          "message": "sing-box未安装",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-8b9709df-57a2-4826-aef8-a63a903b2156"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-16165d6f-44cf-496c-a4de-a5941c0b5a56"
+        }],
+        "description": "not found",
+        "id": "Case-88b32b8b-395e-44e0-bd7d-1bfec8d4721d",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "skip-sing-box-update",
+          "payload": {
+            "value": "true"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-f4bf247c-eecb-4af9-9e5f-d96a91c2d97e"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "six-circular-connection",
+          "customContextDataKey": {
+          },
+          "id": "A-7845cff1-9e28-40e5-8374-2a6aba3387bb"
+        }],
+        "description": "不更新",
+        "id": "Case-977019b1-a224-4f56-baa3-0db59e29d7e2",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "skip-sing-box-update",
+          "payload": {
+            "value": "false"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-9ed04d7d-9444-40e0-914f-f7d4b24241c7"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 获取最新的 beta 版本号\napi_url\u003d\"https://api.github.com/repos/SagerNet/sing-box/releases\"\n\n# 如果设置了 GITHUB_TOKEN 环境变量，则使用它进行认证\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  latest_release_json\u003d$(curl -s -H \"Authorization: token ${GITHUB_TOKEN}\" \"$api_url\")\nelse\n  latest_release_json\u003d$(curl -s \"$api_url\")\nfi\n\n# 从 JSON 响应中提取 tag_name，并清理掉多余的字符（如引号、逗号和前缀 \u0027v\u0027）\ndownload_version\u003d$(echo \"$latest_release_json\" | grep tag_name | head -n 1 | awk -F: \u0027{print $2}\u0027 | sed \u0027s/[\", v]//g\u0027)\n\n# 只输出版本号\necho \"$download_version\"\n",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-364a4cdf-7025-4cdf-9393-6cc28341c08e"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "latest-versions",
+          "valueAsString": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-f4b39921-9ded-4a0f-9077-ecf70b747d9e"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "versions",
+            "payload": {
+              "value": "localVarOf$latest-versions"
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-7b0c434d-dfec-450f-99bd-a4a5f32f4c3d"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "更新",
+            "onPositive": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 这个脚本用于创建并配置 sing-box-beta-install.sh 文件\n\n# 当任何命令失败时立即退出\nset -e\n\nTARGET_FILE\u003d\"/data/data/com.termux/files/home/sing-box-beta-install.sh\"\nPARENT_DIR\u003d$(dirname \"$TARGET_FILE\")\n\necho \"\u003d\u003d\u003e 正在确保目标目录存在: $PARENT_DIR\"\nmkdir -p \"$PARENT_DIR\"\n\necho \"\u003d\u003d\u003e 正在创建文件并写入内容: $TARGET_FILE\"\n\n# 使用 \u0027EOF_SCRIPT_CONTENT\u0027 作为 here document 的结束标记，并用单引号引用，\n# 以确保内部脚本的内容被原样写入，不被当前脚本解析。\ncat \u003c\u003c \u0027EOF_SCRIPT_CONTENT\u0027 \u003e \"$TARGET_FILE\"\n#!/data/data/com.termux/files/usr/bin/bash\n\n# 当任何命令失败时立即退出\nset -e\n\n# --- 颜色定义 ---\n# 检查输出是否为终端，如果是，则定义颜色变量\nif [ -t 1 ]; then\n  RED\u003d$(printf \u0027\\033[0;31m\u0027)\n  GREEN\u003d$(printf \u0027\\033[0;32m\u0027)\n  YELLOW\u003d$(printf \u0027\\033[0;33m\u0027)\n  BLUE\u003d$(printf \u0027\\033[0;34m\u0027)\n  BOLD\u003d$(printf \u0027\\033[1m\u0027)\n  RESET\u003d$(printf \u0027\\033[0m\u0027)\nelse\n  # 如果输出不是终端（例如重定向到文件），则不使用颜色\n  RED\u003d\"\"\n  GREEN\u003d\"\"\n  YELLOW\u003d\"\"\n  BLUE\u003d\"\"\n  BOLD\u003d\"\"\n  RESET\u003d\"\"\nfi\n\n# --- 1. 依赖项检查 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在检查所需软件包...${RESET}\\n\"\nmissing_packages\u003d\"\"\nrequired_commands\u003d\"curl tar grep awk sed\"\n\nfor cmd in $required_commands; do\n    if ! command -v \"$cmd\" \u003e/dev/null 2\u003e\u00261; then\n        package_name\u003d\"$cmd\"\n        if [ \"$cmd\" \u003d \"awk\" ]; then\n            package_name\u003d\"gawk\"\n        fi\n        missing_packages\u003d\"$missing_packages $package_name\"\n    fi\ndone\n\nif [ -n \"$missing_packages\" ]; then\n    missing_packages\u003d$(echo \"$missing_packages\" | sed \u0027s/^ *//\u0027)\n    printf \"\\n${RED}${BOLD}错误：检测到缺失的软件包。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}为了运行此脚本，请先安装它们。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}请运行以下命令：${RESET}\\n\\n\" \u003e\u00262\n    printf \"  ${BOLD}pkg install %s${RESET}\\n\\n\" \"$missing_packages\" \u003e\u00262\n    exit 1\nfi\n\nprintf \"${GREEN}\u003d\u003d\u003e 所有依赖项均已安装。${RESET}\\n\\n\"\n\n\n# --- 2. 检测架构 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在检测 Termux 架构...${RESET}\\n\"\ncase \"$(uname -m)\" in\n  aarch64)\n    arch\u003d\"arm64\"\n    ;;\n  armv7l|armv8l)\n    arch\u003d\"armv7\"\n    ;;\n  x86_64)\n    arch\u003d\"amd64\"\n    ;;\n  *)\n    printf \"${RED}${BOLD}错误: 不支持的架构: $(uname -m)${RESET}\\n\" \u003e\u00262\n    exit 1\n    ;;\nesac\nprintf \"检测到架构: ${BOLD}%s${RESET}\\n\\n\" \"$arch\"\n\n\n# --- 3. 获取最新的 beta 版本号 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在获取最新的 beta 版本号...${RESET}\\n\"\napi_url\u003d\"https://api.github.com/repos/SagerNet/sing-box/releases\"\n\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  latest_release_json\u003d$(curl -s -H \"Authorization: token ${GITHUB_TOKEN}\" \"$api_url\")\nelse\n  latest_release_json\u003d$(curl -s \"$api_url\")\nfi\n\nif [ $? -ne 0 ]; then\n  printf \"${RED}${BOLD}错误: 使用 curl 获取版本信息失败。${RESET}\\n\" \u003e\u00262\n  exit 1\nfi\n\nif echo \"$latest_release_json\" | grep -q \"API rate limit exceeded\"; then\n    printf \"\\n${RED}${BOLD}错误：GitHub API 请求频率超限。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}这是因为在短时间内从未经身份验证的 IP 地址发起了过多请求。${RESET}\\n\\n\" \u003e\u00262\n    printf \"${BOLD}解决方案：${RESET}\\n\" \u003e\u00262\n    printf \"1. 前往 ${BLUE}https://github.com/settings/tokens${RESET} 创建一个个人访问令牌 (Personal Access Token)。\\n\" \u003e\u00262\n    printf \"   创建时${BOLD}无需勾选任何权限${RESET} (scopes)。\\n\" \u003e\u00262\n    printf \"2. 复制你创建的令牌。\\n\" \u003e\u00262\n    printf \"3. 使用以下命令重新运行脚本 (将 \u0027your_token_here\u0027 替换为你的令牌):\\n\\n\" \u003e\u00262\n    printf \"   ${BOLD}GITHUB_TOKEN\u003dyour_token_here sh %s${RESET}\\n\\n\" \"$0\" \u003e\u00262\n    exit 1\nfi\n\ndownload_version\u003d$(echo \"$latest_release_json\" | grep tag_name | head -n 1 | awk -F: \u0027{print $2}\u0027 | sed \u0027s/[\", v]//g\u0027)\n\nif [ -z \"$download_version\" ]; then\n  printf \"${RED}${BOLD}错误: 无法从 GitHub API 获取版本号。${RESET}\\n\" \u003e\u00262\n  printf \"API 返回内容:\\n\" \u003e\u00262\n  echo \"$latest_release_json\" \u003e\u00262\n  exit 1\nfi\nprintf \"最新的 beta 版本为: ${GREEN}${BOLD}%s${RESET}\\n\\n\" \"$download_version\"\n\n\n# --- 4. 下载、解压并安装 ---\npackage_name\u003d\"sing-box-${download_version}-android-${arch}.tar.gz\"\npackage_url\u003d\"https://github.com/SagerNet/sing-box/releases/download/v${download_version}/${package_name}\"\n\ntmp_dir\u003d$(mktemp -d)\ntrap \u0027rm -rf \"$tmp_dir\"\u0027 EXIT\n\ncd \"$tmp_dir\"\n\nprintf \"${BLUE}\u003d\u003d\u003e 正在从以下链接下载:${RESET}\\n%s\\n\" \"$package_url\"\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  curl --fail -Lo \"$package_name\" -H \"Authorization: token ${GITHUB_TOKEN}\" \"$package_url\"\nelse\n  curl --fail -Lo \"$package_name\" \"$package_url\"\nfi\n\nif [ $? -ne 0 ]; then\n  printf \"${RED}${BOLD}错误: 下载失败。${RESET}\\n\" \u003e\u00262\n  exit 1\nfi\n\nprintf \"${BLUE}\u003d\u003d\u003e 正在解压文件...${RESET}\\n\"\ntar -xzf \"$package_name\"\n\nextracted_dir\u003d$(tar -tf \"$package_name\" | head -n 1 | cut -f1 -d\"/\")\nif [ -f \"${extracted_dir}/sing-box\" ]; then\n    install_source\u003d\"${extracted_dir}/sing-box\"\nelse\n    printf \"${RED}${BOLD}错误: 在解压后的文件中未找到 \u0027sing-box\u0027 可执行文件。${RESET}\\n\" \u003e\u00262\n    ls -lR\n    exit 1\nfi\n\ninstall_path\u003d\"$PREFIX/bin/sing-box\"\n\nif [ -f \"$install_path\" ]; then\n    printf \"${YELLOW}\u003d\u003d\u003e 检测到已安装的 sing-box，正在覆盖更新...${RESET}\\n\"\nelse\n    printf \"${BLUE}\u003d\u003d\u003e 正在安装 sing-box 到 ${install_path}...${RESET}\\n\"\nfi\n\nmv -f \"$install_source\" \"$install_path\"\nchmod +x \"$install_path\"\n\nprintf \"\\n${GREEN}${BOLD}🎉 sing-box 版本 %s 已成功安装！${RESET}\\n\" \"$download_version\"\nprintf \"你可以使用 \u0027${BOLD}sing-box${RESET}\u0027 命令来运行它。\\n\\n\"\n\n\n# --- 5. 验证安装 ---\nprintf \"${BOLD}\u003d\u003d\u003e 验证安装:${RESET}\\n\"\nsing-box version\nEOF_SCRIPT_CONTENT\n\necho \"\u003d\u003d\u003e 正在修改文件用户和组为父文件夹的用户和组...\"\n# 获取父文件夹的用户和组\nOWNER\u003d$(stat -c \"%U\" \"$PARENT_DIR\")\nGROUP\u003d$(stat -c \"%G\" \"$PARENT_DIR\")\n\n# 修改文件的用户和组\nchown \"${OWNER}:${GROUP}\" \"$TARGET_FILE\"\n\necho \"\u003d\u003d\u003e 正在为文件用户赋予执行权限...\"\n# 为文件用户赋予执行权限\nchmod u+x \"$TARGET_FILE\"\n\necho \"🎉 脚本已成功创建并配置！\"\necho \"文件路径: $TARGET_FILE\"\necho \"你可以通过以下命令运行它:\"\necho \"  sh $TARGET_FILE\"\n",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "note": "创建安装脚本",
+              "id": "A-69899b8c-d32c-447b-bff0-0a740e8cc1cd"
+            }, {
+              "@type": "type.googleapis.com/StartActivityIntent",
+              "intent": {
+                "action": "com.termux.RUN_COMMAND",
+                "pkgName": "com.termux",
+                "className": "com.termux.app.RunCommandService",
+                "extras": [{
+                  "key": "com.termux.RUN_COMMAND_PATH",
+                  "value": "/data/data/com.termux/files/home/sing-box-beta-install.sh",
+                  "type": "String"
+                }, {
+                  "key": "com.termux.RUN_COMMAND_BACKGROUND",
+                  "value": "false",
+                  "type": "Bool"
+                }, {
+                  "key": "com.termux.RUN_COMMAND_WORKDIR",
+                  "value": "/data/data/com.termux/files/home",
+                  "type": "String"
+                }]
+              },
+              "componentType": "AndroidIntentComponentTypeService",
+              "customContextDataKey": {
+              },
+              "note": "启动安装脚本",
+              "id": "A-d427be98-1187-4139-b618-dd246b5f2d3b"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Root",
+              "customContextDataKey": {
+              },
+              "id": "A-e8c910df-b357-4b73-85b2-dcf71d74f026"
+            }],
+            "negative": "不更新，继续启动",
+            "onNegative": [{
+              "@type": "type.googleapis.com/NoAction",
+              "icon": "six-circular-connection",
+              "customContextDataKey": {
+              },
+              "id": "A-03654a0c-ae13-45aa-a4b4-1a514285f1cc"
+            }],
+            "title": "sing-box有更新？",
+            "message": "最新版本:localVarOf$latest-versions\n当前版本:localVarOf$versions",
+            "cancelable": true,
+            "style": {
+              "fontScale": 1.0
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-008fcc64-2a04-4a92-9432-91df38784e43"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-ff434ece-cbf5-4d30-8693-1de917f36b0b"
+        }],
+        "description": "更新",
+        "id": "Case-a7f4af59-bd23-44de-bad3-dba0040043ac",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-64b197a1-1df5-442e-b9cf-f8ea473747a1"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "检测sing-box是否已安装及更新",
+    "id": "A-4eb8347b-15dc-4907-9cda-280ebc62cabb"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-46b1eb51-856b-4cf1-bfcf-2050b5a0f4b6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nbusybox pidof sing-box",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-0d2b9ed6-276e-41a0-947b-4e8ab2c76fda"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "pid",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-4bfe447b-7e18-43d3-a3b7-1b4127284f11"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotEmpty",
+          "varName": "pid",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-172ece66-c113-45a2-8b79-6baefe4575bd"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowMenuDialog",
+          "items": [{
+            "title": "优雅杀(5s)",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nPROCESS_PID\u003d\"localVarOf$pid\"\n\n# 定义等待进程优雅退出的时间（秒）\nGRACE_PERIOD_SECONDS\u003d5\n\necho \"尝试优雅地终止进程 $PROCESS_PID (发送 SIGTERM)...\"\n\n# 1. 发送 SIGTERM (信号15)\n# SIGTERM 是一个终止请求，允许进程捕获并执行清理操作后退出。\n# 2\u003e/dev/null 用于抑制 \"No such process\" 等错误信息，如果进程已经不存在。\nif kill -15 \"$PROCESS_PID\" 2\u003e/dev/null; then\n    echo \"已向进程 $PROCESS_PID 发送 SIGTERM。等待 $GRACE_PERIOD_SECONDS 秒...\"\n\n    # 2. 等待一段时间，让进程有机会优雅退出\n    sleep \"$GRACE_PERIOD_SECONDS\"\n\n    # 3. 检查进程是否仍在运行\n    # kill -0 不发送任何信号，但会检查进程是否存在以及当前用户是否有权限向其发送信号。\n    # 如果进程存在且有权限，返回0；否则返回非0。\n    if kill -0 \"$PROCESS_PID\" 2\u003e/dev/null; then\n        echo \"进程 $PROCESS_PID 在 SIGTERM 后仍然运行。优雅终止失败。\"\n        echo \"如果需要，请手动执行强制终止脚本。\"\n    else\n        echo \"进程 $PROCESS_PID 已在 SIGTERM 后优雅终止。\"\n    fi\nelse\n    echo \"错误：无法向进程 $PROCESS_PID 发送 SIGTERM。可能权限不足或进程已退出。\"\nfi\n\necho \"优雅终止脚本执行完毕。\"\n",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "id": "A-61dd5d52-5869-4652-af7f-3dc4e01ccb55"
+            }, {
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "title": "sing-box已终止",
+              "message": "{shellOut}",
+              "cancelable": true,
+              "style": {
+                "fontScale": 1.0
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-e099e11d-eaba-408c-a281-273f0546d557"
+            }]
+          }, {
+            "title": "暴力杀",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nPROCESS_PID\u003d\"localVarOf$pid\"\n\necho \"尝试强制终止进程 $PROCESS_PID (发送 SIGKILL)...\"\n\n# 1. 发送 SIGKILL (信号9)\n# SIGKILL 无法被进程捕获或忽略，会立即终止进程。\n# 2\u003e/dev/null 用于抑制 \"No such process\" 等错误信息，如果进程已经不存在。\nif kill -9 \"$PROCESS_PID\" 2\u003e/dev/null; then\n    echo \"已向进程 $PROCESS_PID 发送 SIGKILL。\"\n\n    # 2. 短暂等待，确保操作系统有时间清理进程\n    sleep 1\n\n    # 3. 检查进程是否仍在运行\n    if kill -0 \"$PROCESS_PID\" 2\u003e/dev/null; then\n        echo \"错误：进程 $PROCESS_PID 无法被终止，即使使用了 SIGKILL。这非常不寻常，可能表示系统存在问题。\"\n    else\n        echo \"进程 $PROCESS_PID 已成功通过 SIGKILL 终止。\"\n    fi\nelse\n    # 如果 kill -9 失败，通常意味着进程不存在或权限不足。\n    echo \"错误：无法向进程 $PROCESS_PID 发送 SIGKILL。可能权限不足或进程已退出。\"\nfi\n\necho \"强制终止脚本执行完毕。\"\n\n",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "id": "A-61dd5d52-5869-4652-af7f-3dc4e01ccb55"
+            }, {
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "title": "sing-box已终止",
+              "message": "{shellOut}",
+              "cancelable": true,
+              "style": {
+                "fontScale": 1.0
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-e099e11d-eaba-408c-a281-273f0546d557"
+            }]
+          }, {
+            "title": "更新内核",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 定义 sing-box 程序的路径\nSINGBOX_PATH\u003d\"localVarOf$bin_path\"\n\n# 检查文件是否存在并且是可执行文件\nif [ -x \"$SINGBOX_PATH\" ]; then\n  # 如果存在，执行 version 命令，并提取版本号\n  # head -n 1: 只取输出的第一行\n  # awk \u0027{print $3}\u0027: 将第一行按空格分割，打印第3个字段（即版本号）\n  version\u003d$($SINGBOX_PATH version | head -n 1 | awk \u0027{print $3}\u0027)\n  echo \"$version\"\nelse\n  # 如果不存在，输出 \"not found\"\n  echo \"not found\"\nfi\n",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "note": "检测已安装sing-box版本",
+              "id": "A-0d2b9ed6-276e-41a0-947b-4e8ab2c76fda"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "versions",
+              "valueAsString": "{shellOut}",
+              "customContextDataKey": {
+              },
+              "id": "A-4bfe447b-7e18-43d3-a3b7-1b4127284f11"
+            }, {
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 获取最新的 beta 版本号\napi_url\u003d\"https://api.github.com/repos/SagerNet/sing-box/releases\"\n\n# 如果设置了 GITHUB_TOKEN 环境变量，则使用它进行认证\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  latest_release_json\u003d$(curl -s -H \"Authorization: token ${GITHUB_TOKEN}\" \"$api_url\")\nelse\n  latest_release_json\u003d$(curl -s \"$api_url\")\nfi\n\n# 从 JSON 响应中提取 tag_name，并清理掉多余的字符（如引号、逗号和前缀 \u0027v\u0027）\ndownload_version\u003d$(echo \"$latest_release_json\" | grep tag_name | head -n 1 | awk -F: \u0027{print $2}\u0027 | sed \u0027s/[\", v]//g\u0027)\n\n# 只输出版本号\necho \"$download_version\"\n",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "id": "A-364a4cdf-7025-4cdf-9393-6cc28341c08e"
+            }, {
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "latest-versions",
+              "valueAsString": "{shellOut}",
+              "customContextDataKey": {
+              },
+              "id": "A-f4b39921-9ded-4a0f-9077-ecf70b747d9e"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "If": [{
+                "@type": "type.googleapis.com/EvaluateLocalVar",
+                "op": "EqualTo",
+                "varName": "versions",
+                "payload": {
+                  "value": "localVarOf$latest-versions"
+                },
+                "customContextDataKey": {
+                },
+                "isInvert": true,
+                "id": "C-7b0c434d-dfec-450f-99bd-a4a5f32f4c3d"
+              }],
+              "IfActions": [{
+                "@type": "type.googleapis.com/ShowAlertDialog",
+                "positive": "更新",
+                "onPositive": [{
+                  "@type": "type.googleapis.com/ShellCommand",
+                  "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 这个脚本用于创建并配置 sing-box-beta-install.sh 文件\n\n# 当任何命令失败时立即退出\nset -e\n\nTARGET_FILE\u003d\"/data/data/com.termux/files/home/sing-box-beta-install.sh\"\nPARENT_DIR\u003d$(dirname \"$TARGET_FILE\")\n\necho \"\u003d\u003d\u003e 正在确保目标目录存在: $PARENT_DIR\"\nmkdir -p \"$PARENT_DIR\"\n\necho \"\u003d\u003d\u003e 正在创建文件并写入内容: $TARGET_FILE\"\n\n# 使用 \u0027EOF_SCRIPT_CONTENT\u0027 作为 here document 的结束标记，并用单引号引用，\n# 以确保内部脚本的内容被原样写入，不被当前脚本解析。\ncat \u003c\u003c \u0027EOF_SCRIPT_CONTENT\u0027 \u003e \"$TARGET_FILE\"\n#!/data/data/com.termux/files/usr/bin/bash\n\n# 当任何命令失败时立即退出\nset -e\n\n# --- 颜色定义 ---\n# 检查输出是否为终端，如果是，则定义颜色变量\nif [ -t 1 ]; then\n  RED\u003d$(printf \u0027\\033[0;31m\u0027)\n  GREEN\u003d$(printf \u0027\\033[0;32m\u0027)\n  YELLOW\u003d$(printf \u0027\\033[0;33m\u0027)\n  BLUE\u003d$(printf \u0027\\033[0;34m\u0027)\n  BOLD\u003d$(printf \u0027\\033[1m\u0027)\n  RESET\u003d$(printf \u0027\\033[0m\u0027)\nelse\n  # 如果输出不是终端（例如重定向到文件），则不使用颜色\n  RED\u003d\"\"\n  GREEN\u003d\"\"\n  YELLOW\u003d\"\"\n  BLUE\u003d\"\"\n  BOLD\u003d\"\"\n  RESET\u003d\"\"\nfi\n\n# --- 1. 依赖项检查 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在检查所需软件包...${RESET}\\n\"\nmissing_packages\u003d\"\"\nrequired_commands\u003d\"curl tar grep awk sed\"\n\nfor cmd in $required_commands; do\n    if ! command -v \"$cmd\" \u003e/dev/null 2\u003e\u00261; then\n        package_name\u003d\"$cmd\"\n        if [ \"$cmd\" \u003d \"awk\" ]; then\n            package_name\u003d\"gawk\"\n        fi\n        missing_packages\u003d\"$missing_packages $package_name\"\n    fi\ndone\n\nif [ -n \"$missing_packages\" ]; then\n    missing_packages\u003d$(echo \"$missing_packages\" | sed \u0027s/^ *//\u0027)\n    printf \"\\n${RED}${BOLD}错误：检测到缺失的软件包。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}为了运行此脚本，请先安装它们。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}请运行以下命令：${RESET}\\n\\n\" \u003e\u00262\n    printf \"  ${BOLD}pkg install %s${RESET}\\n\\n\" \"$missing_packages\" \u003e\u00262\n    exit 1\nfi\n\nprintf \"${GREEN}\u003d\u003d\u003e 所有依赖项均已安装。${RESET}\\n\\n\"\n\n\n# --- 2. 检测架构 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在检测 Termux 架构...${RESET}\\n\"\ncase \"$(uname -m)\" in\n  aarch64)\n    arch\u003d\"arm64\"\n    ;;\n  armv7l|armv8l)\n    arch\u003d\"armv7\"\n    ;;\n  x86_64)\n    arch\u003d\"amd64\"\n    ;;\n  *)\n    printf \"${RED}${BOLD}错误: 不支持的架构: $(uname -m)${RESET}\\n\" \u003e\u00262\n    exit 1\n    ;;\nesac\nprintf \"检测到架构: ${BOLD}%s${RESET}\\n\\n\" \"$arch\"\n\n\n# --- 3. 获取最新的 beta 版本号 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在获取最新的 beta 版本号...${RESET}\\n\"\napi_url\u003d\"https://api.github.com/repos/SagerNet/sing-box/releases\"\n\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  latest_release_json\u003d$(curl -s -H \"Authorization: token ${GITHUB_TOKEN}\" \"$api_url\")\nelse\n  latest_release_json\u003d$(curl -s \"$api_url\")\nfi\n\nif [ $? -ne 0 ]; then\n  printf \"${RED}${BOLD}错误: 使用 curl 获取版本信息失败。${RESET}\\n\" \u003e\u00262\n  exit 1\nfi\n\nif echo \"$latest_release_json\" | grep -q \"API rate limit exceeded\"; then\n    printf \"\\n${RED}${BOLD}错误：GitHub API 请求频率超限。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}这是因为在短时间内从未经身份验证的 IP 地址发起了过多请求。${RESET}\\n\\n\" \u003e\u00262\n    printf \"${BOLD}解决方案：${RESET}\\n\" \u003e\u00262\n    printf \"1. 前往 ${BLUE}https://github.com/settings/tokens${RESET} 创建一个个人访问令牌 (Personal Access Token)。\\n\" \u003e\u00262\n    printf \"   创建时${BOLD}无需勾选任何权限${RESET} (scopes)。\\n\" \u003e\u00262\n    printf \"2. 复制你创建的令牌。\\n\" \u003e\u00262\n    printf \"3. 使用以下命令重新运行脚本 (将 \u0027your_token_here\u0027 替换为你的令牌):\\n\\n\" \u003e\u00262\n    printf \"   ${BOLD}GITHUB_TOKEN\u003dyour_token_here sh %s${RESET}\\n\\n\" \"$0\" \u003e\u00262\n    exit 1\nfi\n\ndownload_version\u003d$(echo \"$latest_release_json\" | grep tag_name | head -n 1 | awk -F: \u0027{print $2}\u0027 | sed \u0027s/[\", v]//g\u0027)\n\nif [ -z \"$download_version\" ]; then\n  printf \"${RED}${BOLD}错误: 无法从 GitHub API 获取版本号。${RESET}\\n\" \u003e\u00262\n  printf \"API 返回内容:\\n\" \u003e\u00262\n  echo \"$latest_release_json\" \u003e\u00262\n  exit 1\nfi\nprintf \"最新的 beta 版本为: ${GREEN}${BOLD}%s${RESET}\\n\\n\" \"$download_version\"\n\n\n# --- 4. 下载、解压并安装 ---\npackage_name\u003d\"sing-box-${download_version}-android-${arch}.tar.gz\"\npackage_url\u003d\"https://github.com/SagerNet/sing-box/releases/download/v${download_version}/${package_name}\"\n\ntmp_dir\u003d$(mktemp -d)\ntrap \u0027rm -rf \"$tmp_dir\"\u0027 EXIT\n\ncd \"$tmp_dir\"\n\nprintf \"${BLUE}\u003d\u003d\u003e 正在从以下链接下载:${RESET}\\n%s\\n\" \"$package_url\"\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  curl --fail -Lo \"$package_name\" -H \"Authorization: token ${GITHUB_TOKEN}\" \"$package_url\"\nelse\n  curl --fail -Lo \"$package_name\" \"$package_url\"\nfi\n\nif [ $? -ne 0 ]; then\n  printf \"${RED}${BOLD}错误: 下载失败。${RESET}\\n\" \u003e\u00262\n  exit 1\nfi\n\nprintf \"${BLUE}\u003d\u003d\u003e 正在解压文件...${RESET}\\n\"\ntar -xzf \"$package_name\"\n\nextracted_dir\u003d$(tar -tf \"$package_name\" | head -n 1 | cut -f1 -d\"/\")\nif [ -f \"${extracted_dir}/sing-box\" ]; then\n    install_source\u003d\"${extracted_dir}/sing-box\"\nelse\n    printf \"${RED}${BOLD}错误: 在解压后的文件中未找到 \u0027sing-box\u0027 可执行文件。${RESET}\\n\" \u003e\u00262\n    ls -lR\n    exit 1\nfi\n\ninstall_path\u003d\"$PREFIX/bin/sing-box\"\n\nif [ -f \"$install_path\" ]; then\n    printf \"${YELLOW}\u003d\u003d\u003e 检测到已安装的 sing-box，正在覆盖更新...${RESET}\\n\"\nelse\n    printf \"${BLUE}\u003d\u003d\u003e 正在安装 sing-box 到 ${install_path}...${RESET}\\n\"\nfi\n\nmv -f \"$install_source\" \"$install_path\"\nchmod +x \"$install_path\"\n\nprintf \"\\n${GREEN}${BOLD}🎉 sing-box 版本 %s 已成功安装！${RESET}\\n\" \"$download_version\"\nprintf \"你可以使用 \u0027${BOLD}sing-box${RESET}\u0027 命令来运行它。\\n\\n\"\n\n\n# --- 5. 验证安装 ---\nprintf \"${BOLD}\u003d\u003d\u003e 验证安装:${RESET}\\n\"\nsing-box version\nEOF_SCRIPT_CONTENT\n\necho \"\u003d\u003d\u003e 正在修改文件用户和组为父文件夹的用户和组...\"\n# 获取父文件夹的用户和组\nOWNER\u003d$(stat -c \"%U\" \"$PARENT_DIR\")\nGROUP\u003d$(stat -c \"%G\" \"$PARENT_DIR\")\n\n# 修改文件的用户和组\nchown \"${OWNER}:${GROUP}\" \"$TARGET_FILE\"\n\necho \"\u003d\u003d\u003e 正在为文件用户赋予执行权限...\"\n# 为文件用户赋予执行权限\nchmod u+x \"$TARGET_FILE\"\n\necho \"🎉 脚本已成功创建并配置！\"\necho \"文件路径: $TARGET_FILE\"\necho \"你可以通过以下命令运行它:\"\necho \"  sh $TARGET_FILE\"\n",
+                  "singleShot": true,
+                  "customContextDataKey": {
+                  },
+                  "note": "创建安装脚本",
+                  "id": "A-69899b8c-d32c-447b-bff0-0a740e8cc1cd"
+                }, {
+                  "@type": "type.googleapis.com/StartActivityIntent",
+                  "intent": {
+                    "action": "com.termux.RUN_COMMAND",
+                    "pkgName": "com.termux",
+                    "className": "com.termux.app.RunCommandService",
+                    "extras": [{
+                      "key": "com.termux.RUN_COMMAND_PATH",
+                      "value": "/data/data/com.termux/files/home/sing-box-beta-install.sh",
+                      "type": "String"
+                    }, {
+                      "key": "com.termux.RUN_COMMAND_BACKGROUND",
+                      "value": "false",
+                      "type": "Bool"
+                    }, {
+                      "key": "com.termux.RUN_COMMAND_WORKDIR",
+                      "value": "/data/data/com.termux/files/home",
+                      "type": "String"
+                    }]
+                  },
+                  "componentType": "AndroidIntentComponentTypeService",
+                  "customContextDataKey": {
+                  },
+                  "note": "启动安装脚本",
+                  "id": "A-d427be98-1187-4139-b618-dd246b5f2d3b"
+                }, {
+                  "@type": "type.googleapis.com/BreakActionExecute",
+                  "scope": "BreakActionExecuteScope_Root",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-e8c910df-b357-4b73-85b2-dcf71d74f026"
+                }],
+                "negative": "算了",
+                "onNegative": [{
+                  "@type": "type.googleapis.com/NoAction",
+                  "icon": "six-circular-connection",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-02c935f4-d3d6-45e5-a991-7b0f820495d8"
+                }],
+                "title": "sing-box有更新？",
+                "message": "最新版本:localVarOf$latest-versions\n当前版本:localVarOf$versions",
+                "cancelable": true,
+                "style": {
+                  "fontScale": 1.0
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-008fcc64-2a04-4a92-9432-91df38784e43"
+              }],
+              "ElseActions": [{
+                "@type": "type.googleapis.com/ShowAlertDialog",
+                "positive": "算了",
+                "onPositive": [{
+                  "@type": "type.googleapis.com/NoAction",
+                  "icon": "six-circular-connection",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-9010c4cc-9c0c-4753-87cb-ae25b751ecc3"
+                }],
+                "negative": "强制更新",
+                "onNegative": [{
+                  "@type": "type.googleapis.com/ShellCommand",
+                  "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 这个脚本用于创建并配置 sing-box-beta-install.sh 文件\n\n# 当任何命令失败时立即退出\nset -e\n\nTARGET_FILE\u003d\"/data/data/com.termux/files/home/sing-box-beta-install.sh\"\nPARENT_DIR\u003d$(dirname \"$TARGET_FILE\")\n\necho \"\u003d\u003d\u003e 正在确保目标目录存在: $PARENT_DIR\"\nmkdir -p \"$PARENT_DIR\"\n\necho \"\u003d\u003d\u003e 正在创建文件并写入内容: $TARGET_FILE\"\n\n# 使用 \u0027EOF_SCRIPT_CONTENT\u0027 作为 here document 的结束标记，并用单引号引用，\n# 以确保内部脚本的内容被原样写入，不被当前脚本解析。\ncat \u003c\u003c \u0027EOF_SCRIPT_CONTENT\u0027 \u003e \"$TARGET_FILE\"\n#!/data/data/com.termux/files/usr/bin/bash\n\n# 当任何命令失败时立即退出\nset -e\n\n# --- 颜色定义 ---\n# 检查输出是否为终端，如果是，则定义颜色变量\nif [ -t 1 ]; then\n  RED\u003d$(printf \u0027\\033[0;31m\u0027)\n  GREEN\u003d$(printf \u0027\\033[0;32m\u0027)\n  YELLOW\u003d$(printf \u0027\\033[0;33m\u0027)\n  BLUE\u003d$(printf \u0027\\033[0;34m\u0027)\n  BOLD\u003d$(printf \u0027\\033[1m\u0027)\n  RESET\u003d$(printf \u0027\\033[0m\u0027)\nelse\n  # 如果输出不是终端（例如重定向到文件），则不使用颜色\n  RED\u003d\"\"\n  GREEN\u003d\"\"\n  YELLOW\u003d\"\"\n  BLUE\u003d\"\"\n  BOLD\u003d\"\"\n  RESET\u003d\"\"\nfi\n\n# --- 1. 依赖项检查 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在检查所需软件包...${RESET}\\n\"\nmissing_packages\u003d\"\"\nrequired_commands\u003d\"curl tar grep awk sed\"\n\nfor cmd in $required_commands; do\n    if ! command -v \"$cmd\" \u003e/dev/null 2\u003e\u00261; then\n        package_name\u003d\"$cmd\"\n        if [ \"$cmd\" \u003d \"awk\" ]; then\n            package_name\u003d\"gawk\"\n        fi\n        missing_packages\u003d\"$missing_packages $package_name\"\n    fi\ndone\n\nif [ -n \"$missing_packages\" ]; then\n    missing_packages\u003d$(echo \"$missing_packages\" | sed \u0027s/^ *//\u0027)\n    printf \"\\n${RED}${BOLD}错误：检测到缺失的软件包。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}为了运行此脚本，请先安装它们。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}请运行以下命令：${RESET}\\n\\n\" \u003e\u00262\n    printf \"  ${BOLD}pkg install %s${RESET}\\n\\n\" \"$missing_packages\" \u003e\u00262\n    exit 1\nfi\n\nprintf \"${GREEN}\u003d\u003d\u003e 所有依赖项均已安装。${RESET}\\n\\n\"\n\n\n# --- 2. 检测架构 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在检测 Termux 架构...${RESET}\\n\"\ncase \"$(uname -m)\" in\n  aarch64)\n    arch\u003d\"arm64\"\n    ;;\n  armv7l|armv8l)\n    arch\u003d\"armv7\"\n    ;;\n  x86_64)\n    arch\u003d\"amd64\"\n    ;;\n  *)\n    printf \"${RED}${BOLD}错误: 不支持的架构: $(uname -m)${RESET}\\n\" \u003e\u00262\n    exit 1\n    ;;\nesac\nprintf \"检测到架构: ${BOLD}%s${RESET}\\n\\n\" \"$arch\"\n\n\n# --- 3. 获取最新的 beta 版本号 ---\nprintf \"${BLUE}\u003d\u003d\u003e 正在获取最新的 beta 版本号...${RESET}\\n\"\napi_url\u003d\"https://api.github.com/repos/SagerNet/sing-box/releases\"\n\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  latest_release_json\u003d$(curl -s -H \"Authorization: token ${GITHUB_TOKEN}\" \"$api_url\")\nelse\n  latest_release_json\u003d$(curl -s \"$api_url\")\nfi\n\nif [ $? -ne 0 ]; then\n  printf \"${RED}${BOLD}错误: 使用 curl 获取版本信息失败。${RESET}\\n\" \u003e\u00262\n  exit 1\nfi\n\nif echo \"$latest_release_json\" | grep -q \"API rate limit exceeded\"; then\n    printf \"\\n${RED}${BOLD}错误：GitHub API 请求频率超限。${RESET}\\n\" \u003e\u00262\n    printf \"${YELLOW}这是因为在短时间内从未经身份验证的 IP 地址发起了过多请求。${RESET}\\n\\n\" \u003e\u00262\n    printf \"${BOLD}解决方案：${RESET}\\n\" \u003e\u00262\n    printf \"1. 前往 ${BLUE}https://github.com/settings/tokens${RESET} 创建一个个人访问令牌 (Personal Access Token)。\\n\" \u003e\u00262\n    printf \"   创建时${BOLD}无需勾选任何权限${RESET} (scopes)。\\n\" \u003e\u00262\n    printf \"2. 复制你创建的令牌。\\n\" \u003e\u00262\n    printf \"3. 使用以下命令重新运行脚本 (将 \u0027your_token_here\u0027 替换为你的令牌):\\n\\n\" \u003e\u00262\n    printf \"   ${BOLD}GITHUB_TOKEN\u003dyour_token_here sh %s${RESET}\\n\\n\" \"$0\" \u003e\u00262\n    exit 1\nfi\n\ndownload_version\u003d$(echo \"$latest_release_json\" | grep tag_name | head -n 1 | awk -F: \u0027{print $2}\u0027 | sed \u0027s/[\", v]//g\u0027)\n\nif [ -z \"$download_version\" ]; then\n  printf \"${RED}${BOLD}错误: 无法从 GitHub API 获取版本号。${RESET}\\n\" \u003e\u00262\n  printf \"API 返回内容:\\n\" \u003e\u00262\n  echo \"$latest_release_json\" \u003e\u00262\n  exit 1\nfi\nprintf \"最新的 beta 版本为: ${GREEN}${BOLD}%s${RESET}\\n\\n\" \"$download_version\"\n\n\n# --- 4. 下载、解压并安装 ---\npackage_name\u003d\"sing-box-${download_version}-android-${arch}.tar.gz\"\npackage_url\u003d\"https://github.com/SagerNet/sing-box/releases/download/v${download_version}/${package_name}\"\n\ntmp_dir\u003d$(mktemp -d)\ntrap \u0027rm -rf \"$tmp_dir\"\u0027 EXIT\n\ncd \"$tmp_dir\"\n\nprintf \"${BLUE}\u003d\u003d\u003e 正在从以下链接下载:${RESET}\\n%s\\n\" \"$package_url\"\nif [ -n \"$GITHUB_TOKEN\" ]; then\n  curl --fail -Lo \"$package_name\" -H \"Authorization: token ${GITHUB_TOKEN}\" \"$package_url\"\nelse\n  curl --fail -Lo \"$package_name\" \"$package_url\"\nfi\n\nif [ $? -ne 0 ]; then\n  printf \"${RED}${BOLD}错误: 下载失败。${RESET}\\n\" \u003e\u00262\n  exit 1\nfi\n\nprintf \"${BLUE}\u003d\u003d\u003e 正在解压文件...${RESET}\\n\"\ntar -xzf \"$package_name\"\n\nextracted_dir\u003d$(tar -tf \"$package_name\" | head -n 1 | cut -f1 -d\"/\")\nif [ -f \"${extracted_dir}/sing-box\" ]; then\n    install_source\u003d\"${extracted_dir}/sing-box\"\nelse\n    printf \"${RED}${BOLD}错误: 在解压后的文件中未找到 \u0027sing-box\u0027 可执行文件。${RESET}\\n\" \u003e\u00262\n    ls -lR\n    exit 1\nfi\n\ninstall_path\u003d\"$PREFIX/bin/sing-box\"\n\nif [ -f \"$install_path\" ]; then\n    printf \"${YELLOW}\u003d\u003d\u003e 检测到已安装的 sing-box，正在覆盖更新...${RESET}\\n\"\nelse\n    printf \"${BLUE}\u003d\u003d\u003e 正在安装 sing-box 到 ${install_path}...${RESET}\\n\"\nfi\n\nmv -f \"$install_source\" \"$install_path\"\nchmod +x \"$install_path\"\n\nprintf \"\\n${GREEN}${BOLD}🎉 sing-box 版本 %s 已成功安装！${RESET}\\n\" \"$download_version\"\nprintf \"你可以使用 \u0027${BOLD}sing-box${RESET}\u0027 命令来运行它。\\n\\n\"\n\n\n# --- 5. 验证安装 ---\nprintf \"${BOLD}\u003d\u003d\u003e 验证安装:${RESET}\\n\"\nsing-box version\nEOF_SCRIPT_CONTENT\n\necho \"\u003d\u003d\u003e 正在修改文件用户和组为父文件夹的用户和组...\"\n# 获取父文件夹的用户和组\nOWNER\u003d$(stat -c \"%U\" \"$PARENT_DIR\")\nGROUP\u003d$(stat -c \"%G\" \"$PARENT_DIR\")\n\n# 修改文件的用户和组\nchown \"${OWNER}:${GROUP}\" \"$TARGET_FILE\"\n\necho \"\u003d\u003d\u003e 正在为文件用户赋予执行权限...\"\n# 为文件用户赋予执行权限\nchmod u+x \"$TARGET_FILE\"\n\necho \"🎉 脚本已成功创建并配置！\"\necho \"文件路径: $TARGET_FILE\"\necho \"你可以通过以下命令运行它:\"\necho \"  sh $TARGET_FILE\"\n",
+                  "singleShot": true,
+                  "customContextDataKey": {
+                  },
+                  "note": "创建安装脚本",
+                  "id": "A-69899b8c-d32c-447b-bff0-0a740e8cc1cd"
+                }, {
+                  "@type": "type.googleapis.com/StartActivityIntent",
+                  "intent": {
+                    "action": "com.termux.RUN_COMMAND",
+                    "pkgName": "com.termux",
+                    "className": "com.termux.app.RunCommandService",
+                    "extras": [{
+                      "key": "com.termux.RUN_COMMAND_PATH",
+                      "value": "/data/data/com.termux/files/home/sing-box-beta-install.sh",
+                      "type": "String"
+                    }, {
+                      "key": "com.termux.RUN_COMMAND_BACKGROUND",
+                      "value": "false",
+                      "type": "Bool"
+                    }, {
+                      "key": "com.termux.RUN_COMMAND_WORKDIR",
+                      "value": "/data/data/com.termux/files/home",
+                      "type": "String"
+                    }]
+                  },
+                  "componentType": "AndroidIntentComponentTypeService",
+                  "customContextDataKey": {
+                  },
+                  "note": "启动安装脚本",
+                  "id": "A-d427be98-1187-4139-b618-dd246b5f2d3b"
+                }, {
+                  "@type": "type.googleapis.com/BreakActionExecute",
+                  "scope": "BreakActionExecuteScope_Root",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-e8c910df-b357-4b73-85b2-dcf71d74f026"
+                }],
+                "title": "无新版本",
+                "message": "最新版本:localVarOf$latest-versions\n当前版本:localVarOf$versions",
+                "cancelable": true,
+                "style": {
+                  "fontScale": 1.0
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-008fcc64-2a04-4a92-9432-91df38784e43"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-ff434ece-cbf5-4d30-8693-1de917f36b0b"
+            }]
+          }, {
+            "title": "拉取配置文件(订阅)",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nWORK_DIR\u003d\"localVarOf$WorkDir\"\nsub\u003d\"localVarOf$sub\"\n\noutput_filename\u003d\"config.json\"\noutput_path\u003d\"${WORK_DIR}/${output_filename}\"\n\necho \"正在从 \u0027${sub}\u0027 下载配置文件到 \u0027${output_path}\u0027...\"\n\ncurl -sSLf -o \"${output_path}\" \"${sub}\"\n\nif [ $? -eq 0 ]; then\n    echo \"配置文件下载成功！文件位于：${output_path}\"\nelse\n    echo \"错误：配置文件下载失败！请检查订阅链接或网络连接。\"\nfi",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "id": "A-63530807-7b63-48f6-9e27-a3a07e31fcec"
+            }, {
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "OK",
+              "onPositive": [{
+                "@type": "type.googleapis.com/NoAction",
+                "icon": "six-circular-connection",
+                "customContextDataKey": {
+                },
+                "id": "A-c58f20d7-e9a1-4395-9cba-0ab0ea347c11"
+              }],
+              "title": "配置文件拉取",
+              "message": "{shellOut}",
+              "cancelable": true,
+              "style": {
+                "fontScale": 1.0
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-914a666a-d7b9-488a-98d8-e053bf0caee7"
+            }]
+          }, {
+            "title": "算了",
+            "clickActions": [{
+              "@type": "type.googleapis.com/NoAction",
+              "icon": "halo",
+              "customContextDataKey": {
+              },
+              "id": "A-ab8145ce-fc52-42b4-a912-b23d6355dd75"
+            }]
+          }],
+          "title": "sing-box进程已存在\n          做点什么？",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-1182d9f9-e88c-4e2d-b1ae-583e8e864931"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-10b132c5-3d97-46d4-b8a8-b413fe44ac79"
+        }],
+        "description": "已存在",
+        "id": "Case-a6a7499b-607e-43d6-b5b0-813547b5bf37",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsEmpty",
+          "varName": "pid",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-7f5d5b9f-a875-421b-9be8-53492336873c"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "six-circular-connection",
+          "customContextDataKey": {
+          },
+          "id": "A-3405cee1-e8e4-41aa-818f-a7852658b27e"
+        }],
+        "description": "不存在",
+        "id": "Case-1dbbe4a3-d5ae-4460-9d58-3338c7801fee",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-64b197a1-1df5-442e-b9cf-f8ea473747a1"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "检测是否已存在sing-box进程",
+    "id": "A-389b184b-2258-42c0-8dd4-597324f10538"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "skip-config-pull",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-a13af499-0c73-4d8b-8a78-bbc8d5cb045e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nWORK_DIR\u003d\"localVarOf$WorkDir\"\nsub\u003d\"localVarOf$sub\"\n\noutput_filename\u003d\"config.json\"\noutput_path\u003d\"${WORK_DIR}/${output_filename}\"\n\necho \"正在从 \u0027${sub}\u0027 下载配置文件到 \u0027${output_path}\u0027...\"\n\ncurl -sSLf -o \"${output_path}\" \"${sub}\"\n\nif [ $? -eq 0 ]; then\n    echo \"配置文件下载成功！文件位于：${output_path}\"\nelse\n    echo \"错误：配置文件下载失败！请检查订阅链接或网络连接。\"\nfi",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-63530807-7b63-48f6-9e27-a3a07e31fcec"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "继续启动",
+      "onPositive": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "six-circular-connection",
+        "customContextDataKey": {
+        },
+        "id": "A-c58f20d7-e9a1-4395-9cba-0ab0ea347c11"
+      }],
+      "negative": "不启动了",
+      "onNegative": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-f4818c20-886b-40f7-bc95-50579be14958"
+      }],
+      "title": "配置文件拉取",
+      "message": "{shellOut}",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-914a666a-d7b9-488a-98d8-e053bf0caee7"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "拉取配置文件",
+    "id": "A-db8798f2-0c48-4ad0-958f-753a51a072de"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "skip-config-detect",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f5c1cfa4-a147-4ec0-b222-744b4f18204f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d\"/data/data/com.termux/files/usr/bin:/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\n# 定义 sing-box 程序的路径\nSINGBOX_PATH\u003d\"localVarOf$bin_path\"\nWORK_DIR\u003d\"localVarOf$WorkDir\"\n$SINGBOX_PATH -D $WORK_DIR check",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-0d2b9ed6-276e-41a0-947b-4e8ab2c76fda"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "config-check",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-4bfe447b-7e18-43d3-a3b7-1b4127284f11"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsEmpty",
+          "varName": "config-check",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-cfc5e9f0-edb4-489e-afb5-f837be4fbbec"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "six-circular-connection",
+          "customContextDataKey": {
+          },
+          "id": "A-4305a910-66fb-4735-af25-61f23d7372c4"
+        }],
+        "description": "合法",
+        "id": "Case-88b32b8b-395e-44e0-bd7d-1bfec8d4721d",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotEmpty",
+          "varName": "config-check",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-badd6305-a3bf-4417-99a5-e4fed8e3da49"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "title": "配置文件不合法",
+          "message": "localVarOf$config-check",
+          "cancelable": true,
+          "style": {
+            "fontScale": 1.0
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-0f5179dc-839a-4dcf-b425-a4c8a01fffeb"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-32c1d2cc-af41-426e-9294-ab1b3b6c4686"
+        }],
+        "description": "不合法",
+        "id": "Case-6909e3dc-99e7-428a-ab2d-f6c0e55d7fc5",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-64b197a1-1df5-442e-b9cf-f8ea473747a1"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "配置文件合法性检测",
+    "id": "A-65022097-3069-47ee-9906-60c53d101fd1"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-49616cb6-1566-4c93-98c7-20a9e7c52ee9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "SINGBOX_PATH\u003d\"localVarOf$bin_path\"\nWORK_DIR\u003d\"localVarOf$WorkDir\"\nnohup $SINGBOX_PATH -D $WORK_DIR run \u003e /dev/null 2\u003e\u00261 \u0026\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "启动",
+      "id": "A-69899b8c-d32c-447b-bff0-0a740e8cc1cd"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "sing-box已启动",
+      "customContextDataKey": {
+      },
+      "id": "A-9b049bcf-5380-4610-8a9e-ebe9c2ca4d13"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "启动sing-box",
+    "id": "A-d33f31c6-55ca-4a94-b7fa-37d6ac8f3ccc"
+  }],
+  "id": "SHARED-DA-88082e18-e2b6-4854-9546-d5ef5242781a",
+  "lastUpdateTime": "1752801932942",
+  "createTime": "1752751428688",
+  "author": {
+    "name": "Sorubedo"
+  },
+  "title": "sing-box_for_ShortX+",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,41 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "音频路径",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "/sdcard/MT2/apks/影音影像/Hamidshax_Istanbul.flac"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-829a2f78-129c-4061-859f-21b6230d5ba3"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "/data/data/com.termux/files/usr/bin/termux-media-player play {textFieldInput1}",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "note": "播放音频",
+    "id": "A-a0fc6357-d130-46c3-9729-52d839c56dee"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "/data/data/com.termux/files/usr/bin/termux-media-player stop",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "停止播放",
+    "id": "A-2a1f6f52-3dd4-4f8f-9a16-2cd2639c1164"
+  }],
+  "id": "DA82eee909-20c0-43bd-9094-612e1b218e39",
+  "lastUpdateTime": "1704217398589",
+  "createTime": "1704041235770",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "播放指定音频",
+  "description": "需要Termux环境支持：pkg install termux-api\n并且允许Termux:API应用后台自启和运行权限",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

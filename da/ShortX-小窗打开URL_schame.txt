@@ -1,0 +1,21 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\nurl \u003d \"weixin://\"; // 替换为你要启动的 URL Scheme\n\nit \u003d new Intent(Intent.ACTION_VIEW);\nit.setData(android.net.Uri.parse(url));\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? 1100 : 1200;\nh \u003d (int)(w / 0.6);\nl \u003d portrait ? 200 : 150;\nt \u003d portrait ? 400 : 80;\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式打开 URL Scheme：\" + url;",
+    "customContextDataKey": {
+    },
+    "id": "A-f8db63d0-6d04-45e4-be0f-5e2ffb5289d0"
+  }],
+  "id": "SHARED-DA-bd064c6f-6266-4f12-94fe-533ceb732646",
+  "lastUpdateTime": "1746545500388",
+  "createTime": "1746545343729",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "小窗打开URL schame",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

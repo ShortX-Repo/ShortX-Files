@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppAdded",
+    "customContextDataKey": {
+    },
+    "id": "F-b027efd8-3d61-4ffb-abb1-e87a1c7b304a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{pkgName} \u003d\u003d \"com.tencent.letsgo\"",
+      "customContextDataKey": {
+      },
+      "id": "C-f9586acf-808c-4679-941b-0b850ecca96f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "pm uninstall com.tencent.letsgo",
+      "customContextDataKey": {
+      },
+      "id": "A-09e23745-91b5-40ed-889e-dbbf02d82714"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-9aaba8f2-14f0-47fb-9c76-4a7213e80ee6"
+  }],
+  "id": "rule-c52f2353-4279-43a0-ac9d-4c655778263b",
+  "lastUpdateTime": "1702629502712",
+  "createTime": "1702629380066",
+  "author": {
+    "name": "entr0pia"
+  },
+  "title": "自动卸载元梦之星",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-3c67edbe-d268-4bd5-997b-fd5411734710"
+}
+###------###
+{"type":"rule"}

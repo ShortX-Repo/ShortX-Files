@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "android.os.ServiceManager.getService(\"accessibility\").getInstalledAccessibilityServiceList(0)",
+    "customContextDataKey": {
+    },
+    "id": "A-cece4ad7-e8ce-4973-b9cb-9c2de25ba0a2"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-eaaf56df-2c37-433b-86e1-29f6cc603aa0"
+    }],
+    "title": "测试结果",
+    "message": "{mvelRet}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-1cd21059-61b6-48b6-aa99-3fcdfd68427e"
+  }],
+  "id": "DA10d89770-1249-4b68-8b33-d0573fed38ec",
+  "lastUpdateTime": "1702799086537",
+  "createTime": "1702780754649",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Test get acc2 ",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

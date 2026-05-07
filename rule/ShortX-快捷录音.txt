@@ -1,0 +1,80 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "gesture": "KeyMultiplePress",
+    "isInterceptMode": true,
+    "customContextDataKey": {
+    },
+    "id": "F-52b4cf89-cdf7-4fa0-886b-526b1b905ee1"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "录音快捷触发",
+    "customContextDataKey": {
+    },
+    "id": "A-68e3ba71-9a5f-44aa-b314-b077170a2efd"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/StopAudioRecording",
+        "customContextDataKey": {
+        },
+        "id": "A-7df42fc0-5cd0-4b53-b4d9-01a942e4989f"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["recording"],
+        "customContextDataKey": {
+        },
+        "id": "A-fea84f8b-c6ee-4cd6-9fca-39af9319b7a5"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "停止录音",
+        "customContextDataKey": {
+        },
+        "id": "A-f9758671-d1e6-4d27-b65a-18a25ce5b4cf"
+      }],
+      "icon": "record-mail-line",
+      "label": "停止录音",
+      "id": "BTN-8af8a6ef-64e7-40de-8595-0cb5980ff8cf"
+    }],
+    "tag": "recording",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 10,
+    "customContextDataKey": {
+    },
+    "id": "A-d4b766e5-7bc9-427e-b7e4-c2a3c0379e61"
+  }, {
+    "@type": "type.googleapis.com/AudioRecording",
+    "fileNamePrefix": "采证",
+    "customContextDataKey": {
+    },
+    "id": "A-e9decf3d-9fd2-4845-85f0-df02da2793f3"
+  }, {
+    "@type": "type.googleapis.com/HideOverlayButton",
+    "overlayTags": ["recording"],
+    "customContextDataKey": {
+    },
+    "id": "A-591fab2e-70e2-4637-9cfd-f05f549c2fc4"
+  }],
+  "id": "rule-7454550a-53b8-459e-94bb-e2910519a275",
+  "lastUpdateTime": "1695837140761",
+  "createTime": "1695827700158",
+  "author": {
+    "name": "prpr"
+  },
+  "title": "快捷录音",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

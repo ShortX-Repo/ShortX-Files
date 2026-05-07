@@ -1,0 +1,138 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "常亮",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-2b19fb1c-c754-4811-827f-6b83d7c3afad"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "常亮",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-19ab86d2-93b5-458b-8f9f-2aced616e229"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "常亮",
+      "valueAsString": "false",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-3dd979f4-ec69-4464-8880-d7d2af37e0b6"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7e50a344-a12d-4698-89ed-741758fa835f"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "常亮",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-7fffd069-4d2a-45d1-8908-d4a6b01c13ba"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StayAwake",
+      "customContextDataKey": {
+      },
+      "id": "A-931443d1-e1cc-46bc-a924-ac4550261eaa"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "常亮",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "id": "A-0cca2b3f-e212-4413-8abd-95abdbf7e092"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "屏幕常亮开",
+      "customContextDataKey": {
+      },
+      "id": "A-81fcceaa-b3ee-4fc5-914b-bc7b3b21bdc4"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/StayAwake",
+      "isStay": "OnOffToggle_Off",
+      "customContextDataKey": {
+      },
+      "id": "A-8f8ab489-0d9b-48b7-a577-718181309477"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "常亮",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "id": "A-12b42984-a325-41a7-87d9-00bb24aba9e1"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "屏幕常亮关",
+      "customContextDataKey": {
+      },
+      "id": "A-2fd1b087-19de-4a05-967c-9c51b3a0320b"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-348178e4-cfc3-4483-9b10-393e90414356"
+  }],
+  "id": "SHARED-DA-b59de604-5860-46aa-a3ba-d4d7bb3b6a6e",
+  "lastUpdateTime": "1740434917105",
+  "createTime": "1739041095673",
+  "author": {
+    "name": "Rarlya"
+  },
+  "title": "屏幕常亮开关",
+  "versionCode": "1",
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOff",
+      "customContextDataKey": {
+      },
+      "id": "F-43543e80-6c7b-404b-a676-4274f0e09bc1"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "常亮",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-48e7e44e-b496-43d4-97ac-421082cabb08"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/StayAwake",
+      "isStay": "OnOffToggle_Off",
+      "customContextDataKey": {
+      },
+      "id": "A-7c9e3dce-e0cc-4231-94c9-c185ff0a84d4"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "常亮",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "id": "A-fcafdb7f-91c5-4033-9fdb-0adc119f991a"
+    }],
+    "evaluatePolicy": "Quit_EvaluatePolicy_Once"
+  }
+}
+###------###
+{"type":"da"}

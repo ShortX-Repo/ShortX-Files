@@ -1,0 +1,223 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 7
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "WEDNESDAY", "TUESDAY", "THURSDAY", "SATURDAY", "FRIDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b95ecf8d-7009-4b43-b9cc-a63b627e1708"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api-cloudgame.mihoyo.com/hk4e_cg_cn/wallet/wallet/get",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["retcode", "data.free_time.send_freetime", "data.free_time.free_time", "data.play_card.short_msg", "data.coin.coin_num"]
+    },
+    "headers": [{
+      "key": "Host",
+      "value": "api-cloudgame.mihoyo.com"
+    }, {
+      "key": "Accept",
+      "value": "*/*"
+    }, {
+      "key": "Referer",
+      "value": "https://app.mihoyo.com"
+    }, {
+      "key": "x-rpc-combo_token",
+      "value": "globalVarOf$mhyy"
+    }, {
+      "key": "Accept-Encoding",
+      "value": "gzip, deflate"
+    }, {
+      "key": "User-Agent",
+      "value": "Mozilla/5.0 (Linux; Android 12; RMX3350 Build/TP1A.220905.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.2 Chrome/103.0.5060.129 Mobile Safari/537.36"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-ac04abb5-ca48-4d5b-a979-f66169721291"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet1} \u003d\u003d 0;",
+      "customContextDataKey": {
+      },
+      "id": "C-0c35cc16-82c7-4f19-af73-451315bb2802"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet2} \u003e 0;",
+        "customContextDataKey": {
+        },
+        "id": "C-fbbb524c-7f2c-482f-9e83-15bdc9c3f281"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "int time \u003d httpRequestRet3;\nint hours \u003d time / 60;//小时\nint minutes \u003d time % 60;//分钟\nreturn \"云原神签到：成功\\n获取时长：\"+httpRequestRet2+\"分钟\\n    拥有时长：\"+hours+\"小时\"+minutes+\"分钟\\n畅玩卡：\"+{httpRequestRet4}+\"      米游币：\"+{httpRequestRet5}+\"枚\";",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "push"
+          }]
+        },
+        "note": "签到成功返回",
+        "id": "A-721083bd-de14-4346-a9fb-fbc211086fd3"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "int time \u003d httpRequestRet3;\nint hours \u003d time / 60;//小时\nint minutes \u003d time % 60;//分钟\nreturn \"云原神签到：失败\\n原因：已经签到过了或者超出免费时长上线\\n拥有时长：\"+hours+\"小时\"+minutes+\"分钟\\n畅玩卡：\"+{httpRequestRet4}+\"      米游币：\"+{httpRequestRet5}+\"枚\";",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "push"
+          }]
+        },
+        "id": "A-fab3d7cf-3267-44c4-804b-e6a98b969e9e"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-1ccdca49-7f8c-4111-8336-f2aa6e112e57"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} \u003d\u003d -100;",
+        "customContextDataKey": {
+        },
+        "id": "C-bccd646e-0a48-450c-a801-5a0b748b7ac1"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "\"云原神：Cookie失效\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "mvelRet",
+            "second": "push"
+          }]
+        },
+        "id": "A-4f1986da-84fb-4253-871b-1147d6482bf2"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-82ff75f0-35f6-4745-9f49-4f0191db9358"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0322aba9-2029-4499-bde3-153da11039ab"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "tag-1695045759757",
+    "title": "云原神签到",
+    "message": "{push}",
+    "smallIcon": "chat-2-line",
+    "customContextDataKey": {
+    },
+    "id": "A-28d06b33-3e5e-451c-8e09-c95b1fe9723e"
+  }],
+  "id": "rule-c36037d6-f97d-45ca-addd-d9d1167866fc",
+  "lastUpdateTime": "1701532432735",
+  "createTime": "1701531584478",
+  "author": {
+    "name": "奋斗的青年"
+  },
+  "title": "云原神签到",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "云原神ck",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-d02ae037-2625-440d-8cc6-31c1ab7b7675"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "mhyy",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "isSecret": true,
+          "note": "云原神cookie"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-c7a574d3-b38b-4944-98d5-1b14aa568476"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "negative": "取消",
+        "onNegative": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-8f77f5d4-6f72-432e-858e-13f1337a2ceb"
+        }],
+        "title": "Cookie获取教程",
+        "message": "1.打开小黄鸟-选择应用云原神-开启抓包\n2.打开云原神\n3.显示公告后，返回小黄鸟停止抓包\n4.过滤选择保留json-查找http中的x-rpc-combo_token并复制\n5.点击写入ck",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-a37ea964-8582-49c4-b702-db5230fd4333"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/ReadClipboard",
+            "customContextDataKey": {
+            },
+            "id": "A-ad39a46a-cb9f-404f-bb77-1350c46f64b7"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "mhyy",
+            "valueAsString": "{clipboardContent}",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-07712ca7-6975-4f3a-997f-f37f96c1e42b"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "customContextDataKey": {
+            },
+            "id": "A-2b2c39f8-d063-471c-a539-76c6ef7d8d4e"
+          }],
+          "label": "写入ck",
+          "id": "BTN-e3c48acd-c5a7-4818-8616-5933c80e99d3"
+        }],
+        "tag": "2023-12-02 23:53:52",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 500,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 64,
+        "enableGlobalDrag": true,
+        "disableAutoEdge": true,
+        "customContextDataKey": {
+        },
+        "id": "A-1c6fd5a5-8b92-498e-bf6a-9f4b7a3d7b68"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-11e6f8b8-8770-40e3-ba1a-caab590f36ac"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-cb8f75b3-3f7a-4efb-9e4f-a54349089739"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,23 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "function getCurrentLocation(timeout,count) {\n    if(count\u003c10){\n        var Context \u003d android.content.Context;\n        var LocationManager \u003d android.location.LocationManager;\n        var System \u003d java.lang.System;\n        var Handler \u003d android.os.Handler;\n        var Looper \u003d android.os.Looper;\n\n        var ActivityThread \u003d Packages.android.app.ActivityThread;\n        var context \u003d ActivityThread.currentApplication();\n        if (!context) return { error: \"NO_CONTEXT\" };\n\n        var lm \u003d context.getSystemService(Context.LOCATION_SERVICE);\n        if (!lm) return { error: \"NO_LOCATION_MANAGER\" };\n\n        var provider \u003d lm.isProviderEnabled(LocationManager.GPS_PROVIDER)\n            ? LocationManager.GPS_PROVIDER\n            : lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)\n                ? LocationManager.NETWORK_PROVIDER\n                : null;\n        if (!provider) return { error: \"NO_PROVIDER\" };\n\n        var lock \u003d {};\n        var LocationListener \u003d android.location.LocationListener;\n        var listener \u003d new JavaAdapter(LocationListener, {\n            onLocationChanged: function(loc) {\n                lock._loc \u003d loc;\n                lock._done \u003d true;\n            }\n        });\n\n        var mainLooper \u003d Looper.getMainLooper();\n        var handler \u003d new Handler(mainLooper);\n\n        console.log(\"requestLocationUpdates on mainLooper: \" + provider);\n        lm.requestLocationUpdates(provider, 0, 0, listener, mainLooper);\n\n        var start \u003d System.currentTimeMillis();\n        var finalLoc \u003d null;\n\n        while (true) {\n            if (lock._done) {\n                finalLoc \u003d lock._loc;\n                break;\n            }\n            if (System.currentTimeMillis() - start \u003e timeout) break;\n            java.lang.Thread.sleep(200);\n        }\n\n        lm.removeUpdates(listener);\n\n        if (finalLoc) {\n            return {\n                lat: finalLoc.getLatitude(),\n                lon: finalLoc.getLongitude(),\n                accuracy: finalLoc.hasAccuracy() ? finalLoc.getAccuracy() : null,\n                provider: finalLoc.getProvider(),\n                time: finalLoc.getTime()\n            };\n        } else {\n            count++\n            return getCurrentLocation(3000,count);\n        }\n    }else{\n    return {error:\"timeout\"}\n    }\n}\nJSON.stringify(getCurrentLocation(3000,0));\n",
+    "customContextDataKey": {
+    },
+    "id": "A-6842c406-6201-483a-b14c-749db5d4e350"
+  }],
+  "id": "SHARED-DA-2f185a69-7f51-4b76-a7c7-3827a8bb193c",
+  "lastUpdateTime": "1758544777533",
+  "createTime": "1758544035679",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "获取位置",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

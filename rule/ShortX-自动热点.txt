@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "id": "F-51dc41d4-7032-43ff-a806-3628f87d14cf"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-36d3cb4b-e211-472b-a8be-2ed61ec151da"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireWifiDisconnected",
+      "id": "C-701f6d46-847f-47fa-b6b8-8995e2e3e7b5"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetHotSpotEnabled",
+      "enable": true,
+      "id": "A-08605e45-2d42-40f5-bab0-6a216bf8c8eb"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetHotSpotEnabled",
+      "id": "A-2f972cbf-3086-4221-b5ac-90d174e81574"
+    }],
+    "id": "A-d9ce657d-3bcd-41c8-ac13-d6c8a83a39af"
+  }],
+  "id": "rule-e1570f1d-e157-4ab0-8da1-d3f5ca020c0d",
+  "lastUpdateTime": "1690975171457",
+  "createTime": "1690975039978",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动热点",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,94 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiConnectedTo",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-b9c7f971-95a9-4a2c-b7dd-a43a9f07329b"
+  }, {
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-568cad8d-97bb-4d44-8d8b-5863f79e5d0a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireWifiConnected",
+      "requiredSSID": "*",
+      "customContextDataKey": {
+      },
+      "id": "C-6ff84480-6c94-40d7-a068-f68c6e7764b9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://127.0.0.1:9909/configs",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "PATCH",
+      "headers": [{
+        "key": "authorization",
+        "value": "Bearer singBox"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\"mode\": \"规则模式-我不免流-混合模式\"}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-2083e575-6cdf-49ca-adfe-7f59c162fa55"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "连接wifi，不再免流",
+      "customContextDataKey": {
+      },
+      "id": "A-cb3ce261-71c5-4149-839e-7422690bec57"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "http://127.0.0.1:9909/configs",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestRawAdapter"
+      },
+      "method": "PATCH",
+      "headers": [{
+        "key": "authorization",
+        "value": "Bearer singBox"
+      }],
+      "requestBody": {
+        "@type": "type.googleapis.com/HttpRequestBodyJson",
+        "json": "{\"mode\": \"规则模式-我要免流-混合模式\"}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-2083e575-6cdf-49ca-adfe-7f59c162fa55"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "断开wifi，进行免流",
+      "customContextDataKey": {
+      },
+      "id": "A-8e083ea3-2490-44f4-ab69-ef00b985aaf5"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e337d7d8-a712-4b5c-b704-e76913e55bf9"
+  }],
+  "id": "rule-4604e78c-456d-4cd6-adcc-164197db4ea2",
+  "lastUpdateTime": "1720418796641",
+  "createTime": "1720418116301",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "神秘自动切换clash_mode",
+  "description": "连接wifi切换clash_mode",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

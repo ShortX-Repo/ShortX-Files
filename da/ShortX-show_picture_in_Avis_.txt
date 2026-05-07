@@ -1,0 +1,29 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/StartActivityIntent",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "deckers.thibault.aves.libre",
+      "className": "deckers.thibault.aves.MainActivity",
+      "data": "/storage/emulated/0/KustomIcons/Icons/tornaco.apps.shortx~ShortX+.png"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-6a396382-5f11-4e9c-a401-ddb235286ad3"
+  }],
+  "id": "SHARED-DA-af5db941-2ae3-432d-b7cc-bb0820c1b504",
+  "lastUpdateTime": "1760179767747",
+  "createTime": "1760179547006",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "show picture in Avis ",
+  "versionCode": "1",
+  "directActionSetId": "DS-b4dc7d0f-efee-4429-951f-1bafb3ee79e4",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

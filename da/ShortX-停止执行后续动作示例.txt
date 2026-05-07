@@ -1,0 +1,173 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "输入数字0 1 2 3 或者不输入",
+    "cancelable": true,
+    "textFields": [{
+    }],
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-f7d2c3c3-eff1-404e-b9f7-72a479b5521a"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "IsNotEmpty",
+      "varName": "textFieldInput1",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-52030d64-5175-4bfe-8673-3133202b5ee6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "varName": "textFieldInput1",
+        "payload": {
+          "value": "0"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-3da0ff70-c1cf-47af-bd04-09c682e2e78a"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "varName": "textFieldInput1",
+          "payload": {
+            "value": "2"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-a0e2c893-2233-40d9-a6dc-e3ef0cb2b769"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowDanmu",
+          "text": "大于2",
+          "customContextDataKey": {
+          },
+          "id": "A-7940fd50-1205-44b0-a7e8-aeb71d5ee9c8"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-27c7a156-2735-4d8b-9966-5de0829abc0f"
+        }, {
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "crown-two",
+          "customContextDataKey": {
+          },
+          "note": "↑我会停止我所在的层，即第三层1号\n第二层会继续运行",
+          "id": "A-7c9ebb61-bb65-4118-924c-87f0abfa9076"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "我是第三层1号\n如果输入是3 我后面的指令会继续运行",
+        "id": "A-fb058117-d03b-4d4d-b8a8-e2633d42db27"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "varName": "textFieldInput1",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-74026a1e-27a2-40f4-891d-bd725145c37f"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowDanmu",
+          "text": "大于1",
+          "customContextDataKey": {
+          },
+          "id": "A-7f660a2d-8765-4866-a6c9-2697efba20b2"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Parent",
+          "customContextDataKey": {
+          },
+          "id": "A-b369bc5f-dfd2-4e46-9633-47400190e7fd"
+        }, {
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "crown-two",
+          "customContextDataKey": {
+          },
+          "note": "↑我会停止第二层",
+          "id": "A-c7e213bd-9263-4917-a9d4-4a405b20335a"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "我是第三层2号\n如果输入大于1 我会停止第二层",
+        "id": "A-d4a62e41-70b9-4737-a22a-0b3ac161d60b"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "大于0",
+        "customContextDataKey": {
+        },
+        "note": "如果输入1 我才能显示",
+        "id": "A-2304383a-ca5d-4e1f-9c56-e82f630137b7"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "我是0",
+        "customContextDataKey": {
+        },
+        "note": "输入小于1 我才能显示",
+        "id": "A-af93c15e-2fda-4cb7-b59a-a7120d8749b5"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "我是第二层",
+      "id": "A-86b3d88e-25d3-408b-a585-e70a82a4c19f"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "输入为空",
+      "customContextDataKey": {
+      },
+      "id": "A-6103a3b1-beca-41bd-aa99-263aa9abc8ca"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-17394d00-a693-40c8-9ed2-f1db1d72b44a"
+    }, {
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "crown-two",
+      "customContextDataKey": {
+      },
+      "note": "我会停止全部命令",
+      "id": "A-8ab8180b-356e-4f76-a158-6bc88465fa13"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "我是第一层，如果没有输入内容，我会停止所有运行的指令",
+    "id": "A-c66060b9-7279-40c7-a95f-09af8ed0c5eb"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "正常结束",
+    "customContextDataKey": {
+    },
+    "note": "如果没有输入内容，第一层会让我无法运行",
+    "id": "A-ffbd2e2d-b964-46f5-8b47-091c6b02f8f1"
+  }],
+  "id": "SHARED-DA-4f498b55-7a71-46ee-a9fd-840eb9a79351",
+  "lastUpdateTime": "1740947439475",
+  "createTime": "1740945085554",
+  "author": {
+    "name": "Rarlya"
+  },
+  "title": "停止执行后续动作示例",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

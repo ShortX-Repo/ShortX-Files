@@ -1,0 +1,1808 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "content": "^[a-zA-Z0-9- ]{4,9}$",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-5d0816a1-94bb-4fad-a29e-258e729abcd8"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentActivity",
+    "activities": [{
+      "pkg": {
+        "pkgName": "com.miui.voiceassist"
+      },
+      "className": "com.xiaomi.voiceassistant.screenrecognition.ScreenRecognitionActivity"
+    }],
+    "isDisabled": true,
+    "customContextDataKey": {
+    },
+    "id": "C-c5883db4-d9de-4b74-ad63-3d663391c4ce"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "isEnabled",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-28630fd5-0070-4dae-a077-6e2a108248fa"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-316f6f56-8bc5-4b15-a492-1f0d4d12ca62"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0be7a5b2-9886-4c45-b6b0-e6c18b14e097"
+  }, {
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-bab55ad1-6669-4992-bafe-dcfad9f29ade"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-5bedbefd-b8b8-4e63-88f9-683397b15b24"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "needAsk",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-f1dd9c39-d6e2-4bf3-a3e2-b498c662635b"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "needAsk",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "id": "A-553303a0-30b3-4219-95a6-1ea1a7f76016"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "shouldNotify",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-e1a11932-e402-4736-a543-29bcfa1b90cb"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "shouldNotify",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "id": "A-16ce7520-8a6a-45a0-84f2-46da00d30f01"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "class",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-96cf2e61-668b-461f-9162-b6772c4b21a5"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "isEnabled",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-82d8d3db-5dd7-4b7e-a92d-c8c8a3540e94"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "name",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-f8eddd49-ef60-43a0-8f5f-c5399184f6e4"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "isEnabled",
+      "valueAsString": "true",
+      "customContextDataKey": {
+      },
+      "id": "A-1ca5919e-1020-497c-9b1c-dd3f1e9c77f9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f2e1fb9a-f8e7-4828-9397-a12cd8727611"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentActivity",
+      "activities": [{
+        "pkg": {
+          "pkgName": "com.miui.voiceassist"
+        },
+        "className": "com.xiaomi.voiceassistant.screenrecognition.ScreenRecognitionActivity"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "C-307a4c94-8c71-4d1e-aeb5-87d86a416b6c"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-176340823516",
+      "title": "柠似乎复制了一个码…",
+      "message": "退出识屏后柠的码将会继续",
+      "isImportant": true,
+      "smallIcon": "chat-2-line",
+      "vibrate": true,
+      "sound": true,
+      "button": [{
+        "id": "Button-d58c8640-7b75-4622-a6aa-201e52ee05d9",
+        "action": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shouldNotify",
+          "valueAsString": "false",
+          "customContextDataKey": {
+          },
+          "id": "A-d0b15f1e-46bd-48f0-a518-0949728f32a0"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-176340823516",
+          "title": "好！这不是你的码！",
+          "isImportant": true,
+          "smallIcon": "chat-2-line",
+          "vibrate": true,
+          "sound": true,
+          "customContextDataKey": {
+          },
+          "id": "A-afe2541a-f3f9-41dd-9dc6-e1d4a36c9a1c"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "1",
+          "timeUnit": "TimeUnit_S",
+          "customContextDataKey": {
+          },
+          "id": "A-6a66e63e-4225-4f40-9d26-87f5fcb401c9"
+        }, {
+          "@type": "type.googleapis.com/RemoveNotification",
+          "notification": {
+            "tag": "tag-176340823516"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-297075bb-df72-4de4-9286-9dea5ea7cea1"
+        }],
+        "label": "不对！这不是我的码…"
+      }, {
+        "id": "Button-a5e93b7c-e139-4e9a-ad10-1f032c919555",
+        "action": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shouldNotify",
+          "valueAsString": "false",
+          "customContextDataKey": {
+          },
+          "id": "A-d0b15f1e-46bd-48f0-a518-0949728f32a0"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "IfActions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "isEnabled",
+            "valueAsString": "false",
+            "customContextDataKey": {
+            },
+            "id": "A-131c94e0-9e29-4398-b033-e99847ddba06"
+          }, {
+            "@type": "type.googleapis.com/PostNotification",
+            "tag": "tag-176340823516",
+            "title": "那我待会儿再来找你…可以在通知栏找到我！",
+            "isImportant": true,
+            "smallIcon": "chat-2-line",
+            "vibrate": true,
+            "sound": true,
+            "customContextDataKey": {
+            },
+            "id": "A-afe2541a-f3f9-41dd-9dc6-e1d4a36c9a1c"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "2",
+            "timeUnit": "TimeUnit_S",
+            "customContextDataKey": {
+            },
+            "id": "A-6a66e63e-4225-4f40-9d26-87f5fcb401c9"
+          }, {
+            "@type": "type.googleapis.com/RemoveNotification",
+            "notification": {
+              "tag": "tag-176340823516"
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-297075bb-df72-4de4-9286-9dea5ea7cea1"
+          }, {
+            "@type": "type.googleapis.com/PostNotification",
+            "tag": "tag-1763495103456",
+            "title": "复制上岛暂停中…",
+            "message": "是因为我太烦了嘛…点点通知我就回来了！",
+            "smallIcon": "chat-2-line",
+            "clickAction": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "isEnabled",
+              "valueAsString": "true",
+              "customContextDataKey": {
+              },
+              "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+            }, {
+              "@type": "type.googleapis.com/PostNotification",
+              "tag": "tag-1763495103456",
+              "title": "嘻嘻我就知道你会回来找我的",
+              "message": "你还是离不开我的对嘛…",
+              "isImportant": true,
+              "smallIcon": "chat-2-line",
+              "customContextDataKey": {
+              },
+              "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+            }, {
+              "@type": "type.googleapis.com/Delay",
+              "timeString": "2",
+              "timeUnit": "TimeUnit_S",
+              "customContextDataKey": {
+              },
+              "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+            }, {
+              "@type": "type.googleapis.com/RemoveNotification",
+              "notification": {
+                "tag": "tag-1763495103456"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+            }],
+            "button": [{
+              "id": "Button-bda131a6-bab6-4691-a07b-844a81092440",
+              "action": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "true",
+                "customContextDataKey": {
+                },
+                "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-1763495103456",
+                "title": "嘻嘻我就知道你会回来找我的",
+                "message": "你还是离不开我的对嘛…",
+                "isImportant": true,
+                "smallIcon": "chat-2-line",
+                "customContextDataKey": {
+                },
+                "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "2",
+                "timeUnit": "TimeUnit_S",
+                "customContextDataKey": {
+                },
+                "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-1763495103456"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+              }],
+              "label": "我想你了！"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-ed99368b-bd4a-49ef-8006-0933d15275c1"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "5",
+            "timeUnit": "TimeUnit_M",
+            "customContextDataKey": {
+            },
+            "id": "A-e2062c99-20e6-47f0-a827-de05121db614"
+          }, {
+            "@type": "type.googleapis.com/RemoveNotification",
+            "notification": {
+              "tag": "tag-1763495103456"
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-323e7b09-32c6-4869-9b4d-fb6bf3bce84b"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "isEnabled",
+            "valueAsString": "true",
+            "customContextDataKey": {
+            },
+            "id": "A-6b24327d-2bab-41e7-942b-5d30ecc1c0ce"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-d8319f7c-7159-48ad-b496-31f0ede3982f"
+        }],
+        "label": "5分钟内不提醒"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f23963f2-2d4c-4391-acd3-84fbf573fea2"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "com.miui.voiceassist"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-b744dd1e-05b1-4218-9f69-560c32ee4a08"
+      }],
+      "timeoutStr": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-a0b2fb02-355d-4eba-a2a2-52f83cf4abca"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "needAsk",
+      "valueAsString": "false",
+      "customContextDataKey": {
+      },
+      "id": "A-26d45279-1525-4f46-86df-952b20d036f2"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "tag": "tag-176340823516"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-fe01589b-ddc0-41da-a1dc-ee2c6b5b3ba7"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-9585c163-4f1b-4d02-8311-9fcef592ad1a"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "com.taobao.taobao"
+        }, {
+          "pkgName": "com.jingdong.app.mall"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-0250b7bc-28a3-4e53-ad55-7c03b8972bb7"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.taobao.taobao"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-3771bbcf-abf9-45dd-953b-4661890d365c"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "淘宝",
+            "customContextDataKey": {
+            },
+            "id": "A-ae8e4669-81ea-4634-80bb-061ff3eb92ed"
+          }],
+          "description": "淘宝",
+          "id": "Case-910b2024-08b2-48c1-97dc-40ff9c48db97",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.jingdong.app.mall"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-a3ce4481-3337-4290-8f10-6367f77e75e8"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "京东",
+            "customContextDataKey": {
+            },
+            "id": "A-2f8ed506-72b4-45c6-b759-ac21d6877e85"
+          }],
+          "description": "京东",
+          "id": "Case-8b96b81d-7c60-4aa6-abc3-633d9d367f57",
+          "isBreak": true
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-fca55f8a-5680-43ea-952e-f4a8f5fe88c3"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 定义函数：获取前台应用信息\nget_foreground_app() {\n    # 1. 获取前台应用包名（适配全版本）\n    PACKAGE_NAME\u003d$(dumpsys window | grep mCurrentFocus | grep -oE \u0027[a-zA-Z0-9.]+/[a-zA-Z0-9.]+\u0027 | cut -d\u0027/\u0027 -f1)\n    if [ -z \"$PACKAGE_NAME\" ]; then\n        PACKAGE_NAME\u003d$(dumpsys activity activities | grep mResumedActivity | grep -oE \u0027[a-zA-Z0-9.]+/[a-zA-Z0-9.]+\u0027 | cut -d\u0027/\u0027 -f1)\n    fi\n\n    # 2. 校验包名\n    if [ -z \"$PACKAGE_NAME\" ]; then\n        echo \"错误：无法获取前台应用包名\"\n        exit 1\n    fi\n\n    # 3. 关键修复：通过 dumpsys package 获取应用名（无需 aapt）\n    # 解析应用标签（支持中文，处理空格和特殊字符）\n    APP_NAME\u003d$(dumpsys package \"$PACKAGE_NAME\" | grep -A 1 \"application:\" | grep \"label\u003d\" | sed -n \u0027s/.*label\u003d\"//p\u0027 | sed -n \u0027s/\".*//p\u0027)\n\n    # 4. 兼容处理：若未获取到标签，用包名替代\n    if [ -z \"$APP_NAME\" ]; then\n        APP_NAME\u003d$(dumpsys package \"$PACKAGE_NAME\" | grep \"name\u003d\" | grep -oE \u0027name\u003d[^ ]+\u0027 | cut -d\u0027\u003d\u0027 -f2)\n        # 仍失败则显示为未知\n        [ -z \"$APP_NAME\" ] \u0026\u0026 APP_NAME\u003d\"未知应用\"\n    fi\n\n    # 5. 输出结果\n    echo \"$PACKAGE_NAME\"\n    \n}\n\n# 执行函数\nget_foreground_app\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "packagename"
+          }]
+        },
+        "id": "A-170b3563-8f84-4d39-a383-6ccc69a79402"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shouldNotify",
+          "valueAsString": "false",
+          "customContextDataKey": {
+          },
+          "id": "A-9517d36b-f392-4d31-aaa2-a39ef37ef479"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-1763334574200",
+          "title": "柠似乎复制了一个码",
+          "message": "这是柠的码吗？",
+          "isImportant": true,
+          "smallIcon": "chat-2-line",
+          "vibrate": true,
+          "sound": true,
+          "button": [{
+            "id": "Button-4e929ad5-51fb-4131-95e8-0b713fb51da3",
+            "action": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shouldNotify",
+              "valueAsString": "true",
+              "customContextDataKey": {
+              },
+              "id": "A-adf3ff0a-673d-46b3-8a69-3c1cbb5d0e92"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "class",
+              "valueAsString": "取餐码",
+              "customContextDataKey": {
+              },
+              "id": "A-97bcbeab-3c16-4fe5-a341-9ea38b12c3c4"
+            }, {
+              "@type": "type.googleapis.com/RemoveNotification",
+              "notification": {
+                "tag": "tag-1763334574200"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d7338e07-7385-4265-9ca0-058a19775b21"
+            }],
+            "label": "取餐码"
+          }, {
+            "id": "Button-e9598c47-f1d3-4e04-8333-e343ec567968",
+            "action": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shouldNotify",
+              "valueAsString": "true",
+              "customContextDataKey": {
+              },
+              "id": "A-adf3ff0a-673d-46b3-8a69-3c1cbb5d0e92"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "class",
+              "valueAsString": "取件码",
+              "customContextDataKey": {
+              },
+              "id": "A-97bcbeab-3c16-4fe5-a341-9ea38b12c3c4"
+            }, {
+              "@type": "type.googleapis.com/RemoveNotification",
+              "notification": {
+                "tag": "tag-1763334574200"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d7338e07-7385-4265-9ca0-058a19775b21"
+            }],
+            "label": "取件码"
+          }, {
+            "id": "Button-b2e11eb1-af17-4402-b919-fc1e74748440",
+            "action": [{
+              "@type": "type.googleapis.com/IfThenElse",
+              "IfActions": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "false",
+                "customContextDataKey": {
+                },
+                "id": "A-131c94e0-9e29-4398-b033-e99847ddba06"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-176340823516",
+                "title": "那我待会儿再来找你…可以在通知栏找到我！",
+                "isImportant": true,
+                "smallIcon": "chat-2-line",
+                "vibrate": true,
+                "sound": true,
+                "customContextDataKey": {
+                },
+                "id": "A-afe2541a-f3f9-41dd-9dc6-e1d4a36c9a1c"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "2",
+                "timeUnit": "TimeUnit_S",
+                "customContextDataKey": {
+                },
+                "id": "A-6a66e63e-4225-4f40-9d26-87f5fcb401c9"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-176340823516"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-297075bb-df72-4de4-9286-9dea5ea7cea1"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-1763495103456",
+                "title": "复制上岛暂停中…",
+                "message": "是因为我太烦了嘛…点点通知我就回来了！",
+                "smallIcon": "chat-2-line",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "isEnabled",
+                  "valueAsString": "true",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+                }, {
+                  "@type": "type.googleapis.com/PostNotification",
+                  "tag": "tag-1763495103456",
+                  "title": "嘻嘻我就知道你会回来找我的",
+                  "message": "你还是离不开我的对嘛…",
+                  "isImportant": true,
+                  "smallIcon": "chat-2-line",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+                }, {
+                  "@type": "type.googleapis.com/Delay",
+                  "timeString": "2",
+                  "timeUnit": "TimeUnit_S",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+                }, {
+                  "@type": "type.googleapis.com/RemoveNotification",
+                  "notification": {
+                    "tag": "tag-1763495103456"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+                }],
+                "button": [{
+                  "id": "Button-bda131a6-bab6-4691-a07b-844a81092440",
+                  "action": [{
+                    "@type": "type.googleapis.com/WriteGlobalVar",
+                    "varName": "isEnabled",
+                    "valueAsString": "true",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+                  }, {
+                    "@type": "type.googleapis.com/PostNotification",
+                    "tag": "tag-1763495103456",
+                    "title": "嘻嘻我就知道你会回来找我的",
+                    "message": "你还是离不开我的对嘛…",
+                    "isImportant": true,
+                    "smallIcon": "chat-2-line",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+                  }, {
+                    "@type": "type.googleapis.com/Delay",
+                    "timeString": "2",
+                    "timeUnit": "TimeUnit_S",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+                  }, {
+                    "@type": "type.googleapis.com/RemoveNotification",
+                    "notification": {
+                      "tag": "tag-1763495103456"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+                  }],
+                  "label": "我想你了！"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-ed99368b-bd4a-49ef-8006-0933d15275c1"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "5",
+                "timeUnit": "TimeUnit_M",
+                "customContextDataKey": {
+                },
+                "id": "A-e2062c99-20e6-47f0-a827-de05121db614"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-1763495103456"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-323e7b09-32c6-4869-9b4d-fb6bf3bce84b"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "true",
+                "customContextDataKey": {
+                },
+                "id": "A-6b24327d-2bab-41e7-942b-5d30ecc1c0ce"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-d8319f7c-7159-48ad-b496-31f0ede3982f"
+            }],
+            "label": "5分钟内不提醒"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-43b01e8c-e364-4e7e-8b15-10e1493e8682"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3",
+          "timeUnit": "TimeUnit_S",
+          "customContextDataKey": {
+          },
+          "id": "A-e999d836-3aa6-46fc-9676-3ded0e825833"
+        }, {
+          "@type": "type.googleapis.com/RemoveNotification",
+          "notification": {
+            "tag": "tag-1763334574201"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-2f053d65-4519-4d76-ac10-add331356b6a"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-7150f7a9-5e31-43c5-b427-719f3e43d200"
+      }],
+      "description": "App多样性",
+      "id": "Case-da343b28-47fa-4527-a762-849ef48d8247",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "com.xunmeng.pinduoduo"
+        }, {
+          "pkgName": "com.cainiao.wireless"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-5532e718-5565-4dbf-b3f3-6bd7e524d72a"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "class",
+        "valueAsString": "取件码",
+        "customContextDataKey": {
+        },
+        "id": "A-97bcbeab-3c16-4fe5-a341-9ea38b12c3c4"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.xunmeng.pinduoduo"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-550cceec-377d-4fdc-a119-ea72f06bdb14"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "拼多多",
+            "customContextDataKey": {
+            },
+            "id": "A-984f2276-7932-492e-9c4a-b5e3106d6243"
+          }],
+          "description": "拼多多",
+          "id": "Case-053c7159-cd80-4a13-9263-90e45557380c",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.taobao.taobao"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-3771bbcf-abf9-45dd-953b-4661890d365c"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "淘宝",
+            "customContextDataKey": {
+            },
+            "id": "A-ae8e4669-81ea-4634-80bb-061ff3eb92ed"
+          }],
+          "description": "淘宝",
+          "id": "Case-910b2024-08b2-48c1-97dc-40ff9c48db97",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.cainiao.wireless"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-d71721a2-6117-4821-8d23-c18d18652507"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "菜鸟",
+            "customContextDataKey": {
+            },
+            "id": "A-8518d469-b198-4b92-be7d-96880141842f"
+          }],
+          "description": "菜鸟",
+          "id": "Case-b2073eab-f8a2-409b-8077-26a7f5184936",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.jingdong.app.mall"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-a3ce4481-3337-4290-8f10-6367f77e75e8"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "京东",
+            "customContextDataKey": {
+            },
+            "id": "A-2f8ed506-72b4-45c6-b759-ac21d6877e85"
+          }],
+          "description": "京东",
+          "id": "Case-8b96b81d-7c60-4aa6-abc3-633d9d367f57",
+          "isBreak": true
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-fca55f8a-5680-43ea-952e-f4a8f5fe88c3"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 定义函数：获取前台应用信息\nget_foreground_app() {\n    # 1. 获取前台应用包名（适配全版本）\n    PACKAGE_NAME\u003d$(dumpsys window | grep mCurrentFocus | grep -oE \u0027[a-zA-Z0-9.]+/[a-zA-Z0-9.]+\u0027 | cut -d\u0027/\u0027 -f1)\n    if [ -z \"$PACKAGE_NAME\" ]; then\n        PACKAGE_NAME\u003d$(dumpsys activity activities | grep mResumedActivity | grep -oE \u0027[a-zA-Z0-9.]+/[a-zA-Z0-9.]+\u0027 | cut -d\u0027/\u0027 -f1)\n    fi\n\n    # 2. 校验包名\n    if [ -z \"$PACKAGE_NAME\" ]; then\n        echo \"错误：无法获取前台应用包名\"\n        exit 1\n    fi\n\n    # 3. 关键修复：通过 dumpsys package 获取应用名（无需 aapt）\n    # 解析应用标签（支持中文，处理空格和特殊字符）\n    APP_NAME\u003d$(dumpsys package \"$PACKAGE_NAME\" | grep -A 1 \"application:\" | grep \"label\u003d\" | sed -n \u0027s/.*label\u003d\"//p\u0027 | sed -n \u0027s/\".*//p\u0027)\n\n    # 4. 兼容处理：若未获取到标签，用包名替代\n    if [ -z \"$APP_NAME\" ]; then\n        APP_NAME\u003d$(dumpsys package \"$PACKAGE_NAME\" | grep \"name\u003d\" | grep -oE \u0027name\u003d[^ ]+\u0027 | cut -d\u0027\u003d\u0027 -f2)\n        # 仍失败则显示为未知\n        [ -z \"$APP_NAME\" ] \u0026\u0026 APP_NAME\u003d\"未知应用\"\n    fi\n\n    # 5. 输出结果\n    echo \"$PACKAGE_NAME\"\n    \n}\n\n# 执行函数\nget_foreground_app\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "packagename"
+          }]
+        },
+        "id": "A-170b3563-8f84-4d39-a383-6ccc69a79402"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "needAsk",
+          "payload": {
+            "value": "true"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-2f308425-17cc-4de9-b286-0fe47f9940c1"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shouldNotify",
+          "valueAsString": "false",
+          "customContextDataKey": {
+          },
+          "id": "A-adf3ff0a-673d-46b3-8a69-3c1cbb5d0e92"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-1763334574201",
+          "title": "柠似乎复制了一个取件码",
+          "message": "这是柠的码吗？",
+          "isImportant": true,
+          "smallIcon": "chat-2-line",
+          "vibrate": true,
+          "sound": true,
+          "button": [{
+            "id": "Button-4e929ad5-51fb-4131-95e8-0b713fb51da3",
+            "action": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shouldNotify",
+              "valueAsString": "true",
+              "customContextDataKey": {
+              },
+              "id": "A-da427839-658d-4c14-9ec0-761a240e1ebc"
+            }, {
+              "@type": "type.googleapis.com/RemoveNotification",
+              "notification": {
+                "tag": "tag-1763334574201"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d7338e07-7385-4265-9ca0-058a19775b21"
+            }],
+            "label": "是！"
+          }, {
+            "id": "Button-2fa68b23-440f-4d3a-9dd2-5e19c150da54",
+            "action": [{
+              "@type": "type.googleapis.com/IfThenElse",
+              "IfActions": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "false",
+                "customContextDataKey": {
+                },
+                "id": "A-131c94e0-9e29-4398-b033-e99847ddba06"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-176340823516",
+                "title": "那我待会儿再来找你…可以在通知栏找到我！",
+                "isImportant": true,
+                "smallIcon": "chat-2-line",
+                "vibrate": true,
+                "sound": true,
+                "customContextDataKey": {
+                },
+                "id": "A-afe2541a-f3f9-41dd-9dc6-e1d4a36c9a1c"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "2",
+                "timeUnit": "TimeUnit_S",
+                "customContextDataKey": {
+                },
+                "id": "A-6a66e63e-4225-4f40-9d26-87f5fcb401c9"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-176340823516"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-297075bb-df72-4de4-9286-9dea5ea7cea1"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-1763495103456",
+                "title": "复制上岛暂停中…",
+                "message": "是因为我太烦了嘛…点点通知我就回来了！",
+                "smallIcon": "chat-2-line",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "isEnabled",
+                  "valueAsString": "true",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+                }, {
+                  "@type": "type.googleapis.com/PostNotification",
+                  "tag": "tag-1763495103456",
+                  "title": "嘻嘻我就知道你会回来找我的",
+                  "message": "你还是离不开我的对嘛…",
+                  "isImportant": true,
+                  "smallIcon": "chat-2-line",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+                }, {
+                  "@type": "type.googleapis.com/Delay",
+                  "timeString": "2",
+                  "timeUnit": "TimeUnit_S",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+                }, {
+                  "@type": "type.googleapis.com/RemoveNotification",
+                  "notification": {
+                    "tag": "tag-1763495103456"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+                }],
+                "button": [{
+                  "id": "Button-bda131a6-bab6-4691-a07b-844a81092440",
+                  "action": [{
+                    "@type": "type.googleapis.com/WriteGlobalVar",
+                    "varName": "isEnabled",
+                    "valueAsString": "true",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+                  }, {
+                    "@type": "type.googleapis.com/PostNotification",
+                    "tag": "tag-1763495103456",
+                    "title": "嘻嘻我就知道你会回来找我的",
+                    "message": "你还是离不开我的对嘛…",
+                    "isImportant": true,
+                    "smallIcon": "chat-2-line",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+                  }, {
+                    "@type": "type.googleapis.com/Delay",
+                    "timeString": "2",
+                    "timeUnit": "TimeUnit_S",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+                  }, {
+                    "@type": "type.googleapis.com/RemoveNotification",
+                    "notification": {
+                      "tag": "tag-1763495103456"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+                  }],
+                  "label": "我想你了！"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-ed99368b-bd4a-49ef-8006-0933d15275c1"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "5",
+                "timeUnit": "TimeUnit_M",
+                "customContextDataKey": {
+                },
+                "id": "A-e2062c99-20e6-47f0-a827-de05121db614"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-1763495103456"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-323e7b09-32c6-4869-9b4d-fb6bf3bce84b"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "true",
+                "customContextDataKey": {
+                },
+                "id": "A-6b24327d-2bab-41e7-942b-5d30ecc1c0ce"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-d8319f7c-7159-48ad-b496-31f0ede3982f"
+            }],
+            "label": "5分钟内不提醒"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-43b01e8c-e364-4e7e-8b15-10e1493e8682"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3",
+          "timeUnit": "TimeUnit_S",
+          "customContextDataKey": {
+          },
+          "id": "A-e999d836-3aa6-46fc-9676-3ded0e825833"
+        }, {
+          "@type": "type.googleapis.com/RemoveNotification",
+          "notification": {
+            "tag": "tag-1763334574201"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-2f053d65-4519-4d76-ac10-add331356b6a"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-7150f7a9-5e31-43c5-b427-719f3e43d200"
+      }],
+      "description": "已知取件码",
+      "id": "Case-ab23ed8c-7615-49a3-b2b5-dce4208e32da",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgs": [{
+          "pkgName": "me.ele"
+        }, {
+          "pkgName": "com.yek.android.kfc.activitys"
+        }, {
+          "pkgName": "com.mxbc.mxsa"
+        }, {
+          "pkgName": "com.sankuai.meituan"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-06ca268d-5a24-4252-b28d-a6e17cd6758c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "class",
+        "valueAsString": "取餐码",
+        "customContextDataKey": {
+        },
+        "id": "A-97bcbeab-3c16-4fe5-a341-9ea38b12c3c4"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.sankuai.meituan"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-550cceec-377d-4fdc-a119-ea72f06bdb14"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "美团",
+            "customContextDataKey": {
+            },
+            "id": "A-984f2276-7932-492e-9c4a-b5e3106d6243"
+          }],
+          "description": "美团",
+          "id": "Case-053c7159-cd80-4a13-9263-90e45557380c",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.taobao.taobao"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-3771bbcf-abf9-45dd-953b-4661890d365c"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "淘宝闪购",
+            "customContextDataKey": {
+            },
+            "id": "A-ae8e4669-81ea-4634-80bb-061ff3eb92ed"
+          }],
+          "description": "淘宝闪购",
+          "id": "Case-910b2024-08b2-48c1-97dc-40ff9c48db97",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "me.ele"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-d71721a2-6117-4821-8d23-c18d18652507"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "饿了么",
+            "customContextDataKey": {
+            },
+            "id": "A-8518d469-b198-4b92-be7d-96880141842f"
+          }],
+          "description": "饿了么",
+          "id": "Case-b2073eab-f8a2-409b-8077-26a7f5184936",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.jingdong.app.mall"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-a3ce4481-3337-4290-8f10-6367f77e75e8"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "京东外卖",
+            "customContextDataKey": {
+            },
+            "id": "A-2f8ed506-72b4-45c6-b759-ac21d6877e85"
+          }],
+          "description": "京东外卖",
+          "id": "Case-8b96b81d-7c60-4aa6-abc3-633d9d367f57",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.yek.android.kfc.activitys"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-77be9474-521a-4a62-ae3b-0f4d9373489d"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "肯德基",
+            "customContextDataKey": {
+            },
+            "id": "A-2f8ed506-72b4-45c6-b759-ac21d6877e85"
+          }],
+          "description": "肯德基",
+          "id": "Case-bfb36265-078b-46f8-aca6-d20b973b14e1",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/CurrentPkgList",
+            "pkgs": [{
+              "pkgName": "com.mxbc.mxsa"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-d95f3a50-b139-4db5-bd71-f907a3248841"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "name",
+            "valueAsString": "蜜雪冰城",
+            "customContextDataKey": {
+            },
+            "id": "A-2f8ed506-72b4-45c6-b759-ac21d6877e85"
+          }],
+          "description": "蜜雪冰城",
+          "id": "Case-81cabb06-38dc-40fe-9ba5-0b13831b76ea",
+          "isBreak": true
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-fca55f8a-5680-43ea-952e-f4a8f5fe88c3"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 定义函数：获取前台应用信息\nget_foreground_app() {\n    # 1. 获取前台应用包名（适配全版本）\n    PACKAGE_NAME\u003d$(dumpsys window | grep mCurrentFocus | grep -oE \u0027[a-zA-Z0-9.]+/[a-zA-Z0-9.]+\u0027 | cut -d\u0027/\u0027 -f1)\n    if [ -z \"$PACKAGE_NAME\" ]; then\n        PACKAGE_NAME\u003d$(dumpsys activity activities | grep mResumedActivity | grep -oE \u0027[a-zA-Z0-9.]+/[a-zA-Z0-9.]+\u0027 | cut -d\u0027/\u0027 -f1)\n    fi\n\n    # 2. 校验包名\n    if [ -z \"$PACKAGE_NAME\" ]; then\n        echo \"错误：无法获取前台应用包名\"\n        exit 1\n    fi\n\n    # 3. 关键修复：通过 dumpsys package 获取应用名（无需 aapt）\n    # 解析应用标签（支持中文，处理空格和特殊字符）\n    APP_NAME\u003d$(dumpsys package \"$PACKAGE_NAME\" | grep -A 1 \"application:\" | grep \"label\u003d\" | sed -n \u0027s/.*label\u003d\"//p\u0027 | sed -n \u0027s/\".*//p\u0027)\n\n    # 4. 兼容处理：若未获取到标签，用包名替代\n    if [ -z \"$APP_NAME\" ]; then\n        APP_NAME\u003d$(dumpsys package \"$PACKAGE_NAME\" | grep \"name\u003d\" | grep -oE \u0027name\u003d[^ ]+\u0027 | cut -d\u0027\u003d\u0027 -f2)\n        # 仍失败则显示为未知\n        [ -z \"$APP_NAME\" ] \u0026\u0026 APP_NAME\u003d\"未知应用\"\n    fi\n\n    # 5. 输出结果\n    echo \"$PACKAGE_NAME\"\n    \n}\n\n# 执行函数\nget_foreground_app\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "packagename"
+          }]
+        },
+        "id": "A-170b3563-8f84-4d39-a383-6ccc69a79402"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "needAsk",
+          "payload": {
+            "value": "true"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-2f308425-17cc-4de9-b286-0fe47f9940c1"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shouldNotify",
+          "valueAsString": "false",
+          "customContextDataKey": {
+          },
+          "id": "A-adf3ff0a-673d-46b3-8a69-3c1cbb5d0e92"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-1763334574201",
+          "title": "柠似乎复制了一个取餐码",
+          "message": "这是柠的码吗？",
+          "isImportant": true,
+          "smallIcon": "chat-2-line",
+          "vibrate": true,
+          "sound": true,
+          "button": [{
+            "id": "Button-4e929ad5-51fb-4131-95e8-0b713fb51da3",
+            "action": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shouldNotify",
+              "valueAsString": "true",
+              "customContextDataKey": {
+              },
+              "id": "A-da427839-658d-4c14-9ec0-761a240e1ebc"
+            }, {
+              "@type": "type.googleapis.com/RemoveNotification",
+              "notification": {
+                "tag": "tag-1763334574201"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d7338e07-7385-4265-9ca0-058a19775b21"
+            }],
+            "label": "是！"
+          }, {
+            "id": "Button-651e6004-8845-40ea-8b87-56fdc10f22c7",
+            "action": [{
+              "@type": "type.googleapis.com/IfThenElse",
+              "IfActions": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "false",
+                "customContextDataKey": {
+                },
+                "id": "A-131c94e0-9e29-4398-b033-e99847ddba06"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-176340823516",
+                "title": "那我待会儿再来找你…可以在通知栏找到我！",
+                "isImportant": true,
+                "smallIcon": "chat-2-line",
+                "vibrate": true,
+                "sound": true,
+                "customContextDataKey": {
+                },
+                "id": "A-afe2541a-f3f9-41dd-9dc6-e1d4a36c9a1c"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "2",
+                "timeUnit": "TimeUnit_S",
+                "customContextDataKey": {
+                },
+                "id": "A-6a66e63e-4225-4f40-9d26-87f5fcb401c9"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-176340823516"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-297075bb-df72-4de4-9286-9dea5ea7cea1"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-1763495103456",
+                "title": "复制上岛暂停中…",
+                "message": "是因为我太烦了嘛…点点通知我就回来了！",
+                "smallIcon": "chat-2-line",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "isEnabled",
+                  "valueAsString": "true",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+                }, {
+                  "@type": "type.googleapis.com/PostNotification",
+                  "tag": "tag-1763495103456",
+                  "title": "嘻嘻我就知道你会回来找我的",
+                  "message": "你还是离不开我的对嘛…",
+                  "isImportant": true,
+                  "smallIcon": "chat-2-line",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+                }, {
+                  "@type": "type.googleapis.com/Delay",
+                  "timeString": "2",
+                  "timeUnit": "TimeUnit_S",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+                }, {
+                  "@type": "type.googleapis.com/RemoveNotification",
+                  "notification": {
+                    "tag": "tag-1763495103456"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+                }],
+                "button": [{
+                  "id": "Button-bda131a6-bab6-4691-a07b-844a81092440",
+                  "action": [{
+                    "@type": "type.googleapis.com/WriteGlobalVar",
+                    "varName": "isEnabled",
+                    "valueAsString": "true",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+                  }, {
+                    "@type": "type.googleapis.com/PostNotification",
+                    "tag": "tag-1763495103456",
+                    "title": "嘻嘻我就知道你会回来找我的",
+                    "message": "你还是离不开我的对嘛…",
+                    "isImportant": true,
+                    "smallIcon": "chat-2-line",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+                  }, {
+                    "@type": "type.googleapis.com/Delay",
+                    "timeString": "2",
+                    "timeUnit": "TimeUnit_S",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+                  }, {
+                    "@type": "type.googleapis.com/RemoveNotification",
+                    "notification": {
+                      "tag": "tag-1763495103456"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+                  }],
+                  "label": "我想你了！"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-ed99368b-bd4a-49ef-8006-0933d15275c1"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "5",
+                "timeUnit": "TimeUnit_M",
+                "customContextDataKey": {
+                },
+                "id": "A-e2062c99-20e6-47f0-a827-de05121db614"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-1763495103456"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-323e7b09-32c6-4869-9b4d-fb6bf3bce84b"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "true",
+                "customContextDataKey": {
+                },
+                "id": "A-6b24327d-2bab-41e7-942b-5d30ecc1c0ce"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-d8319f7c-7159-48ad-b496-31f0ede3982f"
+            }],
+            "label": "5分钟内不提醒"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-43b01e8c-e364-4e7e-8b15-10e1493e8682"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3",
+          "timeUnit": "TimeUnit_S",
+          "customContextDataKey": {
+          },
+          "id": "A-e999d836-3aa6-46fc-9676-3ded0e825833"
+        }, {
+          "@type": "type.googleapis.com/RemoveNotification",
+          "notification": {
+            "tag": "tag-1763334574201"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-2f053d65-4519-4d76-ac10-add331356b6a"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-7150f7a9-5e31-43c5-b427-719f3e43d200"
+      }],
+      "description": "已知取餐码",
+      "id": "Case-80e296be-dddc-48bb-b64c-256812d80830",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "shouldNotify",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-3f919a95-7ce0-4988-967d-643eef9b4fa2"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/system/bin/sh\n\n# 定义函数：获取前台应用信息\nget_foreground_app() {\n    # 1. 获取前台应用包名（适配全版本）\n    PACKAGE_NAME\u003d$(dumpsys window | grep mCurrentFocus | grep -oE \u0027[a-zA-Z0-9.]+/[a-zA-Z0-9.]+\u0027 | cut -d\u0027/\u0027 -f1)\n    if [ -z \"$PACKAGE_NAME\" ]; then\n        PACKAGE_NAME\u003d$(dumpsys activity activities | grep mResumedActivity | grep -oE \u0027[a-zA-Z0-9.]+/[a-zA-Z0-9.]+\u0027 | cut -d\u0027/\u0027 -f1)\n    fi\n\n    # 2. 校验包名\n    if [ -z \"$PACKAGE_NAME\" ]; then\n        echo \"错误：无法获取前台应用包名\"\n        exit 1\n    fi\n\n    # 3. 关键修复：通过 dumpsys package 获取应用名（无需 aapt）\n    # 解析应用标签（支持中文，处理空格和特殊字符）\n    APP_NAME\u003d$(dumpsys package \"$PACKAGE_NAME\" | grep -A 1 \"application:\" | grep \"label\u003d\" | sed -n \u0027s/.*label\u003d\"//p\u0027 | sed -n \u0027s/\".*//p\u0027)\n\n    # 4. 兼容处理：若未获取到标签，用包名替代\n    if [ -z \"$APP_NAME\" ]; then\n        APP_NAME\u003d$(dumpsys package \"$PACKAGE_NAME\" | grep \"name\u003d\" | grep -oE \u0027name\u003d[^ ]+\u0027 | cut -d\u0027\u003d\u0027 -f2)\n        # 仍失败则显示为未知\n        [ -z \"$APP_NAME\" ] \u0026\u0026 APP_NAME\u003d\"未知应用\"\n    fi\n\n    # 5. 输出结果\n    echo \"$PACKAGE_NAME\"\n    \n}\n\n# 执行函数\nget_foreground_app\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "packagename"
+          }]
+        },
+        "id": "A-170b3563-8f84-4d39-a383-6ccc69a79402"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "name",
+        "valueAsString": "{packagename}",
+        "customContextDataKey": {
+        },
+        "id": "A-8af2935d-7deb-4a85-a320-76805c417c80"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shouldNotify",
+          "valueAsString": "false",
+          "customContextDataKey": {
+          },
+          "id": "A-9517d36b-f392-4d31-aaa2-a39ef37ef479"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-1763334574200",
+          "title": "柠似乎复制了一个码",
+          "message": "这是柠的码吗？",
+          "isImportant": true,
+          "smallIcon": "chat-2-line",
+          "vibrate": true,
+          "sound": true,
+          "button": [{
+            "id": "Button-4e929ad5-51fb-4131-95e8-0b713fb51da3",
+            "action": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shouldNotify",
+              "valueAsString": "true",
+              "customContextDataKey": {
+              },
+              "id": "A-adf3ff0a-673d-46b3-8a69-3c1cbb5d0e92"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "class",
+              "valueAsString": "取餐码",
+              "customContextDataKey": {
+              },
+              "id": "A-97bcbeab-3c16-4fe5-a341-9ea38b12c3c4"
+            }, {
+              "@type": "type.googleapis.com/RemoveNotification",
+              "notification": {
+                "tag": "tag-1763334574200"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d7338e07-7385-4265-9ca0-058a19775b21"
+            }],
+            "label": "取餐码"
+          }, {
+            "id": "Button-e9598c47-f1d3-4e04-8333-e343ec567968",
+            "action": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shouldNotify",
+              "valueAsString": "true",
+              "customContextDataKey": {
+              },
+              "id": "A-adf3ff0a-673d-46b3-8a69-3c1cbb5d0e92"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "class",
+              "valueAsString": "取件码",
+              "customContextDataKey": {
+              },
+              "id": "A-97bcbeab-3c16-4fe5-a341-9ea38b12c3c4"
+            }, {
+              "@type": "type.googleapis.com/RemoveNotification",
+              "notification": {
+                "tag": "tag-1763334574200"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d7338e07-7385-4265-9ca0-058a19775b21"
+            }],
+            "label": "取件码"
+          }, {
+            "id": "Button-740cd3e8-9916-4a90-b9d6-27c71b50c479",
+            "action": [{
+              "@type": "type.googleapis.com/RemoveNotification",
+              "notification": {
+                "tag": "tag-1763334574200"
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-d7338e07-7385-4265-9ca0-058a19775b21"
+            }, {
+              "@type": "type.googleapis.com/IfThenElse",
+              "IfActions": [{
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "false",
+                "customContextDataKey": {
+                },
+                "id": "A-131c94e0-9e29-4398-b033-e99847ddba06"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-176340823516",
+                "title": "那我待会儿再来找你…可以在通知栏找到我！",
+                "isImportant": true,
+                "smallIcon": "chat-2-line",
+                "vibrate": true,
+                "sound": true,
+                "customContextDataKey": {
+                },
+                "id": "A-afe2541a-f3f9-41dd-9dc6-e1d4a36c9a1c"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "2",
+                "timeUnit": "TimeUnit_S",
+                "customContextDataKey": {
+                },
+                "id": "A-6a66e63e-4225-4f40-9d26-87f5fcb401c9"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-176340823516"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-297075bb-df72-4de4-9286-9dea5ea7cea1"
+              }, {
+                "@type": "type.googleapis.com/PostNotification",
+                "tag": "tag-1763495103456",
+                "title": "复制上岛暂停中…",
+                "message": "是因为我太烦了嘛…点点通知我就回来了！",
+                "smallIcon": "chat-2-line",
+                "clickAction": [{
+                  "@type": "type.googleapis.com/WriteGlobalVar",
+                  "varName": "isEnabled",
+                  "valueAsString": "true",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+                }, {
+                  "@type": "type.googleapis.com/PostNotification",
+                  "tag": "tag-1763495103456",
+                  "title": "嘻嘻我就知道你会回来找我的",
+                  "message": "你还是离不开我的对嘛…",
+                  "isImportant": true,
+                  "smallIcon": "chat-2-line",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+                }, {
+                  "@type": "type.googleapis.com/Delay",
+                  "timeString": "2",
+                  "timeUnit": "TimeUnit_S",
+                  "customContextDataKey": {
+                  },
+                  "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+                }, {
+                  "@type": "type.googleapis.com/RemoveNotification",
+                  "notification": {
+                    "tag": "tag-1763495103456"
+                  },
+                  "customContextDataKey": {
+                  },
+                  "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+                }],
+                "button": [{
+                  "id": "Button-bda131a6-bab6-4691-a07b-844a81092440",
+                  "action": [{
+                    "@type": "type.googleapis.com/WriteGlobalVar",
+                    "varName": "isEnabled",
+                    "valueAsString": "true",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-102b6790-a315-4729-a1b5-5e2c3fca7514"
+                  }, {
+                    "@type": "type.googleapis.com/PostNotification",
+                    "tag": "tag-1763495103456",
+                    "title": "嘻嘻我就知道你会回来找我的",
+                    "message": "你还是离不开我的对嘛…",
+                    "isImportant": true,
+                    "smallIcon": "chat-2-line",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-046b4dd4-b367-4e5b-9719-dced487d5f35"
+                  }, {
+                    "@type": "type.googleapis.com/Delay",
+                    "timeString": "2",
+                    "timeUnit": "TimeUnit_S",
+                    "customContextDataKey": {
+                    },
+                    "id": "A-3385125c-a69a-4ae7-8441-f95f71e7d547"
+                  }, {
+                    "@type": "type.googleapis.com/RemoveNotification",
+                    "notification": {
+                      "tag": "tag-1763495103456"
+                    },
+                    "customContextDataKey": {
+                    },
+                    "id": "A-d0f9ea96-eefe-49e5-8e55-d4cafd8d013b"
+                  }],
+                  "label": "我想你了！"
+                }],
+                "customContextDataKey": {
+                },
+                "id": "A-ed99368b-bd4a-49ef-8006-0933d15275c1"
+              }, {
+                "@type": "type.googleapis.com/Delay",
+                "timeString": "5",
+                "timeUnit": "TimeUnit_M",
+                "customContextDataKey": {
+                },
+                "id": "A-e2062c99-20e6-47f0-a827-de05121db614"
+              }, {
+                "@type": "type.googleapis.com/RemoveNotification",
+                "notification": {
+                  "tag": "tag-1763495103456"
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-323e7b09-32c6-4869-9b4d-fb6bf3bce84b"
+              }, {
+                "@type": "type.googleapis.com/WriteGlobalVar",
+                "varName": "isEnabled",
+                "valueAsString": "true",
+                "customContextDataKey": {
+                },
+                "id": "A-6b24327d-2bab-41e7-942b-5d30ecc1c0ce"
+              }],
+              "customContextDataKey": {
+              },
+              "id": "A-d8319f7c-7159-48ad-b496-31f0ede3982f"
+            }],
+            "label": "5分钟内不提醒"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-43b01e8c-e364-4e7e-8b15-10e1493e8682"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "3",
+          "timeUnit": "TimeUnit_S",
+          "customContextDataKey": {
+          },
+          "id": "A-e999d836-3aa6-46fc-9676-3ded0e825833"
+        }, {
+          "@type": "type.googleapis.com/RemoveNotification",
+          "notification": {
+            "tag": "tag-1763334574201"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-2f053d65-4519-4d76-ac10-add331356b6a"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-7150f7a9-5e31-43c5-b427-719f3e43d200"
+      }],
+      "description": "通配",
+      "id": "Case-0c99b108-d63b-4592-9883-a4b5a0ee4378",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4876ec06-8838-49ac-bd5a-dabdfaa60cb6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "shouldNotify",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-c85c0d6e-9f5d-429b-b875-00f31e18b03b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "/**\n * HyperOS 焦点通知测试，仅供娱乐\n * @author XZAKOTA\n * @date   2025-11-11\n */\n\n// 导入类\nimportPackage(android.app);\nimportPackage(android.content);\nimportPackage(android.content.pm);\nimportPackage(android.graphics);\nimportPackage(android.graphics.drawable);\nimportPackage(android.os);\nimportPackage(android.widget);\n\n// 去除空格\nfunction removeSpaces(str) {\n    if (!str) return str;\n    return str.toString()\n        .replace(/\\s/g, \u0027\u0027)           \n        .replace(/[\\u3000\\u00A0]/g, \u0027\u0027);\n}\n\nvar cleanText \u003d removeSpaces({clipboardContent}); \n\n\n// 通知意图来源\nconst NOTIFICATION_FROM \u003d \"tornaco.apps.shortx\";\n\n// 通知渠道 ID\nconst NOTIFICATION_CHANNEL_ID \u003d \"shortx_focus\";\n// 通知渠道名称\nconst NOTIFICATION_CHANNEL_NAME \u003d \"ShortX 焦点通知\";\n\n// 通知管理器\nvar notificationManager \u003d context.getSystemService(NotificationManager);\n\n/**\n * 注册通知渠道\n */\nfunction createChannel() {\n    var channel \u003d new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);\n    \n    // 设置渠道其他信息\n    // channel.set\n    \n    notificationManager.createNotificationChannel(channel);\n}\n\n/**\n * 发送焦点通知\n * @param icon    未开启焦点通知时的图标\n * @param title   未开启焦点通知时的标题\n * @param content 未开启焦点通知时的内容\n * @param intent  通知附加意图\n * @param bundle  通知附加焦点通知参数\n */\nfunction sendFocus(notificationId, icon, title, content, intent, bundle) {\n    notificationManager.notify(\n        notificationId,\n        Notification.Builder(context, NOTIFICATION_CHANNEL_ID)\n            .setSmallIcon(icon)\n            .setContentTitle(title)\n            .setContentText(content)\n            .setContentIntent(intent)\n            .addExtras(bundle)\n            .build()\n    )\n}\n\n/**\n * Toast 提示\n */\nfunction showToast(message) {\n    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();\n}\n\n/**\n * Drawable 转 Bitmap\n */\nfunction drawable2Bitmap(drawable) {\n    var width \u003d drawable.getIntrinsicWidth() \u003c\u003d 0 ? drawable.getBounds().width() : drawable.getIntrinsicWidth();\n    var height \u003d drawable.getIntrinsicHeight() \u003c\u003d 0 ? drawable.getBounds().height() : drawable.getIntrinsicHeight();\n    \n    var bitmap \u003d Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);\n    var canvas \u003d new Canvas(bitmap);\n    \n    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());\n    drawable.draw(canvas);\n    \n    return bitmap;\n}\n\nconst ACTION_NOTIFICATION_CLICK \u003d \"ACTION_NOTIFICATION_CLICK\";\nconst KEY_NOTIFICATION_ID \u003d \"KEY_NOTIFICATION_ID\";\n\nvar ActionBroadcastReceiver \u003d new BroadcastReceiver () {\n    onReceive: (c, i) \u003d\u003e {\n        var action \u003d i.getAction();\n        if (action \u003d\u003d ACTION_NOTIFICATION_CLICK) {\n            var id \u003d i.getExtra(KEY_NOTIFICATION_ID);\n            notificationManager.cancel(id);\n        }\n        \n        c.unregisterReceiver(ActionBroadcastReceiver);\n    }\n};\n\n(() \u003d\u003e {\n    if (!notificationManager.areNotificationsEnabled) {\n        showToast(\"无通知权限\");\n        return;\n    }\n    \n    if (notificationManager.getNotificationChannel(NOTIFICATION_CHANNEL_ID) \u003d\u003d null) {\n        createChannel();\n    }\n    \n    var packageManager \u003d context.getPackageManager();\n    var launchIntent \u003d packageManager.getLaunchIntentForPackage({packagename});\n    if (launchIntent \u003d\u003d null) {\n        return;\n    }\n    \n    var pendingIntent \u003d PendingIntent.getActivity(context, 0, launchIntent, PendingIntent.FLAG_MUTABLE);\n    var iconBitmap \u003d drawable2Bitmap(packageManager.getActivityIcon(launchIntent));\n    var icon \u003d Icon.createWithBitmap(iconBitmap);\n    var ticker \u003d cleanText;\n    var title \u003d cleanText;\n    var content \u003d globalVarOf$class;\n    var id \u003d 999;\n    \n    var picsParam \u003d Bundle();\n    picsParam.putParcelable(\"pic_logo\", icon);\n    \n    var actionIntent \u003d new Intent();\n    actionIntent.setAction(ACTION_NOTIFICATION_CLICK);\n    actionIntent.putExtra(KEY_NOTIFICATION_ID, id);\n    var actionBroadcast \u003d PendingIntent.getBroadcast(context, 0, actionIntent, PendingIntent.FLAG_IMMUTABLE);\n    \n    var actionsParam \u003d Bundle();\n    actionsParam.putParcelable(\"action_open\", Notification.Action.Builder(icon, null, pendingIntent).build());\n    actionsParam.putParcelable(\"action_cancel\", Notification.Action.Builder(null, null, actionBroadcast).build());\n    \n    var focusParam \u003d Bundle();\n    focusParam.putBundle(\"miui.focus.pics\", picsParam);\n    focusParam.putBundle(\"miui.focus.actions\", actionsParam);\n    focusParam.putString(\"miui.focus.param\", JSON.stringify({\n        \"param_v2\": {\n            \"ticker\": ticker,\n            \"isShowNotification\": true,\n            \"enableFloat\": true,\n            \"baseInfo\": {\n                \"type\": 1,\n                \"title\": title,\n                \"specialTitle\": content,\n                \"content\": \"来自 超级小爱识屏\",\n                \"subContent\": \"ShortX\",\n                \"showContentDivider\": true\n            },\n            \"hintInfo\": {\n                \"type\": 1,\n                \"title\": localVarOf$name,\n                \"actionInfo\": {\n                    /*\n                    \"actionTitle\": \"确认取餐\",\n                    \"action\": \"action_cancel\"*/\n                    \"actionTitle\": \"跳转应用\",\n                    // 传递 action 的另一种方法\n                    \"actionIntent\": launchIntent.toUri(Intent.URI_INTENT_SCHEME)\n                }\n            },\n            \"param_island\": {\n                \"islandProperty\": 1,\n                \"bigIslandArea\": {\n                    \"imageTextInfoLeft\": {\n                        \"type\": 1,\n                        \"picInfo\": {\n                            \"type\": 1,\n                            \"pic\": \"pic_logo\"\n                        },\n                        \"textInfo\": {\n                            \"title\": content\n                        }\n                    },\n                    \"imageTextInfoRight\": {\n                        \"type\": 2,\n                        \"textInfo\": {\n                            \"title\": ticker\n                        }\n                    }\n                }\n            },\n            \"picInfo\": \n            {\n                \"type\": 1,\n                \"pic\": \"pic_logo\",\n                \"picDark\": \"pic_logo\"\n            },\n            /*\"actions\": [\n                {\n                    \"type\": 0,\n                    \"action\": \"action_open\"\n                },\n                {\n                    \"type\": 2,\n                    \"actionTitle\": \"确认取餐\",\n                    \"action\": \"action_cancel\"\n                }\n            ]*/\n        }\n    }));\n    \n    context.registerReceiver(ActionBroadcastReceiver, new IntentFilter(ACTION_NOTIFICATION_CLICK));\n    sendFocus(id, icon, title, content, pendingIntent, focusParam);\n    \n    iconBitmap.recycle();\n})();",
+      "customContextDataKey": {
+      },
+      "id": "A-1d3f1b35-e674-471b-8684-bdc24c9ce099"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-484a2b14-e30b-47a9-b156-3bf56e445e78"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-f6ea225a-86d4-45c0-99dc-b5ba1cf84955"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "shouldNotify",
+      "customContextDataKey": {
+      },
+      "id": "A-8001f0a9-44a5-4353-8062-9c87ec6aa29e"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "class",
+      "customContextDataKey": {
+      },
+      "id": "A-b04251de-b4c1-400c-8f1e-819459715525"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f9432a87-b063-4cba-92a3-44dac4d08644"
+  }, {
+    "@type": "type.googleapis.com/WaitUtilConditionMatch",
+    "condition": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "id": "C-ff203d2b-658b-4f2e-ac6d-41a4d55de4a2"
+    }],
+    "timeoutStr": "0",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-5616f42e-39a9-41fa-997a-dbf5c3a98c1b"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotification",
+    "notification": {
+    },
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-e9524947-2694-48ca-9d61-9ee809b7f8c0"
+  }],
+  "id": "SHARE-rule-2418b226-cd4d-44d1-ac52-286ebee6ae00",
+  "lastUpdateTime": "1763753961608",
+  "createTime": "1763331764051",
+  "author": {
+    "name": "MingBright"
+  },
+  "title": "复制上岛",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-45e43243-7917-4f68-9e69-72df29650995"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,62 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/KeyEvent",
+    "keyCode": 24,
+    "id": "F-7df75a06-7a79-41d9-baf9-6061e8e7cbb4"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-af725a7c-095a-4ad3-8eae-ba08b0ea9713"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "isInvert": true,
+      "id": "C-4fad850e-b8d4-408d-ae0c-19c92b3b6839"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start \"intent:#Intent;action\u003dandroid.intent.action.VIEW;component\u003dcom.v2ray.ang/.ui.ScSwitchActivity;end\"",
+      "id": "A-c14cb84f-d93e-4e6d-a580-557f3eeb8fba"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "id": "A-67ad1bd4-7513-412e-81cb-ae0271925deb"
+    }, {
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.microsoft.bing",
+        "className": "com.microsoft.sapphire.app.sydney.view.SydneySingleWebViewActivity"
+      },
+      "id": "A-ad8b1455-2778-49f2-aa9e-26586ab0a76c"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.microsoft.bing",
+        "className": "com.microsoft.sapphire.app.sydney.view.SydneySingleWebViewActivity"
+      },
+      "id": "A-b00fff41-6e59-4ad0-8106-2e6abf1fa114"
+    }],
+    "id": "A-c4c9f357-c3c7-4182-b04f-b5f3d6bc45d9"
+  }],
+  "id": "rule-0d6088f8-bd17-4559-b06d-e0497f0518f0",
+  "lastUpdateTime": "1690848575253",
+  "createTime": "1690847483797",
+  "author": {
+    "name": "MrMoxing"
+  },
+  "title": "必应",
+  "description": "快捷呼出",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

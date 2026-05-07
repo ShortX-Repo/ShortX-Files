@@ -1,0 +1,61 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.android.systemui"
+      },
+      "className": "com.android.systemui.mediaprojection.permission.MediaProjectionPermissionActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-334d084d-564d-40b8-a92a-4b083edc4867"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "单个应用",
+    "isRegex": true,
+    "timeout": "3000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-7b266b8c-7f68-472b-941e-3a58c19e480a"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "整个屏幕",
+    "isRegex": true,
+    "timeout": "3000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-810f5790-9e26-4cdb-95e7-f8a3e9c1bdd7"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "开始",
+    "isRegex": true,
+    "timeout": "3000",
+    "rect": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-acca0b97-305f-45f9-b560-24a932194bd4"
+  }],
+  "id": "SHARE-rule-b2b17f50-1966-4751-92a3-5f9289fc0747",
+  "lastUpdateTime": "1730550260784",
+  "createTime": "1730549195494",
+  "author": {
+    "name": "Muort"
+  },
+  "title": "自动录制或投放整个屏幕",
+  "description": "仅在一加12 C15上测试可用。",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

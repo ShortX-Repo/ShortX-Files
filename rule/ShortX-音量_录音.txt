@@ -1,0 +1,108 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "gesture": "KeyLongPress",
+    "isInterceptMode": true,
+    "tag": "开启",
+    "customContextDataKey": {
+    },
+    "id": "F-8c83eb38-565e-4b92-b01c-498947f93f65"
+  }, {
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "gesture": "KeyLongPress",
+    "isInterceptMode": true,
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-e6cb377e-61fa-4344-836e-f7882fad8e9d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开启",
+      "customContextDataKey": {
+      },
+      "id": "C-32211531-4c93-477e-a96c-68785a7a9cbe"
+    }, {
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "id": "C-955c3230-034c-4c32-b51f-98656a25e34c"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Vibrate",
+      "vib1": 55,
+      "vib2": 59,
+      "customContextDataKey": {
+      },
+      "id": "A-7b59adef-8b02-437a-8462-8b9dd56122b3"
+    }, {
+      "@type": "type.googleapis.com/AudioRecording",
+      "src": "MicAndInternal",
+      "fileNamePrefix": "Audio",
+      "customContextDataKey": {
+      },
+      "id": "A-6484952b-1823-4a9d-bd1c-d65d3fa856d6"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/Vibrate",
+      "vib1": 57,
+      "vib2": 53,
+      "customContextDataKey": {
+      },
+      "id": "A-4f118ccb-7faa-4a1a-bd8a-395c83d06ab2"
+    }, {
+      "@type": "type.googleapis.com/AudioRecording",
+      "fileNamePrefix": "Audio",
+      "customContextDataKey": {
+      },
+      "id": "A-87853c23-5674-429e-beeb-a6e55f7d94db"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-06517903-19fc-45de-80ed-66c2f051f84e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "关闭",
+      "customContextDataKey": {
+      },
+      "id": "C-f281b08e-49b0-4ee5-8eef-037753f14b7f"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Vibrate",
+      "vib1": 100,
+      "customContextDataKey": {
+      },
+      "id": "A-9bbfe986-cd96-4cf4-81b7-2dd758c172ff"
+    }, {
+      "@type": "type.googleapis.com/StopAudioRecording",
+      "customContextDataKey": {
+      },
+      "id": "A-a62a08a6-3c60-4819-b40b-80844a1501fa"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-1486ca49-c89d-4352-9b00-8c82d08291ae"
+  }],
+  "id": "SHARE-rule-8c294508-112e-44b9-ba62-bdb4722d14b5",
+  "lastUpdateTime": "1769491884410",
+  "createTime": "1694682091806",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "音量+录音",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-39359239-9da1-46a6-89ac-71ad2051ad72"
+}
+###------###
+{"type":"rule"}

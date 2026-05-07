@@ -1,0 +1,113 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiConnectedTo",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-a5b1c138-2e2d-439b-8455-6954c38811a8"
+  }, {
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-1bca90cc-bd00-49a7-94b1-c8c835cff979"
+  }, {
+    "@type": "type.googleapis.com/WifiStatusChanged",
+    "ooa": "Off",
+    "customContextDataKey": {
+    },
+    "id": "F-aa7f0265-04b0-4235-9097-822daa033edc"
+  }, {
+    "@type": "type.googleapis.com/WifiStatusChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-e4016afc-0ba7-421e-8f18-cf1ffaa308fd"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireWifiConnected",
+      "requiredSSID": "*",
+      "customContextDataKey": {
+      },
+      "id": "C-8237ed89-8dba-44ce-b867-86ff38e2a855"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-fa9b647d-4973-41bc-8a1c-3923e311c5d1"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "WiFi Ssid",
+      "valueAsString": "{ssid}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-8e324eb8-f0e1-40db-8944-61bdeb6bbafc"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "Using Wifi Connted {ssid}",
+      "customContextDataKey": {
+      },
+      "id": "A-9125ae6a-13cd-42e3-acab-238f99253d7b"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireWifiDisconnected",
+        "customContextDataKey": {
+        },
+        "id": "C-eb5f3fcb-eb70-45eb-af3a-48c575919915"
+      }, {
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "wifiState.enabled \u003d\u003d false ",
+        "customContextDataKey": {
+        },
+        "id": "C-3eaa9355-b3fa-4ea0-9c04-1c6deb1c6abd"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetDataEnabled",
+        "enable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-fc86b050-5d76-4e05-809d-f4db439e6634"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "Using Mobile Data ",
+        "customContextDataKey": {
+        },
+        "id": "A-a8a2055c-ba3f-49f6-9654-c9a51176bd74"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/SetDataEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-f0d03dcc-fd5c-4784-90d9-7930ef68028a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-c8f3873c-48fc-4dc2-ae4a-13ccdb222c6b"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b047e939-870a-43af-a3f5-e589f87af063"
+  }],
+  "id": "SHARE-rule-ef772229-227b-492f-bb06-85b876d04885",
+  "lastUpdateTime": "1756442751858",
+  "createTime": "1709988362884",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "wifi-流量-auto",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-13b5fa8d-540a-4df6-bf1a-d755dfbbf55d"
+}
+###------###
+{"type":"rule"}

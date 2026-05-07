@@ -1,0 +1,164 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.ss.android.ugc.aweme"
+    }, {
+      "pkgName": "com.xingin.xhs"
+    }, {
+      "pkgName": "com.smile.gifmaker"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-0fbe53d2-5ae7-46f8-a198-a761b552de05"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.media.AudioManager;\nimport android.content.Context;\n\n// 获取系统的音频服务\nAudioManager audioManager \u003d (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);\n\n// 获取当前媒体流的音量级别\nint currentVolume \u003d audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);\n\n\n// 目标音量级别 0-16\nint targetVolume \u003d currentVolume - globalVarOf$Volume ;\n\n// 设置媒体流的音量为目标音量\naudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, targetVolume, 0);",
+    "customContextDataKey": {
+    },
+    "note": "获取音量并降低",
+    "id": "A-20e339fa-4e7b-464a-9962-04c40899dd04"
+  }],
+  "id": "rule-0c352982-453c-469a-b99e-3833f2fe1929",
+  "lastUpdateTime": "1720710667562",
+  "createTime": "1720708634651",
+  "author": {
+    "name": "He"
+  },
+  "title": "音量助手🔉",
+  "description": "进入指定应用降低音量\n退出指定应用增大音量",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "填写变更音量",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "必须是数字"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-996fd590-9d15-4d6f-97cf-f49fe29883ce"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{textFieldInput1}!\u003d\"\";",
+        "customContextDataKey": {
+        },
+        "id": "C-58678704-f7ba-441f-aedc-10ecffef5642"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "Volume",
+          "type": {
+            "@type": "type.googleapis.com/Int64Var"
+          },
+          "note": "用于变更音量的变量"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-d93a7394-5ddf-4839-8ba7-48cc291c2965"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "Volume",
+        "valueAsString": "{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-3eaec695-737c-4cf2-bd5c-38e6abea14a7"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "onPositive": [{
+          "@type": "type.googleapis.com/SetRuleEnabled",
+          "ruleId": "rule-0c352982-453c-469a-b99e-3833f2fe1929",
+          "customContextDataKey": {
+          },
+          "id": "A-599e8ce2-3a89-40cb-a73e-fc139e26b322"
+        }, {
+          "@type": "type.googleapis.com/SetRuleEnabled",
+          "ruleId": "rule-0c352982-453c-469a-b99e-3833f2fe1929",
+          "isEnable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-90418789-21d5-496a-8b7f-e616e736220f"
+        }],
+        "negative": "取消",
+        "onNegative": [{
+          "@type": "type.googleapis.com/SetRuleEnabled",
+          "ruleId": "rule-0c352982-453c-469a-b99e-3833f2fe1929",
+          "customContextDataKey": {
+          },
+          "id": "A-599e8ce2-3a89-40cb-a73e-fc139e26b322"
+        }],
+        "title": "指令提示",
+        "message": "必须填写音量，不能为空。",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-d5b01941-24ce-4e22-b430-d4635c86c7f7"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-7b737f46-53fd-47e7-8783-df0266348f31"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "Volume",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-481b85dc-6b3e-4f39-9788-7cd5e111048c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "Volume",
+        "customContextDataKey": {
+        },
+        "id": "A-b82a7e6d-25e4-4467-9ceb-d9f45e1cff9e"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-df147d81-082f-492d-842c-28b754454712"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "apps": [{
+        "pkgName": "com.xingin.xhs"
+      }, {
+        "pkgName": "com.ss.android.ugc.aweme"
+      }, {
+        "pkgName": "com.smile.gifmaker"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-674fa180-bd8c-46fc-b291-d3be756f8cee"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.media.AudioManager;\nimport android.content.Context;\n\n// 获取系统的音频服务\nAudioManager audioManager \u003d (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);\n\n// 获取当前媒体流的音量级别\nint currentVolume \u003d audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);\n\n// 目标音量级别 0-16\nint targetVolume \u003d currentVolume + globalVarOf$Volume ;\n\n// 设置媒体流的音量为目标音量\naudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, targetVolume, 0);",
+      "customContextDataKey": {
+      },
+      "note": "获取音量并增大",
+      "id": "A-20e339fa-4e7b-464a-9962-04c40899dd04"
+    }]
+  },
+  "versionCode": "1",
+  "parameters": [{
+    "name": "作者",
+    "defaultValue": "He",
+    "isRequired": true
+  }]
+}
+###------###
+{"type":"rule"}

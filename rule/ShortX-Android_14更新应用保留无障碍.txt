@@ -1,0 +1,40 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppUpdated",
+    "pkgSets": ["无障碍"],
+    "customContextDataKey": {
+    },
+    "id": "F-5ee44de1-cace-4f44-8144-a1b71ea4c767"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "foreach(serves : globalVarOf$Access){\n  if (serves.substring(0,serves.indexOf(\u0027/\u0027)) \u003d\u003d {pkgName}){\n    return serves\n  }\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-29bb95db-331c-4e96-9796-8573ac7da012"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "appops set {pkgName} ACCESS_RESTRICTED_SETTINGS allow\nappops set {pkgName} ACCESS_ACCESSIBILITY allow\nsettings put secure enabled_accessibility_services \"`settings get secure enabled_accessibility_services`:{mvelRet}\"",
+    "customContextDataKey": {
+    },
+    "id": "A-5e589eef-16c5-41b4-8ccc-cb4fd4e951a6"
+  }],
+  "id": "rule-76d55c10-cbe7-4057-96c3-cec9d0da348b",
+  "lastUpdateTime": "1703163247379",
+  "createTime": "1702005843361",
+  "author": {
+    "name": "entr0pia"
+  },
+  "title": "Android 14更新应用保留无障碍",
+  "description": "需要在全局变量Access记录所需的无障碍服务列表",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "ruleSetId": "RS-3c67edbe-d268-4bd5-997b-fd5411734710"
+}
+###------###
+{"type":"rule"}

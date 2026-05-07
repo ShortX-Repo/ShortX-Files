@@ -1,0 +1,265 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "settings-4-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-adf0647f-a1f2-4f49-95b9-48c63f8faf90"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importPackage(android.provider);\nimportPackage(android.content);\n\nvar resolver \u003d context.getContentResolver();\n\n// 获取所有Global设置项\nfunction getAllGlobalSettings() {\n    var settings \u003d \u0027\u0027;\n    var globalCursor \u003d resolver.query(Settings.Global.CONTENT_URI, null, null, null, null);\n    if (globalCursor) {\n        while (globalCursor.moveToNext()) {\n            var name \u003d globalCursor.getString(globalCursor.getColumnIndex(\"name\")); // 获取设置项名\n            var value \u003d globalCursor.getString(globalCursor.getColumnIndex(\"value\")); // 获取设置项值\n            settings +\u003d \"Global\u0026\" + name + \" \u003d \" + value + \"\\n\"; // 格式化输出\n        }\n        globalCursor.close();\n    }\n    return settings;\n}\n\n// 获取所有Secure设置项\nfunction getAllSecureSettings() {\n    var settings \u003d \u0027\u0027;\n    var secureCursor \u003d resolver.query(Settings.Secure.CONTENT_URI, null, null, null, null);\n    if (secureCursor) {\n        while (secureCursor.moveToNext()) {\n            var name \u003d secureCursor.getString(secureCursor.getColumnIndex(\"name\")); // 获取设置项名\n            var value \u003d secureCursor.getString(secureCursor.getColumnIndex(\"value\")); // 获取设置项值\n            settings +\u003d \"Secure\u0026\" + name + \" \u003d \" + value + \"\\n\"; // 格式化输出\n        }\n        secureCursor.close();\n    }\n    return settings;\n}\n\n// 获取所有System设置项\nfunction getAllSystemSettings() {\n    var settings \u003d \u0027\u0027;\n    var systemCursor \u003d resolver.query(Settings.System.CONTENT_URI, null, null, null, null);\n    if (systemCursor) {\n        while (systemCursor.moveToNext()) {\n            var name \u003d systemCursor.getString(systemCursor.getColumnIndex(\"name\")); // 获取设置项名\n            var value \u003d systemCursor.getString(systemCursor.getColumnIndex(\"value\")); // 获取设置项值\n            settings +\u003d \"System\u0026\" + name + \" \u003d \" + value + \"\\n\"; // 格式化输出\n        }\n        systemCursor.close();\n    }\n    return settings;\n}\n\n// 获取所有设置项\nvar globalSettings \u003d getAllGlobalSettings();\nvar secureSettings \u003d getAllSecureSettings();\nvar systemSettings \u003d getAllSystemSettings();\n\n// 打印结果\n\"\u003d\u003d\u003d\u003d Secure Settings \u003d\u003d\u003d\u003d\\n\" + secureSettings+\"\u003d\u003d\u003d\u003d Global Settings \u003d\u003d\u003d\u003d\\n\" + globalSettings+\"\u003d\u003d\u003d\u003d Global Settings \u003d\u003d\u003d\u003d\\n\" + systemSettings;",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "jsRet",
+        "second": "SettingsItem"
+      }]
+    },
+    "note": "输出所有设置项",
+    "id": "A-acaa4d59-19ee-4b25-946c-6bd21365c0ec"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "Setting",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-3ba62604-e3cb-4779-b64e-86f6517195ff"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "Setting",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "设置项"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-aba7a9bb-9f30-4047-b490-68df9a8f0221"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "Setting",
+        "valueAsString": "{SettingsItem}",
+        "customContextDataKey": {
+        },
+        "id": "A-b60930d0-69d3-4a6a-ae0b-3a0b71ed1893"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 导入必要的 Android 类\nimportClass(android.content.Context);\nimportClass(android.content.res.Configuration);\n\n// 获取当前系统语言\nvar configuration \u003d context.getResources().getConfiguration();\nvar locale \u003d configuration.locale.getLanguage();\nvar country \u003d configuration.locale.getCountry();\n\n// 定义语言与输出的映射\nvar messages \u003d {\n    \"zh_CN\": \"运行完毕\",   // 简体中文\n    \"zh_TW\": \"運行完畢\",   // 台湾繁体中文\n    \"zh_HK\": \"運行完畢\",   // 香港繁体中文\n    \"en\": \"Run completed\",    // 英文\n    \"ja\": \"実行完了\",  // 日语\n    \"ar\": \"اكتمل التشغيل\",  // 阿拉伯语\n    \"fr\": \"Exécution terminée\", // 法语\n    \"es\": \"Ejecución completada\", // 西班牙语\n    \"de\": \"Ausführung abgeschlossen\", // 德语\n    \"it\": \"Esecuzione completata\", // 意大利语\n    \"ru\": \"Выполнение завершено\", // 俄语\n    \"pt\": \"Execução concluída\", // 葡萄牙语\n    \"ko\": \"실행 완료\", // 韩语\n    \"hi\": \"रन पूर्ण\",  // 印地语\n    \"th\": \"การดำเนินการเสร็จสมบูรณ์\",  // 泰语\n    \"id\": \"Eksekusi selesai\", // 印尼语\n    \"pl\": \"Wykonanie zakończone\", // 波兰语\n    \"tr\": \"Çalışma tamamlandı\"  // 土耳其语\n};\n\n// 获取对应语言输出\nvar key \u003d (locale \u003d\u003d \"zh\") ? (locale + \"_\" + country) : locale;\nvar result \u003d messages[key] || \"Select user\";  // 如果没有匹配的语言，则使用默认值\n\nresult;  // 输出对应的语言信息",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "language"
+          }]
+        },
+        "id": "A-a9e42e20-bfd1-47f6-9468-5b817f1d151b"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "{language}",
+        "icon": "remix://settings-4-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-973997da-1e58-430c-9920-80b1d3bd4266"
+      }],
+      "id": "Case-9ade75a0-1da8-4b4f-8999-7e0a9881c428",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "function parseConfig(text) {\n    var map \u003d {};\n    var lines \u003d text.trim().split(\"\\n\");\n\n    for (var i \u003d 0; i \u003c lines.length; i++) {\n        var line \u003d lines[i];\n        if (line.indexOf(\"Secure\u0026\") \u003d\u003d 0 || line.indexOf(\"Global\u0026\") \u003d\u003d 0 || line.indexOf(\"System\u0026\") \u003d\u003d 0) {\n            var eqIndex \u003d line.indexOf(\" \u003d\");\n            if (eqIndex \u003d\u003d -1) continue;\n\n            var settingPart \u003d line.substring(0, eqIndex);\n            var valuePart \u003d line.substring(eqIndex + 2).trim();\n            var parts \u003d settingPart.split(\"\u0026\");\n            if (parts.length \u003c 2) continue;\n\n            var type \u003d parts[0];\n            var key \u003d parts[1].trim();\n            var compositeKey \u003d type + \"\u0026\" + key;\n\n            map[compositeKey] \u003d valuePart;\n        }\n    }\n    return map;\n}\n\nfunction parseConfig(text) {\n    var map \u003d {};\n    var lines \u003d text.trim().split(\"\\n\");\n\n    for (var i \u003d 0; i \u003c lines.length; i++) {\n        var line \u003d lines[i];\n        if (line.indexOf(\"Secure\u0026\") \u003d\u003d 0 || line.indexOf(\"Global\u0026\") \u003d\u003d 0 || line.indexOf(\"System\u0026\") \u003d\u003d 0) {\n            var eqIndex \u003d line.indexOf(\" \u003d\");\n            if (eqIndex \u003d\u003d -1) continue;\n\n            var settingPart \u003d line.substring(0, eqIndex);\n            var valuePart \u003d line.substring(eqIndex + 2).trim();\n            var parts \u003d settingPart.split(\"\u0026\");\n            if (parts.length \u003c 2) continue;\n\n            var type \u003d parts[0];\n            var key \u003d parts[1].trim();\n            var compositeKey \u003d type + \"\u0026\" + key;\n\n            map[compositeKey] \u003d valuePart;\n        }\n    }\n    return map;\n}\n\nfunction compareTexts(beforeText, afterText) {\n    var beforeMap \u003d parseConfig(beforeText);\n    var afterMap \u003d parseConfig(afterText);\n\n    // 合并所有 key\n    var allKeys \u003d {};\n    for (var k in beforeMap) {\n        allKeys[k] \u003d true;\n    }\n    for (var k in afterMap) {\n        allKeys[k] \u003d true;\n    }\n\n    var results \u003d [];\n    var changeCount \u003d 0;\n\n    for (var key in allKeys) {\n        var beforeValue \u003d beforeMap.hasOwnProperty(key) ? beforeMap[key] : \"无此行\";\n        var afterValue \u003d afterMap.hasOwnProperty(key) ? afterMap[key] : \"无此行\";\n\n        if (beforeValue !\u003d afterValue) {\n            changeCount++;\n\n            // 提取 key 和 value 部分\n            var parts \u003d key.split(\"\u0026\");\n            var type \u003d parts[0]; // Secure, Global, System\n            var settingKey \u003d parts[1]; // 设置项的键\n\n            // 创建嵌套的 __value 字段\n            var diffLine \u003d {\n                    \"key\": type,\n                    \"name\": settingKey,\n                    \"summary\": \"变更前: \" + beforeValue + \" → \" + afterValue\n                };\n\n            // 将 diffLine 字符串化并作为 __value 字段添加到结果\n            results.push({\n                \"name\": settingKey,\n                \"summary\": type + \"\\n\" + beforeValue + \"→\" + afterValue,\n                \"__value\": JSON.stringify(diffLine, null, 2) // 字符串化嵌套结构\n            });\n            /*\n            results.push({\n                \"name\": settingKey,\n                \"summary\": beforeValue + \"→\" + afterValue + \"\\n\" + type,\n                \"__value\": JSON.stringify(diffLine, null, 2) // 字符串化嵌套结构\n            });\n            */\n            /*\n            results.push({\n                \"name\": type,\n                \"summary\": settingKey + \"\\n\" + beforeValue + \"→\" + afterValue,\n                \"__value\": JSON.stringify(diffLine, null, 2) // 字符串化嵌套结构\n            });\n            */\n        }\n    }\n\n    if (results.length \u003d\u003d 0) {\n        return \"无变化\";\n    }\n\n    // 返回格式化的 JSON 输出\n    return JSON.stringify(results, null, 2);\n}\n\n// 示例\nvar before \u003d shortx.readGlobalVar(\"Setting\");\nvar after  \u003d SettingsItem;\n\ncompareTexts(before, after);",
+        "customContextDataKey": {
+        },
+        "id": "A-e81488d5-2b89-404c-a461-95e33fb8d24f"
+      }, {
+        "@type": "type.googleapis.com/DeleteGlobalVar",
+        "varName": "Setting",
+        "customContextDataKey": {
+        },
+        "id": "A-58291900-bf5e-4ae4-b291-32aeeda3fd08"
+      }],
+      "description": "比对",
+      "id": "Case-eed0ef79-148c-479a-8f28-73a4653f0ff7"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchJS",
+        "expression": "jsRet \u003d\u003d \"无变化\"",
+        "customContextDataKey": {
+        },
+        "id": "C-1f1ee2b8-ad63-4bfb-8ef2-97654f980b72"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 导入必要的 Android 类\nimportClass(android.content.Context);\nimportClass(android.content.res.Configuration);\n\n// 获取当前系统语言\nvar configuration \u003d context.getResources().getConfiguration();\nvar locale \u003d configuration.locale.getLanguage();\nvar country \u003d configuration.locale.getCountry();\n\n// 定义语言与输出的映射\nvar messages \u003d {\n    \"zh_CN\": \"无变化\",   // 简体中文\n    \"zh_TW\": \"無變化\",   // 台湾繁体中文\n    \"zh_HK\": \"無變化\",   // 香港繁体中文\n    \"en\": \"No change\",    // 英文\n    \"ja\": \"変更なし\",  // 日语\n    \"ar\": \"بدون تغيير\",  // 阿拉伯语\n    \"fr\": \"Pas de changement\", // 法语\n    \"es\": \"Sin cambios\", // 西班牙语\n    \"de\": \"Keine Änderung\", // 德语\n    \"it\": \"Nessuna modifica\", // 意大利语\n    \"ru\": \"Без изменений\", // 俄语\n    \"pt\": \"Sem mudanças\", // 葡萄牙语\n    \"ko\": \"변경 없음\", // 韩语\n    \"hi\": \"कोई परिवर्तन नहीं\",  // 印地语\n    \"th\": \"ไม่มีการเปลี่ยนแปลง\",  // 泰语\n    \"id\": \"Tanpa perubahan\", // 印尼语\n    \"pl\": \"Brak zmian\", // 波兰语\n    \"tr\": \"Değişiklik yok\"  // 土耳其语\n};\n\n// 获取对应语言输出\nvar key \u003d (locale \u003d\u003d \"zh\") ? (locale + \"_\" + country) : locale;\nvar result \u003d messages[key] || \"Select user\";  // 如果没有匹配的语言，则使用默认值\n\nresult;  // 输出对应的语言信息",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "language"
+          }]
+        },
+        "id": "A-2f7c60fc-608b-4ac7-98cc-de3cf8b1fdc9"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{language}",
+        "customContextDataKey": {
+        },
+        "id": "A-cd89cd4f-71d2-444b-8943-f394f87a4d25"
+      }],
+      "description": "无变化",
+      "id": "Case-f76030ec-c914-4457-9cc8-78708879d749",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 导入必要的 Android 类\nimportClass(android.content.Context);\nimportClass(android.content.res.Configuration);\n\n// 获取当前系统语言\nvar configuration \u003d context.getResources().getConfiguration();\nvar locale \u003d configuration.locale.getLanguage();\nvar country \u003d configuration.locale.getCountry();\n\n// 定义语言与输出的映射\nvar messages \u003d {\n    \"zh_CN\": \"设置项监视结果\",   // 简体中文\n    \"zh_TW\": \"設置項監視結果\",   // 台湾繁体中文\n    \"zh_HK\": \"設置項監視結果\",   // 香港繁体中文\n    \"en\": \"Settings Monitor Result\",    // 英文\n    \"ja\": \"設定項目監視結果\",  // 日语\n    \"ar\": \"نتيجة مراقب الإعدادات\",  // 阿拉伯语\n    \"fr\": \"Résultat du moniteur des paramètres\", // 法语\n    \"es\": \"Resultado del monitor de configuración\", // 西班牙语\n    \"de\": \"Ergebnis des Einstellungen Monitors\", // 德语\n    \"it\": \"Risultato del monitor delle impostazioni\", // 意大利语\n    \"ru\": \"Результат мониторинга настроек\", // 俄语\n    \"pt\": \"Resultado do monitor de configurações\", // 葡萄牙语\n    \"ko\": \"설정 모니터 결과\", // 韩语\n    \"hi\": \"सेटिंग्स मॉनिटर परिणाम\",  // 印地语\n    \"th\": \"ผลการตรวจสอบการตั้งค่า\",  // 泰语\n    \"id\": \"Hasil Pemantau Pengaturan\", // 印尼语\n    \"pl\": \"Wynik monitora ustawień\", // 波兰语\n    \"tr\": \"Ayarlar İzleyicisi Sonucu\"  // 土耳其语\n};\n\n// 获取对应语言输出\nvar key \u003d (locale \u003d\u003d \"zh\") ? (locale + \"_\" + country) : locale;\nvar result \u003d messages[key] || \"Select user\";  // 如果没有匹配的语言，则使用默认值\n\nresult;  // 输出对应的语言信息",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "language"
+          }]
+        },
+        "id": "A-b6edd78f-169d-46db-b630-ef152059c1c1"
+      }, {
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "{language}",
+        "cancelable": true,
+        "data": "{jsRet}",
+        "isMultipleChoice": true,
+        "delimiter": [","],
+        "needConfirmAction": true,
+        "dataType": "ShowListDialogDataType_Json",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-5da7140b-6c98-4611-8e86-8816a7bb1e68"
+      }],
+      "description": "展示",
+      "id": "Case-a0c0f50d-bb5f-4c2a-b275-2ee1528dd0e4"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "selectedListItem",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-8c0a6d3a-9879-417a-b546-3169725f4a0c"
+      }],
+      "id": "Case-434553b7-877a-4d3e-8c80-a251e215763f",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 导入必要的 Android 类\nimportClass(android.content.Context);\nimportClass(android.content.res.Configuration);\n\n// 获取当前系统语言\nvar configuration \u003d context.getResources().getConfiguration();\nvar locale \u003d configuration.locale.getLanguage();\nvar country \u003d configuration.locale.getCountry();\n\n// 定义语言与输出的映射\nvar messages \u003d {\n    \"zh_CN\": \"复制类型\",   // 简体中文\n    \"zh_TW\": \"複製類型\",   // 台湾繁体中文\n    \"zh_HK\": \"複製類型\",   // 香港繁体中文\n    \"en\": \"Copy type\",    // 英文\n    \"ja\": \"コピータイプ\",  // 日语\n    \"ar\": \"نوع النسخ\",  // 阿拉伯语\n    \"fr\": \"Type de copie\", // 法语\n    \"es\": \"Tipo de copia\", // 西班牙语\n    \"de\": \"Kopiertyp\", // 德语\n    \"it\": \"Tipo di copia\", // 意大利语\n    \"ru\": \"Тип копирования\", // 俄语\n    \"pt\": \"Tipo de cópia\", // 葡萄牙语\n    \"ko\": \"복사 유형\", // 韩语\n    \"hi\": \"कॉपी प्रकार\",  // 印地语\n    \"th\": \"ประเภทการคัดลอก\",  // 泰语\n    \"id\": \"Jenis salinan\", // 印尼语\n    \"pl\": \"Typ kopiowania\", // 波兰语\n    \"tr\": \"Kopya türü\"  // 土耳其语\n};\n\n// 获取对应语言输出\nvar key \u003d (locale \u003d\u003d \"zh\") ? (locale + \"_\" + country) : locale;\nvar result \u003d messages[key] || \"Select user\";  // 如果没有匹配的语言，则使用默认值\n\nresult;  // 输出对应的语言信息",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "jsRet",
+            "second": "language"
+          }]
+        },
+        "id": "A-9780ffbc-556e-4894-9199-ccee2e1b9e9b"
+      }, {
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "Javascript",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var allData \u003d selectedListItem;\n\n// 存储生成的输出\nvar result \u003d [];\n\n// 遍历 allData 数组，生成对应的代码\nfor (var i \u003d 0; i \u003c allData.length; i++) {\n    var item \u003d JSON.parse(allData[i]);\n\n    // 提取 summary 中的值\n    var summary \u003d item.summary;\n    var newValue \u003d summary.split(\" → \")[1];  \n\n    // 根据 key 生成对应的代码\n    var code \u003d \"android.provider.Settings.\" + item.key + \".putString(context.getContentResolver(), \u0027\" + item.name + \"\u0027, \u0027\" + newValue + \"\u0027);\";\n    // 将代码添加到输出数组\n    result.push(code);\n}\n\n// 最终统一输出所有代码\nresult.join(\"\\n\");",
+            "customContextDataKey": {
+            },
+            "note": "解析成 Javascript",
+            "id": "A-46cef00a-7ec5-4bbf-9c84-f9ff923bc5fe"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-df6b0d80-65da-49cc-ac72-b56fde732fb9"
+          }]
+        }, {
+          "title": "Mvel表达式",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var allData \u003d selectedListItem;\n\n// 存储生成的输出\nvar result \u003d [];\n\n// 遍历 allData 数组，解析每个 JSON 字符串\nfor (var i \u003d 0; i \u003c allData.length; i++) {\n    // 获取当前的对象\n    var item \u003d JSON.parse(allData[i]);\n\n    // 提取 summary 中的值\n    var summary \u003d item.summary;\n    var newValue \u003d summary.split(\" → \")[1]; \n\n    // 根据 key 生成对应的代码\n    var code \u003d \"android.provider.Settings$\" + item.key + \".putString(context.contentResolver, \u0027\" + item.name + \"\u0027, \u0027\" + newValue + \"\u0027);\";\n    // 将代码添加到输出数组\n    result.push(code);\n}\n\n// 最终统一输出所有代码\nresult.join(\"\\n\");",
+            "customContextDataKey": {
+            },
+            "note": "解析成Mvel表达式",
+            "id": "A-6f1d7aa7-967e-4cd7-8733-83246d8c9104"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-3a1dcc3e-d06d-4bc9-b3ea-59cbd088b5a0"
+          }]
+        }, {
+          "title": "Shell命令",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var allData \u003d selectedListItem;\n\n// 存储生成的输出\nvar result \u003d [];\n\n// 遍历 allData 数组\nfor (var i \u003d 0; i \u003c allData.length; i++) {\n    var item \u003d JSON.parse(allData[i]);\n\n    // 提取 summary 中的值\n    var summary \u003d item.summary;\n    var newValue \u003d summary.split(\" → \")[1];  \n\n    // 根据 key 生成简化的代码\n    var code \u003d \"settings put \" + item.key.toLowerCase() + \" \" + item.name + \" \" + newValue;\n\n    // 将代码添加到输出数组\n    result.push(code);\n}\n\n// 最终统一输出所有代码\nresult.join(\"\\n\");",
+            "customContextDataKey": {
+            },
+            "note": "解析成Shell命令",
+            "id": "A-6f1d7aa7-967e-4cd7-8733-83246d8c9104"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-faf256f8-3ef4-4fcb-8868-4e0b15f7e5dd"
+          }]
+        }, {
+          "title": "触发器参数",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var allData \u003d selectedListItem;\n\n// 存储生成的输出\nvar result \u003d [];\n\n// 遍历 allData 数组，生成对应的代码\nfor (var i \u003d 0; i \u003c allData.length; i++) {\n    var item \u003d JSON.parse(allData[i]);\n\n    // 提取 summary 中的值\n    var summary \u003d item.summary;\n    var newValue \u003d summary.split(\" → \")[1];  \n\n    // 根据 key 生成对应的 content URI 和值\n    var uri \u003d \"content://settings/\" + item.key.toLowerCase() + \"/\" + item.name;\n    var code \u003d uri + \" \" + newValue;\n\n    // 将代码添加到输出数组\n    result.push(code);\n}\n\n// 最终统一输出所有代码\nresult.join(\"\\n\");",
+            "customContextDataKey": {
+            },
+            "note": "解析成设置项变更触发器",
+            "id": "A-6f1d7aa7-967e-4cd7-8733-83246d8c9104"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-3a1dcc3e-d06d-4bc9-b3ea-59cbd088b5a0"
+          }]
+        }],
+        "title": "{language}",
+        "cancelable": true,
+        "style": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-273c3f3d-6f38-41a5-a01d-e04a3c784b88"
+      }],
+      "description": "解析",
+      "id": "Case-c8450dac-6bb5-4b3f-964e-3b66d24fe98a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7ed9101c-1af4-4961-bad4-4ac122cf2fa4"
+  }],
+  "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
+  "lastUpdateTime": "1762383207742",
+  "createTime": "1728713310475",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "设置项监视器 4.6",
+  "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。\n\nRun once before the change and once after the change, benchmarking against the Settings Monitor App to identify changes in settings.",
+  "versionCode": "9",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

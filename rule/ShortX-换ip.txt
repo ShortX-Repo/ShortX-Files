@@ -1,0 +1,53 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+    },
+    "end": {
+      "hour": 23,
+      "minutes": 58
+    },
+    "repeat": {
+      "days": ["SUNDAY", "FRIDAY", "MONDAY", "SATURDAY", "TUESDAY", "THURSDAY", "WEDNESDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "3600000"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-77bfe1c6-10c0-4f73-b39e-2e9b6dfd5db4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetAPMModeEnabled",
+    "isEnable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-659902bd-f171-469e-b1bb-2d994c2b0e8b"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-893b69ba-57a3-487a-984e-36930875c875"
+  }, {
+    "@type": "type.googleapis.com/SetAPMModeEnabled",
+    "customContextDataKey": {
+    },
+    "id": "A-d3a94051-4fba-4dcf-8d01-2d801f14d2e5"
+  }],
+  "id": "rule-361e20fb-1e98-4ec7-829d-d95152622f50",
+  "lastUpdateTime": "1711362164402",
+  "createTime": "1711362122115",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "换ip",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

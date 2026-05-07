@@ -1,0 +1,99 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-79089844-e51c-43fc-a48d-39e3724b3b74"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var reg \u003d /(?:https?:\\/\\/)(?:.*?\\.)?(?:123pan|lanzou)[^\\s]+/g;\n\n// 去除中文 比如链接中间插字的\nvar text \u003d {clipboardContent}.replace(/[\\u4e00-\\u9fa5]/g, \"\");\n\ntext.match(reg);",
+    "customContextDataKey": {
+    },
+    "id": "A-6b8c2073-c35d-4656-97f6-260207fec76e"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{jsRet}",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-c1f0a4dd-4364-4fe1-9996-61793e361e76"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{jsRet} !\u003d \"\" \u0026\u0026 {jsRet} !\u003d \"null\"",
+      "customContextDataKey": {
+      },
+      "id": "C-dce3a0fe-53d1-47c4-bba0-319642c187cc"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "请输入提取码",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "无提取码留空"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-6397d5da-3622-4f1e-86e7-601f5329ad45"
+    }, {
+      "@type": "type.googleapis.com/HttpRequest",
+      "url": "https://lz.qaiu.top/json/parser?url\u003d{jsRet}\u0026pwd\u003d{textFieldInput1}",
+      "adapter": {
+        "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+        "expressions": ["code", "msg", "data"]
+      },
+      "requestBody": {},
+      "customContextDataKey": {
+      },
+      "id": "A-9201e5fc-041a-4ccd-8773-4e2b7a5a65f7"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} \u003d\u003d 200",
+        "customContextDataKey": {
+        },
+        "id": "C-8b9fac82-d78b-427e-8cc9-45b3d8b2a3ba"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "{httpRequestRet3}",
+        "customContextDataKey": {
+        },
+        "id": "A-bb1706dc-6b1f-45dc-8f22-cd36b3bbf35f"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "{httpRequestRet2}",
+        "customContextDataKey": {
+        },
+        "id": "A-f7ce8857-ba51-41e3-a8fa-ed860ee17549"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-51f0e4d5-8591-4c29-81dd-378f3c85049f"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0fd13d90-f293-4048-a225-aa1695e9217c"
+  }],
+  "id": "rule-e7ccbcf0-cc23-43dc-a781-c4f3fbbec522",
+  "lastUpdateTime": "1700736186938",
+  "createTime": "1700726364286",
+  "author": {
+    "name": "基佬啊"
+  },
+  "title": "云盘解析",
+  "description": "支持蓝奏云/奶牛快传/移动云云空间/UC网盘(暂时失效)/小飞机盘/亿方云/123云盘\n\n我只用过蓝奏云和123云盘，所以只匹配了这两个，有需要可以自己改。\n\nGithub: https://github.com/qaiu/netdisk-fast-download",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,160 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "代理模式",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-20665546-241d-41a2-8216-813f007f3108"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "代理模式",
+    "valueAsString": "blacklist",
+    "customContextDataKey": {
+    },
+    "note": "👋👋👋👋👋👋\n点我修改代理模式\n👋👋👋👋👋👋\n可选值:\n1.blacklist\n2.whitelist",
+    "id": "A-c62c7ec4-0e66-412d-88c5-3fd2a6f927a6"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "export PATH\u003d\"/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nconfigFile\u003d\"/data/adb/box/scripts/box.config\"\n\nif [ -f \"$configFile\" ]; then\n  line\u003d$(busybox grep \u0027^user_packages_list\u003d\u0027 \"$configFile\")\n  if [ -z \"$line\" ]; then\n    echo \"no\"\n  else\n    echo \"yes\"\n  fi\nelse\n  echo \"no\"\nfi",
+    "customContextDataKey": {
+    },
+    "note": "检测配置文件\nuser_packages_list\n存在:yes\n不存在:no",
+    "id": "A-a325e6bf-25fb-4059-bd36-a41501a6f985"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "EqualTo",
+      "varName": "shellOut",
+      "payload": {
+        "value": "yes"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-ce321e9f-cbe1-4fa3-8353-49443fc2079d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d\"/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nconfigFile\u003d\"/data/adb/box/scripts/box.config\"\n\nnewLine\u003d\u0027proxy_mode\u003d\"localVarOf$代理模式\"\u0027\n\nbusybox sed -i \"s#^proxy_mode\u003d.*#$newLine#\" \"$configFile\"",
+      "customContextDataKey": {
+      },
+      "note": "修改代理模式",
+      "id": "A-b168d75d-764f-48c9-a6d3-8d8a5e94aa77"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d\"/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nconfigFile\u003d\"/data/adb/box/scripts/box.config\"\n\nnewLine\u003d\"user_packages_list\u003d()\"\n\nbusybox sed -i \"s#^user_packages_list\u003d.*#$newLine#\" \"$configFile\"",
+      "customContextDataKey": {
+      },
+      "note": "清空user_packages_list",
+      "id": "A-f3b8cb77-4d78-41b7-ba74-e5f849846550"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "user_packages_list已清空,即将添加新内容",
+      "customContextDataKey": {
+      },
+      "id": "A-f15a856a-7cf9-4719-97ac-e084a15d1842"
+    }, {
+      "@type": "type.googleapis.com/ForEachPkgSet",
+      "pkgSet": "Box4App名单",
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "export PATH\u003d\"/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH\"\n\nuser_id\u003d{loopAppUserId}\npkg_name\u003d{loopAppPkgName}\n\nconfigFile\u003d\"/data/adb/box/scripts/box.config\"\nnewEntry\u003d\"\\\"${user_id}:${pkg_name}\\\"\"\n\nline\u003d$(busybox grep \u0027^user_packages_list\u003d\u0027 \"$configFile\")\n\ncontent\u003d$(echo \"$line\" | busybox sed -n \u0027s/^user_packages_list\u003d(\\(.*\\))$/\\1/p\u0027)\n\nif [ -z \"$content\" ]; then\n  newContent\u003d\"$newEntry\"\nelse\n  newContent\u003d\"$content $newEntry\"\nfi\n\nnewLine\u003d\"user_packages_list\u003d($newContent)\"\n\nbusybox sed -i \"s#^user_packages_list\u003d.*#$newLine#\" \"$configFile\"",
+        "customContextDataKey": {
+        },
+        "id": "A-638009e3-2e3e-43e9-a504-1df99cb0ece3"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "👋👋👋👋👋👋\n点我设置应用集\n👋👋👋👋👋👋",
+      "id": "A-4067a9d5-94d0-448e-ac0d-e7a5b4ce77d2"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "user_packages_list添加完成",
+      "customContextDataKey": {
+      },
+      "id": "A-9b2c45a8-c48b-433e-b74b-d9aa5bfe878b"
+    }, {
+      "@type": "type.googleapis.com/ShowChoiceDialog",
+      "title": "是否立即renew tproxy",
+      "cancelable": true,
+      "choices": [{
+        "label": "搞快点",
+        "value": "yes",
+        "isSelectedByDefault": true
+      }, {
+        "label": "不要不要",
+        "value": "no"
+      }],
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-55215331-fe9c-4fdf-ab3b-5b1287525e79"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "choices",
+        "payload": {
+          "value": "yes"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-7ed5b6e9-0898-44ce-90d0-da270c7816e0"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "su -c /data/adb/box/scripts/box.tproxy renew",
+        "customContextDataKey": {
+        },
+        "id": "A-9f7e06a3-5750-4b21-9980-084f413891cf"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "title": "Tproxy renew完成,ShellOut:",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-6e164505-2662-4841-b02f-01342d0f7659"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-597be7e7-872d-440a-8674-ecd507e04e4f"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "配置文件或行不存在,已退出",
+      "customContextDataKey": {
+      },
+      "id": "A-883a1d30-7755-4c88-9f55-c50065417994"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "👋👋👋👋👋",
+    "id": "A-e17a60f5-02de-493c-8af5-49f401960e0f"
+  }],
+  "id": "SHARED-DA-b21450fb-aa4c-4c80-9c20-53c7f5c16d23",
+  "lastUpdateTime": "1745050870129",
+  "createTime": "1745045340460",
+  "author": {
+    "name": "Sorubedo"
+  },
+  "title": "一键添加app至box4名单",
+  "description": "⚠️ 请务必查看 👋👋👋👋👋",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

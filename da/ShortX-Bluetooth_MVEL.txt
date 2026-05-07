@@ -1,0 +1,54 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "(android.provider.Settings$Global.getString(context.contentResolver, \"bluetooth_on\")) \u003d\u003d \"0\";",
+      "customContextDataKey": {
+      },
+      "id": "C-54351bc6-0fda-4245-8c6c-24ffa8906c78"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetBTEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-947fc5a3-3d86-4c93-b207-445f8c6b32bc"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetBTEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-6625190c-b85b-4399-bbc6-1281338c79f5"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7c916d82-518f-4daf-b545-fcb7d1b92a2e"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-84c61dcf-1ee3-4c74-b3a9-c98ae73c2ed2"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "Bluetooth Toggle\n🙏 ૐ નમઃ શિવાય 🙏",
+    "customContextDataKey": {
+    },
+    "id": "A-3549e973-8ec4-40f1-a8fc-7aab8a311384"
+  }],
+  "id": "SHARED-DA-cc381bb3-2b5f-43bd-8a1d-fef7d51b49ec",
+  "lastUpdateTime": "1759165077383",
+  "createTime": "1759034625973",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Bluetooth MVEL",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

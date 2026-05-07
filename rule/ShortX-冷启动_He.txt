@@ -1,0 +1,80 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["Update"],
+    "customContextDataKey": {
+    },
+    "id": "F-98582671-5bdd-4093-9577-fc9044287018"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/EvaluateGlobalVar",
+    "op": "Contains",
+    "varName": "冷启动",
+    "payload": {
+      "value": "{pkgName}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "C-57456e54-26eb-4d16-a55c-40372e3956ab"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "冷启动",
+    "valueAsString": "{pkgName}",
+    "op": "WriteGlobalVarOp_DeleteValue",
+    "customContextDataKey": {
+    },
+    "id": "A-ce74d750-da79-45dc-b83b-b450ddbc51df"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "1",
+    "customContextDataKey": {
+    },
+    "note": "动作",
+    "id": "A-e7835bb2-3a4d-4a0e-9333-accdbbdface2"
+  }],
+  "id": "rule-06203321-fd02-4142-bdbf-553848911bdd",
+  "lastUpdateTime": "1714664763860",
+  "createTime": "1714658677784",
+  "author": {
+    "name": "He"
+  },
+  "title": "冷启动_He",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "冷启动",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-49385bc4-2714-4d9d-aad4-1767204d16a4"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "pkgSets": ["Update"],
+      "customContextDataKey": {
+      },
+      "id": "F-e3f98968-d118-44dc-b0a3-9632ee41682a"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "冷启动",
+      "valueAsString": "{pkgName}",
+      "op": "WriteGlobalVarOp_AppendToLast",
+      "customContextDataKey": {
+      },
+      "id": "A-1a455ddb-7bae-4670-81a5-43bfef414691"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,128 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys shortcut | grep intent | grep com.tencent.mm",
+    "customContextDataKey": {
+    },
+    "id": "A-9ffdf33d-3609-453f-b6ec-59c9cb94a501"
+  }, {
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "{shellOut}",
+    "regex": "(?\u003c\u003dext_info\u003d).+?(?\u003d, digest\u003d)",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "isMatch",
+        "second": "isextinfo"
+      }, {
+        "first": "matchResult",
+        "second": "extinfo"
+      }]
+    },
+    "id": "A-08c3bff1-55d9-460d-a768-ec53d6e28b56"
+  }, {
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "{shellOut}",
+    "regex": "(?\u003c\u003ddigest\u003d).+?(?\u003d, id\u003d)",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "isMatch",
+        "second": "isdigest"
+      }, {
+        "first": "matchResult",
+        "second": "digest"
+      }]
+    },
+    "id": "A-0f866d8d-147f-47e5-be77-a6259504b87a"
+  }, {
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "{shellOut}",
+    "regex": "(?\u003c\u003did\u003d).+?(?\u003d, type\u003d1)",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "isMatch",
+        "second": "isid"
+      }, {
+        "first": "matchResult",
+        "second": "id"
+      }]
+    },
+    "id": "A-6b20dd2b-f19e-408c-ae92-37513d63c731"
+  }, {
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "{shellOut}",
+    "regex": "(?\u003c\u003dtoken\u003d).+?(?\u003d, ext)",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "isMatch",
+        "second": "istoken"
+      }, {
+        "first": "matchResult",
+        "second": "token"
+      }]
+    },
+    "id": "A-dd54036c-4b85-4518-9fb8-4a4783cbdb2d"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "op": "Contains",
+      "varName": "isid",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-de20f9a5-96f0-4c01-a0d5-04ca700d04be"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "复制并运行",
+      "onPositive": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;launchFlags\u003d0x4000000;package\u003dcom.tencent.mm;S.ext_info\u003d\"{extinfo}[0]\";S.digest\u003d\"{digest}[0]\";S.id\u003d\"{id}[0]\";i.type\u003d\"1\";S.token\u003d\"{token}[0]\";i.ext_info_1\u003d\"0\";end\"",
+        "customContextDataKey": {
+        },
+        "id": "A-0fa9f687-7f91-4eeb-a2d9-5cdc8c4b5040"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;launchFlags\u003d0x4000000;package\u003dcom.tencent.mm;S.ext_info\u003d\"{extinfo}[0]\";S.digest\u003d\"{digest}[0]\";S.id\u003d\"{id}[0]\";i.type\u003d\"1\";S.token\u003d\"{token}[0]\";i.ext_info_1\u003d\"0\";end\"",
+        "customContextDataKey": {
+        },
+        "id": "A-5391215e-55bb-41eb-9534-07bdb7421a05"
+      }],
+      "negative": "复制",
+      "onNegative": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.WX_SHORTCUT;launchFlags\u003d0x4000000;package\u003dcom.tencent.mm;S.ext_info\u003d\"{extinfo}[0]\";S.digest\u003d\"{digest}[0]\";S.id\u003d\"{id}[0]\";i.type\u003d\"1\";S.token\u003d\"{token}[0]\";i.ext_info_1\u003d\"0\";end\"",
+        "customContextDataKey": {
+        },
+        "id": "A-0fa9f687-7f91-4eeb-a2d9-5cdc8c4b5040"
+      }],
+      "neutral": "取消",
+      "title": "微信小程序",
+      "message": "是否复制微信小程序intent",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-cff3f294-1aba-4330-83a7-5dddaf3e726d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-97434842-d63c-46b4-b08e-d7e5f81adf7c"
+  }],
+  "id": "DA4113442d-cd56-4154-a5ce-fe163cc069aa",
+  "lastUpdateTime": "1719655705336",
+  "createTime": "1719637224635",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信小程序",
+  "description": "先把微信小程序添加到桌面，然后运行任务",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

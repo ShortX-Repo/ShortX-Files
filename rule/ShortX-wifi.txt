@@ -1,0 +1,57 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiConnectedTo",
+    "ssidList": ["*"],
+    "tag": "connect",
+    "customContextDataKey": {
+    },
+    "id": "F-0e0bda6d-3cec-41f8-adcd-2248353c13d7"
+  }, {
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-e58bf532-70b3-4c8b-9f3d-8c893784efe9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "connect",
+      "customContextDataKey": {
+      },
+      "id": "C-d8063f3b-b592-4294-9e3a-f00e78807ffe"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-2e62d2da-be8a-446c-baea-bee5cd2672fb"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-b015e603-77f9-412d-9a9a-699a8a4986d0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c24c3dcf-58d5-463a-92b6-30d86caf420a"
+  }],
+  "id": "SHARE-rule-6e42d032-2340-4bd4-9ec5-dedebce9e315",
+  "lastUpdateTime": "1741580514139",
+  "createTime": "1728992886150",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "wifi",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

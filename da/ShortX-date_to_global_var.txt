@@ -1,0 +1,42 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "date",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1238fadc-36ca-4cb0-8c87-5a729d8b5eb5"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.text.SimpleDateFormat;\nimport java.util.Date;\n    SimpleDateFormat formatter \u003d new SimpleDateFormat(\"dd MM yyyy\");\n    Date now \u003d new Date();\n    String formattedDate \u003d formatter.format(now);",
+    "customContextDataKey": {
+    },
+    "id": "A-bb0826d2-c252-4479-b2e0-20f1502c879d"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "date",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-df0f3d95-b0ff-40b3-ab9b-bda8ce1d2481"
+  }],
+  "id": "SHARED-DA-08d33e3b-c351-4070-831e-83c0dfa47200",
+  "lastUpdateTime": "1769378718100",
+  "createTime": "1769378502053",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "date to global var",
+  "versionCode": "1",
+  "directActionSetId": "DS-b4dc7d0f-efee-4429-951f-1bafb3ee79e4",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

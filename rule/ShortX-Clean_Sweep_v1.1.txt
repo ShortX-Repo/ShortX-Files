@@ -1,0 +1,341 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+      "hour": 6
+    },
+    "end": {
+      "hour": 23,
+      "minutes": 59
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "1800000"
+    },
+    "tag": "定时",
+    "customContextDataKey": {
+    },
+    "note": "定时运行",
+    "id": "F-3e3b672f-ffec-4a3e-a975-5e630630e70b"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "bin.mt.plus"
+    }, {
+      "pkgName": "bin.mt.plus.canary"
+    }, {
+      "pkgName": "com.coloros.filemanager"
+    }, {
+      "pkgName": "andes.oplus.documentsreader"
+    }, {
+      "pkgName": "com.android.documentsui"
+    }, {
+      "pkgName": "cn.wps.moffice.lite"
+    }, {
+      "pkgName": "com.smarterdroid.wififiletransferpro"
+    }, {
+      "pkgName": "me.zhanghai.android.files"
+    }, {
+      "pkgName": "euphoria.psycho.fileserver"
+    }, {
+      "pkgName": "dev.marchello.sharik"
+    }, {
+      "pkgName": "com.termux"
+    }, {
+      "pkgName": "com.amaze.filemanager"
+    }, {
+      "pkgName": "com.akansh.fileserversuit"
+    }],
+    "tag": "前台",
+    "customContextDataKey": {
+    },
+    "note": "进入文件App前台运行，最好自行添加，因为每个系统的文件App包名不同",
+    "id": "F-d536e8c4-7a17-41af-829b-616dc5a615b6"
+  }, {
+    "@type": "type.googleapis.com/ScreenOn",
+    "tag": "亮屏",
+    "customContextDataKey": {
+    },
+    "note": "亮屏运行",
+    "id": "F-65d78268-d576-4077-b1d6-a91ead202ed2",
+    "isDisabled": true
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-7116ae76-2c62-41ca-b814-77cd9be26f26"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "定时",
+      "customContextDataKey": {
+      },
+      "id": "C-cf4e4725-0ac9-43cf-bb83-cc6795a2c5db"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "前台",
+      "customContextDataKey": {
+      },
+      "id": "C-1414442d-3477-4938-8083-49da6f5a5f55"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "亮屏",
+      "isDisabled": true,
+      "customContextDataKey": {
+      },
+      "id": "C-d9fb2357-29c9-4192-b0b5-33de0c31d6a1"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "\nwhile IFS\u003d read -r folder || [[ -n \"$folder\" ]]; do \n    if [[ -n \"$folder\" \u0026\u0026 \"${folder:0:1}\" !\u003d \"#\" ]]; then\n        if [[ -d \"$folder\" ]]; then\n            echo \"删除目录: $folder\"\n            rm -r \"$folder\"\n        else\n            echo \"目录不存在: $folder,跳过删除操作.\"\n        fi\n    fi\ndone \u003c \"/storage/emulated/0/Documents/黑名单.txt\"\n\n# 读取位于设备上的黑名单.txt文件，该文件包含一系列的目录路径\n# 脚本将逐行处理这些路径，尝试删除那些存在的目录及其内容\n# 同时，脚本会忽略空行和以井号（#）开头的注释行\n# 对于每一个目录路径，如果目录存在，则删除它；如果目录不存在，则输出一个信息说明并跳过该行\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-9a9d277f-e876-4965-8cd1-611544e9b8ca"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "填写你想添加的规则",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "可以添加一行或者多行"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ee9d2e0b-8017-4b23-be33-5405bb4e6b97"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo \"{textFieldInput1}\" \u003e\u003e /storage/emulated/0/Documents/黑名单.txt\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-54e00307-87f0-470d-98d9-31376ee4f379"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b95a292d-31f3-4300-9a2c-6d412bb9f5de"
+  }],
+  "id": "rule-d44a357e-4687-4b00-9568-1e6d5bd2cb80",
+  "lastUpdateTime": "1712312312697",
+  "createTime": "1712257966872",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "Clean Sweep v1.1",
+  "description": "自动清理垃圾文件/夹\n拯救强迫症患者，还世界一片清净\n\n想法来源于酷安@Kotch的清理黑名单列表模块\n简介抄的酷安@芙洛洛",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-903b8904-bf90-412c-a1d7-8fae389c4ffb"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "开始使用",
+          "onPositive": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "#!/bin/bash\n\n# 文件路径\nfile_path\u003d\"/storage/emulated/0/Documents/黑名单.txt\"\n\n# 要写入文件的内容\ncontent\u003d\"# OPPO/OnePlus\n/storage/emulated/0/.time\n/storage/emulated/0/.sstmp\n/storage/emulated/0/.turing.dat\n/storage/emulated/0/DCIM/.thumbcache_idx_001\n/storage/emulated/0/narsil_useroptions\n/storage/emulated/0/Download/.common\n/storage/emulated/0/Pictures/.thumbcache_idx_001\n/storage/emulated/0/Download/.thumbcache_idx_001\n/storage/emulated/0/Documents/.thumbcache_idx_001\n/storage/emulated/0/.dev\n/storage/emulated/0/.ext4\n/data/media/0/.aaa/\n/data/media/0/.bbb/\n/data/media/0/.ccc/\n/data/media/0/oua_classifier/\n/data/media/0/.turingdebug/\n/data/media/0/.fccache/\n/data/media/0/ColorOS/\n/data/media/0/.DataStorage/\n/data/media/0/.UTSystemConfig/\n/data/media/0/DCIM/.tmfs/\n/data/media/0/DCIM/.android\n/data/media/0/Movies/.thumbnails/\n/data/media/0/Music/.thumbnails/\n/data/media/0/Pictures/.thumbnails/\n/data/media/0/Pictures/.gs/\n/data/media/0/Pictures/.gs_fs0/\n/data/media/0/Pictures/.gs_fs3/\n/data/media/0/Download/update/\"\n\n# 检查文件是否存在\nif [ -e \"$file_path\" ]; then\n  # 文件已存在，提示\n  echo \"黑名单文件已存在，是否替换？\"\nelse\n  # 文件不存在，创建文件并写入内容\n  echo \"$content\" \u003e \"$file_path\"\n  if [ $? -eq 0 ]; then\n    echo \"黑名单文件创建并写入内容成功。\"\n  else\n    echo \"黑名单文件创建并写入内容失败。\"\n  fi\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+              "keys": [{
+                "first": "shellOut",
+                "second": "黑名单"
+              }]
+            },
+            "id": "A-1bb876f9-205b-4275-b91d-a9e6e22890df"
+          }],
+          "negative": "日志",
+          "onNegative": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "title": "制作者∶He",
+            "message": "1.0:\n自动清理垃圾文件/夹\n1.1:\n新增手动运行指令添加规则\n",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-28a42669-574c-431b-8ed6-f93bda2e8718"
+          }, {
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "#!/bin/bash\n\n# 文件路径\nfile_path\u003d\"/storage/emulated/0/Documents/黑名单.txt\"\n\n# 要写入文件的内容\ncontent\u003d\"# OPPO/OnePlus\n/storage/emulated/0/.time\n/storage/emulated/0/.sstmp\n/storage/emulated/0/.turing.dat\n/storage/emulated/0/DCIM/.thumbcache_idx_001\n/storage/emulated/0/narsil_useroptions\n/storage/emulated/0/Download/.common\n/storage/emulated/0/Pictures/.thumbcache_idx_001\n/storage/emulated/0/Download/.thumbcache_idx_001\n/storage/emulated/0/Documents/.thumbcache_idx_001\n/storage/emulated/0/.dev\n/storage/emulated/0/.ext4\n/data/media/0/.aaa/\n/data/media/0/.bbb/\n/data/media/0/.ccc/\n/data/media/0/oua_classifier/\n/data/media/0/.turingdebug/\n/data/media/0/.fccache/\n/data/media/0/ColorOS/\n/data/media/0/.DataStorage/\n/data/media/0/.UTSystemConfig/\n/data/media/0/DCIM/.tmfs/\n/data/media/0/DCIM/.android\n/data/media/0/Movies/.thumbnails/\n/data/media/0/Music/.thumbnails/\n/data/media/0/Pictures/.thumbnails/\n/data/media/0/Pictures/.gs/\n/data/media/0/Pictures/.gs_fs0/\n/data/media/0/Pictures/.gs_fs3/\n/data/media/0/Download/update/\"\n\n# 检查文件是否存在\nif [ -e \"$file_path\" ]; then\n  # 文件已存在，提示\n  echo \"黑名单文件已存在，是否替换？\"\nelse\n  # 文件不存在，创建文件并写入内容\n  echo \"$content\" \u003e \"$file_path\"\n  if [ $? -eq 0 ]; then\n    echo \"黑名单文件创建并写入内容成功。\"\n  else\n    echo \"黑名单文件创建并写入内容失败。\"\n  fi\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+              "keys": [{
+                "first": "shellOut",
+                "second": "黑名单"
+              }]
+            },
+            "id": "A-daa2706e-0ef2-43de-b688-93c796ef9b8a"
+          }],
+          "neutral": "取消",
+          "onNeutral": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "取消",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-12958ec8-c405-4b75-ac31-ac2a04906051"
+          }, {
+            "@type": "type.googleapis.com/SetRuleEnabled",
+            "ruleId": "rule-d44a357e-4687-4b00-9568-1e6d5bd2cb80",
+            "customContextDataKey": {
+            },
+            "id": "A-3347d61d-ab30-4bbb-abee-6890764ba8b6"
+          }],
+          "title": "指令介绍",
+          "message": "Clean Sweep是一个非常好用的文件清理指令，可以清理软件缓存、关键词文件、指定路径文件等。\n但是它本身不附带规则，通过配置黑名单规则实现效果最大化，完美清理。\n通过规则来实现清理各类系统文件、日常应用文件、游戏文件，让手机存储变得更干净\n\n指令开启的情况下，手动运行指令可以添加规则",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-ef36d236-352d-4044-8e8f-c6fc2f791a67"
+        }],
+        "description": "指令介绍",
+        "id": "Case-8e799e9a-f753-444c-9251-9ab36d2cb0c5"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "EqualTo",
+          "varName": "黑名单",
+          "payload": {
+            "value": "黑名单文件创建并写入内容成功。"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-7ae4f2de-c912-4eab-b667-e8afacd9bb9c"
+        }, {
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotExists",
+          "varName": "取消",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-ec4596a6-6fa4-46ba-85f7-15764d5d9e21"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "title": "文件创建",
+          "message": "{黑名单}\n\n路径是/storage/emulated/0/Documents/黑名单.txt",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-ef36d236-352d-4044-8e8f-c6fc2f791a67"
+        }],
+        "description": "文件创建",
+        "id": "Case-12bb0fcb-257a-4948-8ead-4bd05be55e30",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotExists",
+          "varName": "取消",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-2bdff6de-a98f-4f0f-a618-4c5c75cc0c4f"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "取消",
+          "onPositive": [{
+            "@type": "type.googleapis.com/CreateLocalVar",
+            "localVar": {
+              "name": "取消",
+              "type": {
+                "@type": "type.googleapis.com/StringVar"
+              }
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-0b9a31f9-e192-405f-af86-7b7947146a94"
+          }],
+          "negative": "替换",
+          "onNegative": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "#!/bin/bash\n\n# 文件路径\noriginal_file\u003d\"/storage/emulated/0/Documents/黑名单.txt\"\nbackup_file\u003d\"/storage/emulated/0/Documents/备份_黑名单.txt\"\n\n# 检查原始文件是否存在\nif [ -e \"$original_file\" ]; then\n  # 重命名原始文件为备份文件\n  echo \"正在备份现有黑名单文件...\"\n  mv \"$original_file\" \"$backup_file\"\n  if [ $? -eq 0 ]; then\n    echo \"黑名单文件备份成功。\"\n  else\n    echo \"黑名单文件备份失败。\"\n    exit 1\n  fi\nfi\n\n# 要写入文件的内容\ncontent\u003d\"# OPPO/OnePlus\n/storage/emulated/0/.time\n/storage/emulated/0/.sstmp\n/storage/emulated/0/.turing.dat\n/storage/emulated/0/DCIM/.thumbcache_idx_001\n/storage/emulated/0/narsil_useroptions\n/storage/emulated/0/Download/.common\n/storage/emulated/0/Pictures/.thumbcache_idx_001\n/storage/emulated/0/Download/.thumbcache_idx_001\n/storage/emulated/0/Documents/.thumbcache_idx_001\n/storage/emulated/0/.dev\n/storage/emulated/0/.ext4\n/data/media/0/.aaa/\n/data/media/0/.bbb/\n/data/media/0/.ccc/\n/data/media/0/oua_classifier/\n/data/media/0/.turingdebug/\n/data/media/0/.fccache/\n/data/media/0/ColorOS/\n/data/media/0/.DataStorage/\n/data/media/0/.UTSystemConfig/\n/data/media/0/DCIM/.tmfs/\n/data/media/0/DCIM/.android\n/data/media/0/Movies/.thumbnails/\n/data/media/0/Music/.thumbnails/\n/data/media/0/Pictures/.thumbnails/\n/data/media/0/Pictures/.gs/\n/data/media/0/Pictures/.gs_fs0/\n/data/media/0/Pictures/.gs_fs3/\n/data/media/0/Download/update/\"\n\n\n# 文件不存在，创建文件并写入内容\necho \"$content\" \u003e \"$original_file\"\nif [ $? -eq 0 ]; then\n  echo \"黑名单文件创建并写入内容成功。\"\nelse\n  echo \"黑名单文件创建并写入内容失败。\"\n  exit 1\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+              "keys": [{
+                "first": "shellOut",
+                "second": "替换"
+              }]
+            },
+            "id": "A-1d4deb7b-ccd2-4674-8eea-f7593af4d920"
+          }],
+          "title": "文件创建",
+          "message": "{黑名单}\n\n路径是/storage/emulated/0/Documents/黑名单.txt",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-ef36d236-352d-4044-8e8f-c6fc2f791a67"
+        }],
+        "description": "文件创建(已存在",
+        "id": "Case-bcd09523-47c8-4d16-b1e3-7e7f0c71facd"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotExists",
+          "varName": "取消",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-2a567d53-243f-48cf-9dab-ce0c5e05323c"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "title": "替换结果",
+          "message": "{替换}",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-ef36d236-352d-4044-8e8f-c6fc2f791a67"
+        }],
+        "description": "替换结果",
+        "id": "Case-55fad9c3-8099-41d2-9dbf-154916eec3dd"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2ebe0435-06ce-4b87-ab4e-61b48ba72c04"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOff",
+      "customContextDataKey": {
+      },
+      "id": "F-af09c065-e0e4-4499-b8d7-4097f1c2bcb9"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-44341ef1-0972-4b54-b121-a56782c236ba"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,234 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/HasFoundNodeOnScreen",
+    "matchers": [{
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.qidian.QDReader:id/upgrade_dialog_close_btn"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.qidian.QDReader:id/close"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.alipay.mobile.antui:id/closeButton"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "closeButton"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过5"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过 5"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过 3"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过3"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "skip"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "skip"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过广告 5"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过广告5"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过广告 3"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过广告3"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "跳过广告"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "以后再说"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "ic_close "
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "v_close "
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "iv_close "
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "tv_dialog_i_know"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "我知道了"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "我明白了"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "k0n"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.ss.android.ugc.aweme:id/k0n"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "同意"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "close_btn"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "operating_activity_close"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "iv_close_btn"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "btn_right"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "iv_close"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.xs.fm:id/b"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "2 跳过"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "3 跳过"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "5 跳过"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "3跳过"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "2跳过"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "2 跳过"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.ss.android.article.news:id/ffk"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.ss.android.article.news:id/ffl"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.chinamworld.bocmbci:id/tv_timer"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "afterlogin_cancel"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "close_new_func_guide_dialog_imageView"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "phone_message_close_button"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "ivCloseAd"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "下次再说"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "同意并继续"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "obfuscated"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.baidu.tieba:id/obfuscated"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherText",
+      "text": "不感兴趣"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.byted.pangle.m:id/tt_item_tv"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.byted.pangle.m:id/tt_item_tv_son"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "close"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.xs.fm:id/d63"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "ad_close"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "video_time_skip"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "v_jump "
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.chinamobile.mcloud:id/btn_skip"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.eagle.oasmart:id/count_down_progress"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.eagle.oasmart:id/dialog_ok"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.chinamobile.mcloud:id/bn_cancel"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.xmcy.hykb:id/image_colse"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.xmcy.hykb:id/dialog_home_notice_image_close"
+    }, {
+      "@type": "type.googleapis.com/NodeMatcherViewId",
+      "id": "com.xmcy.hykb:id/skip"
+    }],
+    "detectTimeout": "-5000",
+    "customContextDataKey": {
+    },
+    "id": "F-12220dc8-3f7d-44d5-b58f-43333f50d2c5"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgSets": ["广告"],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-89cfdb09-4b3c-4ea1-8efb-c868ca08d73a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FindAndClickMatchedView",
+    "customContextDataKey": {
+    },
+    "id": "A-6d4f80e1-6487-4665-b879-e82d51b8a8d9"
+  }],
+  "id": "SHARE-rule-94eb0a61-502b-4c46-8f29-c02c00a5edcc",
+  "lastUpdateTime": "1767438059794",
+  "createTime": "1702134882399",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "跳广告",
+  "description": "究极跳开屏，弹窗",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-345eddeb-d33a-48ab-a267-b2d93ae7c192"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,91 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-edc8bcb4-5d03-418b-800c-14804891888a"
+  }, {
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{clipboardContent}",
+    "regex": ".(?!$)",
+    "replacement": "$0‡",
+    "customContextDataKey": {
+    },
+    "note": "添加分割符",
+    "id": "A-8c6026cb-b2f8-4009-9029-fcfac5f8df85"
+  }, {
+    "@type": "type.googleapis.com/ForEach",
+    "data": "3,2,1,0",
+    "delimiter": [","],
+    "actions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-bc15e41f-db30-4d9d-9062-945fde7ed58e"
+    }, {
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": " 即将输入 {foreachData}",
+      "icon": "remix://writing-fluently",
+      "customContextDataKey": {
+      },
+      "id": "A-00b5c174-8b17-4cd1-8279-78b99f722404"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "预备输入",
+    "id": "A-ea7b2f8f-86e7-4f36-9227-c09bf775b5ad"
+  }, {
+    "@type": "type.googleapis.com/ForEach",
+    "data": "{replaceResult}",
+    "delimiter": ["‡"],
+    "actions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "60",
+      "customContextDataKey": {
+      },
+      "id": "A-7164d5ce-be9d-4f63-9350-4f205f183a60"
+    }, {
+      "@type": "type.googleapis.com/InputText",
+      "text": "{foreachData}",
+      "customContextDataKey": {
+      },
+      "id": "A-6ec014e9-24c9-4d99-a897-b7df7e1eee8b"
+    }, {
+      "@type": "type.googleapis.com/ShowStatusBarChip",
+      "text": " {foreachData} / {foreachIndex}",
+      "icon": "remix://writing-fluently",
+      "customContextDataKey": {
+      },
+      "id": "A-3398640d-da0a-41ab-8f64-e3689a8eae85"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "开始逐字输入",
+    "id": "A-d696aa2e-1c1e-4eb7-b5e5-a5988d517fa0"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-65bd4cee-6008-45ca-b28a-5fe7e7db4c5e"
+  }, {
+    "@type": "type.googleapis.com/HideStatusBarClip",
+    "customContextDataKey": {
+    },
+    "id": "A-cd5fd055-2426-41f8-a62c-fa785ca67867"
+  }],
+  "id": "SHARED-DA-a1a859be-8d09-458b-998c-7ed23e72b551",
+  "lastUpdateTime": "1740562276268",
+  "createTime": "1740543220259",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "逐字输入",
+  "description": "读取剪切板内文本进行逐字输入",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

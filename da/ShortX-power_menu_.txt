@@ -1,0 +1,25 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input keyevent --longpress 26",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-9a06e577-8f5d-4071-b0bc-0e0f405890a0"
+  }],
+  "id": "SHARED-DA-f48bfcde-a493-4236-913c-1ac85340a4e1",
+  "lastUpdateTime": "1760051451662",
+  "createTime": "1760051441772",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "power menu ",
+  "versionCode": "1",
+  "directActionSetId": "DS-b4dc7d0f-efee-4429-951f-1bafb3ee79e4",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,91 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "content": "^(BV|AV).*$",
+    "customContextDataKey": {
+    },
+    "id": "F-195796aa-8eb6-4346-8e1a-13e594d432f8"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "clipboardContent"
+      }]
+    },
+    "id": "A-f0b07685-2926-4ce9-aa98-8e082851d535"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "BILI_VIDEO",
+      "payload": {
+        "value": "{clipboardContent}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-65c2a98e-bc24-4093-a3d0-42ab829ce4ea"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "复制链接和上次相同",
+      "customContextDataKey": {
+      },
+      "id": "A-26c23154-fcf1-49a8-a05a-fab614504d4d"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "BILI_VIDEO",
+      "valueAsString": "{clipboardContent}",
+      "customContextDataKey": {
+      },
+      "id": "A-88a8b044-476d-4452-b8ba-8e72f51511e7"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "String input \u003d {clipboardContent};\nString output \u003d input.replaceAll(\"\\\\s\", \"\")",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "mvelRet"
+        }]
+      },
+      "id": "A-9525f068-b786-443f-9cca-a4405bb6a440"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "跳转",
+        "clickActions": [{
+          "@type": "type.googleapis.com/StartActivityUrlSchema",
+          "urlSchema": "https://www.bilibili.com/video/{mvelRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-ff23b333-2516-4482-8969-4d117bfe5c96"
+        }]
+      }],
+      "title": "似乎检测到哔哩哔哩BV/AV号，是否快速跳转？",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-1afd35cd-b4da-42b4-9ed1-d8ba32c56e6a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-74ae66c0-5e94-4a5f-aa90-13ef8a0c9d53"
+  }],
+  "id": "rule-98a15803-f5bd-42b3-9d88-e82a7eb21714",
+  "lastUpdateTime": "1693019263664",
+  "createTime": "1693018745631",
+  "author": {
+    "name": "Genicur"
+  },
+  "title": "哔哩哔哩快速跳转",
+  "description": " ",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

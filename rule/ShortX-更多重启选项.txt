@@ -1,0 +1,320 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 26,
+    "gesture": "KeyLongPress",
+    "customContextDataKey": {
+    },
+    "id": "F-9ddb1524-a8d4-49c6-80a6-a6d84cacea03"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-5541c26b-afc0-4f94-9dcd-db8c3fd0babe"
+  }, {
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-e8269f32-6ab5-47f8-963c-fae611aa6f76"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "focus-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-37c02eee-764b-411f-a3e5-03b97ec71e96"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "reboot_menu",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-a29c0f27-b038-4c59-8cbe-602d92ff52e7"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "reboot",
+          "customContextDataKey": {
+          },
+          "id": "A-c7d00d9f-8d99-4e90-b62d-c9d7d34c201d"
+        }],
+        "icon": "refresh-line",
+        "label": "正常重启",
+        "id": "BTN-128fa421-32bb-4b9e-bc64-5c3280c7e438"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "reboot recovery",
+          "customContextDataKey": {
+          },
+          "id": "A-bfd33b15-ea0b-4c58-ae8a-fc26349fccf5"
+        }],
+        "icon": "box-2-fill",
+        "label": "Recovery",
+        "id": "BTN-a3630ab9-a70b-41c7-a9ea-4a6028b0acfb"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "reboot fastboot",
+          "customContextDataKey": {
+          },
+          "id": "A-cedf0116-fa8c-4da5-839f-ce604c491354"
+        }],
+        "icon": "brush-2-fill",
+        "label": "Fastboot",
+        "id": "BTN-ce5ee5d7-f0ea-419a-9843-d697edb38c03"
+      }, {
+        "label": "＝＝＝＝＝",
+        "id": "BTN-da76ac9e-2447-4e88-a222-e096513d540d"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["reboot_menu"],
+          "customContextDataKey": {
+          },
+          "id": "A-1d59f1f9-5b91-478b-8a82-5acac2854024"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-4fce9e2b-4f29-4341-9a2b-67d9246c2390"
+        }],
+        "icon": "layout-right-2-line",
+        "label": "关闭菜单",
+        "id": "BTN-d4d415cc-5c70-4139-8915-33bbf14ffc21"
+      }],
+      "tag": "reboot_menu",
+      "maxHeightInDp": 500,
+      "maxWidthInDp": 85,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 88,
+      "overlayPaddingH": 10,
+      "overlayPaddingV": 10,
+      "customContextDataKey": {
+      },
+      "id": "A-2c455c49-fbbb-40ee-9eab-60ba2019932f"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "10000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-354dd226-e235-43aa-a760-a8df1469d91c"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowOverlayButton",
+      "buttonSettings": [{
+        "actions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "reboot",
+          "customContextDataKey": {
+          },
+          "id": "A-c7d00d9f-8d99-4e90-b62d-c9d7d34c201d"
+        }],
+        "icon": "refresh-line",
+        "label": "正常重启",
+        "id": "BTN-128fa421-32bb-4b9e-bc64-5c3280c7e438"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "reboot recovery",
+          "customContextDataKey": {
+          },
+          "id": "A-bfd33b15-ea0b-4c58-ae8a-fc26349fccf5"
+        }],
+        "icon": "box-2-fill",
+        "label": "Recovery",
+        "id": "BTN-a3630ab9-a70b-41c7-a9ea-4a6028b0acfb"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "reboot fastboot",
+          "customContextDataKey": {
+          },
+          "id": "A-cedf0116-fa8c-4da5-839f-ce604c491354"
+        }],
+        "icon": "brush-2-fill",
+        "label": "Fastboot",
+        "id": "BTN-ce5ee5d7-f0ea-419a-9843-d697edb38c03"
+      }, {
+        "label": "‖\n‖\n",
+        "id": "BTN-da76ac9e-2447-4e88-a222-e096513d540d"
+      }, {
+        "actions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["reboot_all"],
+          "customContextDataKey": {
+          },
+          "id": "A-1d59f1f9-5b91-478b-8a82-5acac2854024"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-c839eaf8-f865-4e10-a238-cb795ff96d06"
+        }],
+        "icon": "layout-top-2-line",
+        "label": "关闭菜单",
+        "id": "BTN-d4d415cc-5c70-4139-8915-33bbf14ffc21"
+      }],
+      "tag": "reboot_menu",
+      "maxHeightInDp": 500,
+      "maxWidthInDp": 500,
+      "backgroundAlpha": 0.8,
+      "buttonMinWidth": 20,
+      "overlayPaddingH": 10,
+      "overlayPaddingV": 9,
+      "customContextDataKey": {
+      },
+      "id": "A-082442d4-ce28-428f-9df9-2cd9afe7567a"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "10000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-f339758b-71d2-4b4d-a314-8e82385d182e"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "菜单样式打开\n（true\u003d竖，false\u003d横）",
+    "id": "A-ed758011-28e1-4313-b3c3-2c370938fa6e"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10000",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-bc8d3fad-107a-40e7-9fd8-24a85b4bc2e4"
+  }, {
+    "@type": "type.googleapis.com/HideOverlayButton",
+    "overlayTags": ["reboot_menu"],
+    "customContextDataKey": {
+    },
+    "id": "A-6339aefd-52d1-4339-9cb6-c406bd041918"
+  }],
+  "id": "rule-ac4f96b2-035e-40f1-8375-23fc3d5db1ea",
+  "lastUpdateTime": "1696262543799",
+  "createTime": "1694313917672",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "更多重启选项",
+  "isEnabled": true,
+  "condOp": "NONE",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "reboot_menu",
+        "type": {
+          "@type": "type.googleapis.com/BoolVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9974da1d-20f0-4497-becb-f788ced1dc9e"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "NotSet",
+        "varName": "reboot_menu",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-85720630-a757-4dc8-baa6-af9429d4aca8"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "icon": "layout-3-fill",
+          "label": "样式选择",
+          "id": "BTN-18878112-d8fd-4b45-92f1-c7df9a4b3082"
+        }, {
+          "label": "＝＝＝＝＝",
+          "id": "BTN-8c27279c-f82d-46a4-b029-e9e448933061"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "reboot_menu",
+            "valueAsString": "true",
+            "customContextDataKey": {
+            },
+            "id": "A-eb998dd8-e4e1-4ea5-a4e3-564002bae15a"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["reboot_all"],
+            "customContextDataKey": {
+            },
+            "id": "A-e02268af-74c5-4b50-b02f-15a7379e47da"
+          }],
+          "icon": "layout-left-line",
+          "label": "竖列",
+          "id": "BTN-89497e82-8b6b-4d25-9929-f12562168d50"
+        }, {
+          "actions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "reboot_menu",
+            "valueAsString": "false",
+            "op": "WriteGlobalVarOp_Override",
+            "customContextDataKey": {
+            },
+            "id": "A-32964475-9a16-4e5f-b4ee-ef5f69b738cd"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "overlayTags": ["reboot_all"],
+            "customContextDataKey": {
+            },
+            "id": "A-9750f784-ea7f-4dfe-a535-c805b2049b29"
+          }],
+          "icon": "layout-top-2-line",
+          "label": "横列",
+          "id": "BTN-20374ed2-0929-42cb-b1af-e29dce2e3e8d"
+        }],
+        "tag": "reboot_all",
+        "maxHeightInDp": 500,
+        "maxWidthInDp": 95,
+        "backgroundAlpha": 0.8,
+        "buttonMinWidth": 500,
+        "overlayPaddingH": 10,
+        "overlayPaddingV": 10,
+        "customContextDataKey": {
+        },
+        "id": "A-e3079c55-75fc-4a6f-b664-b2faddc83a75"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2d2509f5-17c2-4489-af89-9897f8e31ad2"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "reboot_menu",
+      "customContextDataKey": {
+      },
+      "id": "A-d8ff0c30-6e15-41b2-83d8-fced1a9f2ef5"
+    }, {
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["reboot_menu"],
+      "customContextDataKey": {
+      },
+      "id": "A-3dfbd5c5-1cb5-4466-888d-4fca8ebcd9d1"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-d1685209-8dc8-44fb-993b-dd335ef4816d"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,226 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-ed4d6541-aa64-4671-8d71-f96b42c315e5"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "com.tencent.mm"
+    }, {
+      "pkgName": "com.tencent.mobileqq"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-d15b56e0-62d3-45ea-a6a2-87500cc049a5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ReadClipboard",
+        "customContextDataKey": {
+        },
+        "id": "A-4be0585b-304a-4619-a766-871128a67de5"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "history",
+        "valueAsString": "{\"role\": \"user\", \"content\":\"{clipboardContent}\"}",
+        "op": "WriteGlobalVarOp_AppendToLast",
+        "customContextDataKey": {
+        },
+        "id": "A-72a0feef-ad6e-4463-b5dc-ca9390350b34"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["choices[0].message.content"]
+        },
+        "method": "POST",
+        "headers": [{
+          "key": "Content-Type",
+          "value": "application/json"
+        }, {
+          "key": "Authorization",
+          "value": "Bearer APIKEY"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyJson",
+          "json": "{\n     \"model\": \"gpt-3.5-turbo\",\n     \"messages\":  [globalVarOf$history],\n     \"max_tokens\": 600\n   }"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-58e7cc4c-3e99-4427-bb0c-eec5f6751782"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "history",
+        "valueAsString": "{\"role\": \"assistant\", \"content\": \"{httpRequestRet1}\"}",
+        "op": "WriteGlobalVarOp_AppendToLast",
+        "customContextDataKey": {
+        },
+        "id": "A-8b54ec20-7ea2-4227-bbbe-6665ec29320c"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "TEMP_OPENAI-COPY",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "Temp String..."
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-08a132c1-dbf7-4356-9d77-d42f7ebe955d"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "TEMP_OPENAI-COPY",
+        "valueAsString": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-99cedc1b-3b37-4d14-8711-6366ff363b39"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "reply",
+        "title": "gpt",
+        "message": "{httpRequestRet1}",
+        "isImportant": true,
+        "largeIcon": "openai-fill",
+        "smallIcon": "openai-fill",
+        "button": [{
+          "id": "Button-f0612c74-e2a7-4f9c-8e33-de9da45f0061",
+          "action": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "history",
+            "op": "WriteGlobalVarOp_Clear",
+            "customContextDataKey": {
+            },
+            "id": "A-b28e6542-0eec-47c5-ba9e-a3eff8ca54ac"
+          }, {
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "1000",
+            "customContextDataKey": {
+            },
+            "id": "A-bf4dc073-9092-40f1-8020-93afe838559c"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "history",
+            "valueAsString": "{\"role\": \"system\", \"content\": \"现在你是我男朋友，回答要像个人类一样简要\"}",
+            "customContextDataKey": {
+            },
+            "id": "A-ee0fa898-6be3-46c6-916a-e4ced5923375"
+          }],
+          "label": "清除历史对话"
+        }, {
+          "id": "Button-c071acdf-8306-468d-b9c4-2031a881e862",
+          "action": [{
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "globalVarOf$TEMP_OPENAI-COPY",
+            "customContextDataKey": {
+            },
+            "id": "A-92807ec0-cfa1-4b82-9417-2614811ed372"
+          }, {
+            "@type": "type.googleapis.com/DeleteGlobalVar",
+            "varName": "TEMP_OPENAI-COPY",
+            "customContextDataKey": {
+            },
+            "id": "A-b9184a13-1492-4c00-b752-d89d66abc8cd"
+          }],
+          "label": "复制"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-f92dd106-3137-4ae5-8984-80a61ab74d70"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{httpRequestRet1}",
+        "customContextDataKey": {
+        },
+        "id": "A-a25df685-873b-442a-8f82-bb2aa3bce124"
+      }],
+      "icon": "send-plane-line",
+      "label": "复制并发送",
+      "id": "BTN-6ddf2337-4c37-4986-9fc5-0811dbf9126c"
+    }],
+    "tag": "gpt",
+    "maxHeightInDp": 59,
+    "maxWidthInDp": 88,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 22,
+    "enableGlobalDrag": true,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "note": "角色扮演，默认gpt为男的，帮你撩对象",
+    "id": "A-15144d3b-0b68-4d4a-a3d3-2e4a722fdd98"
+  }],
+  "id": "rule-c05e9df7-ddb3-4faa-b854-da6e7c9fbaff",
+  "lastUpdateTime": "1703954804776",
+  "createTime": "1702319359033",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "openai",
+  "description": "复制女朋友的对话，点击发送，会获得gpt的帮助",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "history",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-aeb37352-f134-4ac8-ae89-53c055fd922b"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "history",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-99afb830-11a1-4893-a010-3dcef68661ce"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-337eddb0-b2f0-438b-b976-f72e48d2b914"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-9548fe06-c645-4f4e-a200-3d58b1bac059"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["gpt"],
+      "customContextDataKey": {
+      },
+      "id": "A-49791aea-0044-42dd-8228-b786ab7754b6"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "history",
+      "op": "WriteGlobalVarOp_Clear",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-b636417f-28dc-439d-bf5a-abb4ff63094b"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-7186995b-3af2-40ed-954a-3b4f5ce2a0ed"
+}
+###------###
+{"type":"rule"}

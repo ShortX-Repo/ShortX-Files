@@ -1,0 +1,18 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "pkg\u003d`dumpsys window | grep mTopFullscreenOpaqueWindowState| egrep -oh \"[^ ]*/\" |cut -d \"/\" -f 1`\ntaskid\u003d`dumpsys activity | grep $pkg | grep Recent |cut -d \u0027#\u0027 -f 3 | cut -d \u0027 \u0027 -f 1`\nam task lock $taskid",
+    "id": "A-37ada5f8-1893-47d6-83b9-8f34a704aa66"
+  }],
+  "id": "DA3127d1f3-37c7-4739-bebb-1a46ce14fbd8",
+  "lastUpdateTime": "1690909685040",
+  "createTime": "1690909613004",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "固定应用",
+  "description": "类似苹果引导式访问",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

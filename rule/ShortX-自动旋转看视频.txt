@@ -1,0 +1,172 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.youku.phone"
+    }],
+    "tag": "前台",
+    "customContextDataKey": {
+    },
+    "id": "F-78500182-3c1c-4cee-a9da-413ae329d9e0"
+  }, {
+    "@type": "type.googleapis.com/WindowRotationChange",
+    "degree": "ScreenRotateDegree_Any",
+    "tag": "旋转",
+    "customContextDataKey": {
+    },
+    "id": "F-36190f57-7cba-4562-87a6-a8831cf5fbaa"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "com.youku.phone"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-185da8cb-6f8c-45fa-9462-65b520ad9c40"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "前台",
+        "customContextDataKey": {
+        },
+        "id": "C-43460ce3-2a96-473b-b4b7-982fec59b98e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "// 开启自动旋转\nandroid.provider.Settings$System.putInt(context.contentResolver, \"accelerometer_rotation\", 1);\n// 关闭自动亮度(启用手动调节)\nandroid.provider.Settings$System.putInt(context.contentResolver, \"screen_brightness_mode\", 0);",
+        "customContextDataKey": {
+        },
+        "id": "A-74ec376b-c4dc-457e-91cd-c6fa0b3cab26"
+      }],
+      "description": "进入前台",
+      "id": "Case-7da41b07-d2ab-4294-b4af-2a7c3e8809b1"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "旋转",
+        "customContextDataKey": {
+        },
+        "id": "C-6d4b9af2-b0ea-45be-a425-26c0356391e9"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "context.resources.configuration.orientation \u003d\u003d 2",
+        "customContextDataKey": {
+        },
+        "id": "C-bab96e7b-2448-40e9-85cb-82e2303629b0"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/SetBrightness",
+        "value": 255,
+        "customContextDataKey": {
+        },
+        "id": "A-bf182dfc-219a-4d62-bdc9-e7817e92d7bc"
+      }, {
+        "@type": "type.googleapis.com/SetVolume",
+        "type": 3,
+        "index": 13,
+        "customContextDataKey": {
+        },
+        "id": "A-1b0481be-d8b0-4d3e-b901-c1f8ca126387"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "id": "A-57f2193c-68c4-412c-ae89-c2f873209677"
+      }, {
+        "@type": "type.googleapis.com/InjectGestureRecording",
+        "gestureId": "NotExists",
+        "speed": 1.0,
+        "customContextDataKey": {
+        },
+        "id": "A-774a04d3-cf88-419e-b85f-c57ccdb6026c"
+      }],
+      "description": "横屏状态",
+      "id": "Case-1c1d5252-f0d7-4f20-879d-eabbfaf1fc8d"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "旋转",
+        "customContextDataKey": {
+        },
+        "id": "C-1181ea6e-cfa8-4df7-9330-d8d4d71b66f8"
+      }, {
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "context.resources.configuration.orientation \u003d\u003d 1",
+        "customContextDataKey": {
+        },
+        "id": "C-8c157dc8-81bb-48f9-a46b-633c38a2fd7f"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/SetBrightness",
+        "value": 100,
+        "customContextDataKey": {
+        },
+        "id": "A-8276a26f-6ffa-4087-9f19-d3e9d0541eda"
+      }, {
+        "@type": "type.googleapis.com/SetVolume",
+        "type": 3,
+        "index": 6,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-c4583790-0dbb-4b20-b31a-99e4d21538ac"
+      }],
+      "description": "竖屏状态",
+      "id": "Case-00c0417e-454b-4e8f-b7f7-a1494d83358c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-564b927e-25ad-4db0-97bc-6f0b6b79454d"
+  }],
+  "id": "SHARE-rule-48ba89c3-360d-47e1-9382-65a54c3f37cb",
+  "lastUpdateTime": "1745473048491",
+  "createTime": "1745397585556",
+  "author": {
+    "name": "dreamy05"
+  },
+  "title": "自动旋转看视频",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/TaskRemoved",
+      "apps": [{
+        "pkgName": "com.youku.phone"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-7bf63a2e-3df1-460a-a8c3-9db860ac3d94"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "android.provider.Settings$System.putInt(context.contentResolver, \"accelerometer_rotation\", 0);\nandroid.provider.Settings$System.putInt(context.contentResolver, \"screen_brightness_mode\", 1);",
+      "customContextDataKey": {
+      },
+      "id": "A-734cecff-36c0-4b6b-986b-6a169ad47681"
+    }, {
+      "@type": "type.googleapis.com/SetVolume",
+      "type": 3,
+      "index": 6,
+      "customContextDataKey": {
+      },
+      "id": "A-c407de4e-82fe-4f04-af18-a77fbc99a156"
+    }, {
+      "@type": "type.googleapis.com/SetBrightness",
+      "value": 23,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-1ba2934b-3588-426a-81f5-4a7b243fe8d4"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,53 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "com.tencent.mm",
+    "className": "com.tencent.mm.plugin.messenger.foundation.u0",
+    "methodName": "c",
+    "expressions": [{
+      "expressionMVEL": "param.args[0].m",
+      "contextKey": "消息内容"
+    }, {
+      "expressionMVEL": "param.args[0].f",
+      "contextKey": "wxid"
+    }, {
+      "expressionMVEL": "param.args[0].e",
+      "contextKey": "chatroom"
+    }],
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "搜索字符串\nprocessAddMsg insert db error\n定位混淆类名方法名\n如果有多个找有字符串crash的那个\n字段名用SimpleHook分析一下",
+    "id": "F-71fc20a0-0fb5-4ac8-9edf-4ac3793c9d2f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "微信Hook",
+    "cancelable": true,
+    "data": "群聊ID:\n{chatroom},微信ID:\n{wxid},消息内容:\n{消息内容}",
+    "delimiter": [","],
+    "needConfirmAction": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-2d42d7c0-3949-4a88-a7bc-25ababb4d19a"
+  }],
+  "id": "SHARE-rule-0ac506a1-d11a-42d0-95f7-958a4e731c79",
+  "lastUpdateTime": "1743795453116",
+  "createTime": "1743777235920",
+  "author": {
+    "name": "帕帝天秀"
+  },
+  "title": "Hook微信监听消息",
+  "description": "好像只能监听到没有免打扰的",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

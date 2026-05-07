@@ -1,0 +1,254 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+    },
+    "repeat": {
+      "days": ["SUNDAY", "TUESDAY", "MONDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-e34bb2da-930f-44bc-836b-a2dd8b3a6fb5"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 5
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-7b655992-863b-455b-8c5b-1895e9658413"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 7,
+      "minutes": 30
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "SATURDAY", "FRIDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-c6e2e5aa-1166-4094-b735-85fbe4e8f444"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 13,
+      "minutes": 15
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-2f9dccf8-38f0-43de-85c4-ec692523fe8f"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 22,
+      "minutes": 35
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-18145b93-b688-4dcb-842f-34ed0ba9f969"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 8,
+      "minutes": 35
+    },
+    "repeat": {
+      "days": ["SUNDAY", "SATURDAY", "MONDAY", "FRIDAY", "TUESDAY", "THURSDAY", "WEDNESDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-da0eada8-aae8-4b39-9ceb-e4897db781b4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-236177bd-9fc4-465b-821a-822785f989ba"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WakeupScreen",
+      "customContextDataKey": {
+      },
+      "id": "A-118a5c1b-530f-47f6-a91d-803a14242dd8"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-3d7fb439-5e27-45f2-8da8-66425570beb7"
+    }, {
+      "@type": "type.googleapis.com/InputSwipe",
+      "startXS": "540",
+      "startYS": "1983",
+      "endXS": "515",
+      "endYS": "43",
+      "swipeTimeS": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-7019db09-4c4b-4715-a00e-51ca146568e5"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-83022da9-26c7-4996-a68b-d485787c6930"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "input text 663720",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "{shellOut}"
+        }]
+      },
+      "id": "A-4466d8db-c681-4ee8-92d3-308a6caeca93"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-829623da-94e2-4cce-a345-f7de7ae92052"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-bf51d21b-1573-428e-894b-71498ff21fe0"
+  }, {
+    "@type": "type.googleapis.com/SetWifiEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-6bcf869d-bb87-447f-b5ac-07de41fd5475"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-01f96f74-df13-4dd0-acbe-dace8a6a0653"
+  }, {
+    "@type": "type.googleapis.com/SetDataEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-02809f33-d316-4b4e-841f-24bdb969fd2d"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "100",
+    "customContextDataKey": {
+    },
+    "id": "A-99f448f0-aa08-44dd-927e-66aec6e7d299"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.eg.android.AlipayGphone"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-6d8c63ab-f714-4daa-880a-d354e75a0320"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "60000",
+    "customContextDataKey": {
+    },
+    "id": "A-22f55069-2c85-4e21-a4e6-ce63e4c5ce73"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.eg.android.AlipayGphone"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b5d93e81-5a27-48f4-8423-1fb8559c37c9"
+  }, {
+    "@type": "type.googleapis.com/RemoveTasks",
+    "appPkg": [{
+      "pkgName": "com.eg.android.AlipayGphone"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8f1af131-0fca-40e5-a1d4-b09b168cc035"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "800",
+    "customContextDataKey": {
+    },
+    "id": "A-67c0e447-94fc-4172-a352-e7fadd1530c0"
+  }, {
+    "@type": "type.googleapis.com/LockDeviceNow",
+    "customContextDataKey": {
+    },
+    "id": "A-0eb484cb-be10-42f0-a19e-6bc542f96431"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "100",
+    "customContextDataKey": {
+    },
+    "id": "A-4e5e4797-a1f4-4643-bf3a-44d42f6a3b3d"
+  }, {
+    "@type": "type.googleapis.com/SetDataEnabled",
+    "customContextDataKey": {
+    },
+    "id": "A-e3327e5a-9af7-4131-936b-368963bffc66"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "100",
+    "customContextDataKey": {
+    },
+    "id": "A-95ff3a11-4704-4e1b-b938-c2be9a2854c5"
+  }, {
+    "@type": "type.googleapis.com/SleepScreen",
+    "customContextDataKey": {
+    },
+    "id": "A-ffac5cde-666c-4f6d-9e24-2db5e4562ed5"
+  }],
+  "id": "SHARE-rule-4785edbc-0df6-45e5-887c-134b954ad024",
+  "lastUpdateTime": "1747528174259",
+  "createTime": "1689771843946",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "支付宝收能量（劫富济贫）",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "对象wxid",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-72d53890-1e6e-43d1-811e-92d83ab32b34"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "globalVarOf$",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "锁屏密码"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-28d23d33-097d-4ab3-9da1-d900930dd496"
+    }]
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}

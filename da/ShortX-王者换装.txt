@@ -1,0 +1,77 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "20",
+    "id": "A-f26f42a0-df4f-4dc1-b301-707ee501a065"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input tap 2244 72",
+    "note": "打开商店",
+    "id": "A-db4495f3-692d-47b5-b49a-8f297f0b94ca"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "成功",
+    "id": "A-e9b86122-2d73-409f-b951-8bf137036c6c"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input tap 893 950",
+    "note": "第几个格子（这里第二个）",
+    "id": "A-640960f8-c8b2-4d55-89af-84e232dd7059"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "90",
+    "id": "A-9c8f1ec5-80d7-4337-8cf2-7ce10c167ec5"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input tap 1811 897",
+    "note": "卖出装备",
+    "id": "A-d9da24d6-5689-4d77-a659-655f91c95e0b"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "85",
+    "id": "A-67e4da1e-017e-4fe8-ad0a-15934688f093"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input tap 2050 301",
+    "note": "点击攻击",
+    "id": "A-049d2a70-fb3e-427f-bb71-bf6d2eec7213"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "75",
+    "id": "A-90d6a348-61fb-4a6f-a98e-5b2b0494bf83"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input tap 919 477",
+    "note": "选择名刀",
+    "id": "A-ca6adb6a-d984-4833-af8c-4b25513aeb04"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "80",
+    "id": "A-5f104437-79c4-4987-8bbf-0f1026be94d1"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input tap 1824 985",
+    "note": "购买装备",
+    "id": "A-8ad1907e-01c3-4381-9a30-ed440b7aed33"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "88",
+    "id": "A-22c80d7a-51ab-4248-b3dd-e5277539e892"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input tap 2044 97",
+    "note": "关闭商店",
+    "id": "A-e0cf00da-8eba-4e40-974c-a128bbd22e89"
+  }],
+  "id": "DAdc47869f-9ba2-4829-9e02-7963379c08d7",
+  "lastUpdateTime": "1691646620104",
+  "createTime": "1691571106652",
+  "author": {
+    "name": "ZhiQing"
+  },
+  "title": "王者换装",
+  "description": "名刀/复活甲/辉月",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

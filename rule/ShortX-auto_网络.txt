@@ -1,0 +1,179 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-55c6d3ab-fd3d-4887-864b-1a92dba7d626"
+  }, {
+    "@type": "type.googleapis.com/UserPresent",
+    "customContextDataKey": {
+    },
+    "id": "F-a7a1c8f6-e2e7-47c4-ba99-80549e9293f7"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "context.getSystemService(\"connectivity\").getActiveNetworkInfo() \u003d\u003d null || !context.getSystemService(\"connectivity\").getActiveNetworkInfo().isConnected()\n// 无任何网络",
+    "isDisabled": true,
+    "customContextDataKey": {
+    },
+    "id": "C-78a8520a-93e6-4f73-9d8e-c0f0d3e16220"
+  }, {
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "connManager \u003d context.getSystemService(\"connectivity\");\nactive \u003d connManager.getActiveNetworkInfo();\nwifi \u003d connManager.getNetworkInfo(android.net.ConnectivityManager.TYPE_WIFI);\n\nhasNetwork \u003d active !\u003d null \u0026\u0026 active.isConnected();\nwifiConnected \u003d wifi !\u003d null \u0026\u0026 wifi.isConnected();\n\nhasNetwork \u0026\u0026 !wifiConnected\n//  有网络但 wifi 未连接",
+    "customContextDataKey": {
+    },
+    "id": "C-7367409c-ee5a-41b4-b0b6-7c05fc43ea91"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetWifiEnabled",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-ac50fd0d-7546-41c9-b2d2-91180ad64291"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "wifi",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1b03e75c-c848-4eaa-a521-c434d40dda50"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.content.Context;\nimport android.net.ConnectivityManager;\nimport android.net.NetworkInfo;\n\n// 获取 ConnectivityManager 服务\nConnectivityManager connManager \u003d (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);\n\n// 获取当前 Wi-Fi 网络连接信息\nNetworkInfo networkInfo \u003d connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);\n\n// 判断 Wi-Fi 是否已连接\nboolean wifiConnected \u003d networkInfo !\u003d null \u0026\u0026 networkInfo.isConnected();",
+      "customContextDataKey": {
+      },
+      "note": "判断 wifi 是否连接",
+      "id": "A-e7eb1641-bb1d-4f38-8ae8-f5fedb461b38"
+    }],
+    "delay": 1000,
+    "repeatTimes": 10,
+    "customContextDataKey": {
+    },
+    "id": "A-aa2d8874-1dd7-4840-bcaf-a25ae43eb811"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "wifi",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-3048ed22-ada6-4c63-81ec-7da7dc5f6d8b"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "wifi",
+      "payload": {
+        "value": "true"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-2845ca7d-ad92-4f5b-9049-10efaa0d202e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "baidu",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1b03e75c-c848-4eaa-a521-c434d40dda50"
+    }, {
+      "@type": "type.googleapis.com/WhileLoop",
+      "actions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "url \u003d new java.net.URL(\"https://www.baidu.com\");\nconn \u003d url.openConnection();\nconn.setConnectTimeout(3000);\nconn.setReadTimeout(3000);\nconn.connect();\ncode \u003d conn instanceof java.net.HttpURLConnection ? conn.getResponseCode() : -1;\n(code \u003e\u003d 200 \u0026\u0026 code \u003c 400);",
+        "customContextDataKey": {
+        },
+        "note": "测试访问百度",
+        "id": "A-20ec5d95-13ec-4076-8911-99b6a332b064"
+      }],
+      "delay": 1000,
+      "repeatTimes": 5,
+      "customContextDataKey": {
+      },
+      "id": "A-aa2d8874-1dd7-4840-bcaf-a25ae43eb811"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "baidu",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-3048ed22-ada6-4c63-81ec-7da7dc5f6d8b"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "baidu",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b7156a5a-5e4b-40b2-9702-3b9f78dfdb23"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetDataEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-9c92fcb3-b7d7-4733-aa2c-ba6ad8677168"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/SetWifiEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-b108aa77-1a9f-4398-93f1-374d6eb7f518"
+      }, {
+        "@type": "type.googleapis.com/SetDataEnabled",
+        "enable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-7f99a074-6659-4720-ba58-a851cfd92090"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d31dbd6e-be0d-46b2-8c23-2f052f2bb967"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetDataEnabled",
+      "enable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-b75fe58b-f92b-4794-9676-cf071e12814c"
+    }, {
+      "@type": "type.googleapis.com/SetWifiEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-a6431005-8a01-4c3f-b26b-b74c5da8cd4a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-8ed38e11-f4e2-40f1-a53b-9fdca878c606"
+  }],
+  "id": "SHARE-rule-b4174d6b-3b6c-42ad-82a7-74486986e8b9",
+  "lastUpdateTime": "1746194983658",
+  "createTime": "1746178684171",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "auto 网络",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

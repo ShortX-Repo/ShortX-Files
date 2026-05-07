@@ -1,0 +1,180 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "tag": "发送",
+    "customContextDataKey": {
+    },
+    "id": "F-b98d4a46-5906-4c46-bd29-fb5b816e9dcf"
+  }, {
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "tag": "启动",
+    "customContextDataKey": {
+    },
+    "id": "F-ec392d9c-ed4f-4fab-9824-517cbbed5452"
+  }, {
+    "@type": "type.googleapis.com/DeepLinkCall",
+    "deepLinkTag": "clipboardserverstart",
+    "tag": "启动",
+    "customContextDataKey": {
+    },
+    "id": "F-29b9e03f-aee8-4e37-bc49-a57ccbb4f5dd"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "account",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-b3420abd-56a0-4ef1-aa74-99c47d3a59a4"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "account",
+    "valueAsString": "user1",
+    "customContextDataKey": {
+    },
+    "note": "在此处设置账户名，局域网下多个用户时不同账户互不干扰",
+    "id": "A-f82b81f5-2e64-47d3-9a8b-4954a06959e9"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "发送",
+        "customContextDataKey": {
+        },
+        "id": "C-d9eeec6f-d9eb-43c7-b100-c90490d30412"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "EqualTo",
+          "varName": "clipboardserverget",
+          "payload": {
+            "value": "{clipboardContent}"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-ca9c63ff-0f8c-42c0-8a93-93a75f5f33a5"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "clipboardserverget",
+          "op": "WriteGlobalVarOp_Clear",
+          "customContextDataKey": {
+          },
+          "id": "A-9d8a35b1-4463-4d17-9b68-a5d77f08a5da"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-d9935970-cc49-46c9-bb33-a082276efcda"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "clipboardserverget",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-151c4171-6dd2-4fb3-929f-bb041f30a1eb"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "clipboardserverget",
+          "valueAsString": "{clipboardContent}",
+          "customContextDataKey": {
+          },
+          "id": "A-45529ae4-aa70-45df-82dd-fe00452f1686"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-8680543e-4806-4155-a3b0-ca42130ac558"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var DatagramSocket \u003d java.net.DatagramSocket;\nvar DatagramPacket \u003d java.net.DatagramPacket;\nvar InetAddress \u003d java.net.InetAddress;\nvar Socket \u003d java.net.Socket;\nvar PrintWriter \u003d java.io.PrintWriter;\nvar Executors \u003d java.util.concurrent.Executors;\nvar Runnable \u003d java.lang.Runnable;\nvar NetworkInterface \u003d java.net.NetworkInterface;\n\n// 获取本机局域网 IP + 回环\nfunction getLocalLanAddresses() {\n    var interfaces \u003d NetworkInterface.getNetworkInterfaces();\n    var localAddrs \u003d new java.util.HashSet();\n    while (interfaces.hasMoreElements()) {\n        var ni \u003d interfaces.nextElement();\n        try { if (!ni.isUp() || ni.isVirtual()) continue; } catch(e) { continue; }\n        var name \u003d ni.getName();\n        if (name \u0026\u0026 (name.startsWith(\"tun\") || name.startsWith(\"ppp\") || name.startsWith(\"rmnet\"))) continue;\n\n        var addrs \u003d ni.getInetAddresses();\n        while (addrs.hasMoreElements()) {\n            var addr \u003d addrs.nextElement();\n            var ip \u003d addr.getHostAddress();\n            if (ip.indexOf(\":\") !\u003d\u003d -1) continue; // 跳过 IPv6\n            if (ip.startsWith(\"192.168.\") || ip.startsWith(\"10.\") ||\n                ip.matches(\"^172\\\\.(1[6-9]|2[0-9]|3[0-1])\\\\..*\") ||\n                ip.startsWith(\"127.\")) {\n                localAddrs.add(ip);\n            }\n        }\n    }\n    return localAddrs;\n}\n\n// 异步发现服务器并 TCP 发送多行消息\nfunction startDiscovery(text) {\n    var executor \u003d Executors.newCachedThreadPool();\n    var foundServers \u003d java.util.Collections.synchronizedSet(new java.util.HashSet());\n    var localAddrs \u003d getLocalLanAddresses();\n\n    executor.execute(new Runnable({\n        run: function() {\n            try {\n                var socket \u003d new DatagramSocket(9998);\n                socket.setBroadcast(true);\n\n                // UDP 广播 \n                for (var i \u003d 0; i \u003c 5; i++) {\n                    var query \u003d (new java.lang.String(\"DISCOVER_SERVER-\"+localVarOf$account)).getBytes(\"UTF-8\");\n                    var packet \u003d new DatagramPacket(query, query.length, InetAddress.getByName(\"255.255.255.255\"), 9999);\n                    socket.send(packet);\n                    java.lang.Thread.sleep(50);\n                }\n                console.log(\"已发送 UDP 广播 DISCOVER_SERVER-\"+localVarOf$account);\n\n                var buf \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);\n                var recvPacket \u003d new DatagramPacket(buf, buf.length);\n                var deadline \u003d java.lang.System.currentTimeMillis() + 5000;\n\n                while (java.lang.System.currentTimeMillis() \u003c deadline) {\n                    try {\n                        socket.setSoTimeout(1000);\n                        socket.receive(recvPacket);\n                        var serverAddr \u003d recvPacket.getAddress().getHostAddress();\n\n                        // 过滤掉本机 IP\n                        if (localAddrs.contains(serverAddr)) continue;\n\n                        if (!foundServers.contains(serverAddr)) {\n                            foundServers.add(serverAddr);\n                            console.log(\"发现接收端ip: \" + serverAddr);\n\n                            (function(addr){\n                                executor.execute(new Runnable({\n                                    run: function() {\n                                        try {\n                                            java.lang.Thread.sleep(50); // 等待服务端 TCP 就绪\n                                            var tcp \u003d new Socket(addr, 8888);\n\n                                            // 使用 PrintWriter 自动 flush\n                                            var writer \u003d new PrintWriter(tcp.getOutputStream(), true);\n                                                var textlines\u003dtext.split(\"\\n\");\n                                                for(var l\u003d0;l\u003ctextlines.length;l++){\n                                                    writer.println(textlines[l]);\n                                                }\n                                                console.log(\"已发送剪切板同步消息给服务端:IP\" + addr);\n\n                                            tcp.close();\n                                        } catch(e) {\n                                            console.log(\"连接服务端失败: \" + addr + \" -\u003e \" + e);\n                                        }\n                                    }\n                                }));\n                            })(serverAddr);\n                        }\n\n                    } catch(e) { /* 超时继续 */ }\n                }\n                socket.close();\n            } catch(e) {\n                console.log(\"客户端发现出错: \" + e);\n            }\n        }\n    }));\n\n    return \"已发送剪切板同步请求\";\n}\n\n// 调用示例\nstartDiscovery(clipboardContent); ",
+        "customContextDataKey": {
+        },
+        "id": "A-54699ea8-8b11-400b-b0bc-86d729401386"
+      }],
+      "description": "写入",
+      "id": "Case-738fb466-ad2b-4a42-8861-b8e005009c67",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "启动",
+        "customContextDataKey": {
+        },
+        "id": "C-f8de5f63-fced-4fbd-8b81-9b411321d14e"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "var DatagramSocket \u003d java.net.DatagramSocket;\nvar DatagramPacket \u003d java.net.DatagramPacket;\nvar InetAddress \u003d java.net.InetAddress;\nvar ServerSocket \u003d java.net.ServerSocket;\nvar Executors \u003d java.util.concurrent.Executors;\nvar Runnable \u003d java.lang.Runnable;\nvar OutputStreamWriter \u003d java.io.OutputStreamWriter;\nimportClass(Packages.tornaco.apps.shortx.core.proto.action.ShowToast);\nfunction showToast(text) {\n        action \u003d ShowToast.newBuilder().setMessage(text).build();\n        shortx.executeAction(action);\n}\nimportClass(Packages.tornaco.apps.shortx.core.proto.action.WriteClipboard);\n\nfunction copyText(text) {\n    var action \u003d WriteClipboard.newBuilder()\n        .setText(text)\n        .build();\n    shortx.executeAction(action);\n}\nfunction CopyText(text){\n    if(text!\u003d\u003dString(shortx.readGlobalVar(\"clipboardserverget\"))){\n        shortx.writeGlobalVarWithOp(\"clipboardserverget\", text, 3);\n        copyText(text);\n    }\n}\nvar serverShouldStop \u003d false;\nvar executor \u003d Executors.newCachedThreadPool();\n\n// UDP 异步服务\nexecutor.execute(new Runnable({\n    run: function() {\n        var socket \u003d null;\n        try {\n            socket \u003d new DatagramSocket(9999);\n            socket.setSoTimeout(1000);\n            var buf \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);\n            var packet \u003d new DatagramPacket(buf, buf.length);\n            console.log(\"UDP 监听启动 9999\");\n\n            while (!serverShouldStop) {\n                try {\n                    socket.receive(packet);\n                    var msg \u003d new java.lang.String(packet.getData(), 0, packet.getLength(), \"UTF-8\");\n                    if (String(msg) \u003d\u003d\u003d \"DISCOVER_SERVER-\"+localVarOf$account) {\n                        var reply \u003d (new java.lang.String(\"SERVER_HERE\")).getBytes(\"UTF-8\");\n                        var replyPacket \u003d new DatagramPacket(reply, reply.length, packet.getAddress(), packet.getPort());\n                        socket.send(replyPacket);\n                    }\n                } catch(e) {\n                    // 超时继续轮询\n                }\n            }\n        } catch(e) {\n            console.log(\"UDP 出错: \" + e);\n        } finally {\n            if (socket) socket.close();\n            console.log(\"UDP 监听已关闭\");\n        }\n    }\n}));\n\n// TCP 异步服务（一次性整体接收消息）\nexecutor.execute(new Runnable({\n    run: function() {\n        var serverSocket \u003d null;\n        try {\n            serverSocket \u003d new ServerSocket(8888);\n            serverSocket.setSoTimeout(1000);\n            console.log(\"TCP 监听启动 8888\");\n\n            while (!serverShouldStop) {\n                try {\n                    var clientSocket \u003d serverSocket.accept();\n                    executor.execute(new Runnable({\n                        run: function() {\n                            try {\n                                var inStream \u003d clientSocket.getInputStream();\n                                var outStream \u003d new OutputStreamWriter(clientSocket.getOutputStream(), \"UTF-8\");\n\n                                // 一次性读取所有可用数据\n                                var available \u003d inStream.available();\n                                while (available \u003d\u003d\u003d 0) {\n                                    java.lang.Thread.sleep(10); // 等待数据到达\n                                    available \u003d inStream.available();\n                                }\n\n                                var buf \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, available);\n                                inStream.read(buf);\n                                var msg \u003d new java.lang.String(buf, \"UTF-8\");\n\n                                // 检查 exit\n                                if (String(msg.trim().toLowerCase())\u003d\u003d\u003d\"exit\") {\n                                    console.log(\"收到 exit 消息，准备退出\");\n                                    serverShouldStop \u003d true;\n                                } else {\n                                    console.log(\"收到剪切板同步请求:\\n\" + msg.trimEnd());\n                                    CopyText(String(msg.trimEnd()));\n                                    outStream.write(\"服务端已收到消息\\n\");\n                                    outStream.flush();\n                                }\n\n                                clientSocket.close();\n                            } catch(e) {\n                                console.log(\"客户端处理出错: \" + e);\n                            }\n                        }\n                    }));\n                } catch(e) {\n                    // 超时继续轮询\n                }\n            }\n        } catch(e) {\n            console.log(\"TCP 出错: \" + e);\n        } finally {\n            if (serverSocket) serverSocket.close();\n            console.log(\"TCP 监听已关闭，剪切板流转服务已退出\");\n            showToast(\"剪切板流转服务已退出\");\n        }\n    }\n}));\n\nconsole.log(\"剪切板流转服务已启动（UDP 9999 + TCP 8888）\");",
+        "customContextDataKey": {
+        },
+        "id": "A-f3607717-7199-46c2-963f-b188055d829d"
+      }],
+      "description": "启动",
+      "id": "Case-7d902008-5233-4eaf-9c2b-c721979eb89c",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-6cb0f3a1-a9ed-4c36-ad55-b6e1be03ac5c"
+  }],
+  "id": "SHARE-rule-2a13cc52-adcc-4942-986e-49e1573e9994",
+  "lastUpdateTime": "1758516663074",
+  "createTime": "1758449103997",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "局域网自动剪切板流转",
+  "description": "自动同步剪切板至局域网设备",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "shortx://trigger?tag\u003dclipboardserverstart",
+      "customContextDataKey": {
+      },
+      "id": "A-b7bc417d-34b7-4376-8eea-dcbfbcb23563"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "clipboardserverget",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3beb628a-19a6-4d28-9777-64509dd25981"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "clipboardserverget",
+      "valueAsString": "%ClipboardText%",
+      "customContextDataKey": {
+      },
+      "id": "A-58e65d6d-8775-444b-9819-6307d8348de7"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "var Socket \u003d java.net.Socket;\nvar OutputStreamWriter \u003d java.io.OutputStreamWriter;\nvar BufferedReader \u003d java.io.BufferedReader;\nvar InputStreamReader \u003d java.io.InputStreamReader;\n\nfunction sendExitToServer() {\n    try {\n        var socket \u003d new Socket(\"127.0.0.1\", 8888); // 连接本机 TCP 服务端\n        var writer \u003d new OutputStreamWriter(socket.getOutputStream(), \"UTF-8\");\n        var reader \u003d new BufferedReader(new InputStreamReader(socket.getInputStream(), \"UTF-8\"));\n\n        // 发送 exit 消息\n        writer.write(\"exit\\n\");\n        writer.flush();\n        console.log(\"已发送 exit 消息到服务器\");\n\n        // 可选：读取服务器回复\n        var line;\n        while ((line \u003d reader.readLine()) !\u003d null) {\n            console.log(\"服务器回复: \" + line);\n        }\n\n        socket.close();\n        console.log(\"客户端退出完成\");\n    } catch (e) {\n        console.log(\"发送 exit 出错: \" + e);\n    }\n}\n\nsendExitToServer();",
+      "customContextDataKey": {
+      },
+      "id": "A-a21ef5e1-fa08-45a3-8c76-425d5d7abe6e"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

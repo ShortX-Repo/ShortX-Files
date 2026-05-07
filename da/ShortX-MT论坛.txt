@@ -1,0 +1,54 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Cookie",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-881785e2-62dd-40b8-ab58-0d337d3f2295"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Cookie",
+    "note": "这里填入 Cookie",
+    "id": "A-39d4a7ac-91ad-4a95-8042-915275d2de1d"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://bbs.binmt.cc/plugin.php?id\u003dk_misign:sign\u0026operation\u003dqiandao\u0026format\u003dtext\u0026formhash\u003d86fdd01f",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Host",
+      "value": "bbs.binmt.cc"
+    }, {
+      "key": "referer",
+      "value": "https://bbs.binmt.cc/k_misign-sign.html"
+    }, {
+      "key": "cookie",
+      "value": "localVarOf$Cookie"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{}"
+    },
+    "id": "A-e49e20a4-6a5a-46da-a8fd-fc792f7e8f57"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{httpRequestRet}",
+    "id": "A-2babd3de-dcc3-4e30-996d-2d2037716b21"
+  }],
+  "id": "DAc224b6ff-3a07-4970-8494-3224aaa048ed",
+  "lastUpdateTime": "1690774535155",
+  "createTime": "1690123453077",
+  "author": {
+    "name": "MrMoxing"
+  },
+  "title": "MT论坛",
+  "description": " ",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

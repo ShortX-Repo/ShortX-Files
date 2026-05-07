@@ -1,0 +1,52 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WindowRotationChange",
+    "degree": "ScreenRotateDegree_Any",
+    "customContextDataKey": {
+    },
+    "id": "F-8f030657-9146-4b5c-aa4e-cb62ea98d9c2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ScreenOrientationIsPort",
+      "customContextDataKey": {
+      },
+      "id": "C-8dbb819e-f9f5-48c6-a1b3-afe3563de7b3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "//独立面板\nandroid.provider.Settings.System.putInt(context.contentResolver, \"notification_and_control_center\", 0)",
+      "customContextDataKey": {
+      },
+      "id": "A-44ae7df2-1f30-4612-b72a-b344656b8b55"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "//经典面板\nandroid.provider.Settings.System.putInt(context.contentResolver, \"notification_and_control_center\", 1)",
+      "customContextDataKey": {
+      },
+      "id": "A-4ebaa3df-7b21-4d86-9c5c-e065770b2a88"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d3aa7cd9-dd34-42a1-8727-219e60956355"
+  }],
+  "id": "rule-ae2e6977-41a6-4516-84ca-0d2241ea4794",
+  "lastUpdateTime": "1701294135342",
+  "createTime": "1701293164097",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "控制中心切换",
+  "description": "竖屏：独立面板\n横屏：经典面板",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-224566a4-02f7-4a7e-9df5-2df70a7566d5"
+}
+###------###
+{"type":"rule"}

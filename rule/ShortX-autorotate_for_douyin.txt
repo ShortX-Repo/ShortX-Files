@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "customContextDataKey": {
+    },
+    "id": "F-46b68bdd-ec80-49e2-91d5-b551cf797a0c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SetScreenRotate",
+    "degree": "ScreenRotateDegree_Any",
+    "customContextDataKey": {
+    },
+    "id": "A-0a7e34ad-a590-4554-916e-3b2ffea2f456"
+  }],
+  "id": "SHARE-rule-9b8dc04f-2a87-4ada-bd51-feec7b0eb34b",
+  "lastUpdateTime": "1766047064917",
+  "createTime": "1766046808668",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "autorotate for douyin",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "customContextDataKey": {
+      },
+      "id": "F-2e45115f-ce8c-4898-b0ce-289bcf2b7678"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/SetScreenRotate",
+      "customContextDataKey": {
+      },
+      "id": "A-a0d641c5-e46b-40ad-b553-da5f2c7d3990"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,50 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/SleepScreen",
+    "id": "A-ca042073-7909-4075-a502-8bd1461ad8a2"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "id": "A-2e21c1bf-ef59-40ab-8ad2-ad358491befb"
+  }, {
+    "@type": "type.googleapis.com/WakeupScreen",
+    "id": "A-fd5b14a2-cb53-4b26-9187-5ee03a70f9ec"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "id": "A-fcc2cc8f-7f79-4c02-b321-b5b19140114f"
+  }, {
+    "@type": "type.googleapis.com/InputSwipe",
+    "startX": 650,
+    "startY": 2100,
+    "endX": 650,
+    "endY": 520,
+    "swipeTime": "200",
+    "note": "输入密码",
+    "id": "A-aae5e730-5e49-429a-af07-9b4aa3ca796f"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "id": "A-0a1d95e9-bd82-42b8-b408-137439916bc2"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input text 1234",
+    "note": "1234修改成你的密码",
+    "id": "A-89855cd3-d561-4aeb-9228-7f90b3865fbe"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "解锁成功😋",
+    "id": "A-66a972a2-a604-4474-b268-229ac493f91a"
+  }],
+  "id": "DA227e201c-97fa-47f5-aefe-d7beda5d5c19",
+  "lastUpdateTime": "1691671466276",
+  "createTime": "1691571399327",
+  "author": {
+    "name": "ZhiQing"
+  },
+  "title": "解锁屏幕",
+  "description": "作者手机是MIUI，理论所有手机通用",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

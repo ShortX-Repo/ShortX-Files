@@ -1,0 +1,40 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.os.ServiceManager;\nimport android.hardware.input.IInputManager;\nimport android.view.InputDevice;  // 导入 InputDevice 类\nimport android.os.IBinder;\n\n// 获取 IInputManager 接口\nIBinder binder \u003d ServiceManager.getService(\"input\");\nIInputManager inputManager \u003d IInputManager.Stub.asInterface(binder);\n\n// 获取设备ID\nint[] deviceIds \u003d inputManager.getInputDeviceIds();\nint touchDeviceId \u003d -1;\n\n// 遍历输入设备并找到触摸设备\nfor (int id : deviceIds) {\n    int sources \u003d inputManager.getInputDevice(id).getSources(); // 获取输入设备源\n    if ((sources \u0026 InputDevice.SOURCE_TOUCHSCREEN) \u003d\u003d InputDevice.SOURCE_TOUCHSCREEN) {\n        touchDeviceId \u003d id;\n    }\n}\n\n// 如果找到触摸设备，启用它\nif (touchDeviceId !\u003d -1) {\n    // 调用 IInputManager 的启用方法\n    inputManager.enableInputDevice(touchDeviceId);  // 请替换为实际启用调用\n    // 输出启用的设备 ID\n    \"启用触摸设备 ID: \" + touchDeviceId;\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-303b762a-8ff5-494e-b6fc-e943823381f7"
+  }, {
+    "@type": "type.googleapis.com/SetBrightness",
+    "value": 151,
+    "customContextDataKey": {
+    },
+    "id": "A-3003f0af-c090-4bef-9b6a-7531de2af2a0"
+  }, {
+    "@type": "type.googleapis.com/StayAwake",
+    "isStay": "OnOffToggle_Off",
+    "customContextDataKey": {
+    },
+    "id": "A-8ef4c599-e707-43e0-abfd-e10ac7939444"
+  }, {
+    "@type": "type.googleapis.com/SetAutoBrightness",
+    "enable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-828c7b5e-d4fe-4c84-a862-a1052b781d2f"
+  }],
+  "id": "SHARED-DA-3c227d58-db4d-4468-9835-b72fbd8b00b9",
+  "lastUpdateTime": "1728534338027",
+  "createTime": "1728532434331",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "解除息屏挂机",
+  "versionCode": "1",
+  "directActionSetId": "DS-8c1de50c-1a3e-4045-b8fa-bdba7c21a7b3",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

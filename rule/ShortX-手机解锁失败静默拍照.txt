@@ -1,0 +1,112 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportFailedPasswordAttempt",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "密码/图案/PIN失败\t用户输错密码",
+    "id": "F-e75cd142-881a-4a52-89b8-f95364341888"
+  }, {
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportFailedBiometricAttempt",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "生物识别失败\t指纹/面部识别失败",
+    "id": "F-9d494582-cf1c-4aa2-af06-c173adf051e3"
+  }, {
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportSuccessfulBiometricAttempt",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "生物识别成功\t指纹/面部识别成功",
+    "id": "F-27689533-f561-43ab-b098-8dfa2c9a81c3",
+    "isDisabled": true
+  }, {
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportSuccessfulPasswordAttempt",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "密码/图案/PIN成功\t密码正确",
+    "id": "F-2ea271c4-a8b0-4ea5-9b2d-0a5e9bad6e4b",
+    "isDisabled": true
+  }, {
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportPasswordChanged",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "密码已更改",
+    "id": "F-2b621e06-b3bc-4027-84cb-576972893ea7",
+    "isDisabled": true
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ScreenFlash",
+    "colorInt": "-843242492",
+    "times": "2",
+    "customContextDataKey": {
+    },
+    "id": "A-74bf2d0e-f7e2-447e-93be-28c41e1c5722"
+  }, {
+    "@type": "type.googleapis.com/ShowPPN",
+    "tag": "tag-1763172912854",
+    "title": "         解锁失败",
+    "message": "请勿非法解锁！！！非法解锁并且解锁失败会被拍照记录。",
+    "icon": "error",
+    "displayTimeSeconds": 9,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-e7309059-b11b-4120-a551-944151c07e4d"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "\nvar Camera \u003d android.hardware.Camera;\nvar SurfaceTexture \u003d android.graphics.SurfaceTexture;\nvar File \u003d java.io.File;\nvar FileOutputStream \u003d java.io.FileOutputStream;\nvar SimpleDateFormat \u003d java.text.SimpleDateFormat;\nvar Date \u003d java.util.Date;\nvar Locale \u003d java.util.Locale;\nvar System \u003d java.lang.System;\nvar BitmapFactory \u003d android.graphics.BitmapFactory;\nvar Bitmap \u003d android.graphics.Bitmap;\nvar Matrix \u003d android.graphics.Matrix;\nvar AudioManager \u003d android.media.AudioManager;\n\nfunction getTimestamp() {\n    var timestamp \u003d java.lang.System.currentTimeMillis();\n    return timestamp;\n}\n\nfunction findRandomDirWithPrefix(basePath, prefix) {\n    var File \u003d java.io.File;\n    var dir \u003d new File(basePath);\n    if (!dir.exists() || !dir.isDirectory()) {\n        return null;\n    }\n    var list \u003d dir.listFiles();\n    if (list \u003d\u003d null) {\n        return null;\n    }\n    var result \u003d null;\n    for (var i \u003d 0; i \u003c list.length; i++) {\n        var file \u003d list[i];\n        if (file.isDirectory() \u0026\u0026 file.getName().startsWith(prefix)) {\n            result \u003d file.getName();\n            break;\n        }\n    }\n    if (result !\u003d\u003d null) {\n        return basePath + result;\n    } else {\n        throw new Error(\"查找ShortX目录失败\")\n    }\n}\n\nvar savePath \u003d findRandomDirWithPrefix(\"/data/system/\", \"shortx\") + \"/camera/\" + getTimestamp() + \".png\";\n\nfunction getCameraIdByFacing(front) {\n    var count \u003d Camera.getNumberOfCameras();\n    var info \u003d new Camera.CameraInfo();\n    for (var i \u003d 0; i \u003c count; i++) {\n        Camera.getCameraInfo(i, info);\n        if (front \u0026\u0026 info.facing \u003d\u003d Camera.CameraInfo.CAMERA_FACING_FRONT) return i;\n        if (!front \u0026\u0026 info.facing \u003d\u003d Camera.CameraInfo.CAMERA_FACING_BACK) return i;\n    }\n    return -1;\n}\n\nfunction getCameraOrientation(cameraId) {\n    var info \u003d new Camera.CameraInfo();\n    Camera.getCameraInfo(cameraId, info);\n    return info.orientation;\n}\n\nfunction isFrontCamera(cameraId) {\n    var info \u003d new Camera.CameraInfo();\n    Camera.getCameraInfo(cameraId, info);\n    return info.facing \u003d\u003d Camera.CameraInfo.CAMERA_FACING_FRONT;\n}\n\nfunction tryGetExifClass() {\n    try {\n        return android.media.ExifInterface;\n    } catch (e) {\n        try {\n            return androidx.exifinterface.media.ExifInterface;\n        } catch (e2) {\n            console.log(\"ExifInterface 不可用: \" + e2);\n            return null;\n        }\n    }\n}\n\nfunction formatExifTime(ts) {\n    try {\n        var sdf \u003d new SimpleDateFormat(\"yyyy:MM:dd HH:mm:ss\", Locale.getDefault());\n        return sdf.format(new Date(ts));\n    } catch (e) {\n        console.log(\"时间格式化失败: \" + e);\n        return null;\n    }\n}\n\nfunction flipAndRotateBitmap(data, rotation) {\n    try {\n        // 将字节数组解码为 Bitmap\n        var bitmap \u003d BitmapFactory.decodeByteArray(data, 0, data.length);\n        \n        // 创建变换 Matrix：先旋转，再镜像翻转\n        var matrix \u003d new Matrix();\n        matrix.postRotate(rotation);\n        matrix.postScale(-1.0, 1.0);\n        \n        // 应用变换创建新的 Bitmap\n        var transformedBitmap \u003d Bitmap.createBitmap(\n            bitmap, \n            0, \n            0, \n            bitmap.getWidth(), \n            bitmap.getHeight(), \n            matrix, \n            false\n        );\n        \n        // 将变换后的 Bitmap 转换回字节数组\n        var stream \u003d new java.io.ByteArrayOutputStream();\n        transformedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);\n        var transformedData \u003d stream.toByteArray();\n        \n        // 释放资源\n        bitmap.recycle();\n        transformedBitmap.recycle();\n        stream.close();\n        \n        return transformedData;\n    } catch (e) {\n        console.log(\"图片变换失败: \" + e);\n        return data; // 失败则返回原数据\n    }\n}\n\nfunction muteShutterSound(cam) {\n    try {\n        // 尝试通过 Camera.enableShutterSound 禁用快门声音\n        if (typeof cam.enableShutterSound \u003d\u003d\u003d \u0027function\u0027) {\n            cam.enableShutterSound(false);\n            console.log(\"已通过 enableShutterSound 禁用快门声音\");\n            return;\n        }\n    } catch (e) {\n        console.log(\"enableShutterSound 方法不可用: \" + e);\n    }\n    \n    try {\n        // 备用方案：尝试设置音量为 0（可能需要权限）\n        var audioManager \u003d context.getSystemService(android.content.Context.AUDIO_SERVICE);\n        var originalVolume \u003d audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);\n        audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, 0, 0);\n        console.log(\"已将系统音量设置为 0\");\n        // 注意：拍照后需要恢复音量\n    } catch (e2) {\n        console.log(\"无法静音系统声音: \" + e2);\n    }\n}\n\nfunction takePhotoWithCorrectTime(path, front) {\n    var cam \u003d null;\n    var result \u003d {\n        success: false,\n        path: path,\n        exifUpdated: false,\n        fileModified: false,\n        message: \"\"\n    };\n    try {\n        var camId \u003d getCameraIdByFacing(!!front);\n        if (camId \u003d\u003d -1) {\n            result.message \u003d (front ? \"未找到前置摄像头\" : \"未找到后置摄像头\");\n            return result;\n        }\n\n        // 获取相机方向和是否为前置\n        var cameraOrientation \u003d getCameraOrientation(camId);\n        var isFront \u003d isFrontCamera(camId);\n\n        // 打开摄像头\n        cam \u003d Camera.open(camId);\n\n        // 尝试禁用快门声音\n        muteShutterSound(cam);\n\n        // 设置相机显示方向\n        cam.setDisplayOrientation(90);\n\n        // 绑定虚拟 SurfaceTexture 避免弹 UI\n        var st \u003d new SurfaceTexture(10);\n        cam.setPreviewTexture(st);\n\n        // 设置合适参数\n        try {\n            var params \u003d cam.getParameters();\n            params.setPictureFormat(android.graphics.ImageFormat.JPEG);\n            // 对于前置摄像头，不设置旋转（因为我们会手动处理）\n            if (!isFront) {\n                params.setRotation(cameraOrientation);\n            } else {\n                params.setRotation(0);\n            }\n            cam.setParameters(params);\n        } catch (eparams) {\n            console.log(\"设置相机参数失败（非致命）: \" + eparams);\n        }\n\n        cam.startPreview();\n\n        // 拍照回调\n        cam.takePicture(null, null, new Camera.PictureCallback({\n            onPictureTaken: function(data, cameraRef) {\n                var file \u003d null;\n                var ts \u003d System.currentTimeMillis();\n                try {\n                    // 如果是前置摄像头，进行旋转和水平翻转\n                    if (isFront) {\n                        console.log(\"检测到前置摄像头，进行旋转和镜像翻转\");\n                        // 对于前置摄像头，通常需要旋转 270 度（或 -90 度）再翻转\n                        data \u003d flipAndRotateBitmap(data, 270);\n                    }\n                    \n                    // 确保父目录存在\n                    file \u003d new File(path);\n                    var parent \u003d file.getParentFile();\n                    if (parent !\u003d null \u0026\u0026 !parent.exists()) {\n                        parent.mkdirs();\n                    }\n\n                    // 写文件\n                    var fos \u003d new FileOutputStream(file);\n                    fos.write(data);\n                    fos.flush();\n                    fos.close();\n                    console.log(\"文件已写入: \" + file.getAbsolutePath());\n\n                    // 更新文件系统修改时间\n                    try {\n                        var setOk \u003d file.setLastModified(ts);\n                        result.fileModified \u003d !!setOk;\n                        console.log(\"设置文件修改时间(\" + ts + \") 结果: \" + setOk);\n                    } catch (efm) {\n                        console.log(\"设置文件修改时间失败: \" + efm);\n                    }\n\n                    // 尝试更新 EXIF 时间标签和方向\n                    try {\n                        var ExifClass \u003d tryGetExifClass();\n                        if (ExifClass) {\n                            var exif \u003d new ExifClass(file.getAbsolutePath());\n                            var exifTime \u003d formatExifTime(ts);\n                            if (exifTime) {\n                                // 三个常用时间标签都写上\n                                try { exif.setAttribute(ExifClass.TAG_DATETIME, exifTime); } catch (e1) { console.log(\"写 TAG_DATETIME 失败: \" + e1); }\n                                try { exif.setAttribute(ExifClass.TAG_DATETIME_ORIGINAL, exifTime); } catch (e2) { console.log(\"写 TAG_DATETIME_ORIGINAL 失败: \" + e2); }\n                                try { exif.setAttribute(ExifClass.TAG_DATETIME_DIGITIZED, exifTime); } catch (e3) { console.log(\"写 TAG_DATETIME_DIGITIZED 失败: \" + e3); }\n                                \n                                // 设置 EXIF 方向信息\n                                try {\n                                    exif.setAttribute(ExifClass.TAG_ORIENTATION, String(ExifClass.ORIENTATION_NORMAL));\n                                } catch (eor) {\n                                    console.log(\"写 EXIF 方向失败: \" + eor);\n                                }\n                                \n                                // 保存\n                                exif.saveAttributes();\n                                result.exifUpdated \u003d true;\n                                console.log(\"EXIF 时间和方向已写入: \" + exifTime);\n                            } else {\n                                console.log(\"EXIF 时间字符串为空，跳过 EXIF 写入\");\n                            }\n                        } else {\n                            console.log(\"ExifInterface 不可用，跳过 EXIF 写入\");\n                        }\n                    } catch (eexif) {\n                        console.log(\"更新 EXIF 失败: \" + eexif);\n                    }\n\n                    result.success \u003d true;\n                    result.message \u003d \"拍照并保存成功\";\n                } catch (efile) {\n                    console.log(\"保存照片失败: \" + efile);\n                    result.message \u003d \"保存照片失败: \" + efile;\n                } finally {\n                    try { cameraRef.stopPreview(); } catch (x) {}\n                    try { cameraRef.release(); } catch (x) {}\n                }\n            }\n        }));\n        return {requested: true, path: path, message: \"拍照请求已发送（实际保存与 EXIF 更新在回调中完成）\"};\n    } catch (e) {\n        try { if (cam) { cam.release(); } } catch (x) {}\n        return {requested: false, path: path, message: \"拍照失败: \" + e};\n    }\n}\n\n// 前置true后置false\nJSON.stringify(takePhotoWithCorrectTime(savePath, true));",
+    "customContextDataKey": {
+    },
+    "id": "A-dcc1b08c-871c-4684-80d8-7d2b444c09e0"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10",
+    "timeUnit": "TimeUnit_S",
+    "customContextDataKey": {
+    },
+    "id": "A-d91954c3-5e50-481d-8e68-e9a53f28471f"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/system/bin/sh\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 配置项（按需修改） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nSOURCE_DIR\u003d\"/data/system/shortx_WfRfetGHeefeTDqf/camera/\"  # 源目录（PNG图片位置）\nDEST_DIR\u003d\"/storage/emulated/0/Download/\"                   # 目标目录（移动到此位置）\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤1：检查源目录是否存在 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nif [ ! -d \"$SOURCE_DIR\" ]; then\n    echo \"错误：源目录不存在！路径：$SOURCE_DIR\"\n    exit 1\nfi\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤2：确保目标目录存在 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nmkdir -p \"$DEST_DIR\"\nif [ $? -ne 0 ]; then\n    echo \"错误：无法创建目标目录！路径：$DEST_DIR\"\n    exit 1\nfi\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤3：移动PNG图片文件 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# 添加详细日志输出\necho \"开始移动文件...\"\necho \"源目录: $SOURCE_DIR\"\necho \"目标目录: $DEST_DIR\"\n\n# 执行移动操作（maxdepth限制只搜索当前目录）\nfind \"$SOURCE_DIR\" -maxdepth 1 -type f -name \"*.png\" -exec mv -v {} \"$DEST_DIR\" \\;\n\n# \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 步骤4：操作完成确认 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\necho \"操作已完成！\"\necho \"所有PNG图片已移动到: $DEST_DIR\"",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-b7b27c33-8b86-4702-878b-8cf9d24863c0"
+  }],
+  "id": "SHARE-rule-77af112c-22ef-4f04-adf7-f6d3776e5098",
+  "lastUpdateTime": "1763190711350",
+  "createTime": "1757370045675",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "手机解锁失败",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-19b0ff37-3822-40cf-8785-787d33ac40d7"
+}
+###------###
+{"type":"rule"}

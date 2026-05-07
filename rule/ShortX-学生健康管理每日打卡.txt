@@ -1,0 +1,175 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 4,
+      "minutes": 30
+    },
+    "repeat": {
+      "days": ["SUNDAY", "WEDNESDAY", "THURSDAY", "TUESDAY", "MONDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-9fd0e888-9d49-4a3c-b9af-42a0ee97fe93"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-d1a87f20-a23a-4a8f-9848-a7eb28ba6ab0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.wisedu.cpdaily"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-db039fcd-22b7-48e1-8352-c7a2924c3ac3"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-26048543-c0a4-4ee4-8df7-b40b0e9d1495"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "讯息",
+    "customContextDataKey": {
+    },
+    "id": "A-ca5467dc-629d-4c1b-aa4e-ed2e07079d19"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "辅导员通知",
+    "customContextDataKey": {
+    },
+    "id": "A-164a9c48-341c-4e90-803a-870deb0bcc11"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-e95ddcbf-cfba-44e5-898e-a285b551f2b3"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 765,
+    "y": 2919,
+    "customContextDataKey": {
+    },
+    "id": "A-c9e64a82-dfb3-49f8-a585-bc43bfb67503"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-c951575f-0507-43bc-b1e1-f69bc62fea8a"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 748,
+    "y": 1474,
+    "customContextDataKey": {
+    },
+    "id": "A-fd4f3e6a-b28c-44fa-97ca-ec4aa346c6fb"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-3f9bb8c3-d066-4fc5-9088-6c174d5f77e1"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 500,
+    "y": 1997,
+    "customContextDataKey": {
+    },
+    "id": "A-d703c3e8-2fd1-44b4-9c05-5fda44535e4d"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-3a83d194-c0c3-4fb7-b264-d69fd59cc96d"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 1116,
+    "y": 1927,
+    "customContextDataKey": {
+    },
+    "id": "A-036bd1c5-09d6-4c9d-adcf-131bcddb6db2"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-45fd6824-4713-4c21-92b6-9530d5896521"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 758,
+    "y": 2779,
+    "customContextDataKey": {
+    },
+    "id": "A-8a883a79-1e5c-4fd9-b19b-6d5310a45ae9"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-ec381e3f-c522-4fc7-a1ce-0972dce0bc89"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 1000,
+    "y": 2934,
+    "customContextDataKey": {
+    },
+    "id": "A-ab1ad602-5a9f-439a-bbec-9bef75c99c73"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1500",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "id": "A-52b2f556-942f-4469-ae3e-9d738551ffd8"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 1140,
+    "y": 2703,
+    "customContextDataKey": {
+    },
+    "id": "A-3037b23f-3408-4077-a18d-63a25e9d54c3"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-25f74b19-5c10-4f54-95b4-a56945bf6de1"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.wisedu.cpdaily"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-cfbc3834-e5c9-494f-93fa-f8b27d31e6d1"
+  }],
+  "id": "rule-9b4ce64a-559e-4fd7-8c5c-f61ca7a92266",
+  "lastUpdateTime": "1693281494986",
+  "createTime": "1689671544712",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "学生健康管理每日打卡",
+  "description": "今日校园学生健康管理每日打卡",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}

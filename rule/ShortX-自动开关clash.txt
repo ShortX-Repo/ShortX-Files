@@ -1,0 +1,122 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/TaskRemoved",
+    "pkgSets": ["clash"],
+    "customContextDataKey": {
+    },
+    "id": "F-19f7f4f4-4f9d-4719-97e2-7eec2c239d94"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["clash"],
+    "customContextDataKey": {
+    },
+    "id": "F-4ac76aea-22f1-4382-b993-373eac9a9047"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgSets": ["clash"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-adbecea3-547d-4810-85b4-8e09d6953e62"
+    }, {
+      "@type": "type.googleapis.com/ServiceIsRunning",
+      "services": [{
+        "pkg": {
+          "pkgName": "com.github.kr328.clash"
+        },
+        "className": "com.github.kr328.clash.service.TunService"
+      }],
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-60759444-9422-4c97-b152-7cedff77b23e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start-foreground-service -n com.github.kr328.clash/com.github.kr328.clash.service.TunService",
+      "customContextDataKey": {
+      },
+      "id": "A-31cb8d3f-59ad-4b79-9764-5d1dfa4483a9"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "开启clash",
+      "customContextDataKey": {
+      },
+      "id": "A-7ceaed83-27fd-4195-91bf-6b3a6c146de8"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["clash"],
+        "customContextDataKey": {
+        },
+        "id": "C-fc3b9dbc-3b83-4c71-9275-3e11d148d801"
+      }, {
+        "@type": "type.googleapis.com/ServiceIsRunning",
+        "services": [{
+          "pkg": {
+            "pkgName": "com.github.kr328.clash"
+          },
+          "className": "com.github.kr328.clash.service.TunService"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "C-db9456a4-ef65-4a22-8e27-2989a9a41b2c"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "com.github.kr328.clash"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-da1d7444-feb6-41e9-aa97-4b51b490d89b"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "停止clash",
+        "customContextDataKey": {
+        },
+        "id": "A-ba186487-7229-4adc-a704-fc56289f3de5"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "id": "A-b5a604d3-684d-4c6e-b67c-088c6ce5b01d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-84ed0451-74c8-4796-bdaa-6859d450b98e"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-36874d40-9a47-4b59-b211-3561393ce55f"
+  }],
+  "id": "rule-e8bc228e-6404-4c0c-bd4d-01ce811bba88",
+  "lastUpdateTime": "1695378473976",
+  "createTime": "1695368971596",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动开关clash",
+  "description": "clash自动开关\n去clash应用集中添加需要代理APP",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "clash",
+      "customContextDataKey": {
+      },
+      "id": "A-c3044078-bc82-45e5-9dc8-1a4e2355ce01"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

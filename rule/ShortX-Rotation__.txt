@@ -1,0 +1,70 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "gesture": "SwipeFromTop",
+    "customContextDataKey": {
+    },
+    "id": "F-762169c4-a528-4da4-b9c0-561e42159281"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "B_O",
+      "payload": {
+        "value": "1"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-886ec56d-907e-41f7-9cb3-d444cb244299"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "B_O",
+      "valueAsString": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-1c291acd-14b1-42b3-a532-71f7681868ab"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system user_rotation 0",
+      "customContextDataKey": {
+      },
+      "id": "A-44c3e9e6-4669-47d7-a204-87ff08e47ad7"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "B_O",
+      "valueAsString": "1",
+      "customContextDataKey": {
+      },
+      "id": "A-71c9fe18-d0a5-47d8-b433-6a37af28279c"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put system user_rotation 1",
+      "customContextDataKey": {
+      },
+      "id": "A-5966f0cd-53c7-4b17-b69e-e7a6caffcaf6"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-eea27ce4-2775-4349-93fa-2498dbc23374"
+  }],
+  "id": "SHARE-rule-fee86134-e333-451e-8cdf-e0787f47371d",
+  "lastUpdateTime": "1755004049556",
+  "createTime": "1754652717905",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Rotation ⭕",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-2a6a11a5-0831-475d-a364-38c0ebe8ad6e"
+}
+###------###
+{"type":"rule"}

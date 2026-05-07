@@ -1,0 +1,115 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "run-fill",
+    "customContextDataKey": {
+    },
+    "note": "设置指令图标",
+    "id": "A-7bb798a9-d66d-44e4-9ea2-69452c40f604"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "stepss",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-988548b7-af44-4c12-bf25-edd121b0a846"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "stepss",
+        "type": {
+          "@type": "type.googleapis.com/Int64Var"
+        },
+        "note": "步数"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1fa520de-a67a-4cb1-9518-c8a62f814b18"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a2003066-dfd1-48a9-8e76-e6eb25d78a32"
+  }, {
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "增加步数",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "输入要增加的步数",
+        "cancelable": true,
+        "textFields": [{
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4f7b106a-6d0e-4442-9b0f-06b1f53eb3b5"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "stepss",
+        "valueAsString": "{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-1766a32b-b951-464d-a4ef-7a98b951df69"
+      }]
+    }, {
+      "title": "减少步数",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "输入要减少的步数",
+        "cancelable": true,
+        "textFields": [{
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-41a4f31f-c886-4308-a7ff-bae028d5eed8"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "stepss",
+        "valueAsString": "-{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-1766a32b-b951-464d-a4ef-7a98b951df69"
+      }]
+    }],
+    "title": "请选择要进行的操作",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-455f73aa-5901-49cd-8a0b-2484876e1421"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 修改自ShortX官方仓库中的MIUI自动步数\n\nstring\u003d$(content query --uri content://com.miui.providers.steps/item --projection _id --sort \"_id DESC\")\narray\u003d($(echo $string | tr \u0027Row: _end_time, _begin_time\u003d\u0027 \u0027 \u0027)) \nid\u003d${array[1]}\ncurrent_time\u003d$(date +%s)\ntail\u003d999\nbegin\u003d$current_time$tail\nend\u003d`expr $begin + 1000`\nsteps\u003d\"globalVarOf$stepss\"\ncontent insert --uri content://com.miui.providers.steps/item --bind _begin_time:s:$begin --bind _id:i:$((id+1)) --bind _end_time:s:$end --bind _mode:i:2 --bind _steps:i:$steps",
+    "customContextDataKey": {
+    },
+    "id": "A-9bbfefe6-8c9e-473c-87a4-ea817aeebc22"
+  }, {
+    "@type": "type.googleapis.com/DeleteGlobalVar",
+    "varName": "stepss",
+    "customContextDataKey": {
+    },
+    "id": "A-ba938c83-63aa-4166-9024-ad605a7d12f0"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "执行完毕(\u003d^▽^\u003d)",
+    "customContextDataKey": {
+    },
+    "id": "A-28be1eac-1d45-4f88-9714-47d26c100bed"
+  }],
+  "id": "SHARED-DA-572821fe-1af5-4df7-9dac-801193d326c1",
+  "lastUpdateTime": "1729147176349",
+  "createTime": "1729134459685",
+  "author": {
+    "name": "零点"
+  },
+  "title": "小米步数修改",
+  "description": "🏃🏃🏃🏃🏃",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

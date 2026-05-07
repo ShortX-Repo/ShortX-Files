@@ -1,0 +1,68 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["All"],
+    "customContextDataKey": {
+    },
+    "id": "F-db0f751d-3491-45a9-94f9-a45d659742f0"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-6ac229cb-a9a5-4f8e-9416-78b062c7dbef"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/CurrentPkgListByPkg",
+      "pkgAndUsers": [{
+        "first": "{pkgName}",
+        "second": "{userId}"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-4a808bda-3ea8-43be-bc7c-76f51a2bd76b"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "top -b -H -p $(ps | grep {pkgName} | grep u{userId}| awk \u0027{print $2}\u0027 | tr \u0027\\n\u0027 \u0027,\u0027 | sed \u0027s/,$//\u0027) -n 1| awk \u0027NR\u003e5 {print $9 , $12 , $13}\u0027",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "record"
+        }]
+      },
+      "id": "A-43257b38-de22-43eb-9994-d5d03b45a3f6"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo \"{record}\" \u003e\u003e /storage/emulated/0/线程记录/{userId}/{pkgName}.txt",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-c146bd60-55c1-4bd4-8193-95b492b0a369"
+    }],
+    "delay": 3000,
+    "customContextDataKey": {
+    },
+    "id": "A-fb4923a8-36d9-43ca-807d-8d61571657a2"
+  }],
+  "id": "SHARE-rule-57d44386-b733-4bcb-a18f-3e8b3a557b1c",
+  "lastUpdateTime": "1765094974791",
+  "createTime": "1765085089523",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "线程记录",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

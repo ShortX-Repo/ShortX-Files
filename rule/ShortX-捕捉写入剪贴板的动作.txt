@@ -1,0 +1,49 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.clipboard.ClipboardService",
+    "methodName": "setPrimaryClipInternalLocked",
+    "expressions": [{
+      "expressionMVEL": "param.args[3]",
+      "contextKey": "package"
+    }],
+    "lifecycle": "LoadedPackage",
+    "constraint": [{
+      "@type": "type.googleapis.com/MethodHookConstraintParamsCount",
+      "count": 4
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-f1a2f8c1-b598-481f-93b5-e08786f33cac"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Context;\nimport android.content.pm.ApplicationInfo;\nimport android.content.pm.PackageManager;\n\ndef apkname(context, app) {\n    // 获取PackageManager实例，用于管理应用程序\n    PackageManager packageManager \u003d context.getPackageManager();\n    \n    // 获取指定包名的应用信息\n    ApplicationInfo appInfo \u003d packageManager.getApplicationInfo(app, 0);\n    \n    // 获取应用名称\n    String appName \u003d packageManager.getApplicationLabel(appInfo).toString();\n    \n    return appName;\n}\n\napkname(context,{package}); \n               //将后面的内容修改为你需要的包名",
+    "customContextDataKey": {
+    },
+    "id": "A-a6061bd1-df7e-4f28-81e2-05a4e131d6ac"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "{mvelRet} 写入了剪贴板",
+    "customContextDataKey": {
+    },
+    "id": "A-715f7e68-84c7-46ea-89a6-eb152cac87d6"
+  }],
+  "id": "SHARE-rule-c037c052-8131-4728-877a-8a84114b323f",
+  "lastUpdateTime": "1725986747717",
+  "createTime": "1725958477130",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "捕捉写入剪贴板的动作",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-f6b404cb-b4a9-4cbe-bb2d-1212fdbb283e"
+}
+###------###
+{"type":"rule"}

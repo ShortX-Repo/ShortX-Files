@@ -1,0 +1,135 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "com.hpbr.bosszhipin",
+    "className": "com.hpbr.bosszhipin.commoncard.geek.views.JobCardViewKeyword",
+    "methodName": "l",
+    "expressions": [{
+      "expressionMVEL": "param.args[0].brandLogo",
+      "contextKey": "brandLogo"
+    }, {
+      "expressionMVEL": "param.args[0].brandName",
+      "contextKey": "brandName"
+    }, {
+      "expressionMVEL": "param.args[0].jobName",
+      "contextKey": "jobName"
+    }, {
+      "expressionMVEL": "param.args[0].salaryDesc",
+      "contextKey": "salaryDesc"
+    }, {
+      "expressionMVEL": "param.args[0].gps.latitude",
+      "contextKey": "latitude"
+    }, {
+      "expressionMVEL": "param.args[0].gps.longitude",
+      "contextKey": "longitude"
+    }],
+    "lifecycle": "LoadedPackage",
+    "constraint": [{
+      "@type": "type.googleapis.com/MethodHookConstraintParamsCount",
+      "count": 2
+    }],
+    "tag": "Hook",
+    "customContextDataKey": {
+    },
+    "note": "混淆的方法名自己定位\n搜类名com.hpbr.bosszhipin.commoncard.geek.views.JobCardViewKeyword\n两个参数\n第一个参数ServerJobCardBean不变\n第二个参数会变\n方法里有一个字符串 停止招聘\n",
+    "id": "F-ee14dfcb-e32c-4558-a70a-e5ea82727503"
+  }, {
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 24,
+    "isInterceptMode": true,
+    "tag": "菜单",
+    "customContextDataKey": {
+    },
+    "id": "F-93ef099d-6406-4ded-883d-9c7c5d780495"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "Hook",
+      "customContextDataKey": {
+      },
+      "id": "C-9677663d-3655-4dd8-a9f5-5e6d8b6ba722"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "列表",
+      "valueAsString": "￥{salaryDesc}\n{brandName} \n{jobName}\n\nφ{latitude} λ{longitude}\n------------------,",
+      "op": "WriteGlobalVarOp_AppendToLast",
+      "customContextDataKey": {
+      },
+      "id": "A-0e67c766-e4fc-4aa6-bed6-b8d542b9315b"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "{brandName}\n{jobName}",
+      "icon": "{brandLogo}",
+      "customContextDataKey": {
+      },
+      "id": "A-ab1e2782-ff49-4e1f-99de-f36ae306718e"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d5642280-dad3-4336-9f62-a0b0d15153d5"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "菜单",
+      "customContextDataKey": {
+      },
+      "id": "C-451dc3c5-dd6d-4818-8111-ebfdccc67bf9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowListDialog",
+      "title": "帕帝天秀",
+      "cancelable": true,
+      "data": "globalVarOf$列表",
+      "delimiter": [","],
+      "needConfirmAction": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "note": "跳转高德地图自己实现吧",
+      "id": "A-ab0015d3-9fc6-442a-b17c-0acfe1f1ad39"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e3d79717-2078-496c-be03-d54b641a268c"
+  }],
+  "id": "SHARE-rule-aff5c749-3860-4314-9ec5-89ffe3b062e0",
+  "lastUpdateTime": "1744312504106",
+  "createTime": "1744307342765",
+  "author": {
+    "name": "帕帝天秀"
+  },
+  "title": "Boss直聘Hook",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "列表",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-17647b6f-ad21-439d-b031-9a4340e2307d"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "列表",
+      "customContextDataKey": {
+      },
+      "id": "A-231926d3-3fa8-4b70-b033-f61a6bed7b34"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

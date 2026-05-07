@@ -1,0 +1,120 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 6,
+      "minutes": 55
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-0c53a9d1-43d0-44c6-aea7-2320b741d603"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "id": "C-cdc19fa9-96e4-42cd-99ab-f968bb5efad9"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WakeupScreen",
+      "customContextDataKey": {
+      },
+      "id": "A-cd0a91eb-7052-4d04-abe3-cdd238e795e7"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1500",
+      "customContextDataKey": {
+      },
+      "id": "A-52d80352-af52-49ba-8c58-f422a75a4aab"
+    }, {
+      "@type": "type.googleapis.com/InputSwipe",
+      "startX": 650,
+      "startY": 2100,
+      "endX": 650,
+      "endY": 520,
+      "swipeTime": "200",
+      "customContextDataKey": {
+      },
+      "note": "输入密码",
+      "id": "A-1401ee40-a58c-4cf8-8494-c6248cd88af7"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-ff32a631-ae16-4481-b9a8-46927d5c5ce5"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "input text 1234",
+      "customContextDataKey": {
+      },
+      "note": "1234修改成你的密码",
+      "id": "A-cd27db4b-1723-429e-9499-e9b1cd048489"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "500",
+      "customContextDataKey": {
+      },
+      "id": "A-376cff31-cb34-46a3-885d-07dff8a5e587"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "input tap 832 778",
+      "customContextDataKey": {
+      },
+      "id": "A-6632b778-47d6-48fe-884d-a956541c7693"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "解锁成功😋",
+      "customContextDataKey": {
+      },
+      "id": "A-6457ba3f-e8fc-4a95-b759-9ca018f764fb"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "解锁屏幕",
+    "id": "A-6a9ea77a-fd9b-4392-b056-71d576fc885e"
+  }, {
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.max.xiaoheihe"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-5c4177ae-6bc2-4251-8692-336dd0b4b674"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10000",
+    "customContextDataKey": {
+    },
+    "id": "A-ad522da0-2133-4515-9ddd-15d08836360d"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "com.max.xiaoheihe"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-a4d74848-4274-41f5-9154-2dc917cd33ba"
+  }],
+  "id": "rule-82ea668b-a494-499d-976c-61329cd69671",
+  "lastUpdateTime": "1696594086696",
+  "createTime": "1696593853493",
+  "author": {
+    "name": "奋斗的青年"
+  },
+  "title": "小黑盒签到",
+  "description": "小黑盒自动签到\n使用前先设置锁屏密码",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-cb8f75b3-3f7a-4efb-9e4f-a54349089739"
+}
+###------###
+{"type":"rule"}

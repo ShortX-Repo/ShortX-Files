@@ -1,0 +1,117 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "ltcookie",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-51574908-cbcd-4fa1-8a72-3fbb63afd27d"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "ltcookie",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "note": "ck放这里",    
+    "id": "A-b8a0dfed-881d-49fc-808b-38d61d47d2b1"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://m.client.10010.com/servicequerybusiness/operationservice/queryOcsPackageFlowLeftContentRevisedInJune",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["resources[0].details[0].remain", "MlResources[0].details[0].use", "MlResources[0].details[2].use", "sum", "packageName"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "cookie",
+      "value": "globalVarOf$ltcookie"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-49fdff53-73b3-4585-8558-897408c1dbde"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "size\u003d{httpRequestRet1}\nsize\u003d${size%.*}\nif [[ -n ${size} ]];then\nif [ $size -gt 1024 ]; then\n  size_gb\u003d$(echo \"scale\u003d2; $size/1024\" | bc)\n  echo \"${size_gb} GB\"\nelse\n  echo \"${size} MB\"\nfi\nelse\necho \"获取失败\"\nfi",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "shellOut1"
+      }]
+    },
+    "id": "A-1a66ef18-5f77-4809-85c9-32073d0b9e82"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "size\u003d{httpRequestRet2}\nsize\u003d${size%.*}\nif [[ -n ${size} ]];then\nif [ $size -gt 1024 ]; then\n  size_gb\u003d$(echo \"scale\u003d2; $size/1024\" | bc)\n  echo \"${size_gb} GB\"\nelse\n  echo \"${size} MB\"\nfi\nelse\necho \"获取失败\"\nfi",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "shellOut2"
+      }]
+    },
+    "id": "A-e33e9d4d-9a51-4bf7-89e4-5ecaa93bd116"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "size\u003d{httpRequestRet3}\nsize\u003d${size%.*}\nif [[ -n ${size} ]];then\nif [ $size -gt 1024 ]; then\n  size_gb\u003d$(echo \"scale\u003d2; $size/1024\" | bc)\n  echo \"${size_gb} GB\"\nelse\n  echo \"${size} MB\"\nfi\nelse\necho \"获取失败\"\nfi",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "shellOut3"
+      }]
+    },
+    "id": "A-2d88f9ce-f5ba-4168-9549-c30924ab6076"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "size\u003d{httpRequestRet4}\nsize\u003d${size%.*}\nif [[ -n ${size} ]];then\nif [ $size -gt 1024 ]; then\n  size_gb\u003d$(echo \"scale\u003d2; $size/1024\" | bc)\n  echo \"${size_gb} GB\"\nelse\n  echo \"${size} MB\"\nfi\nelse\necho \"获取失败\"\nfi",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "shellOut4"
+      }]
+    },
+    "id": "A-cb4495f0-0a18-454b-a760-f65647986dad"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://m.client.10010.com/mobileService/customer/query/getMyUnicomDateTotle.htm",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["nickName", "phone"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "cookie",
+      "value": "globalVarOf$ltcookie"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-f25b2478-458e-4ce4-b8e5-fcc044e7c459"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "message": "昵称：{httpRequestRet2}\n手机号：{httpRequestRet1}\n套餐：{httpRequestRet5}\n已用：{shellOut4}\n通剩：{shellOut1}\n手厅直播：{shellOut2}\n其它：{shellOut3}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-2b963c06-285d-42f0-ac72-24b2dd0e38e8"
+  }],
+  "id": "DAe8cb4baa-58e6-44f6-af16-3c3109b404a2",
+  "lastUpdateTime": "1696948120686",
+  "createTime": "1688871810016",
+  "author": {
+    "name": "我无聊了"
+  },
+  "title": "流量监控",
+  "description": "查询流量"
+}
+###------###
+{"type":"da"}

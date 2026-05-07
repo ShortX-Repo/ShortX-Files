@@ -1,0 +1,33 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 3,
+    "gesture": "KeyLongPress",
+    "customContextDataKey": {
+    },
+    "id": "F-45e10622-d56f-45eb-8de7-c55d188c18af"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "s1\u003d`dumpsys window | grep mCurrentFocus | egrep -oh \"[^ ]*/[^\\\\}]+\"`;am start -n com.miui.home/.launcher.Launcher -f 65536;am start --windowingMode 5 -n $s1 -f 268500992 ",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-76679429-a3b3-460e-8614-0e48a04a77f0"
+  }],
+  "id": "rule-f2bfe61a-080e-4dd2-afdb-18f00c758ea3",
+  "lastUpdateTime": "1696518240315",
+  "createTime": "1696518062559",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "一键小窗",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,136 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppProcessStarted",
+    "processName": [{
+      "processName": "com.coolapk.market"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-44567a83-1239-4f82-9484-c388e653ba60"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "new java.text.SimpleDateFormat(\u0027yyyy/MM/dd\u0027).format(new java.util.Date()) \u003e\u003d globalVarOf$coolapkad",
+    "customContextDataKey": {
+    },
+    "id": "C-29d3a6d7-d008-455e-8124-0b8b93a440a1"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/StartActivityIntent",
+    "intent": {
+      "action": "android.intent.action.VIEW",
+      "pkgName": "com.coolapk.market",
+      "className": "com.coolapk.market.view.base.SimpleActivity",
+      "extras": [{
+        "key": "TITLE",
+        "value": "实验室",
+        "type": "String"
+      }, {
+        "key": "CLASS_NAME",
+        "value": "com.coolapk.market.view.settings.BetaSettingsFragment",
+        "type": "String"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-da9a17ef-9006-461a-bd4a-eb857e2819d1"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "new java.text.SimpleDateFormat(\u0027yyyy/MM/dd\u0027).format(new java.util.Date(System.currentTimeMillis() + 86400000 * 7))",
+    "customContextDataKey": {
+    },
+    "id": "A-5f8bc34a-0678-40b4-b43c-6367bbbf8b1e"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "coolapkad",
+    "valueAsString": "{mvelRet}",
+    "customContextDataKey": {
+    },
+    "id": "A-edc55b85-ab8f-4615-9f5a-9777b2911241"
+  }],
+  "id": "rule-ac815b16-7ad0-48c7-81f5-f1096d64e6c9",
+  "lastUpdateTime": "1702224234896",
+  "createTime": "1702107120928",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "酷安实验室",
+  "description": "7天免广告到期后跳转实验室",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/StartAppProcess",
+      "appPkg": [{
+        "pkgName": "com.coolapk.market"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-974df828-1b75-4090-9123-bd5a84e6640e"
+    }, {
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.coolapk.market",
+        "className": "com.coolapk.market.view.base.SimpleActivity",
+        "extras": [{
+          "key": "TITLE",
+          "value": "实验室",
+          "type": "String"
+        }, {
+          "key": "CLASS_NAME",
+          "value": "com.coolapk.market.view.settings.BetaSettingsFragment",
+          "type": "String"
+        }]
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-df59c738-7c14-4489-b099-faa7860949d3"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "coolapkad",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "酷安7天免广告下次开启日期"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ad7674a1-84cc-4158-9584-c75acc12be23"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "new java.text.SimpleDateFormat(\u0027yyyy/MM/dd\u0027).format(new java.util.Date(System.currentTimeMillis() + 86400000 * 7))",
+      "customContextDataKey": {
+      },
+      "id": "A-a82437fd-43c9-4aa2-a8c8-46d76cc6457a"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "coolapkad",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-468bf452-c543-486c-9253-19cdd7fa799a"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "coolapkad",
+      "customContextDataKey": {
+      },
+      "id": "A-ddeb95f1-eeb0-4db0-82c4-8f738b49148c"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "coolapkad",
+      "customContextDataKey": {
+      },
+      "id": "A-ddeb95f1-eeb0-4db0-82c4-8f738b49148c"
+    }]
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync_InRule",
+  "versionCode": "1",
+  "ruleSetId": "RS-2b679978-875f-4208-88d7-379f21c82a72"
+}
+###------###
+{"type":"rule"}

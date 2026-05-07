@@ -1,0 +1,21 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 导入 Android API\nimport android.content.Intent;\nimport android.app.ActivityOptions;\nimport android.graphics.Rect;\nimport android.app.ActivityManager;\nimport android.content.pm.PackageManager;\nimport android.view.WindowManager;\nimport android.graphics.Point;\nimport android.view.Display;\nimport android.view.Surface;\nimport android.os.UserHandle;\npkg \u003d \"com.tencent.mm\"; // 替换为你要启动的包名\n\npm \u003d context.getPackageManager();\nit \u003d pm.getLaunchIntentForPackage(pkg);\nit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\n\nwm \u003d context.getSystemService(\"window\");\nd \u003d wm.getDefaultDisplay();\np \u003d new android.graphics.Point();\nd.getRealSize(p);\nrot \u003d d.getRotation();\nportrait \u003d (rot \u003d\u003d 0 || rot \u003d\u003d 2);\n\nw \u003d portrait ? 1200 : 1100;\nh \u003d (int)(w / 0.6);\nl \u003d portrait ? 200 : 150;\nt \u003d portrait ? 400 : 80;\nr \u003d l + w;\nb \u003d t + h;\n\nopt \u003d ActivityOptions.makeBasic();\nopt.setLaunchWindowingMode(5);\nopt.setLaunchBounds(new Rect(l, t, r, b));\n\ncontext.startActivity(it, opt.toBundle());\n\n\"已尝试以小窗模式启动应用：\" + pkg;",
+    "customContextDataKey": {
+    },
+    "id": "A-eb6f8b98-0e6f-4cc7-92e6-aa4348055044"
+  }],
+  "id": "SHARED-DA-afdf8fd9-09b9-48eb-a415-4d5cad60c948",
+  "lastUpdateTime": "1746517169925",
+  "createTime": "1746517103921",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "小窗启动应用",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,415 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-7d4d4565-1794-455e-91bf-113d856f08ae"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "tempmin",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d864874e-06be-49cc-a0b2-adecda5fab15"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "tempmax",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-929a58b9-3c53-45d6-a918-c9233a82f35b"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "textnight",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-3f6ce37d-f857-40e4-ac8b-fe3b70cdb08a"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "textday",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1e7419b1-df1f-42f1-b78a-6cdba61d4324"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "fxdate",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c78367cf-f141-4298-bc5e-e333f526ab1a"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "市",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b9d30b98-5ece-4666-9ab1-4b56863dd61a"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "key",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-116028c7-ced2-4c32-842f-50f60bfbd07f"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "id",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0805364b-142b-4749-8c90-5a95327416cf"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "adm1",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-46171042-2b83-461d-ac9d-00d1cf2af5bb"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "adm2",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-acce09cf-828f-41a5-a3f6-1eb905ac7bc5"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "省",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-9a932408-d62b-4f0e-8253-e3bf6a4e28a4"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fc584d79-fdfd-47ac-ab35-505bce12f87f"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "key",
+    "customContextDataKey": {
+    },
+    "note": "和风天气api key值",
+    "id": "A-5230488d-8b59-4be0-8ba3-030be6c2a0e3"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "省",
+    "valueAsString": "江苏",
+    "customContextDataKey": {
+    },
+    "note": "省会",
+    "id": "A-acff801f-6f05-452f-9a52-f9c329b4d678"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "市",
+    "valueAsString": "苏州",
+    "customContextDataKey": {
+    },
+    "note": "城市",
+    "id": "A-d3a7d177-f751-4e9d-b457-b1f69f0a9591"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://geoapi.qweather.com/v2/city/lookup?location\u003dlocalVarOf$市\u0026adm\u003dlocalVarOf$省\u0026key\u003dca4337662d394c08b2327880a49c63df",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-cb942c0d-71ba-4ebd-8f72-c9110131fcd6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-aaf7be2a-7a5e-4938-9958-ecf9dda822d4"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONArray(\"location\").getString(0);\n\nJSONObject jsonday \u003d new JSONObject(version);\nString id \u003d jsonday.getString(\"id\");\n\nreturn id\n",
+      "customContextDataKey": {
+      },
+      "id": "A-29135086-0848-4470-b6de-d9b0561c3541"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "id",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-12ddc149-0471-4dd6-8bd7-fa226463ba99"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONArray(\"location\").getString(0);\n\nJSONObject jsonday \u003d new JSONObject(version);\nString adm1 \u003d jsonday.getString(\"adm1\");\n\nreturn adm1\n",
+      "customContextDataKey": {
+      },
+      "id": "A-b7257a22-7d74-440e-a6de-1c16fd3fb913"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "adm1",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-6b9d9f11-73b4-4402-95a6-13bc654913a7"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONArray(\"location\").getString(0);\n\nJSONObject jsonday \u003d new JSONObject(version);\nString adm2 \u003d jsonday.getString(\"adm2\");\n\nreturn adm2\n",
+      "customContextDataKey": {
+      },
+      "id": "A-9e060066-0308-4d6c-9554-d529d8394f81"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "adm2",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-807f9314-6998-4538-9b5d-213bd77be29a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-78b7a503-3fcd-45d9-940a-171d3e1d0820"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://devapi.qweather.com/v7/weather/3d?location\u003dlocalVarOf$id\u0026key\u003dlocalVarOf$key",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-71ea4710-0586-411e-962d-02dad8de1954"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-fab9aa77-beaa-4366-bf26-145aec243540"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONArray(\"daily\").getString(globalVarOf$Day);\n\nJSONObject jsonday \u003d new JSONObject(version);\nString fxdate \u003d jsonday.getString(\"fxDate\");\n\nreturn fxdate\n",
+      "customContextDataKey": {
+      },
+      "id": "A-29135086-0848-4470-b6de-d9b0561c3541"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "fxdate",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-aa05be0d-e3fa-41ff-8d99-a57c2909c4b1"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONArray(\"daily\").getString(globalVarOf$Day);\n\nJSONObject jsonday \u003d new JSONObject(version);\nString textday \u003d jsonday.getString(\"textDay\");\n\nreturn textday\n",
+      "customContextDataKey": {
+      },
+      "id": "A-69d17f3a-9924-47b9-975c-74838710f32c"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "textday",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-8bff591d-f3d6-4b0d-a2ac-f7b3fad22376"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONArray(\"daily\").getString(globalVarOf$Day);\n\nJSONObject jsonday \u003d new JSONObject(version);\nString textnight \u003d jsonday.getString(\"textNight\");\n\nreturn textnight\n",
+      "customContextDataKey": {
+      },
+      "id": "A-8f848a5b-bed7-4121-9b75-a15b19af6764"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "textnight",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-521b445d-c5f9-4aae-81cf-ee1617b5c447"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONArray(\"daily\").getString(globalVarOf$Day);\n\nJSONObject jsonday \u003d new JSONObject(version);\nString tempmax \u003d jsonday.getString(\"tempMax\");\n\nreturn tempmax\n",
+      "customContextDataKey": {
+      },
+      "id": "A-572ac831-f7ba-4de1-a8f1-0d4012b98492"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "tempmax",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-b1b78928-cb03-4262-b3f1-d4768ad57b92"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import org.json.JSONObject;\nString json \u003d httpRequestRet;\nJSONObject jsonObject \u003d new JSONObject(json);\nString version \u003d jsonObject.getJSONArray(\"daily\").getString(globalVarOf$Day);\n\nJSONObject jsonday \u003d new JSONObject(version);\nString tempmin \u003d jsonday.getString(\"tempMin\");\n\nreturn tempmin\n",
+      "customContextDataKey": {
+      },
+      "id": "A-3b48e1c7-4b30-435d-8df4-a7ed14f982a7"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "tempmin",
+      "valueAsString": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-690df977-6670-4ed5-b5a5-7d369061c2c5"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-78fc404a-85dd-4f87-b7dd-d5c7720e8054"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "Day",
+      "payload": {
+        "value": "0"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-f6457ae7-5e21-4e02-88bf-825def419b79"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1702726300118",
+      "title": "和风天气",
+      "message": "localVarOf$adm1 - localVarOf$adm2 - localVarOf$市\n预报天气日期：localVarOf$fxdate\n白天天气状况：localVarOf$textday\n夜间天气状况：localVarOf$textnight\n当天最高温度：localVarOf$tempmax℃\n当天最低温度：localVarOf$tempmin℃",
+      "isImportant": true,
+      "smallIcon": "cloudy-fill",
+      "button": [{
+        "id": "Button-d1ab0022-8e0f-4886-921a-50792356aac6",
+        "action": [{
+          "@type": "type.googleapis.com/RemoveNotification",
+          "notification": {
+            "tag": "tag-1702726300118"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-c8d7b117-9b71-436d-870b-b3bd1b393efa"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Day",
+          "valueAsString": "1",
+          "customContextDataKey": {
+          },
+          "id": "A-cdcd1c42-1050-446f-a926-9be8f008d6af"
+        }, {
+          "@type": "type.googleapis.com/FromDA",
+          "daId": "DAe7fa2498-febb-43f4-9242-a386988c3fcf",
+          "customContextDataKey": {
+          },
+          "id": "A-ae6da8dd-f9f3-444f-a2b1-3b76b4a5f015"
+        }],
+        "label": "明天"
+      }, {
+        "id": "Button-4d0c765e-80f2-4e1e-99ea-243a18830679",
+        "action": [{
+          "@type": "type.googleapis.com/RemoveNotification",
+          "notification": {
+            "tag": "tag-1702726300118"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-c8d7b117-9b71-436d-870b-b3bd1b393efa"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Day",
+          "valueAsString": "2",
+          "customContextDataKey": {
+          },
+          "id": "A-a981aa88-b5b9-4c39-a652-ad0e11d24e0d"
+        }, {
+          "@type": "type.googleapis.com/FromDA",
+          "daId": "DAe7fa2498-febb-43f4-9242-a386988c3fcf",
+          "customContextDataKey": {
+          },
+          "id": "A-92a32bc1-2bb6-47bf-adf4-efcb9e5e8fc7"
+        }],
+        "label": "后天"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-8a91a764-148e-4c0f-88ef-7e75f7dc34f1"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1702726300118",
+      "title": "和风天气",
+      "message": "localVarOf$adm1 - localVarOf$adm2 - localVarOf$市\n预报天气日期：localVarOf$fxdate\n白天天气状况：localVarOf$textday\n夜间天气状况：localVarOf$textnight\n当天最高温度：localVarOf$tempmax℃\n当天最低温度：localVarOf$tempmin℃",
+      "isImportant": true,
+      "smallIcon": "cloudy-fill",
+      "customContextDataKey": {
+      },
+      "id": "A-8a91a764-148e-4c0f-88ef-7e75f7dc34f1"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Day",
+      "valueAsString": "0",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-3c012d91-fc99-4bcb-a86c-f67da23edbe4"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0f4a647b-ce28-40aa-b6f6-741aefc10d2b"
+  }],
+  "id": "DAe7fa2498-febb-43f4-9242-a386988c3fcf",
+  "lastUpdateTime": "1702779853772",
+  "createTime": "1702779275777",
+  "author": {
+    "name": "XFiend"
+  },
+  "title": "天气查询",
+  "description": "利用和风天气api查询天气\n\n使用前要在一键指令中填写 key，省会，城市\nkey可在和风天气https://dev.qweather.com/免费申请",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

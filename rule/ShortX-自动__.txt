@@ -1,0 +1,130 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["科学上网"],
+    "tag": "开启",
+    "customContextDataKey": {
+    },
+    "id": "F-723decdb-eca5-41e0-aada-29dcc7cd610e"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["科学上网"],
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-8459cd62-7186-45f9-b131-c9bb909864d6"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开启",
+      "customContextDataKey": {
+      },
+      "id": "C-8861e9a2-e8ed-414e-a609-accba44ec50e"
+    }, {
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-c4c00ebe-4134-411d-99e0-afe348787b77"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgSets": ["科学上网"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-bc65a2a4-16a2-459f-8d0d-222d20dc7c59"
+    }, {
+      "@type": "type.googleapis.com/AppHasTask",
+      "pkgSets": ["科学上网"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-6c874b88-4a25-4d67-adbf-5f596fbb6e5c"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start -a com.github.metacubex.clash.meta.action.START_CLASH -n com.github.metacubex.clash.meta/com.github.kr328.clash.ExternalControlActivity",
+      "customContextDataKey": {
+      },
+      "id": "A-a5753062-d24c-40b2-a0cc-1594257620fa"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已开启✈️",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-093f1fab-3b3a-48a6-b41a-d17adef9d111"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-38a7e14f-ddae-4c5b-90d9-f88f1c8f013e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "关闭",
+      "customContextDataKey": {
+      },
+      "id": "C-62e40dbe-ca91-4b33-9416-66bea6b9dd44"
+    }, {
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-a340637b-7a81-4028-8154-8c7366868143"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgSets": ["科学上网"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-0955eb31-ef32-4f9a-a920-d3f2223e977c"
+    }, {
+      "@type": "type.googleapis.com/AppHasTask",
+      "pkgSets": ["科学上网"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-8b104929-67f4-4c55-887b-f9d213c480a1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.github.metacubex.clash.meta"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-616f79de-2ed7-4df4-a551-4d44332824d4"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "已关闭✈️",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-325d20b7-39c0-428f-bde1-6864dfb1b021"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-55a277eb-6c0b-47ff-a232-bb933a8f512e"
+  }],
+  "id": "SHARE-rule-6b753d64-372d-430e-af83-0af8966f4adc",
+  "lastUpdateTime": "1738194213801",
+  "createTime": "1708125008669",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动✈️",
+  "description": "自动关闭和开启✈️\n使用前请自行建立应用集",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-4b21eeff-feb4-4a56-ac7c-716629ac42ff"
+}
+###------###
+{"type":"rule"}

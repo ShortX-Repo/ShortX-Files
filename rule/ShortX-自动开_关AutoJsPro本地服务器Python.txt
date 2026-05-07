@@ -1,0 +1,204 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "org.autojs.autojspro"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-9ce3e872-e726-426f-ab79-029a29d14c54"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/EvaluateGlobalVar",
+    "op": "NotSet",
+    "varName": "python",
+    "payload": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "C-03c7b387-3897-4103-8ab4-b5d9139decbd"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "globalVarOf$AJserver",
+    "customContextDataKey": {
+    },
+    "id": "A-c41aa118-348d-4879-a7b1-20d01f3934bf"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-1cc70e94-3cbf-4e4a-8715-6a90b632aa98"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "pgrep -f \"python /stora\"",
+    "customContextDataKey": {
+    },
+    "id": "A-1e523f3e-2916-4239-a096-bfc659c45176"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "python",
+    "valueAsString": "{shellOut}",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-6926f3d7-29df-4778-92b4-d715506d797c"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "后台进程ID:{shellOut} 已写入全局变量",
+    "icon": "app://org.autojs.autojspro",
+    "customContextDataKey": {
+    },
+    "id": "A-d27df1fd-2837-441d-b030-4f8fe855dc3b"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotEmpty",
+      "varName": "python",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-9f5c172b-a367-4cb3-a366-fa4968f908da"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgs": [{
+          "pkgName": "org.autojs.autojspro"
+        }],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-cbb82fdf-8201-449b-ab12-62361b3aa009"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "kill globalVarOf$python",
+        "customContextDataKey": {
+        },
+        "id": "A-35feeb3c-225a-4eca-ae80-c963ba5e2e32"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "python",
+        "op": "WriteGlobalVarOp_Clear",
+        "customContextDataKey": {
+        },
+        "id": "A-2da63a83-f73f-4fb5-934f-a83b89692ca2"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "已结束Python后台运行,并置空进程ID",
+        "icon": "app://org.autojs.autojspro",
+        "customContextDataKey": {
+        },
+        "id": "A-8aab0772-d033-4004-afdb-cbdeba38055a"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "restart-line",
+        "customContextDataKey": {
+        },
+        "id": "A-ed5cde3f-0dd7-4146-9158-df9ec7b31e9f"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-3ebbe756-4844-4c4a-b770-7ab3ba7016be"
+    }],
+    "delay": 10000,
+    "customContextDataKey": {
+    },
+    "id": "A-c445a348-c5c6-45cf-9674-06d92913d201"
+  }],
+  "id": "rule-3d3c6337-61e8-41be-8b68-efd375044946",
+  "lastUpdateTime": "1694714940890",
+  "createTime": "1694214228825",
+  "author": {
+    "name": "muort"
+  },
+  "title": "自动开/关AutoJsPro本地服务器Python",
+  "description": "使用shell命令nohub静默后台运行部署python脚本",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "python",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-6b8ed1ef-f43f-4db9-a69c-dd29bc5883fe"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "python",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-9367bb47-acda-41d7-9622-76485f20d29d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-fc044aab-64ec-4e66-bac3-135a5d743831"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "AJserver",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-1dc1bb16-0676-4f54-acb3-1f691b043e13"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "请设置AJ服务器脚本启动命令",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "nohup /data/user/0/com.termux/files/usr/bin/python /storage/emulated/0/AutoJsPro服务.py \u0026"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-65582359-d912-4f81-8a15-31c0527e83bd"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "AJserver",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-988880d0-b0e2-4396-8dba-a0f2a4f0669a"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "AJserver",
+        "valueAsString": "{textFieldInput1}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-ff346b28-007c-4616-80fe-90bed3270513"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-e990c2e6-d521-4a17-89e6-e7044af240cb"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

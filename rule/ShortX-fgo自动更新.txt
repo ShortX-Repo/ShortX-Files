@@ -1,0 +1,157 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "customContextDataKey": {
+    },
+    "id": "F-54b37132-9b72-40c5-9c39-141d67de51b7"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 16
+    },
+    "repeat": {
+      "days": ["THURSDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-875ce146-3691-41d9-ac40-248929276d19"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchJS",
+    "expression": "importClass(java.net.URL);\nimportClass(java.io.BufferedReader);\nimportClass(java.io.InputStreamReader);\nimportClass(java.lang.StringBuilder);\nimportClass(java.io.FileOutputStream);\nimportClass(java.io.BufferedInputStream);\nimportClass(java.io.File);\nimportClass(java.io.FileOutputStream);\nfunction downloadFile(fileUrl, savePath) {\n    var url \u003d new URL(fileUrl);\n    var connection \u003d url.openConnection();\n    connection.connect();\n\n    var input \u003d new BufferedInputStream(connection.getInputStream());\n    var file \u003d new File(savePath);\n    var output \u003d new FileOutputStream(file);\n\n    var buffer \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);\n    var bytesRead;\n\n    while ((bytesRead \u003d input.read(buffer)) !\u003d -1) {\n        output.write(buffer, 0, bytesRead);\n    }\n\n    output.flush();\n    output.close();\n    input.close();\n\n    return file.exists() \u0026\u0026 file.length() \u003e 0;\n}\nfunction getAppVersion(packageName) {\n    importClass(android.content.pm.PackageManager);\n\n    try {\n        var pm \u003d context.getPackageManager();\n        var packageInfo \u003d pm.getPackageInfo(packageName, 0);\n        return packageInfo.versionName;\n    } catch (e) {\n        return null;\n    }\n}\n\nfunction fetchConfig() {\n    var url \u003d new URL(\"https://static.biligame.com/config/fgo.config.js\");\n    var conn \u003d url.openConnection();\n    conn.setRequestMethod(\"GET\");\n    conn.setConnectTimeout(5000);\n    conn.setReadTimeout(5000);\n\n    var reader \u003d new BufferedReader(new InputStreamReader(conn.getInputStream(), \"UTF-8\"));\n    var line;\n    var content \u003d new StringBuilder();\n    while ((line \u003d reader.readLine()) !\u003d null) {\n        content.append(line).append(\"\\n\");\n    }\n    reader.close();\n\n    return content.toString();\n}\n\n\nfunction extractLatestVersion(text) {\n    var pattern \u003d /\"latest_version\"\\s*:\\s*\"([^\"]+)\"/;  // 提取 \"latest_version 字段\n    var matcher \u003d pattern.exec(text);\n    if (matcher) {\n        return matcher[1];\n    } else {\n        return null;\n    }\n}\nfunction extractdownloadlink(text) {\n    var pattern \u003d /\"android_link\"\\s*:\\s*\"([^\"]+)\"/;  // 提取 \"android_link 字段\n    var matcher \u003d pattern.exec(text);\n    if (matcher) {\n        return matcher[1];\n    } else {\n        return null;\n    }\n}\nvar jsContent \u003d fetchConfig();\nvar latestVersion \u003d extractLatestVersion(jsContent);\nvar downloadlink\u003dextractdownloadlink(jsContent);\n\nif(latestVersion !\u003d\u003d getAppVersion(\"com.bilibili.fatego\")){\ndownloadFile(downloadlink,globalVarOf$shortxpath+\"/fgo.apk\");\n}else{false}",
+    "customContextDataKey": {
+    },
+    "id": "C-f5839dfa-9331-4f67-893b-0733c74b4db5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "pm install globalVarOf$shortxpath/fgo.apk\nrm -r globalVarOf$shortxpath/fgo.apk",
+    "customContextDataKey": {
+    },
+    "id": "A-53fd9710-ac7e-4259-bb9b-1fec5689eedf"
+  }],
+  "id": "SHARE-rule-b04c86bc-62aa-4159-84ca-73b18e8da6c9",
+  "lastUpdateTime": "1752592868446",
+  "createTime": "1752506835848",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "fgo自动更新",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "shortxpath",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e582f75d-a9c8-48f1-ac71-2a5e3e317429"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "ls /data/system/",
+        "customContextDataKey": {
+        },
+        "id": "A-801c4fa6-eba2-4e51-afa8-00191d700d69"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "shortxpath",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-373cb3e0-d030-4784-98de-cd9a4632e460"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-c179c93c-34d4-450e-b832-ab5d869180ed"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "shell异常自动获取shortx目录失败，请手动填写/data/system/目录下的shortx开头的目录名",
+          "cancelable": true,
+          "textFields": [{
+          }],
+          "style": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-addd959f-370e-48bb-bb7b-b3db30758a37"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "shortxpath",
+          "valueAsString": "/data/system/{textFieldInput1}",
+          "op": "WriteGlobalVarOp_Override",
+          "customContextDataKey": {
+          },
+          "id": "A-5316575c-0810-4b20-85f6-a27e15b61187"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{shellOut}",
+          "delimiter": ["\n"],
+          "actions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateContextVar",
+              "op": "Contains",
+              "varName": "foreachData",
+              "payload": {
+                "value": "shortx_"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-6c199b1c-6d08-4a4c-85ea-5615d2f8f726"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "shortxpath",
+              "valueAsString": "/data/system/{foreachData}",
+              "op": "WriteGlobalVarOp_Override",
+              "customContextDataKey": {
+              },
+              "id": "A-aaa8e53c-aa10-49ac-b87c-5035be6aa2d9"
+            }, {
+              "@type": "type.googleapis.com/BreakActionExecute",
+              "scope": "BreakActionExecuteScope_Parent",
+              "customContextDataKey": {
+              },
+              "id": "A-42d5e9ca-0990-4a8f-9a45-fe2de0f430c0"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-6fde485b-40d1-46f5-9933-d9e6447a25db"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-b635e834-78aa-4842-b588-0d6cb00ce008"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4538b55f-3e02-4bab-879a-df01428e3bc0"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "查询shortx目录",
+      "id": "A-bbe2562b-89ae-4799-b29e-c40fb9d9d5b2"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

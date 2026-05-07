@@ -1,0 +1,149 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 7,
+      "minutes": 20
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-602a4db9-09ab-428e-8be9-0a729e619324"
+  }, {
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 17,
+      "minutes": 30
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-fdf88adb-8108-4d9e-be1b-66d955619d31"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://www.iamwawa.cn/workingday/api",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["date", "info", "week", "is_workingday"]
+    },
+    "headers": [{
+      "key": "User-Agent",
+      "value": "iamwawa-open-api"
+    }],
+    "requestBody": {},
+    "withCookieJar": true,
+    "customContextDataKey": {
+    },
+    "id": "A-3d87de08-b442-4a62-96e9-110977d4c46e"
+  }, {
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "{httpRequestRet4}",
+    "regex": "{httpRequestRet4}",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "A-14266977-b900-4fa5-8ad3-fe36da7c71f2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{matchResult}\u003d\u003d1",
+      "customContextDataKey": {
+      },
+      "id": "C-050b40f2-0a64-4e86-b721-78e8e41d603d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/TimeInRange",
+        "range": {
+          "start": {
+            "hour": 7,
+            "minutes": 15
+          },
+          "end": {
+            "hour": 17,
+            "minutes": 20
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b4c91254-3023-4c34-9287-0003f9ed336f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetVolume",
+        "type": 3,
+        "customContextDataKey": {
+        },
+        "id": "A-786a3415-69d0-415e-8442-5d6b95e3722b"
+      }, {
+        "@type": "type.googleapis.com/SetVolume",
+        "index": 6,
+        "customContextDataKey": {
+        },
+        "id": "A-2378cd4d-2709-4a02-9602-d96112fe8a7f"
+      }, {
+        "@type": "type.googleapis.com/SetVolume",
+        "type": 5,
+        "index": 3,
+        "customContextDataKey": {
+        },
+        "id": "A-aa5e4631-ae14-4330-8ad2-547fa46a17c3"
+      }, {
+        "@type": "type.googleapis.com/SetVolume",
+        "type": 2,
+        "index": 8,
+        "customContextDataKey": {
+        },
+        "id": "A-53f0a0f4-2be9-448c-bccf-41df4b074141"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/SetVolume",
+        "type": 3,
+        "index": 70,
+        "customContextDataKey": {
+        },
+        "id": "A-1c446e65-d7d3-4985-9548-efdea7be76df"
+      }, {
+        "@type": "type.googleapis.com/SetVolume",
+        "index": 8,
+        "customContextDataKey": {
+        },
+        "id": "A-a73c6557-0e85-41df-b766-292f37979745"
+      }, {
+        "@type": "type.googleapis.com/SetVolume",
+        "type": 2,
+        "index": 12,
+        "customContextDataKey": {
+        },
+        "id": "A-9548cb16-ddd7-4690-915a-9ca6e2e0de1c"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-1268d364-ba72-476a-b03d-3d24319f1711"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-44be3a5a-5320-4cf0-a65b-ab2883a9e633"
+  }],
+  "id": "SHARE-rule-e45fbf1d-8f08-4edd-a01b-a38a7172e932",
+  "lastUpdateTime": "1743390129412",
+  "createTime": "1715423910711",
+  "author": {
+    "name": "cool"
+  },
+  "title": "工作日上班减音量下班增音量",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

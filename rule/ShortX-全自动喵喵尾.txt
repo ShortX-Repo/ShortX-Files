@@ -1,0 +1,84 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "BottomRight",
+    "gesture": "LongTap",
+    "customContextDataKey": {
+    },
+    "id": "F-8390e231-ac5e-430e-b3fc-203f0db31465"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "tw.nekomimi.nekogram"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-5e65f303-8a0a-4a09-acc5-6a31b2b200a3"
+  }, {
+    "@type": "type.googleapis.com/ScreenOrientationIsPort",
+    "customContextDataKey": {
+    },
+    "id": "C-1460280d-9a4b-47d6-bd55-77f13118a4b4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/InputTap",
+    "x": 750,
+    "y": 2040,
+    "customContextDataKey": {
+    },
+    "id": "A-85a8e717-f5c2-4e98-b02a-fc7d645f66e4"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input keyevent KEYCODE_MOVE_END",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-d19f4ef5-d217-4187-8024-c62b32506c7b"
+  }, {
+    "@type": "type.googleapis.com/InputText",
+    "text": "喵",
+    "customContextDataKey": {
+    },
+    "id": "A-729ccc0d-9a68-474e-933a-136cacdd6bb7"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input keyevent 4",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-a6d0fece-5dbb-469f-acdf-6bd8764a0e62"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "150",
+    "customContextDataKey": {
+    },
+    "id": "A-d9f09365-3ce0-4880-bc59-26324bf8e886"
+  }, {
+    "@type": "type.googleapis.com/InputTap",
+    "x": 1030,
+    "y": 2048,
+    "customContextDataKey": {
+    },
+    "id": "A-4d8c79e3-c054-49ed-a805-ad33aaca9c21"
+  }],
+  "id": "rule-a6250875-68e5-4022-9ec0-6bbe85c4f674",
+  "lastUpdateTime": "1696352966446",
+  "createTime": "1696351468830",
+  "author": {
+    "name": "lanyi233"
+  },
+  "title": "全自动喵喵尾",
+  "description": "长按右下角之后松手以发送",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-53812f43-3822-4ed6-9c1a-dc63563c564a"
+}
+###------###
+{"type":"rule"}

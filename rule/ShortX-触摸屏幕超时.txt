@@ -1,0 +1,130 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppProcessStarted",
+    "processName": [{
+      "processName": "com.game2048"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "填写包名即可",
+    "id": "F-78477ffc-457b-4dad-9c1a-13ff17fe3853"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-4e618c38-4e84-4c77-9cc9-fd4c24cb3025"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "上次点击屏幕时间",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-25e8c371-2cc1-4129-8c8b-09a6c5c46070"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgs": [{
+        "pkgName": "com.game2048"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-443884d7-a686-4519-816e-6f31d677eba6"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo $(($(dumpsys input | sed -rn \"/RecentQueue:/ n;/.*age\u003d([0-9]*).*/ {s//\\1/p,q}\")/1000))",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut"
+        }, {
+          "first": "shellErr"
+        }, {
+          "first": "shellCode"
+        }]
+      },
+      "id": "A-1e80ccbc-c712-47d6-a178-3e9a3f0ba152"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "上次点击屏幕时间",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-5e9d8511-29c7-433d-8c8f-b59ee56ca8fb"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "varName": "上次点击屏幕时间",
+        "payload": {
+          "value": "15"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-2a6f575f-d42c-41c9-86e0-92c6c97be4a6"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StopAppByPkg",
+        "pkgAndUsers": [{
+          "first": "{pkgName}",
+          "second": "0"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-20b2b3cc-8449-4a50-bf44-ef3fa8691034"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "id": "A-8a0b95a5-5ab2-436a-9f5a-f4ddc815d1e5"
+      }, {
+        "@type": "type.googleapis.com/SleepScreen",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-6370e65a-442b-4b89-80dc-187459ee3ffa"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-b4222c90-1a89-4f8b-9511-18adee3f0517"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "超时动作\n默认20秒",
+      "id": "A-f65bf254-6ff6-4a1c-a45a-520e37e0880a"
+    }],
+    "delay": 10000,
+    "customContextDataKey": {
+    },
+    "note": "循环条件改成自己需要的应用",
+    "id": "A-b72398e2-04b9-4a4f-813e-b935fd3bf26e"
+  }],
+  "id": "rule-ece94269-8400-43b4-a4a6-8a06a9d89692",
+  "lastUpdateTime": "1704338358678",
+  "createTime": "1704335499100",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "触摸屏幕超时",
+  "description": "距离上次触摸屏幕的时间，超时默认20秒，更改请到循环动作里的比较局部变量改。",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-dbdb9d62-b2c4-4d56-9ba8-3e7ec3bb3fda"
+}
+###------###
+{"type":"rule"}

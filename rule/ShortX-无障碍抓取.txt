@@ -1,0 +1,60 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemSettingsChanged",
+    "urlAndExpectedValueRegex": {
+      "first": "content://settings/secure/enabled_accessibility_services",
+      "second": "[a-zA-Z0-9.:_/]+"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-70bd8317-c543-4014-ba20-6ed0345b958f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制URL",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{settingsUrl}",
+      "customContextDataKey": {
+      },
+      "id": "A-69371aaf-6f97-4f64-8d6d-b63dd60c8620"
+    }],
+    "negative": "复制值",
+    "onNegative": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{settingsValue}",
+      "customContextDataKey": {
+      },
+      "id": "A-90cd92eb-c1d0-496e-9609-d268b0e6239b"
+    }],
+    "neutral": "复制命令",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "settings put secure enabled_accessibility_services {settingsValue}",
+      "customContextDataKey": {
+      },
+      "id": "A-f6779bd2-d092-4d8e-9a20-ee2de51b9608"
+    }],
+    "title": "{settingsUrl}",
+    "message": "{settingsValue}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-edda5756-d5e7-4211-ae59-cb0583e1fe63"
+  }],
+  "id": "SHARE-rule-f41dfe02-eb8e-49ea-a7f2-13074ea82a1f",
+  "lastUpdateTime": "1720276929144",
+  "createTime": "1720276244789",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "无障碍抓取",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-d573cc6e-8037-4162-bfee-979024ca9771"
+}
+###------###
+{"type":"rule"}

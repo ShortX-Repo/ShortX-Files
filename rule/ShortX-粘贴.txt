@@ -1,0 +1,46 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "RightAll",
+    "gesture": "SwipeFromTop",
+    "customContextDataKey": {
+    },
+    "id": "F-11a4a855-1138-4879-812c-5e5b0dd547f9"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireIMEVisibility",
+      "isShown": true,
+      "customContextDataKey": {
+      },
+      "id": "C-8a5ee256-4d5e-4a7f-9b25-2311ad7d274a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/PerformContextMenuAction",
+      "action": "ContextMenuAction_Paste",
+      "customContextDataKey": {
+      },
+      "id": "A-1874bfa2-7cb7-4f35-a146-bebfc0a4cc11"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-dcb3c20c-5db8-44c5-af54-2f5bd28e5674"
+  }],
+  "id": "SHARE-rule-7ba26c91-9a6d-4d5e-bbe7-9dfe086513b8",
+  "lastUpdateTime": "1753742506816",
+  "createTime": "1753239400111",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "粘贴",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

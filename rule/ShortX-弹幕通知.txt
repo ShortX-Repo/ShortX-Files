@@ -1,0 +1,46 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }, {
+        "pkgName": "com.tencent.mm",
+        "userId": 999
+      }, {
+        "pkgName": "com.android.mms"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-11e60fd5-7159-444c-af8e-4957846f899b"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-a40f2a6c-ae53-4ec2-a51a-a7be4ba156f1"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{title}\n{contentText}",
+    "icon": "app://{pkgName}",
+    "customContextDataKey": {
+    }
+  }],
+  "id": "Prebuilt-0",
+  "lastUpdateTime": "1697887554317",
+  "createTime": "1685154474232",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "弹幕通知",
+  "description": "有新通知时，弹幕提示",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}

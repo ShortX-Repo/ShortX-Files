@@ -1,0 +1,169 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "title": "您的外卖订单正在进行中",
+      "contentText": "您可前往订单详情页查看具体进展",
+      "apps": [{
+        "pkgName": "com.sankuai.meituan"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-3ba201aa-29cc-4b85-9db4-22e67e6f09ee"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "您的外卖订单正在进行中",
+      "contentText": "您可前往订单详情页查看具体进展",
+      "apps": [{
+        "pkgName": "com.sankuai.meituan"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-9655625d-50a8-413f-8ff3-8fc4cfa35260"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys notification --noredact | awk \u0027/pkg\u003dcom.sankuai.meituan/,/miui.focus.param/ {if ($0 ~ /miui.focus.param/) print $0}\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-fc1219f7-4159-41ba-aed4-a9e614f63646"
+  }, {
+    "@type": "type.googleapis.com/MatchRegex",
+    "string": "{shellOut}",
+    "regex": "\"title\":\"(.*?)\"",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "A-e6e2c0b6-9374-45c6-846c-607a84eff4bd"
+  }, {
+    "@type": "type.googleapis.com/ReplaceRegex",
+    "string": "{matchResult}",
+    "regex": "\"title\":\"|\"|预计",
+    "customContextDataKey": {
+    },
+    "id": "A-54d39b4c-6325-4b3e-8d96-68e6a79bf7a3"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "Contains",
+        "varName": "replaceResult",
+        "payload": {
+          "value": "已放入"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-c69bad35-c42d-49be-9287-cea1a21bd888"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "已放入外卖柜",
+        "icon": "app://com.sankuai.meituan",
+        "clickAction": [{
+          "@type": "type.googleapis.com/ClickNotification",
+          "notification": {
+            "title": "您的外卖订单正在进行中",
+            "contentText": "您可前往订单详情页查看具体进展",
+            "apps": [{
+              "pkgName": "com.sankuai.meituan"
+            }]
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+        }],
+        "longClickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-19f40b78-e789-4348-ae69-a76e91403be6"
+      }],
+      "description": "外卖柜",
+      "id": "Case-4e0acc94-e330-4cef-ab25-4a14b19c9406",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/True",
+        "customContextDataKey": {
+        },
+        "id": "C-f0777ad2-4edd-4ce2-9bfd-e5e073605ce4"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "{replaceResult}",
+        "icon": "app://com.sankuai.meituan",
+        "clickAction": [{
+          "@type": "type.googleapis.com/ClickNotification",
+          "notification": {
+            "title": "您的外卖订单正在进行中",
+            "contentText": "您可前往订单详情页查看具体进展",
+            "apps": [{
+              "pkgName": "com.sankuai.meituan"
+            }]
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-c30c7c14-d5ce-4598-8ad1-5df75ecedfe7"
+        }],
+        "longClickAction": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-1c971115-7dd6-44e5-a6ba-6f1422d349bf"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-19f40b78-e789-4348-ae69-a76e91403be6"
+      }],
+      "description": "普通",
+      "id": "Case-37114caa-ae42-4a53-98e8-fdc9bb5d153e"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-17179c6d-e3ef-41e2-aaa6-8536770c5f8d"
+  }],
+  "id": "SHARE-rule-68818343-5c1f-4615-ae24-32e71fa12d38",
+  "lastUpdateTime": "1730266448320",
+  "createTime": "1730260054534",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "美团焦点通知流体云",
+  "description": "显示外卖进度流体云",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/NotificationRemoved",
+      "record": {
+        "title": "您的外卖订单正在进行中",
+        "contentText": "您可前往订单详情页查看具体进展",
+        "apps": [{
+          "pkgName": "com.sankuai.meituan"
+        }]
+      },
+      "customContextDataKey": {
+      },
+      "id": "F-0b4aca8f-fd77-4ad1-8714-226dd9d079a0"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideStatusBarClip",
+      "customContextDataKey": {
+      },
+      "id": "A-93874352-37e8-4f7a-808e-3293484c6bd8"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

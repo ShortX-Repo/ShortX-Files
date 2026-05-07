@@ -1,0 +1,910 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+    },
+    "end": {
+      "hour": 6
+    },
+    "repeat": {
+      "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "1800000"
+    },
+    "customContextDataKey": {
+    },
+    "note": "默认每天 00:00 ～6:00 慢充",
+    "id": "F-f12eea7c-a7a0-44b2-a6de-8cf8bac12265"
+  }, {
+    "@type": "type.googleapis.com/ChargerPlug",
+    "tag": "充电器插入",
+    "customContextDataKey": {
+    },
+    "note": "充电器插入",
+    "id": "F-ebf457b4-996e-4ae6-9cfe-cd8b6305213f"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 100,
+    "tag": "电量1",
+    "customContextDataKey": {
+    },
+    "note": "100 电量提醒以及停充",
+    "id": "F-b4426d40-5ed7-445a-a2f6-f3151a9cfa64"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 20,
+    "tag": "电量2",
+    "customContextDataKey": {
+    },
+    "note": "低电量提醒 级别 2",
+    "id": "F-ddd5f77f-ec0d-4549-b86b-15b38207a89f"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 10,
+    "tag": "电量3",
+    "customContextDataKey": {
+    },
+    "note": "低电量提醒 级别 2",
+    "id": "F-2d4b8195-4dfd-49b3-bcc0-f0ff7ea3f413"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 5,
+    "tag": "电量4",
+    "customContextDataKey": {
+    },
+    "note": "低电量提醒 级别 1",
+    "id": "F-2cebeeca-d82c-43ac-9ea8-a33a7fe1a31f"
+  }, {
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "level": 89,
+    "tag": "恢复充电",
+    "customContextDataKey": {
+    },
+    "note": "复充电量值",
+    "id": "F-36888d65-e706-4c43-9d42-39ab66efaec2"
+  }, {
+    "@type": "type.googleapis.com/BatteryTemperatureChanged",
+    "temp": 45.0,
+    "tag": "高温",
+    "customContextDataKey": {
+    },
+    "note": "高温触发值",
+    "id": "F-a2d25e3d-9f6b-408a-b41c-a1df68785de1"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-e1506303-125e-4dd1-84c6-a64e3de7e8be"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-49ff3bb9-0fea-4636-b31d-b239d13efec7"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "最小电流值",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c992227e-5826-4d97-8dc0-79e8dc64506e"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "最大电流值",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-24ac55cc-3c00-48e1-91a3-5ff76eb2eae3"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "停充电流值",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-050648c2-7d2b-4563-ba6b-3f5f79ed75dd"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "高温电流值",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c44ffc4d-953b-4faa-9a90-49c0fddbee48"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "最小电流值",
+      "valueAsString": "1000000",
+      "customContextDataKey": {
+      },
+      "note": "慢充电流单位为微安\n1A\u003d1000mA\u003d1000000μA",
+      "id": "A-2be19c13-9a13-4e16-b86f-8de23aa2b794"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "最大电流值",
+      "valueAsString": "5500000",
+      "customContextDataKey": {
+      },
+      "note": "快充电流单位为微安\n5.5A\u003d5500mA\u003d5500000μA",
+      "id": "A-8debdf0d-a7e0-4c4d-b489-a65891247c0b"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "停充电流值",
+      "valueAsString": "100000",
+      "customContextDataKey": {
+      },
+      "note": "电流单位为微安\n0.1A\u003d100mA\u003d100000μA",
+      "id": "A-d7f4ba67-f978-42a3-ab87-0fc39fe2d982"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "高温电流值",
+      "valueAsString": "500000",
+      "customContextDataKey": {
+      },
+      "note": "电流单位为微安\n0.5A\u003d500mA\u003d500000μA",
+      "id": "A-8b11dcc5-cf3e-4135-b03e-50f4cb8fdd81"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "你可以配置的 限制电流值",
+    "id": "A-01ef765b-f2b9-4000-9619-b59d54cc9672"
+  }, {
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "calendar-check-line",
+    "customContextDataKey": {
+    },
+    "note": "开始执行",
+    "id": "A-19c7155e-0a3c-4874-8a8e-7ce11d243267"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-72a0ddb8-f5ba-4b63-bd0f-3a73952dfa67"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{batteryLevel} \u003d\u003d empty\n",
+        "customContextDataKey": {
+        },
+        "id": "C-be02692e-7990-40b1-b16a-b687f2751f68"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.os.BatteryManager;\nimport java.util.HashMap;\nimport java.util.Map;\nimport android.content.Intent;\nimport android.content.IntentFilter;\nIntentFilter ifilter \u003d new IntentFilter(Intent.ACTION_BATTERY_CHANGED);\nIntent batteryStatus \u003d context.registerReceiver(null, ifilter);\nint level \u003d batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);\nint scale \u003d batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);\n// 计算电量百分比\nint batteryPct \u003d (int) ((level / (float) scale) * 100);\n",
+        "customContextDataKey": {
+        },
+        "id": "A-517afb68-d53f-478c-91ab-51900d989131"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "batteryLevel",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-650bff18-e478-412b-98fa-f9529555b046"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "batteryLevel",
+        "valueAsString": "{mvelRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-b84de962-b94b-42c6-8194-a55799a97789"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "batteryLevel",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-e8d3a5e9-42d4-4480-9b38-05926671fbad"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "batteryLevel",
+        "valueAsString": "{batteryLevel}",
+        "customContextDataKey": {
+        },
+        "id": "A-6b6f9b85-27f5-44cd-8067-a38e8bfe13c8"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "mvel获取电量",
+      "id": "A-e6d8600e-acc2-4042-aafd-be0ea63c6b2d"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{batteryTemperature} \u003d\u003d empty\n",
+        "customContextDataKey": {
+        },
+        "id": "C-be02692e-7990-40b1-b16a-b687f2751f68"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import android.content.Intent;\nimport android.content.IntentFilter;\nimport android.os.BatteryManager;\nimport java.util.HashMap;\nimport java.util.Map;\n\n// 获取电池温度\nIntentFilter ifilter \u003d new IntentFilter(Intent.ACTION_BATTERY_CHANGED);\nIntent batteryStatus \u003d context.registerReceiver(null, ifilter);\nint temperature \u003d batteryStatus.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);\ntemperature / 10\n",
+        "customContextDataKey": {
+        },
+        "id": "A-517afb68-d53f-478c-91ab-51900d989131"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "batteryTemperature",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-650bff18-e478-412b-98fa-f9529555b046"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "batteryTemperature",
+        "valueAsString": "{mvelRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-b84de962-b94b-42c6-8194-a55799a97789"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "batteryTemperature",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-e8d3a5e9-42d4-4480-9b38-05926671fbad"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "batteryTemperature",
+        "valueAsString": "{batteryTemperature}",
+        "customContextDataKey": {
+        },
+        "id": "A-6b6f9b85-27f5-44cd-8067-a38e8bfe13c8"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "mvel获取温度",
+      "id": "A-dea2970d-f1ac-4341-9ed2-ebacb161dcc6"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "当前 shortx 无法获取的值",
+    "id": "A-195a5686-91e7-49e0-8fa4-de5e9b8330ee"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "恢复充电",
+      "customContextDataKey": {
+      },
+      "id": "C-7d946162-2f55-45c5-86c9-aa9af9cce73a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/ChargeState",
+        "customContextDataKey": {
+        },
+        "id": "C-d67e7b9e-5711-49e3-a6c4-8454863528a0"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "恢复充电",
+        "customContextDataKey": {
+        },
+        "id": "A-1c023175-452d-4be5-aa92-574388e0fee9"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo 0 \u003e /sys/class/power_supply/battery/input_suspend\n",
+        "customContextDataKey": {
+        },
+        "id": "A-4aa0dfc6-f5b9-4fd2-a71f-68f176b306c1"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "电量低于90\n恢复充电",
+      "id": "A-79e4be65-8a8f-4d0f-894c-b0ef4f3cdb2b"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "恢复充电",
+    "id": "A-d85aa19e-fe8d-4039-8c8f-2614d2fc10f6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-8bb24ae8-8678-4c43-91f8-9db0818df249"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "高温",
+      "customContextDataKey": {
+      },
+      "id": "C-96ac7bab-c738-466a-808f-543586fa6cef"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1698894814317",
+      "title": "(,,•́ . •̀,,)",
+      "message": "温度太高了，帮你降低点充电速度哦（｀Δ´）！",
+      "smallIcon": "battery-low-line",
+      "customContextDataKey": {
+      },
+      "id": "A-7aeecf52-9fde-46c8-83cc-2296ba7a00f4"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "current\u003dlocalVarOf$高温电流值\nchmod 0777 /sys/class/power_supply/usb/boost_current\nchmod 0777 /sys/class/power_supply/battery/input_current_limited\necho \u00270\u0027 \u003e /sys/class/power_supply/battery/input_current_limited\necho \u00271\u0027 \u003e /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/battery/input_current_limited\n# 以下命令改自@coolapk 代号10007的温控模块\nfind /sys -iname \"*_charge_level\" -o -iname \"boost_current\" -o -iname \"input_current_settled\" -o -iname \"hw_current_max\" -o -iname \"pd_current_max\" -o -iname \"constant_charge_current_max\"  -o -iname \"charge_current\"  -o -iname \"restricted_current\" -o -iname \"current_max\" -o -iname \"thermal_input_current\" -o -iname \"fast_charge_current\" -o -iname \"constant_charge_current\" -o -iname \"hw_current\" -o -iname \"pd_current\"  -o -iname \"default_.*_icl_ma\" -o -iname \"dcp_max_current\" -o -iname \"hvdcp_max_current\" -o -iname \"ctm_current_max\" -o -iname \"sdp_current_max\" -o -iname \"max_current\" -o -iname \"input_current\" 2\u003e /dev/null | while read i ;do\nlocal file\u003d\"$i\"\n\ttest -f \"$file\" \u0026\u0026 {\n\t\tlocal value\u003d\"$(cat $file)\"\n\t\techo \"存在 $file 值：$value \"\n\t}\ntest \"$(echo \"$current\")\" \u003d\u003d \"\" \u0026\u0026 continue\ntest -f \"${i}\" \u0026\u0026 {\n\tchmod 0777 \"${i}\"\n\t\techo \"${current}\" \u003e \"${i}\"\n  chmod 0444 \"${i}\"\n\t}\n\tdone\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-01154811-e657-4a35-9a50-f6e078fe1981"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.content.Intent;\nimport android.content.IntentFilter;\nimport android.os.BatteryManager;\nimport java.util.HashMap;\nimport java.util.Map;\n\n// 获取电池温度\nIntentFilter ifilter \u003d new IntentFilter(Intent.ACTION_BATTERY_CHANGED);\nIntent batteryStatus \u003d context.registerReceiver(null, ifilter);\nint temperature \u003d batteryStatus.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);\ntemperature / 10 \u003c 45",
+        "customContextDataKey": {
+        },
+        "id": "C-f94c9ba0-1e42-47c1-9471-115190a9ed3d"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "直到低于高温电流",
+      "id": "A-ef83a578-9d35-4d19-8388-dfd035759fd6"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "current\u003dlocalVarOf$最大电流值\nchmod 0777 /sys/class/power_supply/usb/boost_current\nchmod 0777 /sys/class/power_supply/battery/input_current_limited\necho \u00270\u0027 \u003e /sys/class/power_supply/battery/input_current_limited\necho \u00271\u0027 \u003e /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/battery/input_current_limited\n# 以下命令改自@coolapk 代号10007的温控模块\nfind /sys -iname \"*_charge_level\" -o -iname \"boost_current\" -o -iname \"input_current_settled\" -o -iname \"hw_current_max\" -o -iname \"pd_current_max\" -o -iname \"constant_charge_current_max\"  -o -iname \"charge_current\"  -o -iname \"restricted_current\" -o -iname \"current_max\" -o -iname \"thermal_input_current\" -o -iname \"fast_charge_current\" -o -iname \"constant_charge_current\" -o -iname \"hw_current\" -o -iname \"pd_current\"  -o -iname \"default_.*_icl_ma\" -o -iname \"dcp_max_current\" -o -iname \"hvdcp_max_current\" -o -iname \"ctm_current_max\" -o -iname \"sdp_current_max\" -o -iname \"max_current\" -o -iname \"input_current\" 2\u003e /dev/null | while read i ;do\nlocal file\u003d\"$i\"\n\ttest -f \"$file\" \u0026\u0026 {\n\t\tlocal value\u003d\"$(cat $file)\"\n\t\techo \"存在 $file 值：$value \"\n\t}\ntest \"$(echo \"$current\")\" \u003d\u003d \"\" \u0026\u0026 continue\ntest -f \"${i}\" \u0026\u0026 {\n\tchmod 0777 \"${i}\"\n\t\techo \"${current}\" \u003e \"${i}\"\n  chmod 0444 \"${i}\"\n\t}\n\tdone\n",
+      "customContextDataKey": {
+      },
+      "id": "A-bb429412-cfc0-4e8d-8bf4-f67a3385ea61"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-73aed887-79bb-473f-bf76-830f405093ee"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "高温电流",
+    "id": "A-76f81c3d-9784-4856-a4be-ae47a54caea0"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/TimeInRange",
+      "range": {
+        "start": {
+        },
+        "end": {
+          "hour": 6
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4f02acfd-519a-4081-826f-d7d79aa1575f"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-4456bb76-efee-4763-b517-89737d7dbf5d"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-fe1550c5-2539-473f-82fb-d368153cb81e"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "慢充",
+      "customContextDataKey": {
+      },
+      "id": "A-e111a86e-a672-4351-8fe0-92abfcdd17af"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "current\u003dlocalVarOf$最小电流值\nchmod 0777 /sys/class/power_supply/usb/boost_current\nchmod 0777 /sys/class/power_supply/battery/input_current_limited\necho \u00270\u0027 \u003e /sys/class/power_supply/battery/input_current_limited\necho \u00271\u0027 \u003e /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/battery/input_current_limited\n# 以下命令改自@coolapk 代号10007的温控模块\nfind /sys -iname \"*_charge_level\" -o -iname \"boost_current\" -o -iname \"input_current_settled\" -o -iname \"hw_current_max\" -o -iname \"pd_current_max\" -o -iname \"constant_charge_current_max\"  -o -iname \"charge_current\"  -o -iname \"restricted_current\" -o -iname \"current_max\" -o -iname \"thermal_input_current\" -o -iname \"fast_charge_current\" -o -iname \"constant_charge_current\" -o -iname \"hw_current\" -o -iname \"pd_current\"  -o -iname \"default_.*_icl_ma\" -o -iname \"dcp_max_current\" -o -iname \"hvdcp_max_current\" -o -iname \"ctm_current_max\" -o -iname \"sdp_current_max\" -o -iname \"max_current\" -o -iname \"input_current\" 2\u003e /dev/null | while read i ;do\nlocal file\u003d\"$i\"\n\ttest -f \"$file\" \u0026\u0026 {\n\t\tlocal value\u003d\"$(cat $file)\"\n\t\techo \"存在 $file 值：$value \"\n\t}\ntest \"$(echo \"$current\")\" \u003d\u003d \"\" \u0026\u0026 continue\ntest -f \"${i}\" \u0026\u0026 {\n\tchmod 0777 \"${i}\"\n\t\techo \"${current}\" \u003e \"${i}\"\n  chmod 0444 \"${i}\"\n\t}\n\tdone\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "note": "慢充",
+      "id": "A-524245a2-fd60-4fad-b03a-e0ad0ed343fb"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-b7ee400b-7d01-4350-ae82-0b436d381955"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "指定时间段 慢充",
+    "id": "A-35b3378a-083f-4133-89b0-075af0a8f96a"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-a8e26d70-500e-40e8-961d-3b96e9b55d49"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "电量2",
+      "customContextDataKey": {
+      },
+      "id": "C-ab58f9d5-ec57-4a05-b6d1-f07aa90f1a28"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "电量3",
+      "customContextDataKey": {
+      },
+      "id": "C-4ac6307d-4ffd-4e7d-8049-29bf1214d4c5"
+    }],
+    "IfCondOp": "MVEL",
+    "IfCondOpPayload": {
+      "expression": "c3 \u0026\u0026 (c1 || c2)"
+    },
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-f2a6056a-918f-44d1-b67b-a27d9bba64a2"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1698894814317",
+      "title": "₍₍ (̨̡ ‾᷄ᗣ‾᷅ )̧̢ ₎₎",
+      "message": "没电啦，快充电！",
+      "isImportant": true,
+      "smallIcon": "battery-low-line",
+      "vibrate": true,
+      "sound": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-213212fc-cde4-4631-bbe7-5f20f49ad762"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "没电啦，快充电（｀Δ´）！\n当前电量:localVarOf$batteryLevel%",
+      "customContextDataKey": {
+      },
+      "id": "A-2056ee9a-78ce-4084-bd2f-081806fc8e6f"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "通知 级别 2",
+    "id": "A-dcdd225d-3e52-48fe-a0d6-38025b7282c2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/BatteryPercent",
+      "value": 5,
+      "op": "IntEqualTo",
+      "customContextDataKey": {
+      },
+      "id": "C-5a885558-9360-4395-a533-288749b3a0c8"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-7fed6113-b8ba-4611-aea3-1560ae700f47"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-311a874a-7e60-4b89-995e-c339941d6421"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "真的要没电啦！˃̣̣̥᷄⌓˂̣̣̥᷅\n当前电量:localVarOf$batteryLevel%",
+      "customContextDataKey": {
+      },
+      "id": "A-7af26b46-9d57-43be-b9b3-6d2c0503c95e"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1698894814317",
+      "title": "(,,•́ . •̀,,)",
+      "message": "真的要没电啦！",
+      "isImportant": true,
+      "smallIcon": "battery-low-line",
+      "vibrate": true,
+      "sound": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-fd13a209-ce38-4240-9c5c-58763ae2d8d6"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "通知 级别 1",
+    "id": "A-854705cc-fd14-4b8b-9c45-d8183502cec9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/PlugState",
+      "customContextDataKey": {
+      },
+      "id": "C-9a96579c-1608-4574-a976-060a2134d31d"
+    }, {
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-7840b6bb-77de-4d77-8935-b64ad623e8ec"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "电量1",
+      "customContextDataKey": {
+      },
+      "id": "C-a4fd9a04-02d5-4d2a-abdb-ef09b58f3c77"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-32845dd2-7fea-4e50-8854-a44d60c5f4a7"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1698894814317",
+      "title": "٩(˃̶͈̀௰˂̶͈́)و",
+      "message": "好耶！已经充满电啦，要不要再涓流会呢？(◔ิω◔ิ)",
+      "isImportant": true,
+      "smallIcon": "battery-charge-fill",
+      "vibrate": true,
+      "sound": true,
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-899ff42b-63ae-41e1-ad37-b5346aca59d4"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "好耶！已经充满电啦，要不要再涓流会呢？٩(˃̶͈̀௰˂̶͈́)و",
+      "customContextDataKey": {
+      },
+      "id": "A-30bbcf21-e2b3-4ca7-8c13-1c6486fb13b7"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "2000",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-866756b5-babd-40b7-b4b3-0f52f2a42c69"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-f9ff6687-9598-4e6a-b29c-ca5dccf82236"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "电量 100 通知",
+    "id": "A-bef33da2-7aa7-4092-aa2c-113c82ec2eba"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/BatteryPercent",
+      "value": 100,
+      "op": "IntEqualTo",
+      "customContextDataKey": {
+      },
+      "id": "C-9d68ffab-d502-4a19-9f9d-188ea9c60f45"
+    }, {
+      "@type": "type.googleapis.com/PlugState",
+      "type": "PlugType_PlugAC",
+      "customContextDataKey": {
+      },
+      "id": "C-3e160c79-5e3d-4a7a-9a67-70790ec09980"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "2000",
+      "customContextDataKey": {
+      },
+      "id": "A-ef1e288d-d250-48aa-99c0-08a976abf0c2"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.content.Context;\nimport android.os.BatteryManager;\nBatteryManager batteryManager \u003d (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);\nint currentMicroamperes \u003d batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);\nint absCurrentMicroamperes \u003d Math.abs(currentMicroamperes);\nabsCurrentMicroamperes \u003c\u003d localVarOf$停充电流值\n",
+        "customContextDataKey": {
+        },
+        "id": "C-660c190b-b0b8-4b3a-a752-e68fb716c294"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "直到满足停充电流",
+      "id": "A-bd3cfec0-b349-49a0-bd08-25fa4c5354b6"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "import android.content.Context;\nimport android.os.BatteryManager;\nBatteryManager batteryManager \u003d (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);\nint currentMicroamperes \u003d batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);\nint absCurrentMicroamperes \u003d Math.abs(currentMicroamperes);\nabsCurrentMicroamperes \u003c\u003d localVarOf$停充电流值\n",
+        "customContextDataKey": {
+        },
+        "id": "C-eda0e01c-277b-46e5-beaf-c23979d6543b"
+      }, {
+        "@type": "type.googleapis.com/PlugState",
+        "customContextDataKey": {
+        },
+        "id": "C-606b6b5d-c901-48c5-bd81-73b2a3e8b8da"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "是否为命令停充",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "note": "by 电量提醒指令"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-f6fa8f24-8cb7-485f-b4e9-6bdb31b613ec"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "是否为命令停充",
+        "valueAsString": "true",
+        "customContextDataKey": {
+        },
+        "id": "A-bf4ae510-80e7-4ebf-a347-9549ac6190a0"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1698894814318",
+        "title": "٩(˃̶͈̀௰˂̶͈́)و",
+        "message": "好耶！彻底充满啦 ฅ₍ᐢ⸝⸝› ̫ ‹⸝⸝ᐢ₎ฅ˒˒",
+        "isImportant": true,
+        "smallIcon": "battery-charge-fill",
+        "vibrate": true,
+        "sound": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-96453d3d-faf4-4726-9faf-0e211238e1b1"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "好耶！彻底充满啦 ฅ₍ᐢ⸝⸝› ̫ ‹⸝⸝ᐢ₎ฅ˒˒",
+        "customContextDataKey": {
+        },
+        "id": "A-63f8d9de-9c65-4348-8ecd-5acc1479c775"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo 1 \u003e /sys/class/power_supply/battery/input_suspend\n",
+        "customContextDataKey": {
+        },
+        "id": "A-8ccd05ba-ea8c-466c-acc9-a210f2be9090"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "customContextDataKey": {
+        },
+        "id": "A-efc97dd7-69f5-4a75-832a-86e20f4367cc"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "停充",
+      "id": "A-6c7b659b-4485-4bca-86cf-de2f35102ce5"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "停充",
+    "id": "A-cec34073-93bc-44ec-833e-c6001e7f0434"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "requireIsCharge": true,
+      "customContextDataKey": {
+      },
+      "id": "C-be227732-ecfa-45ce-bcb9-a122204e0c21"
+    }, {
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "充电器插入",
+      "customContextDataKey": {
+      },
+      "id": "C-0fc706a8-7e8c-4df6-a6b4-a45df75dc43e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "3500",
+      "useAlarm": true,
+      "customContextDataKey": {
+      },
+      "id": "A-b62f15b0-0d22-428c-bda1-35e737af6a27"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1698894814317",
+      "title": "೭(˵ˉ̴͒ꇴˉ̴͒˵)౨",
+      "message": "好耶！开始充电啦",
+      "smallIcon": "battery-charge-line",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-3bf8cf1b-46b2-40c1-8707-73090762c8b1"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "开启满血快充",
+      "customContextDataKey": {
+      },
+      "id": "A-2664990e-9ed5-4ec3-a0d7-99c5113beccd"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "current\u003dlocalVarOf$最大电流值\nchmod 0777 /sys/class/power_supply/usb/boost_current\nchmod 0777 /sys/class/power_supply/battery/input_current_limited\necho \u00270\u0027 \u003e /sys/class/power_supply/battery/input_current_limited\necho \u00271\u0027 \u003e /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/usb/boost_current\nchmod 0444 /sys/class/power_supply/battery/input_current_limited\n# 以下命令改自@coolapk 代号10007的温控模块\nfind /sys -iname \"*_charge_level\" -o -iname \"boost_current\" -o -iname \"input_current_settled\" -o -iname \"hw_current_max\" -o -iname \"pd_current_max\" -o -iname \"constant_charge_current_max\"  -o -iname \"charge_current\"  -o -iname \"restricted_current\" -o -iname \"current_max\" -o -iname \"thermal_input_current\" -o -iname \"fast_charge_current\" -o -iname \"constant_charge_current\" -o -iname \"hw_current\" -o -iname \"pd_current\"  -o -iname \"default_.*_icl_ma\" -o -iname \"dcp_max_current\" -o -iname \"hvdcp_max_current\" -o -iname \"ctm_current_max\" -o -iname \"sdp_current_max\" -o -iname \"max_current\" -o -iname \"input_current\" 2\u003e /dev/null | while read i ;do\nlocal file\u003d\"$i\"\n\ttest -f \"$file\" \u0026\u0026 {\n\t\tlocal value\u003d\"$(cat $file)\"\n\t\techo \"存在 $file 值：$value \"\n\t}\ntest \"$(echo \"$current\")\" \u003d\u003d \"\" \u0026\u0026 continue\ntest -f \"${i}\" \u0026\u0026 {\n\tchmod 0777 \"${i}\"\n\t\techo \"${current}\" \u003e \"${i}\"\n  chmod 0444 \"${i}\"\n\t}\n\tdone\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-7fab8c3e-8f7d-46d5-a4bf-271e8f4284f9"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "插入快充",
+    "id": "A-ebc2d604-acfc-4339-8ac8-73f60f7e65fd"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10000",
+    "useAlarm": true,
+    "customContextDataKey": {
+    },
+    "note": "延迟10s后移除通知",
+    "id": "A-9867a51c-30c3-4960-a9e1-ffae9d0fd7e1"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotification",
+    "notification": {
+      "tag": "tag-1698894814317"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-0ec7bbfc-03e7-4776-b28d-47d0e81cb210"
+  }],
+  "id": "rule-5b688227-b304-4f6e-9514-233109347a16",
+  "lastUpdateTime": "1703657846608",
+  "createTime": "1698893899802",
+  "author": {
+    "name": "cong"
+  },
+  "title": "电量提醒/电流控制 v1.1",
+  "description": "2023.12.27",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "curl --max-time 1 -s \"https://v1.hitokoto.cn/?encode\u003dtext\u0026max_length\u003d17\"",
+      "customContextDataKey": {
+      },
+      "id": "A-bfa6ace6-911f-4ade-bbaa-c7483f57d8a7"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "继续",
+      "negative": "查看电流文件值",
+      "onNegative": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "正在获取中...",
+        "customContextDataKey": {
+        },
+        "id": "A-dc484887-478c-4cee-80df-db5e3a49648d"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "# 以下命令改自@coolapk 代号10007的温控模块\nfind /sys -iname \"*_charge_level\" -o -iname \"boost_current\" -o -iname \"input_current_settled\" -o -iname \"hw_current_max\" -o -iname \"pd_current_max\" -o -iname \"constant_charge_current_max\"  -o -iname \"charge_current\"  -o -iname \"restricted_current\" -o -iname \"current_max\" -o -iname \"thermal_input_current\" -o -iname \"fast_charge_current\" -o -iname \"constant_charge_current\" -o -iname \"hw_current\" -o -iname \"pd_current\"  -o -iname \"default_.*_icl_ma\" -o -iname \"dcp_max_current\" -o -iname \"hvdcp_max_current\" -o -iname \"ctm_current_max\" -o -iname \"sdp_current_max\" -o -iname \"max_current\" -o -iname \"input_current\" 2\u003e /dev/null | while read i ;do\nlocal file\u003d\"$i\"\n\ttest -f \"$file\" \u0026\u0026 {\n\t\tlocal value\u003d\"$(cat $file)\"\n\t\techo \"存在 $file 值：$value\"\n\t}\ndone\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-f62f3912-7cb3-4971-8be3-d80efc0a4c34"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "String yourString \u003d {shellOut};\nyourString \u003d yourString.replaceAll(\", \", \"\\n\");\n",
+        "customContextDataKey": {
+        },
+        "id": "A-f3333e35-c123-424f-9564-ad46ece1d823"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "title": "电流文件值",
+        "message": "{mvelRet}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-052b3629-85e1-4406-bc7d-bc971ca3a30c"
+      }],
+      "neutral": "查看电池信息",
+      "onNeutral": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys battery | sed -e \u0027s/AC powered/交流 电源 供电/\u0027 -e \u0027s/USB powered/USB供电/\u0027 -e \u0027s/Wireless powered/无线供电/\u0027 -e \u0027s/Max charging current/最大 充电电流/\u0027 -e \u0027s/Max charging voltage/最大充电电压/\u0027 -e \u0027s/Charge counter/充电计数器/\u0027 -e \u0027s/status/状态/\u0027 -e \u0027s/health/健康状况/\u0027 -e \u0027s/present/存在/\u0027 -e \u0027s/level/电量/\u0027 -e \u0027s/scale/比例/\u0027 -e \u0027s/voltage/电压/\u0027 -e \u0027s/temperature/温度/\u0027 -e \u0027s/technology/技术/\u0027 | sed \u00271d\u0027 | sed \u0027s/^[ \\t]*//\u0027\n",
+        "customContextDataKey": {
+        },
+        "id": "A-8573f801-fc0b-4a4f-aa08-6964b3e2a450"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "String yourString \u003d {shellOut};\nyourString \u003d yourString.replaceAll(\", \", \"\\n\");\n",
+        "customContextDataKey": {
+        },
+        "id": "A-ed33ed08-00ae-455b-b4ff-fab3b04970c0"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "title": "电池信息",
+        "message": "{mvelRet}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-cdd6ceb3-e61b-48c5-9060-9343e9424f24"
+      }],
+      "title": "今日一言:\n\"{shellOut}\"",
+      "message": "– 当前版本:v1.6\n– 1.6 更新说明\n停充逻辑改为死循环判断是否为停充电流\n– 默认配置 –\n当电量为100/20/10/5发送通知\n当温度达到45度调整电流\n当达到指定电流停充\n当插入充电器是更改电流\n当00点–06点时更改电流\n- 注意 -\n如果需要更改请修改触发器和动作里的配置部分",
+      "customContextDataKey": {
+      },
+      "id": "A-20b68d4a-8eca-4f6a-9dde-2ca07b1c2de1"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "是否为命令停充",
+      "customContextDataKey": {
+      },
+      "id": "A-25ad81f4-ba60-4279-b8b0-823a0d41f47a"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ChargerUnplug",
+      "customContextDataKey": {
+      },
+      "id": "F-306bc87b-d940-4021-aa04-18ce64a90cf4"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/ChargeState",
+      "customContextDataKey": {
+      },
+      "id": "C-d410f239-7a61-4829-b28b-f951d775584a"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-c6b0d8be-c50b-4746-981f-f0b804ff1dcd"
+    }]
+  },
+  "asyncMode": "AsyncMode_Sync_InRule",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

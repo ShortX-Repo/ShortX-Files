@@ -1,0 +1,53 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-376b621e-4ca7-4cef-9d4c-dc6194f9aa5f"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireMobileDataEnabled",
+    "slotId": -1,
+    "customContextDataKey": {
+    },
+    "id": "C-3c83fb42-4bee-45be-b6f9-2e899a2fefd8"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "WiFi已断开，数据已启动",
+    "customContextDataKey": {
+    },
+    "id": "A-42105133-b5af-4f37-a5b9-1f892ba982b3"
+  }],
+  "id": "rule-b005d981-0f06-4a8d-b17a-0af4df04fe9d",
+  "lastUpdateTime": "1692970158905",
+  "createTime": "1692969509032",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "网络状态变化",
+  "description": "样本",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/system/bin/sh\n\nkillall singBox\n# 禁止修改，sudoExec 不能启用！否则无法启动神秘。至少在我解决 sudo 的问题之前！\nsudoExec\u003dfalse\n# 修改为 true 自动开关飞行模式。\n# FlightMode\u003dtrue\nFlightMode\u003dfalse\n\ninfo(){\n  if [ \"$2\" \u003d true ]; then\n    echo -n \"\\033[32mINFO\\033[0m $1\"\n  else\n    echo \"\\033[32mINFO\\033[0m $1\"\n  fi\n}\n\nwarn(){\n  if [ \"$2\" \u003d \"true\" ]; then\n    echo -n \"\\033[33mWARN\\033[0m $1\"\n  else\n    echo \"\\033[33mWARN\\033[0m $1\"\n  fi\n}\n\nerror(){\n  if [ \"$2\" \u003d \"true\" ]; then\n    echo -n \"\\033[31mERROR\\033[0m $1\"\n  else\n    echo \"\\033[31mERROR\\033[0m $1\"\n  fi\n}\n\nrestart(){\n  authorizationKey\u003d\"`/data/data/com.termux/files/usr/bin/awk \u0027/authorizationKey/{print $2}\u0027 /data/adb/sfm/src/config.hjson`\"\n  info \"找到咒语: $authorizationKey 喵\"\n  info \"释放学习魔法 喵\"\n  if [ \"$FlightMode\" \u003d true ]; then\n    info \"因为未知的神秘力量，飞起来了 喵\"\n    settings put global airplane_mode_on 1 \u0026\u0026 am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true\n  fi\n  info \"\" true \u0026\u0026 curl \"127.0.0.1:23333/api/kernel\" -H \"authorization: $authorizationKey\" -H \"Content-Type: application/json\" -d \u0027{\"method\":\"stop\"}\u0027 2\u003e /dev/null \u0026\u0026 echo || echo \"八音盒没在唱歌 喵\"\n  sleep 1\n  if [ \"`ps -el | grep node`\" !\u003d \"\" ]; then\n    killall node\n  fi\n  if [ \"$FlightMode\" \u003d true ]; then\n    info \"落地了 喵\"\n    settings put global airplane_mode_on 0 \u0026\u0026 am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false\n  fi\n  /data/adb/modules/SingBox_For_Magisk/service.sh\n  if [ -d \"/data/adb/modules_update\" ]; then\n    info \"学习新魔法成功！\"\n  else\n    info \"复习魔法成功！\"\n  fi\n}\n\nTestScript(){\n  info \"\" true\n}\n\nif [ \"$SUDO_USER\" !\u003d \"\" ]; then\n  if [ \"$HOME\" \u003d \"/data/data/com.termux/files/home\" -o \"$HOME\" \u003d \"/data/data/com.termux/files/home/.suroot\" ]; then\n    error \"请不要使用 \\033[1m\\033[92msudo\\033[0m ! 也不要用 \\033[1m\\033[92msu -c\\033[0m ! 执行 su 后再执行本脚本! 喵\"\n    info \"是否需要忙你切换到 ROOT? 喵 [Y/n] \" true\n    read switchRoot\n    if [ \"$switchRoot\" !\u003d \"n\" ]; then\n      SUDO_USER\u003d\"\"\n      su --preserve-environment --mount-master\n    fi\n  elif [ \"$HOME\" \u003d \"/data/user/0/bin.mt.plus/home\" ]; then\n    error \"请使用 root 权限执行本脚本! 喵\"\n  else\n    error \"请不要使用 \\033[1m\\033[92msudo\\033[0m ! 也不要用 \\033[1m\\033[92msu -c\\033[0m ! 执行 su 后再执行本脚本! 喵\"\n  fi\nelif [ `id -u` -eq 0 -a \"$SUDO_USER\" \u003d \"\" ]; then\n  if [ -d \"/data/adb/modules_update\" ]; then\n    info \"正在学习新的魔法 喵\"\n  else\n    info \"正在复习已有魔法 喵\"\n  fi\n  restart\n  # TestScript\nelse\n  error \"需要名为 Root 的高级法杖释放学习魔法 喵\"\n  # 通过 sudoExec 禁止 Termux 中自动获取 Root 权限执行脚本。\n  if [ \"$HOME\" \u003d \"/data/data/com.termux/files/home\" -a \"$sudoExec\" \u003d true ]; then\n    info \"是否尝试获取魔杖执行？喵 [Y/n] \" true\n    read getMagicWand\n    if [ \"$getMagicWand\" !\u003d \"n\" ]; then\n      su -c sh \"$0\"\n    fi\n  fi\nfi",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut"
+        }, {
+          "first": "shellErr"
+        }, {
+          "first": "shellCode"
+        }]
+      },
+      "id": "A-628c578e-53a6-46bb-b971-3ef1c076f70f"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

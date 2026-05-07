@@ -1,0 +1,116 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "android",
+    "customContextDataKey": {
+    },
+    "id": "A-4e1b1f74-50fa-4667-b13a-0193f7a00a6f"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.os.ServiceManager);\n\nimportClass(Packages.tornaco.apps.shortx.core.proto.action.ShellCommand);\n\n// 自定义排序函数，使用语义化的变量名\nfunction customSort(firstService, secondService) {\n    // 检查两个服务名称是否包含 \u0027/\u0027\n    var firstHasSlash \u003d firstService.indexOf(\"/\") !\u003d\u003d -1;\n    var secondHasSlash \u003d secondService.indexOf(\"/\") !\u003d\u003d -1;\n\n    // 如果第一个服务名称包含 \u0027/\u0027 而第二个不包含，则第一个排在后面\n    if (firstHasSlash \u0026\u0026 !secondHasSlash) return 1;\n\n    // 如果第二个服务名称包含 \u0027/\u0027 而第一个不包含，则第二个排在后面\n    if (!firstHasSlash \u0026\u0026 secondHasSlash) return -1;\n\n    // 如果两者都包含 \u0027/\u0027 或都不包含 \u0027/\u0027，按字母顺序排序\n    return firstService.localeCompare(secondService);\n}\n\n// 优先尝试使用 ServiceManager.listServices()\nvar serviceNames \u003d [];\ntry {\n    //console.log(\"尝试使用 ServiceManager.listServices()...\");\n    var services \u003d android.os.ServiceManager.listServices();\n    if (services) {\n        serviceNames \u003d services; // ServiceManager 返回的是服务名称数组\n        //console.log(\"成功获取服务列表，使用 ServiceManager 方法\");\n    }\n} catch (e) {\n    console.log(\"ServiceManager.listServices() 失败: \" + e.toString());\n    //console.log(\"回退到 ShellCommand 方法...\");\n\n    // 执行 shell 命令 \"service list\"\n    var action \u003d ShellCommand.newBuilder().setCommand(\"service list\").build();\n    var result \u003d shortx.executeAction(action);\n\n    // 获取 shell 输出\n    var servicesresult \u003d result.contextData.get(\"shellOut\");\n    if (!servicesresult) {\n        console.log(\"错误：无法获取 shell 输出\");\n    }\n\n    // 记录原始输出以便调试\n    //console.log(\"原始 shell 输出: \" + servicesresult);\n\n    // 将输出分割成行并删除第一行\n    var serviceLines \u003d servicesresult.split(\"\\n\");\n    serviceLines.shift(); // 删除第一行\n\n    // 提取服务名称\n    for (var i \u003d 0; i \u003c serviceLines.length; i++) {\n        var serviceLine \u003d serviceLines[i].trim();\n\n        // 跳过空行\n        if (serviceLine) {\n            // 使用 Java 的 replaceAll 处理正则表达式\n            var cleanedLine \u003d serviceLine.replaceAll(\"^\\\\d+\\\\s*\", \"\");\n\n            // 提取服务名称（冒号前的部分）\n            var serviceName \u003d cleanedLine.split(\":\")[0].trim();\n            if (serviceName) {\n                serviceNames.push(serviceName);\n                console.log(\"处理行: \" + serviceLine + \" -\u003e 服务名称: \" + serviceName);\n            }\n        }\n    }\n}\n\n// 使用自定义排序函数排序服务名称\nserviceNames.sort(customSort);\n\n// 输出服务名称，连接为字符串\nvar result \u003d \"\";\nfor (var i \u003d 0; i \u003c serviceNames.length; i++) {\n    result +\u003d serviceNames[i];\n    if (i \u003c serviceNames.length - 1) {\n        result +\u003d \"\\n\";\n    }\n}\n\n// 输出结果\nresult;",
+    "customContextDataKey": {
+    },
+    "id": "A-f080e504-5272-4bd7-893a-6b03e441b601"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "Services",
+    "cancelable": true,
+    "data": "{jsRet}",
+    "delimiter": ["\n"],
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-b61815fd-68e6-45e7-9a56-9301877f904a"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "selectedListItem",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-37afa743-1c2f-42cd-a366-8551676e8f48"
+      }],
+      "id": "Case-de848a6c-70d6-4e9e-9b24-45c70d4c3142",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// Rhino JS：输出 Binder TRANSACTION_* 方法为 service call 格式\nimportPackage(android.os);\nimportPackage(java.lang.reflect);\nimportPackage(java.lang);\n\n// ★ 改成你自己的服务名\nvar SERVICE_NAME \u003d selectedListItem[0];  // 例如 \"wifi\" / \"oplus_wifi\" / \"wificond\" / \"wifi_ext\"\n\n// 取到 Binder\nvar mBinder \u003d ServiceManager.getService(SERVICE_NAME);\nif (mBinder \u003d\u003d null) throw \"Service \u0027\" + SERVICE_NAME + \"\u0027 not found\";\n\n// 拿接口描述符（DESCRIPTOR）\nvar descriptor \u003d null;\ntry {\n    descriptor \u003d mBinder.getInterfaceDescriptor();\n} catch (e) {\n    throw \"无法获取接口描述符(getInterfaceDescriptor)： \" + e;\n}\nif (!descriptor) throw \"接口描述符为空，可能权限不够或服务名不对\";\n\nfunction jTypeName(jclazz) {\n    if (jclazz.isArray()) return jTypeName(jclazz.getComponentType()) + \"[]\";\n    return String(jclazz.getName());\n}\n\n// 类型映射：java 类型 → service call 参数\nfunction mapToServiceCallType(jtype) {\n    if (jtype \u003d\u003d\u003d \"java.lang.String\") return \"s16\";\n    if (jtype \u003d\u003d\u003d \"int\" || jtype \u003d\u003d\u003d \"boolean\") return \"i32\";\n    return \"s16\"; // 其它类型默认 i32\n}\n\n// 通过 DESCRIPTOR 找到接口与 Stub\nvar ifaceClass \u003d Class.forName(descriptor);\nvar stubClass \u003d Class.forName(descriptor + \"$Stub\");\n\n// 取所有 TRANSACTION_* 字段\nvar fields \u003d stubClass.getDeclaredFields();\nvar transactions \u003d [];\nfor (var i \u003d 0; i \u003c fields.length; i++) {\n    var f \u003d fields[i];\n    var name \u003d String(f.getName());\n    if (!name.startsWith(\"TRANSACTION_\")) continue;\n    if (!Modifier.isStatic(f.getModifiers())) continue;\n    f.setAccessible(true);\n    var code \u003d f.getInt(null);\n    var methodName \u003d name.substring(\"TRANSACTION_\".length);\n    transactions.push({ code: code, tname: name, mname: methodName });\n}\n\n// 全量方法列表（包含父接口）\nvar allMethods \u003d ifaceClass.getMethods();\nvar methodMap \u003d {};\nfor (var i \u003d 0; i \u003c allMethods.length; i++) {\n    var m \u003d allMethods[i];\n    var n \u003d String(m.getName());\n    if (!methodMap[n]) methodMap[n] \u003d [];\n    methodMap[n].push(m);\n}\n\n// 按事务码排序\ntransactions.sort(function(a, b) { return a.code - b.code; });\n\n// 构造 JSON 结果\nvar results \u003d [];\nfor (var i \u003d 0; i \u003c transactions.length; i++) {\n    var tr \u003d transactions[i];\n    var alt \u003d tr.mname \u0026\u0026 tr.mname.length \u003e 0\n        ? tr.mname.charAt(0).toLowerCase() + tr.mname.slice(1)\n        : tr.mname;\n    var mlist \u003d methodMap[tr.mname] || methodMap[alt] || null;\n\n    if (!mlist) {\n        results.push({\n            name: tr.mname,\n            __value: \"service call \" + SERVICE_NAME + \" \" + tr.code,\n            summary: \"[]\"\n        });\n        continue;\n    }\n\n    for (var k \u003d 0; k \u003c mlist.length; k++) {\n        var m \u003d mlist[k];\n        var params \u003d m.getParameterTypes();\n        var ps \u003d [];\n        var svcArgs \u003d [];\n        for (var p \u003d 0; p \u003c params.length; p++) {\n            var tname \u003d jTypeName(params[p]);\n            ps.push(tname);\n            svcArgs.push(mapToServiceCallType(tname));\n        }\n\n        results.push({\n            name: String(m.getName()),\n            __value: \"service call \" + SERVICE_NAME + \" \" + tr.code + \" \" + svcArgs.join(\" \"),\n            summary: \"[\" + ps.join(\", \") + \"]\"\n        });\n    }\n}\n\n// 输出 JSON 数组\nJSON.stringify(results, null, 4);",
+        "customContextDataKey": {
+        },
+        "id": "A-f4afb09c-d957-42b0-9950-4370612e55da"
+      }, {
+        "@type": "type.googleapis.com/ShowListDialog",
+        "title": "操作",
+        "cancelable": true,
+        "data": "{jsRet}",
+        "delimiter": [","],
+        "dataType": "ShowListDialogDataType_Json",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-6a122e8d-6d3e-42fe-84bd-5dbaa2a32002"
+      }],
+      "id": "Case-2c520234-4040-4377-9cec-c2056ec7ab7f"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "selectedListItem",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-fd2eeeb0-0b5e-4a98-8981-855f9929bf4c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{selectedListItem}",
+          "customContextDataKey": {
+          },
+          "id": "A-bfc46918-6d1b-4aa1-95ea-bf02713a42e4"
+        }],
+        "negative": "取消",
+        "title": "Shell",
+        "message": "{selectedListItem}",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-f24f92d1-97b8-4fd8-aaec-6c62f6a5e564"
+      }],
+      "id": "Case-ed990f72-9121-4ec9-8f4b-fcca85be7ada"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ad70aa77-81bd-44a7-987e-a32eb7d9b00c"
+  }],
+  "id": "SHARED-DA-6822c12e-9f71-440c-bdd7-82ec014c57a2",
+  "lastUpdateTime": "1762874125657",
+  "createTime": "1755408821548",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "查询Service",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

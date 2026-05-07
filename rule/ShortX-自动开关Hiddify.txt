@@ -1,0 +1,102 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["Proxy"],
+    "customContextDataKey": {
+    },
+    "id": "F-94c908be-44d7-417e-a1e4-6713ece21386"
+  }, {
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["Proxy"],
+    "customContextDataKey": {
+    },
+    "id": "F-36e43132-e793-499c-9d53-a903e8c59744"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-58cc8acf-f338-4dce-9a11-99586cbec9e0"
+    }, {
+      "@type": "type.googleapis.com/AppIsRunning",
+      "pkgSets": ["Proxy"],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-8aaed4d7-f47d-4a3b-b5a9-00e764c626db"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "am start-foreground-service app.hiddify.com/com.hiddify.hiddify.bg.VPNService",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-88e0e7d7-a9b7-47ce-9d51-ae0e08d2db18"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/AppIsNotRunning",
+        "pkgSets": ["Proxy"],
+        "customContextDataKey": {
+        },
+        "id": "C-1e7f00a0-2087-43a4-a5ff-d3616e4575d3"
+      }, {
+        "@type": "type.googleapis.com/VPNIsConnected",
+        "customContextDataKey": {
+        },
+        "id": "C-25f6a3b4-f354-480b-a735-594bf8ef9277"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "app.hiddify.com"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5d568c91-80db-4b7f-89d5-5933afed3557"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "关闭代理",
+      "id": "A-75e525be-2d13-4903-8937-de681cd74264"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-27430d58-1c34-40a2-86f0-15fcbb433794"
+  }],
+  "id": "rule-006f0d6e-dff2-46e9-b6d8-8767e8d76000",
+  "lastUpdateTime": "1710439524822",
+  "createTime": "1687238394751",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "自动开关Hiddify",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "Proxy",
+      "customContextDataKey": {
+      },
+      "id": "A-b65545bb-bec3-4318-ae19-7c7c90be53e1"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "知道了",
+      "title": "我已经创建一个叫做Proxy的应用集",
+      "message": "把你需要代理的软件添加在里面，比如tg",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-56dc94ac-10d7-492d-a8f4-7bc2d805e3e6"
+    }]
+  },
+  "quit": {
+  },
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

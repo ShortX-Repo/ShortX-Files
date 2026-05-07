@@ -1,0 +1,83 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-96baca5d-7a9c-4bb2-b8fb-b4f4c402f4c0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ReadClipboard",
+        "customContextDataKey": {
+        },
+        "id": "A-270cd3a5-1265-4325-8cce-696a8b7feff4"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "https://www.baidu.com/s?word\u003d{clipboardContent}",
+        "customContextDataKey": {
+        },
+        "id": "A-e5a9cb6f-7092-487d-bff7-9ac056674a40"
+      }],
+      "icon": "search-line",
+      "label": "百度搜索",
+      "id": "BTN-bc0acdce-52d4-47ce-8afd-60ca410f4a44"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ReadClipboard",
+        "customContextDataKey": {
+        },
+        "id": "A-d0156179-5c58-46a5-b6b5-f2b1ae857584"
+      }, {
+        "@type": "type.googleapis.com/StartActivityUrlSchema",
+        "urlSchema": "https://www.bing.com/search?q\u003d{clipboardContent}",
+        "customContextDataKey": {
+        },
+        "id": "A-d5cb8316-d743-4d46-af97-d95d9664f4f9"
+      }],
+      "icon": "search-line",
+      "label": "必应搜索",
+      "id": "BTN-6c1da13b-f41e-49b2-b107-23671a30936f"
+    }],
+    "tag": "搜索",
+    "maxHeightInDp": 111,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 10,
+    "customContextDataKey": {
+    },
+    "id": "A-f4f4d29b-2753-4723-be21-90a6d371b65e"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-59964c88-229a-4736-a601-4318abf8905f"
+  }, {
+    "@type": "type.googleapis.com/HideOverlayButton",
+    "overlayTags": ["搜索"],
+    "customContextDataKey": {
+    },
+    "id": "A-d67dd6cd-884f-4f5f-b13d-bf7f89c9fe83"
+  }],
+  "id": "rule-778af29f-8e8d-4407-868e-98b1741914bf",
+  "lastUpdateTime": "1714114335550",
+  "createTime": "1714113551254",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "搜索",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-dbdb9d62-b2c4-4d56-9ba8-3e7ec3bb3fda"
+}
+###------###
+{"type":"rule"}

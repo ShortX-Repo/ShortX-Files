@@ -1,0 +1,77 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["省电模式"],
+    "customContextDataKey": {
+    },
+    "id": "F-6e42bf52-8672-4305-a24a-2c3bcc924764"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["省电模式"],
+    "customContextDataKey": {
+    },
+    "id": "F-be694e3b-aa42-4536-a258-73db0c34cb93"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgList",
+      "pkgs": [{
+        "pkgName": "com.ss.android.ugc.aweme"
+      }, {
+        "pkgName": "tv.danmaku.bili"
+      }, {
+        "pkgName": "com.ss.android.ugc.aweme.xptools"
+      }, {
+        "pkgName": "com.chunqiu.ahsp"
+      }, {
+        "pkgName": "com.alicloud.databox"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-2cb2279d-bbe2-4ef8-a8a1-ce8b17730725"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure mz_current_power_mode 0",
+      "customContextDataKey": {
+      },
+      "id": "A-62bfddd1-40f6-4d9c-a898-ad08066b14bc"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure mz_current_power_mode 2",
+      "customContextDataKey": {
+      },
+      "id": "A-e2607aed-f8d0-45e0-a4c5-031b029aa536"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-cd440c87-017c-43c2-ae5f-2fe39f598789"
+  }],
+  "id": "rule-7d05e200-08c8-4cac-9ee3-fc85e3c71f40",
+  "lastUpdateTime": "1696778183439",
+  "createTime": "1696777303970",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动省电模式",
+  "description": "推荐视频类app",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "省电模式",
+      "customContextDataKey": {
+      },
+      "id": "A-60fb9e54-192d-4bad-9ed7-7b908c0de0b9"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

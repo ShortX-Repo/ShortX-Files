@@ -1,0 +1,123 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/WifiConnectedTo",
+    "ssidList": ["*"],
+    "tag": "连接wifi",
+    "customContextDataKey": {
+    },
+    "id": "F-6f47289c-88d2-4a3d-b061-d7f6a8a02ca8"
+  }, {
+    "@type": "type.googleapis.com/WifiDisconnectedFrom",
+    "ssidList": ["*"],
+    "tag": "断开wifi",
+    "customContextDataKey": {
+    },
+    "id": "F-3ed1e648-b21e-4a9b-a59a-f46677161671"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "/data/adb/box/scripts/box.service status",
+    "customContextDataKey": {
+    },
+    "id": "A-333cb52f-921f-4512-a6ef-d24c9f2a799e"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "{shellOut}.contains(\"running\") ? \"running\" : ({shellOut}.contains(\"stopped\") ? \"stopped\" : null)",
+    "customContextDataKey": {
+    },
+    "id": "A-16def17b-ee63-4eeb-8896-298e51b1a4af"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "连接wifi",
+      "customContextDataKey": {
+      },
+      "id": "C-066c4714-2b02-4c1a-8e81-78061e3f119b"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{mvelRet} \u003d\u003d \u0027running\u0027",
+        "customContextDataKey": {
+        },
+        "id": "C-ad6a8e73-9c4b-4114-b527-883cbeec60bb"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "touch /data/adb/modules/box4/disable",
+        "customContextDataKey": {
+        },
+        "id": "A-732c59c8-159d-472b-86aa-fe34fce9de4f"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "box4已停止",
+        "customContextDataKey": {
+        },
+        "id": "A-b5ffa2ee-46bc-4462-a5ad-4e25b74363dd"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "smart-optimization",
+        "customContextDataKey": {
+        },
+        "id": "A-1e1df3ea-45cd-4f8b-a97e-b4b93b99653b"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ecf9e280-ecd5-4063-809e-b11f26599ad8"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{mvelRet} \u003d\u003d \u0027stopped\u0027",
+        "customContextDataKey": {
+        },
+        "id": "C-82959282-ad59-4be7-be74-53341fd5f536"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "rm /data/adb/modules/box4/disable",
+        "customContextDataKey": {
+        },
+        "id": "A-732c59c8-159d-472b-86aa-fe34fce9de4f"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "box4已开启",
+        "customContextDataKey": {
+        },
+        "id": "A-97e555d8-1889-4bb6-a99f-182fce1f4713"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "rectangle-tear",
+        "customContextDataKey": {
+        },
+        "id": "A-11e78568-c546-4905-9629-cbcf58eed145"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-cbf5bcf7-7577-4fbb-8dfa-ad5f0337df6c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-dae2dc75-c50f-4d58-ab7a-c427885f06bb"
+  }],
+  "id": "rule-a198b8b8-7b60-475c-be1a-afe1913defde",
+  "lastUpdateTime": "1723705259855",
+  "createTime": "1723704377579",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动开关box4",
+  "description": "连接任意wifi自动开关box4",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

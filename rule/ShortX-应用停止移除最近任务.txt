@@ -1,0 +1,34 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["User"],
+    "customContextDataKey": {
+    },
+    "id": "F-f288a1a4-63b4-49ce-88b9-f2b28dbef5db"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/RemoveTasksByPkg",
+    "pkgAndUsers": [{
+      "first": "{pkgName}",
+      "second": "0"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-d664eff5-028b-472b-8fd3-568b8461c496"
+  }],
+  "id": "rule-f68bd20d-7899-4464-b389-92dd2f9effd1",
+  "lastUpdateTime": "1701936953770",
+  "createTime": "1701936851567",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "应用停止移除最近任务",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-b7b39e99-3a8d-4e5f-b2c2-ab86674bb991"
+}
+###------###
+{"type":"rule"}

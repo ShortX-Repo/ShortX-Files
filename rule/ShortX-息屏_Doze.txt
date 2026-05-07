@@ -1,0 +1,43 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOff",
+    "customContextDataKey": {
+    },
+    "id": "F-ee4c74af-8024-4807-8a19-28eef63b0b43"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "id": "A-831d104c-99f9-44fd-b084-a626f57469ea"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "currentapp\u003d\"+$(dumpsys window | sed -E \u0027/mCurrentFocus/!d;s/([^mCurrentFocus\u003dWindow\\{].*[[:space:]])(.*)(\\/.*\\}.*)/\\2/g;s/\\///g;s/[[:space:]]//g;/^[[:space:]]*$/d\u0027)\"\necho \"${currentapp}\"",
+    "customContextDataKey": {
+    },
+    "id": "A-b8863b1b-0b6d-424f-ba77-f8ddff258aa1"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "noDozes\u003d\"\n+com.tencent.mm\n+com.netease.cloudmusic\n+com.tencent.mobileqq\n+com.salt.music\n+com.paget96.batteryguru\n+com.android.deskclock\n+tornaco.apps.shortx\n+com.tencent.wetype\n+com.ximalaya.ting.android\n+com.kugou.android\n{shellOut}\n\"\nnoDozes\u003d\"$(pm list packages -e | sed \"s/package:/-/g\")$noDozes\"\ndumpsys deviceidle whitelist $noDozes\ndumpsys deviceidle enable deep\ndumpsys deviceidle force-idle deep",
+    "customContextDataKey": {
+    },
+    "id": "A-49dab0af-ee72-40de-89a7-3c915a2fa3b4"
+  }],
+  "id": "rule-bf4722c4-6e38-4dab-b1de-45af006f5207",
+  "lastUpdateTime": "1701040002475",
+  "createTime": "1700907786470",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "息屏 Doze",
+  "description": "白名单动作内修改",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

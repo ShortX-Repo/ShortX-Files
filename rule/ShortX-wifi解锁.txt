@@ -1,0 +1,213 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOn",
+    "customContextDataKey": {
+    },
+    "id": "F-aeb6f612-eda2-4469-a045-40bbf7bcccba"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-892d99b4-2b56-48aa-a949-5dbd590c4671"
+  }, {
+    "@type": "type.googleapis.com/RequireWifiConnected",
+    "requiredSSID": "*",
+    "customContextDataKey": {
+    },
+    "id": "C-a62855cb-ca08-4e35-aef2-547791f22edb"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "300",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-d5c3724d-0954-4118-97fb-5619f24ad861"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "id": "C-e4fba9ac-719f-476a-ab86-1c2b6f764a70"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WhileLoop",
+      "conditions": [{
+        "@type": "type.googleapis.com/KeyguardIsLocked",
+        "customContextDataKey": {
+        },
+        "id": "C-540d5bd7-1185-4cad-afab-39a3e59e0134"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "800",
+        "customContextDataKey": {
+        },
+        "id": "A-8106e046-4d07-491a-950e-2d2c9aad9510"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/KeyguardIsLocked",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-7a787fff-2cb5-45fb-aa7f-e02b8797fd77"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "input swipe 500 2100 500 800",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-637e21ee-701e-49df-bfc1-8bb512325665"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-d974b9ba-d29d-4567-b30b-ae6143b27384"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "input swipe 500 2100 500 800",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-637e21ee-701e-49df-bfc1-8bb512325665"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-77004928-0f6a-4fc8-9b34-385e9f6a433a"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "input swipe 500 2100 500 800",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-637e21ee-701e-49df-bfc1-8bb512325665"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "700",
+        "customContextDataKey": {
+        },
+        "id": "A-00b451c6-6a22-4fd5-843c-a503f80cf321"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "input text 157264",
+        "customContextDataKey": {
+        },
+        "id": "A-ecb36c30-8e4f-4a8b-b311-8cb214ebe375"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "100",
+        "customContextDataKey": {
+        },
+        "id": "A-9a1d8d60-6df9-4717-877d-0dc3e34de384"
+      }, {
+        "@type": "type.googleapis.com/FindAndClickViewByText",
+        "text": "返回",
+        "timeout": "300",
+        "rect": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-7933f71b-26a0-4195-b4ff-0980d425edd8"
+      }],
+      "delay": 300,
+      "customContextDataKey": {
+      },
+      "id": "A-d86171de-f17a-4488-8e96-f178fa3b6ebb"
+    }, {
+      "@type": "type.googleapis.com/InputSwipe",
+      "startXS": "1000",
+      "startYS": "25",
+      "endXS": "1000",
+      "endYS": "2600",
+      "swipeTimeS": "500",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-6561695e-d2c2-47f5-8b24-cd0527360690"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/RequireTileState",
+        "state": "QSTileState_Active",
+        "tileSpec": "hotspot",
+        "customContextDataKey": {
+        },
+        "id": "C-bb8f76a0-37b4-41e6-a17e-cedfde5a40e3"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/SetHotSpotEnabled",
+        "customContextDataKey": {
+        },
+        "id": "A-0549be5b-a2f0-4098-9fdd-144042c49220"
+      }, {
+        "@type": "type.googleapis.com/SetBTEnabled",
+        "enable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-1b166c66-12a7-4f6d-8e90-6dfa70350396"
+      }],
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-934e86cd-73e8-4150-b2fe-4874d5923c43"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-bdf7a763-904a-43fa-b3b9-0151fc4a1494"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-21c206ec-eab2-4cf3-8379-0d3491e7328c"
+  }],
+  "id": "SHARE-rule-36550007-993b-46a6-8ac5-f3390c453f80",
+  "lastUpdateTime": "1760930746203",
+  "createTime": "1692359846259",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "wifi解锁",
+  "description": "连接到wifi自动解锁",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/UserPresent",
+      "customContextDataKey": {
+      },
+      "id": "F-a0d3005a-23e5-4b2f-bda5-a6b2f2ad3bff"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/KeyguardIsLocked",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-6acdf194-4b9f-4f1a-b08b-7777bc9b073a"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "scope": "BreakActionExecuteScope_Root",
+      "customContextDataKey": {
+      },
+      "id": "A-c691ad7b-e1b9-4c06-85bc-528beb620a90"
+    }],
+    "evaluatePolicy": "Quit_EvaluatePolicy_Only_When_Is_Running"
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-635254c1-99de-4bbe-bac7-9ee1aba5d6ff"
+}
+###------###
+{"type":"rule"}

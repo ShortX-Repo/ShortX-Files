@@ -1,0 +1,94 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BTDisconnectedFrom",
+    "device": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-68ce0128-263e-41f3-80be-017ee4c2a67b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "globalVarOf$闲置时间",
+    "customContextDataKey": {
+    },
+    "id": "A-fbdf48ef-9230-4f6f-ab74-7b2b07fa9be7"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireBTDisconnected",
+      "customContextDataKey": {
+      },
+      "id": "C-60229d3e-b722-408c-82e3-302400b610f6"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/SetBTEnabled",
+      "customContextDataKey": {
+      },
+      "id": "A-185e496f-8e41-4926-92c7-7da756189a01"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-2722bb49-c289-4932-b2ef-f0a593ea959d"
+  }],
+  "id": "rule-6600fb8e-a9b6-4fb3-bf4d-37c6655831fc",
+  "lastUpdateTime": "1710161854877",
+  "createTime": "1710110962867",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "自动关闭蓝牙",
+  "description": "闲置指定时间后自动关闭蓝牙",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "闲置时间",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-e896043a-35df-43da-84ac-820ef845a709"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "闲置几秒自动关闭",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "秒"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-debd9f70-521c-47c5-a483-264acd6afacc"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "\nseconds\u003d{textFieldInput1}\n\n# 将秒数转换为毫秒\nmilliseconds\u003d$((seconds * 1000))\n\necho \"$milliseconds\"",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-fb9c007b-d30f-4b94-a83c-dfaaea288d0a"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "闲置时间",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-442a510b-7d02-4789-b6ce-3c391dd017a9"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/BTConnectedTo",
+      "device": ["*"],
+      "customContextDataKey": {
+      },
+      "id": "F-18ed70b5-8ac0-488e-b5f9-a3d3b83c691c"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,167 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/EdgeGesture",
+    "edge": "TopRight",
+    "gesture": "LongTap",
+    "customContextDataKey": {
+    },
+    "id": "F-4acad48f-acba-4dea-a745-54d4656deaf0"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/LaunchApp",
+        "appPkg": {
+          "pkgName": "com.tencent.mm"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b09c5588-1ea5-49ea-91d4-e33dc19c8110"
+      }, {
+        "@type": "type.googleapis.com/InjectGestureRecording",
+        "gestureId": "741f5a21-818e-46b8-bde1-64b94416f3d2",
+        "speed": 1.2,
+        "customContextDataKey": {
+        },
+        "id": "A-9d933b67-ee59-4448-8a2c-72ff3afc53fd"
+      }],
+      "icon": "wechat-fill",
+      "label": "Wechat",
+      "id": "BTN-dc2905d7-1266-4a68-8fa0-f22bfebd2ab3"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.tencent.mm/com.tencent.mm.plugin.scanner.ui.BaseScanUI",
+        "customContextDataKey": {
+        },
+        "id": "A-879f1e9b-1d09-4267-9b01-beab375efa13"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-70110614-7910-4c58-ac94-cbb84cac465f"
+      }, {
+        "@type": "type.googleapis.com/InjectGestureRecording",
+        "gestureId": "NotExists",
+        "speed": 4.5,
+        "showGesturePathView": true,
+        "customContextDataKey": {
+        },
+        "id": "A-5df0c9bd-af28-49bb-93ba-e3c086b3b604"
+      }],
+      "icon": "wechat-pay-line",
+      "label": "扫一扫",
+      "id": "BTN-06968574-eb78-445b-baea-7bb0e47e77e4"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.tencent.mm/com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI",
+        "customContextDataKey": {
+        },
+        "id": "A-03ec51df-ad71-4ab4-9d03-c00f5333136d"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "useAlarm": true,
+        "customContextDataKey": {
+        },
+        "id": "A-1bf890da-d351-46d7-90d0-4d4e6f623e3d"
+      }, {
+        "@type": "type.googleapis.com/InjectGestureRecording",
+        "gestureId": "NotExists",
+        "speed": 3.9,
+        "showGesturePathView": true,
+        "customContextDataKey": {
+        },
+        "id": "A-73c80489-fc69-450f-85d4-59b3f97dc9f7"
+      }],
+      "icon": "wechat-pay-fill",
+      "label": "付款码",
+      "id": "BTN-7c3184b4-2b2f-43ac-b54e-25c404ebf66f"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/LaunchApp",
+        "appPkg": {
+          "pkgName": "com.tencent.mobileqq"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-d89e83bb-d051-48bf-ad93-fdaaa46dba18"
+      }],
+      "icon": "qq-line",
+      "label": "QQ",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["*^_^*"],
+        "customContextDataKey": {
+        },
+        "id": "A-a140c837-498f-4cfb-962d-c36233c83466"
+      }],
+      "id": "BTN-2b621738-16b6-4f07-9597-70f83cfe5efb"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.tencent.mobileqq/com.tencent.mobileqq.olympic.activity.ScanTorchActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-2ed2588d-6dc0-4b96-98e1-bbf2426ee695"
+      }],
+      "icon": "qq-line",
+      "label": "QQ扫码",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["*^_^*"],
+        "customContextDataKey": {
+        },
+        "id": "A-5530ce24-c63e-4844-9e10-3cc23117ce5a"
+      }],
+      "id": "BTN-2771b2ed-f5d0-4d9a-8ba7-a784f32c3f9c"
+    }],
+    "tag": "*^_^*",
+    "maxHeightInDp": 113,
+    "maxWidthInDp": 199,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 65,
+    "enableGlobalDrag": true,
+    "overlayPaddingH": 13,
+    "overlayPaddingV": 14,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-f91451ca-8497-47e8-b8b9-ffffae17d420"
+  }],
+  "id": "rule-d89879fd-44ce-4bf4-9bca-346a8ea3d8ae",
+  "lastUpdateTime": "1701084918965",
+  "createTime": "1700061671630",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信QQ合集",
+  "description": "顶右，长按",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ActivityStarted",
+      "customContextDataKey": {
+      },
+      "id": "F-68ea0900-5958-4239-8a8d-441d14289498"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["*^_^*"],
+      "customContextDataKey": {
+      },
+      "id": "A-f2116e12-5cb3-40f2-8e98-343ba0332ee8"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-54279830-6f9b-4b66-8e98-eb3b521b9df9"
+}
+###------###
+{"type":"rule"}

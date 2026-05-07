@@ -1,0 +1,486 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "tileNumber": 6,
+    "tag": "设置",
+    "customContextDataKey": {
+    },
+    "id": "F-e9b87146-7db8-480b-97da-f30fef3b5e34"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "tag": "开启",
+    "customContextDataKey": {
+    },
+    "id": "F-5bada1d7-8b46-4af8-a8a2-2f375c1d2dd0"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "tag": "销毁",
+    "customContextDataKey": {
+    },
+    "id": "F-1ca66095-a164-4956-ab3a-ae9bde73f78e"
+  }, {
+    "@type": "type.googleapis.com/SystemReady",
+    "tag": "清理",
+    "customContextDataKey": {
+    },
+    "id": "F-8bbdcbf9-4458-41c8-b31c-cc65575bad92"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "设置",
+        "customContextDataKey": {
+        },
+        "id": "C-0a7fa0ee-b953-4b89-9a41-d1dba1fc6556"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys window displays | grep \"mFocusedApp\" | grep -v \"AppWindowToken\" | awk \u0027{print $(NF-1)}\u0027",
+        "customContextDataKey": {
+        },
+        "id": "A-245c833b-f9ca-40cf-9453-a08a8e35311c"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "定位活动名单",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-6f178c40-e3cd-4056-9fbc-261937890e5b"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "定位活动运行名单",
+        "valueAsString": "{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "A-1185c40e-8727-4ddf-b563-c095cce744fa"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "活动已添加",
+        "customContextDataKey": {
+        },
+        "id": "A-fcb2bea6-cd7c-465d-8c0f-1c4bbe73a057"
+      }, {
+        "@type": "type.googleapis.com/SetLocationEnabled",
+        "enable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-9a8125af-98ac-4236-8665-bff96db9d0ca"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "定位已开启",
+        "customContextDataKey": {
+        },
+        "id": "A-f1b36086-95de-408e-995a-620c90f7026b"
+      }],
+      "description": "设置",
+      "id": "Case-1cb9ef99-b3b8-4c1f-9df6-8c5aed64b11a",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "开启",
+        "customContextDataKey": {
+        },
+        "id": "C-9c7395a6-4fda-4f56-995c-85bd5893d304"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "Contains",
+        "varName": "定位活动名单",
+        "payload": {
+          "value": "{componentName}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-78332205-bd6e-488d-892e-932492eb7f49"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "DoesNotContain",
+          "varName": "定位活动运行名单",
+          "payload": {
+            "value": "{componentName}"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-ee2c2587-b967-47dc-aff2-4fa02d9a3f05"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "定位活动运行名单",
+          "valueAsString": "{componentName}",
+          "customContextDataKey": {
+          },
+          "id": "A-4d94c05f-56af-4519-b9da-54716ee6ee84"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-45cbb31d-528a-4911-9bc9-8b4e14894fc5"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import android.location.LocationManager;\nlocationManager \u003d context.getSystemService(context.LOCATION_SERVICE);\n    boolean gpsEnabled \u003d locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-bd569b5a-1511-4c7e-8fbf-4e11e5b71255"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/SetLocationEnabled",
+          "enable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-3783eff4-dfbd-4b60-9992-83c14397639e"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "定位开启",
+          "customContextDataKey": {
+          },
+          "id": "A-ce53c74e-e921-4d27-8fc8-3d2e14574120"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-033b62f2-63b3-4e97-a6b7-2195b0b7ab22"
+      }],
+      "description": "开启",
+      "id": "Case-dc02f66d-03e3-4e3e-9569-c393e8e8a485",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "销毁",
+        "customContextDataKey": {
+        },
+        "id": "C-988f449a-5112-497c-9ad6-5a6b4b4115f5"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "Contains",
+        "varName": "定位活动名单",
+        "payload": {
+          "value": "{componentName}"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-7cd445b7-c878-43b4-88f7-3caf69ed5927"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "Contains",
+          "varName": "定位活动运行名单",
+          "payload": {
+            "value": "{componentName}"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-905fe2ed-fb60-4145-9e64-a91fd6e5b9cd"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "定位活动运行名单",
+          "valueAsString": "{componentName}",
+          "op": "WriteGlobalVarOp_DeleteValue",
+          "customContextDataKey": {
+          },
+          "id": "A-9b2bf7c9-fec5-4791-94a4-77f68e34a471"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-2e2207f2-a780-4a58-b1bd-b97b0989042e"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import android.location.LocationManager;\nlocationManager \u003d context.getSystemService(context.LOCATION_SERVICE);\n    boolean gpsEnabled \u003d locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);",
+          "customContextDataKey": {
+          },
+          "id": "C-e957cc84-1f8e-4fd0-a2ce-7c0626940ef6"
+        }, {
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "NotSet",
+          "varName": "定位活动运行名单",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-59b74ece-8503-41e9-b35f-a51f0ff7cd19"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/SetLocationEnabled",
+          "customContextDataKey": {
+          },
+          "id": "A-d213064e-2025-49bc-9c95-4bc3238f63e2"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "定位已关闭",
+          "customContextDataKey": {
+          },
+          "id": "A-271f67e9-17d4-4624-a4b0-aa361b554168"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4794b0ef-42c0-470c-a289-790a49784272"
+      }],
+      "description": "销毁",
+      "id": "Case-2a931b3a-3eda-4172-8820-05f89077056a",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "清理",
+        "customContextDataKey": {
+        },
+        "id": "C-b2ab4d07-be33-4b2b-97f3-7123b55c81c6"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "定位活动运行名单",
+        "op": "WriteGlobalVarOp_Clear",
+        "customContextDataKey": {
+        },
+        "id": "A-7d8fb14f-a6e4-4844-8801-dcbe7b2da41d"
+      }],
+      "description": "清理",
+      "id": "Case-46b2817a-adb3-488d-aa06-1cd3169ad6fb",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e9997cbe-cbcb-4073-9676-c6992876cc63"
+  }],
+  "id": "rule-e423b2b7-396a-41e2-b60a-24caa26e95cc",
+  "lastUpdateTime": "1717249963328",
+  "createTime": "1715529285372",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "自动定位",
+  "description": "自动开关定位服务，点击磁贴7可快速设置为需要定位的活动",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "同意并继续",
+      "onPositive": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "test",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "echo true",
+            "customContextDataKey": {
+            },
+            "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "test",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
+          }],
+          "description": "2",
+          "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "300",
+            "customContextDataKey": {
+            },
+            "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "test",
+              "payload": {
+                "value": "true"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "shell正常",
+              "customContextDataKey": {
+              },
+              "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "确定",
+              "onPositive": [{
+                "@type": "type.googleapis.com/SetRuleEnabled",
+                "ruleId": "rule-e423b2b7-396a-41e2-b60a-24caa26e95cc",
+                "customContextDataKey": {
+                },
+                "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+              }, {
+                "@type": "type.googleapis.com/BreakActionExecute",
+                "scope": "BreakActionExecuteScope_Root",
+                "customContextDataKey": {
+                },
+                "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+              }],
+              "title": "shell运行异常",
+              "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+              "customContextDataKey": {
+              },
+              "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+          }],
+          "description": "1",
+          "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
+      }],
+      "title": "用户协议",
+      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.到指定界面按磁贴7即可配置在当前界面打开定位，并在所有需要定位的活动销毁时关闭定位",
+      "customContextDataKey": {
+      },
+      "id": "A-10589983-56d3-405a-9b3e-7a4087b7fd12"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "定位活动名单",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-7ce6f777-79c0-474e-bee6-ce966320d641"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "定位活动名单",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-8c3e6182-6cde-4354-b136-ba484e2a6258"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "是",
+          "clickActions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "定位活动名单",
+            "op": "WriteGlobalVarOp_Clear",
+            "customContextDataKey": {
+            },
+            "id": "A-864d863b-80a9-42bd-a083-435d5c55888a"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "定位活动运行名单",
+            "op": "WriteGlobalVarOp_Clear",
+            "customContextDataKey": {
+            },
+            "id": "A-8827b76e-9002-400b-8223-1e9f3315d0b6"
+          }]
+        }, {
+          "title": "否"
+        }],
+        "title": "重置？",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-f051df31-b188-4fbf-b28f-f8ede38860ca"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-a7f224d0-e32e-49c2-9730-82e0423d830e"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "定位活动运行名单",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-7ce6f777-79c0-474e-bee6-ce966320d641"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "定位活动运行名单",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-8c3e6182-6cde-4354-b136-ba484e2a6258"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-d4e02f3f-d9dd-4638-b7d6-b42e937221bf"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "定位活动运行名单",
+      "op": "WriteGlobalVarOp_Clear",
+      "customContextDataKey": {
+      },
+      "id": "A-4a536584-2a5f-4896-b8d8-cafc0818cc75"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "定位活动名单",
+      "customContextDataKey": {
+      },
+      "id": "A-83da0d75-d1d8-4125-89f1-7c89b5092c91"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "定位运行名单",
+      "customContextDataKey": {
+      },
+      "id": "A-cc3ee9aa-d493-4d6f-9360-7e155557ac2a"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,1308 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "wechat-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-46d0f85b-b3b1-4790-93ea-3f9d52176823"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "argOf$Deldecrypt.db",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-d16356b6-8c89-4474-8d81-c0c3d9ff1793"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "argOf$filePath",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-572461c3-24e7-4a45-90b6-ee0d6f0fe926"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "shellOut",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-51f05e33-7eb4-438c-96b5-b859d006be60"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "shellOut",
+            "payload": {
+              "value": "openssl"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-85944e03-a3a0-493e-93a1-e5b6d1156800"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "好的",
+            "negative": "复制命令",
+            "onNegative": [{
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "pkg install openssl\n",
+              "customContextDataKey": {
+              },
+              "id": "A-5dc832b2-8f6d-4534-aa49-0bdd79057979"
+            }],
+            "title": "错误！",
+            "message": "需要安装Termux\n执行\npkg install openssl",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-3ecc908d-7c95-4554-bd52-764a37219914"
+          }],
+          "description": "openssl",
+          "id": "Case-36b05452-31d5-4ff2-aec2-1628c8e0a4f2",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "shellOut",
+            "payload": {
+              "value": "sqlcipher"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-6ccec32e-195e-4bbe-ac44-eae32dbf2754"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "好的",
+            "negative": "复制命令",
+            "onNegative": [{
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "pkg install sqlcipher\n",
+              "customContextDataKey": {
+              },
+              "id": "A-5dc832b2-8f6d-4534-aa49-0bdd79057979"
+            }],
+            "title": "错误！",
+            "message": "需要安装Termux\n执行\npkg install sqlcipher",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-3ecc908d-7c95-4554-bd52-764a37219914"
+          }],
+          "description": "sqlcipher",
+          "id": "Case-46fc53b7-f5e8-419e-a2f7-4f41a8f2a08e",
+          "isBreak": true
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/EvaluateContextVar",
+            "op": "EqualTo",
+            "varName": "shellOut",
+            "payload": {
+              "value": "这两个文件都不存在"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-c176d0f2-26b4-4a08-b296-658c4b5f5a06"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShowAlertDialog",
+            "positive": "好的",
+            "negative": "复制命令",
+            "onNegative": [{
+              "@type": "type.googleapis.com/WriteClipboard",
+              "text": "pkg install sqlcipher\npkg install openssl\n",
+              "customContextDataKey": {
+              },
+              "id": "A-5dc832b2-8f6d-4534-aa49-0bdd79057979"
+            }],
+            "title": "错误！",
+            "message": "需要安装Termux\n执行\npkg install sqlcipher\npkg install openssl",
+            "cancelable": true,
+            "customContextDataKey": {
+            },
+            "id": "A-3ecc908d-7c95-4554-bd52-764a37219914"
+          }],
+          "description": "两者都无",
+          "id": "Case-9c1e3653-6f93-473c-a92b-1bb5f904712b",
+          "isBreak": true
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-c341abed-1129-48d1-816c-dc323864004a"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-5f0dfa24-225a-436d-8d0d-a8e66af874df"
+      }],
+      "description": "初始化",
+      "id": "Case-8d763bed-ff99-4af3-bf4c-5c680b3dc67a",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "UserName",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-8a6ca96b-e15b-4a75-a089-42a953257066"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "UserName",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-5180ed38-fb31-4a98-92c8-667e8bd672cb"
+      }],
+      "description": "创建变量",
+      "id": "Case-536dc8c4-bcc0-4b2f-8a89-23dfd9c326fd"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "// 使用 MVEL 表达式获取 SELinux 状态\nimport java.lang.reflect.Method;\n\n// 获取 SELinux 类\nClass selinuxClass \u003d Class.forName(\"android.os.SELinux\");\n\n// 获取 SELinux 类中的 isSELinuxEnforced 方法\nMethod isSELinuxEnforcedMethod \u003d selinuxClass.getMethod(\"isSELinuxEnforced\");\n\n// 调用 isSELinuxEnforced 方法获取 SELinux 状态\nboolean isEnforced \u003d (boolean) isSELinuxEnforcedMethod.invoke(null);\n\n// 返回 SELinux 状态的字符串\n",
+        "customContextDataKey": {
+        },
+        "id": "C-f4e4b9fa-cbec-470d-aa42-d796d4642392"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "setenforce 0",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "SELinux"
+          }]
+        },
+        "id": "A-ef616244-25ec-4e34-971e-265f2fd86a88"
+      }],
+      "description": "模式",
+      "id": "Case-d2a541ce-5a4c-46e0-ad7f-39253a7ae8da"
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "find /data/user/0/com.tencent.mm/MicroMsg/ -mindepth 1 -maxdepth 1 -type d -name \u0027????????????????????????????????\u0027 -exec stat -c \"%Y %n\" {} + | sort -n | tail -1 | cut -d\u0027 \u0027 -f2-",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "当前微信",
+        "id": "A-9c330411-4357-4525-b9ef-01fb0bd403ef"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "folderId\u003d\"{shellOut}\"\ncp ${folderId}/EnMicroMsg.db /storage/emulated/0/Documents/",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "移动数据",
+        "id": "A-44b302a3-a8b0-48e9-903f-864a414e440d"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nfilePath \u003d \"/data/media/0/Documents/EnMicroMsg.db\";\nfile \u003d new File(filePath);\nreturn !file.exists();",
+          "customContextDataKey": {
+          },
+          "id": "C-7e03e4b2-5c9c-4bad-abc4-a0e24f3a753a"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "title": "错误！",
+          "message": "未成功移动文件，\n截图反馈给作者。",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-135829f4-7fa0-44d1-ad5d-afc2c88f5bb3"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-4c632b3b-2db9-48c8-a47f-84a94c971fe6"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-43b787cd-b20a-47e2-9b6b-f90c5c438469"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "awk -F\u0027\u003d\"|\"\u0027 \u0027/\u003cint name\u003d\"_auth_uin\" value\u003d\"/ {print $4}\u0027 /data/data/com.tencent.mm/shared_prefs/auth_info_key_prefs.xml",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "uin"
+          }]
+        },
+        "note": "uin",
+        "id": "A-884b863b-ec2a-471a-bcae-b094fc6bf7a9"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "if [ -s /data/user/0/com.tencent.mm/MicroMsg/CompatibleInfo.cfg ]; then\n  cat /data/user/0/com.tencent.mm/MicroMsg/CompatibleInfo.cfg\nelse\n  echo \"文件为空\"\nfi",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "EmptyFile"
+          }]
+        },
+        "id": "A-dcc8577f-df4c-4655-bdea-fb22783613e9"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{EmptyFile} \u003d\u003d \u0027文件为空\u0027;",
+          "customContextDataKey": {
+          },
+          "id": "C-89d94273-0801-4092-a68f-afc750a40c27"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "\u00271234567890ABCDEF\u0027",
+          "customContextDataKey": {
+          },
+          "id": "A-30699ef7-b72c-4855-818a-673dd8eebcba"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "cp /data/user/0/com.tencent.mm/files/KeyInfo.bin /data/media/0/Documents/\nchmod 777 /data/media/0/Documents/KeyInfo.bin",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "note": "移动IMEI",
+          "id": "A-3b32f29f-7983-4f60-9f1c-af2da07a39a1"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "// 导入必要的 Java 类\nvar File \u003d java.io.File;\nvar FileInputStream \u003d java.io.FileInputStream;\n\n// 指定文件路径\nvar filePath \u003d \"/data/media/0/Documents/KeyInfo.bin\"; // 替换为实际文件路径\n\n// 检查文件是否存在\nvar file \u003d new File(filePath);\nif (!file.exists()) {\n    \"文件不存在或路径错误\";\n    quit();\n}\n\ntry {\n    // 创建文件输入流\n    var fis \u003d new FileInputStream(file);\n    var bytes \u003d java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, file.length());\n    fis.read(bytes);\n    fis.close();\n\n    // 将字节数组转换为 16 进制字符串\n    var hexString \u003d \"\";\n    for (var i \u003d 0; i \u003c bytes.length; i++) {\n        var hex \u003d (bytes[i] \u0026 0xFF).toString(16).toUpperCase(); // 转为16进制并大写\n        if (hex.length \u003d\u003d\u003d 1) {\n            hex \u003d \"0\" + hex; // 补齐成两位\n        }\n        hexString +\u003d hex;\n    }\n\n    // 输出结果\n    (hexString);\n} catch (e) {\n    \"读取文件时发生错误: \" + e.message;\n}",
+          "customContextDataKey": {
+          },
+          "id": "A-a8b10797-9cd6-46a5-b9f7-4b04bd03e8c2"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "// 输入的 16 进制字符串和密钥\nvar hexString \u003d jsRet;\nvar key \u003d \"_wEcHAT_\";\n\n// 将 16 进制字符串转换为字节数组\nfunction hexToBytes(hex) {\n    var result \u003d [];\n    for (var i \u003d 0; i \u003c hex.length; i +\u003d 2) {\n        result.push(parseInt(hex.substr(i, 2), 16));\n    }\n    return result;\n}\n\n// RC4 解密函数\nfunction decryptRC4(data, key) {\n    var s \u003d [];\n    for (var i \u003d 0; i \u003c 256; i++) {\n        s[i] \u003d i;\n    }\n\n    var keyBytes \u003d [];\n    for (var i \u003d 0; i \u003c key.length; i++) {\n        keyBytes.push(key.charCodeAt(i));\n    }\n\n    // KSA (Key-Scheduling Algorithm)\n    var j \u003d 0;\n    for (var i \u003d 0; i \u003c 256; i++) {\n        j \u003d (j + s[i] + keyBytes[i % keyBytes.length]) % 256;\n        var temp \u003d s[i];\n        s[i] \u003d s[j];\n        s[j] \u003d temp;\n    }\n\n    // PRGA (Pseudo-Random Generation Algorithm)\n    var result \u003d [];\n    var i \u003d 0;\n    j \u003d 0;\n    for (var k \u003d 0; k \u003c data.length; k++) {\n        i \u003d (i + 1) % 256;\n        j \u003d (j + s[i]) % 256;\n\n        // 交换 s[i] 和 s[j]\n        var temp \u003d s[i];\n        s[i] \u003d s[j];\n        s[j] \u003d temp;\n\n        // 生成密钥流并解密\n        var keyStreamByte \u003d s[(s[i] + s[j]) % 256];\n        result.push(data[k] ^ keyStreamByte);\n    }\n\n    return result;\n}\n\n// 调用\nvar encryptedBytes \u003d hexToBytes(hexString);\nvar decryptedBytes \u003d decryptRC4(encryptedBytes, key);\n\n// 处理解密后的字节数组并去除换行符\nvar decryptedText \u003d String.fromCharCode.apply(null, decryptedBytes).replace(/[\\r\\n]+/g, \"\");\n\n// 输出解密后的文本\ndecryptedText;",
+          "customContextDataKey": {
+          },
+          "id": "A-f54af244-f648-4720-81e8-5398679df962"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-424f9070-dbd6-4ea7-af27-3313c557f740"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import java.security.MessageDigest;\n\nmd5 \u003d MessageDigest.getInstance(\"MD5\");\nhashBytes \u003d md5.digest(({jsRet} + {uin}).getBytes());\nhexString \u003d new StringBuilder();\n \nfor (byte b : hashBytes) {\n    hexString.append(String.format(\"%02x\", b));\n}\nresult \u003d hexString.toString().substring(0, 7);\n\nreturn result;",
+        "customContextDataKey": {
+        },
+        "id": "A-a08bdbae-6d43-42a9-bed2-e2bf68714038"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\nsqlcipher \"/storage/emulated/0/Documents/EnMicroMsg.db\" \u003c\u003c END\nPRAGMA key \u003d \"{mvelRet}\";\nPRAGMA cipher_compatibility \u003d 1;\n\n-- 检查解密是否成功\nSELECT count(*) FROM sqlite_master;\n\n-- 如果解密成功，将数据库导出为未加密的备份\nATTACH DATABASE \u0027/storage/emulated/0/Documents/decrypt.db\u0027 AS plaintext KEY \u0027\u0027;\nSELECT sqlcipher_export(\u0027plaintext\u0027);\nDETACH DATABASE plaintext;\n\n.exit\nEND",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-66b6fc86-e16a-47b1-ac75-6d8d39728d0d"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "import java.io.File;\n\nfilePath \u003d \"/data/media/0/Documents/decrypt.db\";\nfile \u003d new File(filePath);\nreturn !file.exists();",
+          "customContextDataKey": {
+          },
+          "id": "C-7e03e4b2-5c9c-4bad-abc4-a0e24f3a753a"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "title": "错误！",
+          "message": "未成功解密数据库，\n截图反馈给作者。",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-135829f4-7fa0-44d1-ad5d-afc2c88f5bb3"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-91f2e587-512f-4c97-8ec2-a65b572b0a99"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-1d7ffd26-a9b4-44bc-b736-3e63d89b9a10"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{EmptyFile} \u003d\u003d \u0027文件为空\u0027;",
+          "customContextDataKey": {
+          },
+          "id": "C-933630f7-567b-4c91-a0ee-121c3ace60e7"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "// 引入Java类\nvar File \u003d java.io.File;\nvar SQLiteDatabase \u003d android.database.sqlite.SQLiteDatabase;\n\n// 数据库文件路径\nvar dbPath \u003d \u0027/data/media/0/Documents/decrypt.db\u0027;\n\n// 用于保存输出内容的数组\nvar outputMessages \u003d [];\n\n// 检查数据库文件是否存在\nfunction checkDatabaseFile(dbPath) {\n    var dbFile \u003d new File(dbPath);\n    if (!dbFile.exists()) {\n        outputMessages.push(\"数据库文件不存在: \" + dbPath);\n        return false;\n    }\n    return true;\n}\n\n// 尝试打开数据库，最多尝试10次，每次等待1000ms\nfunction openDatabaseWithRetries(dbPath, retries) {\n    var db \u003d null;\n    while (retries \u003e 0) {\n        try {\n            db \u003d SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY);\n            return db;\n        } catch (e) {\n            if (e instanceof android.database.sqlite.SQLiteDatabaseLockedException) {\n                java.lang.Thread.sleep(1000); // 等待1000ms\n                retries--;\n            } else {\n                outputMessages.push(\"数据库错误: \" + e.message);\n                return null;\n            }\n        }\n    }\n    outputMessages.push(\"无法打开数据库，数据库仍然被锁定。\");\n    return null;\n}\n\nfunction queryColumnData(dbPath, tableName, columnName) {\n    var db \u003d openDatabaseWithRetries(dbPath, 10);\n    if (db \u003d\u003d null) return;\n\n    // 完全匹配需要排除的值列表\n    var excludedValues \u003d [\n        \"floatbottle\", \"weixin\", \"fmessage\", \"qqmail\", \"medianote\", \n        \"qmessage\", \"filehelper\"\n    ];\n\n    try {\n        // 查询条件：type !\u003d 4 且 type !\u003d 33, 且type !\u003d 4,且 uiType \u003d 0\n        var cursor \u003d db.rawQuery(\n            \"SELECT \" + columnName + \", encryptUsername FROM \" + tableName + \" WHERE type !\u003d 4 AND type !\u003d 0 AND type !\u003d 33 AND uiType \u003d 0;\", \n            null\n        );\n        while (cursor.moveToNext()) {\n            var value \u003d cursor.getString(0);\n            var encryptUsername \u003d cursor.getString(1);\n\n            // 如果 encryptUsername 是空值或全是空白，跳过此条数据\n            if (!encryptUsername || /^\\s*$/.test(encryptUsername)) {\n                continue; // 跳过\n            }\n\n            // 如果以 \u0027gh_\u0027 开头、以 \u0027@chatroom\u0027 结尾或以 \u0027@openim\u0027 结尾，跳过此值\n            if (/^gh_/.test(value) || /@chatroom$/.test(value) || /@openim$/.test(value)) {\n                continue; // 跳过\n            }\n            // 如果值不在排除列表中，添加到输出\n            if (excludedValues.indexOf(value) \u003d\u003d\u003d -1) {\n                outputMessages.push(value); // 将符合条件的UserName数据加入数组\n            }\n        }\n        cursor.close();\n    } catch (e) {\n        outputMessages.push(\"数据库错误: \" + e.message);\n    } finally {\n        db.close();\n    }\n}\n\n// 根据 username 获取对应的 nickname 和 conRemark，并将结果格式化为 username : nickname\nfunction attachNicknamesAndRemarks(dbPath, tableName, usernameColumn, nicknameColumn, conRemarkColumn, filteredMessages) {\n    var db \u003d openDatabaseWithRetries(dbPath, 10);\n    if (db \u003d\u003d null) return filteredMessages; // 如果数据库无法打开，返回原始数据\n\n    var resultMessages \u003d []; // 存储最终结果\n    var usernames \u003d filteredMessages.split(\"\\n\"); // 将 filteredMessages 分行处理\n\n    try {\n        for (var i \u003d 0; i \u003c usernames.length; i++) {\n            var username \u003d usernames[i];\n            if (/^\\s*$/.test(username)) continue; // 跳过空值或全是空白的 username\n\n            var cursor \u003d db.rawQuery(\n                \"SELECT \" + nicknameColumn + \", \" + conRemarkColumn + \" FROM \" + tableName + \" WHERE \" + usernameColumn + \" \u003d ?\", \n                [username]\n            );\n            if (cursor.moveToFirst()) {\n                var nickname \u003d cursor.getString(0); // 获取 nickname\n                var conRemark \u003d cursor.getString(1); // 获取 conRemark\n\n                // 如果昵称为空或全是空白，跳过此条数据\n                if (!nickname || /^\\s*$/.test(nickname)) {\n                    continue; // 跳过此条没有昵称的记录\n                }\n\n                // 如果 conRemark 为空，使用 nickname\n                var finalNickname \u003d (conRemark \u0026\u0026 !/^\\s*$/.test(conRemark)) ? conRemark : nickname;\n\n                resultMessages.push(username + \" : \" + finalNickname); // 拼接为 username : finalNickname 格式\n            }\n            cursor.close();\n        }\n    } catch (e) {\n        outputMessages.push(\"数据库错误: \" + e.message);\n    } finally {\n        db.close();\n    }\n\n    return resultMessages.join(\"\\n\"); // 将最终结果按行合并\n}\n\n// 主函数\nfunction main() {\n    if (!checkDatabaseFile(dbPath)) return;\n\n    // 查询UserName列的所有信息\n    queryColumnData(dbPath, \"rcontact\", \"username\");\n\n    // 用一个变量输出所有信息\n    var allMessages \u003d outputMessages.join(\"\\n\"); // 将所有输出信息合并成一个字符串，每个数据之间换行\n\n    // 输出最终过滤后的结果\n    var filteredMessages \u003d allMessages.split(\"\\n\").filter(function(value) {\n        var excludedValues \u003d [\n            \"floatbottle\", \"weixin\", \"fmessage\", \"qqmail\", \"medianote\", \n            \"qmessage\", \"filehelper\"\n        ];\n        // 确保值完全匹配排除列表中的内容\n        return excludedValues.indexOf(value) \u003d\u003d\u003d -1 \u0026\u0026 !/@openim$/.test(value); // 过滤掉以 @openim 结尾的值\n    }).join(\"\\n\");\n\n    // 调用逻辑\n    var finalResult \u003d attachNicknamesAndRemarks(dbPath, \"rcontact\", \"username\", \"nickname\", \"conRemark\", filteredMessages);\n    \n    // 输出最终格式化结果\n    return finalResult;\n}\n\n// 运行主函数并返回结果\nmain();",
+          "context": "CoroutineContext_IO",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "jsRet",
+              "second": "wxid"
+            }]
+          },
+          "note": "100%",
+          "id": "A-2af78b8b-06d7-4222-aaef-13b9e64a1263"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "// 引入Java类\nvar File \u003d java.io.File;\nvar SQLiteDatabase \u003d android.database.sqlite.SQLiteDatabase;\n\n// 数据库文件路径\nvar dbPath \u003d \u0027/data/media/0/Documents/decrypt.db\u0027;\n\n// 用于保存输出内容的数组\nvar outputMessages \u003d [];\n\n// 检查数据库文件是否存在\nfunction checkDatabaseFile(dbPath) {\n    var dbFile \u003d new File(dbPath);\n    if (!dbFile.exists()) {\n        outputMessages.push(\"数据库文件不存在: \" + dbPath);\n        return false;\n    }\n    return true;\n}\n\n// 尝试打开数据库，最多尝试10次，每次等待1000ms\nfunction openDatabaseWithRetries(dbPath, retries) {\n    var db \u003d null;\n    while (retries \u003e 0) {\n        try {\n            db \u003d SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY);\n            return db;\n        } catch (e) {\n            if (e instanceof android.database.sqlite.SQLiteDatabaseLockedException) {\n                java.lang.Thread.sleep(1000); // 等待1000ms\n                retries--;\n            } else {\n                outputMessages.push(\"数据库错误: \" + e.message);\n                return null;\n            }\n        }\n    }\n    outputMessages.push(\"无法打开数据库，数据库仍然被锁定。\");\n    return null;\n}\n\nfunction queryColumnData(dbPath, tableName, columnName) {\n    var db \u003d openDatabaseWithRetries(dbPath, 10);\n    if (db \u003d\u003d null) return;\n\n    // 完全匹配需要排除的值列表\n    var excludedValues \u003d [\n        \"floatbottle\", \"weixin\", \"fmessage\", \"qqmail\", \"medianote\", \n        \"qmessage\", \"filehelper\"\n    ];\n\n    try {\n        // 查询条件：type !\u003d 4 且 type !\u003d 33\n        var cursor \u003d db.rawQuery(\n            \"SELECT \" + columnName + \", encryptUsername FROM \" + tableName + \" WHERE type !\u003d 4 AND type !\u003d 33;\", \n            null\n        );\n        while (cursor.moveToNext()) {\n            var value \u003d cursor.getString(0);\n            var encryptUsername \u003d cursor.getString(1);\n\n            // 如果 encryptUsername 是空值或全是空白，跳过此条数据\n            if (!encryptUsername || /^\\s*$/.test(encryptUsername)) {\n                continue; // 跳过\n            }\n\n            // 如果以 \u0027gh_\u0027 开头、以 \u0027@chatroom\u0027 结尾或以 \u0027@openim\u0027 结尾，跳过此值\n            if (/^gh_/.test(value) || /@chatroom$/.test(value) || /@openim$/.test(value)) {\n                continue; // 跳过\n            }\n            // 如果值不在排除列表中，添加到输出\n            if (excludedValues.indexOf(value) \u003d\u003d\u003d -1) {\n                outputMessages.push(value); // 将符合条件的UserName数据加入数组\n            }\n        }\n        cursor.close();\n    } catch (e) {\n        outputMessages.push(\"数据库错误: \" + e.message);\n    } finally {\n        db.close();\n    }\n}\n\n// 根据 username 获取对应的 nickname 和 conRemark，并将结果格式化为 username : nickname\nfunction attachNicknamesAndRemarks(dbPath, tableName, usernameColumn, nicknameColumn, conRemarkColumn, filteredMessages) {\n    var db \u003d openDatabaseWithRetries(dbPath, 10);\n    if (db \u003d\u003d null) return filteredMessages; // 如果数据库无法打开，返回原始数据\n\n    var resultMessages \u003d []; // 存储最终结果\n    var usernames \u003d filteredMessages.split(\"\\n\"); // 将 filteredMessages 分行处理\n\n    try {\n        for (var i \u003d 0; i \u003c usernames.length; i++) {\n            var username \u003d usernames[i];\n            if (/^\\s*$/.test(username)) continue; // 跳过空值或全是空白的 username\n\n            var cursor \u003d db.rawQuery(\n                \"SELECT \" + nicknameColumn + \", \" + conRemarkColumn + \" FROM \" + tableName + \" WHERE \" + usernameColumn + \" \u003d ?\", \n                [username]\n            );\n            if (cursor.moveToFirst()) {\n                var nickname \u003d cursor.getString(0); // 获取 nickname\n                var conRemark \u003d cursor.getString(1); // 获取 conRemark\n\n                // 如果昵称为空或全是空白，跳过此条数据\n                if (!nickname || /^\\s*$/.test(nickname)) {\n                    continue; // 跳过此条没有昵称的记录\n                }\n\n                // 如果 conRemark 为空，使用 nickname\n                var finalNickname \u003d (conRemark \u0026\u0026 !/^\\s*$/.test(conRemark)) ? conRemark : nickname;\n\n                resultMessages.push(username + \" : \" + finalNickname); // 拼接为 username : finalNickname 格式\n            }\n            cursor.close();\n        }\n    } catch (e) {\n        outputMessages.push(\"数据库错误: \" + e.message);\n    } finally {\n        db.close();\n    }\n\n    return resultMessages.join(\"\\n\"); // 将最终结果按行合并\n}\n\n// 主函数\nfunction main() {\n    if (!checkDatabaseFile(dbPath)) return;\n\n    // 查询UserName列的所有信息\n    queryColumnData(dbPath, \"rcontact\", \"username\");\n\n    // 用一个变量输出所有信息\n    var allMessages \u003d outputMessages.join(\"\\n\"); // 将所有输出信息合并成一个字符串，每个数据之间换行\n\n    // 输出最终过滤后的结果\n    var filteredMessages \u003d allMessages.split(\"\\n\").filter(function(value) {\n        var excludedValues \u003d [\n            \"floatbottle\", \"weixin\", \"fmessage\", \"qqmail\", \"medianote\", \n            \"qmessage\", \"filehelper\"\n        ];\n        // 确保值完全匹配排除列表中的内容\n        return excludedValues.indexOf(value) \u003d\u003d\u003d -1 \u0026\u0026 !/@openim$/.test(value); // 过滤掉以 @openim 结尾的值\n    }).join(\"\\n\");\n\n    // 调用逻辑\n    var finalResult \u003d attachNicknamesAndRemarks(dbPath, \"rcontact\", \"username\", \"nickname\", \"conRemark\", filteredMessages);\n    \n    // 输出最终格式化结果\n    return finalResult;\n}\n\n// 运行主函数并返回结果\nmain();",
+          "context": "CoroutineContext_IO",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "jsRet",
+              "second": "wxid"
+            }]
+          },
+          "note": "100%",
+          "id": "A-2af78b8b-06d7-4222-aaef-13b9e64a1263"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-cca1bb72-208c-4edb-8078-ec339bf7d3be"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "const cleanedText \u003d wxid.replace(/ : .*/g, \u0027\u0027); // 使用正则表达式删除每个冒号后的内容\n\ncleanedText;",
+        "customContextDataKey": {
+        },
+        "id": "A-5b8d80b9-1a80-47a7-b82a-288d4c78ff97"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "UserName",
+        "valueAsString": "{jsRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-34ce352e-fa2c-4f61-b8b4-33d94cf2b530"
+      }],
+      "description": "查找",
+      "id": "Case-ffad44fd-27de-4ffb-b37a-c3e16bfc89f0"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "HasBeenSet",
+        "varName": "SELinux",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-541fc1f5-7c74-4269-ba14-60b927dd0859"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "setenforce 1",
+        "singleShot": true,
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "SELinux"
+          }]
+        },
+        "id": "A-ef616244-25ec-4e34-971e-265f2fd86a88"
+      }],
+      "description": "关闭",
+      "id": "Case-df08db14-ab39-421c-8177-bade6d87ede6"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "Delwxid",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-4b5527f1-5048-4f0e-919e-428aa9a0c091"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "Delwxid",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-e9e20044-942b-4be4-b466-f51b337614bc"
+      }],
+      "description": "存储变量",
+      "id": "Case-45404189-79bd-4960-a06f-16930cf02595"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-6c351722-5ed2-4194-a403-185226847694"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "Delwxid",
+    "customContextDataKey": {
+    },
+    "id": "A-71c36c3f-30cd-4f12-bbbe-18b190e982f8"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.content.Intent;\nimport android.content.Context;\n\n// 创建 Intent 对象，指定目标组件\nIntent intent \u003d new Intent();\nintent.setClassName(\"com.tencent.mm\", \"com.tencent.mm.ui.LauncherUI\");\n\n// 添加必要的标志\nintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);\n\n// 启动 Intent\ncontext.startActivity(intent);",
+    "customContextDataKey": {
+    },
+    "note": "微信主页面",
+    "id": "A-72b2a5a4-ecf6-4972-b416-c16b76b32ea4"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "int lineCount \u003d globalVarOf$UserName.split(\"\\n\").length;\nreturn lineCount;",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "num"
+      }]
+    },
+    "id": "A-d2aff849-4211-43bb-8c1b-67e0fe09937b"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "num",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-60150c71-3a49-4081-bcd9-4727f4b5a3c5"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "num",
+    "valueAsString": "0",
+    "customContextDataKey": {
+    },
+    "id": "A-05c7efb7-418b-4484-9e59-f7b322e1e987"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "System.currentTimeMillis()",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "ON"
+      }]
+    },
+    "note": "时间戳毫秒",
+    "id": "A-83e89990-8ec0-44c9-a379-d15a16a6ad27"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "num",
+      "payload": {
+        "value": "{num}"
+      },
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-31ff39b4-4ad0-4a8e-b46c-c637a6741a3d"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import android.content.Intent;\nimport android.content.Context;\n\n// 创建 Intent 对象，指定目标组件\nIntent intent \u003d new Intent();\nintent.setClassName(\"com.tencent.mm\", \"com.tencent.mm.ui.LauncherUI\");\n\n// 添加必要的标志\nintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);\n\n// 启动 Intent\ncontext.startActivity(intent);",
+          "customContextDataKey": {
+          },
+          "note": "微信主页面",
+          "id": "A-95bb6e2f-ef0f-4a0e-a064-482c7b723318"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "String strNumber \u003d localVarOf$num;  // 这是一个字符串类型的数字\nint number \u003d Integer.parseInt(strNumber);  // 转换为整数类型\nString text \u003d globalVarOf$UserName;  // 示例文本\nString firstLine \u003d text.split(\"\\n\")[number];  // 获取第一行内容\nreturn firstLine;",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "UserName"
+            }]
+          },
+          "id": "A-34449a7a-8f1f-4ba7-b94b-7410e1330ab3"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import android.content.Intent;\nimport android.net.Uri;\n\nIntent intent \u003d new Intent();\nintent.setClassName(\"com.tencent.mm\", \"com.tencent.mm.plugin.remittance.ui.RemittanceUI\");\nintent.putExtra(\"pay_channel\", 11);\nintent.putExtra(\"receiver_name\", UserName);\nintent.putExtra(\"WECHAT_PAY_LOG_REPORT_INDEX\", 2);\nintent.putExtra(\"pay_scene\", 31);\nintent.putExtra(\"WECHAT_PAY_LOG_REPORT_BASEIFO\", UserName + \",1\");\nintent.putExtra(\"scene\", 2);\n\n// 添加FLAG_ACTIVITY_NEW_TASK标志\nintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n\n// 启动Intent\ncontext.startActivity(intent);",
+          "customContextDataKey": {
+          },
+          "note": "转账界面",
+          "id": "A-ebb6008f-c3c9-447a-9924-85ba683e9d97"
+        }, {
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/CurrentActivity",
+            "activities": [{
+              "pkg": {
+                "pkgName": "com.tencent.mm"
+              },
+              "className": "com.tencent.mm.plugin.remittance.ui.RemittanceUI"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "C-a5ba623c-3f36-41bb-bee3-c0d91c3847df"
+          }],
+          "timeoutStr": "5000",
+          "customContextDataKey": {
+          },
+          "id": "A-fab1669b-761b-435d-bf8d-1474771ed67e"
+        }],
+        "description": "调整",
+        "id": "Case-e488814d-dbde-4338-ab10-87824b7b6f70"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/CurrentActivity",
+          "activities": [{
+            "pkg": {
+              "pkgName": "com.tencent.mm"
+            },
+            "className": "com.tencent.mm.plugin.remittance.ui.RemittanceUI"
+          }],
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-f13a54ea-ed96-4d0c-8f6f-2b1205a7f045"
+        }],
+        "description": "错误",
+        "id": "Case-ed974259-a63a-4ebf-a585-9b5d16e667c2",
+        "isBreak": true
+      }, {
+        "action": [{
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/HasNodeOnScreen",
+            "matchers": [{
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "\\(\\*{1,2}[\\u4e00-\\u9fa5]\\)",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }],
+            "detectTimeout": "5000",
+            "customContextDataKey": {
+            },
+            "id": "C-d27b24db-0e8d-4174-918e-741be7fe6928"
+          }],
+          "timeoutStr": "2500",
+          "customContextDataKey": {
+          },
+          "id": "A-afbf6a91-f737-4471-b692-b9d25773c6ce"
+        }],
+        "description": "屏幕内容",
+        "id": "Case-b9d679ff-cefb-48fb-9d68-d111c1cb9282"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/HasNodeOnScreen",
+          "matchers": [{
+            "@type": "type.googleapis.com/NodeMatcherText",
+            "text": "\\(\\*{1,2}[\\u4e00-\\u9fa5]\\)",
+            "isRegex": true,
+            "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+          }],
+          "detectTimeout": "5000",
+          "customContextDataKey": {
+          },
+          "id": "C-43d45b34-4cd2-48ec-8037-bb2cdbf52c9f"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "String strNumber \u003d localVarOf$num;  // 这是一个字符串类型的数字\nint number \u003d Integer.parseInt(strNumber);  // 转换为整数类型\nreturn number + 1;",
+          "customContextDataKey": {
+          },
+          "id": "A-43b551a1-bc84-4c27-8bca-66d7f46c0f71"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "num",
+          "valueAsString": "{mvelRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-22c0b9c8-9305-4677-9e45-0ce07ce09751"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{mvelRet}/{num}",
+          "customContextDataKey": {
+          },
+          "id": "A-f4998dd9-7054-4fec-82cf-0215fa89ac33"
+        }],
+        "description": "正常",
+        "id": "Case-483bd6f9-8496-4907-b45d-af9b6d069b4b",
+        "isBreak": true
+      }, {
+        "action": [{
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/HasNodeOnScreen",
+            "matchers": [{
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "转账金额"
+            }],
+            "detectTimeout": "5000",
+            "customContextDataKey": {
+            },
+            "id": "C-05ccce4c-d4bf-4669-ae39-254006537068"
+          }],
+          "timeoutStr": "5000",
+          "customContextDataKey": {
+          },
+          "id": "A-b3388e17-fd53-43e2-8b53-74af73292c52"
+        }, {
+          "@type": "type.googleapis.com/InputText",
+          "text": "0.01",
+          "customContextDataKey": {
+          },
+          "id": "A-aef462c6-e440-4bb4-b485-19738b169d53"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "num",
+            "payload": {
+              "value": "0"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-5a4fa51d-7924-4063-a8a8-a6b4d0fba5c2"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/FindAndClickViewByText",
+            "text": "0.01",
+            "timeout": "3000",
+            "rect": {
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-b40a2c88-92ca-40ea-921c-516978eea9bf"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-25d4348a-a287-49b3-8907-0994fba5fb15"
+        }, {
+          "@type": "type.googleapis.com/FindAndClickViewByText",
+          "text": "^转账$",
+          "isRegex": true,
+          "timeout": "3000",
+          "rect": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-cb06a042-7864-4f5e-944e-786ef3c11e0c"
+        }, {
+          "@type": "type.googleapis.com/WaitUtilConditionMatch",
+          "condition": [{
+            "@type": "type.googleapis.com/HasNodeOnScreen",
+            "matchers": [{
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "请输入支付密码",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "对方微信号已被限制登录，为保障你的资金安全，暂时无法完成交易。",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "请确认你和他（她）的好友关系是否正常",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "你不是收款方好友，对方添加你为好友后才能发起转账"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "收款方不是你好友，请添加对方为好友后才能发起转账",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "当前使用人数过多，请稍后再试。",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "不支持向自己付款",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "去完善",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "收款方不是你好友，添加对方为好友后才能发起转账",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }, {
+              "@type": "type.googleapis.com/NodeMatcherText",
+              "text": "付款方式",
+              "isRegex": true,
+              "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+            }],
+            "detectTimeout": "5000",
+            "customContextDataKey": {
+            },
+            "id": "C-1ae31948-90ee-4c61-ac40-251d4af33b30"
+          }],
+          "timeoutStr": "10000",
+          "customContextDataKey": {
+          },
+          "id": "A-573c465a-0686-42d1-8916-84240bb2d98f"
+        }],
+        "description": "点击",
+        "id": "Case-013de40b-6e1b-496e-b403-097a061a83a6"
+      }, {
+        "action": [{
+          "@type": "type.googleapis.com/SwitchCase",
+          "case": [{
+            "case": [{
+              "@type": "type.googleapis.com/HasNodeOnScreen",
+              "matchers": [{
+                "@type": "type.googleapis.com/NodeMatcherText",
+                "text": "请输入支付密码",
+                "isRegex": true,
+                "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+              }, {
+                "@type": "type.googleapis.com/NodeMatcherText",
+                "text": "付款方式",
+                "isRegex": true,
+                "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+              }],
+              "detectTimeout": "5000",
+              "customContextDataKey": {
+              },
+              "id": "C-6441525e-3789-429b-839b-a65d36721edf"
+            }],
+            "description": "正常",
+            "id": "Case-4feedd96-af71-41d2-9ccd-c26978f515a7",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/HasNodeOnScreen",
+              "matchers": [{
+                "@type": "type.googleapis.com/NodeMatcherText",
+                "text": "请确认你和他（她）的好友关系是否正常",
+                "isRegex": true,
+                "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+              }],
+              "detectTimeout": "5000",
+              "customContextDataKey": {
+              },
+              "id": "C-0c51dff5-5440-4576-8512-e56491758454"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "\necho \"{UserName} 被拉黑\" \u003e\u003e /storage/emulated/0/Documents/异常.txt",
+              "customContextDataKey": {
+              },
+              "isDisabled": true,
+              "id": "A-b5a70e01-93b5-4a3d-8174-0a0f40b4f153"
+            }, {
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "UserName + \u0027被拉黑\u0027 + \"\\n\"",
+              "customContextDataKey": {
+              },
+              "id": "A-9746f741-c6b2-4c6f-be92-d1c902170279"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "Delwxid",
+              "valueAsString": "{mvelRet}",
+              "op": "WriteGlobalVarOp_AppendToFirst",
+              "customContextDataKey": {
+              },
+              "id": "A-51f01994-6358-4564-9ad1-18473696f207"
+            }, {
+              "@type": "type.googleapis.com/FindAndClickViewByText",
+              "text": "知道了",
+              "timeout": "3000",
+              "rect": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-cf3458ac-923c-4ba6-bbd1-3dcb8b898766"
+            }],
+            "description": "被拉黑",
+            "id": "Case-346a5bc7-d902-461a-84a3-b7d59225a679",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/HasNodeOnScreen",
+              "matchers": [{
+                "@type": "type.googleapis.com/NodeMatcherText",
+                "text": "你不是收款方好友，对方添加你为好友后才能发起转账",
+                "isRegex": true,
+                "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+              }],
+              "detectTimeout": "5000",
+              "customContextDataKey": {
+              },
+              "id": "C-e18ccffd-9fb8-4185-8ace-eb2b0eb8a27e"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "\necho \"{UserName} 被删除\" \u003e\u003e /storage/emulated/0/Documents/异常.txt",
+              "customContextDataKey": {
+              },
+              "isDisabled": true,
+              "id": "A-b5a70e01-93b5-4a3d-8174-0a0f40b4f153"
+            }, {
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "UserName + \u0027被删除\u0027 + \"\\n\"",
+              "customContextDataKey": {
+              },
+              "id": "A-a1104e82-9352-4e6f-b4ef-dcef1b83c0dc"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "Delwxid",
+              "valueAsString": "{mvelRet}",
+              "op": "WriteGlobalVarOp_AppendToFirst",
+              "customContextDataKey": {
+              },
+              "id": "A-6355a730-d077-47a3-8e18-9c55f41782ef"
+            }, {
+              "@type": "type.googleapis.com/FindAndClickViewByText",
+              "text": "知道了",
+              "timeout": "3000",
+              "rect": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-cf3458ac-923c-4ba6-bbd1-3dcb8b898766"
+            }],
+            "description": "被删除",
+            "id": "Case-df87cc3e-c24d-4b55-b90b-15068de2a198",
+            "isBreak": true
+          }, {
+            "case": [{
+              "@type": "type.googleapis.com/HasNodeOnScreen",
+              "matchers": [{
+                "@type": "type.googleapis.com/NodeMatcherText",
+                "text": "对方微信号已被限制登录，为保障你的资金安全，暂时无法完成交易",
+                "isRegex": true,
+                "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+              }, {
+                "@type": "type.googleapis.com/NodeMatcherText",
+                "text": "对方微信号已被限制登录，为保障你的资金安全，暂时无法完成交易。",
+                "isRegex": true,
+                "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+              }],
+              "detectTimeout": "5000",
+              "customContextDataKey": {
+              },
+              "id": "C-8b90a413-fc37-4fbc-90d7-5e005c0f3d6b"
+            }],
+            "action": [{
+              "@type": "type.googleapis.com/ExecuteMVEL",
+              "expression": "UserName + \u0027被限制登录\u0027 + \"\\n\"",
+              "customContextDataKey": {
+              },
+              "id": "A-a1104e82-9352-4e6f-b4ef-dcef1b83c0dc"
+            }, {
+              "@type": "type.googleapis.com/WriteGlobalVar",
+              "varName": "Delwxid",
+              "valueAsString": "{mvelRet}",
+              "op": "WriteGlobalVarOp_AppendToFirst",
+              "customContextDataKey": {
+              },
+              "id": "A-6355a730-d077-47a3-8e18-9c55f41782ef"
+            }, {
+              "@type": "type.googleapis.com/FindAndClickViewByText",
+              "text": "知道了",
+              "timeout": "3000",
+              "rect": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-cf3458ac-923c-4ba6-bbd1-3dcb8b898766"
+            }],
+            "description": "被限制登录",
+            "id": "Case-28597c8e-b2cc-4c79-b3b2-30c294b7612f",
+            "isBreak": true
+          }, {
+            "action": [{
+              "@type": "type.googleapis.com/FindAndClickViewByText",
+              "text": "知道了",
+              "timeout": "3000",
+              "rect": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-cf3458ac-923c-4ba6-bbd1-3dcb8b898766"
+            }],
+            "description": "其他",
+            "id": "Case-7426a2ff-76a3-4a30-8e5d-d67429aa4341",
+            "isBreak": true
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-782b95d6-b064-4ba5-8132-0166c7fdb0dd"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "String strNumber \u003d localVarOf$num;  // 这是一个字符串类型的数字\nint number \u003d Integer.parseInt(strNumber);  // 转换为整数类型\nreturn number + 1;",
+          "customContextDataKey": {
+          },
+          "id": "A-5ad16f6b-638d-47ed-a145-e2d1cbef8a19"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "num",
+          "valueAsString": "{mvelRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-9fcaabbf-b39b-4b6f-8795-2e655d6cf227"
+        }],
+        "description": "记录",
+        "id": "Case-63294a97-d6ed-485f-99d0-0980c6f19fa7"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-22574a68-76ad-46a9-90ee-50f61a902a2c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-432bf701-c26f-4d8f-80ce-4be526e9f31e"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.concurrent.TimeUnit;\n\nlong currentTimestampSeconds \u003d System.currentTimeMillis();\nlong differenceSeconds \u003d currentTimestampSeconds - {ON};\nlong absoluteDifferenceSeconds \u003d Math.abs(differenceSeconds);\n\n// 使用 TimeUnit 将毫秒转换为天、小时、分钟和秒\nlong days \u003d TimeUnit.MILLISECONDS.toDays(absoluteDifferenceSeconds);\nlong hours \u003d TimeUnit.MILLISECONDS.toHours(absoluteDifferenceSeconds) % 24;\nlong minutes \u003d TimeUnit.MILLISECONDS.toMinutes(absoluteDifferenceSeconds) % 60;\nlong seconds \u003d TimeUnit.MILLISECONDS.toSeconds(absoluteDifferenceSeconds) % 60;\nlong milliseconds \u003d absoluteDifferenceSeconds % 1000;\n\nString result \u003d \"\";\n\nif (days \u003e\u003d 1) {\n    result \u003d days + \"天 \" + hours + \"时 \" + minutes + \"分 \" + seconds + \"秒 \" + milliseconds + \"毫秒\";\n} else if (hours \u003e\u003d 1) {\n    result \u003d hours + \"时 \" + minutes + \"分 \" + seconds + \"秒 \" + milliseconds + \"毫秒\";\n} else if (minutes \u003e\u003d 1) {\n    result \u003d minutes + \"分 \" + seconds + \"秒 \" + milliseconds + \"毫秒\";\n} else if (seconds \u003e\u003d 1) {\n    result \u003d seconds + \"秒 \" + milliseconds + \"毫秒\";  \n} else {\n    result \u003d milliseconds + \"毫秒\";\n}\nresult",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "Time"
+      }]
+    },
+    "id": "A-a2433e72-cbc0-43f0-9fa2-65ee572697f2"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "// 初始化计数器\ndeletedCount \u003d 0;\n\n// 按指定关键词分割并统计\ndeletedParts \u003d globalVarOf$Delwxid.split(\"被\");\ndeletedCount \u003d deletedParts.length - 1;\n\n\nreturn deletedCount;",
+    "customContextDataKey": {
+    },
+    "id": "A-117b3072-6d8e-4056-b815-c07980d96586"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "mvelRet \u003d\u003d 0;",
+        "customContextDataKey": {
+        },
+        "id": "C-4f560f91-10d7-4b17-b3d6-48f361ddf894"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "title": "检测完毕",
+        "message": "用时 {Time}\n好友共{num}个\n没有异常好友🤪",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-7e4226e4-3f4e-4c1f-910a-c6af231a5159"
+      }],
+      "description": "没有异常好友",
+      "id": "Case-f554b122-fb24-408b-8f88-62ad7bf08e1a",
+      "isBreak": true
+    }, {
+      "action": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "下一步",
+        "onPositive": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "// 示例数据，使用反引号定义多行字符串\nvar data \u003d wxid;\n\n// 要提取的 wxid 列表，使用反引号和换行来组织\nvar wxids \u003d globalVarOf$Delwxid;\n\n// 用于存储最终输出的结果\nvar result \u003d \"\";\n\n// 将 wxids 列表拆分成数组，并获取总行数\nvar wxidLines \u003d wxids.trim().split(\u0027\\n\u0027);\n\n// 逐个提取并拼接对应的 wxid 和它们的值\nwxidLines.forEach((id, index) \u003d\u003e {\n    // 正则表达式匹配每个 wxid 和其对应的值，适应新的数据格式\n    var regex \u003d new RegExp(`(${id.split(\u0027被\u0027)[0]}\\\\s*):\\\\s*(.+)`, \u0027g\u0027);\n    var match \u003d regex.exec(data);\n    \n    // 如果找到了匹配项，则将结果拼接到字符串中\n    if (match !\u003d\u003d null) {\n        // 判断是否是最后一行\n        var suffix \u003d (index \u003d\u003d\u003d wxidLines.length - 1) ? \u0027\u0027 : \u0027 , \\n\u0027;\n        result +\u003d `${match[2]}${id.match(/被.*/)[0]}\\n${match[1]}${suffix}`;\n    }\n});\n\n// 最后输出拼接好的结果\nresult;",
+          "customContextDataKey": {
+          },
+          "id": "A-6e8adf44-fc42-4280-aa0b-e22ba8c95394"
+        }, {
+          "@type": "type.googleapis.com/ShowDanmu",
+          "text": "阅览完毕，直接点击确定就行，不用选中",
+          "customContextDataKey": {
+          },
+          "id": "A-8416cf73-c34c-44d6-86d6-a9afa2fe78c9"
+        }, {
+          "@type": "type.googleapis.com/ShowListDialog",
+          "title": "异常好友",
+          "cancelable": true,
+          "data": "{jsRet}",
+          "delimiter": [" , "],
+          "customContextDataKey": {
+          },
+          "id": "A-681dabdb-0ce8-4e2c-b09f-92f5e5d157f1"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "// 初始化计数器\ndeletedCount \u003d 0;\n\n// 按指定关键词分割并统计\ndeletedParts \u003d globalVarOf$Delwxid.split(\"被\");\ndeletedCount \u003d deletedParts.length - 1;\n\n\nreturn deletedCount * 2 + 1;",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "num"
+            }]
+          },
+          "id": "A-9f3f1a9e-c2ea-4216-bed8-0d3a7e1d5da6"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "num",
+          "valueAsString": "1",
+          "customContextDataKey": {
+          },
+          "id": "A-f96bdd47-70a0-4934-af29-ddb651b73a28"
+        }, {
+          "@type": "type.googleapis.com/WhileLoop",
+          "conditions": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "num",
+            "payload": {
+              "value": "{num}"
+            },
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-31ff39b4-4ad0-4a8e-b46c-c637a6741a3d"
+          }],
+          "actions": [{
+            "@type": "type.googleapis.com/SwitchCase",
+            "case": [{
+              "action": [{
+                "@type": "type.googleapis.com/ExecuteJS",
+                "expression": "// 示例数据，使用反引号定义多行字符串\nvar data \u003d wxid;\n\n// 要提取的 wxid 列表，使用反引号和换行来组织\nvar wxids \u003d globalVarOf$Delwxid;\n\n// 用于存储最终输出的结果\nvar result \u003d \"\";\n\n// 将 wxids 列表拆分成数组，并获取总行数\nvar wxidLines \u003d wxids.trim().split(\u0027\\n\u0027);\n\n// 逐个提取并拼接对应的 wxid 和它们的值\nwxidLines.forEach((id, index) \u003d\u003e {\n    // 正则表达式匹配每个 wxid 和其对应的值，适应新的数据格式\n    var regex \u003d new RegExp(`(${id.split(\u0027被\u0027)[0].trim()}\\\\s*):\\\\s*(.+)`, \u0027g\u0027);\n    var match \u003d regex.exec(data);\n    \n    // 如果找到了匹配项，则将结果拼接到字符串中\n    if (match !\u003d\u003d null) {\n        // 判断是否是最后一行\n        var suffix \u003d (index \u003d\u003d\u003d wxidLines.length - 1) ? \u0027\u0027 : \u0027\\n\u0027;\n        result +\u003d `${id.match(/被.*/)[0].trim()}${match[2].trim()}\\n${match[1].trim()}${suffix}`;\n    }\n});\n\n// 最后输出拼接好的结果\nresult;",
+                "customContextDataKey": {
+                },
+                "id": "A-05fc3f8e-46d0-4b77-ab60-fec5ecfffda8"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "import android.content.Intent;\nimport android.content.Context;\n\n// 创建 Intent 对象，指定目标组件\nIntent intent \u003d new Intent();\nintent.setClassName(\"com.tencent.mm\", \"com.tencent.mm.ui.LauncherUI\");\n\n// 添加必要的标志\nintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);\n\n// 启动 Intent\ncontext.startActivity(intent);",
+                "customContextDataKey": {
+                },
+                "note": "微信主页面",
+                "id": "A-95bb6e2f-ef0f-4a0e-a064-482c7b723318"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "String strNumber \u003d localVarOf$num;  // 这是一个字符串类型的数字\nint number \u003d Integer.parseInt(strNumber);  // 转换为整数类型\nString text \u003d jsRet;  // 示例文本\nString firstLine \u003d text.split(\"\\n\")[number];  // 获取第一行内容\nreturn firstLine;",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "UserName"
+                  }]
+                },
+                "id": "A-34449a7a-8f1f-4ba7-b94b-7410e1330ab3"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "import android.content.Intent;\nimport android.net.Uri;\n\nIntent intent \u003d new Intent();\nintent.setClassName(\"com.tencent.mm\", \"com.tencent.mm.ui.contact.ContactRemarkInfoModUI\");\nintent.putExtra(\"key_label_click_source\", 0);\nintent.putExtra(\"Contact_User\", UserName);\n\n// 添加FLAG_ACTIVITY_NEW_TASK标志\nintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n\n// 启动Intent\ncontext.startActivity(intent);",
+                "customContextDataKey": {
+                },
+                "note": "备注界面",
+                "id": "A-ebb6008f-c3c9-447a-9924-85ba683e9d97"
+              }, {
+                "@type": "type.googleapis.com/WaitUtilConditionMatch",
+                "condition": [{
+                  "@type": "type.googleapis.com/CurrentActivity",
+                  "activities": [{
+                    "pkg": {
+                      "pkgName": "com.tencent.mm"
+                    },
+                    "className": "com.tencent.mm.ui.contact.ContactRemarkInfoModUI"
+                  }],
+                  "customContextDataKey": {
+                  },
+                  "id": "C-a5ba623c-3f36-41bb-bee3-c0d91c3847df"
+                }],
+                "timeoutStr": "5000",
+                "customContextDataKey": {
+                },
+                "id": "A-fab1669b-761b-435d-bf8d-1474771ed67e"
+              }],
+              "description": "调整",
+              "id": "Case-e488814d-dbde-4338-ab10-87824b7b6f70"
+            }, {
+              "case": [{
+                "@type": "type.googleapis.com/CurrentActivity",
+                "activities": [{
+                  "pkg": {
+                    "pkgName": "com.tencent.mm"
+                  },
+                  "className": "com.tencent.mm.ui.contact.ContactRemarkInfoModUI"
+                }],
+                "customContextDataKey": {
+                },
+                "isInvert": true,
+                "id": "C-f13a54ea-ed96-4d0c-8f6f-2b1205a7f045"
+              }],
+              "description": "错误",
+              "id": "Case-ed974259-a63a-4ebf-a585-9b5d16e667c2",
+              "isBreak": true
+            }, {
+              "action": [{
+                "@type": "type.googleapis.com/WaitUtilConditionMatch",
+                "condition": [{
+                  "@type": "type.googleapis.com/HasNodeOnScreen",
+                  "matchers": [{
+                    "@type": "type.googleapis.com/NodeMatcherText",
+                    "text": "完成",
+                    "isRegex": true,
+                    "regexOptions": "RegexMatchOptions_ContainsMatchIn"
+                  }],
+                  "detectTimeout": "5000",
+                  "customContextDataKey": {
+                  },
+                  "id": "C-05ccce4c-d4bf-4669-ae39-254006537068"
+                }],
+                "timeoutStr": "5000",
+                "customContextDataKey": {
+                },
+                "id": "A-b3388e17-fd53-43e2-8b53-74af73292c52"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "String strNumber \u003d localVarOf$num;  // 这是一个字符串类型的数字\nint number \u003d Integer.parseInt(strNumber) - 1;  // 转换为整数类型\nString text \u003d jsRet;  // 示例文本\nString firstLine \u003d text.split(\"\\n\")[number];  // 获取第一行内容\nreturn firstLine;",
+                "customContextDataKey": {
+                },
+                "id": "A-6e5350ba-7eb2-46a3-a61b-f7ab134ec0ea"
+              }, {
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "// 删除包含“被拉黑”或“被删除”,\"被限制登录\"的文本\nfirstLine \u003d mvelRet.replaceAll(\"被拉黑|被删除|被限制登录\", \"\");  \n\nreturn firstLine;",
+                "customContextDataKey": {
+                  "keys": [{
+                    "first": "mvelRet",
+                    "second": "Del"
+                  }]
+                },
+                "id": "A-a0a217c2-bd3c-40e9-af8d-65fc4b56c163"
+              }, {
+                "@type": "type.googleapis.com/FindAndClickViewByText",
+                "text": "{Del}",
+                "timeout": "3000",
+                "rect": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-f19c99ae-c780-4dfd-83c8-39a99dd1e36b"
+              }, {
+                "@type": "type.googleapis.com/WaitForIdle",
+                "customContextDataKey": {
+                },
+                "id": "A-3f3859d3-aeed-4b04-a46e-11dc31572dcc"
+              }, {
+                "@type": "type.googleapis.com/PerformContextMenuAction",
+                "customContextDataKey": {
+                },
+                "id": "A-5f4102d7-ab21-480b-b4dd-8157817a6c9b"
+              }, {
+                "@type": "type.googleapis.com/InputText",
+                "text": "{mvelRet}",
+                "customContextDataKey": {
+                },
+                "id": "A-aef462c6-e440-4bb4-b485-19738b169d53"
+              }, {
+                "@type": "type.googleapis.com/FindAndClickViewByText",
+                "text": "^完成$",
+                "isRegex": true,
+                "timeout": "3000",
+                "rect": {
+                },
+                "customContextDataKey": {
+                },
+                "id": "A-cb06a042-7864-4f5e-944e-786ef3c11e0c"
+              }],
+              "description": "点击",
+              "id": "Case-013de40b-6e1b-496e-b403-097a061a83a6"
+            }, {
+              "action": [{
+                "@type": "type.googleapis.com/ExecuteMVEL",
+                "expression": "String strNumber \u003d localVarOf$num;  // 这是一个字符串类型的数字\nint number \u003d Integer.parseInt(strNumber);  // 转换为整数类型\nreturn number + 2;",
+                "customContextDataKey": {
+                },
+                "id": "A-5ad16f6b-638d-47ed-a145-e2d1cbef8a19"
+              }, {
+                "@type": "type.googleapis.com/WriteLocalVar",
+                "varName": "num",
+                "valueAsString": "{mvelRet}",
+                "customContextDataKey": {
+                },
+                "id": "A-9fcaabbf-b39b-4b6f-8795-2e655d6cf227"
+              }],
+              "description": "记录",
+              "id": "Case-63294a97-d6ed-485f-99d0-0980c6f19fa7"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-22574a68-76ad-46a9-90ee-50f61a902a2c"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-e7e9fe69-373f-4a22-9a66-64e8a0468f56"
+        }, {
+          "@type": "type.googleapis.com/ShowAlertDialog",
+          "positive": "好的",
+          "title": "备注完毕",
+          "message": "微信直接搜索被删除｜被拉黑｜被限制登录",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-3fbd77ae-ae67-4f4e-8419-e68cb7d53cca"
+        }],
+        "negative": "取消",
+        "title": "检测完毕",
+        "message": "用时 {Time}\n好友共{num}个\n异常好友 {mvelRet}个",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-7e4226e4-3f4e-4c1f-910a-c6af231a5159"
+      }],
+      "description": "异常好友",
+      "id": "Case-1ce80d99-e924-400f-a550-009a2994550a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-ca46ef4d-e7da-4f51-9827-61ec3d3b4e6f"
+  }],
+  "id": "SHARED-DA-788bdf48-caeb-491d-a8ff-db4ee9c28c5e",
+  "lastUpdateTime": "1732446417532",
+  "createTime": "1730993592781",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "真实好友 1.4.3",
+  "description": "微信语言仅支持简体中文\n需要下载Termux\n执行\npkg install sqlcipher\npkg install openssl",
+  "versionCode": "1",
+  "parameters": [{
+    "name": "filePath",
+    "defaultValue": "filePath1\u003d\"/data/user/0/com.termux/files/usr/bin/sqlcipher\"\nfilePath2\u003d\"/data/user/0/com.termux/files/usr/lib/libcrypto.so.3\"\n\nif [ ! -f \"$filePath1\" ] \u0026\u0026 [ ! -f \"$filePath2\" ]; then\n  echo \"这两个文件都不存在\"\nelif [ ! -f \"$filePath1\" ]; then\n  echo \"sqlcipher\n\"\nelif [ ! -f \"$filePath2\" ]; then\n  echo \"openssl\"\nelse\n  echo true\nfi\n"
+  }, {
+    "name": "Deldecrypt.db",
+    "defaultValue": "# 如果 decrypt.db 文件存在，则删除它\nif [ -f \"/storage/emulated/0/Documents/decrypt.db\" ]; then\n    rm \"/storage/emulated/0/Documents/decrypt.db\"\nfi"
+  }],
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOff",
+      "customContextDataKey": {
+      },
+      "id": "F-6a9b4b8a-2928-4fa2-9030-84efb4e5ea30"
+    }, {
+      "@type": "type.googleapis.com/SystemSettingsChanged",
+      "urlAndExpectedValueRegex": {
+        "first": "content://settings/system/volume_music_speaker",
+        "second": "-?\\d+(\\.\\d+)?"
+      },
+      "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+      "customContextDataKey": {
+      },
+      "id": "F-308ca996-8295-4dce-9453-9fd97840d40b"
+    }],
+    "isEnabled": true
+  }
+}
+###------###
+{"type":"da"}

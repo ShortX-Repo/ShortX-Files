@@ -1,0 +1,105 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-f960401b-b110-47d3-86e7-e25db448bc28"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\ntext\u003d\"{clipboardContent}\"\n\n# 使用正则表达式匹配18位以上的数字\nmatched_numbers\u003d$(echo \"$text\" | grep -oE \u0027[0-9]{18,}\u0027)\n\n# 检查是否有匹配的数字\nif [[ -n \"$matched_numbers\" ]]; then\n    echo \"$text\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-0bd2e34f-4ec9-4a3b-8495-74b297eec44e"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{shellOut}\u003d\u003d\"\"",
+      "customContextDataKey": {
+      },
+      "isInvert": true,
+      "id": "C-2f07f4d7-86d1-4267-8ef7-afa2f32f0bc2"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\n\nimport requests\n\n# 定义inputId/userid的值\ninput_id \u003d \"{shellOut}\"\n\n# 获取年龄\nurl_age \u003d \"https://www.matools.com/id.json\"\nheaders \u003d {\n    \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0\"\n}\ndata_age \u003d {\n    \"inputId\": input_id\n}\n\nresponse_age \u003d requests.post(url_age, headers\u003dheaders, data\u003ddata_age)\nresponse_json_age \u003d response_age.json()\n\nage \u003d response_json_age[\"age\"]\n\n# 获取其他字段内容\nurl_other \u003d \"https://www.haoshudi.com/api/id/query/?userid\u003d\" + input_id\nheaders_other \u003d {\n    \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0\"\n}\n\nresponse_other \u003d requests.get(url_other, headers\u003dheaders_other)\nresponse_json_other \u003d response_other.json()\n\nmsg \u003d response_json_other[\"msg\"]\nsex \u003d response_json_other[\"data\"][\"sex\"]\nbirthday \u003d response_json_other[\"data\"][\"birthday\"]\naddress \u003d response_json_other[\"data\"][\"address\"]\nzodiac \u003d response_json_other[\"data\"][\"zodiac\"]\nstarsign \u003d response_json_other[\"data\"][\"starsign\"]\n\n# 输出字段内容\nprint(\"查询结果：\" + msg)\nprint(\"归属地区：\" + address)\nprint(\"性别：\" + sex)\nprint(\"出生日期：\" + birthday)\nprint(\"年龄：\" + str(age))\nprint(\"生肖：\" + zodiac)\nprint(\"星座：\" + starsign)\n\nEND",
+      "customContextDataKey": {
+      },
+      "id": "A-bddc99e9-bd83-4cfa-9601-ba06d7a5b99f"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "message": "{shellOut}",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-22c98770-7e30-48e2-81ac-5f2c45054520"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "输入身份证号",
+      "cancelable": true,
+      "textFields": [{
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-6311e7cd-f225-4486-b128-283e03194dae"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#!/bin/bash\n\ntext\u003d\"{textFieldInput1}\"\n\n# 使用正则表达式匹配18位以上的数字\nmatched_numbers\u003d$(echo \"$text\" | grep -oE \u0027[0-9]{18,}\u0027)\n\n# 检查是否有匹配的数字\nif [[ -n \"$matched_numbers\" ]]; then\n    echo \"$text\"\nfi",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-2035568e-2188-4482-b5de-ad6a8dcf1549"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{textFieldInput1}\u003d\u003d{shellOut}",
+        "customContextDataKey": {
+        },
+        "id": "C-05abc75b-b4ac-4ee3-9396-6f34feabb2f4"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\npython3 - \u003c\u003cEND\n\nimport requests\n\n# 定义inputId/userid的值\ninput_id \u003d \"{textFieldInput1}\"\n\n# 获取年龄\nurl_age \u003d \"https://www.matools.com/id.json\"\nheaders \u003d {\n    \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0\"\n}\ndata_age \u003d {\n    \"inputId\": input_id\n}\n\nresponse_age \u003d requests.post(url_age, headers\u003dheaders, data\u003ddata_age)\nresponse_json_age \u003d response_age.json()\n\nage \u003d response_json_age[\"age\"]\n\n# 获取其他字段内容\nurl_other \u003d \"https://www.haoshudi.com/api/id/query/?userid\u003d\" + input_id\nheaders_other \u003d {\n    \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0\"\n}\n\nresponse_other \u003d requests.get(url_other, headers\u003dheaders_other)\nresponse_json_other \u003d response_other.json()\n\nmsg \u003d response_json_other[\"msg\"]\nsex \u003d response_json_other[\"data\"][\"sex\"]\nbirthday \u003d response_json_other[\"data\"][\"birthday\"]\naddress \u003d response_json_other[\"data\"][\"address\"]\nzodiac \u003d response_json_other[\"data\"][\"zodiac\"]\nstarsign \u003d response_json_other[\"data\"][\"starsign\"]\n\n# 输出字段内容\nprint(\"查询结果：\" + msg)\nprint(\"归属地区：\" + address)\nprint(\"性别：\" + sex)\nprint(\"出生日期：\" + birthday)\nprint(\"年龄：\" + str(age))\nprint(\"生肖：\" + zodiac)\nprint(\"星座：\" + starsign)\n\nEND",
+        "customContextDataKey": {
+        },
+        "id": "A-e1120efa-5838-4256-bc6d-73c42df51ec1"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "message": "{shellOut}",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-814d36be-32ba-4ddc-b158-2d759eecc30d"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "message": "查询失败",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-814d36be-32ba-4ddc-b158-2d759eecc30d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-72802305-34bd-49bb-81f0-1230bdf9f595"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-fe498b5a-3883-40c4-a285-e3fd61ae58aa"
+  }],
+  "id": "DA82c3ef4f-f604-4271-b10e-bdc943bc3ae3",
+  "lastUpdateTime": "1702740301227",
+  "createTime": "1702408619665",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "身份证号查询",
+  "description": "通过身份证号查询归属地区、性别、出生日期、年龄、生肖、星座\n需要Termux以及安装相关库:\npkg install python3 -y\npip install requests\n需要联网",
+  "versionCode": "1",
+  "directActionSetId": "DS-ca358e7d-f507-4d5b-9a00-46d730580dcb"
+}
+###------###
+{"type":"da"}

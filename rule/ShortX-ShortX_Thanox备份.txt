@@ -1,0 +1,113 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 5
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "SATURDAY", "FRIDAY", "THURSDAY", "WEDNESDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-42fd8383-042a-4cbb-8b1e-f590ff23d405"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "backup_dir",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-2cc263d5-1bb7-4363-b71f-26f8dd631765"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "backup_dir",
+    "valueAsString": "这里填写备份文件路径…",
+    "customContextDataKey": {
+    },
+    "id": "A-3c18f897-ce4d-4d38-8828-960b3e38f5e9"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\ndatetime\u003d$(date +\"%Y-%m%d-%H%M%S\")\narchive_name\u003d\"Thanox-Backup-${datetime}.zip\"\ntarget_dir\u003d\"localVarOf$backup_dir\"\n\ncd /data/system/thanos_*/data/u/0\ntar -cf localVarOf$backup_dir/$archive_name * 2\u003e/dev/mull\n\nif [ -f \"$target_dir/$archive_name\" ]; then\n  echo \"Thanox备份成功。\"\nelse\n  echo \"Thanox备份失败，请检查路径设置。\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "thanox_backup"
+      }]
+    },
+    "note": "Thanox备份",
+    "id": "A-179d13d4-28b4-42d5-add9-bea3433e44e3"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\n\ndir\u003d$(find /data/system/ -maxdepth 1 -type d -name \"shortx_*\" -print)\nsource_dir\u003d\"${dir}/data/u/0/data_store\"\ntarget_dir\u003d\"localVarOf$backup_dir\" \n\ndatetime\u003d$(date +\"%Y-%m%d-%H%M%S\")\narchive_name\u003d\"ShortX-Backup-${datetime}.zip\"\n\ncp ${source_dir}/das.pb ${target_dir}/da.pb 2\u003e/dev/null\ncp ${source_dir}/dasets.pb ${target_dir}/daset.pb 2\u003e/dev/null\ncp ${source_dir}/globalVars.pb ${target_dir}/gvar.pb 2\u003e/dev/null\ncp ${source_dir}/pkgsets.pb ${target_dir}/pkgset.pb 2\u003e/dev/null\ncp ${source_dir}/rules.pb ${target_dir}/rule.pb 2\u003e/dev/null\ncp ${source_dir}/rulesets.pb ${target_dir}/ruleset.pb 2\u003e/dev/null\n\ngrep \"SHORTX\" /data/system/shortx_*/log/log/shortx-init.log 2\u003e/dev/null | tail -n 1 | awk -F \"main\" \u0027{sub(/^ */, \"\", $2); sub(/ *$/, \"\", $2); print $2}\u0027 \u003e \"${target_dir}/backup.meta\" \n\ntar -cf ${target_dir}/${archive_name} -C ${target_dir} da.pb daset.pb gvar.pb pkgset.pb rule.pb ruleset.pb backup.meta 2\u003e/dev/null\n\nrm ${target_dir}/da.pb 2\u003e/dev/null\nrm ${target_dir}/daset.pb 2\u003e/dev/null\nrm ${target_dir}/gvar.pb 2\u003e/dev/null\nrm ${target_dir}/pkgset.pb 2\u003e/dev/null\nrm ${target_dir}/rule.pb 2\u003e/dev/null\nrm ${target_dir}/ruleset.pb 2\u003e/dev/null\nrm ${target_dir}/backup.meta 2\u003e/dev/null\n\nif [ -f ${target_dir}/${archive_name} ]; then\n  echo \"ShortX备份成功\"\nelse\n  echo \"ShortX备份失败，请检查路径设置\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "shortx_backup"
+      }]
+    },
+    "note": "ShortX备份",
+    "id": "A-d893f720-dc63-4695-b3b9-be243e2e70b6"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{shortx_backup}.contains(\u0027ShortX备份成功\u0027)",
+      "customContextDataKey": {
+      },
+      "id": "C-ba2227af-d140-4d86-9261-d321a466e15e"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1699270756725",
+      "message": "ShortX备份成功。\n{thanox_backup}",
+      "isImportant": true,
+      "smallIcon": "send-backward",
+      "customContextDataKey": {
+      },
+      "id": "A-584aee07-0145-4741-9c13-c9aee425073b"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1699270756725",
+      "message": "ShortX备份失败，请检查路径设置。\n{thanox_backup}",
+      "isImportant": true,
+      "smallIcon": "send-backward",
+      "customContextDataKey": {
+      },
+      "id": "A-9e5f324a-4710-4067-a531-58c2d65c7781"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-7b461001-2e02-4969-a0ad-e12db71c0aef"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/bin/bash\ntarget_dir\u003d\"localVarOf$backup_dir\"\ndate\u003d$(date +\"%Y-%m%d-\")\n\ncheck_backup() {\n    local app\u003d$1\n    local app_files\u003d$(find \"$target_dir\" -name \"${app}-Backup-$date*zip\")\n    local message\u003d\"\"\n    \n    if [ -z \"$app_files\" ]; then\n        message\u003d\"$app:今天未备份\"\n    else\n        message\u003d\"$app:今日已备份\"\n    fi\n    \n    echo \"$message\"\n}\n\ncheck_backup \"ShortX\"\ncheck_backup \"Thanox\"",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "判断今天有没有备份",
+    "id": "A-7538cf4e-f3c5-4ef8-9acd-46c44d634f60"
+  }],
+  "id": "rule-d380cd88-cdc9-4f57-85c1-360760e55717",
+  "lastUpdateTime": "1699436659300",
+  "createTime": "1699270069628",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "ShortX_Thanox备份",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-f342165a-c1c4-40ea-8519-67cc0b593a41"
+}
+###------###
+{"type":"rule"}

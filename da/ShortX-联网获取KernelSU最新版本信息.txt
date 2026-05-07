@@ -1,0 +1,52 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.github.com/repos/tiann/KernelSU/releases/latest",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["tag_name", "assets[0].browser_download_url", "assets[0].updated_at"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-43e4a60a-8a49-48af-a2a3-cc93a58ae115"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "查看",
+    "onPositive": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "https://github.com/tiann/KernelSU/releases",
+      "customContextDataKey": {
+      },
+      "id": "A-99ad70b8-444a-47a0-a1bf-011a896d39fa"
+    }],
+    "negative": "知道了",
+    "neutral": "下载",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "data": "{httpRequestRet2}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-0c59e707-d4e5-400d-9fde-48165466f6d8"
+    }],
+    "title": "KernelSU最新版本",
+    "message": "最新版本号为 {httpRequestRet1}，上传时间 {httpRequestRet3}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-d1792d0c-dccb-4df0-b2d1-c72894616000"
+  }],
+  "id": "DA611bef5d-7311-48ac-a535-e0c78556e8f5",
+  "lastUpdateTime": "1696747955345",
+  "createTime": "1687485822717",
+  "author": {
+    "name": "FEC_Sky"
+  },
+  "title": "联网获取KernelSU最新版本信息"
+}
+###------###
+{"type":"da"}

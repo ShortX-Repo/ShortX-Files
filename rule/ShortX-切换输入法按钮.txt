@@ -1,0 +1,64 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-1d6d96bd-2d45-4344-8d8d-c4b3a8aaed65"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "input keyevent 63",
+        "customContextDataKey": {
+        },
+        "id": "A-2f255e79-6ed2-418b-bf88-1bd46428ce44"
+      }],
+      "icon": "login-circle-fill",
+      "label": "Switcher",
+      "id": "BTN-5b8ed8ea-a09d-4fb8-ab58-7b24e3cacb03"
+    }],
+    "tag": "switcher",
+    "maxHeightInDp": 203,
+    "maxWidthInDp": 62,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 8,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-d7d59e9f-4fa1-486d-a8db-ea31f567c0e3"
+  }],
+  "id": "rule-9dab8c60-3e53-4de8-a58f-891d0ef4de04",
+  "lastUpdateTime": "1702741142787",
+  "createTime": "1702740865686",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "切换输入法按钮",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-0c5e470a-1755-4d50-beaa-2c0251c74c13"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["switcher"],
+      "customContextDataKey": {
+      },
+      "id": "A-09795445-bd7d-4d56-969f-12300ad0b05d"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

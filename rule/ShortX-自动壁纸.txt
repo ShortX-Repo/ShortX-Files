@@ -1,0 +1,164 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 5
+    },
+    "repeat": {
+      "days": ["SATURDAY", "THURSDAY", "FRIDAY", "WEDNESDAY", "TUESDAY", "MONDAY", "SUNDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-e34c421e-ae1d-47f6-b956-35c1bd84474c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "brush-2-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-c05f4258-4115-403a-ab3a-83cd9c0af77e"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://www.bing.com/HPImageArchive.aspx?format\u003djs\u0026idx\u003d0\u0026n\u003d1\u0026mkt\u003dzh-CN",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["images[0].urlbase", "images[0].copyrightlink", "images[0].title", "images[0].enddate", "images[0].copyright"]
+    },
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "id": "A-02aefbd3-5452-424c-9f3e-6414da30ecd2"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "bing_wallpaper_title",
+      "payload": {
+        "value": "{httpRequestRet3}"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-a750e1d3-25f6-4be7-a83a-1c8f5e8b1175"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "focus-fill",
+      "customContextDataKey": {
+      },
+      "id": "A-02a2faec-2a6a-45ce-84b0-6ffcba7f703f"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "\"https://www.bing.com\"+{httpRequestRet1}+\"_1080x1920.jpg\"",
+      "customContextDataKey": {
+      },
+      "id": "A-9c112554-6f97-459e-9473-efa53c4c4986"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "if [ ! -d /data/wallpaper ]\nthen\nmkdir -p /data/wallpaper\nfi\n\ncurl -s -o \"/data/wallpaper/wallpaper.jpg\" {mvelRet}",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-ec5b75ab-2fec-4180-a82b-6940aae17a05"
+    }, {
+      "@type": "type.googleapis.com/SetWallpaper",
+      "fileUrl": "/data/wallpaper/wallpaper.jpg",
+      "crop": true,
+      "customContextDataKey": {
+      },
+      "id": "A-7f87e93d-bc48-4cbb-ac6c-45051ec0dde1"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "wallpaper",
+      "title": "已更换壁纸为",
+      "message": "{httpRequestRet3}",
+      "largeIcon": "newspaper-fill",
+      "smallIcon": "newspaper-fill",
+      "button": [{
+        "id": "Button-f2eea01d-d2f0-4d00-b779-9809037f5c49",
+        "action": [{
+          "@type": "type.googleapis.com/StartActivityIntentUri",
+          "intentUri": "https://cn.bing.com",
+          "customContextDataKey": {
+          },
+          "id": "A-f8077912-177c-40bd-8717-8db2687e7cd8"
+        }],
+        "label": "打开"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-4be239e9-7fcf-413e-abbb-3ecf85be1a3d"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "bing_wallpaper_title",
+      "valueAsString": "{httpRequestRet3}",
+      "customContextDataKey": {
+      },
+      "id": "A-03bd6e1b-67cc-4e23-9fac-e0bf909e7e7a"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "10000",
+      "customContextDataKey": {
+      },
+      "id": "A-7d5daf93-3f68-4eca-929e-deb167d35d3f"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "apps": [{
+          "pkgName": "com.android.systemui"
+        }]
+      },
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-95d10100-c7cd-49f3-aebe-be570158870a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-c3009f4b-39da-46a8-ada2-940b2a8733e3"
+  }],
+  "id": "rule-4bb3f97f-a034-4280-9d5d-a421fd74a2a7",
+  "lastUpdateTime": "1702647826639",
+  "createTime": "1701826114887",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动壁纸",
+  "description": "bing壁纸",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "bing_wallpaper_title",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-930e1f24-4896-4c92-bc5d-f94e387037b4"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "bing_wallpaper_title",
+      "customContextDataKey": {
+      },
+      "id": "A-564228ce-ca4b-43f8-a092-63c6b1550c87"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "bing_wallpaper_title",
+      "customContextDataKey": {
+      },
+      "id": "A-379de69d-9ad9-49c3-8558-a170e167d253"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ac7574b2-73eb-43c4-844a-6fb447f5a7ab"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,92 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo $(($RANDOM%3))",
+    "customContextDataKey": {
+    },
+    "note": "随机0-2",
+    "id": "A-baae3065-76f7-4a40-8fe7-acf6d84992e2"
+  }, {
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "shellOut",
+        "payload": {
+          "value": "0"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-47180b6d-25b5-43c3-87fa-6fc88bc59756"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "0",
+        "customContextDataKey": {
+        },
+        "id": "A-78de4721-f41d-48d4-91fb-db02d41fbe94"
+      }],
+      "description": "0",
+      "id": "Case-9c4efe4a-4f43-42c2-be13-8e1a4ff814f8",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "shellOut",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-e813c2b2-dc0d-46b1-9553-64fc5c523dcc"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "1",
+        "customContextDataKey": {
+        },
+        "id": "A-08ad4ede-c14a-43f0-8669-72e45eba24d2"
+      }],
+      "description": "1",
+      "id": "Case-cec13199-dbe2-4021-b59e-26c38fce62a7"
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "shellOut",
+        "payload": {
+          "value": "2"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ab7a0ef7-926e-4d2c-974d-9f4d7cb1033c"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "2",
+        "customContextDataKey": {
+        },
+        "id": "A-dd5223e6-0adf-4abb-8708-cd17b1bc0c46"
+      }],
+      "description": "2",
+      "id": "Case-10686015-5b01-4578-9a24-2bcd807615b7"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "随机输出0-1，选择break则不输出",
+    "id": "A-9cd063af-0a5c-45a0-ba1f-db4b198254fd"
+  }],
+  "id": "DAfcc6515e-ac00-47d9-951c-b7d6f1e751e5",
+  "lastUpdateTime": "1711252882866",
+  "createTime": "1711252565602",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "case随机输出模板",
+  "description": "仅供参考，可自行改变",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

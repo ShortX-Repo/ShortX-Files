@@ -1,0 +1,113 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgs": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-c75c111e-2d6a-4a62-8674-33cd9b835098"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "🛟微信未启动，正在冷启动",
+      "customContextDataKey": {
+      },
+      "id": "A-0c36b359-934d-47e4-8692-6538967b0efc"
+    }, {
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.tencent.mm",
+        "className": "com.tencent.mm.ui.LauncherUI"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-66264bde-fef9-4232-af10-0df079daffb7"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "5000",
+      "customContextDataKey": {
+      },
+      "id": "A-88c1e0b9-cb48-4a32-84d2-895043dc0f57"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "🛟微信已启动，直接跳转公众号",
+      "customContextDataKey": {
+      },
+      "id": "A-0c36b359-934d-47e4-8692-6538967b0efc"
+    }, {
+      "@type": "type.googleapis.com/StartActivityIntent",
+      "intent": {
+        "action": "android.intent.action.VIEW",
+        "pkgName": "com.tencent.mm",
+        "className": "com.tencent.mm.ui.LauncherUI"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-66264bde-fef9-4232-af10-0df079daffb7"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-88c1e0b9-cb48-4a32-84d2-895043dc0f57"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "判断微信是否后台存活，可以根据实际情况调整延时",
+    "id": "A-bbb17c42-ab41-4503-9331-41e1e248fb62"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start \"intent:#Intent;action\u003dcom.tencent.mm.action.BIZSHORTCUT;B.LauncherUI.From.Biz.Shortcut\u003dtrue;S.LauncherUI.Shortcut.Username\u003dgh_6cfb73ca89e6;end\"",
+    "customContextDataKey": {
+    },
+    "note": "打开公众号",
+    "id": "A-221b7896-4537-4f05-84ae-c86e58dc22cb"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "玩家二",
+    "timeout": "1000",
+    "customContextDataKey": {
+    },
+    "note": "获取二维码",
+    "id": "A-9d18fa16-ed1c-40a5-88b4-9bf3e3adb7c0"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.text.SimpleDateFormat;\nimport java.util.Calendar;\n\nCalendar calendar \u003d Calendar.getInstance();\ncalendar.add(Calendar.MINUTE, 10);\n\nSimpleDateFormat sdf \u003d new SimpleDateFormat(\"MM/dd HH:mm\");\nString currentDateTime \u003d sdf.format(calendar.getTime());\n\ncurrentDateTime\n",
+    "customContextDataKey": {
+    },
+    "note": "计算二维码到期时间，一般为 10 分钟后",
+    "id": "A-e081ea6f-3632-4dac-8aaa-b6cafbb99b97"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "🛟等待二维码 10s",
+    "customContextDataKey": {
+    },
+    "id": "A-e99aaf4c-a506-4f22-a7b7-1a64c69eb149"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewByText",
+    "text": "{mvelRet}",
+    "timeout": "10000",
+    "customContextDataKey": {
+    },
+    "note": "根据到期时间点击出现的二维码，最长等待时间为 10s",
+    "id": "A-e4180252-e829-462c-9324-b7dd3e92fb3f"
+  }],
+  "id": "DA05af5cf8-181b-43a8-9f7e-1be5b736015a",
+  "lastUpdateTime": "1697092423054",
+  "createTime": "1695018838124",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "舞萌 DX 公众号获取二维码",
+  "description": "🎹中二/🛟舞萌通用，可根据手机性能调整延时",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"da"}

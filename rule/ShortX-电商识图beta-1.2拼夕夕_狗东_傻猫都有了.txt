@@ -1,0 +1,156 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ShakeDevice",
+    "customContextDataKey": {
+    },
+    "id": "F-24f2174c-a91b-4d31-b948-7f52061c09f4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowFloatWindow",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/StartActivity",
+        "componentNameAsString": "com.taobao.taobao/com.etao.feimagesearch.quicksearch.ScreenRecordActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-4aec0943-cc23-4fd4-9818-0d2e284f6341"
+      }],
+      "icon": "shopping",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideFloatWindow",
+        "customContextDataKey": {
+        },
+        "id": "A-53067355-a589-4098-98ad-5394cd7ee160"
+      }],
+      "id": "BTN-6c671abf-3adb-4538-9b38-bebdb1aebf90"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/AreaScreenshot",
+        "customContextDataKey": {
+        },
+        "id": "A-237889f9-6d66-4eed-b7e9-9db19135ce85"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "IMG\u003d\"{screenshotFilePath}\"\n\nam start -n com.jingdong.app.mall/.open.PhotoBuyActivity \\\n  -a android.intent.action.SEND \\\n  -t image/* \\\n  --eu android.intent.extra.STREAM \"content://media/external/images/media/$(content query --uri content://media/external/images/media --projection _id --where \"_data\u003d\u0027$IMG\u0027\" | sed -n \u0027s/.*_id\u003d//p\u0027)\" \\\n  --activity-clear-task",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-6c7558ac-9da4-43a9-8405-53246c70bd7b"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "5",
+        "showCD": true,
+        "timeUnit": "TimeUnit_S",
+        "customContextDataKey": {
+        },
+        "id": "A-bffdf452-4ea8-416c-953d-007856ebf13e"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "rm -rf {screenshotFilePath}",
+        "customContextDataKey": {
+        },
+        "id": "A-5c128717-52b1-4b69-95c2-96fae0d7ef25"
+      }],
+      "icon": "dog",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideFloatWindow",
+        "customContextDataKey": {
+        },
+        "id": "A-100e369b-e42b-4d1a-832f-c2ca120ab3af"
+      }],
+      "id": "BTN-b0bb012a-0d93-40a6-b0fb-03df41d58c08"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/AreaScreenshot",
+        "customContextDataKey": {
+        },
+        "id": "A-f9fc5e38-7f9b-4968-9ef5-f6f8975dca49"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "IMG\u003d\"{screenshotFilePath}\"\n\nam start -n com.taobao.taobao/com.etao.feimagesearch.IrpActivity \\\n  -a android.intent.action.SEND \\\n  -t image/jpeg \\\n  --eu android.intent.extra.STREAM \"content://media/external/images/media/$(content query --uri content://media/external/images/media --projection _id --where \"_data\u003d\u0027$IMG\u0027\" | sed -n \u0027s/.*_id\u003d//p\u0027)\" \\\n  --es from \"external\" \\\n  --activity-clear-task",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-d1566092-da4f-4790-97bc-d38bc9d13ec1"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "5",
+        "showCD": true,
+        "timeUnit": "TimeUnit_S",
+        "customContextDataKey": {
+        },
+        "id": "A-93d79e6e-4b08-4bf5-a7f5-02cf2a4ce752"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "rm -rf {screenshotFilePath}",
+        "customContextDataKey": {
+        },
+        "id": "A-01a161ac-9d89-421e-8282-e98b61709b81"
+      }],
+      "icon": "cat",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideFloatWindow",
+        "customContextDataKey": {
+        },
+        "id": "A-8c2fe113-c299-4703-b014-7cb0368ae299"
+      }],
+      "id": "BTN-5de3762c-e6e3-4572-ab59-2f2d24e43a8f"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/AreaScreenshot",
+        "customContextDataKey": {
+        },
+        "id": "A-90c045a0-c494-406a-8d3e-586e1208a609"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "IMG\u003d\"{screenshotFilePath}\"\n\nam start -n com.xunmeng.pinduoduo/.splash.link.AppLinkActivity \\\n  -a android.intent.action.SEND \\\n  -t image/jpeg \\\n  --eu android.intent.extra.STREAM \"content://media/external/images/media/$(content query --uri content://media/external/images/media --projection _id --where \"_data\u003d\u0027$IMG\u0027\" | sed -n \u0027s/.*_id\u003d//p\u0027)\" \\\n  --es editor_image_source \"external\" \\\n  --es from_share \"true\" \\\n  --activity-clear-task",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-52b708b6-a549-4c0d-98fd-7d249941d949"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "5",
+        "showCD": true,
+        "timeUnit": "TimeUnit_S",
+        "customContextDataKey": {
+        },
+        "id": "A-08b26801-f98c-4daa-9f27-58f9719b2c61"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "rm -rf {screenshotFilePath}",
+        "customContextDataKey": {
+        },
+        "id": "A-7e977bc9-9fbc-46b4-bd0b-3b9e1c07d63d"
+      }],
+      "icon": "ping-pong-line",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideFloatWindow",
+        "customContextDataKey": {
+        },
+        "id": "A-9c4fb7d6-d34b-49b8-8942-6d57fdee02ed"
+      }],
+      "id": "BTN-9ecc82fb-3af0-4a16-b88e-7eff7349f327"
+    }],
+    "tag": "ShortX",
+    "panelRadiusScale": 1.0,
+    "customContextDataKey": {
+    },
+    "id": "A-50b5b04a-3f18-4ba6-9ece-8ec91d91a9d6"
+  }],
+  "id": "SHARE-rule-aaa28906-5e2d-4067-94c8-f1989379ef0d",
+  "lastUpdateTime": "1763720618457",
+  "createTime": "1763652454545",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "电商识图beta-1.2拼夕夕，狗东，傻猫都有了",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

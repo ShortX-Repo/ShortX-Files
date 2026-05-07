@@ -1,0 +1,22 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowGlobalActionsMenu",
+    "customContextDataKey": {
+    },
+    "id": "A-d8c5b6bb-9011-40ad-a027-faff502d8d8b"
+  }],
+  "id": "SHARED-DA-66f35c11-477e-411d-b167-dcc138877373",
+  "lastUpdateTime": "1759965837939",
+  "createTime": "1759934733367",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "show power menu",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

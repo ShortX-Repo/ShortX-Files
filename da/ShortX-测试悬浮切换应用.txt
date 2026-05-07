@@ -1,0 +1,103 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/CurrentPkgList",
+          "pkgs": [{
+            "pkgName": "com.tencent.mm"
+          }, {
+            "pkgName": "com.tencent.mobileqq"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-bb705ddd-c12f-4c30-8a3b-a5206eeaeb18"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "非目标应用",
+          "customContextDataKey": {
+          },
+          "id": "A-8ee72406-5213-4cc5-8ca3-eadfaa6fc97c"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-842bffac-2046-45f9-8513-0cb3894d5325"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-f0088f75-3330-463c-890a-8621c5ec8182"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/CurrentPkgList",
+          "pkgs": [{
+            "pkgName": "com.tencent.mm"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-69ec4321-058a-4a70-a3cc-1959f901320b"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/LaunchApp",
+          "appPkg": {
+            "pkgName": "com.tencent.mobileqq"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-e6ccc07f-3048-4559-b9f1-0c7a122c52f3"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/LaunchApp",
+          "appPkg": {
+            "pkgName": "com.tencent.mm"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-bc850375-1d41-4a61-ab25-c4c7d9a68cf7"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4abf523d-602a-4ee0-bbf2-fcf4951ed1c6"
+      }],
+      "icon": "figma-reset-instance",
+      "label": "切换",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["test1"],
+        "customContextDataKey": {
+        },
+        "id": "A-3b59a919-9dd9-438b-a44b-7f6d9401165c"
+      }],
+      "id": "BTN-44d94b73-95ba-4eb8-a83b-182eae496aae"
+    }],
+    "tag": "test1",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "customContextDataKey": {
+    },
+    "id": "A-8a364a57-fb89-46f7-bd73-3411d0a411bd"
+  }],
+  "id": "SHARED-DA-4cf01209-b656-4ca7-9ef0-535b87397b42",
+  "lastUpdateTime": "1747295664820",
+  "createTime": "1747295176730",
+  "author": {
+    "name": "dreamy05"
+  },
+  "title": "测试悬浮切换应用",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

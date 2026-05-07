@@ -1,0 +1,75 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportFailedPasswordAttempt",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "密码/图案/PIN失败\t用户输错密码",
+    "id": "F-e75cd142-881a-4a52-89b8-f95364341888"
+  }, {
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportFailedBiometricAttempt",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "生物识别失败\t指纹/面部识别失败",
+    "id": "F-9d494582-cf1c-4aa2-af06-c173adf051e3"
+  }, {
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportSuccessfulBiometricAttempt",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "生物识别成功\t指纹/面部识别成功",
+    "id": "F-27689533-f561-43ab-b098-8dfa2c9a81c3"
+  }, {
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportSuccessfulPasswordAttempt",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "密码/图案/PIN成功\t密码正确",
+    "id": "F-2ea271c4-a8b0-4ea5-9b2d-0a5e9bad6e4b"
+  }, {
+    "@type": "type.googleapis.com/MethodHook",
+    "packageName": "android",
+    "className": "com.android.server.devicepolicy.DevicePolicyManagerService",
+    "methodName": "reportPasswordChanged",
+    "lifecycle": "LoadedPackage",
+    "customContextDataKey": {
+    },
+    "note": "密码已更改",
+    "id": "F-2b621e06-b3bc-4027-84cb-576972893ea7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ScreenFlash",
+    "colorInt": "1442791448",
+    "times": "2",
+    "customContextDataKey": {
+    },
+    "id": "A-74bf2d0e-f7e2-447e-93be-28c41e1c5722"
+  }],
+  "id": "SHARE-rule-f2d12c26-1d03-4c25-b69f-d554146eef3a",
+  "lastUpdateTime": "1758252278198",
+  "createTime": "1757370045675",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "捕捉关于密码相关的触发器",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

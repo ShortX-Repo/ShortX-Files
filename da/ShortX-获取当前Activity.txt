@@ -1,0 +1,43 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "2000",
+    "customContextDataKey": {
+    },
+    "id": "A-f1f2284f-1a6e-441f-a8de-8b181a33b9f9"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "package\u003d$(dumpsys window | grep mCurrentFocus | egrep -o \" [^ ]+/\" | egrep -o \".*[^/]\" | tail -1)\n\nclassname\u003d$(dumpsys window | grep mCurrentFocus | egrep -o \"/.+}\" | egrep -o \"[^/].+[^}]\" | tail -1)\n\nresult\u003d\"$package/$classname\"\n\necho $result",
+    "customContextDataKey": {
+    },
+    "id": "A-92ddd47a-1dba-4ef7-a045-27b408097d06"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "Activity",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-b096e7d1-3d1d-4470-8066-1b206e6f7574"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "Activity",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-4ab5b5cf-fc29-4930-b1b6-b75300464bc0"
+  }],
+  "id": "DA79b20b3a-164c-4e3b-b09b-f5f269bc243f",
+  "lastUpdateTime": "1697995669133",
+  "createTime": "1697987525441",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "获取当前Activity",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,48 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+      "hour": 20
+    },
+    "end": {
+      "hour": 23
+    },
+    "repeat": {
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "60000"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-e3c32c83-a961-4066-a6c7-10257ae5443f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys input | sed -rn \"/RecentQueue:/ n;/.*age\u003d([0-9]*).*/ {s//\\1/p,q}\"",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "id": "A-1e80ccbc-c712-47d6-a178-3e9a3f0ba152"
+  }],
+  "id": "rule-9b955f88-2391-4132-b406-bc1cc1a5f42c",
+  "lastUpdateTime": "1692703453744",
+  "createTime": "1692703220990",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "距上次触摸屏幕间隔时间",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

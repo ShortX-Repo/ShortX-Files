@@ -1,0 +1,109 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/IMEVisibilityChange",
+    "isShown": true,
+    "customContextDataKey": {
+    },
+    "id": "F-90a2ac57-ffa8-4500-b338-179790753f3d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "http://81.70.100.130/api/Ridicule.php?msg\u003d5",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-1250cfc1-e0c0-43c2-b33c-72f939fedf2d"
+      }, {
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-a5e1cda3-e6f5-4faa-9bcc-9d17d2083d4a"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "*",
+        "title": "口吐芬芳",
+        "message": "{httpRequestRet}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-e4ab6679-18d1-4d72-9169-72cc9aae6580"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "id": "A-126f64be-b2e2-4890-956f-6caba23766dd"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "apps": [{
+            "pkgName": "tornaco.apps.shortx"
+          }]
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-41e341fb-f5eb-4743-b35f-8ea4fea98719"
+      }],
+      "icon": "user-voice-fill",
+      "id": "BTN-838f8144-2c29-43f5-bb7e-4b7a8da59ed4"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "customContextDataKey": {
+        },
+        "id": "A-d8744cc1-c66d-4d85-a609-9cc5638d58f3"
+      }],
+      "icon": "user-unfollow-fill",
+      "id": "BTN-941029fb-aa8b-42c1-a1f0-88e2358ec0c3"
+    }],
+    "tag": "*^_^*",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 158,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 6,
+    "disableAutoEdge": true,
+    "customContextDataKey": {
+    },
+    "id": "A-1a63c7d1-4116-4862-aa42-ed5da7161ed5"
+  }],
+  "id": "rule-6b0e8f34-a692-4789-84ca-9c48c1e31772",
+  "lastUpdateTime": "1702547465309",
+  "createTime": "1702538797645",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "口吐芬芳",
+  "description": "骂人快一步",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/IMEVisibilityChange",
+      "customContextDataKey": {
+      },
+      "id": "F-c109d809-8e07-49e7-8a12-f8b23eee9533"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["*^_^*"],
+      "customContextDataKey": {
+      },
+      "id": "A-4fb740da-619e-49fa-a649-1d858e6a18db"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ea5e1c9e-4ae5-4b61-8165-5350c2f682fb"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "autorotate \u003d (android.provider.Settings$System.getString(context.contentResolver, \"accelerometer_rotation\"));\nif (autorotate \u003d\u003d \"0\") {\n    android.provider.Settings$System.putString(context.contentResolver, \"accelerometer_rotation\", \"1\");\n}\nelse {\n    android.provider.Settings$System.putString(context.contentResolver, \"accelerometer_rotation\", \"0\");\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-19215156-5785-4cdb-8532-866780c2941b"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-a7d6e668-c181-4098-b9dc-86424defcc5b"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "Screen Rotate Toggle\n   🙏 ૐ નમઃ શિવાય 🙏",
+    "customContextDataKey": {
+    },
+    "id": "A-c8a44494-d836-4976-8912-03b75e0cea26"
+  }],
+  "id": "SHARED-DA-709c1524-1835-4ee0-9daa-29886eaf065e",
+  "lastUpdateTime": "1759649839748",
+  "createTime": "1759067066079",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Rotate Toggle",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

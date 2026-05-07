@@ -1,0 +1,40 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/KeyEvent",
+    "keyCode": 24,
+    "id": "F-e206521b-88d4-4557-81ca-b33231b4524f"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-07fb6190-b22a-4524-a548-7c638d12fd1f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://api.m.taobao.com/rest/api3.do?api\u003dmtop.common.getTimestamp",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data.t"]
+    },
+    "requestBody": {},
+    "id": "A-35931f34-9db8-4de4-9ee2-e3e90a8bded0"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{httpRequestRet1}",
+    "id": "A-c4385db7-60c6-46ab-b0b3-d819aca1c789"
+  }],
+  "id": "rule-cf3412dd-cc72-4419-ab93-f1486d05c3ce",
+  "lastUpdateTime": "1690170856557",
+  "createTime": "1690170710459",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "时间戳",
+  "description": "获取当前时间戳",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

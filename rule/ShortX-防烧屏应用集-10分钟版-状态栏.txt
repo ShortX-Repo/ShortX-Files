@@ -1,0 +1,282 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["防烧屏应用"],
+    "customContextDataKey": {
+    },
+    "id": "F-anti-burnin-5min-v6"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "lastTouchTs",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-create-lastTouchTs-5min-v6"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "warningTs",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-create-warningTs-5min-v7"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "lastTouchTs",
+    "valueAsString": "%CurrentTimeMillis%",
+    "customContextDataKey": {
+    },
+    "id": "A-init-lastTouchTs-5min-v6"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "warningTs",
+    "valueAsString": "0",
+    "customContextDataKey": {
+    },
+    "id": "A-init-warningTs-5min-v7"
+  }, {
+    "@type": "type.googleapis.com/ShowStatusBarChip",
+    "text": "　防烧屏已开启　",
+    "icon": "remix://shield-check-line",
+    "customContextDataKey": {
+    },
+    "id": "A-status-start-10min-v9"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-status-start-delay-10min-v9"
+  }, {
+    "@type": "type.googleapis.com/HideStatusBarClip",
+    "customContextDataKey": {
+    },
+    "id": "A-status-start-hide-10min-v9"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/CurrentPkgListByPkg",
+      "pkgAndUsers": [{
+        "first": "{pkgName}",
+        "second": "0"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-current-pkg-5min-v6"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "dumpsys input | sed -rn \"/RecentQueue:/ n;/.*age\u003d([0-9]*).*/ {s//\\\\1/p,q}\"",
+      "singleShot": true,
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "touchAge"
+        }, {
+          "first": "shellErr",
+          "second": "touchErr"
+        }, {
+          "first": "shellCode",
+          "second": "touchCode"
+        }]
+      },
+      "id": "A-read-touchAge-5min-v6"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "LessThan",
+        "varName": "touchAge",
+        "payload": {
+          "value": "2500"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-detect-recent-touch-5min-v6"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "lastTouchTs",
+        "valueAsString": "%CurrentTimeMillis%",
+        "customContextDataKey": {
+        },
+        "id": "A-reset-lastTouchTs-5min-v6"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "warningTs",
+        "valueAsString": "0",
+        "customContextDataKey": {
+        },
+        "id": "A-reset-warningTs-5min-v7"
+      }, {
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-hide-warning-on-touch-10min-v9"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-touch-reset-branch-5min-v6"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "java.lang.System.currentTimeMillis() - parseInt(localVarOf$lastTouchTs);",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "idleMs"
+        }]
+      },
+      "id": "A-calc-idleMs-5min-v6"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "GreaterThanOrEQ",
+        "varName": "idleMs",
+        "payload": {
+          "value": "600000"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-show-warning-10min-v8"
+      }, {
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "warningTs",
+        "payload": {
+          "value": "0"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-warning-not-active-5min-v7"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "warningTs",
+        "valueAsString": "%CurrentTimeMillis%",
+        "customContextDataKey": {
+        },
+        "id": "A-start-warningTs-5min-v7"
+      }, {
+        "@type": "type.googleapis.com/ShowStatusBarChip",
+        "text": "　15秒内请触屏幕　",
+        "icon": "remix://alarm-warning-line",
+        "customContextDataKey": {
+        },
+        "id": "A-status-warning-10min-v9"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-warning-branch-5min-v6"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "parseInt(localVarOf$warningTs) \u003e 0 ? java.lang.System.currentTimeMillis() - parseInt(localVarOf$warningTs) : 0;",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "jsRet",
+          "second": "warningIdleMs"
+        }]
+      },
+      "id": "A-calc-warningIdleMs-5min-v7"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "GreaterThanOrEQ",
+        "varName": "warningIdleMs",
+        "payload": {
+          "value": "15000"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-trigger-close-5min-v7"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/HideStatusBarClip",
+        "customContextDataKey": {
+        },
+        "id": "A-hide-warning-on-close-10min-v9"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "importClass(android.content.Context);\nimportClass(android.graphics.Color);\nimportClass(android.graphics.PixelFormat);\nimportClass(android.graphics.drawable.GradientDrawable);\nimportClass(android.os.Build);\nimportClass(android.os.Handler);\nimportClass(android.os.Looper);\nimportClass(android.view.Gravity);\nimportClass(android.view.WindowManager);\nimportClass(android.widget.TextView);\nimportClass(java.lang.Runnable);\n\nvar wm \u003d context.getSystemService(Context.WINDOW_SERVICE);\nvar tv \u003d new TextView(context);\ntv.setText(\"防烧屏已执行\");\ntv.setTextColor(Color.WHITE);\ntv.setTextSize(12.5);\ntv.setGravity(Gravity.CENTER);\ntv.setPadding(32, 14, 32, 14);\ntry { tv.setLetterSpacing(0.02); } catch (e) {}\ntry { tv.setElevation(12); } catch (e) {}\nvar bg \u003d new GradientDrawable();\nbg.setColor(Color.parseColor(\"#E2143A2D\"));\nbg.setCornerRadius(999);\nbg.setStroke(1, Color.parseColor(\"#4CCAFCEB\"));\ntv.setBackground(bg);\nvar type \u003d Build.VERSION.SDK_INT \u003e\u003d 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE;\nvar params \u003d new WindowManager.LayoutParams(\n  WindowManager.LayoutParams.WRAP_CONTENT,\n  WindowManager.LayoutParams.WRAP_CONTENT,\n  type,\n  WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n  PixelFormat.TRANSLUCENT\n);\nparams.gravity \u003d Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;\nparams.y \u003d 108;\ntry {\n  wm.addView(tv, params);\n  new Handler(Looper.getMainLooper()).postDelayed(new Runnable({\n    run: function () {\n      try { wm.removeView(tv); } catch (e) {}\n    }\n  }), 1500);\n} catch (e) {}",
+        "context": "CoroutineContext_UI",
+        "customContextDataKey": {
+        },
+        "id": "A-bullet-close-5min-v6"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "300",
+        "customContextDataKey": {
+        },
+        "id": "A-close-bullet-delay-5min-v6"
+      }, {
+        "@type": "type.googleapis.com/StopAppByPkg",
+        "pkgAndUsers": [{
+          "first": "{pkgName}",
+          "second": "0"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-stop-app-5min-v6"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "500",
+        "customContextDataKey": {
+        },
+        "id": "A-after-stop-delay-5min-v6"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "input keyevent 3\nsleep 0.2\ninput keyevent 26",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-home-sleep-5min-v6"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-break-root-5min-v6"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-idle-close-branch-5min-v6"
+    }],
+    "delay": 1000,
+    "customContextDataKey": {
+    },
+    "id": "A-main-loop-5min-v6"
+  }],
+  "id": "SHARE-rule-94fb9f2f-16df-44cc-90fc-a657aa64c218",
+  "lastUpdateTime": "1775844231617",
+  "createTime": "1775706300000",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "防烧屏应用集-10分钟版-状态栏",
+  "description": "启用后会自动创建应用集“防烧屏应用”。10分钟版为 10 分钟无操作后在状态栏提示，再给 15 秒触摸缓冲；期间一旦触摸就立即复位并隐藏提示。",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "防烧屏应用",
+      "customContextDataKey": {
+      },
+      "id": "A-create-pkgset-5min-v6"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

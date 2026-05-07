@@ -1,0 +1,62 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "pkgSets": ["后台超时"],
+    "customContextDataKey": {
+    },
+    "id": "F-9f86d71e-79fa-4565-a882-4145f806b387"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "6000",
+    "customContextDataKey": {
+    },
+    "note": "你可以修改这个超时时间",
+    "id": "A-6dc6aea8-bfe3-415a-8772-9c1afa6d9cf8"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{appLabel} 后台超时清理",
+    "customContextDataKey": {
+    },
+    "id": "A-ba10dfd5-0d23-404e-a656-256c875e721d"
+  }, {
+    "@type": "type.googleapis.com/StopAppByPkg",
+    "pkgAndUsers": [{
+      "first": "{pkgName}",
+      "second": "{userId}"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-eabd2a8f-fcd0-4d0b-9735-f60731b1a8e5"
+  }],
+  "id": "rule-d1b6fa15-576d-45ae-aba6-7435c4512297",
+  "lastUpdateTime": "1704357024964",
+  "createTime": "1704343905955",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "应用后台超时清理",
+  "description": "应用后台闲置超过1分钟就把他杀死",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeFg",
+      "pkgSets": ["后台超时"],
+      "customContextDataKey": {
+      },
+      "id": "F-5936e00a-5c4c-4879-8e58-52b730111081"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld",
+  "ruleSetId": "RS-5e6a2e2d-ebf7-430f-859f-a3cb41014153",
+  "ruleInstanceIdGenerator": {
+    "@type": "type.googleapis.com/RuleInstanceIdGenerator_String",
+    "insId": "APP_BG_{appLabel}"
+  }
+}
+###------###
+{"type":"rule"}

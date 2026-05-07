@@ -1,0 +1,391 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "CountdownSwitch",
+      "payload": {
+      },
+      "id": "C-98a40d8c-1745-404d-ac50-a4e19668ae94"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "CountdownSwitch",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-cecc463e-0c11-4ab5-87d5-9110166b9d7f"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "CountdownSwitch",
+      "valueAsString": "new",
+      "id": "A-0d59fc7c-e7af-423a-b525-ff863553fb56"
+    }],
+    "note": "CountdownSwitch",
+    "id": "A-7e83e464-b1d4-4c77-901b-488dbab8f7c9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "Countdown",
+      "payload": {
+      },
+      "id": "C-ef622951-625a-4705-b050-4230edcf9dbb"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Countdown",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-46613f05-668d-4be7-8384-e872b824d7e6"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Countdown",
+      "valueAsString": "new",
+      "id": "A-ac100804-7770-4cfd-ad72-0c4cb38f3b57"
+    }],
+    "note": "Countdown",
+    "id": "A-c418c9ff-f06c-4b18-8ba6-7659546aa2b4"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "CountdownSwitch",
+      "payload": {
+        "value": "new"
+      },
+      "id": "C-d0d52fc9-b138-43ee-93ee-76365b5aa6c1"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "Countdown",
+      "payload": {
+        "value": "new"
+      },
+      "id": "C-a88f782e-5ade-4f73-bb08-e91f98dc16b3"
+    }],
+    "IfCondOp": "ANY",
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "CountdownSwitch",
+      "valueAsString": "off",
+      "id": "A-6b0be8ec-8278-4ab4-baa5-d45b0e0fd5d4"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Countdown",
+      "valueAsString": "0",
+      "id": "A-f17d3ecb-a5dd-4dd7-8471-4cdeb8ac1520"
+    }, {
+      "@type": "type.googleapis.com/CreatePkgSet",
+      "label": "Entertainment",
+      "id": "A-29ad96a3-2ae4-453b-a301-d95f406f97e6"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "title": "提示",
+      "message": "将需要停止的应用放入Entertainment应用集内。",
+      "cancelable": true,
+      "id": "A-1f3a0374-ee5d-4bd1-b6ab-4d770f98cbf3"
+    }],
+    "note": "Notice",
+    "id": "A-c061539f-f987-47e6-b00b-c89720652407"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "EqualTo",
+      "varName": "CountdownSwitch",
+      "payload": {
+        "value": "on"
+      },
+      "id": "C-90d8fbe6-f6a4-4e5e-80f6-862b379cb9b3"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "Countdown.\n已经开始，点击停止后重新运行。",
+      "id": "A-8212d477-69f2-4092-8e0d-1cba4f342dde"
+    }, {
+      "@type": "type.googleapis.com/BreakActionExecute",
+      "id": "A-61763e60-63ee-4c9c-b574-5af5eecf5fea"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Countdown",
+      "valueAsString": "0",
+      "id": "A-65d05a3d-2d01-48fb-90fd-6214c1f5f480"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "1小时",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Countdown",
+          "valueAsString": "3600000",
+          "id": "A-46fffcef-aaa3-47c2-9d5d-2dcafd2af775"
+        }]
+      }, {
+        "title": "2小时",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Countdown",
+          "valueAsString": "7200000",
+          "id": "A-a55e95c4-9d16-485f-8998-d998932c812f"
+        }]
+      }, {
+        "title": "自定义时间",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShowTextFieldDialog",
+          "title": "输入自定义时间",
+          "cancelable": true,
+          "textFields": [{
+            "placeholder": "单位：毫秒"
+          }],
+          "id": "A-6aacd8da-800a-4fbb-b577-962942fe2b72"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Countdown",
+          "valueAsString": "{textFieldInput1}",
+          "id": "A-7008e36f-dda9-4614-8602-9de2f7f51d73"
+        }]
+      }, {
+        "title": "测试 10秒钟",
+        "clickActions": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "Countdown",
+          "valueAsString": "10000",
+          "id": "A-c9a51015-8b8c-4733-9a64-279670d13cf0"
+        }]
+      }],
+      "title": "倒计时时间",
+      "cancelable": true,
+      "id": "A-47d9ec8b-8f64-4299-a560-cf8052113287"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "Countdown",
+        "payload": {
+          "value": "0"
+        },
+        "id": "C-2f7e7376-4d13-4323-b12d-b2e13908a690"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "EqualTo",
+        "varName": "Countdown",
+        "payload": {
+          "value": "{textFieldInput1}"
+        },
+        "id": "C-d712bfa1-3df7-4d26-bf5c-a6178fb2ff89"
+      }],
+      "IfCondOp": "ANY",
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "Cancel Countdown",
+        "id": "A-3c6d5bde-ff2e-4e88-aaf2-5417637003ec"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "CountdownSwitch",
+        "valueAsString": "off",
+        "id": "A-37145dc5-6ef5-4752-9e57-e5772b1fbd78"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotificationForPackage",
+        "appPkg": [{
+          "pkgName": "com.android.systemui"
+        }],
+        "id": "A-e900579b-1577-4bd1-809c-5f430a0c478e"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "id": "A-43c3b752-7d2e-4709-a3b3-a1fb074e06ec"
+      }, {
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "id": "A-62dc2c3e-b8e6-41e5-a9c7-72e9bb107835"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-1689824139234",
+        "title": "Start countdown",
+        "message": "倒计时：globalVarOf$Countdown ms",
+        "smallIcon": "layout-left-2-line",
+        "id": "A-586b4ad9-c51c-4d48-8d84-f58c1d3d0134"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "Start countdown\nglobalVarOf$Countdown ms",
+        "id": "A-19defbc1-745d-4412-9a37-53257acc6418"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "CountdownSwitch",
+        "valueAsString": "on",
+        "id": "A-8abc6242-6282-4a1d-803a-0f4db4c3e284"
+      }, {
+        "@type": "type.googleapis.com/ShowOverlayButton",
+        "buttonSettings": [{
+          "actions": [{
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "Stop Countdown.\nButton, 通过按钮取消！",
+            "id": "A-0d1b8b1b-a121-408f-9263-c19ae3d5ef83"
+          }, {
+            "@type": "type.googleapis.com/PostNotification",
+            "tag": "tag-1689824139234",
+            "title": "Stop Countdown",
+            "message": "Button, 通过按钮取消！",
+            "smallIcon": "chat-2-line",
+            "id": "A-c4c30f29-c54e-4010-9685-3b4832436495"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "CountdownSwitch",
+            "valueAsString": "switchoff",
+            "id": "A-5d5c86ab-9b31-4efa-b296-d21ccdd7a3a0"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "Countdown",
+            "valueAsString": "1",
+            "id": "A-bd765ee6-a09f-463e-b511-bc1cc3b81964"
+          }, {
+            "@type": "type.googleapis.com/RemoveNotificationForPackage",
+            "appPkg": [{
+              "pkgName": "com.android.systemui"
+            }],
+            "id": "A-8a33f796-2069-408f-a3f2-7d2952ae3356"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "id": "A-59560ad7-cc9f-416e-bec9-b09dcb17bee1"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "id": "A-2514b330-f6fc-4a37-b3bb-48c02e97ecf2"
+          }],
+          "icon": "lightbulb-fill",
+          "label": "Stop count"
+        }],
+        "tag": "2023-08-06 08:43:58",
+        "id": "A-d227806d-1ce4-499f-854d-8a260215e687"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "globalVarOf$Countdown",
+        "id": "A-52d5840d-8dfb-425d-9b04-70900eb48885"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "EqualTo",
+          "varName": "CountdownSwitch",
+          "payload": {
+            "value": "on"
+          },
+          "id": "C-4a91dab5-a506-40fe-839a-c89e1b502040"
+        }, {
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "EqualTo",
+          "varName": "Countdown",
+          "payload": {
+            "value": "0"
+          },
+          "isInvert": true,
+          "id": "C-f27af824-12f7-456b-96d3-44a5f3a5e394"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/StopApp",
+          "pkgSets": ["Entertainment"],
+          "id": "A-ef5f9793-d2c2-4e17-95dc-f7ce2997c29d"
+        }, {
+          "@type": "type.googleapis.com/StopApp",
+          "pkgSets": ["FrontAPP"],
+          "id": "A-8736238b-5dac-455f-ba9d-3afe5ff85938"
+        }, {
+          "@type": "type.googleapis.com/StopApp",
+          "pkgSets": ["VPN"],
+          "id": "A-1afadd9c-8915-4f09-a906-219d69898ddb"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "pm disable com.google.android.gms \u0026\u0026\npm disable com.google.android.gsf \u0026\u0026\npm disable com.android.vending",
+          "id": "A-15f76bbf-4f29-417b-8014-247b8c97fa2a"
+        }, {
+          "@type": "type.googleapis.com/RemoveTasks",
+          "pkgSets": ["All"],
+          "id": "A-e91935b0-704a-4a54-a4a7-d62bdf3d8877"
+        }, {
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "CountdownSwitch",
+          "valueAsString": "off",
+          "id": "A-954e1e50-0b40-49d4-99dc-d8e0e90905e5"
+        }, {
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-1689824139234",
+          "title": "Stop Countdown",
+          "message": "if OK, 条件成立！",
+          "smallIcon": "chat-2-line",
+          "id": "A-e3cb7992-ed89-4a45-b14f-bc7ebfeba1d4"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "OK, Stop countdown\nglobalVarOf$Countdown ms",
+          "id": "A-8794135e-8c91-41b1-a0d1-a20d8afc4490"
+        }, {
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "id": "A-bad68d3e-9edd-43d8-91f5-9fa20496e445"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "EqualTo",
+            "varName": "CountdownSwitch",
+            "payload": {
+              "value": "switchoff"
+            },
+            "id": "C-cccc8f8e-ba7c-4be8-bb73-2179cdaa6dae"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "CountdownSwitch",
+            "valueAsString": "off",
+            "id": "A-a8868b55-25bd-4e30-9cde-84e72723bb5b"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "id": "A-20c72376-7d22-4155-bbb6-b09061a6d6c3"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "CountdownSwitch",
+            "valueAsString": "off",
+            "id": "A-01157cac-7004-4b65-b133-34242d95981d"
+          }, {
+            "@type": "type.googleapis.com/PostNotification",
+            "tag": "tag-1689824139234",
+            "title": "Stop Countdown",
+            "message": "If not OK, 条件未通过！",
+            "smallIcon": "chat-2-line",
+            "id": "A-5d8c6621-c105-47ed-8b4f-6512dbd17aa7"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "Cancel, Stop countdown\nglobalVarOf$Countdown ms",
+            "id": "A-f1fd02f4-0e6e-41fc-a8fd-ede4526ac4f5"
+          }, {
+            "@type": "type.googleapis.com/HideOverlayButton",
+            "id": "A-77981294-0c80-4783-91b5-199025ad260d"
+          }],
+          "id": "A-79445ea3-5ddf-4a28-81ec-a303f621274e"
+        }],
+        "id": "A-246c2ac7-beba-4fa8-937a-1d809f7221c6"
+      }],
+      "id": "A-9afd4363-fca0-467b-9fb3-0e1551d45da6"
+    }],
+    "id": "A-8f12b595-d113-4adc-8114-c67316cca741"
+  }],
+  "id": "DA6aa400b0-a1de-4f68-b8cb-584e0c58dafe",
+  "lastUpdateTime": "1691714391285",
+  "createTime": "1689824082194",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "Sleep Countdown",
+  "description": "倒计时后停止应用集Entertainment"
+}
+###------###
+{"type":"da"}

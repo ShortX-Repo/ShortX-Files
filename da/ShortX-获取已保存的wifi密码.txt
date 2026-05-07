@@ -1,0 +1,76 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "wifiPasswords \u003d [];\n\nconfigs \u003d context.getSystemService(context.WIFI_SERVICE).getPrivilegedConfiguredNetworks();\n\nforeach(conf : configs) {\n    wifiPasswords.add(conf.SSID + \"--\u003e\" + conf.preSharedKey);\n}\n\ndistinctPasswords \u003d wifiPasswords.stream().distinct().sorted().collect(java.util.stream.Collectors.toList());\n\noutput \u003d \"\";\ncount \u003d 1;\nforeach(password : distinctPasswords) {\n    ssidPassword \u003d password.split(\"--\u003e\");\n    output +\u003d \"╔═════════════════╗\\n\";\n    output +\u003d \"║ No. \" + count + \"\\n\";\n    output +\u003d \"╠═════════════════╣\\n\";\n    output +\u003d \"║ 📶 SSID: \" + ssidPassword[0] + \"\\n\";\n    output +\u003d \"║ 🔒 Password: \" + ssidPassword[1] + \"\\n\";\n    output +\u003d \"╚═════════════════╝\\n\\n\";\n    count++;\n}\n\noutput;\n",
+    "customContextDataKey": {
+    },
+    "id": "A-2c03237c-416c-4a46-913d-0d7457e283f9"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "copy全部",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-8c2be0b4-2bca-4626-ba61-735c4911cf91"
+    }],
+    "negative": "自定义copy",
+    "onNegative": [{
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "自定义复制wifi密码",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "请输入要复制的wifi序号"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-cf60b030-b814-4798-86a7-71ffa0d7d347"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "wifiPasswords \u003d [];\n\nconfigs \u003d context.getSystemService(context.WIFI_SERVICE).getPrivilegedConfiguredNetworks();\n\nforeach(conf : configs) {\n    wifiPasswords.add(conf.SSID + \"--\u003e\" + conf.preSharedKey);\n}\n\ndistinctPasswords \u003d wifiPasswords.stream().distinct().sorted().collect(java.util.stream.Collectors.toList());\n\noutput \u003d \"\";\ncount \u003d 1;\nforeach(password : distinctPasswords) {\n    ssidPassword \u003d password.split(\"--\u003e\");\n    output +\u003d \"No. \" + count + \" SSID: \" + ssidPassword[0] + \" Password: \" + ssidPassword[1] + \"\\n\";\n    count++;\n}\noutput;\n\ntextFieldInput1 \u003d {textFieldInput1};\nif (textFieldInput1 \u003e 0 \u0026\u0026 textFieldInput1 \u003c\u003d distinctPasswords.size()) {\n    selectedPassword \u003d distinctPasswords.get(textFieldInput1 - 1);\n    ssidPassword \u003d selectedPassword.split(\"--\u003e\");\n    clipboardManager \u003d context.getSystemService(context.CLIPBOARD_SERVICE);\n    clipData \u003d android.content.ClipData.newPlainText(\"WiFi Password\", ssidPassword[1].toString().replaceAll(\"\\\"\", \"\"));\n    clipboardManager.setPrimaryClip(clipData);\n    result \u003d \"已复制WiFi名为 \" + ssidPassword[0] + \" 的WiFi密码到剪贴板: \" + ssidPassword[1].toString().replaceAll(\"\\\"\", \"\");\n    result;\n} else {\n    \"输入的序号无效，请输入1到\" + distinctPasswords.size() + \"之间的数字。\";\n}\n",
+      "customContextDataKey": {
+      },
+      "id": "A-ae8ca47b-cf53-44c0-9849-9d4810ea3c07"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "确定",
+      "onPositive": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "customContextDataKey": {
+        },
+        "id": "A-8c54cc43-0bc3-4dc0-bad4-8d952d1a1b10"
+      }],
+      "title": "操作成功",
+      "message": "{mvelRet}",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-9595df3b-5780-43b2-892f-0bfd8b646989"
+    }],
+    "neutral": "关闭",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "customContextDataKey": {
+      },
+      "id": "A-4026a68d-84d6-4031-b84f-1d8dda5ac34f"
+    }],
+    "title": "wifi passwords",
+    "message": "{mvelRet}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-a8ae6ad0-a191-4e6d-827d-5020ad99afe5"
+  }],
+  "id": "DA734c5850-9225-41db-a99a-fb711f15079d",
+  "lastUpdateTime": "1721537187384",
+  "createTime": "1691412490806",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "获取已保存的wifi密码",
+  "description": "获取所有已保存的wifi信息，自定义复制特定的wifi密码",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

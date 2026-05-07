@@ -1,0 +1,43 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.content.pm.PackageManager);\nimportClass(android.content.pm.ApplicationInfo);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\n\n// 获取系统服务\nvar packageManager = context.getPackageManager();\n\nvar result = new JSONArray();\n\nif (packageManager == null) {\n    var errorItem = new JSONObject();\n    errorItem.put(\"error\", \"无法获取PackageManager\");\n    result.put(errorItem);\n} else {\n    try {\n        // 获取所有安装的应用\n        var apps = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);\n        \n        if (apps == null || apps.size() === 0) {\n            var errorItem = new JSONObject();\n            errorItem.put(\"error\", \"没有安装任何应用\");\n            result.put(errorItem);\n        } else {\n            for (var i = 0; i < apps.size(); i++) {\n                var app = apps.get(i);\n                \n                // 排除系统应用\n                if ((app.flags & ApplicationInfo.FLAG_SYSTEM) === 0) {\n                    var packageName = app.packageName;\n\n                    // 检查应用是否被冻结\n                    var appEnabled = packageManager.getApplicationEnabledSetting(packageName);\n                    if (appEnabled === PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {\n                        continue; // 跳过已冻结应用\n                    }\n                    \n                    // **新增：检查是否有启动activity (NEW: Check for launchable activity)**\n                    var launchIntent = packageManager.getLaunchIntentForPackage(packageName);\n                    if (launchIntent === null) {\n                        continue; // 跳过没有启动activity的应用 (Skip apps without a launchable activity)\n                    }\n                    \n                    // 获取应用名称\n                    var appName = packageManager.getApplicationLabel(app).toString();\n                    \n                    var item = new JSONObject();\n                    item.put(\"name\", appName);\n                    item.put(\"package\", packageName);\n                    item.put(\"__value\", packageName);\n                    item.put(\"__icon\", \"app://\" + packageName);\n                    \n                    result.put(item);\n                }\n            }\n        }\n    } catch (e) {\n        var errorItem = new JSONObject();\n        errorItem.put(\"error\", \"获取用户应用列表失败: \" + e.message);\n        result.put(errorItem);\n    }\n}\n\n// 输出JSON格式结果\nresult.toString();",
+    "customContextDataKey": {
+    },
+    "note": "获取用户安装第三方应用信息(排除已冻结、不可启动的应用)",
+    "id": "A-36c66ea2-1b46-4307-8823-ddc2ab4818e2"
+  }, {
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "应用列表",
+    "cancelable": true,
+    "data": "{jsRet}",
+    "delimiter": [","],
+    "dataType": "ShowListDialogDataType_Json",
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-65f2aaa8-670e-4e70-93f9-fb080c36f7bf"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.app.ActivityManager);\nimportClass(android.content.Context);\n\nvar pkg = {selectedListItem}.replace(/[\\[\\]]/g, '');\n\n// 获取 ActivityManager\nvar am = context.getSystemService(Context.ACTIVITY_SERVICE);\n\n// 获取所有最近任务\nvar tasks = am.getRunningTasks(100);\n\nvar found = false;\nfor (var i = 0; i < tasks.size(); i++) {\n    var task = tasks.get(i);\n    if (task.topActivity.getPackageName() == pkg) {\n        // 直接把已有任务调到前台\n        am.moveTaskToFront(task.id, 0);\n        found = true;\n        break;\n    }\n}\n\nif (!found) {\n    // 如果没有在后台运行，就正常启动\n    importClass(android.content.Intent);\n    var pm = context.getPackageManager();\n    var it = pm.getLaunchIntentForPackage(pkg);\n    if (it != null) {\n        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n        context.startActivity(it);\n    }\n}\n\n\"已切换到应用：\" + pkg;",
+    "customContextDataKey": {
+    },
+    "id": "A-8baea151-dc83-4d9e-9266-0d5e526d9c70"
+  }],
+  "id": "SHARED-DA-db042099-9f31-4725-952f-86b780f71d6f",
+  "lastUpdateTime": "1759744606090",
+  "createTime": "1759744173549",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "case",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

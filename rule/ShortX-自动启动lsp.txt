@@ -1,0 +1,72 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.android.launcher"
+      },
+      "className": "com.android.launcher.settings.LauncherDrawerModeSettingsActivity"
+    }, {
+      "pkg": {
+        "pkgName": "com.android.launcher"
+      },
+      "className": "com.android.launcher.Launcher"
+    }, {
+      "pkg": {
+        "pkgName": "com.android.launcher"
+      },
+      "className": "com.android.launcher3.dragndrop.AddItemActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-61e765ee-2452-42bc-bdfe-6b026c65a42f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "API\u003d$(getprop ro.build.version.sdk)\nif [ \"$API\" -ge 29 ]; then\n  am broadcast -a android.telephony.action.SECRET_CODE -d android_secret_code://5776733 android\nelse\n  am broadcast -a android.provider.Telephony.SECRET_CODE -d android_secret_code://5776733 android\nfi\n",
+        "customContextDataKey": {
+        },
+        "id": "A-9b144d03-cc76-4360-bcbe-de07a8bdea5b"
+      }],
+      "icon": "cursor-line",
+      "label": "启动lsp",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["lsp"],
+        "customContextDataKey": {
+        },
+        "id": "A-14358d49-4c4d-4368-b43c-7fa2b9695593"
+      }],
+      "id": "BTN-e8b195ea-ab16-46db-8160-81d070f49b64"
+    }],
+    "autoCollapse": true,
+    "tag": "lsp",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 94,
+    "enableGlobalDrag": true,
+    "closeOnAction": true,
+    "customContextDataKey": {
+    },
+    "id": "A-0243e67b-b370-4bc9-b676-c078647e321c"
+  }],
+  "id": "SHARE-rule-4c267d91-2e0f-4f8a-b02e-a3a3a883eb71",
+  "lastUpdateTime": "1756612160726",
+  "createTime": "1756570538003",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动启动lsp",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

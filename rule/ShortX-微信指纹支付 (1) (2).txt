@@ -1,0 +1,59 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "下方添加条件:找到颜色-微信(深色/日常)-自定义颜色",
+    "id": "F-098d26b5-2afa-4041-9769-314076fdbb13"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/BiometricVerify",
+    "title": "指纹支付",
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "note": "如果启用悬浮窗这个可以禁用",
+    "id": "A-0bb3f121-8d3d-4b63-bbf7-413dbc53e1f3"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "note": "这个动作在自己手机上用不到可以删除",
+    "id": "A-bb38dd84-1a11-4c60-b6d0-783489af67da"
+  }],
+  "id": "SHARE-rule-4b027184-3e4c-4779-a81b-4cfe68fe9946",
+  "lastUpdateTime": "1760934832299",
+  "createTime": "1748530364589",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信指纹支付",
+  "description": "动作-如果启用悬浮窗就禁用后续的动作。条件-找到颜色建议自己提取，深色模式和日常模式颜色自己定义。支付界面如果想手动输密码，一个返回手势就可以。",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-f47a259a-17c7-4434-836d-5843061098b0"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-240b9122-d3df-4de4-ad7a-a0c5ce8351e3"
+}
+###------###
+{"type":"rule"}

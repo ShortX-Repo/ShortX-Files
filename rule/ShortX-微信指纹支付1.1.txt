@@ -1,0 +1,149 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "下方添加条件:找到颜色-微信(深色/日常)-自定义颜色",
+    "id": "F-098d26b5-2afa-4041-9769-314076fdbb13"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/HasFoundPointsByColor",
+    "config": {
+      "image": {
+        "@type": "type.googleapis.com/ImageSourceScreenshot"
+      },
+      "color": -13883880,
+      "rect": {
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "C-349e56f1-3085-4a79-ad42-3980ed0d575b"
+  }, {
+    "@type": "type.googleapis.com/HasFoundPointsByColor",
+    "config": {
+      "image": {
+        "@type": "type.googleapis.com/ImageSourceScreenshot"
+      },
+      "color": -13884644,
+      "rect": {
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "C-9697477e-7a03-473b-8e99-56970a629dce"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/BiometricVerify",
+        "allowActions": [{
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "150",
+          "customContextDataKey": {
+          },
+          "id": "A-dc36a9b0-a4e7-4683-b4d5-0d66b560659b"
+        }, {
+          "@type": "type.googleapis.com/FromDA",
+          "daId": "DA-e8b5708f-cf0f-459d-9ac2-a8064b951ded",
+          "customContextDataKey": {
+          },
+          "note": "支付密码的坐标",
+          "id": "A-c3fb3e3c-87a9-4903-98c0-6183ec48a30f"
+        }],
+        "title": "指纹支付",
+        "customContextDataKey": {
+        },
+        "id": "A-0e16ac4c-107c-4f27-b2fc-28f0577a5228"
+      }],
+      "icon": "fingerprint-line",
+      "label": "指纹支付",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["指纹支付"],
+        "customContextDataKey": {
+        },
+        "id": "A-1ec5adc2-a3b4-4328-a5cd-4508483286cb"
+      }],
+      "id": "BTN-7fc9d845-2a9e-4bb2-9eb1-570a57284fd3"
+    }],
+    "tag": "指纹支付",
+    "maxHeightInDp": 20,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "overlayPaddingV": 4,
+    "closeOnTouchOutside": true,
+    "closeOnAction": true,
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "悬浮窗这个动作用不到的可以删除",
+    "id": "A-2ff2b457-5b33-4ff3-b97d-86505be2d617"
+  }, {
+    "@type": "type.googleapis.com/BiometricVerify",
+    "allowActions": [{
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "150",
+      "customContextDataKey": {
+      },
+      "id": "A-050341fc-cfe5-49bd-b511-35324d1ed71c"
+    }, {
+      "@type": "type.googleapis.com/FromDA",
+      "daId": "DA-e8b5708f-cf0f-459d-9ac2-a8064b951ded",
+      "customContextDataKey": {
+      },
+      "note": "支付密码坐标",
+      "id": "A-0d1f968f-9e74-46a3-b7a4-dd65df4b1223"
+    }],
+    "title": "指纹支付",
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "note": "如果启用悬浮窗这个可以禁用",
+    "id": "A-0bb3f121-8d3d-4b63-bbf7-413dbc53e1f3"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "1000",
+    "customContextDataKey": {
+    },
+    "note": "这个动作在自己手机上用不到可以删除",
+    "id": "A-bb38dd84-1a11-4c60-b6d0-783489af67da"
+  }],
+  "id": "SHARE-rule-07bb362f-1e4d-4304-86e1-99d02f833a07",
+  "lastUpdateTime": "1748963086998",
+  "createTime": "1748530364589",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "微信指纹支付1.1",
+  "description": "动作-如果启用悬浮窗就禁用后续的动作。条件-找到颜色建议自己提取，深色模式和日常模式颜色自己定义。支付界面如果想手动输密码，一个返回手势就可以。",
+  "isEnabled": true,
+  "condOp": "ANY",
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "apps": [{
+        "pkgName": "com.tencent.mm"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-f47a259a-17c7-4434-836d-5843061098b0"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-abedff24-5485-4d69-baee-509cdb8b6b4c"
+}
+###------###
+{"type":"rule"}

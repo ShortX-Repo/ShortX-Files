@@ -1,0 +1,106 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+    },
+    "end": {
+      "hour": 23,
+      "minutes": 59
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "WEDNESDAY", "TUESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "3600000"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-58751c4c-bc94-4285-a053-580a48a72f4d"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-7892faf0-ab9c-48a1-8169-a72fd7e670bf"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://api.lolicon.app/setu/v2",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data[0].urls.regular", "data[0].title"]
+    },
+    "method": "POST",
+    "headers": [{
+      "key": "Content-Type",
+      "value": "application/json"
+    }],
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n  \"tag\": [\n    [\"碧蓝航线\", \"崩坏学园\", \"碧蓝档案\", \"原神\",\"崩坏：星穹铁道\"],\n    [\"萝莉\"]\n  ],\n  \"proxy\": \"pixiv.yuki.sh\",\n  \"size\": \"regular\",\n  \"r18\": false,\n  \"excludeAI\": true\n}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-4c387e00-4b26-4b8d-bcca-91731b70b61a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [ ! -d /data/wallpaper ]\nthen\nmkdir -p /data/wallpaper\nfi\n\ncurl -s -o \"/data/wallpaper/wallpaper.jpg\" {httpRequestRet1}",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "id": "A-43bb256d-074f-4849-8693-dafe2452be04"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotification",
+    "tag": "wallpaper",
+    "customContextDataKey": {
+    },
+    "id": "A-95d10100-c7cd-49f3-aebe-be570158870a"
+  }, {
+    "@type": "type.googleapis.com/PostNotification",
+    "tag": "wallpaper",
+    "title": "已更换壁纸为",
+    "message": "{httpRequestRet2}",
+    "largeIcon": "newspaper-fill",
+    "smallIcon": "newspaper-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-4be239e9-7fcf-413e-abbb-3ecf85be1a3d"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "wallpapers",
+    "valueAsString": "{httpRequestRet2}|{httpRequestRet1}",
+    "customContextDataKey": {
+    },
+    "id": "A-414d3fcc-ea6e-4d40-af66-f131fbfb1b18"
+  }, {
+    "@type": "type.googleapis.com/SetWallpaper",
+    "fileUrl": "/data/wallpaper/wallpaper.jpg",
+    "crop": true,
+    "customContextDataKey": {
+    },
+    "id": "A-7f87e93d-bc48-4cbb-ac6c-45051ec0dde1"
+  }],
+  "id": "rule-16e31a33-108d-4ce5-ae44-f32f25ae66c2",
+  "lastUpdateTime": "1698393695250",
+  "createTime": "1689491962736",
+  "author": {
+    "name": "Fearless"
+  },
+  "title": "息屏时更换傻卵二次元图片为壁纸",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync"
+}
+###------###
+{"type":"rule"}

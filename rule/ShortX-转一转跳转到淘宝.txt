@@ -1,0 +1,33 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenRotate",
+    "degree": "ScreenRotateDegree_Any",
+    "customContextDataKey": {
+    },
+    "id": "F-8c830650-edbf-4821-a5d5-2335252cfcf4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/LaunchApp",
+    "appPkg": {
+      "pkgName": "com.taobao.taobao"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-de6b7f75-4dc8-44ec-9ee6-3e5e434b3fdc"
+  }],
+  "id": "rule-a2939caf-8098-47d2-b465-69dfa44ff6e3",
+  "lastUpdateTime": "1700194841984",
+  "createTime": "1700194751439",
+  "author": {
+    "name": "entr0pia"
+  },
+  "title": "转一转跳转到淘宝",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

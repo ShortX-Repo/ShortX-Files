@@ -1,0 +1,74 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemSettingsChanged",
+    "urlAndExpectedValueRegex": {
+      "first": "content://settings/secure/enabled_accessibility_services",
+      "second": "[a-zA-Z0-9.:/]+"
+    },
+    "id": "F-dbee950b-07e7-4fe7-8601-708149675cf3"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/MatchMVEL",
+    "expression": "String str \u003d {settingsValue};\nString input \u003d globalVarOf$无障碍服务;\nString[] lines \u003d input.split(\"\\n\");\n// 获取第二行\nString H \u003d lines[1];\n\nint S \u003d str.length() - str.replace(\"/\", \"\").length();\nboolean T \u003d S \u003c H; //H可以替换成数字(开启无障碍服务的个数)",
+    "id": "C-0e534ed6-6848-4345-b02a-ce0b1d2c287c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "id": "A-ca4c27b0-9fca-41d2-a9e5-265a15fbdc01"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "String input \u003d globalVarOf$无障碍服务;\nString[] lines \u003d input.split(\"\\n\");\n// 获取第一行\nString secondLine \u003d lines[0];",
+    "note": "获取全局变量第一行",
+    "id": "A-5bd21f42-68c9-4268-9f95-81b9e29d091e"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put secure enabled_accessibility_services {mvelRet}",
+    "id": "A-7d4e6a01-c1dd-4aaf-ba01-901efc44f718"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "已重启无障碍服务",
+    "id": "A-bb993877-3e8f-42e1-af3b-2fbe2ff95086"
+  }],
+  "id": "rule-22245de9-c078-4475-8442-e42712e53a5f",
+  "lastUpdateTime": "1692021400958",
+  "createTime": "1691623636877",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "无障碍",
+  "description": "自动开启无障碍服务(每次增加，减少只需开关任务即可)",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings get secure enabled_accessibility_services",
+      "note": "获取开启的无障碍服务",
+      "id": "A-9a850140-e0ac-4da8-b6f4-d06e9a63c834"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "无障碍服务",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "id": "A-ae526450-c1e4-4781-9fb0-cc7d0235fbfe"
+    }, {
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "String str \u003d {shellOut};\nint gs \u003d str.length() - str.replace(\"/\", \"\").length();",
+      "note": "无障碍个数",
+      "id": "A-8aa68df0-210c-4bde-a6e2-71b1a4082ad9"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "无障碍服务",
+      "valueAsString": "{shellOut}\n{mvelRet}",
+      "id": "A-e16aea42-5b84-404f-8d0c-20df5ff2c568"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

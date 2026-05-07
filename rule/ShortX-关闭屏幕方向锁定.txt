@@ -1,0 +1,354 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["RotateAPP"],
+    "customContextDataKey": {
+    },
+    "id": "F-20f1b4e5-9186-4bc6-9fee-3f85dfff2135"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-73b8bbdf-3f08-4ef9-878f-15a6bc7acd7b"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsNotExists",
+      "varName": "RotateAPPoneclick",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-8b7a227a-f1fe-446a-bbee-b83272596512"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "RotateAPPoneclick",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-bb9fe8c8-cf86-43f5-bb65-7b7db6595295"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-608248ef-edc1-4d70-bdd0-27b70bb227e0"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put system accelerometer_rotation 1",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "isDisabled": true,
+    "id": "A-6674701e-0c3a-4422-9d5d-b299b355c9a1"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put system accelerometer_rotation 1",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut"
+          }, {
+            "first": "shellErr"
+          }, {
+            "first": "shellCode"
+          }]
+        },
+        "isDisabled": true,
+        "id": "A-f98dedb9-121d-4b05-adae-fbc0096a219b"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/CurrentPkgList",
+          "pkgSets": ["RotateAPP"],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "id": "C-c3126848-160b-4e27-92f5-065c1ae330f6"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "settings put system accelerometer_rotation 1",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "shellOut"
+            }, {
+              "first": "shellErr"
+            }, {
+              "first": "shellCode"
+            }]
+          },
+          "id": "A-46797c80-f721-48cd-af3f-10082c701d9c"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "已关闭 屏幕方向锁定",
+          "customContextDataKey": {
+          },
+          "id": "A-1da76890-8eaa-40b2-9065-73cf26e2f5d5"
+        }, {
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["RotateAPPfloat"],
+          "customContextDataKey": {
+          },
+          "id": "A-2f44228d-7a2b-4e29-92f1-0ffae933c634"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["RotateAPPfloat"],
+          "customContextDataKey": {
+          },
+          "id": "A-62377633-b6bd-4914-a4cd-6293f097222a"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-5c6ddd78-4233-4ef0-86e7-677bf5f166e5"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "RotateAPPoneclick",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-008d8a58-136b-45b2-87a8-d39591d034fa"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/SleepScreen",
+          "customContextDataKey": {
+          },
+          "id": "A-f35d3f63-5146-44d9-a841-23de3231ebf2"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "双击",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-ff9ddd19-9b6b-4591-ba5a-1e4fffa6e1b3"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "RotateAPPoneclick",
+          "valueAsString": "0",
+          "customContextDataKey": {
+          },
+          "id": "A-68d8b646-0f6a-4324-9712-c1d806bcddd7"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-09e22cf8-e680-48c8-8033-ad57efe705d8"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "RotateAPPoneclick",
+          "valueAsString": "1",
+          "customContextDataKey": {
+          },
+          "id": "A-18dc7a03-64fa-43b2-8c29-bb23918381b9"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "500",
+          "customContextDataKey": {
+          },
+          "id": "A-fef52b0e-5dc2-4154-a541-d79a446e78a6"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "RotateAPPoneclick",
+            "payload": {
+              "value": "1"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-71e88bc8-d192-4e99-9b1b-9d4074a921ba"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/CurrentPkgList",
+              "pkgSets": ["RotateAPP"],
+              "op": "ANY",
+              "customContextDataKey": {
+              },
+              "id": "C-c3126848-160b-4e27-92f5-065c1ae330f6"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "settings put system accelerometer_rotation 1",
+              "customContextDataKey": {
+                "keys": [{
+                  "first": "shellOut"
+                }, {
+                  "first": "shellErr"
+                }, {
+                  "first": "shellCode"
+                }]
+              },
+              "id": "A-46797c80-f721-48cd-af3f-10082c701d9c"
+            }, {
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "已关闭 屏幕方向锁定",
+              "customContextDataKey": {
+              },
+              "id": "A-1da76890-8eaa-40b2-9065-73cf26e2f5d5"
+            }, {
+              "@type": "type.googleapis.com/HideOverlayButton",
+              "overlayTags": ["RotateAPPfloat"],
+              "customContextDataKey": {
+              },
+              "id": "A-2f44228d-7a2b-4e29-92f1-0ffae933c634"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/HideOverlayButton",
+              "overlayTags": ["RotateAPPfloat"],
+              "customContextDataKey": {
+              },
+              "id": "A-62377633-b6bd-4914-a4cd-6293f097222a"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f168300e-f4b3-4a48-ad9e-5f728c999580"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "单击",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-0a4690c9-1940-436e-a4ea-ec1fb12054ae"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "RotateAPPoneclick",
+            "valueAsString": "0",
+            "customContextDataKey": {
+            },
+            "id": "A-c2cba8af-198d-4ab8-a483-dcbdc8596400"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "customContextDataKey": {
+            },
+            "id": "A-70467ee2-4160-4134-8ca6-e7d1910d1c67"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "VolumeAPPoneclick",
+            "valueAsString": "0",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-95460086-4fa2-4c90-ab4e-5caf04cb91e8"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-ecdd8d7f-f08a-4b13-9cdf-bca1805f44ea"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-e8895ba9-57ac-4212-be09-6f0001403fc2"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-82288b87-d041-4c6a-af44-90c44b85f364"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-57c68a91-17cf-4a73-9e05-1632d28930c3"
+      }],
+      "icon": "repeat-2-line"
+    }],
+    "tag": "RotateAPPfloat",
+    "customContextDataKey": {
+    },
+    "id": "A-6153014a-7474-474f-8457-0152e76f90c4"
+  }],
+  "id": "rule-2260a38a-9e2a-47ac-9100-3f203ba5d5db",
+  "lastUpdateTime": "1693805006891",
+  "createTime": "1689687024519",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "关闭屏幕方向锁定",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "pkgSets": ["RotateAPP"],
+      "customContextDataKey": {
+      },
+      "id": "F-0ced2000-f09f-41d8-b31f-8be9da354467"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/CurrentPkgList",
+        "pkgSets": ["RotateAPP"],
+        "op": "ANY",
+        "customContextDataKey": {
+        },
+        "id": "C-a20fa62b-8b6a-4d26-8c0c-39005cc48bc5"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "customContextDataKey": {
+        },
+        "id": "A-720e0ca3-ded8-4bf6-83a5-ab4817e6465c"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put system accelerometer_rotation 0",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut"
+          }, {
+            "first": "shellErr"
+          }, {
+            "first": "shellCode"
+          }]
+        },
+        "id": "A-05a2a820-ef94-4584-8801-b4e3f3f40fb2"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["RotateAPPfloat"],
+        "customContextDataKey": {
+        },
+        "id": "A-bb01b87a-c32c-4d1e-ba69-687f277365a2"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已打开 屏幕方向锁定",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-bb36c103-2091-40e4-8b5a-dfcde48e7731"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-f193f7e9-905a-4730-9f9b-6bc7790d188a"
+    }]
+  }
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,50 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "apps": [{
+      "pkgName": "hello.litiaotiao.app"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-d2ab4040-2d33-4999-8c73-975e82f5781e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgs": [{
+        "pkgName": "hello.litiaotiao.app"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-98799312-be88-4192-8705-ed546b4bce72"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure enabled_accessibility_services \u0027hello.litiaotiao.app/.LttService\u0027",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-79a4df08-a03d-40d6-b1fc-b4050a0e8970"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4116aeaf-008c-460a-8009-f54612637132"
+  }],
+  "id": "rule-d78d38e9-5998-4c54-85fe-eb6c5c523b87",
+  "lastUpdateTime": "1696519704070",
+  "createTime": "1696386897310",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "防止李跳跳停止",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

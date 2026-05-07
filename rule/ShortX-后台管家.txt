@@ -31,7 +31,7 @@
       "op": "Contains",
       "varName": "进程白名单",
       "payload": {
-        "value": "{pkgName}"
+        "value": "com.tencent.mm3"
       },
       "customContextDataKey": {
       },
@@ -45,7 +45,7 @@
       "id": "A-b8cc2f0b-2ad7-4814-9c48-18196788ae88"
     }, {
       "@type": "type.googleapis.com/ShellCommand",
-      "command": "var\u003d$\"{shellOut}\"\noutput\u003d$(echo \"$var\" | awk -F: \u0027{print $2}\u0027 | paste -sd,)\noutput\u003d$(echo \"$var\" | sed \u0027s/^[^:]*://\u0027 | paste -sd,)\necho \"$output\"",
+      "command": "# 假设 var 内容如下：\nvar\u003d$\"{shellOut}\"\n# 使用 awk 处理\noutput\u003d$(echo \"$var\" | awk -F: \u0027{print $2}\u0027 | paste -sd,)\n# 使用 sed 处理\noutput\u003d$(echo \"$var\" | sed \u0027s/^[^:]*://\u0027 | paste -sd,)\necho \"$output\"\n",
       "customContextDataKey": {
       },
       "id": "A-fd46328c-5dfd-46e8-8d45-3cfd173916ac"
@@ -79,8 +79,8 @@
     },
     "id": "A-7f06703b-981d-4fb7-b72a-5b14b57f373e"
   }],
-  "id": "SHARE-rule-400c1287-d200-4043-93c3-1d3ff5720b60",
-  "lastUpdateTime": "1727863811361",
+  "id": "rule-990a2782-4e65-4491-91b6-64774238cd1c",
+  "lastUpdateTime": "1710509312185",
   "createTime": "1709920302483",
   "author": {
     "name": "nyehueh"
@@ -95,32 +95,16 @@
       },
       "id": "A-7d522fe5-f0b4-4bb4-976b-8c9407ce8f7e"
     }, {
-      "@type": "type.googleapis.com/IfThenElse",
-      "If": [{
-        "@type": "type.googleapis.com/EvaluateGlobalVar",
-        "op": "IsNotExists",
-        "varName": "进程白名单",
-        "payload": {
-        },
-        "customContextDataKey": {
-        },
-        "id": "C-c1ec5a6c-d310-482a-bb11-c2c639f465d1"
-      }],
-      "IfActions": [{
-        "@type": "type.googleapis.com/CreateGlobalVar",
-        "globalVar": {
-          "name": "进程白名单",
-          "type": {
-            "@type": "type.googleapis.com/StringListVar"
-          }
-        },
-        "customContextDataKey": {
-        },
-        "id": "A-fdfb7f55-4641-4c85-8d0d-ce63d4220289"
-      }],
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "进程白名单",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
       "customContextDataKey": {
       },
-      "id": "A-f7497150-85b5-40f8-86fb-d0f1ee19b069"
+      "id": "A-d779eb1c-4554-4f0a-818e-dff6fc463613"
     }]
   },
   "quit": {

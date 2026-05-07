@@ -1,0 +1,32 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/GlobalVarChanged",
+    "gvId": "开始录音",
+    "customContextDataKey": {
+    },
+    "id": "F-7b44397d-6278-44e5-8fe2-d3a2259b582d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "apath\u003d\"$(find $(echo \"/data/system/$(ls /data/system | grep -E \u0027shortx_.*\u0027)/record\") -exec ls -t {} + | head -n 1)\"\ncp \"${apath}\" /sdcard/Music\n",
+    "customContextDataKey": {
+    },
+    "id": "A-059be6de-3fff-4e66-9a6e-be79d2dfcd59"
+  }],
+  "id": "rule-4375dcb7-c2ad-463a-b3df-6223bb765bf6",
+  "lastUpdateTime": "1700628297995",
+  "createTime": "1700626357996",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动保存录音",
+  "description": " ",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

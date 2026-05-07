@@ -1,0 +1,49 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 82,
+    "gesture": "KeyLongPress",
+    "isInterceptMode": true,
+    "customContextDataKey": {
+    },
+    "id": "F-92a86ad6-6fd9-4f33-8e35-52386436c487"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-1c9165a9-9f0b-4476-b993-a34ec6adc956"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "\nam start \"intent:#Intent;launchFlags\u003d0x14400000;component\u003dcom.tencent.mm/.plugin.scanner.ui.BaseScanUI;B.key_scan_goods_enable_dynamic_wording\u003dtrue;B.key_enable_scan_code_product_merge\u003dtrue;S.key_scan_shortcut_caller_string\u003dcom.tencent.mm;B.key_enable_multi_code\u003dtrue;i.key_scan_report_enter_scene\u003d13;B.key_check_camera_using\u003dtrue;end\"",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-f33553fb-743b-4b4e-8312-9f80bce6079a"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "vib2": 100,
+    "vib3": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-2bd39437-a24f-4592-9413-06aeffc13661"
+  }],
+  "id": "SHARE-rule-8e1dde7e-ebe2-414d-8f66-ef7fa4867df3",
+  "lastUpdateTime": "1762952411086",
+  "createTime": "1761444910604",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "桌面长按任务键微信扫一扫",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-4615e9c2-5364-4bb6-9152-a9b480e6f525"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,32 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/KeyEvent",
+    "keyCode": 24,
+    "customContextDataKey": {
+    },
+    "id": "F-c1af638c-4682-4a92-992e-98744aadc059"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "按了音量加",
+    "customContextDataKey": {
+    },
+    "id": "A-63b1a0d0-a4a5-4b72-8a59-e61f24a3a697"
+  }],
+  "id": "SHARE-rule-23b49c65-db77-45fa-b40f-7a319965fb6e",
+  "lastUpdateTime": "1733018875910",
+  "createTime": "1733018842349",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "显示吐司",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "evaluatePolicy": "Quit_EvaluatePolicy_Always"
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

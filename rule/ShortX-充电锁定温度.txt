@@ -1,0 +1,69 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ChargerPlug",
+    "customContextDataKey": {
+    },
+    "id": "F-1a9beaa5-527e-40f6-b05f-efb1c0ef96c5"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "customContextDataKey": {
+    },
+    "id": "C-c25bd557-4eb0-4cde-8d5d-1da8548abfae"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "su\ndumpsys battery set temp 250\ndumpsys battery | grep temperature | awk \u0027{print $2}\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-2cbbfec8-7ea1-44c1-9a3f-6a139b98fe53"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "当前电池温度:{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-f7b3c96b-2bce-4b56-b5da-d57adb47a7f2"
+  }],
+  "id": "rule-40511906-0119-4e22-bb46-88fd73f8cfa6",
+  "lastUpdateTime": "1726775083271",
+  "createTime": "1726773846093",
+  "author": {
+    "name": "Crystal"
+  },
+  "title": "充电锁定温度",
+  "description": "伪装电池温度，维持充电速度，必备散热器！！！",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ChargerUnplug",
+      "customContextDataKey": {
+      },
+      "id": "F-1d7cc9d6-21cc-42f6-a4b4-df21f13ef201"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-f2ffa019-5efd-453e-9279-1c4dd07f08f1"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "su\ndumpsys battery reset\ndumpsys battery | grep temperature | awk \u0027{print $2}\u0027",
+      "customContextDataKey": {
+      },
+      "id": "A-29e761ac-26b7-49c9-b7ac-7abe46db6ff0"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "当前电池温度:{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-4ba41f0f-437d-445c-be15-9c137fe81eec"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

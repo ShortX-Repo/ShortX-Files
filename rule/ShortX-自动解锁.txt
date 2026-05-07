@@ -1,0 +1,102 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOn",
+    "customContextDataKey": {
+    },
+    "id": "F-f7ec8308-1d47-4e28-8f60-047d4d377f41"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireBTConnected",
+    "device": "手环8nfc",
+    "customContextDataKey": {
+    },
+    "id": "C-a08c3530-ce5f-4b0c-8861-32455ed2fcca"
+  }, {
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-f6653b21-70d0-4e08-9081-301b44fdc114"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "input swipe 500 2100 500 800\ninput text globalVarOf$锁屏密码",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut"
+      }, {
+        "first": "shellErr"
+      }, {
+        "first": "shellCode"
+      }]
+    },
+    "id": "A-d07332e1-9624-4c64-8b51-25295fb52656"
+  }],
+  "id": "rule-a887db2e-bd8c-45d3-8985-8e6853696bce",
+  "lastUpdateTime": "1693310080678",
+  "createTime": "1692361183363",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动解锁",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "锁屏密码",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-be1b99c4-0b22-4619-854a-4a3a0f63e0f0"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "锁屏密码",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          },
+          "isSecret": true
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-9688e286-a684-4cd1-9427-eff0a2fc1c05"
+      }, {
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "输入锁屏密码(加密本地保存)",
+        "cancelable": true,
+        "textFields": [{
+          "placeholder": "输入锁屏密码"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-4cfb391e-4c51-4d19-9c18-dcd74b42cb8c"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "锁屏密码",
+        "valueAsString": "{textFieldInput1}",
+        "customContextDataKey": {
+        },
+        "id": "A-5d724340-e196-47c4-b821-7b42b55bdfd1"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-bf85e284-2098-4289-90d9-d227eb123bd6"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/UserPresent",
+      "customContextDataKey": {
+      },
+      "id": "F-79b48f6d-deff-46b7-974a-f21638531f36"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

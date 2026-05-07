@@ -1,0 +1,112 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "↕️ Full Hide",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put global policy_control immersive.full\u003d*",
+        "customContextDataKey": {
+        },
+        "id": "A-4d07ce37-7faf-4dd9-8d1f-b51bc6c1b087"
+      }, {
+        "@type": "type.googleapis.com/Vibrate",
+        "vib1": 100,
+        "customContextDataKey": {
+        },
+        "id": "A-4d09403d-0ec5-4471-9014-771a5647f7f7"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "     Full Screen\n🙏 ૐ નમઃ શિવાય 🙏",
+        "customContextDataKey": {
+        },
+        "id": "A-ce623ca9-d154-4426-949a-905c9285ded9"
+      }]
+    }, {
+      "title": "⏫ Status Bar Hide",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put global policy_control immersive.status\u003d*",
+        "customContextDataKey": {
+        },
+        "id": "A-011167d7-d411-43b3-afb2-276ab77b8505"
+      }, {
+        "@type": "type.googleapis.com/Vibrate",
+        "vib1": 100,
+        "customContextDataKey": {
+        },
+        "id": "A-6499f8b1-49d4-426a-b667-79c38911a4c6"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": " Hide Status Bar\n🙏 ૐ નમઃ શિવાય 🙏",
+        "customContextDataKey": {
+        },
+        "id": "A-f8581ef5-4422-45b3-828e-6c289fe30124"
+      }]
+    }, {
+      "title": "⏬ Nav Bar Hide",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put global policy_control immersive.navigation\u003d*",
+        "customContextDataKey": {
+        },
+        "id": "A-a5f353b8-db36-4a94-86dc-62a3413a9f8f"
+      }, {
+        "@type": "type.googleapis.com/Vibrate",
+        "vib1": 100,
+        "customContextDataKey": {
+        },
+        "id": "A-e6280ce4-538d-4978-87c8-8dfd4049326f"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "Hide Navigation Bar\n  🙏 ૐ નમઃ શિવાય 🙏",
+        "customContextDataKey": {
+        },
+        "id": "A-ad1bf3c8-e2c5-4571-99b9-a7e8d230e786"
+      }]
+    }, {
+      "title": "⏹️ Normal Mode",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "settings put global policy_control null",
+        "customContextDataKey": {
+        },
+        "id": "A-7d173a15-9779-4680-a9e6-345c065ac67c"
+      }, {
+        "@type": "type.googleapis.com/Vibrate",
+        "vib1": 100,
+        "customContextDataKey": {
+        },
+        "id": "A-8b8f9db1-9b85-467e-a660-86b16bc7f4fc"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "   Normal Mode\n🙏 ૐ નમઃ શિવાય 🙏",
+        "customContextDataKey": {
+        },
+        "id": "A-3128af5b-0b8d-4d32-a98e-ed0af72c0eea"
+      }]
+    }],
+    "title": "🔃 Immersive Toggle",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-8cc10fa5-1b50-4f21-a238-5bd093138272"
+  }],
+  "id": "SHARED-DA-2bba74a2-f005-403f-b073-c989e244eebc",
+  "lastUpdateTime": "1759909921676",
+  "createTime": "1758649747526",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Immersive Toggle",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

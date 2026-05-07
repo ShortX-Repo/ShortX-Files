@@ -1,0 +1,61 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "密码生成器",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "原密码"
+    }, {
+      "placeholder": "平台"
+    }, {
+      "placeholder": "是否允许符号",
+      "value": "true"
+    }],
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-d086c130-fde2-4b84-81dd-7456d5663c3c"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "var SecretKeySpec \u003d javax.crypto.spec.SecretKeySpec;\nvar Cipher \u003d javax.crypto.Cipher;\nvar MessageDigest \u003d java.security.MessageDigest;\nvar Base64 \u003d java.util.Base64;\nvar StandardCharsets \u003d java.nio.charset.StandardCharsets;\nvar JString \u003d java.lang.String;\n\nvar textToEncrypt \u003d textFieldInput1; \nvar secretKeyString \u003d textFieldInput2;\nvar isRemoveSymbols \u003d textFieldInput3\u003d\u003d\"true\";\n\nfunction encryptAndCrop(content, key, removeSymbols) {\n    try {\n        var javaKey \u003d new JString(key);\n        var javaContent \u003d new JString(content);\n        var targetLen \u003d javaContent.length();\n        var digest \u003d MessageDigest.getInstance(\"SHA-256\");\n        var keyBytes \u003d digest.digest(javaKey.getBytes(StandardCharsets.UTF_8));\n        var secretKey \u003d new SecretKeySpec(keyBytes, \"AES\");\n        var cipher \u003d Cipher.getInstance(\"AES/ECB/PKCS5Padding\");\n        cipher.init(Cipher.ENCRYPT_MODE, secretKey);\n        var encryptedBytes \u003d cipher.doFinal(javaContent.getBytes(StandardCharsets.UTF_8));\n        var base64Result \u003d Base64.getEncoder().encodeToString(encryptedBytes);\n        var finalString \u003d new JString(base64Result);\n        if (removeSymbols) {\n            finalString \u003d finalString.replaceAll(\"[^a-zA-Z0-9]\", \"\");\n        }\n        while (finalString.length() \u003c targetLen) {\n            finalString \u003d finalString.concat(finalString);\n        }\n        return finalString.substring(0, targetLen);\n    } catch (e) {\n        return \"Error: \" + e.toString();\n    }\n}\nvar result \u003d encryptAndCrop(textToEncrypt, secretKeyString, isRemoveSymbols);\nresult;",
+    "customContextDataKey": {
+    },
+    "id": "A-5de4b978-be4f-43e5-a15b-e92801ae9e45"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{jsRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-1dd193aa-fa0e-4740-a4c2-c8179d067604"
+    }],
+    "neutral": "取消",
+    "title": "新密码",
+    "message": "{jsRet}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-3bfbf2e2-fa32-4434-ba6b-6352f40aeea2"
+  }],
+  "id": "SHARED-DA-698d7225-5120-4d04-b575-a53fed43df8d",
+  "lastUpdateTime": "1765557715395",
+  "createTime": "1765556092094",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "密码生成器",
+  "description": "根据密码与平台生成新密码",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

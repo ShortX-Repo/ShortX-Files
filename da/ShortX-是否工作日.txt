@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://www.iamwawa.cn/workingday/api",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["date", "info", "week", "is_workingday"]
+    },
+    "headers": [{
+      "key": "User-Agent",
+      "value": "iamwawa-open-api"
+    }],
+    "requestBody": {},
+    "withCookieJar": true,
+    "customContextDataKey": {
+    },
+    "id": "A-3d87de08-b442-4a62-96e9-110977d4c46e"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "信息：{httpRequestRet2} \n日期：{httpRequestRet1} {httpRequestRet3}",
+    "customContextDataKey": {
+    },
+    "id": "A-d3996196-a427-4707-b875-4d50802c7660"
+  }],
+  "id": "DA8be5ecd5-995d-415b-9905-70ab94ed9f19",
+  "lastUpdateTime": "1722314896510",
+  "createTime": "1722313933033",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "是否工作日",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

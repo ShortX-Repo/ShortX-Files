@@ -1,0 +1,202 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "moveflag",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-fb465592-9907-4564-9040-498d4c64b23d"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "moveflag",
+        "valueAsString": "0",
+        "customContextDataKey": {
+        },
+        "id": "A-c2a4a9d2-f829-46c2-a094-c027fc9bc9fb"
+      }, {
+        "@type": "type.googleapis.com/WhileLoop",
+        "conditions": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "moveflag",
+          "payload": {
+            "value": "0"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-cf873b5e-2b8f-48f8-84c4-de6208346b25"
+        }, {
+          "@type": "type.googleapis.com/CurrentPkgList",
+          "pkgs": [{
+            "pkgName": "com.miui.home"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-242b81eb-5331-4421-a0c1-a5ee742c9460"
+        }, {
+          "@type": "type.googleapis.com/KeyguardIsLocked",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-4fb1173b-1748-4569-99f8-48b9e18c3938"
+        }, {
+          "@type": "type.googleapis.com/AppHasWindowFocus",
+          "pkgs": [{
+            "pkgName": "com.miui.voiceassist"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-d1e25607-2b16-4c35-9065-47c3857da9f2"
+        }],
+        "actions": [{
+          "@type": "type.googleapis.com/InputSwipe",
+          "startX": 600,
+          "startY": 550,
+          "endX": 600,
+          "endY": 1550,
+          "swipeTime": "100",
+          "customContextDataKey": {
+          },
+          "id": "A-ec13fcd7-c52f-4f68-a661-ba1d49fc81c7"
+        }, {
+          "@type": "type.googleapis.com/ScrollViewTo",
+          "location": "Forward",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-e2a54715-06c5-400e-951c-3c7006bb14ad"
+        }],
+        "delay": 500,
+        "customContextDataKey": {
+        },
+        "id": "A-7c58cabe-df25-4e44-aaba-17984200aba7"
+      }],
+      "icon": "arrow-up-circle-line",
+      "label": "up",
+      "id": "BTN-297b6be4-9c07-4ac6-9d19-f9647b5e4f78"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "moveflag",
+        "valueAsString": "2",
+        "customContextDataKey": {
+        },
+        "id": "A-1cc55506-ec0d-4fde-a83a-42080700980d"
+      }],
+      "icon": "stop-mini-line",
+      "label": "stop",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "moveflag",
+        "valueAsString": "2",
+        "customContextDataKey": {
+        },
+        "id": "A-c2a4a9d2-f829-46c2-a094-c027fc9bc9fb"
+      }, {
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["croll"],
+        "customContextDataKey": {
+        },
+        "id": "A-957465ad-ac8b-4dda-9711-59195de8cf06"
+      }],
+      "id": "BTN-f84d4e1b-160e-4887-9ddd-c9c4e2da314d"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "moveflag",
+        "valueAsString": "1",
+        "customContextDataKey": {
+        },
+        "id": "A-4100659f-dfbe-4f43-ae12-cd513c4e965f"
+      }, {
+        "@type": "type.googleapis.com/WhileLoop",
+        "conditions": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "moveflag",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-7e7a7788-421d-4d5d-b9df-d791b60fec76"
+        }, {
+          "@type": "type.googleapis.com/CurrentPkgList",
+          "pkgs": [{
+            "pkgName": "com.miui.home"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-b4b9b09f-aa0b-422d-ba08-b12f35d7f3af"
+        }, {
+          "@type": "type.googleapis.com/KeyguardIsLocked",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-95163b88-dc7a-483d-9385-2a99abb16e82"
+        }, {
+          "@type": "type.googleapis.com/AppHasWindowFocus",
+          "pkgs": [{
+            "pkgName": "com.miui.voiceassist"
+          }],
+          "op": "ANY",
+          "customContextDataKey": {
+          },
+          "isInvert": true,
+          "id": "C-0673cad2-0424-4472-88e9-b368064cbd19"
+        }],
+        "actions": [{
+          "@type": "type.googleapis.com/InputSwipe",
+          "startX": 600,
+          "startY": 1600,
+          "endX": 600,
+          "endY": 600,
+          "swipeTime": "100",
+          "customContextDataKey": {
+          },
+          "id": "A-dfe26fbc-b439-488f-8373-73c4273a93d4"
+        }],
+        "delay": 500,
+        "customContextDataKey": {
+        },
+        "id": "A-7a3fe6e8-6cff-4947-92a8-fd6bd18a2814"
+      }],
+      "icon": "arrow-down-circle-line",
+      "label": "dowm",
+      "id": "BTN-c2ac8e25-dc6e-404b-964a-7a93313d063a"
+    }],
+    "tag": "croll",
+    "maxHeightInDp": 160,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 20,
+    "customContextDataKey": {
+    },
+    "id": "A-c8c440db-3d87-4714-b6c9-f569f7e972c3"
+  }],
+  "id": "DA942967df-718b-4e2e-91b9-29425d5bceb7",
+  "lastUpdateTime": "1704297608814",
+  "createTime": "1704274985196",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "简易爬楼器",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

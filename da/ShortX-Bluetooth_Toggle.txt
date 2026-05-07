@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "if [[ $(settings get global bluetooth_on) \u003d\u003d \"1\" ]]; then\n  svc bluetooth disable\n  echo \"Bluetooth is now OFF.\"\nelse\n  svc bluetooth enable\n  echo \"Bluetooth is now ON.\"\nfi",
+    "customContextDataKey": {
+    },
+    "id": "A-b69766dd-3014-42f5-93ca-b6deff540d73"
+  }, {
+    "@type": "type.googleapis.com/Vibrate",
+    "vib1": 100,
+    "customContextDataKey": {
+    },
+    "id": "A-bd765761-62ec-47f8-9440-295e21085816"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "Bluetooth Toggle\n🙏 ૐ નમઃ શિવાય 🙏",
+    "customContextDataKey": {
+    },
+    "id": "A-07f4bb52-f6e8-42c1-8c2c-8059dab897b3"
+  }],
+  "id": "SHARED-DA-9649f6a5-c157-4cf4-8abc-c1bb5a8ee705",
+  "lastUpdateTime": "1759649827357",
+  "createTime": "1758286953848",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Bluetooth Toggle",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

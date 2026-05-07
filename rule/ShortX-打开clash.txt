@@ -1,0 +1,40 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["代理App"],
+    "id": "F-884cfc9c-cb3e-4e82-ba71-9d61700db205"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "idm.internet.download.manager.plus"
+      },
+      "className": "acr.browser.lightning.activity.MainActivity"
+    }],
+    "id": "F-54dd4eed-1450-4e3a-aa18-bdc6fc5f8035"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/True",
+    "id": "C-04b977c9-27eb-4db2-9029-6f7f0eba290c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/StartAppProcess",
+    "appPkg": [{
+      "pkgName": "com.github.metacubex.clash.meta"
+    }],
+    "id": "A-2e6ba899-633c-492e-a2f1-1dc72ccc2246"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start-foreground-service -n com.github.metacubex.clash.meta/com.github.kr328.clash.service.TunService",
+    "id": "A-03066e68-fbb2-4dd0-94de-ddb8e4d07ca8"
+  }],
+  "id": "rule-ebc44817-7ed0-4bb2-8c7d-ebd611a137fb",
+  "lastUpdateTime": "1689490359491",
+  "createTime": "1689490152171",
+  "title": "打开clash",
+  "isEnabled": true,
+  "hook": {
+  }
+}
+###------###
+{"type":"rule"}

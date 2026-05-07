@@ -1,0 +1,111 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "cn.trinea.android.developertools"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-3721e4df-fc19-4d3e-bcb9-1b34b8462826"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/ServiceIsRunning",
+      "services": [{
+        "pkg": {
+          "pkgName": "cn.trinea.android.developertools"
+        },
+        "className": "b.c.a"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "C-8bd44c42-e980-4c4e-95bc-867ebc344084"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "layout-3-fill",
+      "customContextDataKey": {
+      },
+      "id": "A-67d1b23f-2d98-4fd9-bedb-15630b102185"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure enabled_accessibility_services cn.trinea.android.developertools/b.c.a",
+      "customContextDataKey": {
+      },
+      "id": "A-49c6ea84-96cf-4a4b-9f07-4d92fc117758"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure enabled_accessibility_services 1",
+      "customContextDataKey": {
+      },
+      "id": "A-0d333301-a038-4979-bbe2-f1fcbf8565a0"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put secure enabled_accessibility_services cn.trinea.android.developertools/b.c.a",
+      "customContextDataKey": {
+      },
+      "id": "A-f699a458-1216-4183-b2d9-8f70033e6cb2"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-fbd7c768-cec1-45e3-b146-145d0cd777f1"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 143,
+      "y": 610,
+      "customContextDataKey": {
+      },
+      "id": "A-e7cad99d-2588-4ecd-a2ac-31be8f361cea"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-dd078a35-2af5-455b-9712-f0eaa286265a"
+    }, {
+      "@type": "type.googleapis.com/LaunchApp",
+      "appPkg": {
+        "pkgName": "cn.trinea.android.developertools"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-caf43942-9d5b-4244-a63b-a5c87516c747"
+    }, {
+      "@type": "type.googleapis.com/Delay",
+      "timeString": "1000",
+      "customContextDataKey": {
+      },
+      "id": "A-0c93966b-efae-4ea5-84e9-e2a646983b96"
+    }, {
+      "@type": "type.googleapis.com/InputTap",
+      "x": 143,
+      "y": 610,
+      "customContextDataKey": {
+      },
+      "id": "A-122bdb85-cb9b-4d11-8fd6-b59e9b6198cc"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-802e2af5-1686-4dc3-9f69-eca8dc96689b"
+  }],
+  "id": "rule-0ecc418c-78b2-493e-a00f-d35714afac44",
+  "lastUpdateTime": "1696041515679",
+  "createTime": "1696036900773",
+  "author": {
+    "name": "muort"
+  },
+  "title": "自动开启开发助力无障碍服务",
+  "description": "仅适用于魅族17Pro-Flyme9系统",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

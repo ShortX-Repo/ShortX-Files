@@ -1,0 +1,52 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.miui.securitycenter"
+      },
+      "className": "com.miui.permcenter.privacymanager.SpecialPermissionInterceptActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-fc708080-e494-4706-b7f6-a5a29e587da4"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/FindAndClickViewById",
+    "viewId": "com.miui.securitycenter:id/check_box",
+    "timeout": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-371a9009-94b7-4727-9535-6fcb30f356df"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "10000",
+    "customContextDataKey": {
+    },
+    "id": "A-cc671cd8-b6df-4a5b-8ae6-bb33dfdddb58"
+  }, {
+    "@type": "type.googleapis.com/FindAndClickViewById",
+    "viewId": "com.miui.securitycenter:id/intercept_warn_allow",
+    "timeout": "3000",
+    "customContextDataKey": {
+    },
+    "id": "A-62d03da3-27d1-4e8c-a10c-d359c4c264cf"
+  }],
+  "id": "rule-20b9b5f3-8af8-4c27-9faa-4c277cde0467",
+  "lastUpdateTime": "1700526707089",
+  "createTime": "1700525126371",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": " MIUI倒计时确认",
+  "description": "特殊权限倒计时",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

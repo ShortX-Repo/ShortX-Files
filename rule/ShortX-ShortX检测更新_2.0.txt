@@ -1,0 +1,237 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-922845fe-0530-4991-b969-571457a35598"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireWifiConnected",
+    "requiredSSID": "*",
+    "customContextDataKey": {
+    },
+    "id": "C-28cb8d2c-6c68-4356-9982-67802201910d"
+  }, {
+    "@type": "type.googleapis.com/RequireMobileDataEnabled",
+    "slotId": -1,
+    "customContextDataKey": {
+    },
+    "id": "C-d9418ebc-9cff-49f4-84c8-0ec2e9e8d98d"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\nif curl -IsS https://www.baidu.com \u003e/dev/null 2\u003e\u00261; then\n  echo \"网络连接正常\"\nelse\n  echo \"无法访问网络\"\nfi",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "Network"
+      }]
+    },
+    "note": "网络连通性",
+    "id": "A-394489d7-16cc-4ccf-9c55-0c043b57858a"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\n# 云端版本名称获取\nresponse\u003d$(curl -s GET \u0027https://www.coolapk.com/apk/tornaco.apps.shortx\u0027 -H \u0027ua\u0027)\ntitle_tag\u003d$(echo \"$response\" | grep -o \u0027\u003ctitle\u003e.*\u003c/title\u003e\u0027)\nversion_cloud\u003d$(echo \"$title_tag\" | sed -E \u0027s/.* - (.*) - 应用 - .*/\\1/\u0027)\nversion_cloud\u003d$(echo \"$version_cloud\" | sed -E \u0027s/-main.*//\u0027)\necho \"$version_cloud\"",
+    "singleShot": true,
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "Version"
+      }]
+    },
+    "id": "A-452be476-f09d-4c86-836a-5925f2c48f66"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "globalVarOf$版本名称!\u003d{Version}",
+      "customContextDataKey": {
+      },
+      "id": "C-69d4b079-7dfe-4aa9-a714-50e50ffbb4a1"
+    }, {
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{Network}\u003d\u003d\"网络连接正常\"",
+      "customContextDataKey": {
+      },
+      "id": "C-428ef511-59c1-4a0d-bfe9-87a49eeab979"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\n# 云端版本名称获取\nresponse\u003d$(curl -s GET \u0027https://www.coolapk.com/apk/tornaco.apps.shortx\u0027 -H \u0027ua\u0027)\ntitle_tag\u003d$(echo \"$response\" | grep -o \u0027\u003ctitle\u003e.*\u003c/title\u003e\u0027)\nversion_cloud\u003d$(echo \"$title_tag\" | sed -E \u0027s/.* - (.*) - 应用 - .*/\\1/\u0027)\n\n# 本地版本名称获取\npackage_name\u003d\"tornaco.apps.shortx\"\nversion_local\u003d$(dumpsys package \"$package_name\" | grep versionName | cut -d \u0027\u003d\u0027 -f 2)\n\n# 去除分发信息\nversion_cloud\u003d$(echo \"$version_cloud\" | sed -E \u0027s/-main.*//\u0027)\nversion_local\u003d$(echo \"$version_local\" | sed -E \u0027s/-main.*//\u0027)\n\n# 比较版本名称\nif [ \"$version_cloud\" !\u003d \"$version_local\" ]; then\n    echo \"有新版本可用，请更新应用！\"\nelse\n    echo \"应用已是最新版本。\"\nfi\n",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-eefe5004-724c-458d-89c1-10ef4e9df384"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{shellOut}\u003d\u003d\"有新版本可用，请更新应用！\"",
+        "customContextDataKey": {
+        },
+        "id": "C-3de3aed4-b4d7-474f-a565-052bff00df97"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "ShortX",
+        "title": "ShortX更新",
+        "message": "有新版本可用，请更新应用！",
+        "isImportant": true,
+        "smallIcon": "loop-left-line",
+        "vibrate": true,
+        "sound": true,
+        "button": [{
+          "id": "Button-8eb9ccd3-b2e2-4828-888d-5cc536e85893",
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "export PATH\u003d$PATH:/data/data/com.termux/files/usr/bin\n\n# 云端版本号获取\nresponse\u003d$(curl -s GET \u0027https://www.coolapk.com/apk/tornaco.apps.shortx\u0027 -H \u0027ua\u0027)\ntitle_tag\u003d$(echo \"$response\" | grep -o \u0027\u003ctitle\u003e.*\u003c/title\u003e\u0027)\nversion_cloud\u003d$(echo \"$title_tag\" | sed -E \u0027s/.* - (.*) - 应用 - .*/\\1/\u0027)\n\n# 本地版本号获取\npackage_name\u003d\"tornaco.apps.shortx\"\nversion_local\u003d$(dumpsys package \"$package_name\" | grep versionName | cut -d \u0027\u003d\u0027 -f 2)\n\n# 去除分发信息\nversion_cloud\u003d$(echo \"$version_cloud\" | sed -E \u0027s/-main.*//\u0027)\nversion_local\u003d$(echo \"$version_local\" | sed -E \u0027s/-main.*//\u0027)\n\n# 比较版本号\nif [ \"$version_cloud\" !\u003d \"$version_local\" ]; then\n    echo \"有新版本可用，请更新应用！\"\nelse\n    echo \"应用已是最新版本。\"\nfi\n",
+            "singleShot": true,
+            "customContextDataKey": {
+            },
+            "id": "A-3f7709d0-7d45-4478-ad5c-ecca969ee0c7"
+          }, {
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "版本号",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-cd85a983-43ff-4484-a914-fb520dfacd46"
+          }],
+          "label": "不再提醒"
+        }, {
+          "id": "Button-c52f1b85-83e4-4d5a-906b-539626aee059",
+          "action": [{
+            "@type": "type.googleapis.com/RemoveNotification",
+            "notification": {
+              "apps": [{
+                "pkgName": "tornaco.apps.shortx"
+              }]
+            },
+            "customContextDataKey": {
+            },
+            "id": "A-1f3b30aa-3f90-4af3-98df-3d710d8429f7"
+          }],
+          "label": "取消"
+        }, {
+          "id": "Button-487a8d96-3b83-421f-8f07-fb0556f422dc",
+          "label": "更新"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "note": "点击按钮有bug,，等作者修复了再说",
+        "id": "A-aea5ec4c-985a-4ea4-837e-8f0767c6b9fa"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "更新",
+        "onPositive": [{
+          "@type": "type.googleapis.com/ShowMenuDialog",
+          "items": [{
+            "title": "Play商店",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "am start -a android.intent.action.VIEW -d \u0027https://play.google.com/store/apps/details?id\u003dtornaco.apps.shortx\u0027\n",
+              "customContextDataKey": {
+              },
+              "id": "A-c9d92ad4-25dd-42d0-87e8-abef17c2153c"
+            }]
+          }, {
+            "title": "酷安App",
+            "clickActions": [{
+              "@type": "type.googleapis.com/StartActivityIntentUri",
+              "intentUri": "intent:#Intent;component\u003dcom.coolapk.market/.view.node.DynamicNodePageActivity;S.LOADER_NAME\u003dLOADER_APP;S.APP_UNIQUE_ID\u003dtornaco.apps.shortx;end",
+              "customContextDataKey": {
+              },
+              "id": "A-79d38eeb-dcd9-4389-9e9e-533a62e07953"
+            }]
+          }, {
+            "title": "酷安网页",
+            "clickActions": [{
+              "@type": "type.googleapis.com/ShellCommand",
+              "command": "am start -a android.intent.action.VIEW -d \u0027https://www.coolapk.com/apk/tornaco.apps.shortx\u0027\n",
+              "singleShot": true,
+              "customContextDataKey": {
+              },
+              "id": "A-77a56af7-167b-43f1-b063-a1d4e330dc31"
+            }]
+          }],
+          "title": "ShortX更新",
+          "cancelable": true,
+          "customContextDataKey": {
+          },
+          "id": "A-e70c07c2-2bae-4787-a45a-560fd33ee3ae"
+        }],
+        "negative": "取消",
+        "neutral": "不再提醒",
+        "onNeutral": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "版本名称",
+          "valueAsString": "{Version}",
+          "customContextDataKey": {
+          },
+          "id": "A-c0d87bc2-7936-44fd-bcf1-a180292eb017"
+        }],
+        "title": "ShortX更新",
+        "message": "有新版本可用，请更新应用！",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-a2846ab8-6166-4e2e-a4bb-27212175bdb9"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b80f76fd-1a7b-4491-883f-44d9a86cb1d2"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0d308ace-c55f-4807-b91e-9d74fe8319df"
+  }],
+  "id": "rule-b37788e5-e62d-466e-aba7-bf63477f30fd",
+  "lastUpdateTime": "1711429096921",
+  "createTime": "1710941295173",
+  "author": {
+    "name": "HeWei"
+  },
+  "title": "ShortX检测更新(2.0",
+  "description": "进入ShortX前台检测更新\n需要curl，如果你系统不自带\n下载Termux，并pkg install curl",
+  "isEnabled": true,
+  "condOp": "ANY",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "版本名称",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-5587a321-cf4b-48db-a8cd-f91fdeb71805"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "版本名称",
+      "customContextDataKey": {
+      },
+      "id": "A-96ec025a-e0f2-4f30-a867-8d77dc6a8b8f"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "版本名称",
+      "customContextDataKey": {
+      },
+      "id": "A-96ec025a-e0f2-4f30-a867-8d77dc6a8b8f"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

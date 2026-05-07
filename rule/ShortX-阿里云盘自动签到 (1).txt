@@ -1,0 +1,249 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "hour": 5
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "id": "F-136296d3-3ea5-4610-8e9f-a327b62976e2"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://auth.aliyundrive.com/v2/account/token",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["refresh_token", "access_token", "code", "message"]
+    },
+    "method": "POST",
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\"refresh_token\": \"globalVarOf$alidrive_refresh_token\", \"grant_type\": \"refresh_token\"}"
+    },
+    "note": "获取token",
+    "id": "A-fd179324-c5ac-4dbd-867d-f9adb81197d7"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "alidrive_refresh_token",
+    "valueAsString": "{httpRequestRet1}",
+    "id": "A-10692cfd-dd8e-4e22-be84-0b5dbbcfcae9"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "alidrive_access_token",
+    "valueAsString": "{httpRequestRet2}",
+    "id": "A-b8cf1073-7da3-4da8-81e1-81d27d0d9e3a"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "{httpRequestRet3};",
+      "id": "C-43cfb863-921e-493b-8f81-a32edddeb436"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet3} \u003d\u003d \u0027RefreshTokenExpired\u0027 || {httpRequestRet3} \u003d\u003d \u0027InvalidParameter.RefreshToken\u0027;",
+        "id": "C-21ed08f5-3d80-4c03-84b4-b9e1dd178d9d"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "alidrive",
+        "title": "阿里云盘",
+        "message": "refresh_token 已过期或无效",
+        "smallIcon": "cloudy-2-line",
+        "id": "A-fe0951de-8aa6-4677-87d4-29e048d22fe5"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "alidrive",
+        "title": "阿里云盘",
+        "message": "{httpRequestRet4}",
+        "smallIcon": "cloudy-2-line",
+        "id": "A-158a09a4-67ae-4a25-aa25-cb3dd70a9a4e"
+      }],
+      "note": "token无效通知",
+      "id": "A-839bef3b-97da-4850-a570-3eee538f75ce"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{httpRequestRet1} !\u003d \u0027\u0027 || {httpRequestRet2} !\u003d \u0027\u0027;",
+        "id": "C-bf99705e-b1b7-4f97-9192-69086d29e547"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://member.aliyundrive.com/v1/activity/sign_in_list",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+          "expressions": ["success", "result.signInCount"]
+        },
+        "method": "POST",
+        "headers": [{
+          "key": "Authorization",
+          "value": "{httpRequestRet2}"
+        }],
+        "requestBody": {
+          "@type": "type.googleapis.com/HttpRequestBodyJson",
+          "json": "{}"
+        },
+        "id": "A-00fadc26-9f82-4be3-ab0a-6dc2f476e2bd"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{httpRequestRet1} \u003d\u003d true;",
+          "id": "C-b40dfa1f-e0b8-4a7d-8bec-7ccbde148673"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "alidrive",
+          "title": "阿里云盘",
+          "message": "签到成功，本月累计已签到{httpRequestRet2}天",
+          "smallIcon": "cloudy-2-line",
+          "id": "A-84c60b32-3e7f-4290-9a00-ae066efdc76f"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateGlobalVar",
+            "op": "EqualTo",
+            "varName": "alidrive_reward",
+            "payload": {
+              "value": "true"
+            },
+            "id": "C-d1c36049-0fee-46ee-8858-dbd45ba72b8f"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/HttpRequest",
+            "url": "https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx-s\u003dmobile",
+            "adapter": {
+              "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+              "expressions": ["success", "result.notice"]
+            },
+            "method": "POST",
+            "headers": [{
+              "key": "Authorization",
+              "value": "globalVarOf$alidrive_access_token"
+            }],
+            "requestBody": {
+              "@type": "type.googleapis.com/HttpRequestBodyJson",
+              "json": "{\"signInDay\": {httpRequestRet2}}"
+            },
+            "id": "A-cd205174-4eb1-44b7-9856-4f2197611398"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/MatchMVEL",
+              "expression": "{httpRequestRet1} \u003d\u003d true;",
+              "id": "C-7b79637d-57e5-4b33-9c76-d47f09a3a6bf"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/PostNotification",
+              "tag": "alidrive",
+              "title": "阿里云盘",
+              "message": "领取成功：{httpRequestRet2}",
+              "smallIcon": "cloudy-2-line",
+              "id": "A-6d84740f-648e-4eb3-8711-41f8be8c0bcd"
+            }],
+            "note": "判断领取奖励是否成功",
+            "id": "A-80b1320d-0bbc-44bc-ba18-18bfe04ed968"
+          }],
+          "note": "领取奖励",
+          "id": "A-9b1c91e0-3c14-4d00-8c6c-c94d3d001b7a"
+        }],
+        "note": "判断签到是否成功",
+        "id": "A-5b3511de-1b5f-4392-9d1d-de97f3a1a00f"
+      }],
+      "note": "签到",
+      "id": "A-ac24883b-d2a9-4e79-8467-f47da334987f"
+    }],
+    "note": "判断token是否有效",
+    "id": "A-3d1bd8b3-c9c2-404a-9d12-80a50d205825"
+  }],
+  "id": "rule-66ed0ca6-2688-40dd-837a-15bbf6355db1",
+  "lastUpdateTime": "1689996238055",
+  "createTime": "1689936748956",
+  "author": {
+    "name": "ZIMK"
+  },
+  "title": "阿里云盘自动签到",
+  "description": "自动签到并领取奖励",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotExists",
+        "varName": "alidrive_refresh_token",
+        "payload": {
+        },
+        "id": "C-cb8c1459-9609-4ddf-be5a-c34972c1b695"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "alidrive_refresh_token",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "id": "A-107a6bfb-3379-429b-918e-f36bacd06ec8"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "alidrive_reward",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "id": "A-33d71c6a-1853-4a29-bb80-b51bd046f262"
+      }, {
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "alidrive_access_token",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "id": "A-5fd7d339-f1bf-46dc-80e5-cd940a40b083"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "title": "阿里云盘",
+        "message": "请自行从网页获取refresh_token，并填入全局变量",
+        "cancelable": true,
+        "id": "A-3faf5d74-c4c8-47eb-99fd-9352ab219b91"
+      }, {
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "确定",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "alidrive_reward",
+          "valueAsString": "true",
+          "id": "A-09f9970a-b3cf-46c0-9112-bb6bf03a93bc"
+        }],
+        "negative": "不领取",
+        "onNegative": [{
+          "@type": "type.googleapis.com/WriteGlobalVar",
+          "varName": "alidrive_reward",
+          "valueAsString": "false",
+          "id": "A-7676772b-eba7-4d7e-b556-2271c880083a"
+        }],
+        "title": "阿里云盘",
+        "message": "是否自动领取奖励？",
+        "cancelable": true,
+        "id": "A-74add5e4-da2e-4d7a-b885-f69fb668f1ec"
+      }],
+      "id": "A-a674fbe3-38a9-4680-8d19-ad22b051f07b"
+    }]
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync_InRule",
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

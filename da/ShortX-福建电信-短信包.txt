@@ -1,0 +1,18 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -a android.intent.action.SENDTO -d sms:10001 --es sms_body \"XYDX\" --ez exit_on_sent true\n",
+    "id": "A-b32bb844-6f0d-43eb-95ef-d73095700d41"
+  }],
+  "id": "DAb66bc163-f120-4f83-a990-5d92b670e750",
+  "lastUpdateTime": "1690908932488",
+  "createTime": "1690907467126",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "福建电信-短信包",
+  "description": "短信包1元100条短信/月",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

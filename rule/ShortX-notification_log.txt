@@ -1,0 +1,45 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-c136f159-989c-437e-b5cb-718516316c97"
+  }, {
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b370892a-296d-4d88-be65-4c4c50d65a2e"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "date",
+    "customContextDataKey": {
+    },
+    "id": "A-e65b1fbe-837f-4434-a52e-4fd99e0cb0ea"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo \"{shellOut} \"\u003e\u003e /storage/emulated/0/documents/log.txt\necho Title-\"{title}\" \u003e\u003e /storage/emulated/0/documents/log.txt\necho Contents- \"{contentText}\" \u003e\u003e /storage/emulated/0/documents/log.txt\necho App- \"{pkgName}\" \u003e\u003e /storage/emulated/0/documents/log.txt\necho \u003d\u003d\u003d\u003d\u003d\u003d \u003e\u003e /storage/emulated/0/documents/log.txt",
+    "customContextDataKey": {
+    },
+    "id": "A-f91bb22c-2be5-4755-af0e-637552d249d6"
+  }],
+  "id": "SHARE-rule-e76b7d05-22f5-4920-9960-1a230ef28919",
+  "lastUpdateTime": "1761387170949",
+  "createTime": "1761385654638",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "notification log",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,325 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "cycle-one",
+    "customContextDataKey": {
+    },
+    "id": "A-bdc303d5-8d5f-4fb5-a3db-80bb5ed53739"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "TxSecretKey",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-140df998-84f2-4f7e-998e-08df5d2ad5e0"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "TxSecretId",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-9b6bc7d8-baff-43a2-b665-d0f9b0139bc7"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "TxSecretId",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "腾讯云的SecretId"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-5f874948-e5cc-44e3-b37a-d7405a6ea859"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "TxSecretKey",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "腾讯云的SecretKey"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-1ed94ef4-3d68-4a45-9fa6-93d9415beb42"
+    }, {
+      "@type": "type.googleapis.com/ShowTextFieldDialog",
+      "title": "API信息",
+      "cancelable": true,
+      "textFields": [{
+        "placeholder": "请输入腾讯云的SecretId"
+      }, {
+        "placeholder": "请输入腾讯云的SecretKey"
+      }],
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-23a08636-5778-4552-9775-f9ae1a0d2461"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "TxSecretId",
+      "valueAsString": "{textFieldInput1}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-9bb62a80-d75a-451e-b879-8d8aa5ef4c72"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "TxSecretKey",
+      "valueAsString": "{textFieldInput2}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-c7432d5a-8ac9-4950-ba53-87791952e92f"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-e6d8e58a-a2c5-4fd8-8db0-5fe05092d979"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "OcrText",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-bc2fd25c-7d89-4475-850c-f21b5e3227ea"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "TranslateText",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-32d8435a-5daa-4b05-9b89-9bae5e85388f"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "SourceLanguage",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-e60d50d6-b302-42fa-b4d5-66e6e29e06df"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "Targetlanguage",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d5f5fc98-adbe-40f8-90d4-1845a7600485"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "OcrText",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "ocr识别到的文本"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-8d9824c3-0f67-418d-9f32-e9374d600400"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "TranslateText",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "翻译后的文本"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-6327175a-ea64-4a75-9d29-dce8cb41b231"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "SourceLanguage",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "源语言"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-89c4761f-dcb9-4040-8e66-2b57e9050ecc"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "SourceLanguage",
+      "valueAsString": "auto",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-b203b164-0e53-4d26-ace7-6cb906bc586d"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Targetlanguage",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "目标语音"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-cc325cf2-f7e0-463e-af88-13ed803619ac"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Targetlanguage",
+      "valueAsString": "zh",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-a478dd20-71b8-4584-b456-bdd4b4e411e4"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "crown-two",
+      "customContextDataKey": {
+      },
+      "id": "A-0616c15d-7d7e-45a9-8ab3-be998ffa0613"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-73ba891d-8137-49d7-8d7f-487a104e1a31"
+  }, {
+    "@type": "type.googleapis.com/OcrDetect",
+    "rectSrc": {
+      "@type": "type.googleapis.com/RectSourceSelectScreenArea"
+    },
+    "threads": 4,
+    "separator": " ",
+    "customContextDataKey": {
+    },
+    "id": "A-e988b96d-537e-43b3-a54e-08d075d76fa0"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "OcrText",
+    "valueAsString": "{ocrResult}",
+    "op": "WriteGlobalVarOp_Override",
+    "customContextDataKey": {
+    },
+    "id": "A-008c8f60-2e1c-4486-ba17-c026e0364716"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 1. 全局变量读取（新增源/目标语言） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nvar SECRET_ID \u003d globalVarOf$TxSecretId;       // 腾讯云SecretId\nvar SECRET_KEY \u003d globalVarOf$TxSecretKey;     // 腾讯云SecretKey\nvar SOURCE_TEXT \u003d globalVarOf$OcrText;     // 待翻译文本\nvar SOURCE_LANGUAGE \u003d globalVarOf$SourceLanguage; // 源语言（全局变量）\nvar TARGET_LANGUAGE \u003d globalVarOf$Targetlanguage; // 目标语言（全局变量）\n\n// 翻译API固定配置\nvar ENDPOINT \u003d \u0027tmt.tencentcloudapi.com\u0027;\nvar SERVICE \u003d \u0027tmt\u0027;\nvar REGION \u003d \u0027ap-beijing\u0027;\nvar ACTION \u003d \u0027TextTranslate\u0027;\nvar VERSION \u003d \u00272018-03-21\u0027;\n\n// 语言默认值（全局变量为空时兜底）\nvar DEFAULT_SOURCE_LANG \u003d \u0027auto\u0027;  // 默认自动检测\nvar DEFAULT_TARGET_LANG \u003d \u0027zh\u0027;   // 默认英语\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 2. 工具函数：字符串转UTF-8字节数组（核心修复） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction strToUtf8Bytes(str) {\n  var javaStr \u003d new java.lang.String(str);\n  return javaStr.getBytes(java.nio.charset.StandardCharsets.UTF_8);\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 3. SHA256哈希（修复字节码转换） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction sha256(message, encoding) {\n  var md \u003d java.security.MessageDigest.getInstance(\"SHA-256\");\n  var bytes \u003d strToUtf8Bytes(message);\n  md.update(bytes);\n  var digest \u003d md.digest();\n  \n  if (encoding \u003d\u003d\u003d \u0027hex\u0027) {\n    var sb \u003d new java.lang.StringBuilder();\n    var i \u003d 0;\n    while (i \u003c digest.length) {\n      var hex \u003d java.lang.Integer.toHexString(0xFF \u0026 digest[i]);\n      if (hex.length() \u003d\u003d\u003d 1) {\n        sb.append(\u00270\u0027);\n      }\n      sb.append(hex);\n      i \u003d i + 1;\n    }\n    return sb.toString();\n  } else {\n    return digest;\n  }\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 4. HMAC-SHA256加密（修复密钥字节转换） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction hmacSha256(message, keyBytes) {\n  var secretKeySpec \u003d new javax.crypto.spec.SecretKeySpec(keyBytes, \"HmacSHA256\");\n  var mac \u003d javax.crypto.Mac.getInstance(\"HmacSHA256\");\n  mac.init(secretKeySpec);\n  \n  var messageBytes \u003d strToUtf8Bytes(message);\n  return mac.doFinal(messageBytes);\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 5. 获取UTC日期（兼容Rhino） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction getUTCDate(timestamp) {\n  var date \u003d new java.util.Date(timestamp * 1000);\n  var calendar \u003d java.util.Calendar.getInstance();\n  calendar.setTimeZone(java.util.TimeZone.getTimeZone(\"UTC\"));\n  calendar.setTime(date);\n  \n  var year \u003d String(calendar.get(java.util.Calendar.YEAR));\n  var month \u003d String(calendar.get(java.util.Calendar.MONTH) + 1);\n  var day \u003d String(calendar.get(java.util.Calendar.DAY_OF_MONTH));\n  \n  if (month.length \u003d\u003d\u003d 1) {\n    month \u003d \"0\" + month;\n  }\n  if (day.length \u003d\u003d\u003d 1) {\n    day \u003d \"0\" + day;\n  }\n  \n  return year + \"-\" + month + \"-\" + day;\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 6. URL编码（腾讯云规范） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction urlEncode(str) {\n  if (str \u003d\u003d null || str \u003d\u003d\u003d \"\") {\n    return \"\";\n  }\n  var encoded \u003d encodeURIComponent(str);\n  encoded \u003d encoded.replace(/!/g, \"%21\")\n                   .replace(/\u0027/g, \"%27\")\n                   .replace(/\\(/g, \"%28\")\n                   .replace(/\\)/g, \"%29\")\n                   .replace(/\\*/g, \"%2A\");\n  return encoded;\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 7. 生成TC3签名（新增语言变量适配） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction generateTC3Signature() {\n  // 1. 基础参数\n  var timestamp \u003d Math.floor(new Date().getTime() / 1000);\n  var date \u003d getUTCDate(timestamp);\n  \n  // 2. 处理语言参数（全局变量为空时用默认值）\n  var srcLang \u003d (SOURCE_LANGUAGE \u0026\u0026 SOURCE_LANGUAGE.trim() !\u003d\u003d \"\") ? SOURCE_LANGUAGE.trim() : DEFAULT_SOURCE_LANG;\n  var tarLang \u003d (TARGET_LANGUAGE \u0026\u0026 TARGET_LANGUAGE.trim() !\u003d\u003d \"\") ? TARGET_LANGUAGE.trim() : DEFAULT_TARGET_LANG;\n  \n  // 3. 安全处理翻译文本（转义特殊字符）\n  var safeSourceText \u003d SOURCE_TEXT.replace(/\"/g, \u0027\\\\\"\u0027).replace(/\\n/g, \u0027\\\\n\u0027).replace(/\\r/g, \u0027\\\\r\u0027);\n  \n  // 4. 构造JSON请求体（使用动态语言参数）\n  var payload \u003d \u0027{\"SourceText\":\"\u0027 + safeSourceText + \u0027\",\"Source\":\"\u0027 + srcLang + \u0027\",\"Target\":\"\u0027 + tarLang + \u0027\",\"ProjectId\":0}\u0027;\n  \n  // 5. 步骤1：拼接规范请求串\n  var hashedRequestPayload \u003d sha256(payload, \u0027hex\u0027);\n  var httpRequestMethod \u003d \"POST\";\n  var canonicalUri \u003d \"/\";\n  var canonicalQueryString \u003d \"\";\n  var canonicalHeaders \u003d \"content-type:application/json; charset\u003dutf-8\\n\" +\n                          \"host:\" + ENDPOINT + \"\\n\" +\n                          \"x-tc-action:\" + ACTION.toLowerCase() + \"\\n\";\n  var signedHeaders \u003d \"content-type;host;x-tc-action\";\n  \n  var canonicalRequest \u003d httpRequestMethod + \"\\n\" +\n                         canonicalUri + \"\\n\" +\n                         canonicalQueryString + \"\\n\" +\n                         canonicalHeaders + \"\\n\" +\n                         signedHeaders + \"\\n\" +\n                         hashedRequestPayload;\n  \n  // 6. 步骤2：拼接待签名字符串\n  var algorithm \u003d \"TC3-HMAC-SHA256\";\n  var hashedCanonicalRequest \u003d sha256(canonicalRequest, \u0027hex\u0027);\n  var credentialScope \u003d date + \"/\" + SERVICE + \"/\" + \"tc3_request\";\n  \n  var stringToSign \u003d algorithm + \"\\n\" +\n                     timestamp + \"\\n\" +\n                     credentialScope + \"\\n\" +\n                     hashedCanonicalRequest;\n  \n  // 7. 步骤3：计算TC3分层密钥\n  var tc3Prefix \u003d new java.lang.String(\"TC3\" + SECRET_KEY);\n  var kDate \u003d hmacSha256(date, tc3Prefix.getBytes(java.nio.charset.StandardCharsets.UTF_8));\n  var kService \u003d hmacSha256(SERVICE, kDate);\n  var kSigning \u003d hmacSha256(\"tc3_request\", kService);\n  var signatureBytes \u003d hmacSha256(stringToSign, kSigning);\n  \n  // 8. 签名转十六进制\n  var signature \u003d \"\";\n  var sb \u003d new java.lang.StringBuilder();\n  var i \u003d 0;\n  while (i \u003c signatureBytes.length) {\n    var hex \u003d java.lang.Integer.toHexString(0xFF \u0026 signatureBytes[i]);\n    if (hex.length() \u003d\u003d\u003d 1) {\n      sb.append(\u00270\u0027);\n    }\n    sb.append(hex);\n    i \u003d i + 1;\n  }\n  signature \u003d sb.toString();\n  \n  // 9. 拼接Authorization头\n  var authorization \u003d algorithm + \" \" +\n                      \"Credential\u003d\" + SECRET_ID + \"/\" + credentialScope + \", \" +\n                      \"SignedHeaders\u003d\" + signedHeaders + \", \" +\n                      \"Signature\u003d\" + signature;\n  \n  return {\n    timestamp: timestamp,\n    authorization: authorization,\n    payload: payload,\n    srcLang: srcLang,\n    tarLang: tarLang\n  };\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 8. 发送TC3请求（修复字节码写入） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction sendTC3Request(signData) {\n  try {\n    var url \u003d new java.net.URL(\"https://\" + ENDPOINT);\n    var conn \u003d url.openConnection();\n    conn.setRequestMethod(\"POST\");\n    conn.setDoOutput(true);\n    \n    // 设置TC3必须的请求头\n    conn.setRequestProperty(\"Content-Type\", \"application/json; charset\u003dutf-8\");\n    conn.setRequestProperty(\"Host\", ENDPOINT);\n    conn.setRequestProperty(\"X-TC-Action\", ACTION);\n    conn.setRequestProperty(\"X-TC-Timestamp\", String(signData.timestamp));\n    conn.setRequestProperty(\"X-TC-Version\", VERSION);\n    conn.setRequestProperty(\"X-TC-Region\", REGION);\n    conn.setRequestProperty(\"Authorization\", signData.authorization);\n    \n    // 超时配置\n    conn.setConnectTimeout(10000);\n    conn.setReadTimeout(20000);\n    \n    // 发送请求体\n    var javaPayload \u003d new java.lang.String(signData.payload);\n    var payloadBytes \u003d javaPayload.getBytes(java.nio.charset.StandardCharsets.UTF_8);\n    \n    var os \u003d conn.getOutputStream();\n    os.write(payloadBytes);\n    os.flush();\n    os.close();\n    \n    // 读取响应\n    var is \u003d conn.getInputStream();\n    var br \u003d new java.io.BufferedReader(new java.io.InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8));\n    var response \u003d \"\";\n    var line \u003d br.readLine();\n    while (line !\u003d null) {\n      response \u003d response + line;\n      line \u003d br.readLine();\n    }\n    \n    // 关闭资源\n    br.close();\n    is.close();\n    conn.disconnect();\n    \n    return response;\n  } catch (e) {\n    var errCode \u003d conn ? conn.getResponseCode() : \"未知\";\n    throw new Error(\"请求失败：\" + e.message + \"（状态码：\" + errCode + \"）\");\n  }\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 9. 解析响应 \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nfunction parseTranslateResponse(response) {\n  var result \u003d null;\n  if (typeof JSON !\u003d\u003d \u0027undefined\u0027 \u0026\u0026 JSON.parse) {\n    result \u003d JSON.parse(response);\n  } else {\n    result \u003d eval(\u0027(\u0027 + response + \u0027)\u0027);\n  }\n  \n  // 处理API错误\n  if (result.Response \u0026\u0026 result.Response.Error) {\n    throw new Error(\"API错误：[\" + result.Response.Error.Code + \"] \" + result.Response.Error.Message);\n  }\n  \n  // 校验结果\n  if (!result.Response || !result.Response.TargetText) {\n    throw new Error(\"翻译结果为空，响应：\" + response.substring(0, 200));\n  }\n  return result.Response.TargetText;\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d 10. 主执行逻辑（新增语言日志） \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nvar translateResult \u003d \"\";\nvar errMsg \u003d \"\";\n\ntry {\n  // 1. 校验全局变量\n  if (!SECRET_ID || SECRET_ID.trim() \u003d\u003d\u003d \"\") {\n    throw new Error(\"TxSecretId 为空，请检查全局变量\");\n  }\n  if (!SECRET_KEY || SECRET_KEY.trim() \u003d\u003d\u003d \"\") {\n    throw new Error(\"TxSecretKey 为空，请检查全局变量\");\n  }\n  if (!SOURCE_TEXT || SOURCE_TEXT.trim() \u003d\u003d\u003d \"\") {\n    throw new Error(\"OcrStrings 为空，请检查全局变量\");\n  }\n  \n  // 2. 生成TC3签名\n  var signData \u003d generateTC3Signature();\n  \n  // 3. 发送请求\n  var response \u003d sendTC3Request(signData);\n  \n  // 4. 解析结果\n  translateResult \u003d parseTranslateResponse(response);\n  \n  // 5. 写入安卓全局变量\n  shortx.writeGlobalVarWithOp(\"TranslateText\", translateResult, 3);\n  \n  // 6. 日志输出（包含语言信息）\n  java.lang.System.out.println(\"\u003d\u003d\u003d\u003d\u003d 翻译成功 \u003d\u003d\u003d\u003d\u003d\");\n  java.lang.System.out.println(\"源语言：\" + signData.srcLang);\n  java.lang.System.out.println(\"目标语言：\" + signData.tarLang);\n  java.lang.System.out.println(\"原文：\" + SOURCE_TEXT);\n  java.lang.System.out.println(\"译文：\" + translateResult);\n  \n} catch (e) {\n  errMsg \u003d e.message || e.toString();\n  java.lang.System.err.println(\"\u003d\u003d\u003d\u003d\u003d 翻译失败 \u003d\u003d\u003d\u003d\u003d\");\n  java.lang.System.err.println(\"错误原因：\" + errMsg);\n  \n  // 异常时写入错误信息\n  shortx.writeGlobalVarWithOp(\"TranslateText\", \"翻译失败：\" + errMsg, 3);\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-f5017ce9-6018-40c2-8d1e-99190473fa3c"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "确定",
+    "onPositive": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "Targetlanguage",
+      "customContextDataKey": {
+      },
+      "id": "A-a14e03be-8706-4857-8086-0ca18061408b"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "SourceLanguage",
+      "customContextDataKey": {
+      },
+      "id": "A-199a72fc-7fb8-400d-af7c-56744afc157d"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "TranslateText",
+      "customContextDataKey": {
+      },
+      "id": "A-44429f1b-0cf6-4ec8-93c9-73474d1654a9"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "OcrText",
+      "customContextDataKey": {
+      },
+      "id": "A-79374dfe-c7f4-4b07-bd19-bdb93c468989"
+    }],
+    "negative": "复制",
+    "onNegative": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "globalVarOf$OcrText",
+      "customContextDataKey": {
+      },
+      "id": "A-43bb1155-67bd-4c12-b360-c8d45dc07b63"
+    }, {
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "globalVarOf$TranslateText",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-532ff57c-6a03-4ca0-ac59-cc7b23127ee5"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "Targetlanguage",
+      "customContextDataKey": {
+      },
+      "id": "A-5a5135cc-0edb-4551-bda1-35d70cce406e"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "SourceLanguage",
+      "customContextDataKey": {
+      },
+      "id": "A-c37e0848-83f5-4f67-8b72-ba44e9ea2f9f"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "TranslateText",
+      "customContextDataKey": {
+      },
+      "id": "A-0be1fe27-904a-4e3b-9014-07265c8463a0"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "OcrText",
+      "customContextDataKey": {
+      },
+      "id": "A-a1660288-3168-4bdb-b5ad-70f0de496d0c"
+    }],
+    "neutral": "重来",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/FromDA",
+      "daId": "SHARED-DA-c3a4763e-c724-459c-b0a6-19184ab5ffa8",
+      "customContextDataKey": {
+      },
+      "id": "A-1e775ba7-3a4f-49aa-8605-3462ca0d3ed9"
+    }],
+    "title": "翻译结果",
+    "message": "globalVarOf$TranslateText",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0009112
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-c9020e1a-cc46-4882-b1c7-62bc1dbdbe1a"
+  }],
+  "id": "SHARED-DA-412408d8-9a87-4901-94eb-8aeeec4dd873",
+  "lastUpdateTime": "1766122304252",
+  "createTime": "1766056514792",
+  "author": {
+    "name": "学艺不精"
+  },
+  "title": "OCR翻译",
+  "description": "通过腾讯翻译api实现ocr识屏翻译\n复制是复制原文，可以自己修改成译文",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,107 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Timetamp",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-cdb84690-e695-45a2-8fe4-b499ffdf3e5e"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Time",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-302b0bb7-a113-49c5-91b6-8026661bbae5"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Hash",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-73d325b5-580d-47f8-96a8-3994606aaf48"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "Signstatus",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "id": "A-8074ec63-0e72-4b85-ba11-e5d338c68a38"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://api.m.taobao.com/rest/api3.do?api\u003dmtop.common.getTimestamp",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data.t"]
+    },
+    "requestBody": {},
+    "id": "A-022670dd-d677-49af-9825-bdf0319b93a2"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Timetamp",
+    "valueAsString": "{httpRequestRet1}",
+    "id": "A-ca681cdb-8443-4e60-a0d9-470df9b248d2"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.text.SimpleDateFormat;\nimport java.util.Date;\n//时间格式化\nString format \u003d \"yyyyMMddHHmm\";\nSimpleDateFormat sdf \u003d new SimpleDateFormat(format);\nString currentDateAndTime \u003d sdf.format(new Date());\n\nreturn currentDateAndTime;\n",
+    "id": "A-7ddada84-dcf8-4cc5-9a24-677f15e72771"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Time",
+    "valueAsString": "{mvelRet}",
+    "id": "A-fffd2a2c-d08c-4142-9d03-e66e66c598b4"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.security.MessageDigest;\nimport java.math.BigInteger;\n//token拼接\nString token \u003d globalVarOf$appsharetoken+localVarOf$Time;\nMessageDigest md \u003d MessageDigest.getInstance(\"MD5\");\nbyte[] bytes \u003d token.getBytes(\"UTF-8\");\nbyte[] md5HashBytes \u003d md.digest(bytes);\nBigInteger bigInt \u003d new BigInteger(1, md5HashBytes);\nString md5Hash \u003d bigInt.toString(16);\n//MD5大写格式化\nString MD5Hash \u003d md5Hash;\nString uppercaseString \u003d MD5Hash.toUpperCase();\n\nreturn uppercaseString;\n\n",
+    "id": "A-253cbc5e-3f93-495b-a5ad-73ac0bb9041b"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Hash",
+    "valueAsString": "{mvelRet}",
+    "id": "A-fc9c0b0a-5bac-47fa-a72e-a01088bfbd09"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "http://61.183.42.89:9003/user/v1/daySign?token\u003dglobalVarOf$appsharetoken\u0026oaid\u003dglobalVarOf$appsharetoken\n\u0026sign\u003dlocalVarOf$Hash",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["message"]
+    },
+    "headers": [{
+      "key": "Host",
+      "value": "61.183.42.89:9003"
+    }, {
+      "key": "api_sign",
+      "value": "user/v1/fragmentMeData:{mvelRet}:localVarOf$Timetamp"
+    }],
+    "requestBody": {},
+    "id": "A-6b008621-6c9b-4039-bd76-3dc60cc1c801"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "Signstatus",
+    "valueAsString": "{httpRequestRet1}",
+    "id": "A-f607e11b-e21e-4680-b4f1-80f8ec46a79d"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "localVarOf$Signstatus",
+    "id": "A-54a55eee-1355-448f-b904-28fcc84ad5a4"
+  }],
+  "id": "DA06bd9ab9-d296-473c-af7a-d8eaa2f4103d",
+  "lastUpdateTime": "1690356942923",
+  "createTime": "1690190921116",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "appshare签到",
+  "description": "简单的appshare签到\nglobalVarOf$appsharetoken内填入抓包token，再全局变量中引用定时签到即可。",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

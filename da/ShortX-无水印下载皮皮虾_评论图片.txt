@@ -1,0 +1,31 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ReadClipboard",
+    "customContextDataKey": {
+    },
+    "id": "A-2df99bbe-08a7-4851-8fbe-f06abd9b8023"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#!/system/bin/sh\n\n# 在Android上执行Python脚本\noutput\u003d$(/data/user/0/com.termux/files/usr/bin/python \u003c\u003cEOF\nfrom PIL import Image\nimport os\nimport re\nimport json\nimport time\nimport requests\nimport pathlib\n\ndef getAllFile (filePath):\n files \u003d os.listdir(filePath)\n return files\n \ndef handleConversion (fileName):\n fileName \u003d imgPath + fileName\n saveName \u003d fileName.replace(\u0027webp\u0027, \u0027gif\u0027)\n im \u003d Image.open(fileName)\n im.save(saveName, \u0027gif\u0027, save_all\u003dTrue)\n \ndef main():\n files \u003d getAllFile(\u0027/storage/emulated/0/DCIM/pipixia/\u0027)\n for fileName in files:\n  gifName \u003d fileName.replace(\u0027.webp\u0027, \u0027.gif\u0027)\n  # webp格式且未转过的才需要转\n  if re.findall(webpReg, fileName) !\u003d [] and (gifName not in files):\n   handleConversion(fileName)\ndef down_img(url,is_gif):\n    img \u003d requests.get(url)\n    Time \u003d str(int(time.time()))\n    if(is_gif):\n        with open(\"/storage/emulated/0/DCIM/pipixia/\"+Time+\".webp\",\u0027wb\u0027) as f:\n            f.write(img.content)\n            fileimg.append(f\"{Time}.gif\")\n    else:\n        with open(\"/storage/emulated/0/DCIM/pipixia/\"+Time+\".png\",\u0027wb\u0027) as f:\n            f.write(img.content)\n            fileimg.append(f\"{Time}.png\")\ntext \u003d\"{clipboardContent}\"\n#text \u003d \"https://h5.pipix.com/s/iRm2c1dH/# [皮皮虾] [捂脸] 【长按复制】到浏览器观看\"\nurl \u003d re.findall(r\"https.*?#\",text)[0]\nimgPath \u003d \u0027/storage/emulated/0/DCIM/pipixia/\u0027\nwebpReg \u003d r\u0027webp$\u0027\nfileimg \u003d []\nheaders \u003d {\n    \"Cookie\": \"MONITOR_WEB_ID\u003d8b569071-d264-47c2-ba23-87485116821e\",\n    \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.78\"\n}\ndata \u003d requests.get(url \u003d url ,headers\u003dheaders)\ncell_id \u003d  re.findall(\"\u0026cell_id\u003d(.*?)\u0026\",data.url)[0]\nimg_url \u003d f\"https://h5.pipix.com/bds/webapi/cell/detail/?cell_id\u003d{cell_id}\u0026cell_type\u003d8\u0026source\u003dshare\"\nimg_data \u003d requests.get(url \u003d img_url,headers\u003dheaders).json()\n\nfor i in img_data[\"data\"][\"comment\"][\"images\"]:\n    is_gif \u003d i[\"is_gif\"]\n    img_url \u003d i[\"url_list\"][0][\"url\"]\n    down_img(img_url,is_gif)\n    time.sleep(1)\nmain()\n# 创建Path对象\nfolder \u003d pathlib.Path(imgPath)\n\n# 查找并删除所有.webp文件\nfor file_path in folder.glob(\u0027*.webp\u0027):\n    file_path.unlink()\n\noutput_str \u003d \" \".join(fileimg)\nprint(output_str)\nEOF\n)\n\n\nfor file_name in $output\ndo\n   am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/DCIM/pipixia/${file_name}\ndone\n",
+    "customContextDataKey": {
+    },
+    "id": "A-11b26a8a-d2cc-43f8-aeb6-81cfdb94b078"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "下载完成",
+    "customContextDataKey": {
+    },
+    "id": "A-86056037-5f52-482d-ada3-59b821668ca3"
+  }],
+  "id": "DAa41c7d09-7225-4361-9378-95522ae56063",
+  "lastUpdateTime": "1700299546259",
+  "createTime": "1700286349850",
+  "author": {
+    "name": "XFiend"
+  },
+  "title": "无水印下载皮皮虾 评论图片",
+  "description": "使用方法 复制图片分享链接 使用此指令即可",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

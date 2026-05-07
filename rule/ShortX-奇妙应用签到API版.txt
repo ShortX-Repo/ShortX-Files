@@ -1,0 +1,462 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/Alarm",
+    "triggerAt": {
+      "minutes": 4
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-c94a0331-8b98-4387-8c1d-a4aacc46ca79"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsExists",
+      "varName": "magic_token",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-a587d0dd-ad31-4f44-9725-500b9d222fb3"
+    }, {
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotEmpty",
+      "varName": "magic_token",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-da824b5a-9977-42f8-b18e-da454f4f97a1"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "globalVarOf$magic_token.length \u003d\u003d 127",
+        "customContextDataKey": {
+        },
+        "id": "C-2a9cf87c-eb90-43a6-8c87-465bf3a346da"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "code",
+          "type": {
+            "@type": "type.googleapis.com/Int64Var"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-2d69217c-4b47-444c-8726-e45be48a4a34"
+      }, {
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "http://www.magicalapp.cn/user/api/signDays",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "headers": [{
+          "key": "Token",
+          "value": "globalVarOf$magic_token"
+        }, {
+          "key": "User-Agent",
+          "value": "okhttp/4.9.3"
+        }],
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-6e7b9836-4ea0-4c1f-b241-45a3460083ae"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "response",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-307fc90c-264f-426b-b9ea-c69786b42e7c"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "response",
+        "valueAsString": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-72073fef-49fe-4c5b-aef6-f95126505fb7"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "import javax.crypto.Cipher;\nimport javax.crypto.spec.SecretKeySpec;\nimport java.util.Base64;\nimport org.json.JSONObject;\nimport java.lang.String;\n\nString response \u003d localVarOf$response;\n\nString key \u003d response.substring(1, 17);\nString encryptedStr \u003d response.substring(17, response.length - 1);\n\nbyte[] encryptedBytes \u003d Base64.getDecoder().decode(encryptedStr);  \n\nSecretKeySpec secretKeySpec \u003d new SecretKeySpec(key.getBytes(\"UTF-8\"), \"AES\");        \n\nCipher cipher \u003d Cipher.getInstance(\"AES/ECB/PKCS5Padding\"); \n      \ncipher.init(2, secretKeySpec);\n\nbyte[] decryptedBytes \u003d cipher.doFinal(encryptedBytes);       \n\nString decryptedText \u003d new String(decryptedBytes, \"UTF-8\");\n\n//JSONObject json \u003d new JSONObject(decryptedText);\n\n\nreturn decryptedText;",
+        "customContextDataKey": {
+        },
+        "id": "A-e6218e2f-76c7-4a77-9301-93cfdebe9e4d"
+      }, {
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "jsonStr",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-69965ecb-68e9-4c98-bd86-4e2d32d48978"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "jsonStr",
+        "valueAsString": "{mvelRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-19ab6e61-324b-4d7a-8f9b-aa45663cbd7d"
+      }, {
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "JSON.parse(localVarOf$jsonStr)[\"code\"]",
+        "customContextDataKey": {
+        },
+        "id": "A-f6e683fa-4fc3-4aca-97f6-8de8965f6860"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "code",
+        "valueAsString": "{jsRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-a86dc7a0-cbdc-4617-8c54-1b253c3b65ca"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "code",
+          "payload": {
+            "value": "200"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-8058e747-f513-4b92-9ac8-43b2b2456855"
+        }, {
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "{mvelRet}[\"code\"] \u003d\u003d 200",
+          "customContextDataKey": {
+          },
+          "id": "C-10e43a62-f4df-4479-9e31-6ac420a80e63"
+        }],
+        "IfCondOp": "ANY",
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "var json \u003d JSON.parse(localVarOf$jsonStr);\n\nvar days \u003d json[\"data\"][\"sign_days\"];\nvar rank \u003d json[\"data\"][\"rank\"];\n\n\"签到天数：\" + days + \"\\n签到排名：\" + rank;",
+          "customContextDataKey": {
+          },
+          "id": "A-4da87065-1f62-4712-8a53-5c6f9f23ca42"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{jsRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-0a4dfbbd-3a6a-4942-8fff-898a421eb2fd"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "JSON.parse(localVarOf$jsonStr)[\"msg\"]",
+          "customContextDataKey": {
+          },
+          "id": "A-3ff32d42-3bcd-418a-8e33-ea5bc657e431"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{jsRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-ac8456b8-daa0-4b83-b837-72e48ec1835a"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "return {mvelRet}.getString(\"msg\");",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "errMsg"
+            }]
+          },
+          "isDisabled": true,
+          "id": "A-905ff3de-c325-4755-8fc1-4a312a6cbfda"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "{errMsg}",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-fcbf9c8c-1c7c-4352-becc-76e157cc5ee9"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-f3972992-a055-413b-a9d2-d2d171edf5b5"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "token长度不正确",
+        "customContextDataKey": {
+        },
+        "id": "A-13c5d691-5af2-42db-86ff-a84489735fe7"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-2e4b17ce-fe00-4e7a-b15d-9073a6062aaa"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "magic_token",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "isSecret": true,
+        "note": "奇妙应用token"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-fec3abe3-e75b-43c4-a435-45939a4c8166"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "path\u003d\"/data/user/0/com.magicalstory.AppStore/files/mmkv/mmkv.default\";\n\ncat ${path};",
+      "customContextDataKey": {
+      },
+      "id": "A-3452d361-4bb2-40bb-9183-50cf4ce877b7"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "content",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-185f613a-60e3-447f-939e-53a267c5c62b"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "content",
+      "valueAsString": "{shellOut}",
+      "customContextDataKey": {
+      },
+      "id": "A-2ccd4291-442b-49fb-bad3-bebd9c2b27f4"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "localVarOf$content.match(/token�\\x01\\x7F(.{127})/)[1];\n",
+      "customContextDataKey": {
+      },
+      "id": "A-027446ee-9f3a-4135-a93d-848007fb94de"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "magic_token",
+      "valueAsString": "{jsRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-e7349f6c-a373-46da-9f71-3c4f115989ae"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsNotEmpty",
+        "varName": "magic_token",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-d7694261-2dd5-48bd-b263-4c75520c743c"
+      }, {
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "magic_token",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-450e2740-8c8d-42bc-8329-271f03f84d11"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/MatchMVEL",
+          "expression": "globalVarOf$magic_token.length \u003d\u003d 127",
+          "customContextDataKey": {
+          },
+          "id": "C-2a9cf87c-eb90-43a6-8c87-465bf3a346da"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "code",
+            "type": {
+              "@type": "type.googleapis.com/Int64Var"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-2d69217c-4b47-444c-8726-e45be48a4a34"
+        }, {
+          "@type": "type.googleapis.com/HttpRequest",
+          "url": "http://www.magicalapp.cn/user/api/signDays",
+          "adapter": {
+            "@type": "type.googleapis.com/HttpRequestRawAdapter"
+          },
+          "headers": [{
+            "key": "Token",
+            "value": "globalVarOf$magic_token"
+          }, {
+            "key": "User-Agent",
+            "value": "okhttp/4.9.3"
+          }],
+          "requestBody": {},
+          "customContextDataKey": {
+          },
+          "id": "A-6e7b9836-4ea0-4c1f-b241-45a3460083ae"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "response",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-307fc90c-264f-426b-b9ea-c69786b42e7c"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "response",
+          "valueAsString": "{httpRequestRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-72073fef-49fe-4c5b-aef6-f95126505fb7"
+        }, {
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "import javax.crypto.Cipher;\nimport javax.crypto.spec.SecretKeySpec;\nimport java.util.Base64;\nimport org.json.JSONObject;\nimport java.lang.String;\n\nString response \u003d localVarOf$response;\n\nString key \u003d response.substring(1, 17);\nString encryptedStr \u003d response.substring(17, response.length - 1);\n\nbyte[] encryptedBytes \u003d Base64.getDecoder().decode(encryptedStr);  \n\nSecretKeySpec secretKeySpec \u003d new SecretKeySpec(key.getBytes(\"UTF-8\"), \"AES\");        \n\nCipher cipher \u003d Cipher.getInstance(\"AES/ECB/PKCS5Padding\"); \n      \ncipher.init(2, secretKeySpec);\n\nbyte[] decryptedBytes \u003d cipher.doFinal(encryptedBytes);       \n\nString decryptedText \u003d new String(decryptedBytes, \"UTF-8\");\n\n//JSONObject json \u003d new JSONObject(decryptedText);\n\n\nreturn decryptedText;",
+          "customContextDataKey": {
+          },
+          "id": "A-e6218e2f-76c7-4a77-9301-93cfdebe9e4d"
+        }, {
+          "@type": "type.googleapis.com/CreateLocalVar",
+          "localVar": {
+            "name": "jsonStr",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-69965ecb-68e9-4c98-bd86-4e2d32d48978"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "jsonStr",
+          "valueAsString": "{mvelRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-19ab6e61-324b-4d7a-8f9b-aa45663cbd7d"
+        }, {
+          "@type": "type.googleapis.com/ExecuteJS",
+          "expression": "JSON.parse(localVarOf$jsonStr)[\"code\"]",
+          "customContextDataKey": {
+          },
+          "id": "A-f6e683fa-4fc3-4aca-97f6-8de8965f6860"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "code",
+          "valueAsString": "{jsRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-a86dc7a0-cbdc-4617-8c54-1b253c3b65ca"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "code",
+            "payload": {
+              "value": "200"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-8058e747-f513-4b92-9ac8-43b2b2456855"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "var json \u003d JSON.parse(localVarOf$jsonStr);\n\nvar days \u003d json[\"data\"][\"sign_days\"];\nvar rank \u003d json[\"data\"][\"rank\"];\n\n\"签到天数：\" + days + \"\\n签到排名：\" + rank;",
+            "customContextDataKey": {
+            },
+            "id": "A-4da87065-1f62-4712-8a53-5c6f9f23ca42"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-0a4dfbbd-3a6a-4942-8fff-898a421eb2fd"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "JSON.parse(localVarOf$jsonStr)[\"msg\"]",
+            "customContextDataKey": {
+            },
+            "id": "A-3ff32d42-3bcd-418a-8e33-ea5bc657e431"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-ac8456b8-daa0-4b83-b837-72e48ec1835a"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-f3972992-a055-413b-a9d2-d2d171edf5b5"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "token长度不正确",
+          "customContextDataKey": {
+          },
+          "id": "A-13c5d691-5af2-42db-86ff-a84489735fe7"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-2e4b17ce-fe00-4e7a-b15d-9073a6062aaa"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "去登录",
+        "onPositive": [{
+          "@type": "type.googleapis.com/StartActivity",
+          "componentNameAsString": "com.magicalstory.AppStore/com.magicalstory.AppStore.user.login.loginActivity",
+          "customContextDataKey": {
+          },
+          "id": "A-50576704-d670-43a6-b0d1-200e685d674c"
+        }],
+        "message": "未找到token",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-a58eedbb-e3f4-4758-92b7-f9b915d6df5d"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-4fde69da-ab0f-4406-b634-fbe35911509a"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-57a5f16c-c1b9-495f-99e0-48e93110d6a8"
+  }],
+  "id": "rule-b0b43827-d004-4521-a001-66ab3f61a495",
+  "lastUpdateTime": "1699357501049",
+  "createTime": "1699267133316",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "奇妙应用签到API版",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

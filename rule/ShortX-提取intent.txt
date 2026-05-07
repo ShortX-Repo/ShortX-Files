@@ -1,0 +1,85 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "customContextDataKey": {
+    },
+    "id": "F-904b4f3b-bc3a-4e45-b583-b8d6034ff62f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "currentActivity",
+    "valueAsString": "{activityIntentUri}",
+    "customContextDataKey": {
+    },
+    "id": "A-bcb2ff2c-dd4f-408b-b2b0-b45ee61caf08"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/WriteClipboard",
+        "text": "globalVarOf$currentActivity",
+        "customContextDataKey": {
+        },
+        "id": "A-31d8741b-83a8-412d-9548-62d37fd85765"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "已经复制",
+        "customContextDataKey": {
+        },
+        "id": "A-5432c624-80fd-4582-ba53-7aa07498ad3b"
+      }],
+      "icon": "android-fill",
+      "label": "globalVarOf$currentActivity",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-0d21f077-9884-4017-9cdb-332816b0ce8e",
+        "customContextDataKey": {
+        },
+        "id": "A-68a95d4b-b007-493c-b01b-c2bbcb24b60e"
+      }],
+      "id": "BTN-78ce3132-ffe8-4e42-ad6a-555aa956cd4b"
+    }],
+    "tag": "activityOverlay",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 500,
+    "buttonMinWidth": 500,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 18,
+    "customContextDataKey": {
+    },
+    "id": "A-8b20f4d3-f8c9-4e03-8254-a6ceba1d51f5"
+  }],
+  "id": "SHARE-rule-749a7b41-0fee-4882-bbdc-b28dc5811d4b",
+  "lastUpdateTime": "1764680780204",
+  "createTime": "1686443557117",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "提取intent",
+  "description": "提取活动的intent uri",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "currentActivity",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b85957a9-8d03-4b4e-ae1a-2e9a79c6f2c4"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["activityOverlay"],
+      "customContextDataKey": {
+      },
+      "id": "A-accb8e9f-29ea-47d7-bd6a-f49529709594"
+    }]
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"rule"}

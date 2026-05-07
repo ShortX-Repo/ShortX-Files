@@ -1,0 +1,82 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/VPNConnected",
+    "customContextDataKey": {
+    },
+    "id": "F-1f366bdd-fe6a-4242-b572-44e3341ff3c0"
+  }, {
+    "@type": "type.googleapis.com/VPNDisconnected",
+    "customContextDataKey": {
+    },
+    "id": "F-51a27d93-2276-4096-b473-6789ab4c9d88"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/VPNIsConnected",
+      "customContextDataKey": {
+      },
+      "id": "C-6dd516e1-c427-4be6-93a5-f0b16f70bda4"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put global private_dns_mode off",
+      "customContextDataKey": {
+      },
+      "id": "A-69a2e762-f2e0-4594-9340-d446a5a8f1e5"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "已连接到vpn，关闭私人dns",
+      "customContextDataKey": {
+      },
+      "id": "A-0d676e4b-442e-467a-a3ab-692e358b1060"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put global private_dns_mode hostname",
+      "customContextDataKey": {
+      },
+      "id": "A-72728ef4-edce-4f41-834f-781fb54908f8"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "未连接到vpn，启用私人dns",
+      "customContextDataKey": {
+      },
+      "id": "A-0d676e4b-442e-467a-a3ab-692e358b1060"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-036f1f38-42f3-4f6d-b7f6-23bc3bbb5bab"
+  }],
+  "id": "SHARE-rule-782f4070-0093-420d-8af6-6ebd1fe97497",
+  "lastUpdateTime": "1762780643657",
+  "createTime": "1722469187429",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "果冻DNS",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/TaskRemoved",
+      "customContextDataKey": {
+      },
+      "id": "F-b28c53b9-a1c5-4b10-8fdf-999fdfea099a"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings put global private_dns_mode hostname",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-110e5759-d04e-417a-9a96-4f279bfd2432"
+    }]
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-893705b0-f535-47c8-bef9-8fb890eb10a8"
+}
+###------###
+{"type":"rule"}

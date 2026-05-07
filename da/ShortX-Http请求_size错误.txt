@@ -1,0 +1,43 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://app.api.sj.360.cn/Iservice/AppDetail?pname\u003dcom.Kingdee.Express",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["data[0].size"]
+    },
+    "requestBody": {},
+    "withCookieJar": true,
+    "customContextDataKey": {
+    },
+    "note": "应该输出58612820\n结果输出92",
+    "id": "A-b7a23990-5225-49d7-8d32-5c69c9df1461"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://appc.baidu.com/uiserver?\u0026part\u003dmain\u0026action\u003ddetail\u0026pname\u003dcom.baidu.BaiduMap",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestJsonMapAdapter",
+      "expressions": ["result.data.data.appinfo.size"]
+    },
+    "headers": [{
+      "key": "User-Agent",
+      "value": "okhttp/3.11.0"
+    }],
+    "requestBody": {},
+    "customContextDataKey": {
+    },
+    "note": "应该输出164M\n结果输出25",
+    "id": "A-bccec444-52e6-4eaf-a04c-f81d81ca064d"
+  }],
+  "id": "SHARED-DA-0711950e-dab7-401e-852f-6a261b31a771",
+  "lastUpdateTime": "1727164585762",
+  "createTime": "1727164288049",
+  "author": {
+    "name": "He"
+  },
+  "title": "Http请求 size错误",
+  "description": "HTTP请求中的mvel表达式，但凡涉及size都会输出错误",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

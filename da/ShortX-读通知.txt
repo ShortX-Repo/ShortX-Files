@@ -1,0 +1,23 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "try {\n    var SystemServiceManager \u003d Packages.android.os.ServiceManager;\n    var NotificationInterface \u003d Packages.android.app.INotificationManager;\n    var StubClass \u003d NotificationInterface.Stub;\n    var JavaClass \u003d Packages.java.lang.Class;\n    var binder \u003d SystemServiceManager.getService(\"notification\");\n    var nmsInstance \u003d StubClass.asInterface(binder);\n    var statusNotificationArray \u003d nmsInstance.getActiveNotifications(null);\n\n    var notificationResultList \u003d [];\n\n    if (statusNotificationArray \u0026\u0026 statusNotificationArray.length \u003e 0) {\n        var piClass \u003d JavaClass.forName(\"android.app.PendingIntent\");\n        var getIntentMethod \u003d piClass.getDeclaredMethod(\"getIntent\", null);\n        getIntentMethod.setAccessible(true);\n\n        for (var i \u003d 0; i \u003c statusNotificationArray.length; i++) {\n            var sbn \u003d statusNotificationArray[i];\n            var notif \u003d sbn.getNotification();\n            if (!notif) continue;\n\n            var extras \u003d notif.extras;\n            var extrasMap \u003d {};\n            if (extras !\u003d null) {\n                var keys \u003d extras.keySet().toArray();\n                for (var k \u003d 0; k \u003c keys.length; k++) {\n                    var key \u003d String(keys[k]);\n                    try {\n                        var val \u003d extras.get(key);\n                        // 转成字符串避免 Java 对象无法直接序列化\n                        extrasMap[key] \u003d (val !\u003d null) ? String(val) : null;\n                    } catch (ee) {\n                        extrasMap[key] \u003d \"READ_FAILED: \" + ee.toString();\n                    }\n                }\n            }\n\n            var intentUri \u003d null;\n            var pendingIntent \u003d notif.contentIntent;\n            if (pendingIntent !\u003d null) {\n                try {\n                    var realIntent \u003d getIntentMethod.invoke(pendingIntent, null);\n                    intentUri \u003d realIntent.toUri(1); // Intent.URI_INTENT_SCHEME\n                } catch (e) {\n                    intentUri \u003d \"REFLECTION_FAILED: \" + e.toString();\n                }\n            }\n\n            notificationResultList.push({\n                pkg: sbn.getPackageName(),\n                extras: extrasMap,\n                intentUri: intentUri\n            });\n        }\n    }\n\n    JSON.stringify(notificationResultList);\n\n} catch (e) {\n    JSON.stringify({ error: \"Execution Failed: \" + e.toString() });\n}",
+    "customContextDataKey": {
+    },
+    "id": "A-442df68d-4a16-4a3c-a1e0-2bba64daf6ef"
+  }],
+  "id": "SHARED-DA-2962daf4-9b0d-45d8-b4d5-0ed69d4b0272",
+  "lastUpdateTime": "1764151143840",
+  "createTime": "1760876491749",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "读通知",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,38 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowListDialog",
+    "title": "一言",
+    "cancelable": true,
+    "data": "globalVarOf$yen",
+    "delimiter": [","],
+    "needConfirmAction": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-eb6f954a-6acc-4238-b0ed-ea181abd8374"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "yen",
+    "valueAsString": "{selectedListItem}",
+    "op": "WriteGlobalVarOp_DeleteValue",
+    "customContextDataKey": {
+    },
+    "id": "A-140714ef-0407-4db5-8161-bfdad698d706"
+  }],
+  "id": "SHARED-DA-74b131f3-8051-4147-8d87-172459394893",
+  "lastUpdateTime": "1763871136355",
+  "createTime": "1763632909712",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "一言del",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

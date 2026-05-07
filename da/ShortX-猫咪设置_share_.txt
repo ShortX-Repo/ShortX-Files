@@ -1,0 +1,175 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "▶️     穿越启动     PROXY START",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "rm -f /data/adb/modules/ClashForMagisk/disable",
+        "customContextDataKey": {
+        },
+        "note": "此处启动 Clash",
+        "id": "A-2bda1bf2-bf72-4c06-a3b3-a5e365e0d88a"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "Clash",
+        "valueAsString": "true",
+        "customContextDataKey": {
+        },
+        "id": "A-f2d69f43-566f-4281-8129-4f01cf7689a4"
+      }]
+    }, {
+      "title": "⏹     穿越停止     PROXY STOP",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "touch /data/adb/modules/ClashForMagisk/disable",
+        "customContextDataKey": {
+        },
+        "note": "此处停止 Clash",
+        "id": "A-228ae367-3c84-4973-9aa6-ba551cd2a731"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "Clash",
+        "valueAsString": "false",
+        "customContextDataKey": {
+        },
+        "id": "A-e9b88b8b-3683-4aca-9afe-e47b3bf27615"
+      }]
+    }, {
+      "title": "🔄     订阅切换     SUB SWITCH",
+      "clickActions": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "默认订阅",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sed -i \"s/use_config\u003d\\\".*\\\"/use_config\u003d\\\"false\\\"/g\" /data/clash/clash.config\ntouch /data/adb/modules/ClashForMagisk/disable\nsleep 1\nrm -f /data/adb/modules/ClashForMagisk/disable",
+            "customContextDataKey": {
+            },
+            "id": "A-932f66e3-bbd3-4861-abd1-04c9e0bf28dc"
+          }]
+        }, {
+          "title": "自定订阅 0",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sed -i \"s/use_config\u003d\\\".*\\\"/use_config\u003d\\\"config0.yaml\\\"/g\" /data/clash/clash.config\ntouch /data/adb/modules/ClashForMagisk/disable\nsleep 1\nrm -f /data/adb/modules/ClashForMagisk/disable",
+            "customContextDataKey": {
+            },
+            "id": "A-6a5db125-30e4-422f-a7de-1c5b41105c93"
+          }]
+        }, {
+          "title": "自定订阅 1",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sed -i \"s/use_config\u003d\\\".*\\\"/use_config\u003d\\\"config1.yaml\\\"/g\" /data/clash/clash.config\ntouch /data/adb/modules/ClashForMagisk/disable\nsleep 1\nrm -f /data/adb/modules/ClashForMagisk/disable",
+            "customContextDataKey": {
+            },
+            "id": "A-e0ef6eae-dd04-4833-abc8-203cc4b6c8dd"
+          }]
+        }, {
+          "title": "自定订阅 2",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sed -i \"s/use_config\u003d\\\".*\\\"/use_config\u003d\\\"config2.yaml\\\"/g\" /data/clash/clash.config\ntouch /data/adb/modules/ClashForMagisk/disable\nsleep 1\nrm -f /data/adb/modules/ClashForMagisk/disable",
+            "customContextDataKey": {
+            },
+            "id": "A-e0ef6eae-dd04-4833-abc8-203cc4b6c8dd"
+          }]
+        }, {
+          "title": "自定订阅 3",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "sed -i \"s/use_config\u003d\\\".*\\\"/use_config\u003d\\\"config3.yaml\\\"/g\" /data/clash/clash.config\ntouch /data/adb/modules/ClashForMagisk/disable\nsleep 1\nrm -f /data/adb/modules/ClashForMagisk/disable",
+            "customContextDataKey": {
+            },
+            "id": "A-e0ef6eae-dd04-4833-abc8-203cc4b6c8dd"
+          }]
+        }],
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "note": "配合 ⌘  Clash MIX 3.0 切换订阅",
+        "id": "A-f843fda8-f631-4e5f-8128-0accab155327"
+      }]
+    }, {
+      "title": "🔍     订阅查询     SUB QUERY",
+      "clickActions": [{
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "note": "自行修改订阅消息（无到期时间）",
+        "id": "A-b3f76a43-197d-4520-b0dd-e91df24e4e55"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "header\u003d$(curl -s --user-agent \"ClashX/1.20.4.1\" -I \"htts://订阅链接\" | grep -i \u0027upload\u0027)\ntotal\u003d$(echo $header | awk \u0027{printf $4}\u0027 | sed -e \u0027s/total\u003d//g\u0027 -e \u0027s/;//g\u0027)\ndown\u003d$(echo $header | awk \u0027{printf $3}\u0027 | sed -e \u0027s/download\u003d//g\u0027 -e \u0027s/;//g\u0027)\nup\u003d$(echo $header | awk \u0027{printf $2}\u0027 | sed -e \u0027s/upload\u003d//g\u0027 -e \u0027s/;//g\u0027)\nuse_all\u003d$(expr $down + $up)\nTOTAL\u003d$(expr $total / 1073741824)\nUSED\u003d$(expr $use_all / 1073741824)\nLAST\u003d$(expr $TOTAL - $USED)\necho \"流量总量: $TOTAL GB; 流量剩余: $LAST GB\\n到期日期: 长期有效\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "sub1"
+          }]
+        },
+        "id": "A-e13729b7-e9aa-4723-9784-def21c774c86"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-subscription1",
+        "title": " 订阅信息",
+        "message": "{sub1}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-1a88c031-85dc-4917-8102-0d7d9ae092b7"
+      }, {
+        "@type": "type.googleapis.com/NoAction",
+        "icon": "layout-3-fill",
+        "customContextDataKey": {
+        },
+        "note": "自行修改订阅消息（有到期时间）",
+        "id": "A-5aa31f53-8ba5-4afd-94f2-8fd743381e44"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "header\u003d$(curl -s -I \"https://订阅链接\" | grep -i \u0027upload\u0027)\ntotal\u003d$(echo $header | awk \u0027{printf $4}\u0027 | sed -e \u0027s/total\u003d//g\u0027 -e \u0027s/;//g\u0027)\ndown\u003d$(echo $header | awk \u0027{printf $3}\u0027 | sed -e \u0027s/download\u003d//g\u0027 -e \u0027s/;//g\u0027)\nup\u003d$(echo $header | awk \u0027{printf $2}\u0027 | sed -e \u0027s/upload\u003d//g\u0027 -e \u0027s/;//g\u0027)\nexpiration_time\u003d$(echo $header | awk \u0027{printf $5}\u0027 | sed -e \u0027s/expire\u003d//g\u0027 | sed \u0027s/[^0-9]//g\u0027)\nuse_all\u003d$(expr $down + $up)\ndiffDAY\u003d$((($expiration_time - $(date +%s))/86400))\nTOTAL\u003d$(expr $total / 1073741824)\nUSED\u003d$(expr $use_all / 1073741824)\nLAST\u003d$(expr $TOTAL - $USED)\nTIME\u003d$(date -d @$expiration_time \"+%Y/%m/%d\")\necho \"流量总量: $TOTAL GB; 流量剩余: $LAST GB\\n到期日期: $TIME\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "sub2"
+          }]
+        },
+        "id": "A-38bfe46b-f1ad-417b-8c20-464f59dc4f4b"
+      }, {
+        "@type": "type.googleapis.com/PostNotification",
+        "tag": "tag-subscription2",
+        "title": " 订阅信息",
+        "message": "{sub2}",
+        "smallIcon": "chat-2-line",
+        "customContextDataKey": {
+        },
+        "id": "A-7b47488a-744a-4a8a-b57c-0bed04e7cfb5"
+      }]
+    }, {
+      "title": "🖥     控制面板     DASHBOARD",
+      "clickActions": [{
+        "@type": "type.googleapis.com/StartActivityIntentUri",
+        "intentUri": "http://127.0.0.1:9090/ui/#/overview",
+        "customContextDataKey": {
+        },
+        "id": "A-e1796331-3fb4-4832-95a2-8f74db410ca1"
+      }]
+    }],
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "note": "所有的设置都在菜单里",
+    "id": "A-b691dcdf-ed35-4d38-bc44-817335e8813a"
+  }],
+  "id": "DAe1128630-d4d0-4cc6-9607-07d7612d8033",
+  "lastUpdateTime": "1711812958286",
+  "createTime": "1711710183443",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "猫咪设置(share)",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

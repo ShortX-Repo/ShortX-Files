@@ -1,0 +1,196 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import android.provider.Settings;\nimport android.content.Context;\n\n//延迟总控，报错就增延迟\nint sleep \u003d 3;\n\ncontext \u003d android.app.ActivityThread.currentApplication().getApplicationContext();\ncontentResolver \u003d context.getContentResolver();\n\n// 创建StringBuilder来存储输出\noutputBuffer \u003d new StringBuilder();\n\n// 定义分隔线和标题\nseparator \u003d \"\\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\\n\";\n\n// 处理Settings.Secure\noutputBuffer.append(\"Settings.Secure Settings\").append(separator);\nfields \u003d android.provider.Settings$Secure.getDeclaredFields();\nfor (field : fields) {\n    field.setAccessible(true);\n    if (field.getType().getName().equals(\"java.lang.String\")) {\n        key \u003d field.get(null);\n        value \u003d android.provider.Settings$Secure.getString(contentResolver, key);\n        if (value !\u003d null) {\n            outputBuffer.append(\"Secure\u0026\").append(key).append(\": \").append(value).append(\"\\n\");\n        }\n        Thread.sleep(sleep);\n    }\n}\n// 添加分隔线\noutputBuffer.append(separator);\n\n// 处理Settings.Global\noutputBuffer.append(\"Settings.Global Settings\").append(separator);\nfields \u003d android.provider.Settings$Global.getDeclaredFields();\nfor (field : fields) {\n    field.setAccessible(true);\n    if (field.getType().getName().equals(\"java.lang.String\")) {\n        key \u003d field.get(null);\n        value \u003d android.provider.Settings$Global.getString(contentResolver, key);\n        if (value !\u003d null) {\n            outputBuffer.append(\"Global\u0026\").append(key).append(\": \").append(value).append(\"\\n\");\n        }\n        Thread.sleep(sleep);\n    }\n}\n// 添加分隔线\noutputBuffer.append(separator);\n\n// 处理Settings.System\noutputBuffer.append(\"Settings.System Settings\").append(separator);\nfields \u003d android.provider.Settings$System.getDeclaredFields();\nfor (field : fields) {\n    field.setAccessible(true);\n    if (field.getType().getName().equals(\"java.lang.String\")) {\n        key \u003d field.get(null);\n        value \u003d android.provider.Settings$System.getString(contentResolver, key);\n        if (value !\u003d null) {\n            outputBuffer.append(\"System\u0026\").append(key).append(\": \").append(value).append(\"\\n\");\n        }\n        Thread.sleep(sleep);\n    }\n}\n// 添加最后一条分隔线\noutputBuffer.append(separator);\n\n// 输出最终结果\noutputBuffer.toString();",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "SettingsItem"
+      }]
+    },
+    "note": "输出所有设置项",
+    "id": "A-3bd76e69-75a4-4b90-b7df-80039d8199ce"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "IsNotExists",
+      "varName": "Setting",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-9bf53ddd-2642-4d6d-a933-2985718cf529"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "Setting",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "设置项"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-aba7a9bb-9f30-4047-b490-68df9a8f0221"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "Setting",
+      "valueAsString": "{SettingsItem}",
+      "customContextDataKey": {
+      },
+      "id": "A-b60930d0-69d3-4a6a-ae0b-3a0b71ed1893"
+    }, {
+      "@type": "type.googleapis.com/ShowDanmu",
+      "text": "运行完毕",
+      "icon": "app://com.android.settings",
+      "customContextDataKey": {
+      },
+      "id": "A-973997da-1e58-430c-9920-80b1d3bd4266"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "function parseLine(line) {\n    // 只解析以 \"Secure\u0026\", \"Global\u0026\", \"System\u0026\" 开头的行\n    if (line.startsWith(\"Secure\u0026\") || line.startsWith(\"Global\u0026\") || line.startsWith(\"System\u0026\")) {\n        var parts \u003d line.split(\":\");\n        var setting \u003d parts[0].split(\"\u0026\");\n        return setting[0] + \" \" + setting[1].trim() + \": \" + parts[1].trim();\n    }\n    // 对于其他开头的行，保持原样\n    return line;\n}\n\nfunction compareTexts(beforeText, afterText) {\n    var beforeLines \u003d beforeText.trim().split(\"\\n\");\n    var afterLines \u003d afterText.trim().split(\"\\n\");\n\n    var result \u003d \u0027\u0027;\n    var seenChanges \u003d {};  // 用于记录已经输出过的变更\n    var changeCount \u003d 0;   // 计数器\n\n    // 预处理并解析每一行\n    var beforeParsed \u003d beforeLines.map(parseLine);\n    var afterParsed \u003d afterLines.map(parseLine);\n\n    // 获取最大行数进行比较\n    var maxLines \u003d Math.max(beforeParsed.length, afterParsed.length);\n\n    for (var i \u003d 0; i \u003c maxLines; i++) {\n        var beforeLine \u003d beforeParsed[i] || \"无此行\";\n        var afterLine \u003d afterParsed[i] || \"无此行\";\n\n        if (beforeLine !\u003d\u003d afterLine) {\n            var changeKey \u003d `before: ${beforeLine}, after: ${afterLine}`;\n            \n            // 如果当前变更没有输出过\n            if (!seenChanges[changeKey]) {\n                changeCount++;  // 增加序号\n                result +\u003d `${changeCount}. 变更前: ${beforeLine}\\n`;\n                result +\u003d `变更后: ${afterLine}\\n`;\n                \n                // 标记为已输出\n                seenChanges[changeKey] \u003d true;\n            }\n        }\n    }\n\n    return result || \"无变化\";\n}\n\n// 示例\nvar before \u003d globalVarOf$Setting;\n\nvar after \u003d SettingsItem;\n\ncompareTexts(before, after);",
+      "customContextDataKey": {
+      },
+      "id": "A-b7d91f51-99b6-40d4-8382-aca74fef11c9"
+    }, {
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "好的",
+      "negative": "选择复制",
+      "onNegative": [{
+        "@type": "type.googleapis.com/ShowTextFieldDialog",
+        "title": "选择第几个？",
+        "cancelable": true,
+        "textFields": [{
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-6d9d6264-fe47-414e-9b51-d19b840622e5"
+      }, {
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "Mvel表达式",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "// 原始数据\nvar originalData \u003d jsRet;\n\n// 函数解析变更内容\nfunction parseSettingChange(variables) {\n    // 将原始数据按行分割成数组\n    var lines \u003d originalData.split(\"\\n\");\n    \n    // 分隔传入的多个变量，支持 `,` 或 `，`\n    var variableArray \u003d variables.split(/[,，]/).map(Number);\n    \n    var results \u003d [];\n    \n    // 遍历每个变量\n    for (var i \u003d 0; i \u003c variableArray.length; i++) {\n        var variable \u003d variableArray[i];\n        \n        // 计算变更后的行的索引\n        var changeLineIndex \u003d (variable - 1) * 2 + 1; // 变更后的行的索引\n        \n        if (changeLineIndex \u003c lines.length) { // 确保索引在范围内\n            var changeLine \u003d lines[changeLineIndex]; // 变更后的行\n            \n            // 使用正则表达式提取设置名称和值，支持数字或字符串\n            var regex \u003d /变更后:\\s+(\\w+)\\s+(\\w+):\\s+(.+)/;\n            var match \u003d changeLine.match(regex);\n    \n            if (match) {\n                var type \u003d match[1]; // 提取类型（Secure, Global, System）\n                var setting \u003d match[2]; // 提取设置名称\n                var afterValue \u003d match[3]; // 提取新值\n    \n                // 生成代码\n                var result \u003d `android.provider.Settings$${type}.putString(context.contentResolver, \"${setting}\", \u0027${afterValue}\u0027);`;\n                results.push(result); // 保存结果\n            } else {\n                results.push(`Invalid match for variable ${variable}`);\n            }\n        } else {\n            results.push(`Invalid variable value: ${variable}`);\n        }\n    }\n    \n    return results.join(\"\\n\"); // 返回所有结果，用换行符分隔\n}\n\n// 定义变量，表示要提取第几个变更后的内容，可以用 `,` 或 `，` 分隔\nvar variables \u003d textFieldInput1; // 解析多个\n\n// 调用函数并输出结果\nparseSettingChange(variables);",
+            "customContextDataKey": {
+            },
+            "note": "解析成Mvel表达式",
+            "id": "A-63fb9f9e-45ac-4561-9be5-48ba13759016"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-3d924ef9-2f51-4bcc-b2a7-ee058880ef61"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "复制完毕",
+            "customContextDataKey": {
+            },
+            "id": "A-2004bf20-b20b-4f46-a7bf-2d299d461269"
+          }]
+        }, {
+          "title": "Shell命令",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "// 原始数据\nvar originalData \u003d jsRet;\n\n// 函数解析变更内容并生成命令\nfunction generateSettingsCommand(data, variables) {\n    var lines \u003d data.split(\"\\n\");\n    var commands \u003d [];\n\n    // 分隔传入的多个变量，支持 `,` 或 `，`\n    var variableArray \u003d variables.split(/[,，]/).map(Number);\n\n    // 遍历每个变量\n    for (var i \u003d 0; i \u003c variableArray.length; i++) {\n        var variable \u003d variableArray[i];\n\n        // 计算变更后的行索引\n        var changeLineIndex \u003d (variable - 1) * 2 + 1; // 变更后的行的索引\n        if (changeLineIndex \u003c lines.length) { // 确保索引在范围内\n            var changeLine \u003d lines[changeLineIndex]; // 变更后的行\n            \n            // 使用正则表达式提取设置名称和值\n            var regex \u003d /变更后:\\s+(\\w+)\\s+(\\w+):\\s+(.+)/; // 捕获值可以是数字或字符串\n            var match \u003d changeLine.match(regex);\n\n            if (match) {\n                var type \u003d match[1]; // 提取类型（Secure, Global, System）\n                var setting \u003d match[2]; // 提取设置名称\n                var afterValue \u003d match[3]; // 提取新值\n                \n                // 生成命令\n                var command \u003d `settings put ${type.toLowerCase()} ${setting} ${afterValue}`;\n                commands.push(command); // 保存命令\n            } else {\n                commands.push(`Invalid match for variable ${variable}`);\n            }\n        } else {\n            commands.push(`Invalid variable value: ${variable}`);\n        }\n    }\n    \n    return commands.join(\"\\n\"); // 返回所有命令，用换行符分隔\n}\n\n// 定义变量，表示要提取的变更后的内容，可以用 `,` 或 `，` 分隔\nvar variables \u003d textFieldInput1; // 解析多个\n\n// 调用函数并输出结果\ngenerateSettingsCommand(originalData, variables);",
+            "customContextDataKey": {
+            },
+            "note": "解析成Shell命令",
+            "id": "A-1bce78fd-7157-4b0f-b25c-8535655f1d79"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-4c49c453-175e-4bb0-99a4-4278cb0c0423"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "复制完毕",
+            "customContextDataKey": {
+            },
+            "id": "A-73e8bd36-e0fe-4966-9e09-d7c1032775b0"
+          }]
+        }],
+        "title": "解析类型",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-423527bf-3abb-4077-8ee1-8d5ca95659ae"
+      }],
+      "neutral": "全部复制",
+      "onNeutral": [{
+        "@type": "type.googleapis.com/ShowMenuDialog",
+        "items": [{
+          "title": "Mvel表达式",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "// 原始数据\nvar originalData \u003d jsRet;\n\n// 函数解析变更内容\nfunction parseSettingChange(variables) {\n    // 将原始数据按行分割成数组\n    var lines \u003d originalData.split(\"\\n\");\n    \n    // 如果没有传入变量，则默认解析所有变更\n    var variableArray \u003d variables ? variables.split(/[,，]/).map(Number) : Array.from({length: lines.length / 2}, (_, i) \u003d\u003e i + 1);\n    \n    var results \u003d [];\n    \n    // 遍历每个变量\n    for (var i \u003d 0; i \u003c variableArray.length; i++) {\n        var variable \u003d variableArray[i];\n        \n        // 计算变更后的行的索引\n        var changeLineIndex \u003d (variable - 1) * 2 + 1; // 变更后的行的索引\n        \n        if (changeLineIndex \u003c lines.length) { // 确保索引在范围内\n            var changeLine \u003d lines[changeLineIndex]; // 变更后的行\n            \n            // 使用正则表达式提取设置名称和值，支持数字或字符串\n            var regex \u003d /变更后:\\s+(\\w+)\\s+(\\w+):\\s+(.+)/;\n            var match \u003d changeLine.match(regex);\n    \n            if (match) {\n                var type \u003d match[1]; // 提取类型（Secure, Global, System）\n                var setting \u003d match[2]; // 提取设置名称\n                var afterValue \u003d match[3]; // 提取新值\n    \n                // 生成代码\n                var result \u003d `android.provider.Settings$${type}.putString(context.contentResolver, \"${setting}\", \u0027${afterValue}\u0027);`;\n                results.push(result); // 保存结果\n            } else {\n                results.push(`Invalid match for variable ${variable}`);\n            }\n        } else {\n            results.push(`Invalid variable value: ${variable}`);\n        }\n    }\n    \n    return results.join(\"\\n\"); // 返回所有结果，用换行符分隔\n}\n\n// 定义变量，表示要提取第几个变更后的内容，可以用 `,` 或 `，` 分隔，\n// 如果不传参数，则默认解析所有变更\nvar variables \u003d \u0027\u0027; // 解析所有变更后的内容\n\n// 调用函数并输出结果\nparseSettingChange(variables);",
+            "customContextDataKey": {
+            },
+            "note": "解析成Mvel表达式",
+            "id": "A-6f1d7aa7-967e-4cd7-8733-83246d8c9104"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-3a1dcc3e-d06d-4bc9-b3ea-59cbd088b5a0"
+          }]
+        }, {
+          "title": "Shell命令",
+          "clickActions": [{
+            "@type": "type.googleapis.com/ExecuteJS",
+            "expression": "// 原始数据\nvar originalData \u003d jsRet;\n\n// 函数解析所有变更内容并生成命令\nfunction generateAllSettingsCommands(data) {\n    var lines \u003d data.split(\"\\n\");\n    var commands \u003d [];\n\n    // 遍历所有行，寻找变更后的设置\n    for (var i \u003d 0; i \u003c lines.length; i++) {\n        var line \u003d lines[i];\n        \n        // 使用正则表达式提取设置名称和值\n        var regex \u003d /变更后:\\s+(\\w+)\\s+(\\w+):\\s+(.+)/; // 捕获值可以是数字或字符串\n        var match \u003d line.match(regex);\n\n        if (match) {\n            var type \u003d match[1]; // 提取类型（Secure, Global, System）\n            var setting \u003d match[2]; // 提取设置名称\n            var afterValue \u003d match[3]; // 提取新值\n            \n            // 生成命令\n            var command \u003d `settings put ${type.toLowerCase()} ${setting} ${afterValue}`;\n            commands.push(command); // 保存命令\n        }\n    }\n    \n    return commands.length \u003e 0 ? commands.join(\"\\n\") : \u0027No valid settings found.\u0027; // 返回所有命令\n}\n\n// 调用函数并输出结果\ngenerateAllSettingsCommands(originalData);",
+            "customContextDataKey": {
+            },
+            "note": "解析成Shell命令",
+            "id": "A-6f1d7aa7-967e-4cd7-8733-83246d8c9104"
+          }, {
+            "@type": "type.googleapis.com/WriteClipboard",
+            "text": "{jsRet}",
+            "customContextDataKey": {
+            },
+            "id": "A-faf256f8-3ef4-4fcb-8868-4e0b15f7e5dd"
+          }]
+        }],
+        "title": "解析类型",
+        "cancelable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-cc18b516-6d2f-4be3-a5e2-caa4ba6a3d05"
+      }],
+      "title": "设置项监视器",
+      "message": "{jsRet}",
+      "cancelable": true,
+      "customContextDataKey": {
+      },
+      "id": "A-570cdad8-828e-4dbc-bcce-3d183fd6c35a"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "Setting",
+      "customContextDataKey": {
+      },
+      "id": "A-205edba0-4202-4cde-b017-3aae954d332d"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-396640e5-c111-428e-9b5f-fd49234150a2"
+  }],
+  "id": "SHARED-DA-88e8aacf-6c30-4c6a-9b75-b4047d42ba20",
+  "lastUpdateTime": "1728730486217",
+  "createTime": "1728713310475",
+  "author": {
+    "name": "He"
+  },
+  "title": "设置项监视器 3.0",
+  "description": "变化前运行一次，变化后运行一次\n对标设置项监视器App,找出设置项变化。",
+  "versionCode": "3",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

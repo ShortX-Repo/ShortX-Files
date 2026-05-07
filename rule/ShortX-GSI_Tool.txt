@@ -1,0 +1,192 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/OnQSTileClick",
+    "tileNumber": 1,
+    "customContextDataKey": {
+    },
+    "id": "F-5e7a26dc-8de5-4b71-ab08-1f18e388e73f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "是",
+    "onPositive": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "gsi_tool enable",
+      "customContextDataKey": {
+      },
+      "id": "A-8f820e27-ebef-4308-9842-34bd48526d47"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{shellOut} \u003d\u003d \"Live image install successfully enabled.\"",
+        "customContextDataKey": {
+        },
+        "id": "C-c3b2ec94-3ed4-4c70-a03a-6b884570dc0f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "title": "提示",
+        "message": "下次启动时，此设备将默认进入GSI。",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-facdb057-cc5d-4543-8d8b-9b4ad86202a5"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-ea45ba18-cb2d-46a1-a963-9388e7233360"
+        }],
+        "negative": "好的",
+        "title": "警告",
+        "message": "出错了！下面是指令信息：\n{shellOut}",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-54b4d2a6-40af-4a69-9a45-17e87c764370"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ae3714cb-a312-4543-b01b-29efa760b50d"
+    }],
+    "negative": "否",
+    "onNegative": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "gsi_tool disable",
+      "customContextDataKey": {
+      },
+      "id": "A-8f820e27-ebef-4308-9842-34bd48526d47"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{shellOut} \u003d\u003d \"Live image install successfully disabled.\"",
+        "customContextDataKey": {
+        },
+        "id": "C-c3b2ec94-3ed4-4c70-a03a-6b884570dc0f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "title": "提示",
+        "message": "下次启动时，此设备不会默认进入GSI。",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-facdb057-cc5d-4543-8d8b-9b4ad86202a5"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-ea45ba18-cb2d-46a1-a963-9388e7233360"
+        }],
+        "negative": "好的",
+        "title": "警告",
+        "message": "出错了！下面是指令信息：\n{shellOut}",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-54b4d2a6-40af-4a69-9a45-17e87c764370"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ae3714cb-a312-4543-b01b-29efa760b50d"
+    }],
+    "neutral": "查询状态",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "gsi_tool status",
+      "customContextDataKey": {
+      },
+      "id": "A-8f820e27-ebef-4308-9842-34bd48526d47"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/MatchMVEL",
+        "expression": "{shellOut} !\u003d null",
+        "customContextDataKey": {
+        },
+        "id": "C-c3b2ec94-3ed4-4c70-a03a-6b884570dc0f"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "好的",
+        "title": "提示",
+        "message": "您的GSI状态如下：\n{shellOut}",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-facdb057-cc5d-4543-8d8b-9b4ad86202a5"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "复制",
+        "onPositive": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-ea45ba18-cb2d-46a1-a963-9388e7233360"
+        }],
+        "negative": "好的",
+        "title": "警告",
+        "message": "出错了！未能成功获取到任何信息！",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-54b4d2a6-40af-4a69-9a45-17e87c764370"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-ae3714cb-a312-4543-b01b-29efa760b50d"
+    }],
+    "title": "GSI启动管理",
+    "message": "是否启用默认进入GSI系统？",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-ade465f0-4594-4fda-8192-6c21744fbf6c"
+  }],
+  "id": "SHARE-rule-91dc4bf1-0f18-49b7-a273-fd76f3a92b64",
+  "lastUpdateTime": "1750867683232",
+  "createTime": "1750867056187",
+  "author": {
+    "name": "淫乱"
+  },
+  "title": "GSI Tool",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

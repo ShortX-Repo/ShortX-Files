@@ -1,0 +1,38 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "id": "F-8f240a78-5b7e-47e1-9e5a-3803a9fe3a49"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "应用停止移除，划卡 {appLabel}",
+    "icon": "app://{pkgName}",
+    "id": "A-dc676b6b-5a26-4a5b-a24a-d6da0d308740"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "任务移除，最近任务卡片{appLabel}",
+    "isDisabled": true,
+    "id": "A-f2d0a215-f9fc-4674-be8b-82add8e1228e"
+  }, {
+    "@type": "type.googleapis.com/RemoveTasksByPkg",
+    "pkgAndUsers": [{
+      "first": "{pkgName}",
+      "second": "{userId}"
+    }],
+    "id": "A-336d7fe3-274a-47c4-99bd-c3148f6c31d1"
+  }],
+  "id": "rule-cf28ec17-a927-46df-b7ca-e3bd7abebfad",
+  "lastUpdateTime": "1692274914686",
+  "createTime": "1692274570363",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "应用停止，最近任务卡片",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

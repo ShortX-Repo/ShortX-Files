@@ -1,0 +1,71 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "su -c \"cat /data/user/0/com.huati/files/mmkv/config | grep -o \u0027tokenqp[^[:blank:]]*\u0027 | tail -n 1\"\n#这个命令将以超级用户身份使用 su -c 读取文件的所有内容（使用 cat 命令），然后使用 grep 命令匹配并输出以\"tokenqp\"开头且紧跟着非空白字符（例如空格、制表符等）的部分。最后利用 tail -n 1 只保留最后一个匹配结果。\n\n#请确保将上述命令中的 /data/user/0/com.huati/files/mmkv/config 替换为实际的文件路径。这样，你就可以定位并只匹配文本中最后一个出现的\"tokenqp\"。",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-b5bb0810-76a8-4e95-80ba-0544ab5a99a4"
+  }, {
+    "@type": "type.googleapis.com/CreateGlobalVar",
+    "globalVar": {
+      "name": "hlxkey",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-0c263bf9-4136-4bd1-8bfe-ba0425aa80fa"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "hlxkey",
+    "valueAsString": "{shellOut}",
+    "customContextDataKey": {
+    },
+    "id": "A-6d0f06d4-3c66-4e71-b568-2f2172336edd"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\n\nString msgText \u003d globalVarOf$hlxkey; \n\n;\nPattern pattern \u003d Pattern.compile(\"tokenqp([a-zA-Z0-9]{112})\");\nMatcher matcher \u003d pattern.matcher(msgText);\nif (matcher.find()) {\n    String pinCode \u003d matcher.group(1);\n    return pinCode;\n} else {\n    return false;\n}\n",
+    "customContextDataKey": {
+    },
+    "id": "A-37ff078e-c03c-4d6b-8bb8-5430e548e92f"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-026ce9de-0227-43d2-bc18-50fc5a86dc08"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "key已复制",
+      "customContextDataKey": {
+      },
+      "id": "A-7c818e00-c8b9-4c17-b33d-d7d7c6713fc5"
+    }],
+    "negative": "取消",
+    "title": "葫芦侠登录Key",
+    "message": "{mvelRet}",
+    "cancelable": true,
+    "customContextDataKey": {
+    },
+    "id": "A-39e8d2af-2b28-40de-9d94-860313526ee9"
+  }],
+  "id": "SHARED-DA-3492a264-548e-4174-bdce-c641b145745a",
+  "lastUpdateTime": "1728969246215",
+  "createTime": "1706641510898",
+  "author": {
+    "name": "墨上千里"
+  },
+  "title": "葫芦侠获取Key",
+  "description": "By酷安墨上千里\n用于获取登录葫芦侠三楼APP后的账号Key，请确保你安装并登录葫芦侠三楼APP再执行",
+  "versionCode": "1",
+  "directActionSetId": "DS-83b2200e-63bd-481c-b97e-52b5671276d6",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

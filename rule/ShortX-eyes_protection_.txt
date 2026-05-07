@@ -1,0 +1,269 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/UserPresent",
+    "customContextDataKey": {
+    },
+    "id": "F-c04b09d5-9b10-461a-90c2-4deec1795e06"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/ScreenIsOn",
+    "customContextDataKey": {
+    },
+    "id": "C-65a56b9c-b71d-492d-b49a-40594abf1f17"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "why do you open your phone",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-1c821b2b-d29c-4e21-9a8d-2982f2cfa3f9"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "I see",
+    "title": "Why did you opened your phone",
+    "message": "think twice before you use phone",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1adf2c65-c86c-4abc-a4b1-e8dda5e33a80"
+  }, {
+    "@type": "type.googleapis.com/ShowMenuDialog",
+    "items": [{
+      "title": "1min",
+      "clickActions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "allowTime",
+        "valueAsString": "6000",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-83251644-0e58-4ae8-b9eb-d1171fa82492"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "localVarOf$allowTime\n\nglobalVarOf$allowTime",
+        "customContextDataKey": {
+        },
+        "id": "A-69c71e07-2838-4b9b-ae47-d29bde9804d6"
+      }]
+    }, {
+      "title": "5min",
+      "clickActions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "allowTime",
+        "valueAsString": "60000",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-dc92f263-2c2f-42b1-9d72-fd8f2c39571f"
+      }]
+    }, {
+      "title": "10min",
+      "clickActions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "allowTime",
+        "valueAsString": "60000",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-dc92f263-2c2f-42b1-9d72-fd8f2c39571f"
+      }]
+    }, {
+      "title": "30min",
+      "clickActions": [{
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "allowTime",
+        "valueAsString": "6000000",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-dc92f263-2c2f-42b1-9d72-fd8f2c39571f"
+      }]
+    }],
+    "title": "How long you need to use phone ",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-4a50427d-52a1-49ea-8306-ed826ab400c7"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "isIgnored",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-5f6a062b-2017-4682-9f44-a23659314515"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "isIgnored",
+    "valueAsString": "false",
+    "customContextDataKey": {
+    },
+    "id": "A-f6985bb9-a470-4176-8098-cd53a9886700"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "isFirstLoop",
+      "type": {
+        "@type": "type.googleapis.com/BoolVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-1bd1277f-77bf-4b1f-8996-ef371d2eb7c2"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "isFirstLoop",
+    "valueAsString": "true",
+    "customContextDataKey": {
+    },
+    "id": "A-276dcd1a-4691-4f7a-bd5d-8f6b8d42f603"
+  }, {
+    "@type": "type.googleapis.com/WhileLoop",
+    "conditions": [{
+      "@type": "type.googleapis.com/ScreenIsOn",
+      "customContextDataKey": {
+      },
+      "id": "C-cdee82b3-7878-4ff9-b080-b0b28ebdb4ef"
+    }, {
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "EqualTo",
+      "varName": "isIgnored",
+      "payload": {
+        "value": "false"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-4e5d2587-f7df-4817-97ac-9e137e73be72"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "isFirstLoop",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-ad1846ae-915f-4fac-8c42-5a3b8dc922af"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "isFirstLoop",
+        "valueAsString": "false",
+        "customContextDataKey": {
+        },
+        "id": "A-28bfc061-907f-4574-8fae-c1de43475986"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "positive": "I see",
+        "onPositive": [{
+          "@type": "type.googleapis.com/NoAction",
+          "icon": "stop-circle-fill",
+          "customContextDataKey": {
+          },
+          "id": "A-df18d55a-802c-4232-bd1c-8b9514c37299"
+        }],
+        "negative": "Don\u0027t remind me again",
+        "onNegative": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "isIgnored",
+          "valueAsString": "true",
+          "customContextDataKey": {
+          },
+          "id": "A-c2dcf303-3225-4839-867d-30cb8bbc8ea0"
+        }],
+        "title": "Take care of your eyes ",
+        "message": "You\u0027ve been looking at your phone for 10 minutes now. Don\u0027t forget why you turned it on in the first place.",
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-eb13c2de-7319-4413-a39c-21df0616a2cd"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-de28aba2-859a-4c28-9baa-6e3950c91c71"
+    }],
+    "delay": 600000,
+    "customContextDataKey": {
+    },
+    "id": "A-1e681261-dd8d-4837-a774-c03a74c0eaf9"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "varName": "globalVarOf$allowTime",
+      "payload": {
+        "value": "0"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-6cfc690a-3a2a-420a-afe2-57762b091471"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-4d82199f-cf6c-4a54-8d8b-75980c75ecaa"
+  }],
+  "id": "SHARE-rule-dc5fc032-6423-4915-9d9a-0d77a2c7ecd5",
+  "lastUpdateTime": "1762678081378",
+  "createTime": "1734497190503",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "eyes protection ",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "allowTime",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c40c6975-99e2-435c-ad61-6aa471b54fab"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "The eye comfort reminder service will be enabled the next time you unlock the screen.",
+      "customContextDataKey": {
+      },
+      "id": "A-055fea78-77e6-4f6b-a565-e1392866fd63"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "The eye protection reminder service has been disabled.",
+      "customContextDataKey": {
+      },
+      "id": "A-4a25218a-da44-405e-95da-bd5e6d0adc7a"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/ScreenOff",
+      "customContextDataKey": {
+      },
+      "id": "F-713b0ed7-cb0b-4f01-a6f7-164281674f71"
+    }],
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

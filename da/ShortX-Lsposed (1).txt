@@ -1,0 +1,22 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "API\u003d$(getprop ro.build.version.sdk)\nif [ \"$API\" -ge 29 ]; then\n  am broadcast -a android.telephony.action.SECRET_CODE -d android_secret_code://5776733 android\nelse\n  am broadcast -a android.provider.Telephony.SECRET_CODE -d android_secret_code://5776733 android\nfi",
+    "customContextDataKey": {
+    },
+    "id": "A-b2d6af6f-63ce-48de-8abc-efaa4b1a6832"
+  }],
+  "id": "SHARED-DA-900a07c1-aea2-4e1c-9381-44f3558f6834",
+  "lastUpdateTime": "1745901913106",
+  "createTime": "1745901874458",
+  "author": {
+    "name": "昔年别梦"
+  },
+  "title": "Lsposed",
+  "versionCode": "1",
+  "directActionSetId": "DS-a72eb645-6949-4685-9c0f-fda62ad99fc6",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

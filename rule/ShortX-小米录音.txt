@@ -1,0 +1,57 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AdvancedKeyEvent",
+    "keyCode": 25,
+    "gesture": "KeyMultiplePress",
+    "isInterceptMode": true,
+    "customContextDataKey": {
+    },
+    "id": "F-f27d2a1a-6169-4b22-b87c-54b32eb7f9fb"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/CurrentPkgListByPkg",
+      "pkgAndUsers": [{
+        "first": "com.android.soundrecorder",
+        "second": "0"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-415268ff-69d8-4b89-82c6-39d9c2de6964"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StartActivityIntentUri",
+      "intentUri": "intent:#Intent;launchFlags\u003d0x10000000;extendedLaunchFlags\u003d0x4;component\u003dcom.android.soundrecorder/.RecordPreviewActivity;end",
+      "customContextDataKey": {
+      },
+      "id": "A-d08ac466-9007-44cc-a370-88b89f01ab21"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/StartActivityIntentUri",
+      "intentUri": "intent:#Intent;launchFlags\u003d0x14000000;extendedLaunchFlags\u003d0x4;component\u003dcom.android.soundrecorder/.SoundRecorder;B.extra_is_from_record_list\u003dtrue;end",
+      "customContextDataKey": {
+      },
+      "id": "A-fafc6443-2b11-43a3-84bf-5d79ffc3a443"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-3ca59304-7598-472c-aec6-259cfb4acbbe"
+  }],
+  "id": "SHARE-rule-16d62a79-1c31-43da-9b22-92f4d6b996ff",
+  "lastUpdateTime": "1777625410668",
+  "createTime": "1777606162434",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "小米录音",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

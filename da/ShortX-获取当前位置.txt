@@ -1,0 +1,35 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importClass(android.location.LocationManager);\nimportClass(android.location.LocationListener);\nimportClass(android.os.Bundle);\nimportClass(android.os.Looper);\nimportClass(android.content.Context);\nimportClass(java.lang.Runnable);\nimportClass(android.os.Handler);\nimportClass(java.lang.Thread);\n\nfunction getSingleLocation() {\n    var result \u003d null;\n    var handler \u003d new Handler(Looper.getMainLooper());\n\n    handler.post(new Runnable({\n        run: function () {\n            try {\n                var locationManager \u003d context.getSystemService(Context.LOCATION_SERVICE);\n\n                var listener \u003d new LocationListener({\n                    onLocationChanged: function (loc) {\n                        try {\n                            // 某些系统可能会返回数组或包装对象\n                            var location \u003d loc;\n                            if (loc instanceof java.util.List || loc instanceof Array) {\n                                location \u003d loc.get(0); \n                            }\n\n                            var lat \u003d location.getLatitude();\n                            var lon \u003d location.getLongitude();\n                            var acc \u003d location.getAccuracy();\n                            var alt \u003d location.getAltitude();\n                            result \u003d \"主动获取位置成功: 纬度\u003d\" + lat + \" 经度\u003d\" + lon + \" 海拔\u003d\" + alt + \" 精度±\" + acc + \"米\";\n\n                            locationManager.removeUpdates(this);\n                            console.log(result);\n                        } catch (e) {\n                            result \u003d \"解析位置失败: \" + e;\n                            console.log(result);\n                        }\n                    },\n                    onStatusChanged: function () {},\n                    onProviderEnabled: function () {},\n                    onProviderDisabled: function () {}\n                });\n\n                var provider \u003d null;\n                var possible \u003d [\"gps\", \"network\", \"fused\"];\n                for (var i \u003d 0; i \u003c possible.length; i++) {\n                    if (locationManager.isProviderEnabled(possible[i])) {\n                        provider \u003d possible[i];\n                        break;\n                    }\n                }\n\n                if (!provider) {\n                    result \u003d \"无可用定位服务\";\n                    console.log(result);\n                    return;\n                }\n\n                locationManager.requestLocationUpdates(provider, 0, 0, listener);\n            } catch (e) {\n                result \u003d \"获取位置失败: \" + e;\n                console.log(result);\n            }\n        }\n    }));\n\n    var maxWait \u003d 100;\n    while (result \u003d\u003d\u003d null \u0026\u0026 maxWait-- \u003e 0) {\n        Thread.sleep(100);\n    }\n\n    return result || \"主动定位超时\";\n}\n\ngetSingleLocation();",
+    "customContextDataKey": {
+    },
+    "id": "A-862de9d4-ea67-452e-99e7-b0b8ac03c037"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "确定",
+    "title": "定位信息",
+    "message": "{jsRet}",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-4bb7011d-97ce-452b-af46-d44501900f49"
+  }],
+  "id": "SHARED-DA-41ffbd6a-956f-43a4-994d-e56f59b59676",
+  "lastUpdateTime": "1753675084202",
+  "createTime": "1753627433892",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "获取当前位置",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

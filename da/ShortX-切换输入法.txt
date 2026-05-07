@@ -1,0 +1,23 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.graphics);\nimportPackage(android.provider);\nimportPackage(android.util);\nvar context \u003d context || com.android.server.SystemServer.context;\n\nfunction showInputMethodSelectionDialog() {\n    function runOnUiThread(fn) {\n        new Handler(Looper.getMainLooper()).post(new java.lang.Runnable({\n            run: fn\n        }));\n    }\n\n    runOnUiThread(function () {\n        var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n        var metrics \u003d new DisplayMetrics();\n        windowManager.getDefaultDisplay().getMetrics(metrics);\n        var screenWidth \u003d metrics.widthPixels;\n        var screenHeight \u003d metrics.heightPixels;\n\n        var layout \u003d new LinearLayout(context);\n        layout.setOrientation(LinearLayout.VERTICAL);\n        layout.setBackgroundColor(Color.TRANSPARENT);\n        var backgroundDrawable \u003d new android.graphics.drawable.GradientDrawable();\n        backgroundDrawable.setColor(Color.WHITE);\n        backgroundDrawable.setCornerRadius(30); \n        layout.setBackground(backgroundDrawable);\n        layout.setPadding(20, 20, 20, 20); \n        var titleView \u003d new TextView(context);\n        titleView.setText(\"选择输入法\");\n        titleView.setTextSize(22);\n        titleView.setTextColor(Color.BLACK);\n        titleView.setGravity(Gravity.CENTER);\n        titleView.setPadding(0, 0, 0, 10); \n        layout.addView(titleView);\n        var imm \u003d context.getSystemService(Context.INPUT_METHOD_SERVICE);\n        var inputMethods \u003d imm.getEnabledInputMethodList();\n        var inputMethodNames \u003d [];\n        var inputMethodIds \u003d [];\n        for (var i \u003d 0; i \u003c inputMethods.size(); i++) {\n            var inputMethodInfo \u003d inputMethods.get(i);\n            inputMethodNames.push(inputMethodInfo.loadLabel(context.getPackageManager()).toString());\n            inputMethodIds.push(inputMethodInfo.getId());\n        }\n        var listView \u003d new ListView(context);\n        var adapter \u003d new android.widget.ArrayAdapter(context, android.R.layout.simple_list_item_1, inputMethodNames);\n        listView.setAdapter(adapter);\n        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener({\n            onItemClick: function (parent, view, position, id) {\n                var selectedInputMethodId \u003d inputMethodIds[position];\n                Settings.Secure.putString(context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, selectedInputMethodId);\n                try {\n                    windowManager.removeView(layout);\n                } catch (e) { }\n                uiClosed \u003d true;\n            }\n        }));\n        var listParams \u003d new LinearLayout.LayoutParams(\n            LinearLayout.LayoutParams.MATCH_PARENT,\n            0, \n            1 \n        );\n        listView.setLayoutParams(listParams);\n        layout.addView(listView);\n\n        // 设置布局参数\n        var layoutParams \u003d new WindowManager.LayoutParams(\n            parseInt(screenWidth * 0.8), // 设置宽度为屏幕宽度的80%\n            LinearLayout.LayoutParams.WRAP_CONTENT, // 高度自适应内容\n            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n            PixelFormat.TRANSLUCENT\n        );\n        layoutParams.gravity \u003d Gravity.CENTER;\n        try {\n            windowManager.addView(layout, layoutParams);\n        } catch (e) {\n            console.log(\"添加视图失败：\" + e);\n            uiClosed \u003d true;\n        }\n    });\n    var uiClosed \u003d false;\n}\nshowInputMethodSelectionDialog()",
+    "customContextDataKey": {
+    },
+    "id": "A-36940afa-ad0f-4572-862c-b402c8fdc639"
+  }],
+  "id": "SHARED-DA-9bed31c8-7b9a-4221-bcba-2d8ba7c016ce",
+  "lastUpdateTime": "1762615498208",
+  "createTime": "1762615379272",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "切换输入法",
+  "versionCode": "1",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

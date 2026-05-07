@@ -1,0 +1,38 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BTDisconnectedFrom",
+    "device": ["*"],
+    "customContextDataKey": {
+    },
+    "id": "F-bdfa549f-fcf8-42ea-b235-ab72f0c1e955"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WhileLoop",
+    "actions": [{
+      "@type": "type.googleapis.com/TTS",
+      "text": "捧",
+      "customContextDataKey": {
+      },
+      "id": "A-be9a5073-6e40-4a71-b9d9-8671df46d147"
+    }],
+    "delay": 1000,
+    "repeatTimes": 20,
+    "customContextDataKey": {
+    },
+    "id": "A-87740661-0e37-4bda-957b-1fde33be0ffe"
+  }],
+  "id": "rule-1bc0acbb-061d-496b-a427-83044eacc345",
+  "lastUpdateTime": "1700743116321",
+  "createTime": "1700742575728",
+  "author": {
+    "name": "基佬啊"
+  },
+  "title": "人机分离自动爆炸",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

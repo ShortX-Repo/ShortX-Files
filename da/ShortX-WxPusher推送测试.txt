@@ -1,0 +1,99 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "token",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-6020c7ff-d4ad-40c1-b4d9-ce341634616d"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "token",
+    "valueAsString": "填写WxPusher的Apptoken",
+    "customContextDataKey": {
+    },
+    "id": "A-32f1606d-e862-4f98-97be-4651bf8a3715"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "title",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-54e73474-c6b0-4902-8238-b14e6ba75880"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "title",
+    "valueAsString": "标题",
+    "customContextDataKey": {
+    },
+    "id": "A-4acadbf8-8bb7-4152-98e8-db61c10efa89"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "content",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-18968774-66ad-498e-8872-da3d19436896"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "content",
+    "valueAsString": "内容",
+    "customContextDataKey": {
+    },
+    "id": "A-61462711-d3bb-4bdb-94cd-c51e8bf6458f"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "tid",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-f4d6bf47-77f0-41d1-85c0-2472110b3578"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "tid",
+    "valueAsString": "主题id",
+    "customContextDataKey": {
+    },
+    "id": "A-a454e3a8-2b26-4b21-9c95-26e752904c82"
+  }, {
+    "@type": "type.googleapis.com/HttpRequest",
+    "url": "https://wxpusher.zjiecode.com/api/send/message",
+    "adapter": {
+      "@type": "type.googleapis.com/HttpRequestRawAdapter"
+    },
+    "method": "POST",
+    "requestBody": {
+      "@type": "type.googleapis.com/HttpRequestBodyJson",
+      "json": "{\n  \"appToken\":\"localVarOf$token\",\n  \"content\":\"localVarOf$content\",\n  \"summary\":\"localVarOf$title\",\n  \"topicIds\":[\n     localVarOf$tid\n   ]\n}"
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-a711a327-9d16-4c49-831d-a310670c3cfb"
+  }],
+  "id": "DA30a598b4-d647-4dc8-9b5f-bbc4e7b4063b",
+  "lastUpdateTime": "1699105315148",
+  "createTime": "1699096399469",
+  "author": {
+    "name": "Fearless"
+  },
+  "title": "WxPusher推送测试",
+  "versionCode": "1"
+}
+###------###
+{"type":"da"}

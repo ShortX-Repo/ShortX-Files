@@ -1,0 +1,61 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ScreenOn",
+    "customContextDataKey": {
+    },
+    "id": "F-b1a7746c-f38d-4224-af2f-9ec2ed1d8425"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/RequireWifiConnected",
+    "requiredSSID": "kangnajiang_5G",
+    "customContextDataKey": {
+    },
+    "id": "C-b82e684c-8d76-4902-88b8-0b6ab469a8c3"
+  }, {
+    "@type": "type.googleapis.com/KeyguardIsLocked",
+    "customContextDataKey": {
+    },
+    "id": "C-38edbbb9-666e-41b3-b7f9-5917b02fc49c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-2f8bbc8a-783b-4937-a2a5-939947c86a92"
+  }, {
+    "@type": "type.googleapis.com/InjectGestureRecording",
+    "gestureId": "75343c0c-f707-4ccb-b92a-e88497f6231a",
+    "speed": 5.0,
+    "customContextDataKey": {
+    },
+    "id": "A-9aa02283-fac0-4598-aebd-102620d138fe"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-176fa817-05eb-4c49-947d-8484082cbc56"
+  }, {
+    "@type": "type.googleapis.com/InjectGestureRecording",
+    "gestureId": "40899991-7069-45bb-b702-03800c98c11e",
+    "speed": 5.0,
+    "customContextDataKey": {
+    },
+    "id": "A-1860f6d3-7b05-4b69-a8f1-9c58d977784c"
+  }],
+  "id": "rule-558aa788-f2e8-46ca-b336-eed7c8143127",
+  "lastUpdateTime": "1693924915071",
+  "createTime": "1692027248377",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "回家自动解锁(图案密码)",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

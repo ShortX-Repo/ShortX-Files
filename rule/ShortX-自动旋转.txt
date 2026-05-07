@@ -1,46 +1,141 @@
 {
   "facts": [{
-    "@type": "type.googleapis.com/AudioFocusGain",
-    "pkgSets": ["Video"],
-    "id": "F-d6dc5c88-3d43-4993-ae2e-24e71860cb05"
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "apps": [{
+      "pkgName": "com.ss.android.ugc.aweme"
+    }],
+    "tag": "开启",
+    "customContextDataKey": {
+    },
+    "id": "F-2115daae-69fd-459f-9bf7-7011e9498fef"
   }, {
-    "@type": "type.googleapis.com/AudioFocusLost",
-    "pkgSets": ["Video"],
-    "id": "F-50656064-e1e0-4de4-aa7e-4ce04196d373"
+    "@type": "type.googleapis.com/AppBecomeBg",
+    "apps": [{
+      "pkgName": "com.ss.android.ugc.aweme"
+    }],
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-10c64f99-9fbf-47e7-ab22-ae33d84e0ce6"
+  }, {
+    "@type": "type.googleapis.com/TaskRemoved",
+    "apps": [{
+      "pkgName": "com.ss.android.ugc.aweme"
+    }],
+    "tag": "关闭",
+    "customContextDataKey": {
+    },
+    "id": "F-4a31214e-7807-48fa-93d9-66c2a3bbceba"
   }],
   "actions": [{
     "@type": "type.googleapis.com/IfThenElse",
     "If": [{
-      "@type": "type.googleapis.com/AppHasAudioFocus",
-      "pkgSets": ["Video"],
-      "op": "ANY",
-      "id": "C-4d6b647d-ba64-43d7-ae4c-d880c3ff67d6"
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "开启",
+      "customContextDataKey": {
+      },
+      "id": "C-752135e7-eb99-4c16-88ed-cd5054981d1c"
+    }, {
+      "@type": "type.googleapis.com/RequireTileState",
+      "state": "QSTileState_InActive",
+      "tileSpec": "rotation",
+      "customContextDataKey": {
+      },
+      "id": "C-2212c89a-338d-4b88-95dd-950f09611fad"
     }],
     "IfActions": [{
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "settings put system accelerometer_rotation 1",
-      "id": "A-786e25e9-4f54-45f4-b961-5027fbace083"
+      "@type": "type.googleapis.com/ClickTile",
+      "tile": {
+        "tileSpec": "rotation",
+        "label": "自动旋转"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-977e1f92-3743-4a4f-a74d-8464ad358341"
     }],
-    "ElseActions": [{
-      "@type": "type.googleapis.com/ShellCommand",
-      "command": "settings put system accelerometer_rotation 0",
-      "id": "A-bed856b5-37f7-482b-942b-37b49fb1a27f"
+    "customContextDataKey": {
+    },
+    "note": "开启",
+    "id": "A-43a34019-0063-41c3-87ce-600f4bce6c55"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/RequireFactTag",
+      "tag": "关闭",
+      "customContextDataKey": {
+      },
+      "id": "C-7088d152-c358-41d3-b03c-b04f438b629f"
+    }, {
+      "@type": "type.googleapis.com/RequireTileState",
+      "state": "QSTileState_Active",
+      "tileSpec": "rotation",
+      "customContextDataKey": {
+      },
+      "id": "C-7a67a3bf-7345-4b94-a62f-c11d611dc692"
     }],
-    "id": "A-58a89af1-c38a-436a-837f-74f4278790bd"
+    "IfActions": [{
+      "@type": "type.googleapis.com/ClickTile",
+      "tile": {
+        "tileSpec": "rotation",
+        "label": "自动旋转"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-bb5d7df6-d665-4957-92e9-f182e07e9eaf"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "关闭",
+    "id": "A-e295ff2f-4537-42d9-bcc1-ca3aa48c66ef"
   }],
-  "id": "rule-80b31faa-77d2-4d40-b6f8-a1e40fe6193a",
-  "lastUpdateTime": "1689652572555",
-  "createTime": "1687235628878",
-  "title": "自动旋转-Ksu看简介",
-  "description": "KernelSU用户注意⚠️：需要手动给系统界面root权限。指定应用获得音频焦点自动开启屏幕旋转",
+  "id": "SHARE-rule-3a590a40-a205-4c9f-bbbf-b0b6be20dac0",
+  "lastUpdateTime": "1765950559780",
+  "createTime": "1765898768356",
   "author": {
-    "name": "Hidarihitomi"
+    "name": "ShortX"
   },
+  "title": "自动旋转",
   "isEnabled": true,
   "hook": {
   },
   "quit": {
-  }
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "apps": [{
+        "pkgName": "com.ss.android.ugc.aweme"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-8d768e72-0190-435e-aef2-c85795bdff24"
+    }, {
+      "@type": "type.googleapis.com/PkgStopRunning",
+      "apps": [{
+        "pkgName": "com.ss.android.ugc.aweme"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "F-3996bee7-92a1-467b-890c-7f7765c90d5a"
+    }],
+    "conditions": [{
+      "@type": "type.googleapis.com/RequireTileState",
+      "state": "QSTileState_Active",
+      "tileSpec": "rotation",
+      "customContextDataKey": {
+      },
+      "id": "C-50208f73-5d34-45d1-a342-746ec65fdcf9"
+    }],
+    "actions": [{
+      "@type": "type.googleapis.com/ClickTile",
+      "tile": {
+        "tileSpec": "rotation",
+        "label": "自动旋转"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-c1adcc66-b742-48a0-ae99-3836b0711dfd"
+    }]
+  },
+  "versionCode": "1"
 }
 ###------###
 {"type":"rule"}

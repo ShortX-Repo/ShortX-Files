@@ -1,0 +1,158 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.pearktrue.cn/api/zuan/ktff.php",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-f21947c3-0bd0-4018-a73d-c7bea2a121e3"
+      }, {
+        "@type": "type.googleapis.com/InputText",
+        "text": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-ec7cf5e9-a89e-4128-b7e8-66752f38077f"
+      }],
+      "label": "友好交流",
+      "id": "BTN-a1229c78-788b-44e0-83d9-3091f8a14bb5"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.pearktrue.cn/api/zuan/od.php",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-29ee4314-261f-4349-89e7-bf8574fb1555"
+      }, {
+        "@type": "type.googleapis.com/InputText",
+        "text": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-93fcf44c-d98c-458c-9966-acd6e56bccd8"
+      }],
+      "label": "殴打",
+      "id": "BTN-54135bdf-751b-4a83-a4bc-cd78ba8e0f58"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.pearktrue.cn/api/zuan/sk.php",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-4eb75ed1-bc1a-4b26-b3ac-eaafff7f49ef"
+      }, {
+        "@type": "type.googleapis.com/InputText",
+        "text": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-af8027a7-7a26-460e-9a02-a3056cf34d7b"
+      }],
+      "label": "散扣",
+      "id": "BTN-e5001011-a6fd-4ea0-9e48-4d4453229cad"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.pearktrue.cn/api/zuan/gd.php",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-30e544bc-564b-4f99-89bb-df1e1bc0d9a3"
+      }, {
+        "@type": "type.googleapis.com/InputText",
+        "text": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-5e2ca048-8282-43ff-96e9-a37af8b38bcc"
+      }],
+      "label": "滚刀",
+      "id": "BTN-2cb2297a-263d-4a98-b9a1-e002361eaece"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.pearktrue.cn/api/zuan/cf.php",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-01f61661-d3e3-4803-9454-86c4eadf01ad"
+      }, {
+        "@type": "type.googleapis.com/InputText",
+        "text": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-c97d7ab9-5a28-423a-9065-6db5916a6bd7"
+      }],
+      "label": "嘲讽",
+      "id": "BTN-371e5812-8273-4fa1-a366-ca470834fc6f"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HttpRequest",
+        "url": "https://api.pearktrue.cn/api/wuyaowang/",
+        "adapter": {
+          "@type": "type.googleapis.com/HttpRequestRawAdapter"
+        },
+        "requestBody": {},
+        "customContextDataKey": {
+        },
+        "id": "A-150ecbe1-f07f-4588-ae6d-35d9ce83846b"
+      }, {
+        "@type": "type.googleapis.com/InputText",
+        "text": "{httpRequestRet}",
+        "customContextDataKey": {
+        },
+        "id": "A-81ad3bdf-8926-4a2b-bfcf-f6844de5f858"
+      }],
+      "label": "巫妖王",
+      "id": "BTN-3d596c51-417d-4cdd-a282-e1e6665e29f0"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/HideOverlayButton",
+        "overlayTags": ["友好交流"],
+        "customContextDataKey": {
+        },
+        "id": "A-acb7659f-092d-4f59-b1d4-851cc1556cf4"
+      }],
+      "label": "关闭",
+      "id": "BTN-455c79ac-e303-4896-846b-e1f8e6d8af7c"
+    }],
+    "autoCollapse": true,
+    "tag": "友好交流",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 20,
+    "enableGlobalDrag": true,
+    "customContextDataKey": {
+    },
+    "id": "A-f4b46405-04c9-4065-b9df-ea503faa6634"
+  }],
+  "id": "DAcf59960e-a975-4773-a39f-b716cf5d67ec",
+  "lastUpdateTime": "1696061402285",
+  "createTime": "1694580614516",
+  "author": {
+    "name": "1"
+  },
+  "title": "友好交流",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "directActionSetId": "DS-96ffeabc-f4b0-419d-934f-640bcf405b42"
+}
+###------###
+{"type":"da"}

@@ -1,0 +1,406 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["VolumeAPP"],
+    "customContextDataKey": {
+    },
+    "id": "F-1b65e7ff-6866-44d9-afbd-38b4ab98357f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "VolumeAPPoneclick",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-34bc63ef-f035-4a00-b639-ff1ecfedc978"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "VolumeAPPclick",
+      "type": {
+        "@type": "type.googleapis.com/Int64Var"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-d90de910-fc1c-4045-b2c4-41927d45674c"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "date +%s",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "VolumeAPPclick1"
+      }]
+    },
+    "isDisabled": true,
+    "id": "A-57c2df79-a6a6-4e78-b541-296ecae45cd0"
+  }, {
+    "@type": "type.googleapis.com/WriteLocalVar",
+    "varName": "VolumeAPPclick",
+    "valueAsString": "{VolumeAPPclick1}",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-0ec4cd16-fce1-4340-9156-53749c2d97ee"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "localVarOf$VolumeAPPclick",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-6b2bb2da-530a-4fa9-a1e6-387bf865b242"
+  }, {
+    "@type": "type.googleapis.com/HideOverlayButton",
+    "overlayTags": ["VolumeAPPfloat"],
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "id": "A-9a6414a2-f67f-45e7-9d9a-3d966a479b1e"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/AdjustVolume",
+        "direction": "ADJUST_RAISE",
+        "showUI": true,
+        "customContextDataKey": {
+        },
+        "id": "A-209476a8-b654-440e-851b-9b93e54dbe5d"
+      }],
+      "icon": "add-fill",
+      "label": "Vol +"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "VolumeAPPoneclick",
+          "payload": {
+            "value": "1"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-008d8a58-136b-45b2-87a8-d39591d034fa"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/AdjustVolume",
+          "direction": "ADJUST_LOWER",
+          "showUI": true,
+          "customContextDataKey": {
+          },
+          "id": "A-c6cf9ff8-614d-4bf7-a0dc-7d0b7aa2cc76"
+        }, {
+          "@type": "type.googleapis.com/AdjustVolume",
+          "direction": "ADJUST_RAISE",
+          "showUI": true,
+          "customContextDataKey": {
+          },
+          "id": "A-4056de55-12f4-43ac-8f14-d4a2621475b5"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "100",
+          "customContextDataKey": {
+          },
+          "id": "A-e7985f0e-4d1c-4b98-87f6-bd7b6ebe852b"
+        }, {
+          "@type": "type.googleapis.com/InputTap",
+          "x": 101,
+          "y": 659,
+          "customContextDataKey": {
+          },
+          "id": "A-9e55be02-6462-413e-904c-6fa28babdc34"
+        }, {
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "双击",
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-ff9ddd19-9b6b-4591-ba5a-1e4fffa6e1b3"
+        }, {
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "VolumeAPPoneclick",
+          "valueAsString": "0",
+          "customContextDataKey": {
+          },
+          "id": "A-68d8b646-0f6a-4324-9712-c1d806bcddd7"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-09e22cf8-e680-48c8-8033-ad57efe705d8"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/WriteLocalVar",
+          "varName": "VolumeAPPoneclick",
+          "valueAsString": "1",
+          "customContextDataKey": {
+          },
+          "id": "A-18dc7a03-64fa-43b2-8c29-bb23918381b9"
+        }, {
+          "@type": "type.googleapis.com/Delay",
+          "timeString": "400",
+          "customContextDataKey": {
+          },
+          "id": "A-fef52b0e-5dc2-4154-a541-d79a446e78a6"
+        }, {
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/EvaluateLocalVar",
+            "op": "EqualTo",
+            "varName": "VolumeAPPoneclick",
+            "payload": {
+              "value": "1"
+            },
+            "customContextDataKey": {
+            },
+            "id": "C-71e88bc8-d192-4e99-9b1b-9d4074a921ba"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/AdjustVolume",
+            "direction": "ADJUST_TOGGLE_MUTE",
+            "showUI": true,
+            "customContextDataKey": {
+            },
+            "id": "A-15a83b12-5384-4fa7-ac86-c3bac0df4bb1"
+          }, {
+            "@type": "type.googleapis.com/ShowToast",
+            "message": "单击",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-0a4690c9-1940-436e-a4ea-ec1fb12054ae"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "VolumeAPPoneclick",
+            "valueAsString": "0",
+            "customContextDataKey": {
+            },
+            "id": "A-c2cba8af-198d-4ab8-a483-dcbdc8596400"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "customContextDataKey": {
+            },
+            "id": "A-70467ee2-4160-4134-8ca6-e7d1910d1c67"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "VolumeAPPoneclick",
+            "valueAsString": "0",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-95460086-4fa2-4c90-ab4e-5caf04cb91e8"
+          }, {
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "customContextDataKey": {
+            },
+            "isDisabled": true,
+            "id": "A-ecdd8d7f-f08a-4b13-9cdf-bca1805f44ea"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-e8895ba9-57ac-4212-be09-6f0001403fc2"
+        }, {
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "customContextDataKey": {
+          },
+          "id": "A-82288b87-d041-4c6a-af44-90c44b85f364"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-32911074-8b99-48cd-abbd-926662672916"
+      }, {
+        "@type": "type.googleapis.com/AdjustVolume",
+        "direction": "ADJUST_LOWER",
+        "showUI": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-f57d2606-8135-49a5-861e-2d2a96ea2116"
+      }, {
+        "@type": "type.googleapis.com/AdjustVolume",
+        "direction": "ADJUST_RAISE",
+        "showUI": true,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-d731af1c-9bd2-4a1a-a63c-c2e50484df0d"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "80",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-cc7e15fc-8301-481b-810f-31ad868c966e"
+      }, {
+        "@type": "type.googleapis.com/InputTap",
+        "x": 101,
+        "y": 659,
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-6a5c0162-e944-4acc-bed1-742350aebf5a"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys input | sed -rn \"/RecentQueue:/ n;/.*age\u003d([0-9]*).*/ {s//\\1/p,q}\"",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut"
+          }, {
+            "first": "shellErr"
+          }, {
+            "first": "shellCode"
+          }]
+        },
+        "isDisabled": true,
+        "id": "A-e74d7208-e401-4b68-bc81-c0c5d7df2b1b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "\nn\u003d${VolumeAPPclick1}\nn\u003d$((${VolumeAPPclick1}-date +%s))\necho \"$n\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "VolumeAPPclick2"
+          }, {
+            "first": "shellErr"
+          }, {
+            "first": "shellCode"
+          }]
+        },
+        "isDisabled": true,
+        "id": "A-2e0ac3bf-1f53-462f-a3b8-e6903554ee79"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "VolumeAPPclick",
+        "valueAsString": "{VolumeAPPclick2}",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-068aa6b1-042e-47ef-ad67-4498ff82193d"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "LessThan",
+          "varName": "VolumeAPPclick",
+          "payload": {
+            "value": "5000"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-dce1e27b-a8aa-4974-9e37-223bc0accacd"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "Ok",
+          "customContextDataKey": {
+          },
+          "id": "A-855b2edc-ec7c-42aa-98a4-90204e8e07b7"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "Not ok",
+          "customContextDataKey": {
+          },
+          "id": "A-370b7ccc-077f-49f5-990f-b891992c3fda"
+        }],
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-cf3b1150-bd97-481c-b480-fa4aad65b605"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "localVarOf$VolumeAPPclick",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-34c56c95-81df-408f-92bb-36d55b6b4648"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "VolumeAPPoneclick",
+        "valueAsString": "1",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-996b1a1b-7eec-419a-91fc-96ecc8d921d2"
+      }, {
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "单击",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-ef6377c9-c879-462a-ab21-947021b1882d"
+      }, {
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-2dc6790b-1d48-4554-8098-0e18a183427c"
+      }, {
+        "@type": "type.googleapis.com/WriteLocalVar",
+        "varName": "VolumeAPPoneclick",
+        "valueAsString": "0",
+        "customContextDataKey": {
+        },
+        "isDisabled": true,
+        "id": "A-44d1d01b-8554-4ca3-aa80-abd450a032db"
+      }],
+      "icon": "layout-column-line",
+      "label": "Vol O"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/AdjustVolume",
+        "direction": "ADJUST_LOWER",
+        "showUI": true,
+        "customContextDataKey": {
+        },
+        "id": "A-6527a1de-529e-482b-8b1c-9988c5a875c2"
+      }],
+      "icon": "subtract-fill",
+      "label": "Vol -"
+    }],
+    "tag": "VolumeAPPfloat",
+    "customContextDataKey": {
+    },
+    "id": "A-a754fdf2-7365-474d-890a-8b6d43a04c78"
+  }],
+  "id": "rule-dc50aeb2-5f91-44d5-ad90-9e6d7820a68c",
+  "lastUpdateTime": "1693624204485",
+  "createTime": "1693615609320",
+  "author": {
+    "name": "A.K"
+  },
+  "title": "音量调整面板",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/AppBecomeBg",
+      "pkgSets": ["VolumeAPP"],
+      "customContextDataKey": {
+      },
+      "id": "F-28e3fea7-2f76-4efc-8c2d-605459185314"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["VolumeAPPfloat"],
+      "customContextDataKey": {
+      },
+      "id": "A-998a767f-2cdf-4b4b-871f-553d6dcf94a1"
+    }]
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

@@ -1,0 +1,31 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-7313c344-c178-4825-b0f8-cb1119c41ee3"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo \"{clipboardContent}\" \u003e\u003e /sdcard/record.txt",
+    "singleShot": true,
+    "customContextDataKey": {
+    },
+    "id": "A-a40e30c3-9133-445e-a3d6-93d30d4252c3"
+  }],
+  "id": "SHARE-rule-1ad88178-99f8-4ac4-b5d3-453fc55c503d",
+  "lastUpdateTime": "1741174397211",
+  "createTime": "1741174335264",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "剪切板记录",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

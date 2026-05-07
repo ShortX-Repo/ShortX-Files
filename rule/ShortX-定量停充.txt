@@ -1,0 +1,30 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/BatteryLevelChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-2a9bc073-9adc-4588-a31d-77aa4436d6e5"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "Charging_switch\u003d\"/sys/class/qcom-battery/input_suspend\"\n  if [ {batteryLevel} -ge 80 ]; then\n    echo 1 \u003e $Charging_switch\n  elif [ {batteryLevel} -le 76 ]; then\n    echo 0 \u003e $Charging_switch\n  fi",
+    "customContextDataKey": {
+    },
+    "id": "A-c35178de-b387-4587-9cdb-1ee03251c2f5"
+  }],
+  "id": "SHARE-rule-a794265b-1c9b-4bc1-8de9-cac9a7364de8",
+  "lastUpdateTime": "1733634044558",
+  "createTime": "1733633711706",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "定量停充",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
