@@ -16,7 +16,7 @@
     "buttonSettings": [{
       "actions": [{
         "@type": "type.googleapis.com/ShellCommand",
-        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"+\"\n\n# 设定平分的份数\nDIVISIONS\u003d20\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 仅做下限限制，上限交给硬件\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"",
+        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"+\"\n\n# 设定平分的份数\nDIVISIONS\u003d20\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 下限限制\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 上限限制\nif [ $NEXT_BRIGHT -gt $MAX_BRIGHT ]; then\n    NEXT_BRIGHT\u003d$MAX_BRIGHT\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"\n",
         "customContextDataKey": {
           "keys": [{
             "first": "shellOut",
@@ -55,7 +55,7 @@
       "label": "手电筒亮度\n+",
       "longClickActions": [{
         "@type": "type.googleapis.com/ShellCommand",
-        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"+\"\n\n# 设定平分的份数\nDIVISIONS\u003d4\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 仅做下限限制，上限交给硬件\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"",
+        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"+\"\n\n# 设定平分的份数\nDIVISIONS\u003d4\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 下限限制\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 上限限制\nif [ $NEXT_BRIGHT -gt $MAX_BRIGHT ]; then\n    NEXT_BRIGHT\u003d$MAX_BRIGHT\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"\n",
         "customContextDataKey": {
           "keys": [{
             "first": "shellOut",
@@ -94,7 +94,7 @@
     }, {
       "actions": [{
         "@type": "type.googleapis.com/ShellCommand",
-        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"-\"\n\n# 设定平分的份数\nDIVISIONS\u003d20\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 仅做下限限制，上限交给硬件\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"",
+        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"-\"\n\n# 设定平分的份数\nDIVISIONS\u003d20\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 下限限制\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 上限限制\nif [ $NEXT_BRIGHT -gt $MAX_BRIGHT ]; then\n    NEXT_BRIGHT\u003d$MAX_BRIGHT\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"\n",
         "customContextDataKey": {
           "keys": [{
             "first": "shellOut",
@@ -133,7 +133,7 @@
       "label": "手电筒亮度\n-",
       "longClickActions": [{
         "@type": "type.googleapis.com/ShellCommand",
-        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"-\"\n\n# 设定平分的份数\nDIVISIONS\u003d4\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 仅做下限限制，上限交给硬件\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"",
+        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"-\"\n\n# 设定平分的份数\nDIVISIONS\u003d4\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 下限限制\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 上限限制\nif [ $NEXT_BRIGHT -gt $MAX_BRIGHT ]; then\n    NEXT_BRIGHT\u003d$MAX_BRIGHT\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"\n",
         "customContextDataKey": {
           "keys": [{
             "first": "shellOut",
@@ -187,8 +187,8 @@
     },
     "id": "A-13829bc1-3d03-40f1-87fb-1d7736715acb"
   }],
-  "id": "SHARE-rule-f2d19fc7-5741-4e4f-8709-18c9dd5ccec6",
-  "lastUpdateTime": "1781210677147",
+  "id": "SHARE-rule-01833c78-c64e-4843-a2f8-e1a3cf362d45",
+  "lastUpdateTime": "1781214308966",
   "createTime": "1781195571321",
   "author": {
     "name": "FTReey@coolapk"
@@ -280,7 +280,7 @@
       "id": "A-cbfd56a2-a63b-4ccb-86d8-39d9329528b2"
     }]
   },
-  "versionCode": "1"
+  "versionCode": "2"
 }
 ###------###
 {"type":"rule"}
