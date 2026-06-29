@@ -1,0 +1,57 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemSettingsChanged",
+    "urlAndExpectedValueRegex": {
+      "first": "content://settings/secure/enabled_accessibility_services",
+      "second": "[a-zA-Z0-9.:/]+"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-aa3a73b4-ff6b-48d8-a8df-a4cfec88d63a"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "500",
+    "customContextDataKey": {
+    },
+    "id": "A-6487bb13-9900-4a6e-877c-e0d472ef62ca"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "# 请在下方填入你需要保活的无障碍服务，多个服务用冒号(:)分隔\nTARGET_SERVICES\u003d\"com.omarea.vtools/com.omarea.vtools.AccessibilitySceneMode:li.songe.gkd/com.google.android.accessibility.selecttospeak.SelectToSpeakService\"\n\nCURRENT_SERVICES\u003d$(settings get secure enabled_accessibility_services)\nNEW_SERVICES\u003d\"$CURRENT_SERVICES\"\nTARGET_LIST\u003d$(echo \"$TARGET_SERVICES\" | sed \u0027s/:/ /g\u0027)\n\nfor target in $TARGET_LIST; do\n    if [[ ! \"$NEW_SERVICES\" \u003d\u003d *\"$target\"* ]]; then\n        if [ -z \"$NEW_SERVICES\" ] || [ \"$NEW_SERVICES\" \u003d\u003d \"null\" ]; then\n            NEW_SERVICES\u003d\"$target\"\n        else\n            NEW_SERVICES\u003d\"$NEW_SERVICES:$target\"\n        fi\n    fi\ndone\n\nif [ \"$CURRENT_SERVICES\" !\u003d \"$NEW_SERVICES\" ]; then\n    settings put secure enabled_accessibility_services \"$NEW_SERVICES\"\nfi",
+    "customContextDataKey": {
+    },
+    "note": "需自行替换 TARGET_SERVICES 值",
+    "id": "A-184f1416-e129-4e57-aa06-6c6cd439e919"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "无障碍已重启",
+    "customContextDataKey": {
+    },
+    "id": "A-4de12fc7-4440-4684-8948-b5b1ee3c138c"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo \"TARGET_SERVICES\u003d\\\"$(settings get secure enabled_accessibility_services)\\\"\"\n",
+    "customContextDataKey": {
+    },
+    "isDisabled": true,
+    "note": "单独执行即可得到现已开启的无障碍服务，请勿启用",
+    "id": "A-24e56862-5e08-494c-8780-88388aa3c937"
+  }],
+  "id": "SHARE-rule-f42df144-92e8-486c-acef-77c93e08f86c",
+  "lastUpdateTime": "1775846288292",
+  "createTime": "1691623636877",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "自动重启无障碍 (固定目标版)",
+  "description": "可重启指定应用无障碍服务，附带快速获取当前的无障碍（TARGET_SERVICES）值命令。",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "2",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}
