@@ -1,0 +1,144 @@
+{
+  "id": "SHARE-RS-daec04fd-c673-4cf4-8231-bdbf6f8f4ff5",
+  "title": "使用音量按键控制媒体播放器",
+  "description": "类似于类原生 Android, 在熄屏后长按 音量+/- 切换 上/下一曲",
+  "author": {
+    "name": "lovemilk",
+    "email": "lovemilk-inc@proto.me"
+  }
+  "ruleList": {
+    "rules": [{
+      "facts": [{
+        "@type": "type.googleapis.com/AdvancedKeyEvent",
+        "keyCode": 24,
+        "gesture": "KeyLongPress",
+        "isInterceptMode": true,
+        "customContextDataKey": {
+        },
+        "id": "F-b69b8600-7b59-4e4e-a046-5d73802ded3d"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/MediaPlayback",
+        "action": "MediaPlaybackAction_SkipToPrevious",
+        "customContextDataKey": {
+        },
+        "id": "A-cfabbac1-907e-49df-a017-547ea9132ca5"
+      }],
+      "id": "rule-ae631bc1-c546-48e7-af41-92326115f5e4",
+      "lastUpdateTime": "1778394742238",
+      "createTime": "1778393142086",
+      "author": {
+        "name": "ShortX"
+      },
+      "title": "音量上上一首",
+      "hook": {
+      },
+      "quit": {
+      },
+      "versionCode": "1",
+      "ruleSetId": "RS-966ef9ea-cfe5-4513-a72a-6216a7abd284"
+    }, {
+      "facts": [{
+        "@type": "type.googleapis.com/AdvancedKeyEvent",
+        "keyCode": 25,
+        "gesture": "KeyLongPress",
+        "isInterceptMode": true,
+        "customContextDataKey": {
+        },
+        "id": "F-e3926696-923e-4399-8a32-805a8d5abbaa"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/MediaPlayback",
+        "action": "MediaPlaybackAction_SkipToNext",
+        "customContextDataKey": {
+        },
+        "id": "A-608cd7f6-145a-452e-992f-359e35febc20"
+      }],
+      "id": "rule-9cf59504-405e-4d75-82a9-50693801a142",
+      "lastUpdateTime": "1778394724189",
+      "createTime": "1778393142086",
+      "author": {
+        "name": "ShortX"
+      },
+      "title": "音量下下一首 ",
+      "hook": {
+      },
+      "quit": {
+      },
+      "versionCode": "1",
+      "ruleSetId": "RS-966ef9ea-cfe5-4513-a72a-6216a7abd284"
+    }, {
+      "facts": [{
+        "@type": "type.googleapis.com/ScreenOff",
+        "customContextDataKey": {
+        },
+        "id": "F-cd55f8cb-d004-4942-90d9-b657b6c99c33"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-9cf59504-405e-4d75-82a9-50693801a142",
+        "isEnable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-38477aa3-894a-4518-9d47-21e283de7ea2"
+      }, {
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-ae631bc1-c546-48e7-af41-92326115f5e4",
+        "isEnable": true,
+        "customContextDataKey": {
+        },
+        "id": "A-664f5fdd-a80a-49dd-b178-c4508afaec1b"
+      }],
+      "id": "rule-116c0800-360f-4108-8493-188d185d494e",
+      "lastUpdateTime": "1778394704389",
+      "createTime": "1778394643236",
+      "author": {
+        "name": "ShortX"
+      },
+      "title": "熄屏开启音量下上切换",
+      "isEnabled": true,
+      "hook": {
+      },
+      "quit": {
+      },
+      "versionCode": "1",
+      "ruleSetId": "RS-966ef9ea-cfe5-4513-a72a-6216a7abd284"
+    }, {
+      "facts": [{
+        "@type": "type.googleapis.com/UserPresent",
+        "customContextDataKey": {
+        },
+        "id": "F-82f8d902-9e32-461b-89c1-b7c3d181a54f"
+      }],
+      "actions": [{
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-9cf59504-405e-4d75-82a9-50693801a142",
+        "customContextDataKey": {
+        },
+        "id": "A-8afc8b18-66a8-4c0a-871d-3553fc213cf6"
+      }, {
+        "@type": "type.googleapis.com/SetRuleEnabled",
+        "ruleId": "rule-ae631bc1-c546-48e7-af41-92326115f5e4",
+        "customContextDataKey": {
+        },
+        "id": "A-6ae90d55-d2e5-416e-8d1a-81ff61ea8f07"
+      }],
+      "id": "rule-28f709dc-a0c5-4986-8ab3-28a932a5153f",
+      "lastUpdateTime": "1778394859455",
+      "createTime": "1778394643236",
+      "author": {
+        "name": "ShortX"
+      },
+      "title": "解锁开启音量下上切换 ",
+      "isEnabled": true,
+      "hook": {
+      },
+      "quit": {
+      },
+      "versionCode": "1",
+      "ruleSetId": "RS-966ef9ea-cfe5-4513-a72a-6216a7abd284"
+    }]
+  }
+}
+###------###
+{"type":"ruleSet"}
