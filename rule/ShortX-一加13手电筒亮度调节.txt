@@ -1,0 +1,286 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FlashLightStatusChanged",
+    "customContextDataKey": {
+    },
+    "id": "F-daf8a5f6-e69f-49d8-ae8b-c92b1d15b988"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "echo globalVarOf$手电筒亮度变量 \u003e /sys/class/leds/led:torch_1/brightness",
+    "customContextDataKey": {
+    },
+    "id": "A-48883c65-aa51-4cf4-84fa-3331ac945c0c"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"+\"\n\n# 设定平分的份数\nDIVISIONS\u003d20\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 下限限制\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 上限限制\nif [ $NEXT_BRIGHT -gt $MAX_BRIGHT ]; then\n    NEXT_BRIGHT\u003d$MAX_BRIGHT\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "亮度变量"
+          }]
+        },
+        "id": "A-2b79db93-5f18-48ef-aaaa-ae9308416027"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "手电筒亮度变量",
+        "valueAsString": "{亮度变量}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-48795596-f72f-49de-b05a-ce8afbb477a8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/system/bin/sh\n\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取前一个脚本刚刚更新完的物理亮度变量\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算 0~100 的百分比\nPERCENTAGE\u003d$((CURRENT_BRIGHT * 100 / MAX_BRIGHT))\n\n# 限制最高 100%\nif [ $PERCENTAGE -gt 100 ]; then\n    PERCENTAGE\u003d100\nfi\n\n# 纯净输出百分比数字（你在工具里把这个值存入 globalVarOf$手电筒亮度百分比）\necho \"$PERCENTAGE\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "百分比"
+          }]
+        },
+        "id": "A-4a210a1a-722c-45c5-b66c-b9f5f7cc8f12"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "手电筒亮度百分比",
+        "valueAsString": "{百分比}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-5c8bb27a-b132-4df2-80bc-ac4117c3071e"
+      }],
+      "icon": "lightbulb-flash-line",
+      "label": "手电筒亮度\n+",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"+\"\n\n# 设定平分的份数\nDIVISIONS\u003d4\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 下限限制\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 上限限制\nif [ $NEXT_BRIGHT -gt $MAX_BRIGHT ]; then\n    NEXT_BRIGHT\u003d$MAX_BRIGHT\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "亮度变量"
+          }]
+        },
+        "id": "A-2b79db93-5f18-48ef-aaaa-ae9308416027"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "手电筒亮度变量",
+        "valueAsString": "{亮度变量}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-48795596-f72f-49de-b05a-ce8afbb477a8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/system/bin/sh\n\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取前一个脚本刚刚更新完的物理亮度变量\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算 0~100 的百分比\nPERCENTAGE\u003d$((CURRENT_BRIGHT * 100 / MAX_BRIGHT))\n\n# 限制最高 100%\nif [ $PERCENTAGE -gt 100 ]; then\n    PERCENTAGE\u003d100\nfi\n\n# 纯净输出百分比数字（你在工具里把这个值存入 globalVarOf$手电筒亮度百分比）\necho \"$PERCENTAGE\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "百分比"
+          }]
+        },
+        "id": "A-4a210a1a-722c-45c5-b66c-b9f5f7cc8f12"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "手电筒亮度百分比",
+        "valueAsString": "{百分比}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-5c8bb27a-b132-4df2-80bc-ac4117c3071e"
+      }],
+      "id": "BTN-8851bc14-508e-44c1-b368-c36b441c452c"
+    }, {
+      "actions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"-\"\n\n# 设定平分的份数\nDIVISIONS\u003d20\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 下限限制\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 上限限制\nif [ $NEXT_BRIGHT -gt $MAX_BRIGHT ]; then\n    NEXT_BRIGHT\u003d$MAX_BRIGHT\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "亮度变量"
+          }]
+        },
+        "id": "A-2b79db93-5f18-48ef-aaaa-ae9308416027"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "手电筒亮度变量",
+        "valueAsString": "{亮度变量}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-48795596-f72f-49de-b05a-ce8afbb477a8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/system/bin/sh\n\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取前一个脚本刚刚更新完的物理亮度变量\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算 0~100 的百分比\nPERCENTAGE\u003d$((CURRENT_BRIGHT * 100 / MAX_BRIGHT))\n\n# 限制最高 100%\nif [ $PERCENTAGE -gt 100 ]; then\n    PERCENTAGE\u003d100\nfi\n\n# 纯净输出百分比数字（你在工具里把这个值存入 globalVarOf$手电筒亮度百分比）\necho \"$PERCENTAGE\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "百分比"
+          }]
+        },
+        "id": "A-4a210a1a-722c-45c5-b66c-b9f5f7cc8f12"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "手电筒亮度百分比",
+        "valueAsString": "{百分比}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-5c8bb27a-b132-4df2-80bc-ac4117c3071e"
+      }],
+      "icon": "lightbulb-line",
+      "label": "手电筒亮度\n-",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/system/bin/sh\n\nBRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/brightness\"\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\n# 【在此处修改符号】 + 为增加物理亮度，- 为减少物理亮度\nOPERATOR\u003d\"-\"\n\n# 设定平分的份数\nDIVISIONS\u003d4\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取工具当前的物理亮度变量值\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算基于总最大值的固定物理步长\nSTEP\u003d$((MAX_BRIGHT / DIVISIONS))\n[ $STEP -eq 0 ] \u0026\u0026 STEP\u003d1\n\n# 进行加减计算\nNEXT_BRIGHT\u003d$((CURRENT_BRIGHT $OPERATOR STEP))\n\n# 下限限制\nif [ $NEXT_BRIGHT -lt 0 ]; then\n    NEXT_BRIGHT\u003d0\nfi\n\n# 上限限制\nif [ $NEXT_BRIGHT -gt $MAX_BRIGHT ]; then\n    NEXT_BRIGHT\u003d$MAX_BRIGHT\nfi\n\n# 写入硬件驱动\necho \"$NEXT_BRIGHT\" \u003e \"$BRIGHT_FILE\"\n\n# 纯净输出最新的物理值（你在工具里把这个值存入 globalVarOf$手电筒亮度变量）\necho \"$NEXT_BRIGHT\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "亮度变量"
+          }]
+        },
+        "id": "A-2b79db93-5f18-48ef-aaaa-ae9308416027"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "手电筒亮度变量",
+        "valueAsString": "{亮度变量}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-48795596-f72f-49de-b05a-ce8afbb477a8"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "#!/bin/system/bin/sh\n\nMAX_BRIGHT_FILE\u003d\"/sys/class/leds/led:torch_1/max_brightness\"\n\nMAX_BRIGHT\u003d$(cat \"$MAX_BRIGHT_FILE\")\nif [ $MAX_BRIGHT -le 0 ]; then\n    echo \"0\"\n    exit 0\nfi\n\n# 直接读取前一个脚本刚刚更新完的物理亮度变量\nCURRENT_BRIGHT\u003d\"globalVarOf$手电筒亮度变量\"\n: ${CURRENT_BRIGHT:\u003d0}\n\n# 计算 0~100 的百分比\nPERCENTAGE\u003d$((CURRENT_BRIGHT * 100 / MAX_BRIGHT))\n\n# 限制最高 100%\nif [ $PERCENTAGE -gt 100 ]; then\n    PERCENTAGE\u003d100\nfi\n\n# 纯净输出百分比数字（你在工具里把这个值存入 globalVarOf$手电筒亮度百分比）\necho \"$PERCENTAGE\"\n",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "shellOut",
+            "second": "百分比"
+          }]
+        },
+        "id": "A-4a210a1a-722c-45c5-b66c-b9f5f7cc8f12"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "手电筒亮度百分比",
+        "valueAsString": "{百分比}",
+        "op": "WriteGlobalVarOp_Override",
+        "customContextDataKey": {
+        },
+        "id": "A-5c8bb27a-b132-4df2-80bc-ac4117c3071e"
+      }],
+      "id": "BTN-d7ae6afa-c0cd-435f-a30b-ebf8cb9e2bee"
+    }, {
+      "label": "手电筒亮度\nglobalVarOf$手电筒亮度百分比 %",
+      "componentType": "OverlayButtonComponentType_CircleProgress",
+      "progress": "globalVarOf$手电筒亮度百分比",
+      "id": "BTN-5147293f-9738-43d2-8f48-55c4ce59e7d5"
+    }],
+    "autoCollapse": true,
+    "tag": "2026-06-12 00:34:54",
+    "maxHeightInDp": 500,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 21,
+    "enableGlobalDrag": true,
+    "overlayPaddingV": 11,
+    "customContextDataKey": {
+    },
+    "id": "A-13829bc1-3d03-40f1-87fb-1d7736715acb"
+  }],
+  "id": "SHARE-rule-01833c78-c64e-4843-a2f8-e1a3cf362d45",
+  "lastUpdateTime": "1781214308966",
+  "createTime": "1781195571321",
+  "author": {
+    "name": "FTReey@coolapk"
+  },
+  "title": "一加13手电筒亮度调节",
+  "isEnabled": false,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "手电筒亮度变量",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "手电筒亮度存储"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-5b5d2088-d805-47d4-89c6-705f7785b33b"
+    }, {
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "手电筒亮度百分比",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-e64382f3-1987-4a39-a209-825303a4040f"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "手电筒亮度变量",
+      "valueAsString": "50",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-beb7fe38-9474-4985-8df5-f992639f4d66"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "手电筒亮度百分比",
+      "valueAsString": "0",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-cd12e5b9-eca8-4e10-8c71-ecb0caf318d4"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "手电筒亮度百分比",
+      "customContextDataKey": {
+      },
+      "id": "A-879c8dea-289d-4266-9808-11548e83f3bb"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "手电筒亮度变量",
+      "customContextDataKey": {
+      },
+      "id": "A-1c17dd9c-3716-4f84-a616-41c1f6f7ec86"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "手电筒亮度变量",
+      "customContextDataKey": {
+      },
+      "id": "A-1c17dd9c-3716-4f84-a616-41c1f6f7ec86"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "手电筒亮度百分比",
+      "customContextDataKey": {
+      },
+      "id": "A-879c8dea-289d-4266-9808-11548e83f3bb"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/FlashLightStatusChanged",
+      "ooa": "Off",
+      "customContextDataKey": {
+      },
+      "id": "F-69b8bc9d-f82d-44ee-9e9f-a8c36fc4ade2"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/HideOverlayButton",
+      "overlayTags": ["2026-06-12 00:34:54"],
+      "customContextDataKey": {
+      },
+      "id": "A-cbfd56a2-a63b-4ccb-86d8-39d9329528b2"
+    }]
+  },
+  "versionCode": "2"
+}
+###------###
+{"type":"rule"}
