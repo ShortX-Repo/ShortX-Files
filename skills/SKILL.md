@@ -40,6 +40,7 @@ description: >
 | 动作（执行什么操作） | `references/actions.md` |
 | 变量系统（数据传递） | `references/variables.md` |
 | 高级功能（退出/钩子/函数/脚本） | `references/advanced.md` |
+| UI 悬浮窗骨架（WindowManager / Tab / 侧边栏） | `references/ui-skeleton-architecture.md` + `templates/shortx-ui-skeleton.js` |
 | 完整示例参考 | `references/examples.md` |
 
 每个参考文档包含该类别下所有可用组件的完整 Proto 定义、参数说明和使用场景。生成指令前务必查阅相关文档以确保 Proto 字段准确无误。
