@@ -100,7 +100,7 @@
   "lastUpdateTime": "1793625760702",
   "createTime": "1793609794070",
   "author": {
-    "name": "亦心"
+    "name": "李亦心"
   },
   "title": "通知历史记录",
   "description": "在ShortX APP的全局变量中查看已记录的通知",
