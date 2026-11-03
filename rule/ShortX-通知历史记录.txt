@@ -1,0 +1,115 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-b5864c66-cd58-4468-98b3-f020e03938bf"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/EvaluateContextVar",
+    "op": "IsNotEmpty",
+    "varName": "contentText",
+    "payload": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "C-87bf9ee5-127b-4518-becc-53c1f7f58b55"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateGlobalVar",
+      "op": "NotSet",
+      "varName": "noticeHistory",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-6008f771-3e12-4fe8-b207-1d7df8436d2a"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "noticeHistory",
+        "type": {
+          "@type": "type.googleapis.com/StringListVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-4791f475-6ba8-4055-bfe8-4f5d75b7055b"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "自动创建全局变量；如有问题检查变量是否为stringlist，如果不是，建议手动创建全局变量",
+    "id": "A-78b2e97f-5540-4898-92a5-d20fe250a21a"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "return shortx.readGlobalVar(\"noticeHistory\").size();",
+    "customContextDataKey": {
+    },
+    "note": "获取已经保留的通知条数",
+    "id": "A-e5945855-6bde-414f-9eeb-a297c05aa530"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "varName": "mvelRet",
+      "payload": {
+        "value": "10"
+      },
+      "customContextDataKey": {
+      },
+      "note": "这里设置最多保留多少条通知",
+      "id": "C-1f31b3a5-5d32-4792-ab5d-1aebfb094369"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "noticeHistory",
+      "op": "WriteGlobalVarOp_DeleteLast",
+      "customContextDataKey": {
+      },
+      "id": "A-563a5bb5-4068-46ab-9742-e8c71f22b6f9"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-b942be4f-69f9-4ea5-9a12-9003823e28ac"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "return context.getPackageManager().getApplicationInfo({pkgName},0).loadLabel(context.getPackageManager())\n",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "mvelRet",
+        "second": "appName"
+      }]
+    },
+    "note": "获取应用名称",
+    "id": "A-8264b99d-9761-4176-a740-eb672d913fb8"
+  }, {
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "noticeHistory",
+    "valueAsString": "%CurrentTimeFormated%\n{appName}\n{title}\n{contentText}",
+    "op": "WriteGlobalVarOp_AppendToFirst",
+    "customContextDataKey": {
+    },
+    "id": "A-59e76c76-701a-4439-9bbb-03fd0184ca24"
+  }],
+  "id": "SHARE-rule-91cedf45-e44f-4496-a15e-575c5b97825f",
+  "lastUpdateTime": "1793625760702",
+  "createTime": "1793609794070",
+  "author": {
+    "name": "李亦心"
+  },
+  "title": "通知历史记录",
+  "description": "在ShortX APP的全局变量中查看已记录的通知",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}
