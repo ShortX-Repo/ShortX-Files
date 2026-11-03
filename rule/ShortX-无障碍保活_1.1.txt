@@ -1,0 +1,203 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/SystemSettingsChanged",
+    "urlAndExpectedValueRegex": {
+      "first": "content://settings/secure/enabled_accessibility_services",
+      "second": "^.*$"
+    },
+    "tag": "无障碍",
+    "customContextDataKey": {
+    },
+    "id": "F-8ba51f43-a586-4b23-8da7-9bdda35c96ee"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "300",
+    "customContextDataKey": {
+    },
+    "id": "A-75363df5-b41d-4759-bc0e-a1c2b7e49358"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "#获取现有无障碍服务\nall_Accessibility_service\u003d$(echo globalVarOf$Accessibility_service | sed \u0027s/,/:/g;s/[[:space:]]//g\u0027)\n#echo $all_Accessibility_service\nsettings put secure enabled_accessibility_services \"$all_Accessibility_service\"",
+    "customContextDataKey": {
+    },
+    "id": "A-e6b4e0c1-8199-487a-8f4a-97633aaa142f"
+  }, {
+    "@type": "type.googleapis.com/ShowToast",
+    "message": "无障碍保活一次",
+    "customContextDataKey": {
+    },
+    "id": "A-374e9066-f9e5-4593-947b-c211d1d0330c"
+  }, {
+    "@type": "type.googleapis.com/Delay",
+    "timeString": "5000",
+    "customContextDataKey": {
+    },
+    "id": "A-81bcfb09-11aa-4d5c-b016-2af1b49e7020"
+  }, {
+    "@type": "type.googleapis.com/StopApp",
+    "appPkg": [{
+      "pkgName": "tornaco.apps.shortx"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-855cbe14-612c-4787-b373-f6f84c9bca25"
+  }],
+  "id": "SHARE-rule-42fcbe8c-f4fa-406b-b4e9-8debd72f9810",
+  "lastUpdateTime": "1751613193245",
+  "createTime": "1730186549687",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "无障碍保活 1.1",
+  "description": "使用前开启无障碍服务，打开指令后自动创建或者补全全局环境变量 Accessibility_service 类型 string list",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "settings get secure enabled_accessibility_services",
+      "customContextDataKey": {
+      },
+      "note": "获取开启的无障碍服务",
+      "id": "A-9a850140-e0ac-4da8-b6f4-d06e9a63c834"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "IsExists",
+        "varName": "Accessibility_service",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-34c66c69-7477-4182-b182-d821dfe15760"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "\n#获取无障碍变量\nall_Accessibility_service\u003d$(echo globalVarOf$Accessibility_service | sed \u0027s/,/:/g;s/[[:space:]]//g\u0027)\n#获取现在的无障碍服务\nAccessibility_service\u003d$(settings get secure enabled_accessibility_services| sed \u0027s/:/ /g\u0027)\n\n#echo $all_Accessibility_service\n#echo $Accessibility_service\n\n# 遍历每个元素并检查是否在变量中\nb1\u003d\u0027\u0027\nfor element in $Accessibility_service; do\n    if [[ \"$all_Accessibility_service\" \u003d\u003d *\"$element\"* ]]; then\n        a1\u003d$element\n    else\n        b1\u003d$element:$b1\n    fi\ndone\necho ${b1%?}",
+        "customContextDataKey": {
+        },
+        "note": "获取开启的无障碍服务",
+        "id": "A-9f7de2fc-a979-4254-815f-fe2e982b97b9"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-2de2d333-811c-482b-8db2-184174841c2e"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "无障碍变量正常{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-66e329eb-7d94-4d98-afaf-caa189eaa191"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "无障碍变量修复",
+          "customContextDataKey": {
+          },
+          "id": "A-7f5cf0b6-98e6-4198-822d-c77634544511"
+        }, {
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{shellOut}",
+          "delimiter": [":"],
+          "actions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "Accessibility_service",
+            "valueAsString": "{foreachData}",
+            "customContextDataKey": {
+            },
+            "id": "A-623b3360-2e56-4622-a881-2f4bd607e543"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-e302292a-12e3-42e6-967d-5aa11daf2142"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-94021d3c-7318-477d-ab36-9a5c4f62ceda"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "Accessibility_service",
+          "type": {
+            "@type": "type.googleapis.com/StringListVar"
+          },
+          "note": "无障碍保活"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-69b5f4a8-a96b-4900-8166-c79e6b49f0d0"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-2de2d333-811c-482b-8db2-184174841c2e"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "无障碍变量正常{shellOut}",
+          "customContextDataKey": {
+          },
+          "id": "A-66e329eb-7d94-4d98-afaf-caa189eaa191"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "无障碍变量修复",
+          "customContextDataKey": {
+          },
+          "id": "A-7f5cf0b6-98e6-4198-822d-c77634544511"
+        }, {
+          "@type": "type.googleapis.com/ForEach",
+          "data": "{shellOut}",
+          "delimiter": [":"],
+          "actions": [{
+            "@type": "type.googleapis.com/WriteGlobalVar",
+            "varName": "Accessibility_service",
+            "valueAsString": "{foreachData}",
+            "customContextDataKey": {
+            },
+            "id": "A-623b3360-2e56-4622-a881-2f4bd607e543"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-e302292a-12e3-42e6-967d-5aa11daf2142"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-900448d4-213b-4bc8-9e6e-a272186c884b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "\n#获取无障碍变量\nall_Accessibility_service\u003d$(echo globalVarOf$Accessibility_service | sed \u0027s/,/:/g;s/[[:space:]]//g\u0027)\n#获取现在的无障碍服务\nAccessibility_service\u003d$(settings get secure enabled_accessibility_services| sed \u0027s/:/ /g\u0027)\n\n#echo $all_Accessibility_service\n#echo $Accessibility_service\n\n# 遍历每个元素并检查是否在变量中\nb1\u003d\u0027\u0027\nfor element in $Accessibility_service; do\n    if [[ \"$all_Accessibility_service\" \u003d\u003d *\"$element\"* ]]; then\n        a1\u003d$element\n    else\n        b1\u003d$element:$b1\n    fi\ndone\necho ${b1%?}",
+        "customContextDataKey": {
+        },
+        "note": "获取开启的无障碍服务",
+        "id": "A-a9baf4f2-865f-448b-9963-81e692765abb"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-639f14a6-b480-4365-b584-6cd0f7492b7e"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew",
+  "ruleSetId": "RS-dea1fe05-3060-435f-9672-3206d323ce12"
+}
+###------###
+{"type":"rule"}

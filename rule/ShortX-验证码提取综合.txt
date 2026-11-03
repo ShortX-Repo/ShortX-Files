@@ -56,7 +56,7 @@
     "valueAsString": "通知",
     "customContextDataKey": {
     },
-    "note": "通知：\n优点：可以提取其他应用通知内的验证码\n缺点：通知过长时验证码可能会被截断\n通知滤盒等应用抽风时会反复弹出\n数据库：\n优点：没有通知过长截断问题\n缺点：仅短信",
+    "note": "通知：\n优点：可以提取其他应用通知内的验证码\n缺点：通知过长时验证码可能会被截断\n通知滤盒等应用抽风时会反复弹出\n数据库：\n优点：没有通知过长截断问题\n缺点：仅短信\n澎湃焦点通知：\nXiaomi HyperOS专属识别模式，通过读取系统自带验证码提取实现",
     "id": "A-77f308a0-ad13-4a66-98b8-fba515c5c23f"
   }, {
     "@type": "type.googleapis.com/WriteLocalVar",
@@ -64,7 +64,7 @@
     "valueAsString": "浮窗",
     "customContextDataKey": {
     },
-    "note": "流体云，浮窗，自动键入，自动复制",
+    "note": "状态栏，浮窗，自动键入，自动复制\n可填写多个，它们会同时触发",
     "id": "A-b542b976-a555-4414-9cfb-661359b01045"
   }, {
     "@type": "type.googleapis.com/WriteLocalVar",
@@ -151,6 +151,44 @@
         "customContextDataKey": {
         },
         "id": "A-2ffeae0f-c841-449c-b262-97bc869c2201"
+      }, {
+        "@type": "type.googleapis.com/MatchRegex",
+        "string": "{shellOut}",
+        "regex": "(?\u003c\u003d\\【)[^\\【\\】]+(?\u003d\\】)",
+        "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "matchResult",
+            "second": "source"
+          }]
+        },
+        "id": "A-034a3859-ead4-4425-a3a4-c5d566d10a34"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "source",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-19fb334a-0466-4b56-91ec-6e183fadba36"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\"未知来源\";",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "source"
+            }]
+          },
+          "id": "A-ee3eb675-f09e-45cc-865d-5bc778583c0c"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-264c03d0-aba8-41c5-9cf1-10350d7424ca"
       }],
       "description": "数据库",
       "id": "Case-7f6f4f16-efb5-44c8-908b-47e5087655ca",
@@ -192,9 +230,123 @@
         "customContextDataKey": {
         },
         "id": "A-2ffeae0f-c841-449c-b262-97bc869c2201"
+      }, {
+        "@type": "type.googleapis.com/MatchRegex",
+        "string": "{contentText}",
+        "regex": "(?\u003c\u003d\\【)[^\\【\\】]+(?\u003d\\】)",
+        "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "matchResult",
+            "second": "source"
+          }]
+        },
+        "id": "A-ab8abb4e-7a8e-4054-9ed5-7ec7a2df2c9a"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "source",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-19fb334a-0466-4b56-91ec-6e183fadba36"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ExecuteMVEL",
+          "expression": "\"未知来源\";",
+          "customContextDataKey": {
+            "keys": [{
+              "first": "mvelRet",
+              "second": "source"
+            }]
+          },
+          "id": "A-ee3eb675-f09e-45cc-865d-5bc778583c0c"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-264c03d0-aba8-41c5-9cf1-10350d7424ca"
       }],
       "description": "通知",
       "id": "Case-9c9106fd-12c2-403c-a38e-400b40e96a29",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "识别模式",
+        "payload": {
+          "value": "澎湃焦点通知"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-b8dd1c53-7705-47db-bab7-a988a0e2da15"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys notification --noredact | awk \u0027/pkg\u003dcom.android.mms/,/verify_code/ {if ($0 ~ /verify_code/) print $0}\u0027",
+        "customContextDataKey": {
+        },
+        "id": "A-42a08174-f508-480a-9f55-9f98186df558"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateContextVar",
+          "op": "IsEmpty",
+          "varName": "shellOut",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-e38531e8-234d-442e-bbee-d65718aca5d6"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/BreakActionExecute",
+          "scope": "BreakActionExecuteScope_Root",
+          "customContextDataKey": {
+          },
+          "id": "A-d5bf0e34-7298-4608-ad03-d8ce0f2a4596"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-38d1d42b-e413-49a1-bc60-9561666fb8a7"
+      }, {
+        "@type": "type.googleapis.com/MatchRegex",
+        "string": "{shellOut}",
+        "regex": "(?\u003c\u003d\\()[^()]+(?\u003d\\))",
+        "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+        "customContextDataKey": {
+        },
+        "id": "A-9d61c218-0d3a-4c21-afef-e8e140a79c8e"
+      }, {
+        "@type": "type.googleapis.com/ExecuteMVEL",
+        "expression": "if (isMatch) {\n    {matchResult}.replaceAll(\"[\\\\[\\\\]]\", \"\");\n} else {\n    false;\n}",
+        "customContextDataKey": {
+        },
+        "id": "A-d0851ed5-cc50-4509-bda6-62ebec47301f"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "dumpsys notification --noredact | awk \u0027/pkg\u003dcom.android.mms/,/miui.focus.param/ {if ($0 ~ /miui.focus.param/) print $0}\u0027",
+        "customContextDataKey": {
+        },
+        "id": "A-1b232fe9-50ec-4e21-b790-30ea5bc1fa81"
+      }, {
+        "@type": "type.googleapis.com/MatchRegex",
+        "string": "{shellOut}",
+        "regex": "(?\u003c\u003d\"desc1\":\")(.*?)(?\u003d\")",
+        "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+        "customContextDataKey": {
+          "keys": [{
+            "first": "matchResult",
+            "second": "source"
+          }]
+        },
+        "id": "A-7280fad6-296c-46bc-ad53-6d604820482d"
+      }],
+      "description": "焦点通知",
+      "id": "Case-55e6a260-f698-4215-8aca-df5e87ff0470",
       "isBreak": true
     }, {
       "case": [{
@@ -268,23 +420,52 @@
       },
       "customContextDataKey": {
       },
-      "id": "A-77431946-34ec-47de-8bcc-0d518111f872"
+      "id": "A-68810141-0851-4cf4-8f02-ab8f3ece98b7"
     }, {
       "@type": "type.googleapis.com/WriteLocalVar",
       "varName": "验证码",
       "valueAsString": "{mvelRet}",
       "customContextDataKey": {
       },
-      "id": "A-2dfb7515-66a7-4de6-aaae-0e5c374a34f9"
+      "id": "A-4c97edc9-3741-491e-a2ed-b8daa47e695b"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "来源",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b7309b00-3e14-4d86-8639-37fd45a80781"
+    }, {
+      "@type": "type.googleapis.com/WriteLocalVar",
+      "varName": "来源",
+      "valueAsString": "{source}",
+      "customContextDataKey": {
+      },
+      "id": "A-f9f02e47-d06e-4516-9a15-7263fcab8a39"
+    }, {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "isclick",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-51ceaa05-5aea-4f5a-8b79-91b00845998d"
     }, {
       "@type": "type.googleapis.com/SwitchCase",
       "case": [{
         "case": [{
           "@type": "type.googleapis.com/EvaluateLocalVar",
-          "op": "EqualTo",
+          "op": "Contains",
           "varName": "显示模式",
           "payload": {
-            "value": "流体云"
+            "value": "状态栏"
           },
           "customContextDataKey": {
           },
@@ -292,223 +473,34 @@
         }],
         "action": [{
           "@type": "type.googleapis.com/ShowStatusBarChip",
-          "text": "localVarOf$验证码",
+          "text": "localVarOf$来源:localVarOf$验证码",
           "icon": "wechat-2-fill",
           "clickAction": [{
-            "@type": "type.googleapis.com/ShellCommand",
-            "command": "#!/bin/bash\n\n# 输入文本\ntext\u003d\"localVarOf$验证码\"\n\n# 使用fold命令将每个字符拆分到一行，并使用while循环逐行处理\necho \"$text\" | awk \u0027{for(i\u003d1;i\u003c\u003dlength;i++) print substr($0,i,1)}\u0027 | while IFS\u003d read -r char; do\n    input text \"$char\"\ndone\n",
-            "customContextDataKey": {
-            },
-            "id": "A-ac87643a-4ff5-48f2-97c8-514135e6832d"
-          }, {
-            "@type": "type.googleapis.com/HideStatusBarClip",
-            "customContextDataKey": {
-            },
-            "id": "A-d8adb4df-2219-4c03-ac9e-02505308f452"
-          }, {
             "@type": "type.googleapis.com/WriteLocalVar",
-            "varName": "验证码",
-            "valueAsString": "false",
+            "varName": "isclick",
+            "valueAsString": "input",
             "customContextDataKey": {
             },
             "id": "A-926f65e0-a55a-4da2-8ef1-2c5ec15ff0fb"
-          }, {
-            "@type": "type.googleapis.com/SwitchCase",
-            "case": [{
-              "case": [{
-                "@type": "type.googleapis.com/EvaluateLocalVar",
-                "op": "EqualTo",
-                "varName": "输入后的动作",
-                "payload": {
-                  "value": "删除短信"
-                },
-                "customContextDataKey": {
-                },
-                "id": "C-51c5d64c-39b9-472b-8826-4501f2f605d8"
-              }],
-              "action": [{
-                "@type": "type.googleapis.com/ShellCommand",
-                "command": "content delete --uri content://sms --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | awk -F\u003d \u0027/_id/ {print $2; exit}\u0027)\"",
-                "customContextDataKey": {
-                },
-                "note": "删除最近一条",
-                "id": "A-f13b07b0-f1ea-4dfe-a7c4-1b72ebc989f0"
-              }],
-              "description": "删除短信",
-              "id": "Case-b66f5ee4-34d5-419d-a232-f734cac5b829",
-              "isBreak": true
-            }, {
-              "case": [{
-                "@type": "type.googleapis.com/EvaluateLocalVar",
-                "op": "EqualTo",
-                "varName": "输入后的动作",
-                "payload": {
-                  "value": "已读"
-                },
-                "customContextDataKey": {
-                },
-                "id": "C-269f0ed3-fdbb-4b37-ab52-d7c5f5048fa6"
-              }],
-              "action": [{
-                "@type": "type.googleapis.com/ClickNotificationActionButton",
-                "notification": {
-                },
-                "button": {
-                  "label": "已读"
-                },
-                "customContextDataKey": {
-                },
-                "id": "A-0e822910-9ba1-43ab-98ab-08bf8777506a"
-              }, {
-                "@type": "type.googleapis.com/ShellCommand",
-                "command": "content update --uri content://sms --bind \"read:i:1\" --bind \"seen:i:1\" --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | head -n 1 | awk -F\u003d \u0027{print $2}\u0027)\"",
-                "customContextDataKey": {
-                },
-                "note": "已读",
-                "id": "A-c1e3005f-2fdf-4012-b164-ada37d8388a9"
-              }],
-              "description": "已读",
-              "id": "Case-e2ef64e8-57e6-4d60-a49a-21a3464ae3c0",
-              "isBreak": true
-            }, {
-              "case": [{
-                "@type": "type.googleapis.com/True",
-                "customContextDataKey": {
-                },
-                "id": "C-2f771ca1-85f3-401c-bd24-c19865d5f103"
-              }],
-              "description": "无",
-              "id": "Case-495a4121-9991-491c-af86-c613171ef198",
-              "isBreak": true
-            }],
-            "customContextDataKey": {
-            },
-            "id": "A-ef017c5e-cd35-4af6-815d-fbe9cbb4df96"
           }],
           "longClickAction": [{
-            "@type": "type.googleapis.com/WriteClipboard",
-            "text": "localVarOf$验证码",
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "isclick",
+            "valueAsString": "copy",
             "customContextDataKey": {
             },
-            "id": "A-d85f314f-c110-4b63-b31c-92087c5155fc"
-          }, {
-            "@type": "type.googleapis.com/HideStatusBarClip",
-            "customContextDataKey": {
-            },
-            "id": "A-f0f919c0-8eac-4044-a5a2-cf121ab84b29"
-          }, {
-            "@type": "type.googleapis.com/SwitchCase",
-            "case": [{
-              "case": [{
-                "@type": "type.googleapis.com/EvaluateLocalVar",
-                "op": "EqualTo",
-                "varName": "输入后的动作",
-                "payload": {
-                  "value": "删除短信"
-                },
-                "customContextDataKey": {
-                },
-                "id": "C-51c5d64c-39b9-472b-8826-4501f2f605d8"
-              }],
-              "action": [{
-                "@type": "type.googleapis.com/ShellCommand",
-                "command": "content delete --uri content://sms --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | awk -F\u003d \u0027/_id/ {print $2; exit}\u0027)\"",
-                "customContextDataKey": {
-                },
-                "note": "删除最近一条",
-                "id": "A-f13b07b0-f1ea-4dfe-a7c4-1b72ebc989f0"
-              }],
-              "description": "删除短信",
-              "id": "Case-b66f5ee4-34d5-419d-a232-f734cac5b829",
-              "isBreak": true
-            }, {
-              "case": [{
-                "@type": "type.googleapis.com/EvaluateLocalVar",
-                "op": "EqualTo",
-                "varName": "输入后的动作",
-                "payload": {
-                  "value": "已读"
-                },
-                "customContextDataKey": {
-                },
-                "id": "C-269f0ed3-fdbb-4b37-ab52-d7c5f5048fa6"
-              }],
-              "action": [{
-                "@type": "type.googleapis.com/ClickNotificationActionButton",
-                "notification": {
-                },
-                "button": {
-                  "label": "已读"
-                },
-                "customContextDataKey": {
-                },
-                "id": "A-ce799123-be56-48c8-bc14-653a0db5ff0d"
-              }, {
-                "@type": "type.googleapis.com/ShellCommand",
-                "command": "content update --uri content://sms --bind \"read:i:1\" --bind \"seen:i:1\" --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | head -n 1 | awk -F\u003d \u0027{print $2}\u0027)\"",
-                "customContextDataKey": {
-                },
-                "note": "已读",
-                "id": "A-c1e3005f-2fdf-4012-b164-ada37d8388a9"
-              }],
-              "description": "已读",
-              "id": "Case-e2ef64e8-57e6-4d60-a49a-21a3464ae3c0",
-              "isBreak": true
-            }, {
-              "case": [{
-                "@type": "type.googleapis.com/True",
-                "customContextDataKey": {
-                },
-                "id": "C-2f771ca1-85f3-401c-bd24-c19865d5f103"
-              }],
-              "description": "无",
-              "id": "Case-495a4121-9991-491c-af86-c613171ef198",
-              "isBreak": true
-            }],
-            "customContextDataKey": {
-            },
-            "id": "A-ef017c5e-cd35-4af6-815d-fbe9cbb4df96"
+            "id": "A-18862b24-ac11-4d6f-8067-3e09344b68fc"
           }],
           "customContextDataKey": {
           },
           "id": "A-29db015e-2977-4b9a-a51a-782f5f1295e1"
-        }, {
-          "@type": "type.googleapis.com/Delay",
-          "timeString": "10000",
-          "customContextDataKey": {
-          },
-          "id": "A-b24b0882-1e2c-43d9-a0c3-b04b4675ac9f"
-        }, {
-          "@type": "type.googleapis.com/IfThenElse",
-          "If": [{
-            "@type": "type.googleapis.com/EvaluateLocalVar",
-            "op": "EqualTo",
-            "varName": "验证码",
-            "payload": {
-              "value": "false"
-            },
-            "customContextDataKey": {
-            },
-            "isInvert": true,
-            "id": "C-08ad84ce-1651-4ac8-b259-1ef3b7ec42d7"
-          }],
-          "IfActions": [{
-            "@type": "type.googleapis.com/HideStatusBarClip",
-            "customContextDataKey": {
-            },
-            "id": "A-6af8a56a-527d-42f8-b46d-85a6433248f3"
-          }],
-          "customContextDataKey": {
-          },
-          "id": "A-c3874570-e4cf-4290-8b50-54cdd8a607be"
         }],
-        "description": "流体云",
-        "id": "Case-75f7360c-54b3-47bb-889b-bc57bf8187bb",
-        "isBreak": true
+        "description": "状态栏",
+        "id": "Case-75f7360c-54b3-47bb-889b-bc57bf8187bb"
       }, {
         "case": [{
           "@type": "type.googleapis.com/EvaluateLocalVar",
-          "op": "EqualTo",
+          "op": "Contains",
           "varName": "显示模式",
           "payload": {
             "value": "浮窗"
@@ -521,175 +513,22 @@
           "@type": "type.googleapis.com/ShowOverlayButton",
           "buttonSettings": [{
             "actions": [{
-              "@type": "type.googleapis.com/HideOverlayButton",
-              "overlayTags": ["验证码"],
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "isclick",
+              "valueAsString": "input",
               "customContextDataKey": {
               },
-              "id": "A-8327f8e8-8217-4dd0-b1a4-0445c7c8d21d"
-            }, {
-              "@type": "type.googleapis.com/ShellCommand",
-              "command": "#!/bin/bash\n\n# 输入文本\ntext\u003d\"localVarOf$验证码\"\n\n# 使用fold命令将每个字符拆分到一行，并使用while循环逐行处理\necho \"$text\" | awk \u0027{for(i\u003d1;i\u003c\u003dlength;i++) print substr($0,i,1)}\u0027 | while IFS\u003d read -r char; do\n    input text \"$char\"\ndone\n",
-              "customContextDataKey": {
-              },
-              "id": "A-ac87643a-4ff5-48f2-97c8-514135e6832d"
-            }, {
-              "@type": "type.googleapis.com/SwitchCase",
-              "case": [{
-                "case": [{
-                  "@type": "type.googleapis.com/EvaluateLocalVar",
-                  "op": "EqualTo",
-                  "varName": "输入后的动作",
-                  "payload": {
-                    "value": "删除短信"
-                  },
-                  "customContextDataKey": {
-                  },
-                  "id": "C-51c5d64c-39b9-472b-8826-4501f2f605d8"
-                }],
-                "action": [{
-                  "@type": "type.googleapis.com/ShellCommand",
-                  "command": "content delete --uri content://sms --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | awk -F\u003d \u0027/_id/ {print $2; exit}\u0027)\"",
-                  "customContextDataKey": {
-                  },
-                  "note": "删除最近一条",
-                  "id": "A-f13b07b0-f1ea-4dfe-a7c4-1b72ebc989f0"
-                }],
-                "description": "删除短信",
-                "id": "Case-b66f5ee4-34d5-419d-a232-f734cac5b829",
-                "isBreak": true
-              }, {
-                "case": [{
-                  "@type": "type.googleapis.com/EvaluateLocalVar",
-                  "op": "EqualTo",
-                  "varName": "输入后的动作",
-                  "payload": {
-                    "value": "已读"
-                  },
-                  "customContextDataKey": {
-                  },
-                  "id": "C-269f0ed3-fdbb-4b37-ab52-d7c5f5048fa6"
-                }],
-                "action": [{
-                  "@type": "type.googleapis.com/ClickNotificationActionButton",
-                  "notification": {
-                  },
-                  "button": {
-                    "label": "已读"
-                  },
-                  "customContextDataKey": {
-                  },
-                  "id": "A-a706981f-f74c-4dc4-803d-5eebef0bc57f"
-                }, {
-                  "@type": "type.googleapis.com/ShellCommand",
-                  "command": "content update --uri content://sms --bind \"read:i:1\" --bind \"seen:i:1\" --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | head -n 1 | awk -F\u003d \u0027{print $2}\u0027)\"",
-                  "customContextDataKey": {
-                  },
-                  "note": "已读",
-                  "id": "A-c1e3005f-2fdf-4012-b164-ada37d8388a9"
-                }],
-                "description": "已读",
-                "id": "Case-e2ef64e8-57e6-4d60-a49a-21a3464ae3c0",
-                "isBreak": true
-              }, {
-                "case": [{
-                  "@type": "type.googleapis.com/True",
-                  "customContextDataKey": {
-                  },
-                  "id": "C-2f771ca1-85f3-401c-bd24-c19865d5f103"
-                }],
-                "description": "无",
-                "id": "Case-495a4121-9991-491c-af86-c613171ef198",
-                "isBreak": true
-              }],
-              "customContextDataKey": {
-              },
-              "id": "A-ef017c5e-cd35-4af6-815d-fbe9cbb4df96"
+              "id": "A-926f65e0-a55a-4da2-8ef1-2c5ec15ff0fb"
             }],
-            "label": "⌨️ localVarOf$验证码",
+            "icon": "up-two",
+            "label": "localVarOf$来源\nlocalVarOf$验证码",
             "longClickActions": [{
-              "@type": "type.googleapis.com/HideOverlayButton",
-              "overlayTags": ["验证码"],
+              "@type": "type.googleapis.com/WriteLocalVar",
+              "varName": "isclick",
+              "valueAsString": "copy",
               "customContextDataKey": {
               },
-              "id": "A-8327f8e8-8217-4dd0-b1a4-0445c7c8d21d"
-            }, {
-              "@type": "type.googleapis.com/WriteClipboard",
-              "text": "localVarOf$验证码",
-              "customContextDataKey": {
-              },
-              "id": "A-7a1459de-28f2-4701-bb6d-9ab188c2156b"
-            }, {
-              "@type": "type.googleapis.com/SwitchCase",
-              "case": [{
-                "case": [{
-                  "@type": "type.googleapis.com/EvaluateLocalVar",
-                  "op": "EqualTo",
-                  "varName": "输入后的动作",
-                  "payload": {
-                    "value": "删除短信"
-                  },
-                  "customContextDataKey": {
-                  },
-                  "id": "C-51c5d64c-39b9-472b-8826-4501f2f605d8"
-                }],
-                "action": [{
-                  "@type": "type.googleapis.com/ShellCommand",
-                  "command": "content delete --uri content://sms --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | awk -F\u003d \u0027/_id/ {print $2; exit}\u0027)\"",
-                  "customContextDataKey": {
-                  },
-                  "note": "删除最近一条",
-                  "id": "A-f13b07b0-f1ea-4dfe-a7c4-1b72ebc989f0"
-                }],
-                "description": "删除短信",
-                "id": "Case-b66f5ee4-34d5-419d-a232-f734cac5b829",
-                "isBreak": true
-              }, {
-                "case": [{
-                  "@type": "type.googleapis.com/EvaluateLocalVar",
-                  "op": "EqualTo",
-                  "varName": "输入后的动作",
-                  "payload": {
-                    "value": "已读"
-                  },
-                  "customContextDataKey": {
-                  },
-                  "id": "C-269f0ed3-fdbb-4b37-ab52-d7c5f5048fa6"
-                }],
-                "action": [{
-                  "@type": "type.googleapis.com/ClickNotificationActionButton",
-                  "notification": {
-                  },
-                  "button": {
-                    "label": "已读"
-                  },
-                  "customContextDataKey": {
-                  },
-                  "id": "A-1a5678ef-56bd-4284-83be-55364e94569c"
-                }, {
-                  "@type": "type.googleapis.com/ShellCommand",
-                  "command": "content update --uri content://sms --bind \"read:i:1\" --bind \"seen:i:1\" --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | head -n 1 | awk -F\u003d \u0027{print $2}\u0027)\"",
-                  "customContextDataKey": {
-                  },
-                  "note": "已读",
-                  "id": "A-c1e3005f-2fdf-4012-b164-ada37d8388a9"
-                }],
-                "description": "已读",
-                "id": "Case-e2ef64e8-57e6-4d60-a49a-21a3464ae3c0",
-                "isBreak": true
-              }, {
-                "case": [{
-                  "@type": "type.googleapis.com/True",
-                  "customContextDataKey": {
-                  },
-                  "id": "C-2f771ca1-85f3-401c-bd24-c19865d5f103"
-                }],
-                "description": "无",
-                "id": "Case-495a4121-9991-491c-af86-c613171ef198",
-                "isBreak": true
-              }],
-              "customContextDataKey": {
-              },
-              "id": "A-ef017c5e-cd35-4af6-815d-fbe9cbb4df96"
+              "id": "A-18862b24-ac11-4d6f-8067-3e09344b68fc"
             }],
             "id": "BTN-2952389c-602a-44c6-a789-3548bb5d9912"
           }],
@@ -701,30 +540,16 @@
           "enableGlobalDrag": true,
           "overlayPaddingH": 17,
           "overlayPaddingV": 10,
-          "disableAutoEdge": true,
           "customContextDataKey": {
           },
           "id": "A-093042fd-256d-41ad-b05f-5a5eea50bf9a"
-        }, {
-          "@type": "type.googleapis.com/Delay",
-          "timeString": "5000",
-          "customContextDataKey": {
-          },
-          "id": "A-b24b0882-1e2c-43d9-a0c3-b04b4675ac9f"
-        }, {
-          "@type": "type.googleapis.com/HideOverlayButton",
-          "overlayTags": ["验证码"],
-          "customContextDataKey": {
-          },
-          "id": "A-81be4993-65e3-4ae1-9638-958ad4fba700"
         }],
         "description": "浮窗",
-        "id": "Case-1bc57d86-f0b8-42f2-b969-ff1e0a029d44",
-        "isBreak": true
+        "id": "Case-1bc57d86-f0b8-42f2-b969-ff1e0a029d44"
       }, {
         "case": [{
           "@type": "type.googleapis.com/EvaluateLocalVar",
-          "op": "EqualTo",
+          "op": "Contains",
           "varName": "显示模式",
           "payload": {
             "value": "自动键入"
@@ -738,87 +563,20 @@
           "command": "#!/bin/bash\n\n# 输入文本\ntext\u003d\"localVarOf$验证码\"\n\n# 使用fold命令将每个字符拆分到一行，并使用while循环逐行处理\necho \"$text\" | awk \u0027{for(i\u003d1;i\u003c\u003dlength;i++) print substr($0,i,1)}\u0027 | while IFS\u003d read -r char; do\n    input text \"$char\"\ndone\n",
           "customContextDataKey": {
           },
-          "id": "A-ac87643a-4ff5-48f2-97c8-514135e6832d"
+          "id": "A-9b9c53b1-5065-4492-9150-2ab9bd358fb9"
         }, {
-          "@type": "type.googleapis.com/SwitchCase",
-          "case": [{
-            "case": [{
-              "@type": "type.googleapis.com/EvaluateLocalVar",
-              "op": "EqualTo",
-              "varName": "输入后的动作",
-              "payload": {
-                "value": "删除短信"
-              },
-              "customContextDataKey": {
-              },
-              "id": "C-51c5d64c-39b9-472b-8826-4501f2f605d8"
-            }],
-            "action": [{
-              "@type": "type.googleapis.com/ShellCommand",
-              "command": "content delete --uri content://sms --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | awk -F\u003d \u0027/_id/ {print $2; exit}\u0027)\"",
-              "customContextDataKey": {
-              },
-              "note": "删除最近一条",
-              "id": "A-f13b07b0-f1ea-4dfe-a7c4-1b72ebc989f0"
-            }],
-            "description": "删除短信",
-            "id": "Case-b66f5ee4-34d5-419d-a232-f734cac5b829",
-            "isBreak": true
-          }, {
-            "case": [{
-              "@type": "type.googleapis.com/EvaluateLocalVar",
-              "op": "EqualTo",
-              "varName": "输入后的动作",
-              "payload": {
-                "value": "已读"
-              },
-              "customContextDataKey": {
-              },
-              "id": "C-269f0ed3-fdbb-4b37-ab52-d7c5f5048fa6"
-            }],
-            "action": [{
-              "@type": "type.googleapis.com/ClickNotificationActionButton",
-              "notification": {
-              },
-              "button": {
-                "label": "已读"
-              },
-              "customContextDataKey": {
-              },
-              "id": "A-4d43535b-68fd-4d64-907a-ca5fb7b286c0"
-            }, {
-              "@type": "type.googleapis.com/ShellCommand",
-              "command": "content update --uri content://sms --bind \"read:i:1\" --bind \"seen:i:1\" --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | head -n 1 | awk -F\u003d \u0027{print $2}\u0027)\"",
-              "customContextDataKey": {
-              },
-              "note": "已读",
-              "id": "A-c1e3005f-2fdf-4012-b164-ada37d8388a9"
-            }],
-            "description": "已读",
-            "id": "Case-e2ef64e8-57e6-4d60-a49a-21a3464ae3c0",
-            "isBreak": true
-          }, {
-            "case": [{
-              "@type": "type.googleapis.com/True",
-              "customContextDataKey": {
-              },
-              "id": "C-2f771ca1-85f3-401c-bd24-c19865d5f103"
-            }],
-            "description": "无",
-            "id": "Case-495a4121-9991-491c-af86-c613171ef198",
-            "isBreak": true
-          }],
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "正在尝试自动键入来着localVarOf$来源的验证码",
           "customContextDataKey": {
           },
-          "id": "A-ef017c5e-cd35-4af6-815d-fbe9cbb4df96"
+          "id": "A-ca07a856-780f-479c-94bd-46f86f523510"
         }],
         "description": "自动键入",
-        "id": "Case-f70301dc-7010-4767-9e33-6c6920ee3be5",
-        "isBreak": true
+        "id": "Case-f70301dc-7010-4767-9e33-6c6920ee3be5"
       }, {
         "case": [{
           "@type": "type.googleapis.com/EvaluateLocalVar",
-          "op": "EqualTo",
+          "op": "Contains",
           "varName": "显示模式",
           "payload": {
             "value": "自动复制"
@@ -828,93 +586,61 @@
           "id": "C-244f4f19-165c-4f3d-8104-7f806f098c3d"
         }],
         "action": [{
+          "@type": "type.googleapis.com/ShowToast",
+          "message": "来着localVarOf$来源的验证码已复制",
+          "customContextDataKey": {
+          },
+          "id": "A-dde8412d-e321-4408-a63e-6d69b27d5c49"
+        }, {
           "@type": "type.googleapis.com/WriteClipboard",
           "text": "localVarOf$验证码",
           "customContextDataKey": {
           },
-          "id": "A-aa5a1da2-f6fa-4a5e-ab8f-98281ff1cb0f"
-        }, {
-          "@type": "type.googleapis.com/SwitchCase",
-          "case": [{
-            "case": [{
-              "@type": "type.googleapis.com/EvaluateLocalVar",
-              "op": "EqualTo",
-              "varName": "输入后的动作",
-              "payload": {
-                "value": "删除短信"
-              },
-              "customContextDataKey": {
-              },
-              "id": "C-51c5d64c-39b9-472b-8826-4501f2f605d8"
-            }],
-            "action": [{
-              "@type": "type.googleapis.com/ShellCommand",
-              "command": "content delete --uri content://sms --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | awk -F\u003d \u0027/_id/ {print $2; exit}\u0027)\"",
-              "customContextDataKey": {
-              },
-              "note": "删除最近一条",
-              "id": "A-f13b07b0-f1ea-4dfe-a7c4-1b72ebc989f0"
-            }],
-            "description": "删除短信",
-            "id": "Case-b66f5ee4-34d5-419d-a232-f734cac5b829",
-            "isBreak": true
-          }, {
-            "case": [{
-              "@type": "type.googleapis.com/EvaluateLocalVar",
-              "op": "EqualTo",
-              "varName": "输入后的动作",
-              "payload": {
-                "value": "已读"
-              },
-              "customContextDataKey": {
-              },
-              "id": "C-269f0ed3-fdbb-4b37-ab52-d7c5f5048fa6"
-            }],
-            "action": [{
-              "@type": "type.googleapis.com/ClickNotificationActionButton",
-              "notification": {
-              },
-              "button": {
-                "label": "已读"
-              },
-              "customContextDataKey": {
-              },
-              "id": "A-418711cd-818b-48fd-a25b-340a17d4f6cb"
-            }, {
-              "@type": "type.googleapis.com/ShellCommand",
-              "command": "content update --uri content://sms --bind \"read:i:1\" --bind \"seen:i:1\" --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | head -n 1 | awk -F\u003d \u0027{print $2}\u0027)\"",
-              "customContextDataKey": {
-              },
-              "note": "已读",
-              "id": "A-c1e3005f-2fdf-4012-b164-ada37d8388a9"
-            }],
-            "description": "已读",
-            "id": "Case-e2ef64e8-57e6-4d60-a49a-21a3464ae3c0",
-            "isBreak": true
-          }, {
-            "case": [{
-              "@type": "type.googleapis.com/True",
-              "customContextDataKey": {
-              },
-              "id": "C-2f771ca1-85f3-401c-bd24-c19865d5f103"
-            }],
-            "description": "无",
-            "id": "Case-495a4121-9991-491c-af86-c613171ef198",
-            "isBreak": true
-          }],
-          "customContextDataKey": {
-          },
-          "id": "A-ef017c5e-cd35-4af6-815d-fbe9cbb4df96"
+          "id": "A-851c2b9d-3516-45f0-a313-9789259f713d"
         }],
         "description": "自动复制",
-        "id": "Case-9da82df9-e077-4ee1-a20c-59f9203ccbf9",
-        "isBreak": true
+        "id": "Case-9da82df9-e077-4ee1-a20c-59f9203ccbf9"
       }, {
         "case": [{
-          "@type": "type.googleapis.com/True",
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "DoesNotContain",
+          "varName": "显示模式",
+          "payload": {
+            "value": "自动复制"
+          },
           "customContextDataKey": {
           },
-          "id": "C-17559183-0efd-4947-9534-331709f5d5ae"
+          "id": "C-c01cb13c-c69f-4526-b1b5-413fdcc83446"
+        }, {
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "DoesNotContain",
+          "varName": "显示模式",
+          "payload": {
+            "value": "自动键入"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-92c97615-d820-44d5-892e-403f67c05c03"
+        }, {
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "DoesNotContain",
+          "varName": "显示模式",
+          "payload": {
+            "value": "浮窗"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-f598487e-fa98-4f09-80d5-4780faa616b5"
+        }, {
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "DoesNotContain",
+          "varName": "显示模式",
+          "payload": {
+            "value": "状态栏"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-5e1cbae3-680f-4b7b-b019-c8c511db7e54"
         }],
         "action": [{
           "@type": "type.googleapis.com/ShowAlertDialog",
@@ -940,144 +666,345 @@
           "id": "A-88415336-3ce2-4d9a-be1c-ad5e8622f2ce"
         }],
         "description": "错误处理",
-        "id": "Case-d1fd0574-6bed-4494-8452-416b94801b90",
-        "isBreak": true
+        "id": "Case-d1fd0574-6bed-4494-8452-416b94801b90"
       }],
       "customContextDataKey": {
       },
       "id": "A-de13aa22-ebf6-4979-90da-ee6a7dd6dc3e"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "IsNotEmpty",
+        "varName": "isclick",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-667e25eb-5af5-41a4-99fe-dd5666c8e927"
+      }],
+      "timeoutStr": "5000",
+      "customContextDataKey": {
+      },
+      "id": "A-d041c69d-9cfd-4759-9748-e1e15f3461cd"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "Contains",
+          "varName": "显示模式",
+          "payload": {
+            "value": "状态栏"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-7a0c694b-8c40-49c9-adc4-8225fca28413"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/HideStatusBarClip",
+          "customContextDataKey": {
+          },
+          "id": "A-7676af83-96e4-40ba-a7ae-b4f1420f1df2"
+        }],
+        "description": "状态栏",
+        "id": "Case-75f7360c-54b3-47bb-889b-bc57bf8187bb"
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "Contains",
+          "varName": "显示模式",
+          "payload": {
+            "value": "浮窗"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-c7f67cfb-16ec-4ead-9ce7-a67be4064e31"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/HideOverlayButton",
+          "overlayTags": ["验证码"],
+          "customContextDataKey": {
+          },
+          "id": "A-81be4993-65e3-4ae1-9638-958ad4fba700"
+        }],
+        "description": "浮窗",
+        "id": "Case-1bc57d86-f0b8-42f2-b969-ff1e0a029d44"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "隐藏状态栏和浮窗",
+      "id": "A-231f21d0-a12f-4e5d-9c3c-032cfad04550"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "Contains",
+          "varName": "isclick",
+          "payload": {
+            "value": "copy"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-b53b32fe-668d-4b97-b1ce-92bd5b3e0154"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/WriteClipboard",
+          "text": "{mvelRet}",
+          "customContextDataKey": {
+          },
+          "id": "A-5e425aa8-d0a7-425c-bf17-0678d6513284"
+        }],
+        "description": "复制",
+        "id": "Case-c85ec40e-9be7-4569-a954-f36704a6d658",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "Contains",
+          "varName": "isclick",
+          "payload": {
+            "value": "input"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-dd094dae-f4e7-478e-9a89-0d3e3046d59e"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "#!/bin/bash\n\n# 输入文本\ntext\u003d\"{mvelRet}\"\n\n# 使用fold命令将每个字符拆分到一行，并使用while循环逐行处理\necho \"$text\" | awk \u0027{for(i\u003d1;i\u003c\u003dlength;i++) print substr($0,i,1)}\u0027 | while IFS\u003d read -r char; do\n    input text \"$char\"\ndone\n",
+          "customContextDataKey": {
+          },
+          "id": "A-ac87643a-4ff5-48f2-97c8-514135e6832d"
+        }],
+        "description": "输入",
+        "id": "Case-6590b522-a354-469c-b028-806527640751",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "note": "执行动作",
+      "id": "A-e858bad5-5265-4436-80da-9f368077172f"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "识别模式",
+        "payload": {
+          "value": "通知"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-873caaad-aab2-4c4a-b74a-10980e2adf0e"
+      }, {
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "pkgName",
+        "payload": {
+          "value": "com.android.mms"
+        },
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-b57c9bb0-e6fa-4b8d-bd5c-ac53c23d7f34"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/BreakActionExecute",
+        "scope": "BreakActionExecuteScope_Root",
+        "customContextDataKey": {
+        },
+        "id": "A-27fc0835-b70b-42e4-8308-38ebce0a5ccb"
+      }],
+      "customContextDataKey": {
+      },
+      "note": "防止其他app触发的验证码误删短信",
+      "id": "A-54f640cc-3b9b-4716-9920-3559d31ff7b4"
+    }, {
+      "@type": "type.googleapis.com/SwitchCase",
+      "case": [{
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "输入后的动作",
+          "payload": {
+            "value": "删除短信"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-51c5d64c-39b9-472b-8826-4501f2f605d8"
+        }, {
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotEmpty",
+          "varName": "isclick",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-136e68dc-4c24-483a-b3cd-ff34e8e7156e"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "content delete --uri content://sms --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | awk -F\u003d \u0027/_id/ {print $2; exit}\u0027)\"",
+          "customContextDataKey": {
+          },
+          "note": "删除最近一条",
+          "id": "A-f13b07b0-f1ea-4dfe-a7c4-1b72ebc989f0"
+        }],
+        "description": "删除短信",
+        "id": "Case-b66f5ee4-34d5-419d-a232-f734cac5b829",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "EqualTo",
+          "varName": "输入后的动作",
+          "payload": {
+            "value": "已读"
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-269f0ed3-fdbb-4b37-ab52-d7c5f5048fa6"
+        }, {
+          "@type": "type.googleapis.com/EvaluateLocalVar",
+          "op": "IsNotEmpty",
+          "varName": "isclick",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-91618855-bf8b-48e3-8c16-d06784c5b59d"
+        }],
+        "action": [{
+          "@type": "type.googleapis.com/ClickNotificationActionButton",
+          "notification": {
+          },
+          "button": {
+            "label": "已读"
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-0e822910-9ba1-43ab-98ab-08bf8777506a"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "content update --uri content://sms --bind \"read:i:1\" --bind \"seen:i:1\" --where \"_id\u003d$(content query --uri content://sms --projection \u0027_id\u0027 --sort \u0027_id DESC\u0027 | head -n 1 | awk -F\u003d \u0027{print $2}\u0027)\"",
+          "customContextDataKey": {
+          },
+          "note": "已读",
+          "id": "A-c1e3005f-2fdf-4012-b164-ada37d8388a9"
+        }],
+        "description": "已读",
+        "id": "Case-e2ef64e8-57e6-4d60-a49a-21a3464ae3c0",
+        "isBreak": true
+      }, {
+        "case": [{
+          "@type": "type.googleapis.com/True",
+          "customContextDataKey": {
+          },
+          "id": "C-2f771ca1-85f3-401c-bd24-c19865d5f103"
+        }],
+        "description": "无",
+        "id": "Case-495a4121-9991-491c-af86-c613171ef198",
+        "isBreak": true
+      }],
+      "customContextDataKey": {
+      },
+      "note": "执行输入后操作",
+      "id": "A-ef017c5e-cd35-4af6-815d-fbe9cbb4df96"
     }],
     "customContextDataKey": {
     },
     "note": "输入mvel中匹配到的验证码",
     "id": "A-03417dcd-2dc6-42a9-815b-34c81719e460"
   }],
-  "id": "SHARE-rule-f3e6cc21-9700-4ec1-ad64-d41e05e957f4",
-  "lastUpdateTime": "1735491643057",
+  "id": "SHARE-rule-1a22fcff-5023-4c3b-a13c-72c2b883c27e",
+  "lastUpdateTime": "1750953579297",
   "createTime": "1689214148528",
   "author": {
-    "name": "ShortX"
+    "name": "nyehueh"
   },
   "title": "验证码提取综合",
   "description": "自动提取验证码键入，高度自定义，导入后请在动作局部变量处配置",
   "isEnabled": true,
   "hook": {
     "actionsOnEnabled": [{
-      "@type": "type.googleapis.com/ShowAlertDialog",
-      "positive": "同意并继续",
-      "onPositive": [{
-        "@type": "type.googleapis.com/CreateLocalVar",
-        "localVar": {
-          "name": "test",
-          "type": {
-            "@type": "type.googleapis.com/StringVar"
-          }
-        },
-        "customContextDataKey": {
-        },
-        "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
-      }, {
-        "@type": "type.googleapis.com/SwitchCase",
-        "case": [{
-          "case": [{
-            "@type": "type.googleapis.com/True",
-            "customContextDataKey": {
-            },
-            "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
-          }],
-          "action": [{
-            "@type": "type.googleapis.com/ShellCommand",
-            "command": "echo true",
-            "customContextDataKey": {
-            },
-            "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
-          }, {
-            "@type": "type.googleapis.com/WriteLocalVar",
-            "varName": "test",
-            "valueAsString": "{shellOut}",
-            "customContextDataKey": {
-            },
-            "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
-          }],
-          "description": "2",
-          "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
-        }, {
-          "case": [{
-            "@type": "type.googleapis.com/True",
-            "customContextDataKey": {
-            },
-            "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
-          }],
-          "action": [{
-            "@type": "type.googleapis.com/Delay",
-            "timeString": "300",
-            "customContextDataKey": {
-            },
-            "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
-          }, {
-            "@type": "type.googleapis.com/IfThenElse",
-            "If": [{
-              "@type": "type.googleapis.com/EvaluateLocalVar",
-              "op": "EqualTo",
-              "varName": "test",
-              "payload": {
-                "value": "true"
-              },
-              "customContextDataKey": {
-              },
-              "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
-            }],
-            "IfActions": [{
-              "@type": "type.googleapis.com/ShowToast",
-              "message": "shell正常",
-              "customContextDataKey": {
-              },
-              "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
-            }],
-            "ElseActions": [{
-              "@type": "type.googleapis.com/ShowAlertDialog",
-              "positive": "确定",
-              "onPositive": [{
-                "@type": "type.googleapis.com/SetRuleEnabled",
-                "ruleId": "rule-98f8b5fd-8577-4be9-b809-f4b1b84ed7fa",
-                "customContextDataKey": {
-                },
-                "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
-              }, {
-                "@type": "type.googleapis.com/BreakActionExecute",
-                "scope": "BreakActionExecuteScope_Root",
-                "customContextDataKey": {
-                },
-                "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
-              }],
-              "title": "shell运行异常",
-              "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
-              "cancelable": true,
-              "style": {
-              },
-              "customContextDataKey": {
-              },
-              "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
-            }],
-            "customContextDataKey": {
-            },
-            "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
-          }],
-          "description": "1",
-          "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
-        }],
-        "customContextDataKey": {
-        },
-        "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
-      }],
-      "title": "用户协议",
-      "message": "1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.使用前请在指令动作的局部变量处配置\n3.显示模式选择流体云时请确认shortx状态栏chilp动作可以正常使用",
-      "cancelable": true,
-      "style": {
+      "@type": "type.googleapis.com/CreateLocalVar",
+      "localVar": {
+        "name": "next",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        }
       },
       "customContextDataKey": {
       },
-      "id": "A-56c14bda-039c-4f72-98ba-d50d4c36a4fa"
+      "id": "A-d26623b3-5199-42e0-be1d-fbe10a72141a"
+    }, {
+      "@type": "type.googleapis.com/ExecuteJS",
+      "expression": "importPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportPackage(android.util);\nimportPackage(java.lang);\n\nfunction runOnUiThread(fn) {\n    new Handler(Looper.getMainLooper()).post(new Runnable({ run: fn }));\n}\n\nrunOnUiThread(function () {\n    var windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n    var layout \u003d new LinearLayout(context);\n    layout.setOrientation(LinearLayout.VERTICAL);\n    layout.setBackgroundColor(Color.TRANSPARENT);\n\n    var backgroundDrawable \u003d new android.graphics.drawable.GradientDrawable();\n    backgroundDrawable.setColor(Color.WHITE);\n    backgroundDrawable.setCornerRadius(50);\n    layout.setBackground(backgroundDrawable);\n    layout.setPadding(40, 40, 40, 40);\n\n    var layoutParams \u003d new WindowManager.LayoutParams(\n        1000,\n        2000,\n        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,\n        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,\n        PixelFormat.TRANSLUCENT\n    );\n    layoutParams.gravity \u003d Gravity.CENTER;\n    var titleView \u003d new TextView(context);\n    titleView.setText(\"使用说明\");\n    titleView.setTextSize(22);\n    titleView.setTextColor(Color.BLACK);\n    titleView.setGravity(Gravity.CENTER);\n    titleView.setPadding(0, 0, 0, 20);\n    layout.addView(titleView);\n    var scrollView \u003d new ScrollView(context);\n    var scrollParams \u003d new LinearLayout.LayoutParams(\n        LinearLayout.LayoutParams.MATCH_PARENT,\n        0,\n        1 \n    );\n    scrollView.setLayoutParams(scrollParams);\n\n    var textView \u003d new TextView(context);\n    textView.setText(\"1.使用前请确定shell正常\\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\\n数据库/焦点通知读取、验证码键入仅shell正常时可用，若无法使shell正常，请使用通知加自动复制(状态栏和浮窗显示模式只能看和长按复制无法点击输入)\\n2.MIUI/澎湃的短信智能识别功能会折叠短信，可能会影响通知模式下指令的正常工作(验证码/来源无法识别)，请关闭短信智能识别功能(信息→右上角设置→短信智能识别→关闭短信智能识别开关)或切换至其他识别模式(点开指令→点开标有识别模式的写入局部变量动作→将通知改为数据库或澎湃焦点通知)\\n3.修改显示模式：\\n状态栏:提取验证码成功后会显示在状态栏左上角时间左边的位置，点击后自动输入验证码，长按为复制验证码，在shortx侧边栏状态栏chilp中可以设置大小背景颜色等\\n浮窗:验证码和来源会以悬浮窗的形式显示在屏幕上，可以拖动改变其位置，点击输入验证码，长按复制验证码\\n自动键入：在收到验证码后立即触发输入将验证码输入到对话框内(无法识别是否已经将输入焦点置于正确的对话框内，可能输入失败或输入到账号后面，部分银行等禁止自动输入的应用可能会导致输入后卡框不会进到下一步页面，故不推荐)\\n自动复制:收到验证码后立即自动将验证码复制到剪切板内(可与剪切板流转等配合将验证码流转到电脑或备用机上使用而无需查看短信，但某些应用无法通过粘贴一次性输入全部的验证码，而只会将第一个字符输入进第一个格子内)\\n显示模式可同时使用多个(使用任意字符分割或不分割，动作会同时触发，相互联动)\\n4.如需在执行后删除/已读短信可修改输入后的动作(只能填写一个项目，部分定制系统可能不生效)\");\n    textView.setTextSize(18);\n    textView.setTextColor(Color.DKGRAY);\n    textView.setGravity(Gravity.LEFT);\n    scrollView.addView(textView);\n    layout.addView(scrollView);\n    var buttonLayout \u003d new LinearLayout(context);\n    buttonLayout.setOrientation(LinearLayout.HORIZONTAL);\n    buttonLayout.setGravity(Gravity.CENTER);\n    buttonLayout.setPadding(0, 30, 0, 0);\n    layout.addView(buttonLayout);\n\n    var closeButton \u003d new Button(context);\n    closeButton.setText(\"下一步 (5)\");\n    closeButton.setTextColor(Color.WHITE);\n    closeButton.setEnabled(false); // 初始不可用\n\n    function createRoundedDrawable(color) {\n        var drawable \u003d new android.graphics.drawable.GradientDrawable();\n        drawable.setColor(color);\n        drawable.setCornerRadius(30); // 圆角\n        return drawable;\n    }\n    closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#BDBDBD\")));\n\n    buttonLayout.addView(closeButton);\n    var secondsRemaining \u003d 5;\n    var handler \u003d new Handler();\n    var countdownRunnable \u003d new Runnable({\n        run: function () {\n            secondsRemaining--;\n            if (secondsRemaining \u003e 0) {\n                closeButton.setText(\"下一步 (\" + secondsRemaining + \")\");\n                handler.postDelayed(this, 1000);\n            } else {\n                closeButton.setEnabled(true);\n                closeButton.setText(\"下一步\");\n                closeButton.setBackgroundDrawable(createRoundedDrawable(Color.parseColor(\"#08C661\"))); \n            }\n        }\n    });\n    handler.postDelayed(countdownRunnable, 1000);\n\n    closeButton.setOnClickListener(new View.OnClickListener({\n        onClick: function () {\n            if (!closeButton.isEnabled()) return;\n            var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                .setVarName(\"next\")\n                .setValueAsString(\"true\")\n                .build();\n            shortx.executeAction(writeLocalVar);\n            try {\n                windowManager.removeView(layout);\n            } catch (e) {}\n        }\n    }));\n\n    try {\n        windowManager.addView(layout, layoutParams);\n    } catch (e) {\n        console.log(\"添加视图失败：\" + e);\n    }\n});",
+      "context": "CoroutineContext_UI",
+      "customContextDataKey": {
+      },
+      "note": "倒计时对话框（使用说明）",
+      "id": "A-72779cef-a17f-470d-a81d-af742813bc93"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/EvaluateLocalVar",
+        "op": "EqualTo",
+        "varName": "next",
+        "payload": {
+          "value": "true"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-53476b03-a08f-40b6-9c26-9a6395cbf4ca"
+      }],
+      "timeoutStr": "0",
+      "customContextDataKey": {
+      },
+      "id": "A-328b7a4c-1126-46e0-8b31-c88c90872d2e"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo 1",
+      "customContextDataKey": {
+      },
+      "id": "A-21148b06-87e9-44c5-8746-0c6918194c1a"
+    }, {
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateContextVar",
+        "op": "EqualTo",
+        "varName": "shellOut",
+        "payload": {
+          "value": "1"
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-21cb5792-6c81-4259-9ae9-d550d1df8714"
+      }],
+      "IfActions": [{
+        "@type": "type.googleapis.com/ShowToast",
+        "message": "shell正常",
+        "customContextDataKey": {
+        },
+        "id": "A-7b3085aa-a959-4e4c-af22-9dcc878b7111"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/ShowAlertDialog",
+        "title": "Shell异常",
+        "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n数据库/焦点通知读取、验证码键入仅shell正常时可用，若无法使shell正常，请使用通知加自动复制(状态栏和浮窗显示模式只能看和长按复制无法点击输入)",
+        "cancelable": true,
+        "style": {
+          "fontScale": 1.0
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-41afc41c-a670-402c-9d7e-c87c6a8be39e"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-6114f144-cb74-42dc-bf23-12eb37d8974a"
     }]
   },
   "quit": {

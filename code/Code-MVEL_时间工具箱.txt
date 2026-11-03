@@ -1,0 +1,16 @@
+{
+  "id": "CODELIB-5c35b1d2-0f1d-4ef9-9c75-6b2e4d2fa101",
+  "name": "MVEL 时间工具箱",
+  "description": "时间戳、当天开始时间、常用时间格式转换示例。",
+  "type": "CodeType_MVEL",
+  "content": "def formatTime(millis, pattern) {\n    sdf = new java.text.SimpleDateFormat(pattern == null ? \"yyyy-MM-dd HH:mm:ss\" : pattern);\n    return sdf.format(new java.util.Date(millis));\n}\n\ndef nowText() {\n    return formatTime(System.currentTimeMillis(), \"yyyy-MM-dd HH:mm:ss\");\n}\n\ndef startOfDay(millis) {\n    cal = java.util.Calendar.getInstance();\n    cal.setTimeInMillis(millis == null ? System.currentTimeMillis() : millis);\n    cal.set(java.util.Calendar.HOUR_OF_DAY, 0);\n    cal.set(java.util.Calendar.MINUTE, 0);\n    cal.set(java.util.Calendar.SECOND, 0);\n    cal.set(java.util.Calendar.MILLISECOND, 0);\n    return cal.getTimeInMillis();\n}",
+  "createdAt": "1773888000000",
+  "updatedAt": "1773888000000",
+  "tags": [
+    "example",
+    "mvel",
+    "time"
+  ]
+}
+###------###
+{"type":"CodeLibraryItem","author":"ShortX"}

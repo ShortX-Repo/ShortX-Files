@@ -1,0 +1,113 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "focus-3-fill",
+    "customContextDataKey": {
+    },
+    "id": "A-acc9595f-7f68-4d48-b2e2-4c307bb8291b"
+  }, {
+    "@type": "type.googleapis.com/CreateLocalVar",
+    "localVar": {
+      "name": "coordinate",
+      "type": {
+        "@type": "type.googleapis.com/StringVar"
+      }
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-f4f4aa45-19c2-409e-8b13-04ad8fea5320"
+  }, {
+    "@type": "type.googleapis.com/ShowOverlayButton",
+    "buttonSettings": [{
+      "actions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 导入必要的 Android 包\nimportPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\n\n// 获取 WindowManager 服务\nvar windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n// 创建一个透明的全屏视图\nvar layout \u003d new LinearLayout(context);\nlayout.setBackgroundColor(Color.TRANSPARENT);\nlayout.setOrientation(LinearLayout.VERTICAL); // 设置方向，避免布局异常\n\n// 根据系统版本选择窗口类型\nvar type \u003d Build.VERSION.SDK_INT \u003e\u003d 26\n    ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY\n    : WindowManager.LayoutParams.TYPE_PHONE;\n\n// 配置 WindowManager.LayoutParams\nvar layoutParams \u003d new WindowManager.LayoutParams(\n    WindowManager.LayoutParams.MATCH_PARENT,\n    WindowManager.LayoutParams.MATCH_PARENT,\n    type,\n    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE\n    | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON\n    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN\n    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS\n    | WindowManager.LayoutParams.FLAG_FULLSCREEN,\n    PixelFormat.TRANSLUCENT\n);\n\n// 设置悬浮窗口的位置和重力\nlayoutParams.gravity \u003d Gravity.TOP | Gravity.LEFT;\n\n// 显示透明全屏视图\nwindowManager.addView(layout, layoutParams);\n\n// 设置点击事件监听\nlayout.setOnTouchListener(new android.view.View.OnTouchListener({\n    onTouch: function(view, motionEvent) {\n        if (motionEvent.getAction() \u003d\u003d\u003d MotionEvent.ACTION_DOWN) {\n            var x \u003d Math.floor(motionEvent.getRawX());\n            var y \u003d Math.floor(motionEvent.getRawY());\n            try {\n                var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                    .setVarName(\"coordinate\")\n                    .setValueAsString(x + \":\" + y)\n                    .build();\n                shortx.executeAction(writeLocalVar);\n            } catch (e) {}\n\n            layout.post(function() {\n                try {\n                    windowManager.removeView(layout);\n                } catch (e) {}\n            });\n            return true;\n        }\n        return false;\n    }\n}));",
+        "context": "CoroutineContext_UI",
+        "customContextDataKey": {
+        },
+        "id": "A-d38ea97f-5213-4888-9b02-03119b61e37d"
+      }],
+      "icon": "focus-3-fill",
+      "label": "点击/滑动",
+      "longClickActions": [{
+        "@type": "type.googleapis.com/ExecuteJS",
+        "expression": "// 导入必要的 Android 包\nimportPackage(android.view);\nimportPackage(android.widget);\nimportPackage(android.content);\nimportPackage(android.os);\nimportPackage(android.graphics);\nimportPackage(java.lang);\n\n// 获取 WindowManager 服务\nvar windowManager \u003d context.getSystemService(Context.WINDOW_SERVICE);\n\n// 创建一个透明的全屏视图\nvar layout \u003d new LinearLayout(context);\nlayout.setBackgroundColor(Color.TRANSPARENT);\nlayout.setOrientation(LinearLayout.VERTICAL);\n\n// 根据系统版本选择窗口类型\nvar type \u003d Build.VERSION.SDK_INT \u003e\u003d 26\n    ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY\n    : WindowManager.LayoutParams.TYPE_PHONE;\n\n// 配置 WindowManager.LayoutParams\nvar layoutParams \u003d new WindowManager.LayoutParams(\n    WindowManager.LayoutParams.MATCH_PARENT,\n    WindowManager.LayoutParams.MATCH_PARENT,\n    type,\n    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE\n    | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON\n    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN\n    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS\n    | WindowManager.LayoutParams.FLAG_FULLSCREEN,\n    PixelFormat.TRANSLUCENT\n);\n\n// 设置悬浮窗口的位置和重力\nlayoutParams.gravity \u003d Gravity.TOP | Gravity.LEFT;\n\n// 显示透明全屏视图\nwindowManager.addView(layout, layoutParams);\n\n// 变量来保存起始位置\nvar startX \u003d 0;\nvar startY \u003d 0;\nvar isSwiping \u003d false;\nvar starttime \u003d 0;\nvar endtime \u003d 0;\n\n// 设置触摸事件监听\nlayout.setOnTouchListener(new android.view.View.OnTouchListener({\n    onTouch: function(view, motionEvent) {\n        switch (motionEvent.getAction()) {\n            case MotionEvent.ACTION_DOWN:\n                starttime \u003d System.currentTimeMillis();\n                startX \u003d Math.floor(motionEvent.getRawX());\n                startY \u003d Math.floor(motionEvent.getRawY());\n                isSwiping \u003d true;\n                return true;\n\n            case MotionEvent.ACTION_MOVE:\n                return false;\n\n            case MotionEvent.ACTION_UP:\n                if (isSwiping) {\n                    endtime \u003d System.currentTimeMillis();\n                    var endX \u003d Math.floor(motionEvent.getRawX());\n                    var endY \u003d Math.floor(motionEvent.getRawY());\n\n                    try {\n                        var writeLocalVar \u003d Packages.tornaco.apps.shortx.core.proto.action.WriteLocalVar.newBuilder()\n                            .setVarName(\"coordinate\")\n                            .setValueAsString(\"起始坐标：\" + startX + \":\" + startY + \"\\n\" + \"终点坐标：\" + endX + \":\" + endY + \"\\n\" + \"滑动时间（ms）：\" + (endtime - starttime))\n                            .build();\n                        shortx.executeAction(writeLocalVar);\n                    } catch (e) {}\n\n                    layout.post(function() {\n                        try {\n                            windowManager.removeView(layout);\n                        } catch (e) {}\n                    });\n\n                    isSwiping \u003d false;\n                }\n                return true;\n\n            default:\n                return false;\n        }\n    }\n}));",
+        "context": "CoroutineContext_UI",
+        "customContextDataKey": {
+        },
+        "id": "A-683c51f9-6b44-4204-84c2-7389b30fb52e"
+      }],
+      "id": "BTN-c4da36dd-8932-4621-ae24-99de67d5367d"
+    }],
+    "tag": "extract",
+    "maxHeightInDp": 154,
+    "maxWidthInDp": 20,
+    "backgroundAlpha": 0.8,
+    "buttonMinWidth": 65,
+    "enableGlobalDrag": true,
+    "overlayPaddingH": 1,
+    "overlayPaddingV": 19,
+    "disableAutoEdge": true,
+    "closeOnAction": true,
+    "customContextDataKey": {
+    },
+    "id": "A-58612d0f-1e2a-4723-9844-315c4c97a476"
+  }, {
+    "@type": "type.googleapis.com/WaitUtilConditionMatch",
+    "condition": [{
+      "@type": "type.googleapis.com/EvaluateLocalVar",
+      "op": "IsNotEmpty",
+      "varName": "coordinate",
+      "payload": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-6417382a-aa18-424c-a34c-05b8ab3bac3d"
+    }],
+    "quitCondition": [{
+      "@type": "type.googleapis.com/True",
+      "customContextDataKey": {
+      },
+      "id": "C-26b396a7-3657-4315-a9f5-6c528d8de360"
+    }],
+    "timeoutStr": "0",
+    "customContextDataKey": {
+    },
+    "id": "A-64b484dc-12d8-4ec4-b3c6-d9ba01bb0011"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "复制",
+    "onPositive": [{
+      "@type": "type.googleapis.com/WriteClipboard",
+      "text": "localVarOf$coordinate",
+      "customContextDataKey": {
+      },
+      "id": "A-3a165a97-81f8-4ab5-b7fb-6a0680dda19e"
+    }],
+    "title": "坐标",
+    "message": "localVarOf$coordinate",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-d88dba6c-7245-4c5b-90c3-8997dd275523"
+  }],
+  "id": "SHARED-DA-25f3c8d3-51b5-4f1f-aeee-0c9049d2262b",
+  "lastUpdateTime": "1749469545030",
+  "createTime": "1730190522317",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "坐标提取器",
+  "description": "提取下次点击或滑动坐标",
+  "versionCode": "1",
+  "directActionSetId": "DS-d7b0c8a9-5a94-42a5-8dee-6301d1af1e19",
+  "hook": {
+  },
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

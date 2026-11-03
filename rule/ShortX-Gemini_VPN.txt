@@ -1,0 +1,341 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.google.android.googlequicksearchbox"
+      },
+      "className": "com.google.android.apps.search.assistant.surfaces.voice.robin.ui.floaty.activity.FloatyActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "note": "Gemini 活动检测",
+    "id": "F-58440408-29d7-4b2e-91d7-714084db56d5"
+  }, {
+    "@type": "type.googleapis.com/AppBecomeFg",
+    "pkgSets": ["vpn应用"],
+    "customContextDataKey": {
+    },
+    "id": "F-9a23c6d8-4c76-4918-94b5-53f773ad236c"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/VPNIsConnected",
+    "customContextDataKey": {
+    },
+    "isInvert": true,
+    "id": "C-02229879-9705-4fe6-b9b4-bc993f14737f"
+  }, {
+    "@type": "type.googleapis.com/RequireRingerMode",
+    "mode": "normal",
+    "customContextDataKey": {
+    },
+    "id": "C-a66f519c-4dde-4321-b1f0-f98173b8887c"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "am start -a com.github.metacubex.clash.meta.action.START_CLASH -n com.github.metacubex.clash.meta/com.github.kr328.clash.ExternalControlActivity",
+    "customContextDataKey": {
+    },
+    "actionOnError": "Break",
+    "id": "A-0fdd1e77-7f0b-4563-bbca-7e9376abd3c5"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/MatchMVEL",
+      "expression": "// 定义媒体音量流类型常量\nSTREAM_MUSIC \u003d 3;\n\n// 获取 AudioManager 实例\naudioManager \u003d context.getSystemService(\"audio\");\n\n// 获取当前媒体音量\nmediaVolume \u003d audioManager.getStreamVolume(STREAM_MUSIC);\n\n// 判断媒体音量是否大于0\nisMediaVolumeGreaterThanTen \u003d mediaVolume \u003e 0;",
+      "customContextDataKey": {
+      },
+      "id": "C-e251a28f-d9bc-4a72-9dfa-5c804c92b694"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1729324371021",
+      "title": "临时VPN",
+      "message": "如果不移除此通知，VPN会在以下情况时关闭\n• 屏幕关闭\n• 点击此通知",
+      "smallIcon": "stopwatch",
+      "clickAction": [{
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "com.github.metacubex.clash.meta"
+        }],
+        "customContextDataKey": {
+        },
+        "actionOnError": "Break",
+        "id": "A-00c9f5a5-9faa-4968-8375-5e837f645ad7"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "tag": "tag-1729324371021"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-95c649a8-a827-4c7e-84dd-ddd0007ac354"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "GeminiVPN1",
+        "op": "WriteGlobalVarOp_Invert",
+        "customContextDataKey": {
+        },
+        "id": "A-f77153b9-a4c2-4db7-be90-f0e28ec723d8"
+      }],
+      "customContextDataKey": {
+      },
+      "actionOnError": "Break",
+      "id": "A-9b78bac3-5c8a-4ff6-a9fa-e16b1064eda4"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-0c3ff27a-6d6b-480b-922e-14375b14daeb"
+      }],
+      "quitFacts": [{
+        "@type": "type.googleapis.com/NotificationRemoved",
+        "record": {
+          "tag": "tag-1729324371021"
+        },
+        "customContextDataKey": {
+        },
+        "id": "F-8e94d5d0-5dc7-4cca-9fbb-29493fd08676"
+      }],
+      "quitEnabled": true,
+      "timeoutStr": "0",
+      "customContextDataKey": {
+      },
+      "actionOnError": "Break",
+      "id": "A-30e81d70-0dff-4f69-ba73-335565012e1a"
+    }, {
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.github.metacubex.clash.meta"
+      }],
+      "customContextDataKey": {
+      },
+      "actionOnError": "Break",
+      "id": "A-00c9f5a5-9faa-4968-8375-5e837f645ad7"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "tag": "tag-1729324371021"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-b224aee2-2619-4dee-a9dd-d7f4d3d85d24"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/SetVolume",
+      "type": 3,
+      "index": 10,
+      "customContextDataKey": {
+      },
+      "id": "A-dd0bb3cb-849e-4906-a892-6f5db2a1f7ce"
+    }, {
+      "@type": "type.googleapis.com/PostNotification",
+      "tag": "tag-1729324371021",
+      "title": "临时VPN",
+      "message": "如果不移除此通知，VPN会在以下情况时关闭\n• 屏幕关闭\n• 点击此通知",
+      "smallIcon": "stopwatch",
+      "clickAction": [{
+        "@type": "type.googleapis.com/StopApp",
+        "appPkg": [{
+          "pkgName": "com.github.metacubex.clash.meta"
+        }],
+        "customContextDataKey": {
+        },
+        "actionOnError": "Break",
+        "id": "A-00c9f5a5-9faa-4968-8375-5e837f645ad7"
+      }, {
+        "@type": "type.googleapis.com/SetVolume",
+        "type": 3,
+        "customContextDataKey": {
+        },
+        "id": "A-8133f9fd-e532-4fee-b115-8d726a7f0773"
+      }, {
+        "@type": "type.googleapis.com/RemoveNotification",
+        "notification": {
+          "tag": "tag-1729324371021"
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-95c649a8-a827-4c7e-84dd-ddd0007ac354"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "GeminiVPN1",
+        "op": "WriteGlobalVarOp_Invert",
+        "customContextDataKey": {
+        },
+        "id": "A-f77153b9-a4c2-4db7-be90-f0e28ec723d8"
+      }],
+      "customContextDataKey": {
+      },
+      "actionOnError": "Break",
+      "id": "A-549421e5-75ad-4163-86bc-9e059d88b123"
+    }, {
+      "@type": "type.googleapis.com/WaitUtilConditionMatch",
+      "condition": [{
+        "@type": "type.googleapis.com/ScreenIsOn",
+        "customContextDataKey": {
+        },
+        "isInvert": true,
+        "id": "C-0c3ff27a-6d6b-480b-922e-14375b14daeb"
+      }],
+      "quitFacts": [{
+        "@type": "type.googleapis.com/NotificationRemoved",
+        "record": {
+          "tag": "tag-1729324371021"
+        },
+        "customContextDataKey": {
+        },
+        "id": "F-8e94d5d0-5dc7-4cca-9fbb-29493fd08676"
+      }],
+      "quitEnabled": true,
+      "timeoutStr": "0",
+      "customContextDataKey": {
+      },
+      "actionOnError": "Break",
+      "id": "A-8f42804b-bf89-41b1-a420-5b7e11e1d9a8"
+    }, {
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.github.metacubex.clash.meta"
+      }],
+      "customContextDataKey": {
+      },
+      "actionOnError": "Break",
+      "id": "A-eb04f270-e198-4f90-b46d-6686096f76e7"
+    }, {
+      "@type": "type.googleapis.com/SetVolume",
+      "type": 3,
+      "customContextDataKey": {
+      },
+      "id": "A-c1090fdc-5e47-4364-9fdb-b973fd19369d"
+    }, {
+      "@type": "type.googleapis.com/RemoveNotification",
+      "notification": {
+        "tag": "tag-1729324371021"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-ba0862cc-3375-4647-9447-23bbadb85da8"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-91d9fe21-e6a8-4b43-9c81-bafce4f86107"
+  }],
+  "id": "SHARE-rule-dd796cad-97c8-41d2-9824-4e99e386118a",
+  "lastUpdateTime": "1747010392546",
+  "createTime": "1729323882538",
+  "author": {
+    "name": "ritajiuzu@outlook.com"
+  },
+  "title": "Gemini VPN",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/IfThenElse",
+      "If": [{
+        "@type": "type.googleapis.com/EvaluateGlobalVar",
+        "op": "HasBeenSet",
+        "varName": "GeminiVPN1",
+        "payload": {
+        },
+        "customContextDataKey": {
+        },
+        "id": "C-07b0ecd7-597c-472d-8ea0-e01568a18b65"
+      }],
+      "ElseActions": [{
+        "@type": "type.googleapis.com/CreateGlobalVar",
+        "globalVar": {
+          "name": "GeminiVPN1",
+          "type": {
+            "@type": "type.googleapis.com/BoolVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-d4f397dc-7789-4aad-b051-7b5caf5c95c9"
+      }, {
+        "@type": "type.googleapis.com/WriteGlobalVar",
+        "varName": "GeminiVPN1",
+        "op": "WriteGlobalVarOp_Invert",
+        "customContextDataKey": {
+        },
+        "id": "A-1333a099-6b91-41ae-a97a-c3b4e31b3afd"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "HasBeenSet",
+          "varName": "GeminiVPN1",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-07b0ecd7-597c-472d-8ea0-e01568a18b65"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-1729936421932",
+          "title": "Gemini VPN",
+          "message": "已新建全局变量“GeminiVPN1”\n应用集“vpn应用”中的应用也会触发GeminiVPN",
+          "isImportant": true,
+          "smallIcon": "check-one",
+          "customContextDataKey": {
+          },
+          "id": "A-331e6a81-48d3-4cbb-afd0-59237e7c2c74"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/PostNotification",
+          "tag": "tag-1729936421932",
+          "title": "Gemini VPN",
+          "message": "无法新建全局变量“GeminiVPN1”\n“点击此通知”功能不可用\n应用集“vpn应用”中的应用也会触发GeminiVPN",
+          "isImportant": true,
+          "smallIcon": "close-one",
+          "customContextDataKey": {
+          },
+          "id": "A-331e6a81-48d3-4cbb-afd0-59237e7c2c74"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-2e2f31af-1d43-48a2-86c8-713b691fa940"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-8a929933-c676-4ee9-9b6c-7d4b81e0ff20"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "GeminiVPN1",
+      "customContextDataKey": {
+      },
+      "id": "A-d6ddb874-5f72-4733-8192-d36810c86f5e"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/GlobalVarChanged",
+      "gvId": "GeminiVPN1",
+      "customContextDataKey": {
+      },
+      "id": "F-587c2908-a35a-46e1-8e49-f2dac2d60428"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/StopApp",
+      "appPkg": [{
+        "pkgName": "com.github.metacubex.clash.meta"
+      }],
+      "customContextDataKey": {
+      },
+      "actionOnError": "Break",
+      "id": "A-82f7eed4-5f2c-420c-b534-08c866ccec7a"
+    }]
+  },
+  "asyncMode": "AsyncMode_Sync",
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_SkipNew"
+}
+###------###
+{"type":"rule"}

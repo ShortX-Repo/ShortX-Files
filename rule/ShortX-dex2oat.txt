@@ -1,0 +1,109 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/AppUpdated",
+    "pkgSets": ["All"],
+    "customContextDataKey": {
+    },
+    "id": "F-30616e14-4c06-4dbd-8fa2-4d817d3026d7"
+  }, {
+    "@type": "type.googleapis.com/AppAdded",
+    "customContextDataKey": {
+    },
+    "id": "F-1748f4d5-49a9-499a-bcda-753a20b5ec58"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "cmd package compile -m globalVarOf$dex2oat -f {pkgName}",
+    "customContextDataKey": {
+    },
+    "id": "A-dc555f96-c76c-4141-b402-583eeb238d34"
+  }, {
+    "@type": "type.googleapis.com/ShowDanmu",
+    "text": "{label} dex2oat globalVarOf$dex2oat 编译 {shellOut}",
+    "icon": "app://{pkgName}",
+    "customContextDataKey": {
+    },
+    "id": "A-11317b70-c4f2-4b16-895c-92069f558343"
+  }],
+  "id": "SHARE-rule-ce3e9353-1e9b-48ed-83cd-a81074b24b69",
+  "lastUpdateTime": "1766086238850",
+  "createTime": "1745769311490",
+  "author": {
+    "name": "二次寒树"
+  },
+  "title": "dex2oat",
+  "description": "应用安装/更新自动dex2oat编译",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "dex2oat",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "dex2oat"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-8f7e513a-5f53-491d-86b0-6537c0b4d2a6"
+    }, {
+      "@type": "type.googleapis.com/ShowChoiceDialog",
+      "title": "选择dex2oat编译模式",
+      "choices": [{
+        "label": "编译常见热点函数(一般为系统默认)",
+        "value": "speed-profile"
+      }, {
+        "label": "编译所有函数内容",
+        "value": "speed"
+      }, {
+        "label": "编译所有可编译内容(速度最大化,但占用较多空间)",
+        "value": "everything",
+        "isSelectedByDefault": true
+      }, {
+        "label": "还原编译(去除dex2oat，节省空间)",
+        "value": "reset"
+      }, {
+        "label": "反向压缩(牺牲速度换取空间)",
+        "value": "compact"
+      }],
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+        "keys": [{
+          "first": "choices",
+          "second": "choose"
+        }]
+      },
+      "id": "A-0b22376e-3c82-4cd7-a37e-32c25a6f8138"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "dex2oat",
+      "valueAsString": "{choose}",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-ba7a185b-810f-49ab-979a-963341a880d8"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dex2oat",
+      "customContextDataKey": {
+      },
+      "id": "A-de4e4fd9-ee59-45dd-b7d9-353edea1298e"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "dex2oat",
+      "customContextDataKey": {
+      },
+      "id": "A-5f03d6d9-1c7e-4c40-929f-975e743fe125"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

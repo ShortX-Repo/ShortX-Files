@@ -1,0 +1,223 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "title": "您的外卖订单正在进行中",
+      "contentText": "您可前往订单详情页查看具体进展",
+      "apps": [{
+        "pkgName": "com.sankuai.meituan"
+      }, {
+        "pkgName": "com.sankuai.meituan.takeoutnew"
+      }]
+    },
+    "tag": "美团",
+    "customContextDataKey": {
+    },
+    "id": "F-3ba201aa-29cc-4b85-9db4-22e67e6f09ee"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "您的外卖订单正在进行中",
+      "contentText": "您可前往订单详情页查看具体进展",
+      "apps": [{
+        "pkgName": "com.sankuai.meituan"
+      }, {
+        "pkgName": "com.sankuai.meituan.takeoutnew"
+      }]
+    },
+    "tag": "美团",
+    "customContextDataKey": {
+    },
+    "id": "F-9655625d-50a8-413f-8ff3-8fc4cfa35260"
+  }, {
+    "@type": "type.googleapis.com/NotificationPosted",
+    "record": {
+      "title": "预计\\d+分钟|预计.*?送达",
+      "apps": [{
+        "pkgName": "com.eg.android.AlipayGphone"
+      }, {
+        "pkgName": "me.ele"
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn",
+      "contentRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "tag": "饿了么",
+    "customContextDataKey": {
+    },
+    "id": "F-6eb566e5-b457-41fe-856c-abe4e13abc6a"
+  }, {
+    "@type": "type.googleapis.com/NotificationUpdated",
+    "new": {
+      "title": "预计\\d+分钟|预计.*?送达",
+      "apps": [{
+        "pkgName": "com.eg.android.AlipayGphone"
+      }, {
+        "pkgName": "me.ele"
+      }],
+      "titleRegexOptions": "RegexMatchOptions_ContainsMatchIn"
+    },
+    "tag": "饿了么",
+    "customContextDataKey": {
+    },
+    "id": "F-6c869230-23ae-400e-b035-cf2b2e1d4c02"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "dumpsys notification --noredact | awk \u0027/pkg\u003d{pkgName}/,/miui.focus.param/ {if ($0 ~ /miui.focus.param/) print $0}\u0027",
+    "customContextDataKey": {
+    },
+    "id": "A-a075322e-2bb0-48ea-902d-e335355479fd"
+  }, {
+    "@type": "type.googleapis.com/RemoveNotification",
+    "notification": {
+      "title": "外卖焦点通知",
+      "contentText": "外卖焦点通知",
+      "apps": [{
+        "pkgName": "android"
+      }]
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-cc7440a8-33a9-4420-8781-6de2b0754925"
+  }, {
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "importPackage(android.os);\nimportPackage(android.app);\nimportPackage(android.content);\nimportClass(java.lang.Runnable);\nimportClass(org.json.JSONArray);\nimportClass(org.json.JSONObject);\nimportClass(org.json.JSONTokener);\n\n\nfunction sendNotification(title, text,jdstring) {\n    var result \u003d null;\n\n    function runOnUiThread(fn) {\n        new Handler(Looper.getMainLooper()).post(new Runnable({ run: fn }));\n    }\n\n    runOnUiThread(function () {\n        try {\n            var NotificationManager \u003d android.app.NotificationManager;\n            var NotificationChannel \u003d android.app.NotificationChannel;\n            var NotificationBuilder \u003d android.app.Notification$Builder;\n\n            var channelId \u003d \"default_id1\";\n            var channelName \u003d \"默认通知\";\n\n            var manager \u003d context.getSystemService(Context.NOTIFICATION_SERVICE);\n\n            var builder;\n            if (android.os.Build.VERSION.SDK_INT \u003e\u003d 26) {\n                var channel \u003d new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);\n                manager.createNotificationChannel(channel);\n                builder \u003d new NotificationBuilder(context, channelId);\n            } else {\n                builder \u003d new NotificationBuilder(context);\n            }\n\n            // 正常设置通知标题、内容\n            builder.setContentTitle(title)\n                   .setContentText(text)\n                   .setSmallIcon(android.R.drawable.ic_dialog_info)\n                   .setAutoCancel(true);\n\n            // 重点：添加 MIUI 的额外字段\n            var extras \u003d new android.os.Bundle();\n            extras.putString(\"miui.focus.param\",jdstring);\n            builder.getExtras().putAll(extras);\n\n            manager.notify(parseInt(%CurrentTimeMillis%/1000), builder.build());\n\n            result \u003d true;\n        } catch (e) {\n            console.log(\"通知异常：\" + e);\n            result \u003d false;\n        }\n    });\n\n    result;\n}\nvar pintai\u003d`{factTag}`;\nvar input \u003d `{shellOut}`; \nfunction a(input) {\n    var pattern \u003d /\\(([^()]+)\\)/;\n    return input.match(pattern)[0].replace(/\\(|\\)/g, \"\");\n    }\n\n\nfunction parseJsonString(jsonString) {\n    try {\n        var obj \u003d JSON.parse(jsonString);\n        return obj;\n    } catch (e) {\n        console.log( e.message );\n    }\n}\nfunction objectToJsonString(obj) {\n    try {\n        var jsonString \u003d JSON.stringify(obj);\n        return jsonString;\n    } catch (e) {\n        console.log( e.message );\n    }\n}\n\nvar jdjson\u003dparseJsonString(String(a(input)));\nvar jdtitle\u003djdjson.title;\nvar jddesc1\u003djdjson.desc1;\nvar jddesc2\u003djdjson.desc2;\nif(pintai.includes(\"美团\")){\nif(jdtitle.includes(\"已放入\")\u0026\u0026jdtitle.includes(\"柜\")){\njdjson.ticker\u003d\"待取 \"+jddesc1.split(\" \")[0];\n}else if(jdtitle.includes(\"已送达\")){\njdjson.ticker\u003d\"已送达\";\n}else if(jdtitle.includes(\":\")){\nvar pattern \u003d /\\d{1,2}:\\d{2}/;\nvar zt;\nif(jddesc1.includes(\"等待商家接单\")){zt\u003d\"待接单\";}\nelse if(jddesc1.includes(\"商家已接单\")){zt\u003d\"已接单\"}\nelse if(jddesc1.includes(\"骑手正在送货\")){zt\u003d\"送货中\"}\nelse if(jddesc1.includes(\"商家已出餐\")){zt\u003d\"待取货\"}\nelse if(jddesc1.includes(\"骑手正在赶往商家\")){zt\u003d\"取货中\"}\nelse if(jddesc1.includes(\"正在召唤骑手\")){zt\u003d\"召唤中\"}\nelse if(jddesc1.includes(\"商家正在备餐\")){zt\u003d\"备餐中\"}\nelse if(jddesc1.includes(\"骑手已到店\")){zt\u003d\"已到店\"}\nelse{zt\u003ddesc1}\njdjson.ticker\u003dzt+\" \"+jdtitle.match(pattern);\n}else{\nvar pattern\u003d/\\d+/;\njdjson.ticker\u003d\"送货中 \"+jdtitle.match(pattern)+\"分钟\";\n}\n}else if(pintai.includes(\"饿了么\")){\nif(desc2!\u003d\u003dundefined){\njdjson.ticker \u003d desc2.replace(/预计|距你|距商家/g,\"\").replace(\"，\",\",\");\n}else{\njdjson.ticker\u003ddesc1;\n}\n}\nvar jdstr\u003dobjectToJsonString(jdjson);\nsendNotification(\"外卖焦点通知\", \"外卖焦点通知\",jdstr);",
+    "customContextDataKey": {
+    },
+    "id": "A-71261a71-38fb-4447-9279-a0bbb93f1232"
+  }],
+  "id": "SHARE-rule-beec02c9-c62e-4b05-89b7-c42a1226b89a",
+  "lastUpdateTime": "1753435268635",
+  "createTime": "1730260054534",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "外卖焦点通知上状态栏",
+  "description": "配合HyperCeiler的移除焦点通知白名单功能可将外卖焦点通知显示在状态栏",
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "同意并继续",
+      "onPositive": [{
+        "@type": "type.googleapis.com/CreateLocalVar",
+        "localVar": {
+          "name": "test",
+          "type": {
+            "@type": "type.googleapis.com/StringVar"
+          }
+        },
+        "customContextDataKey": {
+        },
+        "id": "A-b8308f58-1ed7-4c5c-bc20-5a272677a3e6"
+      }, {
+        "@type": "type.googleapis.com/SwitchCase",
+        "case": [{
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-c856cd3b-0f2e-4d21-952e-4a0d9af499f2"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/ShellCommand",
+            "command": "echo true",
+            "customContextDataKey": {
+            },
+            "id": "A-c7298e45-9243-4b64-a1c7-359b980771a6"
+          }, {
+            "@type": "type.googleapis.com/WriteLocalVar",
+            "varName": "test",
+            "valueAsString": "{shellOut}",
+            "customContextDataKey": {
+            },
+            "id": "A-d8044c27-c2e1-4c84-9c9a-3fc542049908"
+          }],
+          "description": "2",
+          "id": "Case-6f1d2188-44be-451b-85ad-07a7a959199a"
+        }, {
+          "case": [{
+            "@type": "type.googleapis.com/True",
+            "customContextDataKey": {
+            },
+            "id": "C-23db127b-9780-4a94-b8f3-743cd0b4cf53"
+          }],
+          "action": [{
+            "@type": "type.googleapis.com/Delay",
+            "timeString": "300",
+            "customContextDataKey": {
+            },
+            "id": "A-94d83ca8-944b-4a68-8678-89697cd0b326"
+          }, {
+            "@type": "type.googleapis.com/IfThenElse",
+            "If": [{
+              "@type": "type.googleapis.com/EvaluateLocalVar",
+              "op": "EqualTo",
+              "varName": "test",
+              "payload": {
+                "value": "true"
+              },
+              "customContextDataKey": {
+              },
+              "id": "C-d7b8537a-c59a-4eef-8a3c-4caddd70c6f6"
+            }],
+            "IfActions": [{
+              "@type": "type.googleapis.com/ShowToast",
+              "message": "shell正常",
+              "customContextDataKey": {
+              },
+              "id": "A-d93140e1-eede-46bc-b50e-d7ac332d2e0e"
+            }],
+            "ElseActions": [{
+              "@type": "type.googleapis.com/ShowAlertDialog",
+              "positive": "确定",
+              "onPositive": [{
+                "@type": "type.googleapis.com/SetRuleEnabled",
+                "ruleId": "rule-98f8b5fd-8577-4be9-b809-f4b1b84ed7fa",
+                "customContextDataKey": {
+                },
+                "id": "A-3b70707b-6223-464a-b0a5-ff6de5023101"
+              }, {
+                "@type": "type.googleapis.com/BreakActionExecute",
+                "scope": "BreakActionExecuteScope_Root",
+                "customContextDataKey": {
+                },
+                "id": "A-b3fdaa1e-cc4d-442d-a6ee-ad2b2cac5db0"
+              }],
+              "title": "shell运行异常",
+              "message": "请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限",
+              "cancelable": true,
+              "style": {
+              },
+              "customContextDataKey": {
+              },
+              "id": "A-42eb85d4-c2ad-413e-83ad-f8fb3e3007ab"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-f88a1156-1201-4e31-a4af-7d280599da4e"
+          }],
+          "description": "1",
+          "id": "Case-bfff4885-0e26-4b59-873c-da79252bc73f"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-5760b81c-43d4-4c02-9753-4d19ca95709b"
+      }],
+      "title": "用户协议",
+      "message": "！！！本指令为Xiaomi HyperOS专用！！！\n！！！本指令为Xiaomi HyperOS专用！！！\n！！！本指令为Xiaomi HyperOS专用！！！\n1.使用前请确定shell正常\n(关闭这个对话框后未弹出shell正常toast即为不正常，请确定在shell in systemUI开启时给了systemUI（系统界面）root权限，在未开启时给了shortx root权限)\n2.请确认系统官方焦点通知可以正常显示\n3.请确认shortx状态栏chilp动作可以正常使用",
+      "cancelable": true,
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-56c14bda-039c-4f72-98ba-d50d4c36a4fa"
+    }]
+  },
+  "quit": {
+    "isEnabled": true
+  },
+  "versionCode": "1",
+  "conflictPolicy": "ConflictStrategy_ReplaceOld"
+}
+###------###
+{"type":"rule"}

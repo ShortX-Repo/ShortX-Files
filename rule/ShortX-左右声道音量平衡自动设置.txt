@@ -1,0 +1,122 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/HeadsetPlug",
+    "isPlug": true,
+    "customContextDataKey": {
+    },
+    "id": "F-980ace3d-ea0e-4edd-a1cd-ca564bf3d6c7"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/WriteGlobalVar",
+    "varName": "左右声道音量平衡",
+    "valueAsString": "0.0",
+    "op": "WriteGlobalVarOp_Override",
+    "autoCreateIfMissing": true,
+    "customContextDataKey": {
+    },
+    "note": "左右声道\n值为单精度浮点数\n范围：-1.0～1.0\n负数则表示向左偏\n正数则表示向右偏\n0.0则表示中间",
+    "id": "A-1da6651a-4a99-48af-b6e3-1eef058aa76b"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "NS\u003dglobalVarOf$master_balance命名空间\nlr\u003dglobalVarOf$左右声道音量平衡\nsettings put \"$NS\" master_balance \"$lr\"",
+    "customContextDataKey": {
+    },
+    "id": "A-11b008fa-58fc-4fca-b599-52ce1a5438b6"
+  }],
+  "id": "SHARE-rule-39b6e87e-f151-4463-9b6c-9be339331d2c",
+  "lastUpdateTime": "1785316055657",
+  "createTime": "1785314049813",
+  "author": {
+    "name": "FTReey@coolapk"
+  },
+  "title": "左右声道音量平衡自动设置",
+  "description": "自动根据耳机状态应用左右声道音量",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "for ns in system global secure; do\n    if settings list \"$ns\" | grep -q \"^master_balance\u003d\"; then\n        echo \"$ns\"\n        break\n    fi\ndone",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "master_balance"
+        }]
+      },
+      "id": "A-88cd88ba-3c16-4a41-aaf4-e24f812233f5"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "master_balance命名空间",
+      "valueAsString": "{master_balance}",
+      "op": "WriteGlobalVarOp_Override",
+      "autoCreateIfMissing": true,
+      "customContextDataKey": {
+      },
+      "id": "A-d1da75da-d0a9-44a8-aea3-4a78b10eb45b"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "master_balance命名空间",
+      "customContextDataKey": {
+      },
+      "id": "A-e9e78e73-4f03-40ff-8c60-a07c9cf42eb8"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "左右声道音量平衡",
+      "customContextDataKey": {
+      },
+      "id": "A-a1359794-d955-4b23-97b1-05a902a8c259"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "master_balance命名空间",
+      "customContextDataKey": {
+      },
+      "id": "A-e9e78e73-4f03-40ff-8c60-a07c9cf42eb8"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "左右声道音量平衡",
+      "customContextDataKey": {
+      },
+      "id": "A-a1359794-d955-4b23-97b1-05a902a8c259"
+    }],
+    "actionsOnUpdated": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "for ns in system global secure; do\n    if settings list \"$ns\" | grep -q \"^master_balance\u003d\"; then\n        echo \"$ns\"\n        break\n    fi\ndone",
+      "customContextDataKey": {
+        "keys": [{
+          "first": "shellOut",
+          "second": "master_balance"
+        }]
+      },
+      "id": "A-88cd88ba-3c16-4a41-aaf4-e24f812233f5"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "master_balance命名空间",
+      "valueAsString": "{master_balance}",
+      "op": "WriteGlobalVarOp_Override",
+      "autoCreateIfMissing": true,
+      "customContextDataKey": {
+      },
+      "id": "A-d1da75da-d0a9-44a8-aea3-4a78b10eb45b"
+    }]
+  },
+  "quit": {
+    "facts": [{
+      "@type": "type.googleapis.com/HeadsetPlug",
+      "customContextDataKey": {
+      },
+      "id": "F-79ba598e-46d8-4fb4-9f84-1946c38d7be6"
+    }],
+    "isEnabled": true,
+    "actions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "NS\u003dglobalVarOf$master_balance命名空间\nsettings put \"$NS\" master_balance 0.0",
+      "customContextDataKey": {
+      },
+      "id": "A-11b008fa-58fc-4fca-b599-52ce1a5438b6"
+    }]
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

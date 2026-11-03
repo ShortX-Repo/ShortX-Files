@@ -1,0 +1,353 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/PkgStopRunning",
+    "pkgSets": ["User"],
+    "tag": "停止运行",
+    "customContextDataKey": {
+    },
+    "id": "F-7fa77e10-670b-4c6b-8234-de7631e39759"
+  }, {
+    "@type": "type.googleapis.com/UserPresentAtTheFirstTime",
+    "tag": "重启",
+    "customContextDataKey": {
+    },
+    "id": "F-17494225-61b7-4d11-bebb-afcae19e8689"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/SwitchCase",
+    "case": [{
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "停止运行",
+        "customContextDataKey": {
+        },
+        "id": "C-977d0abb-d490-48ba-974e-3ebdb4517ade"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "后台",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-7eb52206-5da4-42f2-8935-8f95eeab4b8a"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/IfThenElse",
+          "If": [{
+            "@type": "type.googleapis.com/AppHasTaskByPkg",
+            "pkgAndUsers": [{
+              "first": "{pkgName}",
+              "second": "{userId}"
+            }],
+            "op": "ANY",
+            "customContextDataKey": {
+            },
+            "id": "C-96a4b4ed-3024-407e-a483-62ea5a97c4aa"
+          }, {
+            "@type": "type.googleapis.com/CurrentActivity",
+            "activities": [{
+              "pkg": {
+                "pkgName": "com.miui.securitycenter"
+              },
+              "className": "com.miui.appmanager.ApplicationsDetailsActivity"
+            }],
+            "customContextDataKey": {
+            },
+            "isInvert": true,
+            "id": "C-27ce40d6-3121-421c-9e83-48535b380c19"
+          }],
+          "IfActions": [{
+            "@type": "type.googleapis.com/RemoveTasksByPkg",
+            "pkgAndUsers": [{
+              "first": "{pkgName}",
+              "second": "{userId}"
+            }],
+            "customContextDataKey": {
+            },
+            "id": "A-5cf98784-ca8a-49e6-a9a1-be9f41178045"
+          }, {
+            "@type": "type.googleapis.com/StopAppByPkg",
+            "pkgAndUsers": [{
+              "first": "{pkgName}",
+              "second": "{userId}"
+            }],
+            "customContextDataKey": {
+            },
+            "note": "彻底杀死应用，避免假死闪退",
+            "id": "A-72a26fbb-183f-4ff3-b21f-b3b0d7df3db0"
+          }],
+          "ElseActions": [{
+            "@type": "type.googleapis.com/BreakActionExecute",
+            "scope": "BreakActionExecuteScope_Root",
+            "customContextDataKey": {
+            },
+            "id": "A-647d65dd-6db6-4b31-affe-f648a7457291"
+          }],
+          "customContextDataKey": {
+          },
+          "id": "A-5155cd19-30ae-451b-a3ab-17e5106fc615"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-507a3163-d8e7-42ce-a578-49c3f4fdf9d2"
+      }, {
+        "@type": "type.googleapis.com/ShowDanmu",
+        "text": "{pkgName} 停止了",
+        "customContextDataKey": {
+        },
+        "note": "调试用，快速获知进程停止信息\n点击左侧图标可禁用",
+        "id": "A-c937ae31-6e55-4b73-8ad6-a2f300e37b6a"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "# 特别鸣谢：日期部分代码由lanyi233提供\n\n# 日期时间部分\ntime_Y\u003d$(date +%Y)\ntime_m\u003d$(date +%m)\ntime_d\u003d$(date +%d)\ntime_time\u003d$(date +%H:%M:%S)\n\n# 输出到日志文件\necho \"[${time_Y}年${time_m}月${time_d}日${time_time}] {pkgName} 停止了\" \u003e\u003e \"argOf$日志路径\"\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8bf5b8b8-30db-4a6f-b8b4-e721c9191585"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "swap",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-9e3ee21f-a144-4e14-8997-a0324a03291c"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "# scene计算模式\n\nmeminfo\u003d$(cat /proc/meminfo)\n\n# 获取zram实际占用的物理内存（单位字节）\nzram_used\u003d$(awk \u0027{print $3/1024}\u0027 /sys/block/zram0/mm_stat 2\u003e/dev/null || echo 0)\n\n# 提取内存信息（单位kB）\nmem_total\u003d$(echo \"$meminfo\" | awk \u0027/MemTotal:/{print $2}\u0027)\nswap_total\u003d$(echo \"$meminfo\" | awk \u0027/SwapTotal:/{print $2}\u0027)\nmem_free\u003d$(echo \"$meminfo\" | awk \u0027/MemFree:/{print $2}\u0027)\nbuffers\u003d$(echo \"$meminfo\" | awk \u0027/Buffers:/{print $2}\u0027)\ncached\u003d$(echo \"$meminfo\" | awk \u0027/^Cached:/{print $2}\u0027)\nswap_free\u003d$(echo \"$meminfo\" | awk \u0027/SwapFree:/{print $2}\u0027)\n\n# 计算可用内存\nmem_avail\u003d$((mem_free + buffers + cached))\n\n# 计算部分\nresult\u003d$(awk -v mt\u003d\"$mem_total\" -v st\u003d\"$swap_total\" -v ma\u003d\"$mem_avail\" -v sf\u003d\"$swap_free\" -v zu\u003d\"$zram_used\" \u0027\nBEGIN {\n    # 计算内存使用率\n    numerator \u003d mt + st - ma - sf - zu;\n    usage_percent \u003d (numerator / mt) * 100;\n    \n    # 计算物理已用量和百分比\n    mem_used \u003d mt - ma;\n    mem_used_percent \u003d (mem_used / mt) * 100;\n    mem_used_mb \u003d mem_used / 1024;\n    \n    # 计算swap已用量和百分比\n    swap_used \u003d st - sf;\n    swap_used_percent \u003d (st \u003e 0) ? (swap_used / st) * 100 : 0;\n    swap_used_mb \u003d swap_used / 1024;\n    \n    # 格式化输出\n    printf \"[内存信息] 使用率%.0f%% | 物理已用%.1fM %.1f%% | swap已用%.1fM %.1f%%\",\n           usage_percent, mem_used_mb, mem_used_percent, swap_used_mb, swap_used_percent\n}\u0027)\n\n# 输出到日志文件\necho \"$result\" \u003e\u003e \"argOf$日志路径\"",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-4a1efcbd-af07-460d-b648-f054fb7518d5"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "# 内核预估(MemAvailable)模式\n\nmeminfo\u003d$(cat /proc/meminfo)\n\n# 获取zram实际占用的物理内存（单位字节）\nzram_used\u003d$(awk \u0027{print $3/1024}\u0027 /sys/block/zram0/mm_stat || echo 0)\n\n# 提取内存信息（单位kB）\nmem_total\u003d$(echo \"$meminfo\" | awk \u0027/MemTotal:/{print $2}\u0027)\nswap_total\u003d$(echo \"$meminfo\" | awk \u0027/SwapTotal:/{print $2}\u0027)\nmem_avail\u003d$(echo \"$meminfo\" | awk \u0027/MemAvailable:/{print $2}\u0027)\nswap_free\u003d$(echo \"$meminfo\" | awk \u0027/SwapFree:/{print $2}\u0027)\n\n# 计算部分\nresult\u003d$(awk -v mt\u003d\"$mem_total\" -v st\u003d\"$swap_total\" -v ma\u003d\"$mem_avail\" -v sf\u003d\"$swap_free\" -v zu\u003d\"$zram_used\" \u0027\nBEGIN {\n    # 计算内存使用率\n    numerator \u003d mt + st - ma - sf - zu;\n    usage_percent \u003d (numerator / mt) * 100;\n    \n    # 计算物理已用量和百分比\n    mem_used \u003d mt - ma;\n    mem_used_percent \u003d (mem_used / mt) * 100;\n    mem_used_mb \u003d mem_used / 1024;\n    \n    # 计算swap已用量和百分比\n    swap_used \u003d st - sf;\n    swap_used_percent \u003d (st \u003e 0) ? (swap_used / st) * 100 : 0;\n    swap_used_mb \u003d swap_used / 1024;\n    \n    # 格式化输出\n    printf \"[内存信息] 使用率%.0f%% | 物理已用%.1fM %.1f%% | swap已用%.1fM %.1f%%\",\n           usage_percent, mem_used_mb, mem_used_percent, swap_used_mb, swap_used_percent\n}\u0027)\n\n# 输出到日志文件\necho \"$result\" \u003e\u003e \"argOf$日志路径\"",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "isDisabled": true,
+          "id": "A-4ef351c2-f540-4daa-bbca-758735b5a00f"
+        }],
+        "customContextDataKey": {
+        },
+        "note": "[swap]部分",
+        "id": "A-b9f5907e-495a-4139-8239-3b8ba9a94e1b"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "# 从logcat获取一条日志\ndeath_log\u003d$(logcat -b events -d -t 200 | grep -E \u0027am_kill|killinfo|kill\u0027 | grep -F \u0027{pkgName},\u0027 | grep -v -e \u0027WifiCloudSync\u0027 -e \u0027sandboxed_process0\u0027 | tail -n 3)\n\n# 输出到日志文件\nif [ \"${death_log}\" ];then\n  echo \"最近日志：${death_log}\" \u003e\u003e \"argOf$日志路径\"\nelse\n  echo \"最近日志：无有效日志\" \u003e\u003e \"argOf$日志路径\"\nfi\necho \"\" \u003e\u003e \"argOf$日志路径\"\n",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "note": "从logcat获取日志并换行分隔",
+        "id": "A-3524bb13-7b82-464e-9a8e-b659224edbdb"
+      }],
+      "description": "停止运行",
+      "id": "Case-11d6344e-6766-4021-b24c-a6237f15e213",
+      "isBreak": true
+    }, {
+      "case": [{
+        "@type": "type.googleapis.com/RequireFactTag",
+        "tag": "重启",
+        "customContextDataKey": {
+        },
+        "id": "C-06e3242e-d8f2-4786-b280-35e4becfa491"
+      }],
+      "action": [{
+        "@type": "type.googleapis.com/Delay",
+        "timeString": "1000",
+        "customContextDataKey": {
+        },
+        "id": "A-d6f637ea-8653-4a38-a465-b3f8e452a910"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "log\u003d\"argOf$日志路径\"\n\nif test -e ${log}; then\n  mv ${log} ${log}.bak\nfi",
+        "singleShot": true,
+        "customContextDataKey": {
+        },
+        "id": "A-8c66fdae-311e-43f1-a442-3f29e334ecf0"
+      }, {
+        "@type": "type.googleapis.com/IfThenElse",
+        "If": [{
+          "@type": "type.googleapis.com/EvaluateGlobalVar",
+          "op": "IsExists",
+          "varName": "后台",
+          "payload": {
+          },
+          "customContextDataKey": {
+          },
+          "id": "C-8e3f7161-a229-4eda-a0f4-510a60e5baa2"
+        }],
+        "IfActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo \"[\u003d\u003d\u003d卡片模式\u003d\u003d\u003d]\" \u003e \"argOf$日志路径\"",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-20d6ffbc-6338-44fe-8762-62c4ed397159"
+        }],
+        "ElseActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo \"[\u003d\u003d\u003d后台模式\u003d\u003d\u003d]\" \u003e \"argOf$日志路径\"",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-617f7bed-d599-4c14-b9ee-67592841b68b"
+        }],
+        "customContextDataKey": {
+        },
+        "id": "A-555886dd-346b-4dcc-9e13-6ac5959240e3"
+      }, {
+        "@type": "type.googleapis.com/ShellCommand",
+        "command": "echo \"\" \u003e\u003e \"argOf$日志路径\"",
+        "customContextDataKey": {
+        },
+        "id": "A-24f75b8c-257a-4b13-bef4-2c300c7813dc"
+      }],
+      "description": "重启",
+      "id": "Case-aa587aac-18d2-4644-9e6a-d1ca212845e0",
+      "isBreak": true
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-0db53ee6-d4ac-4e92-9a36-72b2b03ac0ce"
+  }],
+  "id": "rule-53c01d0f-c4d6-4ac8-8fc0-35518ba2cf64",
+  "lastUpdateTime": "1757102342385",
+  "createTime": "1696070951340",
+  "author": {
+    "name": "Rarlya"
+  },
+  "title": "[调试]应用趋势通知 2.4",
+  "description": "当应用停止运行时发送一条通知",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "log\u003d\"/sdcard/Android/停止.log\"\n\nif test -e ${log}; then\n  mv ${log} ${log}.bak\nfi",
+      "singleShot": true,
+      "customContextDataKey": {
+      },
+      "id": "A-814c4663-41ec-40c8-a440-dc4eb5de5f99"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "仅监测后台卡片",
+        "clickActions": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "后台",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-d3db5ff9-d400-4bd7-81ca-1fd00c74b26f"
+        }, {
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo \"[\u003d\u003d\u003d卡片模式\u003d\u003d\u003d]\" \u003e \"/sdcard/Android/停止.log\"",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-20d6ffbc-6338-44fe-8762-62c4ed397159"
+        }]
+      }, {
+        "title": "监测所有后台",
+        "clickActions": [{
+          "@type": "type.googleapis.com/ShellCommand",
+          "command": "echo \"[\u003d\u003d\u003d后台模式\u003d\u003d\u003d]\" \u003e \"/sdcard/Android/停止.log\"",
+          "singleShot": true,
+          "customContextDataKey": {
+          },
+          "id": "A-617f7bed-d599-4c14-b9ee-67592841b68b"
+        }]
+      }],
+      "title": "选择监测模式",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-fd95591c-94a8-4568-8b55-6b59b176c81a"
+    }, {
+      "@type": "type.googleapis.com/ShowMenuDialog",
+      "items": [{
+        "title": "是",
+        "clickActions": [{
+          "@type": "type.googleapis.com/CreateGlobalVar",
+          "globalVar": {
+            "name": "swap",
+            "type": {
+              "@type": "type.googleapis.com/StringVar"
+            }
+          },
+          "customContextDataKey": {
+          },
+          "id": "A-96a0ed03-4504-4d21-a1c9-8f55be127ad3"
+        }]
+      }, {
+        "title": "否"
+      }],
+      "title": "是否开启详细[swap]记录？",
+      "cancelable": true,
+      "style": {
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-7e1cac4c-cce6-4ef2-8056-e082aa07746e"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "echo \"\" \u003e\u003e \"/sdcard/Android/停止.log\"",
+      "customContextDataKey": {
+      },
+      "id": "A-24f75b8c-257a-4b13-bef4-2c300c7813dc"
+    }],
+    "actionsOnDisabled": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "swap",
+      "customContextDataKey": {
+      },
+      "id": "A-a87e0fd5-d25b-408a-a62a-715493dbe224"
+    }, {
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "后台",
+      "customContextDataKey": {
+      },
+      "id": "A-726b967e-ee2c-4cfd-bb9f-d4d2e078ef21"
+    }],
+    "actionsOnUpdated": [{
+      "@type": "type.googleapis.com/ShowAlertDialog",
+      "positive": "确定",
+      "title": "更新 2.4",
+      "message": "文件路径可自定义\n修复应用同时被kill，日志重叠的问题\n修改logcat日志为仅获取主进程的日志\n\n2.3\n增加未获取到logcat日志的提示\n\n2.2\n后台模式增加划卡后杀后台，尝试解决假死闪退导致重复记录\n\n2.1\n新增多用户支持",
+      "cancelable": true,
+      "style": {
+        "fontScale": 1.0
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-d8f6cd60-03fa-4ec7-9315-e8459807a0f5"
+    }]
+  },
+  "quit": {
+  },
+  "asyncMode": "AsyncMode_Sync_InRule",
+  "versionCode": "24",
+  "ruleSetId": "RS-77b36271-1f74-4e4e-a940-965092d8a9a0",
+  "parameters": [{
+    "name": "日志路径",
+    "defaultValue": "sdcard/Android/停止.log",
+    "isRequired": true
+  }]
+}
+###------###
+{"type":"rule"}

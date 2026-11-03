@@ -1,0 +1,66 @@
+{
+  "actions": [{
+    "@type": "type.googleapis.com/NoAction",
+    "icon": "time",
+    "customContextDataKey": {
+    },
+    "id": "A-05fda6bc-9597-4696-ab8a-083968d9d138"
+  }, {
+    "@type": "type.googleapis.com/ShowTextFieldDialog",
+    "title": "设置间隔闹钟",
+    "cancelable": true,
+    "textFields": [{
+      "placeholder": "起始时间"
+    }, {
+      "placeholder": "结束时间"
+    }, {
+      "placeholder": "间隔时间"
+    }, {
+      "placeholder": "备注"
+    }],
+    "style": {
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-aa152eab-63e1-4338-9bff-397d6e09a6c0"
+  }, {
+    "@type": "type.googleapis.com/ExecuteMVEL",
+    "expression": "import java.util.*;\n\nintervalMinutes \u003d (int){textFieldInput3};\nstartStr \u003d {textFieldInput1};\nendStr \u003d {textFieldInput2};\n\nstartParts \u003d startStr.split(\":\");\nendParts \u003d endStr.split(\":\");\n\nstartHour \u003d Integer.parseInt(startParts[0]);\nstartMinute \u003d Integer.parseInt(startParts[1]);\nendHour \u003d Integer.parseInt(endParts[0]);\nendMinute \u003d Integer.parseInt(endParts[1]);\n\nbaseDate \u003d Calendar.getInstance();\nbaseDate.set(Calendar.HOUR_OF_DAY, 0);\nbaseDate.set(Calendar.MINUTE, 0);\nbaseDate.set(Calendar.SECOND, 0);\nbaseDate.set(Calendar.MILLISECOND, 0);\n\ncal \u003d (Calendar) baseDate.clone();\ncal.set(Calendar.HOUR_OF_DAY, startHour);\ncal.set(Calendar.MINUTE, startMinute);\n\nendCal \u003d (Calendar) baseDate.clone();\nendCal.set(Calendar.HOUR_OF_DAY, endHour);\nendCal.set(Calendar.MINUTE, endMinute);\nif (endCal.before(cal)) {\n  endCal.add(Calendar.DAY_OF_MONTH, 1); // 跨天处理\n}\n\nlist \u003d new ArrayList();\nwhile (cal.getTimeInMillis() \u003c\u003d endCal.getTimeInMillis()) {\n  h \u003d cal.get(Calendar.HOUR_OF_DAY);\n  m \u003d cal.get(Calendar.MINUTE);\n  hh \u003d (h \u003c 10 ? \"0\" : \"\") + h;\n  mm \u003d (m \u003c 10 ? \"0\" : \"\") + m;\n  list.add(hh + \":\" + mm);\n  cal.add(Calendar.MINUTE, intervalMinutes);\n};\n\nlist.stream().collect(java.util.stream.Collectors.joining(\",\"))",
+    "customContextDataKey": {
+    },
+    "id": "A-5ce617c4-86a9-4f1e-a07d-cd455eb3d358"
+  }, {
+    "@type": "type.googleapis.com/ForEach",
+    "data": "{mvelRet}",
+    "delimiter": [","],
+    "actions": [{
+      "@type": "type.googleapis.com/ExecuteMVEL",
+      "expression": "import android.content.Intent;\nimport android.provider.AlarmClock;\n\n// 定义闹钟的属性\nString message \u003d {textFieldInput4}; \n// 闹钟标签\ntime\u003d{foreachData};\nint hour \u003d (int)time.split(\":\")[0];               // 闹钟小时（24小时制）\nint minutes \u003d (int)time.split(\":\")[1];           // 闹钟分钟\n\n// 创建一个系统闹钟的 Intent\nIntent alarmIntent \u003d new Intent(AlarmClock.ACTION_SET_ALARM);\nalarmIntent.putExtra(AlarmClock.EXTRA_MESSAGE, message);\nalarmIntent.putExtra(AlarmClock.EXTRA_HOUR, hour);\nalarmIntent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);\nalarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, true); // 设置跳过UI\n\n// 为 Intent 添加 FLAG_ACTIVITY_NEW_TASK 标志\nalarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n\n// 发送 Intent，设置系统闹钟\ncontext.startActivity(alarmIntent);\n\n// 返回设置成功的信息\nreturn \"系统闹钟已设置成功\"+time;",
+      "customContextDataKey": {
+      },
+      "id": "A-34a9a8c6-623c-431d-9be2-2d66b42ebee8"
+    }, {
+      "@type": "type.googleapis.com/ShowToast",
+      "message": "{mvelRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-b6534fbe-6ea9-4593-bfa2-6c8f5200f139"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-f64e3bd3-9d43-4ece-9a37-739e9ac28f40"
+  }],
+  "id": "SHARED-DA-1557c535-df1d-4f4c-ae89-a0e0e8ce5b8b",
+  "lastUpdateTime": "1746976786475",
+  "createTime": "1746958531140",
+  "author": {
+    "name": "nyehueh"
+  },
+  "title": "设置间隔闹钟",
+  "description": "设置起始时间和结束时间之间每隔一段时间一个的闹钟",
+  "versionCode": "1",
+  "quit": {
+  }
+}
+###------###
+{"type":"da"}

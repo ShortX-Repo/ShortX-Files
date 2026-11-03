@@ -1,0 +1,233 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-f49d8edf-7767-430a-b49b-e6d7facbc042"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.lite.ui.WxaLiteAppTransparentLiteUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-cf7ae7c0-956d-40cd-8aac-7ddd628c2de8"
+  }, {
+    "@type": "type.googleapis.com/ActivityStarted",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.wallet_index.ui.WalletBrandUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-a9a30410-a6b9-49cc-8312-f4a452901496"
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-471cd4ea-37b4-44ca-97a4-3b28c209a9f8",
+    "isDisabled": true
+  }, {
+    "@type": "type.googleapis.com/ActivityDestroyed",
+    "components": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.lite.ui.WxaLiteAppTransparentLiteUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "F-87baf929-3292-4afc-a9d6-fa5383431ab3",
+    "isDisabled": true
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-5f3d34b2-7b73-40b3-861b-13f0ace2804d"
+  }, {
+    "@type": "type.googleapis.com/AppHasWindowFocus",
+    "pkgs": [{
+      "pkgName": "com.tencent.mm"
+    }],
+    "op": "ANY",
+    "isDisabled": true,
+    "customContextDataKey": {
+    },
+    "id": "C-eaf5eed8-9f29-4580-9e6a-9b328d1d27ca"
+  }, {
+    "@type": "type.googleapis.com/CurrentActivity",
+    "activities": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.lite.ui.WxaLiteAppTransparentLiteUI"
+    }, {
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.wallet_index.ui.WalletBrandUI"
+    }],
+    "op": "ANY",
+    "isDisabled": true,
+    "customContextDataKey": {
+    },
+    "id": "C-08e36cdd-c9eb-4ed2-ba4f-ed38cfe43a54"
+  }, {
+    "@type": "type.googleapis.com/CurrentActivity",
+    "activities": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.wallet_index.ui.WalletBrandUI"
+    }],
+    "isDisabled": true,
+    "customContextDataKey": {
+    },
+    "id": "C-56aa958f-cf2d-4eca-a18c-6cfd3892d06a"
+  }, {
+    "@type": "type.googleapis.com/CurrentActivity",
+    "activities": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.plugin.lite.ui.WxaLiteAppTransparentLiteUI"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "C-0c4a325d-bbe3-4774-bf86-316f536c0b9c"
+  }, {
+    "@type": "type.googleapis.com/CurrentActivity",
+    "activities": [{
+      "pkg": {
+        "pkgName": "com.tencent.mm"
+      },
+      "className": "com.tencent.mm.framework.app.UIPageFragmentActivity"
+    }],
+    "isDisabled": true,
+    "customContextDataKey": {
+    },
+    "id": "C-f6cd3506-60cb-40b6-832c-9b65d916ee6f"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "getprop ro.build.version.oplus.api",
+    "customContextDataKey": {
+      "keys": [{
+        "first": "shellOut",
+        "second": "ro.build.version.oplus.api"
+      }]
+    },
+    "id": "A-7a395371-4d9a-40ea-bfd4-78433b4ae057"
+  }, {
+    "@type": "type.googleapis.com/WaitForIdle",
+    "customContextDataKey": {
+    },
+    "id": "A-927cc5f4-208f-4439-bcda-e25b655983df"
+  }, {
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/EvaluateContextVar",
+      "varName": "ro.build.version.oplus.api",
+      "payload": {
+        "value": "37"
+      },
+      "customContextDataKey": {
+      },
+      "id": "C-d68394f0-6e53-4f04-9723-cebb85b4bc37"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#①快捷按键触发，有振动，有彩框\nam start-foreground-service -p com.oplus.gleanerservice --ei \"triggerType\" 1",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-950cd1d4-9806-4996-84f5-073aaf413e02"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#②同三指上滑，有振动，有彩框\nam start-foreground-service -p com.oplus.gleanerservice --ei \"triggerType\" 2",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-49084b6d-657c-4820-97c5-c025f5bd6708"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#③一键闪记，无振动，有彩框\nam start-foreground-service -p com.oplus.gleanerservice --ei \"triggerType\" 3",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-80312ad0-9227-416a-9569-4bd080bee92f"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#④静默，无振动，无彩框，仅顶部提示\nam start-foreground-service -p com.oplus.gleanerservice --ei \"triggerType\" 12",
+      "customContextDataKey": {
+      },
+      "id": "A-62dc7371-edee-47ab-afa8-2a28b1f11d0e"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#①一键闪记，无振动，有彩框\nam start-foreground-service -p \"com.coloros.colordirectservice\" --ei \"triggerType\" 1",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-194cc173-f8e5-484d-af23-ec8c6f7f0f5a"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#②同三指上滑，震一下，有彩框\nam start-foreground-service -p \"com.coloros.colordirectservice\" --ei \"triggerType\" 2",
+      "customContextDataKey": {
+      },
+      "isDisabled": true,
+      "id": "A-6836d52e-d70b-41a4-b770-e18a0a3a2939"
+    }, {
+      "@type": "type.googleapis.com/ShellCommand",
+      "command": "#③静默（无框，无声），仅顶部提示\nam start-foreground-service -p \"com.coloros.colordirectservice\" --ei \"triggerType\" 12",
+      "customContextDataKey": {
+      },
+      "id": "A-4d702946-afef-4710-8758-c9390031dcd3"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-37b7db53-172e-4404-b9a9-7107fde9dbeb"
+  }],
+  "id": "SHARE-rule-db76d724-1257-4713-b28c-0bdc461295d8",
+  "lastUpdateTime": "1781210443641",
+  "createTime": "1766091739192",
+  "author": {
+    "name": "FTReey@coolapk"
+  },
+  "title": "微信自动记账",
+  "isEnabled": true,
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "22"
+}
+###------###
+{"type":"rule"}

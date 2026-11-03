@@ -1,0 +1,73 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/FixedInPeriod",
+    "start": {
+    },
+    "end": {
+      "hour": 23,
+      "minutes": 59
+    },
+    "repeat": {
+      "days": ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+    },
+    "fixedBy": {
+      "@type": "type.googleapis.com/FixedByInterval",
+      "interval": "180000"
+    },
+    "customContextDataKey": {
+    },
+    "id": "F-c28cff19-670b-49ba-92ba-e33531cbc598"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/IfThenElse",
+    "If": [{
+      "@type": "type.googleapis.com/AppIsNotRunning",
+      "pkgs": [{
+        "pkgName": "li.songe.gkd"
+      }],
+      "op": "ANY",
+      "customContextDataKey": {
+      },
+      "id": "C-3a5ef43b-f2ca-4bfa-a7fd-0358adae6d62"
+    }],
+    "IfActions": [{
+      "@type": "type.googleapis.com/StartAppProcess",
+      "appPkg": [{
+        "pkgName": "li.songe.gkd"
+      }],
+      "customContextDataKey": {
+      },
+      "id": "A-b3758d3c-8bfd-4746-9cda-2678e012288c"
+    }],
+    "ElseActions": [{
+      "@type": "type.googleapis.com/NoAction",
+      "icon": "halo",
+      "customContextDataKey": {
+      },
+      "id": "A-37f9b9f1-9180-46ca-80ab-1cda5c85534c"
+    }],
+    "customContextDataKey": {
+    },
+    "id": "A-29327fb9-b728-4d32-ad89-af116f74ce7c"
+  }, {
+    "@type": "type.googleapis.com/ShellCommand",
+    "command": "settings put secure accessibility_enabled 1\nsrv\u003d\"li.songe.gkd/com.google.android.accessibility.selecttospeak.SelectToSpeakService:$(settings get secure enabled_accessibility_services |grep -v \u0027null\u0027)\"\nsettings put secure enabled_accessibility_services $srv",
+    "customContextDataKey": {
+    },
+    "id": "A-62fcd165-41b0-4f0f-96a6-430bd5dc666d"
+  }],
+  "id": "SHARE-rule-cebc8cc3-1649-4ac6-b6e8-ea4ef8024162",
+  "lastUpdateTime": "1747112611770",
+  "createTime": "1747108139595",
+  "author": {
+    "name": "william0x00"
+  },
+  "title": "GKD无障碍保活",
+  "hook": {
+  },
+  "quit": {
+  },
+  "versionCode": "1"
+}
+###------###
+{"type":"rule"}

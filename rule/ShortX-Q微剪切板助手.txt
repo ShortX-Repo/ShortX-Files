@@ -1,0 +1,109 @@
+{
+  "facts": [{
+    "@type": "type.googleapis.com/ClipboardContentChanged",
+    "content": "(?:(?:https?:\\/\\/)|(?:www\\.))[-a-zA-Z0-9@:%._\\+~#\u003d]{1,256}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?\u0026//\u003d]*)",
+    "matchOptions": "RegexMatchOptions_ContainsMatchIn",
+    "customContextDataKey": {
+    },
+    "id": "F-002c9a3e-d0d8-433b-9906-d7efd69a01ce"
+  }],
+  "conditions": [{
+    "@type": "type.googleapis.com/CurrentPkgList",
+    "pkgs": [{
+      "pkgName": "com.tencent.mobileqq"
+    }, {
+      "pkgName": "com.tencent.mm"
+    }],
+    "op": "ANY",
+    "customContextDataKey": {
+    },
+    "id": "C-6c5e3887-3918-4977-8880-e30fbf1694c3"
+  }, {
+    "@type": "type.googleapis.com/MatchJS",
+    "expression": "(%CurrentTimeMillis% - globalVarOf$QVhelper_pausedDate) \u003e\u003d 600000",
+    "customContextDataKey": {
+    },
+    "id": "C-20691274-7750-4af2-81e0-6ce2befcf498"
+  }],
+  "actions": [{
+    "@type": "type.googleapis.com/ExecuteJS",
+    "expression": "// 1. 获取输入内容\nvar inputContent \u003d \u0027{clipboardContent}\u0027;\n\n// 2. 定义增强版正则\n// 逻辑：必须以 \"http(s)://\" 或者 \"www.\" 开头，避免匹配到普通文件名或英文句号\nvar urlRegex \u003d /(?:(?:https?:\\/\\/)|(?:www\\.))[-a-zA-Z0-9@:%._\\+~#\u003d]{1,256}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?\u0026//\u003d]*)/i;\n\n// 3. 执行匹配\nvar match \u003d inputContent.match(urlRegex);\n\n// 4. 处理结果\nif (match) {\n    // 提取出的原始字符串\n    var rawUrl \u003d match[0];\n    \n    // [严谨细节]：如果提取出的网址是以 \u0027www.\u0027 开头且没有协议头，通常需要补全 \u0027https://\u0027 \n    // 才能被后续的网络请求或浏览器识别。如果你只想要纯文本，可以去掉下面这个 if 判断。\n    if (!/^https?:\\/\\//i.test(rawUrl)) {\n        localVarOf$tempCC \u003d \u0027https://\u0027 + rawUrl;\n    } else {\n        localVarOf$tempCC \u003d rawUrl;\n    }\n} else {\n    // 未匹配到则置空\n    localVarOf$tempCC \u003d null; \n}\n\n// 5. 调试输出\nlocalVarOf$tempCC",
+    "customContextDataKey": {
+    },
+    "id": "A-23289266-23c9-455a-8efd-4b9ec3d854bc"
+  }, {
+    "@type": "type.googleapis.com/ShowAlertDialog",
+    "positive": "走你",
+    "onPositive": [{
+      "@type": "type.googleapis.com/StartActivityUrlSchema",
+      "urlSchema": "{jsRet}",
+      "customContextDataKey": {
+      },
+      "id": "A-1ecb7c4b-a8f3-406d-9dd0-3b325a0fd8a7"
+    }],
+    "negative": "不要",
+    "neutral": "暂停10min",
+    "onNeutral": [{
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "QVhelper_pausedDate",
+      "valueAsString": "%CurrentTimeMillis%",
+      "op": "WriteGlobalVarOp_Override",
+      "customContextDataKey": {
+      },
+      "id": "A-816a9482-eb6b-4b8f-8598-70a41fe12b46"
+    }],
+    "title": "跳转浏览器",
+    "message": "检测到剪贴板含有网址，是否跳转到浏览器打开？",
+    "cancelable": true,
+    "style": {
+      "fontScale": 1.0
+    },
+    "customContextDataKey": {
+    },
+    "id": "A-fcc6399d-fab5-4879-908e-164f84475193"
+  }],
+  "id": "SHARE-rule-fb5a17aa-85ce-49de-81b3-71a30b1efe9d",
+  "lastUpdateTime": "1764155034651",
+  "createTime": "1709886071860",
+  "author": {
+    "name": "ShortX"
+  },
+  "title": "Q微剪切板助手",
+  "description": "当QQ微信中复制了链接，选择是否跳转浏览器\n❗注意链接必须以http或www开头才能被识别",
+  "isEnabled": true,
+  "hook": {
+    "actionsOnEnabled": [{
+      "@type": "type.googleapis.com/CreateGlobalVar",
+      "globalVar": {
+        "name": "QVhelper_pausedDate",
+        "type": {
+          "@type": "type.googleapis.com/StringVar"
+        },
+        "note": "暂停跳转"
+      },
+      "customContextDataKey": {
+      },
+      "id": "A-8e8b3e0a-d084-45a3-bf4c-bab5fb777794"
+    }, {
+      "@type": "type.googleapis.com/WriteGlobalVar",
+      "varName": "QVhelper_pausedDate",
+      "valueAsString": "1145141919810",
+      "customContextDataKey": {
+      },
+      "id": "A-be69d4ee-80fd-4374-8b7f-3b7bdf094d9d"
+    }],
+    "actionsOnDeleted": [{
+      "@type": "type.googleapis.com/DeleteGlobalVar",
+      "varName": "QVhelper_pausedDate",
+      "customContextDataKey": {
+      },
+      "id": "A-146e622b-d3f8-41a6-9a71-9893d2096a03"
+    }]
+  },
+  "quit": {
+  },
+  "versionCode": "1",
+  "ruleSetId": "RS-ced961d7-7ce0-46c8-aa8f-31cfd495f5e8"
+}
+###------###
+{"type":"rule"}
